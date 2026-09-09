@@ -1,0 +1,9 @@
+<Project>
+  <PropertyGroup>
+    <RootNamespace>Empresa.Sample</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Page.vb" />
+    <Compile Include="Servicio.vb" />
+  </ItemGroup>
+</Project>

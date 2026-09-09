@@ -13,6 +13,7 @@ class WebForm:
     registers: list[dict] = field(default_factory=list)
     scripts: list[str] = field(default_factory=list)
     stylesheets: list[str] = field(default_factory=list)
+    markup_events: list[dict] = field(default_factory=list)
 
     def to_dict(self) -> dict:
         return asdict(self)

@@ -8,6 +8,7 @@ DIRECTIVE_RE = re.compile(r"<%@\s*(?P<name>\w+)\s+(?P<body>.*?)%>", re.IGNORECAS
 ATTR_RE = re.compile(r"(?P<key>[\w:.-]+)\s*=\s*\"(?P<value>[^\"]*)\"", re.IGNORECASE)
 SCRIPT_RE = re.compile(r"<script[^>]+src\s*=\s*\"(?P<src>[^\"]+)\"", re.IGNORECASE)
 CSS_RE = re.compile(r"<link[^>]+href\s*=\s*\"(?P<href>[^\"]+)\"[^>]*rel\s*=\s*\"stylesheet\"|<link[^>]+rel\s*=\s*\"stylesheet\"[^>]+href\s*=\s*\"(?P<href2>[^\"]+)\"", re.IGNORECASE)
+TAG_RE = re.compile(r"<(?P<tag>(?:asp|uc\d*|cc\d*|[A-Za-z_][\w-]*):?[A-Za-z_][\w.-]*)\b(?P<body>[^<>]*?)>", re.IGNORECASE | re.DOTALL)
 
 
 class WebFormsExtractor:
@@ -32,4 +33,29 @@ class WebFormsExtractor:
                 form.registers.append({**attrs, "_normalized": normalized})
         form.scripts = [m.group("src") for m in SCRIPT_RE.finditer(text)]
         form.stylesheets = [m.group("href") or m.group("href2") for m in CSS_RE.finditer(text)]
+        form.markup_events = self._extract_markup_events(text)
         return form
+
+    def _extract_markup_events(self, text: str) -> list[dict]:
+        events: list[dict] = []
+        for match in TAG_RE.finditer(text):
+            attrs = {m.group("key"): m.group("value") for m in ATTR_RE.finditer(match.group("body"))}
+            normalized = {key.lower(): value for key, value in attrs.items()}
+            control_id = normalized.get("id")
+            for key, value in attrs.items():
+                if not key.lower().startswith("on") or len(key) <= 2:
+                    continue
+                if not re.match(r"^[A-Za-z_]\w*$", value):
+                    continue
+                events.append(
+                    {
+                        "control": control_id,
+                        "control_type": match.group("tag"),
+                        "event": key[2:],
+                        "handler": value,
+                        "line": text.count("\n", 0, match.start()) + 1,
+                        "evidence": match.group(0).strip(),
+                        "binding_kind": "markup",
+                    }
+                )
+        return events

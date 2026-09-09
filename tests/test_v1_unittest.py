@@ -8,6 +8,8 @@ from legacy_documenter.extractors.vbnet_extractor import VBNetExtractor
 from legacy_documenter.extractors.vbproj_extractor import VBProjExtractor
 from legacy_documenter.extractors.webconfig_extractor import WebConfigExtractor
 from legacy_documenter.extractors.webforms_extractor import WebFormsExtractor
+from legacy_documenter.extractors.call_extractor import CallExtractor
+from legacy_documenter.extractors.database_extractor import DatabaseExtractor
 from legacy_documenter.main import analyze_repository
 from legacy_documenter.scanner.repository_scanner import RepositoryScanner
 
@@ -185,6 +187,539 @@ End Namespace""")
             logical = [symbol for symbol in indexes["logical_symbols"] if symbol["name"] == "Cliente"]
             self.assertEqual(len(logical), 1)
             self.assertEqual(len(logical[0]["parts"]), 2)
+
+    def test_v2_r1_extracts_imports_instantiation_and_instance_call(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            vb = write(
+                root / "A.vb",
+                """Imports Empresa.BL
+Imports Repo = Empresa.Data.Repositorio
+Public Class Page
+Public Sub Run()
+Dim servicio As New Servicio()
+servicio.Procesar()
+End Sub
+End Class""",
+            )
+            result = CallExtractor().extract(vb, root)
+            self.assertEqual(result["imports"][0]["name"], "Empresa.BL")
+            self.assertEqual(result["imports"][1]["alias"], "Repo")
+            self.assertEqual(result["instantiations"][0]["type_name"], "Servicio")
+            self.assertEqual(result["instantiations"][0]["variable_name"], "servicio")
+            self.assertEqual(result["calls"][0]["receiver"], "servicio")
+            self.assertEqual(result["calls"][0]["method_name"], "Procesar")
+            self.assertEqual(result["calls"][0]["containing_method"], "Run")
+
+    def test_v2_r1_resolves_instance_shared_and_internal_calls(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            write(root / "App.vbproj", '<Project><PropertyGroup><RootNamespace>Empresa</RootNamespace></PropertyGroup><ItemGroup><Compile Include="A.vb" /><Compile Include="Servicio.vb" /></ItemGroup></Project>')
+            write(
+                root / "A.vb",
+                """Public Class Page
+Public Sub Run()
+Dim servicio As New Servicio()
+servicio.Procesar()
+Servicio.SharedProcesar()
+Local()
+End Sub
+Public Sub Local()
+End Sub
+End Class""",
+            )
+            write(root / "Servicio.vb", "Public Class Servicio\nPublic Sub Procesar()\nEnd Sub\nPublic Shared Sub SharedProcesar()\nEnd Sub\nEnd Class")
+            indexes = analyze_repository(root, root / "out")
+            resolved = [call for file_calls in indexes["calls"] for call in file_calls["calls"] if call["confidence"] == "confirmed"]
+            targets = {call["resolved_target"] for call in resolved}
+            self.assertIn("Empresa.Servicio.procesar", targets)
+            self.assertIn("Empresa.Servicio.sharedprocesar", targets)
+            self.assertIn("Empresa.Page.local", targets)
+            dep_types = {dep["dependency_type"] for dep in indexes["functional_dependencies"]}
+            self.assertIn("Method -> Method", dep_types)
+            self.assertIn("Method -> InstantiatesClass", dep_types)
+            self.assertIn("Class -> UsesClass", dep_types)
+
+    def test_v2_r1_cross_project_call_keeps_project_target(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            write(root / "Web" / "Web.vbproj", '<Project><PropertyGroup><RootNamespace>Empresa.Web</RootNamespace></PropertyGroup><ItemGroup><Compile Include="Page.vb" /></ItemGroup></Project>')
+            write(root / "BL" / "BL.vbproj", '<Project><PropertyGroup><RootNamespace>Empresa.BL</RootNamespace></PropertyGroup><ItemGroup><Compile Include="Servicio.vb" /></ItemGroup></Project>')
+            write(root / "Web" / "Page.vb", "Public Class Page\nPublic Sub Run()\nDim svc As New Servicio()\nsvc.Procesar()\nEnd Sub\nEnd Class")
+            write(root / "BL" / "Servicio.vb", "Public Class Servicio\nPublic Sub Procesar()\nEnd Sub\nEnd Class")
+            indexes = analyze_repository(root, root / "out")
+            call = next(call for file_calls in indexes["calls"] for call in file_calls["calls"] if call["method_name"] == "Procesar")
+            self.assertEqual(call["confidence"], "confirmed")
+            self.assertEqual(call["resolved_project"].replace("\\", "/"), "BL/BL.vbproj")
+
+    def test_v2_r1_ambiguous_call_is_not_confirmed(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            write(root / "App.vbproj", '<Project><PropertyGroup><RootNamespace>Empresa</RootNamespace></PropertyGroup><ItemGroup><Compile Include="A.vb" /><Compile Include="Uno.vb" /><Compile Include="Dos.vb" /></ItemGroup></Project>')
+            write(root / "A.vb", "Public Class Page\nPublic Sub Run()\nDim x As New Servicio()\nx.Procesar()\nEnd Sub\nEnd Class")
+            write(root / "Uno.vb", "Public Class Servicio\nPublic Sub Procesar()\nEnd Sub\nEnd Class")
+            write(root / "Dos.vb", "Public Class Servicio\nPublic Sub Procesar()\nEnd Sub\nEnd Class")
+            indexes = analyze_repository(root, root / "out")
+            call = next(call for file_calls in indexes["calls"] for call in file_calls["calls"] if call["method_name"] == "Procesar")
+            self.assertEqual(call["confidence"], "unresolved")
+            self.assertIsNone(call["resolved_target"])
+
+    def test_v2_r1_1_filters_vb_intrinsics_before_call_creation(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            vb = write(root / "A.vb", """Public Class Page
+Public Sub Run()
+If Not IsNothing(dbc) Then CStr(CInt(1))
+Dim d = CDate("2020-01-01")
+Dim x = IIf(True, Format(Now, "00"), DateAdd(DateInterval.Day, 1, Now))
+Dim y = CType(obj, Object)
+End Sub
+End Class""")
+            result = CallExtractor().extract(vb, root)
+            self.assertEqual(result["calls"], [])
+
+    def test_v2_r1_1_does_not_extract_calls_from_string_literals(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            vb = write(root / "A.vb", """Public Class Page
+Public Sub Run()
+Dim script = "javascript:OnClickWindowOpen('x');"
+Dim mixed = "NoCall()" & RealCall()
+End Sub
+Public Sub RealCall()
+End Sub
+End Class""")
+            result = CallExtractor().extract(vb, root)
+            self.assertEqual([call["method_name"] for call in result["calls"]], ["RealCall"])
+
+    def test_v2_r1_1_ignores_indexed_default_property_access(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            vb = write(root / "A.vb", """Public Class Page
+Public Sub Run()
+Dim a = ds.Tables(0).Rows(0).Item("ID")
+Dim b = Me.btn.Attributes("href")
+Dim c = Session("ID_ADM")
+RealCall()
+End Sub
+Public Sub RealCall()
+End Sub
+End Class""")
+            result = CallExtractor().extract(vb, root)
+            self.assertEqual([call["method_name"] for call in result["calls"]], ["RealCall"])
+
+    def test_v2_r1_1_local_call_without_member_is_unresolved(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            write(root / "App.vbproj", '<Project><PropertyGroup><RootNamespace>Empresa</RootNamespace></PropertyGroup><ItemGroup><Compile Include="A.vb" /></ItemGroup></Project>')
+            write(root / "A.vb", "Public Class Page\nPublic Sub Run()\nMissingLocal()\nEnd Sub\nEnd Class")
+            indexes = analyze_repository(root, root / "out")
+            call = next(call for file_calls in indexes["calls"] for call in file_calls["calls"])
+            self.assertEqual(call["confidence"], "unresolved")
+            self.assertIsNone(call["resolved_target"])
+
+    def test_v2_r1_1_deduplicates_functional_dependencies(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            write(root / "App.vbproj", '<Project><PropertyGroup><RootNamespace>Empresa</RootNamespace></PropertyGroup><ItemGroup><Compile Include="A.vb" /><Compile Include="Servicio.vb" /></ItemGroup></Project>')
+            write(root / "A.vb", """Public Class Page
+Public Sub Run()
+Dim a As New Servicio()
+Dim b As New Servicio()
+End Sub
+End Class""")
+            write(root / "Servicio.vb", "Public Class Servicio\nEnd Class")
+            indexes = analyze_repository(root, root / "out")
+            uses = [dep for dep in indexes["functional_dependencies"] if dep["dependency_type"] == "Class -> UsesClass"]
+            self.assertEqual(len(uses), 1)
+            self.assertEqual(uses[0]["evidence_count"], 2)
+
+    def test_v2_r1_1_preserves_full_qualifier_for_fully_qualified_calls(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            vb = write(root / "A.vb", """Public Class Page
+Public Sub Run()
+Bl.ADHAdmCalculoDs67.blADHds67.txtraerPereva(2)
+End Sub
+End Class""")
+            result = CallExtractor().extract(vb, root)
+            self.assertEqual(len(result["calls"]), 1)
+            self.assertEqual(result["calls"][0]["receiver"], "blADHds67")
+            self.assertEqual(result["calls"][0]["receiver_path"], "Bl.ADHAdmCalculoDs67.blADHds67")
+            self.assertEqual(result["calls"][0]["method_name"], "txtraerPereva")
+
+    def test_v2_r2_handles_button_click_entry_point(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            write(root / "Web.vbproj", '<Project><PropertyGroup><RootNamespace>Empresa.Web</RootNamespace></PropertyGroup><ItemGroup><Compile Include="Default.aspx.vb" /><Content Include="Default.aspx" /></ItemGroup></Project>')
+            write(root / "Default.aspx", '<%@ Page CodeBehind="Default.aspx.vb" Inherits="Empresa.Web.DefaultPage" %>')
+            write(root / "Default.aspx.vb", "Public Class DefaultPage\nProtected Sub btnBuscar_Click(sender As Object, e As EventArgs) Handles btnBuscar.Click\nEnd Sub\nEnd Class")
+            indexes = analyze_repository(root, root / "out")
+            entry = indexes["entry_points"][0]
+            self.assertEqual(entry["webform"], "Default.aspx")
+            self.assertEqual(entry["control"], "btnBuscar")
+            self.assertEqual(entry["event"], "Click")
+            self.assertEqual(entry["handler"], "btnBuscar_Click")
+            self.assertEqual(entry["confidence"], "confirmed")
+
+    def test_v2_r2_handles_me_and_mybase_load_lifecycle(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            write(root / "Web.vbproj", '<Project><PropertyGroup><RootNamespace>Empresa.Web</RootNamespace></PropertyGroup><ItemGroup><Compile Include="A.aspx.vb" /><Compile Include="B.aspx.vb" /><Content Include="A.aspx" /><Content Include="B.aspx" /></ItemGroup></Project>')
+            write(root / "A.aspx", '<%@ Page CodeBehind="A.aspx.vb" Inherits="Empresa.Web.APage" %>')
+            write(root / "A.aspx.vb", "Public Class APage\nPrivate Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load\nEnd Sub\nEnd Class")
+            write(root / "B.aspx", '<%@ Page CodeBehind="B.aspx.vb" Inherits="Empresa.Web.BPage" %>')
+            write(root / "B.aspx.vb", "Public Class BPage\nPrivate Sub Page_Load(sender As Object, e As EventArgs) Handles MyBase.Load\nEnd Sub\nEnd Class")
+            indexes = analyze_repository(root, root / "out")
+            controls = {entry["control"] for entry in indexes["entry_points"]}
+            self.assertEqual(controls, {"Me", "MyBase"})
+            self.assertEqual({entry["type"] for entry in indexes["entry_points"]}, {"web_lifecycle"})
+
+    def test_v2_r2_multiple_handles_events(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            write(root / "Web.vbproj", '<Project><PropertyGroup><RootNamespace>Empresa.Web</RootNamespace></PropertyGroup><ItemGroup><Compile Include="Default.aspx.vb" /><Content Include="Default.aspx" /></ItemGroup></Project>')
+            write(root / "Default.aspx", '<%@ Page CodeBehind="Default.aspx.vb" Inherits="Empresa.Web.DefaultPage" %>')
+            write(root / "Default.aspx.vb", "Public Class DefaultPage\nProtected Sub Guardar(sender As Object, e As EventArgs) Handles btnAceptar.Click, btnGuardar.Click\nEnd Sub\nEnd Class")
+            indexes = analyze_repository(root, root / "out")
+            self.assertEqual({entry["control"] for entry in indexes["entry_points"]}, {"btnAceptar", "btnGuardar"})
+
+    def test_v2_r2_markup_onclick_and_generic_onevent(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            write(root / "Web.vbproj", '<Project><PropertyGroup><RootNamespace>Empresa.Web</RootNamespace></PropertyGroup><ItemGroup><Compile Include="Default.aspx.vb" /><Content Include="Default.aspx" /></ItemGroup></Project>')
+            write(root / "Default.aspx", '<%@ Page CodeBehind="Default.aspx.vb" Inherits="Empresa.Web.DefaultPage" %><asp:Button ID="btnBuscar" OnClick="btnBuscar_Click" runat="server" /><asp:DropDownList ID="ddl" OnSelectedIndexChanged="ddl_Changed" runat="server" />')
+            write(root / "Default.aspx.vb", "Public Class DefaultPage\nProtected Sub btnBuscar_Click(sender As Object, e As EventArgs)\nEnd Sub\nProtected Sub ddl_Changed(sender As Object, e As EventArgs)\nEnd Sub\nEnd Class")
+            indexes = analyze_repository(root, root / "out")
+            events = {(entry["control"], entry["event"], entry["handler"], entry["confidence"]) for entry in indexes["entry_points"]}
+            self.assertIn(("btnBuscar", "Click", "btnBuscar_Click", "confirmed"), events)
+            self.assertIn(("ddl", "SelectedIndexChanged", "ddl_Changed", "confirmed"), events)
+
+    def test_v2_r2_handler_entry_has_outgoing_calls(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            write(root / "Web.vbproj", '<Project><PropertyGroup><RootNamespace>Empresa.Web</RootNamespace></PropertyGroup><ItemGroup><Compile Include="Default.aspx.vb" /><Compile Include="Servicio.vb" /><Content Include="Default.aspx" /></ItemGroup></Project>')
+            write(root / "Default.aspx", '<%@ Page CodeBehind="Default.aspx.vb" Inherits="Empresa.Web.DefaultPage" %>')
+            write(root / "Default.aspx.vb", "Public Class DefaultPage\nProtected Sub btnBuscar_Click(sender As Object, e As EventArgs) Handles btnBuscar.Click\nDim svc As New Servicio()\nsvc.Procesar()\nEnd Sub\nEnd Class")
+            write(root / "Servicio.vb", "Public Class Servicio\nPublic Sub Procesar()\nEnd Sub\nEnd Class")
+            indexes = analyze_repository(root, root / "out")
+            entry = indexes["entry_points"][0]
+            self.assertEqual(entry["handler_method"], "DefaultPage.btnBuscar_Click")
+            self.assertEqual(entry["outgoing_calls"][0]["method_name"], "Procesar")
+
+    def test_v2_r2_handler_name_without_binding_is_not_entry_point(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            write(root / "Web.vbproj", '<Project><PropertyGroup><RootNamespace>Empresa.Web</RootNamespace></PropertyGroup><ItemGroup><Compile Include="Default.aspx.vb" /><Content Include="Default.aspx" /></ItemGroup></Project>')
+            write(root / "Default.aspx", '<%@ Page CodeBehind="Default.aspx.vb" Inherits="Empresa.Web.DefaultPage" %>')
+            write(root / "Default.aspx.vb", "Public Class DefaultPage\nProtected Sub btnBuscar_Click(sender As Object, e As EventArgs)\nEnd Sub\nEnd Class")
+            indexes = analyze_repository(root, root / "out")
+            self.assertEqual(indexes["entry_points"], [])
+
+    def test_v2_r2_missing_markup_handler_is_unresolved(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            write(root / "Web.vbproj", '<Project><PropertyGroup><RootNamespace>Empresa.Web</RootNamespace></PropertyGroup><ItemGroup><Compile Include="Default.aspx.vb" /><Content Include="Default.aspx" /></ItemGroup></Project>')
+            write(root / "Default.aspx", '<%@ Page CodeBehind="Default.aspx.vb" Inherits="Empresa.Web.DefaultPage" %><asp:Button ID="btnBuscar" OnClick="MissingHandler" runat="server" />')
+            write(root / "Default.aspx.vb", "Public Class DefaultPage\nEnd Class")
+            indexes = analyze_repository(root, root / "out")
+            self.assertEqual(indexes["entry_points"][0]["confidence"], "unresolved")
+            self.assertIsNone(indexes["entry_points"][0]["handler_method"])
+
+    def test_v2_r2_javascript_string_is_not_event_binding(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            write(root / "Web.vbproj", '<Project><PropertyGroup><RootNamespace>Empresa.Web</RootNamespace></PropertyGroup><ItemGroup><Compile Include="Default.aspx.vb" /><Content Include="Default.aspx" /></ItemGroup></Project>')
+            write(root / "Default.aspx", '<%@ Page CodeBehind="Default.aspx.vb" Inherits="Empresa.Web.DefaultPage" %><script>var x="OnClick=\\"btnBuscar_Click\\"";</script>')
+            write(root / "Default.aspx.vb", "Public Class DefaultPage\nProtected Sub btnBuscar_Click(sender As Object, e As EventArgs)\nEnd Sub\nEnd Class")
+            indexes = analyze_repository(root, root / "out")
+            self.assertEqual(indexes["event_bindings"], [])
+
+    def test_v2_r2_duplicate_event_binding_deduplicates_dependencies(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            write(root / "Web.vbproj", '<Project><PropertyGroup><RootNamespace>Empresa.Web</RootNamespace></PropertyGroup><ItemGroup><Compile Include="Default.aspx.vb" /><Content Include="Default.aspx" /></ItemGroup></Project>')
+            write(root / "Default.aspx", '<%@ Page CodeBehind="Default.aspx.vb" Inherits="Empresa.Web.DefaultPage" %><asp:Button ID="btnBuscar" OnClick="btnBuscar_Click" runat="server" />')
+            write(root / "Default.aspx.vb", "Public Class DefaultPage\nProtected Sub btnBuscar_Click(sender As Object, e As EventArgs) Handles btnBuscar.Click\nEnd Sub\nEnd Class")
+            indexes = analyze_repository(root, root / "out")
+            self.assertEqual(len(indexes["entry_points"]), 1)
+            event_edges = [dep for dep in indexes["functional_dependencies"] if dep["dependency_type"] == "WebForm -> Event"]
+            self.assertEqual(len(event_edges), 1)
+            self.assertEqual(event_edges[0]["evidence_count"], 2)
+
+    def test_v2_r2_lifecycle_name_without_evidence_is_not_confirmed(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            write(root / "Web.vbproj", '<Project><PropertyGroup><RootNamespace>Empresa.Web</RootNamespace></PropertyGroup><ItemGroup><Compile Include="Default.aspx.vb" /><Content Include="Default.aspx" /></ItemGroup></Project>')
+            write(root / "Default.aspx", '<%@ Page CodeBehind="Default.aspx.vb" Inherits="Empresa.Web.DefaultPage" %>')
+            write(root / "Default.aspx.vb", "Public Class DefaultPage\nProtected Sub Page_Load(sender As Object, e As EventArgs)\nEnd Sub\nProtected Overrides Sub OnLoad(e As EventArgs)\nEnd Sub\nEnd Class")
+            indexes = analyze_repository(root, root / "out")
+            self.assertEqual(len(indexes["entry_points"]), 1)
+            self.assertEqual(indexes["entry_points"][0]["event"], "Load")
+            self.assertEqual(indexes["entry_points"][0]["handler"], "OnLoad")
+
+    def test_v2_r3_direct_oracle_stored_proc_execute_and_parameter(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            write(root / "App.vbproj", '<Project><PropertyGroup><RootNamespace>Empresa.Data</RootNamespace></PropertyGroup><ItemGroup><Compile Include="Repo.vb" /></ItemGroup></Project>')
+            write(root / "Repo.vb", """Public Class Repo
+Public Sub Save(id As Integer)
+Dim conn As New OracleConnection(ConfigurationManager.ConnectionStrings("Main").ConnectionString)
+Dim cmd As New OracleCommand("PKG_CLIENTE.SAVE", conn)
+cmd.CommandType = CommandType.StoredProcedure
+cmd.Parameters.Add("P_ID", OracleDbType.Int32).Value = id
+cmd.ExecuteNonQuery()
+End Sub
+End Class""")
+            indexes = analyze_repository(root, root / "out")
+            self.assertIn("data_access", indexes)
+            self.assertTrue(any(op["stored_procedure"] == "PKG_CLIENTE.SAVE" for op in indexes["data_access"]))
+            self.assertTrue(any(param["name"] == "P_ID" for param in indexes["data_parameters"]))
+            dep_types = {dep["dependency_type"] for dep in indexes["functional_dependencies"]}
+            self.assertIn("Method -> DataAccessOperation", dep_types)
+            self.assertIn("DataAccessOperation -> StoredProcedure", dep_types)
+
+    def test_v2_r3_adapter_fill_and_static_sql_operations(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            vb = write(root / "Repo.vb", """Public Class Repo
+Public Sub Load()
+Dim da As New OracleDataAdapter("SELECT * FROM CLIENTE", conn)
+da.Fill(ds)
+Dim cmd As New OracleCommand("MERGE INTO T USING S ON (T.ID=S.ID)", conn)
+cmd.ExecuteScalar()
+End Sub
+End Class""")
+            result = DatabaseExtractor().extract(vb, root)
+            sql = {op["sql_operation"] for op in result["operations"] if op["sql_operation"]}
+            self.assertEqual(sql, {"SELECT", "MERGE"})
+            self.assertTrue(any(op["operation_kind"] == "fill" for op in result["operations"]))
+
+    def test_v2_r3_detects_dynamic_sql_conservatively(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            vb = write(root / "Repo.vb", """Public Class Repo
+Public Sub Load(id As Integer)
+Dim cmd As New OracleCommand()
+cmd.CommandText = "UPDATE CLIENTE SET NOMBRE = " & nombre
+cmd.ExecuteNonQuery()
+End Sub
+End Class""")
+            result = DatabaseExtractor().extract(vb, root)
+            op = next(item for item in result["operations"] if item["sql_operation"] == "UPDATE")
+            self.assertTrue(op["dynamic_sql"])
+            self.assertEqual(op["confidence"], "confirmed")
+
+    def test_v2_r3_oraconn_execproc_transactions_and_wrapper_parameters(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            vb = write(root / "Repo.vb", """Public Class Repo
+Public Sub Save()
+Dim dbc As New OraConn()
+dbc.BeginTrans()
+dbc.ExecProc("PKG.PRC", "P_ID,P_NAME", id, name)
+dbc.Commit()
+End Sub
+End Class""")
+            result = DatabaseExtractor().extract(vb, root)
+            self.assertTrue(any(op["provider"] == "OraConn" and op["stored_procedure"] == "PKG.PRC" for op in result["operations"]))
+            self.assertTrue(any(op["operation_kind"] == "transaction" and op["operation_kind"] for op in result["operations"]))
+            self.assertEqual({param["name"] for param in result["parameters"]}, {"P_ID", "P_NAME"})
+
+    def test_v2_r3_ignores_comments_strings_and_untyped_wrappers(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            vb = write(root / "Repo.vb", """Public Class Repo
+Public Sub Run()
+' Dim cmd As New OracleCommand("DELETE FROM X", conn)
+Dim s = "SELECT * FROM CLIENTE"
+Dim x = "javascript:ExecProc(""PKG.BAD"")"
+helper.ExecProc("PKG.BAD")
+helper.Commit()
+End Sub
+End Class""")
+            result = DatabaseExtractor().extract(vb, root)
+            self.assertEqual(result["operations"], [])
+            self.assertEqual(result["parameters"], [])
+
+    def test_v2_r3_deduplicates_data_access_dependencies_preserving_evidence(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            write(root / "App.vbproj", '<Project><PropertyGroup><RootNamespace>Empresa.Data</RootNamespace></PropertyGroup><ItemGroup><Compile Include="Repo.vb" /></ItemGroup></Project>')
+            write(root / "Repo.vb", """Public Class Repo
+Public Sub Save()
+Dim cmd As New OracleCommand("PKG.SAVE", conn)
+cmd.CommandType = CommandType.StoredProcedure
+cmd.ExecuteNonQuery()
+cmd.ExecuteNonQuery()
+End Sub
+End Class""")
+            indexes = analyze_repository(root, root / "out")
+            edges = [dep for dep in indexes["functional_dependencies"] if dep["dependency_type"] == "DataAccessOperation -> StoredProcedure"]
+            keys = {(dep["source"], dep["target"], dep["dependency_type"]) for dep in edges}
+            self.assertEqual(len(edges), len(keys))
+            self.assertTrue(any(dep["evidence_count"] >= 1 for dep in edges))
+
+    def test_v2_r3_ambiguous_stored_proc_expression_remains_unresolved(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            vb = write(root / "Repo.vb", """Public Class Repo
+Public Sub Save(procName As String)
+Dim cmd As New OracleCommand(procName, conn)
+cmd.CommandType = CommandType.StoredProcedure
+cmd.ExecuteNonQuery()
+End Sub
+End Class""")
+            result = DatabaseExtractor().extract(vb, root)
+            unresolved = [op for op in result["operations"] if op["command_type"] == "StoredProcedure" and not op["stored_procedure"]]
+            self.assertTrue(unresolved)
+            self.assertTrue(all(op["confidence"] == "unresolved" for op in unresolved))
+
+    def test_v2_r3_preserves_v2_r2_entry_points(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            write(root / "Web.vbproj", '<Project><PropertyGroup><RootNamespace>Empresa.Web</RootNamespace></PropertyGroup><ItemGroup><Compile Include="Default.aspx.vb" /><Content Include="Default.aspx" /></ItemGroup></Project>')
+            write(root / "Default.aspx", '<%@ Page CodeBehind="Default.aspx.vb" Inherits="Empresa.Web.DefaultPage" %><asp:Button ID="btnBuscar" OnClick="btnBuscar_Click" runat="server" />')
+            write(root / "Default.aspx.vb", "Public Class DefaultPage\nProtected Sub btnBuscar_Click(sender As Object, e As EventArgs)\nEnd Sub\nEnd Class")
+            indexes = analyze_repository(root, root / "out")
+            self.assertEqual(len(indexes["entry_points"]), 1)
+            self.assertEqual(indexes["entry_points"][0]["confidence"], "confirmed")
+
+    def test_v2_r3_1_oraconn_byref_parameter_execproc_links_method(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            write(root / "App.vbproj", '<Project><PropertyGroup><RootNamespace>Empresa.Sys</RootNamespace></PropertyGroup><ItemGroup><Compile Include="Sys.vb" /></ItemGroup></Project>')
+            write(root / "Sys.vb", """Public Class Sys
+Public Shared Function Buscar(ByRef dbc As OraConn, ByVal idAdm As Integer) As DataSet
+Return dbc.ExecProc("PSYS.BUSCAR", "ID_ADM,THISCURSOR", values, "in,out", "int,cursor")
+End Function
+End Class""")
+            indexes = analyze_repository(root, root / "out")
+            op = next(op for op in indexes["data_access"] if op["stored_procedure"] == "PSYS.BUSCAR")
+            self.assertEqual(op["method"], "Buscar")
+            self.assertEqual(op["class"], "Sys")
+            self.assertTrue(any(dep["dependency_type"] == "Method -> DataAccessOperation" and dep["target"] == op["id"] for dep in indexes["functional_dependencies"]))
+            params = {p["name"]: p for p in indexes["data_parameters"]}
+            self.assertEqual(params["ID_ADM"]["direction"], "Input")
+            self.assertEqual(params["THISCURSOR"]["db_type"], "cursor")
+
+    def test_v2_r3_1_oraconn_byval_parameter_execprocds_and_transactions(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            vb = write(root / "Sys.vb", """Public Class Sys
+Public Shared Sub Crear(ByVal dbc As OraConn, ByVal ds As Object)
+dbc.BeginTrans()
+dbc.ExecProcDS("PSYS.CREAR", "ID_ADM", ds, "in", "decimal")
+dbc.Commit()
+End Sub
+End Class""")
+            result = DatabaseExtractor().extract(vb, root)
+            self.assertTrue(any(op["stored_procedure"] == "PSYS.CREAR" and op["method"] == "Crear" for op in result["operations"]))
+            self.assertEqual(len([op for op in result["operations"] if op["operation_kind"] == "transaction"]), 2)
+            self.assertEqual(result["parameters"][0]["wrapper"], "ExecProcDS")
+            self.assertEqual(result["parameters"][0]["db_type"], "decimal")
+
+    def test_v2_r3_1_public_shared_sub_attribute_and_multiline_signature(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            vb = write(root / "Sys.vb", """Public Class Sys
+<Obsolete()>
+Public Shared Sub Crear( _
+ByRef dbc As OraConn, _
+ByVal idAdm As Integer)
+dbc.ExecProc("PSYS.CREAR", "ID_ADM", values, "in", "int")
+End Sub
+End Class""")
+            result = DatabaseExtractor().extract(vb, root)
+            op = next(op for op in result["operations"] if op["stored_procedure"] == "PSYS.CREAR")
+            self.assertEqual(op["method"], "Crear")
+            self.assertEqual(op["class"], "Sys")
+
+    def test_v2_r3_1_direct_oracle_class_field_commandtext_execute_fill(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            vb = write(root / "Repo.vb", """Public Class Repo
+Private cmd As OracleCommand
+Private da As OracleDataAdapter
+Public Function Load() As DataSet
+Dim sql As String = "SELECT * FROM CLIENTE WHERE ID = " & id
+cmd.CommandText = sql
+cmd.ExecuteReader()
+da.Fill(ds)
+End Function
+End Class""")
+            result = DatabaseExtractor().extract(vb, root)
+            self.assertTrue(any(op["sql_operation"] == "SELECT" and op["dynamic_sql"] for op in result["operations"]))
+            self.assertTrue(any(op["command_variable"] == "cmd" and op["method"] == "Load" for op in result["operations"]))
+            self.assertTrue(any(op["operation_kind"] == "fill" and op["method"] == "Load" for op in result["operations"]))
+
+    def test_v2_r3_1_execprocds_dynamic_and_non_oraconn_guard(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            vb = write(root / "Sys.vb", """Public Class Sys
+Public Sub Run(ByRef dbc As OraConn, helper As Object, procName As String)
+dbc.ExecProcDS(procName, "ID_ADM", values)
+helper.ExecProcDS("P.BAD", "ID")
+End Sub
+End Class""")
+            result = DatabaseExtractor().extract(vb, root)
+            self.assertEqual(len(result["operations"]), 1)
+            self.assertEqual(result["operations"][0]["confidence"], "unresolved")
+            self.assertIsNone(result["operations"][0]["stored_procedure"])
+
+    def test_v2_r3_1_unrelated_sql_string_false_positive_guard(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            vb = write(root / "Repo.vb", """Public Class Repo
+Public Sub Run()
+Dim text As String = "SELECT * FROM CLIENTE"
+End Sub
+End Class""")
+            result = DatabaseExtractor().extract(vb, root)
+            self.assertEqual(result["operations"], [])
+
+    def test_v2_r3_1_sanitizes_nested_evidence_and_dependency_samples(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            write(root / "App.vbproj", '<Project><PropertyGroup><RootNamespace>Empresa.Data</RootNamespace></PropertyGroup><ItemGroup><Compile Include="Repo.vb" /></ItemGroup></Project>')
+            write(root / "Repo.vb", """Public Class Repo
+Public Sub Run()
+Dim conn As New OracleConnection("Data Source=db;User ID=scott;Password=tiger;Pwd=t;UID=u;Username=admin;Token=abc")
+Dim cmd As New OracleCommand("PKG.SECRET", conn)
+cmd.CommandType = CommandType.StoredProcedure
+cmd.ExecuteNonQuery()
+End Sub
+End Class""")
+            analyze_repository(root, root / "out")
+            for name in ["data_access.json", "stored_procedures.json", "data_parameters.json", "functional_dependencies.json"]:
+                text = (root / "out" / "index" / name).read_text(encoding="utf-8").lower()
+                self.assertNotIn("scott", text)
+                self.assertNotIn("tiger", text)
+                self.assertNotIn("token=abc", text)
+
+    def test_v2_r3_1_dedup_and_r1_r2_preserved(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            write(root / "Web.vbproj", '<Project><PropertyGroup><RootNamespace>Empresa.Web</RootNamespace></PropertyGroup><ItemGroup><Compile Include="Default.aspx.vb" /><Compile Include="Servicio.vb" /><Content Include="Default.aspx" /></ItemGroup></Project>')
+            write(root / "Default.aspx", '<%@ Page CodeBehind="Default.aspx.vb" Inherits="Empresa.Web.DefaultPage" %><asp:Button ID="btnBuscar" OnClick="btnBuscar_Click" runat="server" />')
+            write(root / "Default.aspx.vb", """Public Class DefaultPage
+Protected Sub btnBuscar_Click(sender As Object, e As EventArgs)
+Dim svc As New Servicio()
+svc.Buscar()
+End Sub
+End Class""")
+            write(root / "Servicio.vb", """Public Class Servicio
+Public Sub Buscar()
+Dim dbc As New OraConn()
+dbc.ExecProc("P.BUSCAR", "ID", values, "in", "int")
+dbc.ExecProc("P.BUSCAR", "ID", values, "in", "int")
+End Sub
+End Class""")
+            indexes = analyze_repository(root, root / "out")
+            self.assertEqual(len(indexes["entry_points"]), 1)
+            self.assertTrue(any(call["method_name"] == "Buscar" and call["confidence"] == "confirmed" for file_calls in indexes["calls"] for call in file_calls["calls"]))
+            keys = [(dep["source"], dep["target"], dep["dependency_type"], dep["source_file"], dep["confidence"]) for dep in indexes["functional_dependencies"]]
+            self.assertEqual(len(keys), len(set(keys)))
 
 
 if __name__ == "__main__":

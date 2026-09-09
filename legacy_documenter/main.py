@@ -4,10 +4,16 @@ from pathlib import Path
 from time import perf_counter
 
 from legacy_documenter.analysis.dependency_resolver import DependencyResolver
+from legacy_documenter.analysis.call_resolver import CallResolver
+from legacy_documenter.analysis.database_resolver import DatabaseResolver
+from legacy_documenter.analysis.web_entry_resolver import WebEntryResolver
 from legacy_documenter.context.context_builder import ContextBuilder
 from legacy_documenter.exporters.json_exporter import JSONExporter
 from legacy_documenter.exporters.markdown_exporter import MarkdownExporter
 from legacy_documenter.extractors.solution_extractor import SolutionExtractor
+from legacy_documenter.extractors.call_extractor import CallExtractor
+from legacy_documenter.extractors.database_extractor import DatabaseExtractor
+from legacy_documenter.extractors.web_event_extractor import WebEventExtractor
 from legacy_documenter.extractors.vbnet_extractor import VBNetExtractor
 from legacy_documenter.extractors.vbproj_extractor import VBProjExtractor
 from legacy_documenter.extractors.webconfig_extractor import WebConfigExtractor
@@ -32,6 +38,9 @@ def analyze_repository(repo_root: str | Path, output_dir: str | Path, excludes: 
     symbols: list[dict] = []
     webforms: list[dict] = []
     configuration: list[dict] = []
+    calls: list[dict] = []
+    web_events: list[dict] = []
+    data_access_indexes: list[dict] = []
 
     extractors = {
         "solution": SolutionExtractor(),
@@ -63,8 +72,33 @@ def analyze_repository(repo_root: str | Path, output_dir: str | Path, excludes: 
         except Exception as exc:
             errors.append({"file": source.relative_path, "extractor": extractor.__class__.__name__, "error": str(exc)})
 
+    call_extractor = CallExtractor()
+    web_event_extractor = WebEventExtractor()
+    database_extractor = DatabaseExtractor()
+    for source in files:
+        if source.file_type != "vb_source":
+            continue
+        full_path = root / source.relative_path
+        try:
+            calls.append(call_extractor.extract(full_path, root))
+        except Exception as exc:
+            errors.append({"file": source.relative_path, "extractor": "CallExtractor", "error": str(exc)})
+        try:
+            web_events.append(web_event_extractor.extract(full_path, root))
+        except Exception as exc:
+            errors.append({"file": source.relative_path, "extractor": "WebEventExtractor", "error": str(exc)})
+        try:
+            data_access_indexes.append(database_extractor.extract(full_path, root))
+        except Exception as exc:
+            errors.append({"file": source.relative_path, "extractor": "DatabaseExtractor", "error": str(exc)})
+
     apply_project_namespaces(symbols, projects)
     logical_symbols = consolidate_partial_symbols(symbols, webforms)
+    calls, functional_dependencies = CallResolver().resolve(calls, symbols)
+    entry_points, event_bindings, web_functional_dependencies = WebEntryResolver().resolve(webforms, symbols, web_events, calls)
+    functional_dependencies = functional_dependencies + web_functional_dependencies
+    data_access, stored_procedures, sql_operations, data_parameters, data_dependencies = DatabaseResolver().resolve(data_access_indexes, projects)
+    functional_dependencies = functional_dependencies + data_dependencies
     dependencies = [dep.to_dict() for dep in DependencyResolver().resolve(solutions, projects, symbols, webforms)]
     indexes = {
         "repository": {
@@ -78,6 +112,14 @@ def analyze_repository(repo_root: str | Path, output_dir: str | Path, excludes: 
         "projects": projects,
         "symbols": symbols,
         "logical_symbols": logical_symbols,
+        "calls": calls,
+        "entry_points": entry_points,
+        "event_bindings": event_bindings,
+        "data_access": data_access,
+        "stored_procedures": stored_procedures,
+        "sql_operations": sql_operations,
+        "data_parameters": data_parameters,
+        "functional_dependencies": functional_dependencies,
         "webforms": webforms,
         "configuration": configuration,
         "dependencies": dependencies,

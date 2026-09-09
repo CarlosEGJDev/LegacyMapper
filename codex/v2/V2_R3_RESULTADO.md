@@ -1,0 +1,74 @@
+STATUS
+V2-R3_IMPLEMENTED
+V2-R4_NOT_STARTED
+V2-R5_NOT_STARTED
+
+FILES_CHANGED
+legacy_documenter/main.py
+legacy_documenter/extractors/database_extractor.py
+legacy_documenter/analysis/database_resolver.py
+tests/test_v1_unittest.py
+
+TESTS
+python -m unittest discover -s tests
+RESULT=OK
+COUNT=40
+FIXTURE_VALIDATION=python main.py tests/fixtures/v2_r1_sample --output output/v2_r3_fixture --verbose
+FIXTURE_ERRORS=0
+INTERNAL_VALIDATION=python main.py . --output output/v2_r3_internal --verbose
+INTERNAL_ERRORS=0
+FULL_REAL_REPOSITORY_RUN=NOT_RUN
+
+OUTPUTS
+output/index/data_access.json
+output/index/stored_procedures.json
+output/index/sql_operations.json
+output/index/data_parameters.json
+output/index/functional_dependencies.json_EXTENDED
+
+PROVIDERS_SUPPORTED
+OracleConnection
+OracleCommand
+OracleDataAdapter
+OracleParameter
+System.Data.OracleClient_STYLE_TYPES
+Oracle.DataAccess_STYLE_TYPES
+
+WRAPPERS_SUPPORTED
+OraConn
+ExecProc
+BeginTrans
+Commit
+Rollback
+Close=NOT_CLASSIFIED_AS_OPERATION
+
+DATA_ACCESS_RULES
+DIRECT_ORACLE_CONTEXT=OracleCommand_OR_OracleDataAdapter_TYPED_VARIABLE_REQUIRED
+WRAPPER_CONTEXT=OraConn_TYPED_VARIABLE_REQUIRED
+STORED_PROCEDURE=CommandType.StoredProcedure_WITH_LITERAL_CommandText_OR_OracleCommand_LITERAL_OR_OraConn.ExecProc_LITERAL
+SQL_OPERATIONS=SELECT_INSERT_UPDATE_DELETE_MERGE_ONLY_IN_DATA_ACCESS_CONTEXT
+DYNAMIC_SQL=DETECTED_WHEN_SQL_LITERAL_FRAGMENT_IS_CONCATENATED
+PARAMETERS=OracleParameter_Parameters.Add_Parameters.AddWithValue_WRAPPER_PARAMETER_NAMES_WHEN_LITERAL
+TRANSACTIONS=BeginTransaction_BeginTrans_Commit_Rollback
+DEPENDENCY_DEDUP=ENABLED_WITH_EVIDENCE_COUNT_AND_SAMPLES
+
+SECURITY
+COMMENTS_IGNORED=YES
+UNRELATED_STRING_SQL_IGNORED=YES
+JAVASCRIPT_STRING_IGNORED=YES
+CONNECTION_SECRETS_SANITIZED=PASSWORD_PWD_USER_ID_UID
+LLM_DEPENDENCY=NO
+
+KNOWN_LIMITATIONS
+ADDHANDLER_NOT_IMPLEMENTED
+Close_NOT_EMITTED_AS_TRANSACTION_OPERATION
+NON_ORACLE_PROVIDERS_NOT_IMPLEMENTED
+NON_LITERAL_STORED_PROCEDURE_NAMES_REMAIN_UNRESOLVED
+COMPLEX_WRAPPER_PARAMETER_ARRAYS_ONLY_WHEN_DETERMINISTIC_LITERAL_NAMES_EXIST
+
+REAL_VALIDATION_COMMAND
+python main.py <REAL_REPOSITORY_ROOT> --output output/v2_r3_full --verbose
+
+NEXT
+V2-R3 ready for full real validation.
+V2-R4 NOT STARTED.
