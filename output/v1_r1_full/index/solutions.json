@@ -1,0 +1,2539 @@
+[
+  {
+    "name": "WebAmbiente",
+    "path": "WebAmbiente\\WebAmbiente.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebAmbiente",
+        "path": "WebAmbiente.vbproj",
+        "guid": "A7CB0068-BE0B-4C49-9C9B-64D1ABCC11B0"
+      }
+    ]
+  },
+  {
+    "name": "WebAmbiente",
+    "path": "WebAmbiente\\Backup\\WebAmbiente.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebAmbiente",
+        "path": "WebAmbiente.vbproj",
+        "guid": "A7CB0068-BE0B-4C49-9C9B-64D1ABCC11B0"
+      }
+    ]
+  },
+  {
+    "name": "sysIstSIATEP",
+    "path": "sys\\sysIstSIATEP\\sysIstSIATEP.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "sysIstSIATEP",
+        "path": "sysIstSIATEP.vbproj",
+        "guid": "371CC066-40FA-4E81-8BC0-5D1CE999B1EB"
+      }
+    ]
+  },
+  {
+    "name": "slnADHAdherentes",
+    "path": "proyectos\\slnADHAdherentes\\slnADHAdherentes.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "sysADHAdherentes",
+        "path": "..\\..\\sys\\sysADHAdherentes\\sysADHAdherentes.vbproj",
+        "guid": "F5A88443-B236-4C9E-BF9A-C963707FAEA7"
+      }
+    ]
+  },
+  {
+    "name": "slnADHAdmCalculoDs67_2010",
+    "path": "proyectos\\slnADHAdmCalculoDs67\\slnADHAdmCalculoDs67_2010.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blADHAdmCalculoDs67",
+        "path": "..\\..\\bl\\blADHAdmCalculoDs67\\blADHAdmCalculoDs67.vbproj",
+        "guid": "53FF20F7-0F49-4737-88A6-C2C7AE2A7D7D"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "sysDS67",
+        "path": "..\\..\\sys\\sysDS67\\sysDS67.vbproj",
+        "guid": "4AD0559D-0C4C-4D13-88CF-1FE85C512C2A"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebADHAdmCalculoDs67",
+        "path": "..\\..\\WebADHAdmCalculoDs67.vbproj",
+        "guid": "C1ED8B7D-E41F-47B0-820C-D8C53DF9297F"
+      }
+    ]
+  },
+  {
+    "name": "slnADHAdmEmpresa",
+    "path": "proyectos\\slnAdhAdmEmpresa\\slnADHAdmEmpresa.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebADHAdmEmpresa",
+        "path": "..\\..\\WebADHAdmEmpresa.vbproj",
+        "guid": "3675464E-7C6C-4EAA-A326-BB5A09E8CA1B"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blADHAdmEmpresa",
+        "path": "..\\..\\bl\\blADHAdmEmpresa\\blADHAdmEmpresa.vbproj",
+        "guid": "155E1E0C-F009-4B15-95F0-416DA634AAED"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blADHEspecial",
+        "path": "..\\..\\bl\\blADHEspecial\\blADHEspecial.vbproj",
+        "guid": "8E14D182-97C5-46A4-9605-78B808867CE1"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "sysADHEspecial",
+        "path": "..\\..\\sys\\sysADHEspecial\\sysADHEspecial.vbproj",
+        "guid": "1A3CA302-76E7-419B-AEBB-31A4AC857CF9"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "sysADHAdherentes",
+        "path": "..\\..\\sys\\sysADHAdherentes\\sysADHAdherentes.vbproj",
+        "guid": "F5A88443-B236-4C9E-BF9A-C963707FAEA7"
+      }
+    ]
+  },
+  {
+    "name": "slnADHCargaArchivos",
+    "path": "proyectos\\slnADHCargaArchivos\\slnADHCargaArchivos.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blAdhCargaArchivos",
+        "path": "..\\..\\bl\\blAdhCargaArchivos\\blAdhCargaArchivos.vbproj",
+        "guid": "38D59B43-A54A-4328-854B-E9A7F0586E0F"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebAdhCargaArchivos",
+        "path": "..\\..\\WebAdhCargaArchivos.vbproj",
+        "guid": "79081094-114E-48A9-9BC3-0DC168B122BA"
+      }
+    ]
+  },
+  {
+    "name": "slnADHCartas_2010",
+    "path": "proyectos\\slnADHCartas\\slnADHCartas_2010.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebADHCartas",
+        "path": "..\\..\\WebADHCartas.vbproj",
+        "guid": "6514758B-E338-4CAC-8A98-7094DF53FB59"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blADHCartas",
+        "path": "..\\..\\bl\\blADHCartas\\blADHCartas.vbproj",
+        "guid": "AB623B02-D06C-4338-A786-5793105187C4"
+      }
+    ]
+  },
+  {
+    "name": "slnADHContratos",
+    "path": "proyectos\\slnADHContratos\\slnADHContratos.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "sysADHContratos",
+        "path": "..\\..\\sys\\sysADHContratos\\sysADHContratos.vbproj",
+        "guid": "C07E3CF6-1694-4E23-9953-566CB00DEBCB"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blADHContratos",
+        "path": "..\\..\\bl\\blADHContratos\\blADHContratos.vbproj",
+        "guid": "20C79609-9AA7-40FA-ACA6-92D92BD7ACAF"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebADHContratos",
+        "path": "..\\..\\WebADHContratos.vbproj",
+        "guid": "9F3FA852-75D8-40D7-8B79-42B4D7B7034A"
+      }
+    ]
+  },
+  {
+    "name": "slnADHContratos2_2010",
+    "path": "proyectos\\slnADHContratos2\\slnADHContratos2_2010.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebAdhContratos2",
+        "path": "..\\..\\WebAdhContratos2.vbproj",
+        "guid": "4093F064-D5B9-4D52-982A-F680D9631292"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blAdhContratos2",
+        "path": "..\\..\\bl\\blAdhContratos2\\blAdhContratos2.vbproj",
+        "guid": "381B7662-1CD8-4563-B7CC-3E50F9DAF569"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "sysAdhContratos2",
+        "path": "..\\..\\sys\\sysADHContratos2\\sysAdhContratos2.vbproj",
+        "guid": "C0B3A1FF-73C5-428D-9DCA-AF939A37C802"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blADHEspecial",
+        "path": "..\\..\\bl\\blADHEspecial\\blADHEspecial.vbproj",
+        "guid": "8E14D182-97C5-46A4-9605-78B808867CE1"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "sysADHEspecial",
+        "path": "..\\..\\sys\\sysADHEspecial\\sysADHEspecial.vbproj",
+        "guid": "1A3CA302-76E7-419B-AEBB-31A4AC857CF9"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blBusquedas",
+        "path": "..\\..\\bl\\blBusquedas\\blBusquedas.vbproj",
+        "guid": "4DD58480-F4B4-4657-8A2E-FC05FF2AC6A1"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "sysADHAdherentes",
+        "path": "..\\..\\sys\\sysADHAdherentes\\sysADHAdherentes.vbproj",
+        "guid": "F5A88443-B236-4C9E-BF9A-C963707FAEA7"
+      }
+    ]
+  },
+  {
+    "name": "slnADHEmpresa",
+    "path": "proyectos\\slnADHEmpresa\\slnADHEmpresa.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebADHAdmEmpresa",
+        "path": "..\\..\\WebADHAdmEmpresa.vbproj",
+        "guid": "3675464E-7C6C-4EAA-A326-BB5A09E8CA1B"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blADHAdmEmpresa",
+        "path": "..\\..\\bl\\blADHAdmEmpresa\\blADHAdmEmpresa.vbproj",
+        "guid": "155E1E0C-F009-4B15-95F0-416DA634AAED"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "sysADHAdherentes",
+        "path": "..\\..\\sys\\sysADHAdherentes\\sysADHAdherentes.vbproj",
+        "guid": "F5A88443-B236-4C9E-BF9A-C963707FAEA7"
+      }
+    ]
+  },
+  {
+    "name": "slnADHEspecial",
+    "path": "proyectos\\slnADHEspecial\\slnADHEspecial.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebADHEspecial",
+        "path": "..\\..\\WebADHEspecial.vbproj",
+        "guid": "141B7DD4-EF71-46DB-91E8-A4C2BACC2055"
+      }
+    ]
+  },
+  {
+    "name": "slnADHSolicitud_2010",
+    "path": "proyectos\\slnADHSolicitud\\slnADHSolicitud_2010.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "sysADHSolicitud",
+        "path": "..\\..\\sys\\sysADHSolicitud\\sysADHSolicitud.vbproj",
+        "guid": "5BF243A4-2733-475F-8412-58AAC59DC271"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blADHSolicitud",
+        "path": "..\\..\\bl\\blADHSolicitud\\blADHSolicitud.vbproj",
+        "guid": "62E20297-D45E-4427-AAD3-ADBA0C814716"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebADHSolicitud",
+        "path": "..\\..\\WebADHSolicitud.vbproj",
+        "guid": "6C297C7E-C81D-4085-A8FE-8C7423BE429F"
+      }
+    ]
+  },
+  {
+    "name": "slnADHSolicitud2_2010",
+    "path": "proyectos\\slnADHSolicitud2\\slnADHSolicitud2_2010.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blADHSolicitud2",
+        "path": "..\\..\\bl\\blADHSolicitud2\\blADHSolicitud2.vbproj",
+        "guid": "A81B3A80-B318-4337-8C45-68B2E1CB464E"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebADHSolicitud2",
+        "path": "..\\..\\WebADHSolicitud2.vbproj",
+        "guid": "31534408-5DD5-4746-9A8B-69DA4039A54C"
+      }
+    ]
+  },
+  {
+    "name": "slnADHTraspaso_2010",
+    "path": "proyectos\\slnADHTraspaso\\slnADHTraspaso_2010.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebADHTraspaso",
+        "path": "..\\..\\WebADHTraspaso.vbproj",
+        "guid": "3A0B6DE9-0A87-4B7F-88EB-DA925ECD5DAD"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blParGenerales",
+        "path": "..\\..\\bl\\blParGenerales\\blParGenerales.vbproj",
+        "guid": "00E702A4-0FE1-4B40-A61E-3E569A3FC99D"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "sysPARGenerales",
+        "path": "..\\..\\sys\\sysPARGenerales\\sysPARGenerales.vbproj",
+        "guid": "48780935-61D4-4DEA-A282-A5DD81EA2067"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blADHTraspaso",
+        "path": "..\\..\\bl\\blADHTraspaso\\blADHTraspaso.vbproj",
+        "guid": "C54B4FE4-78B9-4EA9-BA8C-261F37EEE7DD"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "sysADHTraspaso",
+        "path": "..\\..\\sys\\sysADHTraspaso\\sysADHTraspaso.vbproj",
+        "guid": "4D99DE26-1388-4DE1-A966-1688AEA17686"
+      }
+    ]
+  },
+  {
+    "name": "slnBusquedas",
+    "path": "proyectos\\slnBusquedas\\slnBusquedas.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blBusquedas",
+        "path": "..\\..\\bl\\blBusquedas\\blBusquedas.vbproj",
+        "guid": "4DD58480-F4B4-4657-8A2E-FC05FF2AC6A1"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebBusquedas",
+        "path": "..\\..\\WebBusquedas.vbproj",
+        "guid": "CC807F18-F818-4F1A-930D-3A3B336BC820"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "sysADHAdherentes",
+        "path": "..\\..\\sys\\sysADHAdherentes\\sysADHAdherentes.vbproj",
+        "guid": "F5A88443-B236-4C9E-BF9A-C963707FAEA7"
+      }
+    ]
+  },
+  {
+    "name": "slnCobMantencion",
+    "path": "proyectos\\slnCobMantencion\\slnCobMantencion.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebCobMantencion",
+        "path": "..\\..\\WebCobMantencion.vbproj",
+        "guid": "5E07FAD6-5D2D-4081-A82A-80232D51018A"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blCobMantencion",
+        "path": "..\\..\\bl\\blCobMantencion\\blCobMantencion.vbproj",
+        "guid": "8DE4EC97-E741-4466-BF5F-08C446B8BE0A"
+      }
+    ]
+  },
+  {
+    "name": "slnCobMorosidad_2010",
+    "path": "proyectos\\slnCobMorosidad\\slnCobMorosidad_2010.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebCobMorosidad",
+        "path": "..\\..\\WebCobMorosidad.vbproj",
+        "guid": "AA6EF2AB-D2D0-48A8-AF00-A8A3778550E0"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blADHContratos",
+        "path": "..\\..\\bl\\blADHContratos\\blADHContratos.vbproj",
+        "guid": "20C79609-9AA7-40FA-ACA6-92D92BD7ACAF"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "sysADHContratos",
+        "path": "..\\..\\sys\\sysADHContratos\\sysADHContratos.vbproj",
+        "guid": "C07E3CF6-1694-4E23-9953-566CB00DEBCB"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blCobMorosidad",
+        "path": "..\\..\\bl\\blCobMorosidad\\blCobMorosidad.vbproj",
+        "guid": "C4C45DDB-E77D-4253-B42E-17A99E926AA7"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "sysCOBMorosidad",
+        "path": "..\\..\\sys\\sysCOBMorosidad\\sysCOBMorosidad.vbproj",
+        "guid": "49DADEE6-1668-420F-86F7-2FB54A169FB9"
+      }
+    ]
+  },
+  {
+    "name": "slnControlAccesoUsuario",
+    "path": "proyectos\\slnControlAccesoUsuario\\slnControlAccesoUsuario.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "slnControlAccesoUsuario",
+        "path": "slnControlAccesoUsuario\\slnControlAccesoUsuario.vbproj",
+        "guid": "45551BB6-EE11-4808-9BAE-B4B3C474A977"
+      }
+    ]
+  },
+  {
+    "name": "slnCOTCierreRecaud_2010",
+    "path": "proyectos\\slnCOTCierreRecaud\\slnCOTCierreRecaud_2010.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "webCOTCierreRecaud",
+        "path": "..\\..\\webCOTCierreRecaud.vbproj",
+        "guid": "BC94F681-3839-4AB1-A997-E5C1E996F620"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "sysCOTCierreRecaud",
+        "path": "..\\..\\sys\\sysCOTCierreRecaud\\sysCOTCierreRecaud.vbproj",
+        "guid": "A178E6D0-BCF3-4DC5-95E0-E248567CD861"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blCOTCierreRecaud",
+        "path": "..\\..\\bl\\blCOTCierreRecaud\\blCOTCierreRecaud.vbproj",
+        "guid": "0A464140-09C5-410E-B196-94F5CCFEF7AE"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "sysCOBMorosidad",
+        "path": "..\\..\\sys\\sysCOBMorosidad\\sysCOBMorosidad.vbproj",
+        "guid": "49DADEE6-1668-420F-86F7-2FB54A169FB9"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blCOTCotizaciones",
+        "path": "..\\..\\bl\\blCOTCotizaciones\\blCOTCotizaciones.vbproj",
+        "guid": "769A3A89-F029-4889-BB8C-F448F8E4CB47"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "sysCOTCotizaciones",
+        "path": "..\\..\\sys\\sysCOTCotizaciones\\sysCOTCotizaciones.vbproj",
+        "guid": "8B4F291A-27E7-4533-B405-CC5F805342E5"
+      }
+    ]
+  },
+  {
+    "name": "slnCOTCompDevol",
+    "path": "proyectos\\slnCOTCompDevol\\slnCOTCompDevol.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "webCOTCompDevol",
+        "path": "..\\..\\webCOTCompDevol.vbproj",
+        "guid": "536B8BFD-BDBE-4438-9FB1-EB83454785D4"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "sysCOTCompDevol",
+        "path": "..\\..\\sys\\sysCOTCompDevol\\sysCOTCompDevol.vbproj",
+        "guid": "03BB0AB4-0A4C-496D-B5CE-7655E526E11B"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blCOTCompDevol",
+        "path": "..\\..\\bl\\blCOTCompDevol\\blCOTCompDevol.vbproj",
+        "guid": "44ACC92D-9075-4858-98A7-0B7F5985F3C1"
+      }
+    ]
+  },
+  {
+    "name": "slnCOTMantenciones",
+    "path": "proyectos\\slnCOTMantenciones\\slnCOTMantenciones.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blCOTMantenciones",
+        "path": "..\\..\\bl\\blCOTMantenciones\\blCOTMantenciones.vbproj",
+        "guid": "EAF93982-4298-46FD-A83E-94E561CF6EBD"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebCOTMantenciones",
+        "path": "..\\..\\WebCOTMantenciones.vbproj",
+        "guid": "63080F1F-93ED-4208-8A3F-D47BE03CF59B"
+      }
+    ]
+  },
+  {
+    "name": "slnCOTProcRecaud_2010",
+    "path": "proyectos\\slnCOTProcRecaud\\slnCOTProcRecaud_2010.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "webCOTProcRecaud",
+        "path": "..\\..\\webCOTProcRecaud.vbproj",
+        "guid": "CD3E1794-D56E-46A5-9EA8-C77F5218024C"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blCOTProcRecaud",
+        "path": "..\\..\\bl\\blCOTProcRecaud\\blCOTProcRecaud.vbproj",
+        "guid": "F00A9391-30F6-45D4-B61B-81191D410DFE"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "sysCOTProcRecaud",
+        "path": "..\\..\\sys\\sysCOTProcRecaud\\sysCOTProcRecaud.vbproj",
+        "guid": "3D531086-148E-442F-B12B-CA128E75CCE0"
+      }
+    ]
+  },
+  {
+    "name": "slnCOTRecepcion",
+    "path": "proyectos\\slnCOTRecepcion\\slnCOTRecepcion.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "webCOTRecepcion",
+        "path": "..\\..\\webCOTRecepcion.vbproj",
+        "guid": "D7D0B60D-988F-4ADC-A21C-2CDF6BE725EC"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "sysCOTRecepcion",
+        "path": "..\\..\\sys\\sysCotRecepcion\\sysCOTRecepcion.vbproj",
+        "guid": "843C4E14-92FC-4375-971D-0B86A5F490CD"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blCOTRecepcion",
+        "path": "..\\..\\bl\\blCOTRecepcion\\blCOTRecepcion.vbproj",
+        "guid": "192D5EC3-260F-490B-8DF5-5696A937D855"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blCobMorosidad",
+        "path": "..\\..\\bl\\blCobMorosidad\\blCobMorosidad.vbproj",
+        "guid": "C4C45DDB-E77D-4253-B42E-17A99E926AA7"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "sysCOBMorosidad",
+        "path": "..\\..\\sys\\sysCOBMorosidad\\sysCOBMorosidad.vbproj",
+        "guid": "49DADEE6-1668-420F-86F7-2FB54A169FB9"
+      }
+    ]
+  },
+  {
+    "name": "slnD67Informes",
+    "path": "proyectos\\slnD67Informes\\slnD67Informes.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebD67Informes",
+        "path": "..\\..\\WebD67Informes.vbproj",
+        "guid": "E297B5E6-0FE9-41D8-AF31-A5E200669B1D"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blD67Informes",
+        "path": "..\\..\\bl\\blD67Informes\\blD67Informes.vbproj",
+        "guid": "6018A39A-7259-4450-8EA4-A1A07FFB22C7"
+      }
+    ]
+  },
+  {
+    "name": "slnDocVisualiza1_2010",
+    "path": "proyectos\\slnDocVisualiza1\\slnDocVisualiza1_2010.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blDocVisualiza1",
+        "path": "..\\..\\bl\\blDocVisualiza1\\blDocVisualiza1.vbproj",
+        "guid": "1FD12A14-DD1B-4FA2-B248-F11DFB68D4E8"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebDocVisualiza1",
+        "path": "..\\..\\WebDocVisualiza1.vbproj",
+        "guid": "9305F7E6-CC9B-4B6C-8233-9A7A4E86D66C"
+      }
+    ]
+  },
+  {
+    "name": "slnFicha",
+    "path": "proyectos\\slnFicha\\slnFicha.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebFicha",
+        "path": "..\\..\\WebFicha.vbproj",
+        "guid": "6B6F0579-9398-4CA3-A64F-30033CA840BB"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blFicha",
+        "path": "..\\..\\bl\\blFicha\\blFicha.vbproj",
+        "guid": "0C33AA14-543A-4FB8-8F0D-E291F98A3B69"
+      }
+    ]
+  },
+  {
+    "name": "slnFiscalizacionRemota",
+    "path": "proyectos\\slnFiscalizacionRemota\\slnFiscalizacionRemota.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebFiscalizacionRemota",
+        "path": "..\\..\\WebFiscalizacionRemota.vbproj",
+        "guid": "A1BE9545-C010-4D81-8E21-D8FA87520654"
+      }
+    ]
+  },
+  {
+    "name": "slnFunGenerales",
+    "path": "proyectos\\slnFunGenerales\\slnFunGenerales.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "sysFunGenerales",
+        "path": "..\\..\\sys\\sysFunGenerales\\sysFunGenerales.vbproj",
+        "guid": "E237CD6A-5F2D-42B0-AE39-E5BD44F3D01A"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blFunGenerales",
+        "path": "..\\..\\bl\\blFunGenerales\\blFunGenerales.vbproj",
+        "guid": "EF6F344C-3E12-48CB-92FB-73B65746D15D"
+      }
+    ]
+  },
+  {
+    "name": "slnGeneraDoc",
+    "path": "proyectos\\slnGeneraDoc\\slnGeneraDoc.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "slnGeneraDoc",
+        "path": "slnGeneraDoc.vbproj",
+        "guid": "20EB7FA8-4B6D-4734-BB12-87CFB81564CE"
+      }
+    ]
+  },
+  {
+    "name": "SlnHISTCalificacionRECA",
+    "path": "proyectos\\slnHISTCalificacionReca\\SlnHISTCalificacionRECA.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebHISTCalificacionRECA",
+        "path": "..\\..\\WebHISTCalificacionRECA.vbproj",
+        "guid": "47844CB5-2ED8-4D0B-AB14-2EE22BFFCB9A"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blHISTCalificacionRECA",
+        "path": "..\\..\\bl\\blHISTCalificacionRECA\\blHISTCalificacionRECA.vbproj",
+        "guid": "060E36DB-D1AF-4EC4-85A0-306BA6343658"
+      }
+    ]
+  },
+  {
+    "name": "slnIndemnizacion",
+    "path": "proyectos\\slnIndemnizacion\\slnIndemnizacion.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "BLIndemnizacion",
+        "path": "..\\..\\bl\\blIndemnizacion\\BLIndemnizacion.vbproj",
+        "guid": "219ADA54-2DC3-4A30-9124-FED2420C9A33"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebIndemnizacion",
+        "path": "..\\..\\WebIndemnizacion.vbproj",
+        "guid": "57FAE651-8D3D-4626-94C1-D3AA27AE36DE"
+      }
+    ]
+  },
+  {
+    "name": "SlnIndemnizacionMut",
+    "path": "proyectos\\SlnIndemnizacionMut\\SlnIndemnizacionMut.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebIndemnizacionMut",
+        "path": "..\\..\\WebIndemnizacionMut.vbproj",
+        "guid": "2393CA86-1079-44DC-B115-37C2A4C4AEA1"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "SysIndemnizacionMut",
+        "path": "..\\..\\sys\\SysIndemnizacionMut\\SysIndemnizacionMut.vbproj",
+        "guid": "29DD0449-FEA1-47B9-9767-957731538040"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "BlIndemnizacionMut",
+        "path": "..\\..\\bl\\BlIndemnizacionMut\\BlIndemnizacionMut.vbproj",
+        "guid": "A2E0E61A-3F0F-49C3-B97E-6D88419B4F2E"
+      }
+    ]
+  },
+  {
+    "name": "slnInformesSubsidios",
+    "path": "proyectos\\slnInformesSubsidios\\slnInformesSubsidios.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "sysInformeSubsidio",
+        "path": "..\\..\\sys\\sysInformesSubsidios\\sysInformeSubsidio.vbproj",
+        "guid": "CAECE286-D24F-4B58-8004-2E8ADF378BEE"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blInformeSubsidio",
+        "path": "..\\..\\bl\\blInformesSubsidios\\blInformeSubsidio.vbproj",
+        "guid": "BC42CF51-ADB9-4AFD-B1E3-837DB93FBCB0"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebInformesSubsidios",
+        "path": "..\\..\\WebInformesSubsidios.vbproj",
+        "guid": "198E571C-FD59-48C5-8781-6B75ED9BFCA0"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blSUBAntecedentesPago",
+        "path": "..\\..\\bl\\blSUBAntecedentesPago\\blSUBAntecedentesPago.vbproj",
+        "guid": "C63DA48E-7E7D-44C0-B52A-9028941182B5"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "sysSUBBusPagos",
+        "path": "..\\..\\sys\\sysSUBBusPagos\\sysSUBBusPagos.vbproj",
+        "guid": "47226E31-5387-40FE-9312-0AE8BC770191"
+      }
+    ]
+  },
+  {
+    "name": "slnInformesSubsidios2",
+    "path": "proyectos\\slnInformesSubsidios2\\slnInformesSubsidios2.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "slnInformesSubsidios2",
+        "path": "slnInformesSubsidios2\\slnInformesSubsidios2.vbproj",
+        "guid": "360CDED0-2484-4E38-BE19-B98C42C0B79D"
+      }
+    ]
+  },
+  {
+    "name": "SlnInterfazSAP",
+    "path": "proyectos\\SlnInterfazSAP\\SlnInterfazSAP.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebInterfazSAP",
+        "path": "..\\..\\WebInterfazSAP.vbproj",
+        "guid": "7D2A820B-3B27-4A9C-B8D4-5C14A9D4E728"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "BLInterfazSAP",
+        "path": "..\\..\\bl\\BlInterfazSAP\\BLInterfazSAP.vbproj",
+        "guid": "3F4A43CD-6E40-4BED-AB63-B5A06401FC51"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "SysInterfazSAP",
+        "path": "..\\..\\sys\\SysInterfazSAP\\SysInterfazSAP.vbproj",
+        "guid": "282B192C-82FD-4C97-9A8F-3B5ABEFF9A43"
+      }
+    ]
+  },
+  {
+    "name": "slnIstFunciones",
+    "path": "proyectos\\slnIstFunciones\\slnIstFunciones.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "IstFunciones",
+        "path": "..\\..\\sys\\IstFunciones\\IstFunciones.vbproj",
+        "guid": "23105D54-D811-402E-B31B-4783F008289A"
+      }
+    ]
+  },
+  {
+    "name": "SlnIstPlanillas",
+    "path": "proyectos\\SlnIstPlanillas\\SlnIstPlanillas.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebIstPlanillas",
+        "path": "..\\..\\WebIstPlanillas.vbproj",
+        "guid": "0ADDFBB3-571D-4CA7-B787-BA532FF424AB"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "BlIstPlanillas",
+        "path": "..\\..\\bl\\BlIstPlanillas\\BlIstPlanillas.vbproj",
+        "guid": "9284FDEA-E9EA-40F1-AD7B-DC9F42FFBAC6"
+      }
+    ]
+  },
+  {
+    "name": "SlnIstSIAGF",
+    "path": "proyectos\\SlnIstSIAGF\\SlnIstSIAGF.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "BlIstSIAGF",
+        "path": "..\\..\\bl\\BlIstSIAGF\\BlIstSIAGF.vbproj",
+        "guid": "F1D69DA7-ECDF-456D-875F-E4D8A0C03F46"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebIstSIAGF",
+        "path": "..\\..\\WebIstSIAGF.vbproj",
+        "guid": "E0B4F42F-18A6-413A-9E64-FCD505D5DAC5"
+      }
+    ]
+  },
+  {
+    "name": "slnISTSiatep",
+    "path": "proyectos\\slnISTSiatep\\slnISTSiatep.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "sysIstSIATEP",
+        "path": "..\\..\\sys\\sysIstSIATEP\\sysIstSIATEP.vbproj",
+        "guid": "371CC066-40FA-4E81-8BC0-5D1CE999B1EB"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blIstSIATEP",
+        "path": "..\\..\\bl\\blIstSIATEP\\blIstSIATEP.vbproj",
+        "guid": "FE81161E-5D09-4665-9683-F8C679318E9B"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebIstSIATEP",
+        "path": "..\\..\\WebIstSIATEP.vbproj",
+        "guid": "C84941D7-7BFC-482B-AD9A-5879FE59D26B"
+      }
+    ]
+  },
+  {
+    "name": "slnMEDAdm",
+    "path": "proyectos\\slnMEDAdm\\slnMEDAdm.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "sysMEDAdm",
+        "path": "..\\..\\sys\\sysMEDAdm\\sysMEDAdm.vbproj",
+        "guid": "553963B9-C86E-450C-98AD-5C68EE91E40D"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "BlMedAdm",
+        "path": "..\\..\\bl\\blMedAdm\\BlMedAdm.vbproj",
+        "guid": "144C8EAC-8097-484F-AD39-DB41B9D2FCCD"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebMedAdm",
+        "path": "..\\..\\WebMedAdm.vbproj",
+        "guid": "1FAFF423-8C92-4157-B80D-8E8EA6F68049"
+      }
+    ]
+  },
+  {
+    "name": "slnMEDAdministracion",
+    "path": "proyectos\\slnMEDAdministracion\\slnMEDAdministracion.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "sysMEDAdministracion",
+        "path": "..\\..\\sys\\sysMEDAdministracion\\sysMEDAdministracion.vbproj",
+        "guid": "47A503EE-AE7F-4B5B-9B62-60C37D7BA545"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "BlMedAdministracion",
+        "path": "..\\..\\bl\\blMedAdministracion\\BlMedAdministracion.vbproj",
+        "guid": "F53691EE-6B8D-4202-994F-4B8B85C0126B"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebMEDAdministracion",
+        "path": "..\\..\\WebMEDAdministracion.vbproj",
+        "guid": "2684702A-2FFB-46AC-ABEE-71331162169E"
+      }
+    ]
+  },
+  {
+    "name": "slnMEDAdmision",
+    "path": "proyectos\\slnMEDAdmision\\slnMEDAdmision.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "sysMEDAdmision",
+        "path": "..\\..\\sys\\sysMEDAdmision\\sysMEDAdmision.vbproj",
+        "guid": "CB75E970-68D9-4C8C-9C99-B2E4066386CA"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blMedAdmision",
+        "path": "..\\..\\bl\\blMedAdmision\\blMedAdmision.vbproj",
+        "guid": "CBB691EA-7E29-401C-A806-62A71952C1A6"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "webMedAdmision",
+        "path": "..\\..\\webMedAdmision.vbproj",
+        "guid": "8E2C1528-51F6-404A-AE0A-5A40D5C71599"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "sysADHAdherentes",
+        "path": "..\\..\\sys\\sysADHAdherentes\\sysADHAdherentes.vbproj",
+        "guid": "F5A88443-B236-4C9E-BF9A-C963707FAEA7"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blSADAdherente",
+        "path": "..\\..\\bl\\blSADAdherente\\blSADAdherente.vbproj",
+        "guid": "174A0092-523A-4302-A204-38BFF2784723"
+      }
+    ]
+  },
+  {
+    "name": "slnMEDAgenda",
+    "path": "proyectos\\slnMEDAgenda\\slnMEDAgenda.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "sysMEDAgenda",
+        "path": "..\\..\\sys\\sysMEDAgenda\\sysMEDAgenda.vbproj",
+        "guid": "C3534033-857C-4F27-890A-A631CA632F69"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "BLMedAgenda",
+        "path": "..\\..\\bl\\blMedAgenda\\BLMedAgenda.vbproj",
+        "guid": "3706C4C8-03EA-4CAB-9709-BF40A86B3259"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebMEDAgenda",
+        "path": "..\\..\\WebMEDAgenda.vbproj",
+        "guid": "8141AC1F-D6D7-46CE-A643-8E26D5759C60"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "sysMEDUPoliprogramado",
+        "path": "..\\..\\sys\\sysMEDUPoliprogramado\\sysMEDUPoliprogramado.vbproj",
+        "guid": "F9D460A4-7F70-4852-81FD-02AF08BF336E"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blMEDUPoliprogramado",
+        "path": "..\\..\\bl\\blMEDUPoliprogramado\\blMEDUPoliprogramado.vbproj",
+        "guid": "DF8CBD1E-BA6B-4C73-9CFE-8218B777E9F0"
+      }
+    ]
+  },
+  {
+    "name": "slnMEDAgendaNew",
+    "path": "proyectos\\slnMEDAgendaNew\\slnMEDAgendaNew.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "sysMEDAgendaNew",
+        "path": "..\\..\\sys\\sysMEDAgendaNew\\sysMEDAgendaNew.vbproj",
+        "guid": "48B1ACD8-42EA-43DD-9E8F-3D14F0513FDB"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "BlMedAgendaNew",
+        "path": "..\\..\\bl\\blMedAgendaNew\\BlMedAgendaNew.vbproj",
+        "guid": "68F8E01D-9155-4405-A97A-E694206E4000"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebMedAgendaNew",
+        "path": "..\\..\\WebMedAgendaNew.vbproj",
+        "guid": "2CB28A6A-2418-4497-B372-5C6BE85B6731"
+      }
+    ]
+  },
+  {
+    "name": "slnMedCamas",
+    "path": "proyectos\\slnMedCamas\\slnMedCamas.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "sysMedCamas",
+        "path": "..\\..\\sys\\SysMedCamas\\sysMedCamas.vbproj",
+        "guid": "3888568E-A24D-4240-B2DB-AE345E13852A"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "BLMedCamas",
+        "path": "..\\..\\bl\\blMedCamas\\BLMedCamas.vbproj",
+        "guid": "0286073A-A8D3-4614-9796-87742810CAEA"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebMEDCamas",
+        "path": "..\\..\\WebMEDCamas.vbproj",
+        "guid": "8F88F34A-D7D7-4F9F-9FA1-951D230F5883"
+      }
+    ]
+  },
+  {
+    "name": "slnMEDDespacho_2010",
+    "path": "proyectos\\slnMEDDespacho\\slnMEDDespacho_2010.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "sysMEDDespacho",
+        "path": "..\\..\\sys\\sysMEDDespacho\\sysMEDDespacho.vbproj",
+        "guid": "FE59F126-F9FB-4375-BF86-2E44C2F6F6A8"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blMedDespacho",
+        "path": "..\\..\\bl\\blMedDespacho\\blMedDespacho.vbproj",
+        "guid": "1DE3F32F-5DE0-434F-B671-D636687D1D0A"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebMEDDespacho",
+        "path": "..\\..\\WebMEDDespacho.vbproj",
+        "guid": "81247585-3D4D-434F-9A35-064296B2DC23"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blMEDUPoliprogramado",
+        "path": "..\\..\\bl\\blMEDUPoliprogramado\\blMEDUPoliprogramado.vbproj",
+        "guid": "DF8CBD1E-BA6B-4C73-9CFE-8218B777E9F0"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "sysMEDUPoliprogramado",
+        "path": "..\\..\\sys\\sysMEDUPoliprogramado\\sysMEDUPoliprogramado.vbproj",
+        "guid": "F9D460A4-7F70-4852-81FD-02AF08BF336E"
+      }
+    ]
+  },
+  {
+    "name": "slnMEDHospital",
+    "path": "proyectos\\slnMEDHospital\\slnMEDHospital.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "sysMEDhospital",
+        "path": "..\\..\\sys\\sysMEDhospital\\sysMEDhospital.vbproj",
+        "guid": "5ED31370-6B84-4C81-9B57-F11CE4BCDF45"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blMEDhospital",
+        "path": "..\\..\\bl\\blMEDhospital\\blMEDhospital.vbproj",
+        "guid": "5BF327E4-D6CB-42FA-B2A3-A7C0F8FBC8E4"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebMEDHospital",
+        "path": "..\\..\\WebMEDHospital.vbproj",
+        "guid": "01AA5CC6-91C8-43DB-89F8-CD336CC47E40"
+      }
+    ]
+  },
+  {
+    "name": "slnMEDInvestigacion",
+    "path": "proyectos\\slnMEDInvestigacion\\slnMEDInvestigacion.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "sysFunGenerales",
+        "path": "..\\..\\sys\\sysFunGenerales\\sysFunGenerales.vbproj",
+        "guid": "E237CD6A-5F2D-42B0-AE39-E5BD44F3D01A"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "sysPARGenerales",
+        "path": "..\\..\\sys\\sysPARGenerales\\sysPARGenerales.vbproj",
+        "guid": "48780935-61D4-4DEA-A282-A5DD81EA2067"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blParGenerales",
+        "path": "..\\..\\bl\\blParGenerales\\blParGenerales.vbproj",
+        "guid": "00E702A4-0FE1-4B40-A61E-3E569A3FC99D"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blFunGenerales",
+        "path": "..\\..\\bl\\blFunGenerales\\blFunGenerales.vbproj",
+        "guid": "EF6F344C-3E12-48CB-92FB-73B65746D15D"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebMEDInvestigacion",
+        "path": "..\\..\\WebMEDInvestigacion.vbproj",
+        "guid": "F1FC1956-466D-4695-887B-FD0897E98761"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "BLMedInvestigacion",
+        "path": "..\\..\\bl\\blMedInvestigacion\\BLMedInvestigacion.vbproj",
+        "guid": "B23821FC-53A5-43BB-A57A-A15176BFA83F"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "sysMEDInvestigacion",
+        "path": "..\\..\\sys\\sysMEDInvestigacion\\sysMEDInvestigacion.vbproj",
+        "guid": "E4B6A41E-1931-48EB-8818-8433425142FD"
+      }
+    ]
+  },
+  {
+    "name": "slnMEDMovilizacion",
+    "path": "proyectos\\slnMEDMovilizacion\\slnMEDMovilizacion.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "sysMEDMovilizacion",
+        "path": "..\\..\\sys\\sysMEDMovilizacion\\sysMEDMovilizacion.vbproj",
+        "guid": "3B74C206-ADF4-4639-9EBF-A1D49B41DFAE"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blMEDMovilizacion",
+        "path": "..\\..\\bl\\BlMEDMovilizacion\\blMEDMovilizacion.vbproj",
+        "guid": "302CDC08-920F-4199-A7F6-80D9B2096CC6"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebMEDMovilizacion",
+        "path": "..\\..\\WebMEDMovilizacion.vbproj",
+        "guid": "E832B991-5A0B-4AEE-86E0-40C12F7CC1A7"
+      }
+    ]
+  },
+  {
+    "name": "slnMEDPabellon",
+    "path": "proyectos\\slnMEDPabellon\\slnMEDPabellon.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "sysMEDPabellon",
+        "path": "..\\..\\sys\\sysMEDPabellon\\sysMEDPabellon.vbproj",
+        "guid": "1068DD15-520C-46BF-887E-E040C88A464F"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blMEDPabellon",
+        "path": "..\\..\\bl\\blMEDPabellon\\blMEDPabellon.vbproj",
+        "guid": "875468DE-570F-4103-A87C-4FA209A67636"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebMEDPabellon",
+        "path": "..\\..\\WebMEDPabellon.vbproj",
+        "guid": "CAC09372-BE20-41E1-9ACD-2D4C05A10122"
+      }
+    ]
+  },
+  {
+    "name": "slnMEDRalf",
+    "path": "proyectos\\slnMEDRalf\\slnMEDRalf.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "sysMEDRALF",
+        "path": "..\\..\\sys\\sysMEDRALF\\sysMEDRALF.vbproj",
+        "guid": "87EE7480-D462-42E8-9775-ED16EB6F9B14"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blMEDRALF",
+        "path": "..\\..\\bl\\blMEDRALF\\blMEDRALF.vbproj",
+        "guid": "301DC154-7A48-4916-A0FB-25D5558D1CFE"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebMEDRALF",
+        "path": "..\\..\\WebMEDRALF.vbproj",
+        "guid": "E8048722-1EEF-48A7-8CA8-17E49EF7CB5C"
+      }
+    ]
+  },
+  {
+    "name": "slnMedServicios",
+    "path": "proyectos\\slnMedServicios\\slnMedServicios.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "sysMedServicios",
+        "path": "..\\..\\sys\\sysMedServicios\\sysMedServicios.vbproj",
+        "guid": "5DFA4F69-47F0-4BE0-B52F-C141C8F8AB9D"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blMedServicios",
+        "path": "..\\..\\bl\\blMedServicios\\blMedServicios.vbproj",
+        "guid": "A4B80B46-A07C-46B6-AA3F-C741AABF5D48"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebMEDServicios",
+        "path": "..\\..\\WebMEDServicios.vbproj",
+        "guid": "A9E5F949-7522-4E83-91CF-03C81870E7A1"
+      }
+    ]
+  },
+  {
+    "name": "slnMEDUAdministrativa",
+    "path": "proyectos\\slnMEDUAdministrativa\\slnMEDUAdministrativa.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blMEDUAdministrativa",
+        "path": "..\\..\\bl\\blMEDUAdministrativa\\blMEDUAdministrativa.vbproj",
+        "guid": "19E8563F-3916-45C1-83B8-8ECA783D319D"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebMEDUAdministrativa",
+        "path": "..\\..\\WebMEDUAdministrativa.vbproj",
+        "guid": "DB83DB2B-A3A0-4E8C-978F-953FE4209622"
+      }
+    ]
+  },
+  {
+    "name": "slnMEDUPoli2",
+    "path": "proyectos\\slnMEDUPoli2\\slnMEDUPoli2.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "sysMEDUPoli2",
+        "path": "..\\..\\sys\\sysMEDUPoli2\\sysMEDUPoli2.vbproj",
+        "guid": "ABEBA2D7-461C-46AE-B63E-716D64547C93"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blMEDUPoli2",
+        "path": "..\\..\\bl\\blMEDUPoli2\\blMEDUPoli2.vbproj",
+        "guid": "27AA1555-CE0D-4EA4-A5DD-1D5BEC2E60B8"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebMEDUPoli2",
+        "path": "..\\..\\WebMEDUPoli2.vbproj",
+        "guid": "B01F9427-C8B8-41A8-8485-612E7B74CBB2"
+      }
+    ]
+  },
+  {
+    "name": "slnMEDUPoliprogramado",
+    "path": "proyectos\\slnMEDUPoliprogramado\\slnMEDUPoliprogramado.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "sysMEDUPoliprogramado",
+        "path": "..\\..\\sys\\sysMEDUPoliprogramado\\sysMEDUPoliprogramado.vbproj",
+        "guid": "F9D460A4-7F70-4852-81FD-02AF08BF336E"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blMEDUPoliprogramado",
+        "path": "..\\..\\bl\\blMEDUPoliprogramado\\blMEDUPoliprogramado.vbproj",
+        "guid": "DF8CBD1E-BA6B-4C73-9CFE-8218B777E9F0"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebMEDUPoliprogramado",
+        "path": "..\\..\\WebMEDUPoliprogramado.vbproj",
+        "guid": "342DD819-C4F1-4978-A4AE-18AB259CDD52"
+      }
+    ]
+  },
+  {
+    "name": "slnMedValorizacion",
+    "path": "proyectos\\slnMedValorizacion\\slnMedValorizacion.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "SysMedValorizacion",
+        "path": "..\\..\\sys\\SysMedValorizacion\\SysMedValorizacion.vbproj",
+        "guid": "3BADC01A-25CD-4503-9C06-787C8CB945ED"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "BlMedValorizacion",
+        "path": "..\\..\\bl\\blMedValorizacion\\BlMedValorizacion.vbproj",
+        "guid": "52B7A641-B8AF-408A-ABAF-67E0FA53212F"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebMEDValorizacion",
+        "path": "..\\..\\WebMEDValorizacion.vbproj",
+        "guid": "035A1B34-E0A5-42E1-B9DE-6A673A20FCED"
+      }
+    ]
+  },
+  {
+    "name": "slnParGenerales",
+    "path": "proyectos\\slnParGenerales\\slnParGenerales.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "sysParGenerales",
+        "path": "..\\..\\sys\\sysParGenerales\\sysParGenerales.vbproj",
+        "guid": "48780935-61D4-4DEA-A282-A5DD81EA2067"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blParGenerales",
+        "path": "..\\..\\bl\\blParGenerales\\blParGenerales.vbproj",
+        "guid": "00E702A4-0FE1-4B40-A61E-3E569A3FC99D"
+      }
+    ]
+  },
+  {
+    "name": "SlnPENCalculoPensionIndem",
+    "path": "proyectos\\SlnPENCalculoPensionIndem\\SlnPENCalculoPensionIndem.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebPENCalculoPensionIndem",
+        "path": "..\\..\\WebPENCalculoPensionIndem.vbproj",
+        "guid": "A636D3B9-76DF-4986-A48A-E6F24A9FAC8F"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blPENCalculoPension",
+        "path": "..\\..\\bl\\BLPENCalculoPension\\blPENCalculoPension.vbproj",
+        "guid": "E72A339D-E884-454F-A4FF-6A2D1C38F166"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blPENResoluciones",
+        "path": "..\\..\\bl\\blPENResoluciones\\blPENResoluciones.vbproj",
+        "guid": "39F058B0-A28A-4C4B-933C-81489B8F75B9"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "sysPENCalculoPension",
+        "path": "..\\..\\sys\\SysPENCalculoPension\\sysPENCalculoPension.vbproj",
+        "guid": "C4223001-3F8D-4DE8-B8D2-2038BC9CDA00"
+      }
+    ]
+  },
+  {
+    "name": "SlnPENCargaArchivos",
+    "path": "proyectos\\SlnPENCargaArchivos\\SlnPENCargaArchivos.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebPENCargaArchivos",
+        "path": "..\\..\\WebPENCargaArchivos.vbproj",
+        "guid": "218399CB-2E7C-4DCB-8068-EAF53F315000"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blPENCargaArchivos",
+        "path": "..\\..\\bl\\blPENCargaArchivos\\blPENCargaArchivos.vbproj",
+        "guid": "3A2C5811-C09B-4E40-9AFC-E11C380F4EB2"
+      }
+    ]
+  },
+  {
+    "name": "SlnPENConcurrencia",
+    "path": "proyectos\\SlnPENConcurrencia\\SlnPENConcurrencia.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebPENConcurrencia",
+        "path": "..\\..\\WebPENConcurrencia.vbproj",
+        "guid": "57430C5C-9DDF-481E-8C81-904BAB7161B2"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "BlPENconcurrencia",
+        "path": "..\\..\\bl\\BlPENconcurrencia\\BlPENconcurrencia.vbproj",
+        "guid": "89585576-3CEE-4E85-B4EB-187D5D8570EA"
+      }
+    ]
+  },
+  {
+    "name": "SlnPENEspecial",
+    "path": "proyectos\\SlnPENEspecial\\SlnPENEspecial.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebPENEspecial",
+        "path": "..\\..\\WebPENEspecial.vbproj",
+        "guid": "7E89A834-02CB-4CEE-AAAA-FC2EB108BD36"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blPENEspecial",
+        "path": "..\\..\\bl\\blPENEspecial\\blPENEspecial.vbproj",
+        "guid": "62715855-FD7E-455A-8FF8-B81EA84E701A"
+      }
+    ]
+  },
+  {
+    "name": "SlnPENLiquidacion",
+    "path": "proyectos\\SlnPENLiquidacion\\SlnPENLiquidacion.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "webPENLiquidacion",
+        "path": "..\\..\\webPENLiquidacion.vbproj",
+        "guid": "FBA79D82-04CE-4F8B-96AE-73B258DB80F4"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blLiquidacion",
+        "path": "..\\..\\bl\\BLliquidacion\\blLiquidacion.vbproj",
+        "guid": "3306C527-EA9C-4B8E-90A5-D9F0A74B78F0"
+      }
+    ]
+  },
+  {
+    "name": "SlnPenLiquidacionPDF",
+    "path": "proyectos\\SlnPenLiquidacionPDF\\SlnPenLiquidacionPDF.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebPenLiquidacionPDF",
+        "path": "..\\..\\WebPenLiquidacionPDF.vbproj",
+        "guid": "043D774F-70D0-4F29-829E-93ED9F2C70EB"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blPenLiquidacionPDF",
+        "path": "..\\..\\bl\\blPenLiquidacionPDF\\blPenLiquidacionPDF.vbproj",
+        "guid": "B930FB9A-5944-4A40-90B0-1B0DA8546CDD"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blPENResoluciones",
+        "path": "..\\..\\bl\\blPENResoluciones\\blPENResoluciones.vbproj",
+        "guid": "39F058B0-A28A-4C4B-933C-81489B8F75B9"
+      }
+    ]
+  },
+  {
+    "name": "SlnPENProcesoResoluciones",
+    "path": "proyectos\\SlnPENProcesoResoluciones\\SlnPENProcesoResoluciones.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebPENProcesoResoluciones",
+        "path": "..\\..\\WebPENProcesoResoluciones.vbproj",
+        "guid": "BC0386BE-E4B8-4FBC-9424-24E8EA3E8334"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blPENResoluciones",
+        "path": "..\\..\\bl\\blPENResoluciones\\blPENResoluciones.vbproj",
+        "guid": "39F058B0-A28A-4C4B-933C-81489B8F75B9"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "sysPENResoluciones",
+        "path": "..\\..\\sys\\sysPENResoluciones\\sysPENResoluciones.vbproj",
+        "guid": "081444C5-8A82-4B04-B3BD-EDB1F00CF102"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebPENCalculoPensionIndem",
+        "path": "..\\..\\WebPENCalculoPensionIndem.vbproj",
+        "guid": "A636D3B9-76DF-4986-A48A-E6F24A9FAC8F"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blPENCalculoPension",
+        "path": "..\\..\\bl\\BLPENCalculoPension\\blPENCalculoPension.vbproj",
+        "guid": "E72A339D-E884-454F-A4FF-6A2D1C38F166"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "sysPENCalculoPension",
+        "path": "..\\..\\sys\\SysPENCalculoPension\\sysPENCalculoPension.vbproj",
+        "guid": "C4223001-3F8D-4DE8-B8D2-2038BC9CDA00"
+      }
+    ]
+  },
+  {
+    "name": "SlnPENTramite",
+    "path": "proyectos\\SlnPENTramite\\SlnPENTramite.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebPENTramite",
+        "path": "..\\..\\WebPENTramite.vbproj",
+        "guid": "58124DF6-B0C1-4341-BFCC-A17003DF3EF6"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blPENTramite",
+        "path": "..\\..\\bl\\blPENTramite\\blPENTramite.vbproj",
+        "guid": "0CE3BFAA-5DD2-4A32-9678-626C24443E3B"
+      }
+    ]
+  },
+  {
+    "name": "slnPREComite",
+    "path": "proyectos\\slnPREComite\\slnPREComite.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "sysPREComite",
+        "path": "..\\..\\sys\\sysPREComite\\sysPREComite.vbproj",
+        "guid": "810FFC3B-E376-414B-AC2C-9551504FA148"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blPREComite",
+        "path": "..\\..\\bl\\blPREComite\\blPREComite.vbproj",
+        "guid": "930D31A6-02C4-478B-8188-65664522029E"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebPREComite",
+        "path": "..\\..\\WebPREComite.vbproj",
+        "guid": "33F857DA-7CF5-4930-95E5-2515A19AAA71"
+      }
+    ]
+  },
+  {
+    "name": "slnPREPrevencion_2010",
+    "path": "proyectos\\slnPREPrevencion\\slnPREPrevencion_2010.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "sysPREPrevencion",
+        "path": "..\\..\\sys\\sysPREPrevencion\\sysPREPrevencion.vbproj",
+        "guid": "DC579ADD-01D3-48EA-B1E0-05D0BA71E213"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blPrePrevencion",
+        "path": "..\\..\\bl\\blPrePrevencion\\blPrePrevencion.vbproj",
+        "guid": "ABD957B0-FAF4-493F-9163-B31B96DF7A57"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebPrePrevencion",
+        "path": "..\\..\\WebPrePrevencion.vbproj",
+        "guid": "0EEB9463-82DD-44D6-801E-CD6689EA65E1"
+      }
+    ]
+  },
+  {
+    "name": "slnPreSalud",
+    "path": "proyectos\\slnPreSalud\\slnPreSalud.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "sysPreSalud",
+        "path": "..\\..\\sys\\sysPreSalud\\sysPreSalud.vbproj",
+        "guid": "CD45EE00-645C-4047-9459-07210F4025D5"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blPreSalud",
+        "path": "..\\..\\bl\\blPreSalud\\blPreSalud.vbproj",
+        "guid": "70F463A5-DEBF-49D6-861E-E8075E4D9D78"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebPreSalud",
+        "path": "..\\..\\WebPreSalud.vbproj",
+        "guid": "F87ACAE2-1F17-482D-828C-A17881B5EF7B"
+      }
+    ]
+  },
+  {
+    "name": "slnPRESaludOcupacional",
+    "path": "proyectos\\slnPRESaludOcupacional\\slnPRESaludOcupacional.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebPreSaludOcupacional",
+        "path": "..\\..\\WebPreSaludOcupacional.vbproj",
+        "guid": "20E65716-CE6A-410B-AA51-B0C829DFC2F2"
+      }
+    ]
+  },
+  {
+    "name": "slnProcesos",
+    "path": "proyectos\\slnProcesos\\slnProcesos.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebProcesos",
+        "path": "..\\..\\WebProcesos\\WebProcesos.vbproj",
+        "guid": "2187285D-6102-49D5-BB9C-6EDDDF24B0E6"
+      }
+    ]
+  },
+  {
+    "name": "slnProcesos2",
+    "path": "proyectos\\slnProcesos2\\slnProcesos2.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebProcesos2",
+        "path": "..\\..\\WebProcesos2.vbproj",
+        "guid": "36BB5793-C631-46DA-AB6F-8FE83BECEAE8"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blProcesos2",
+        "path": "..\\..\\bl\\blProcesos2\\blProcesos2.vbproj",
+        "guid": "268ADA30-1EA0-43C6-8EF5-DBC6F30985E8"
+      }
+    ]
+  },
+  {
+    "name": "slnSADDocumentos",
+    "path": "proyectos\\slnSADDocumentos\\slnSADDocumentos.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blSADDocumentos",
+        "path": "..\\..\\bl\\blSADDocumentos\\blSADDocumentos.vbproj",
+        "guid": "3D59EE7E-AE1E-4323-9875-C8390D28DC4E"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebSADDocumentos",
+        "path": "..\\..\\WebSADDocumentos.vbproj",
+        "guid": "7802D6B8-ECA8-46FC-934E-E0A7B0EEF5A1"
+      }
+    ]
+  },
+  {
+    "name": "slnServicios",
+    "path": "proyectos\\slnServicios\\slnServicios.sln",
+    "projects": []
+  },
+  {
+    "name": "slnSUBAntecedentesPago",
+    "path": "proyectos\\slnSUBAntecedentesPago\\slnSUBAntecedentesPago.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blSUBAntecedentesPago",
+        "path": "..\\..\\bl\\blSUBAntecedentesPago\\blSUBAntecedentesPago.vbproj",
+        "guid": "C63DA48E-7E7D-44C0-B52A-9028941182B5"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebSUBAntecedentesPago",
+        "path": "..\\..\\WebSUBAntecedentesPago.vbproj",
+        "guid": "C99F4F4E-1E5D-43EA-808B-27A640D4309B"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "sysSUBBusPagos",
+        "path": "..\\..\\sys\\sysSUBBusPagos\\sysSUBBusPagos.vbproj",
+        "guid": "47226E31-5387-40FE-9312-0AE8BC770191"
+      }
+    ]
+  },
+  {
+    "name": "slnSUBCalculoPagoSubsidios",
+    "path": "proyectos\\slnSUBCalculoPagoSubsidios\\slnSUBCalculoPagoSubsidios.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebSUBCalculoPagoSubsidios",
+        "path": "..\\..\\WebSUBCalculoPagoSubsidios.vbproj",
+        "guid": "E1E22972-8548-4132-86D6-C8D57B5E3B1A"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blSUBCalculoPagoSubsidios",
+        "path": "..\\..\\bl\\blSUBCalculoPagoSubsidios\\blSUBCalculoPagoSubsidios.vbproj",
+        "guid": "536FD05B-EB4C-4396-8945-636495DFC314"
+      }
+    ]
+  },
+  {
+    "name": "SlnSUBMantencion",
+    "path": "proyectos\\SlnSUBMantencion\\SlnSUBMantencion.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebSUBMantencion",
+        "path": "..\\..\\WebSUBMantencion.vbproj",
+        "guid": "47844CB5-2ED8-4D0B-AB14-2EE22BFFCB9A"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blSUBMantencion",
+        "path": "..\\..\\bl\\blSUBMantencion\\blSUBMantencion.vbproj",
+        "guid": "060E36DB-D1AF-4EC4-85A0-306BA6343658"
+      }
+    ]
+  },
+  {
+    "name": "slnSUBProvisiones",
+    "path": "proyectos\\slnSUBProvisiones\\slnSUBProvisiones.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebSUBProvisiones",
+        "path": "..\\..\\WebSUBProvisiones.vbproj",
+        "guid": "12DEAF2E-3462-40EF-AF43-98D7E90F69B0"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blProvisiones",
+        "path": "..\\..\\bl\\blProvisiones\\blProvisiones.vbproj",
+        "guid": "DAFA43A1-9725-4613-90CE-16C236ACC746"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "sysProvisiones",
+        "path": "..\\..\\sys\\sysProvisiones\\sysProvisiones.vbproj",
+        "guid": "2AE63BE0-CE0C-4D86-97B3-6FFD4A2D6C5C"
+      }
+    ]
+  },
+  {
+    "name": "slnSubsidiosNew",
+    "path": "proyectos\\slnSubsidiosNew\\slnSubsidiosNew.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebSUBSubsidioNew",
+        "path": "..\\..\\WebSUBSubsidioNew\\WebSUBSubsidioNew.vbproj",
+        "guid": "0BE3622D-5BFB-426B-A9FE-5984F218381A"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "BlSUBSubsidioNew",
+        "path": "..\\..\\bl\\blSUBSubsidioNew\\BlSUBSubsidioNew.vbproj",
+        "guid": "78E7505B-C060-4064-94C1-996D2DD72363"
+      }
+    ]
+  },
+  {
+    "name": "slnTransmisionMan",
+    "path": "proyectos\\SlnTransmisionMan\\slnTransmisionMan.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blTransmisionMan",
+        "path": "..\\..\\bl\\blTransmisionMan\\blTransmisionMan.vbproj",
+        "guid": "AF75C3BA-C24F-45DD-BD94-AAD7C5276D1C"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebTransmisionMan",
+        "path": "..\\..\\WebTransmisionMan.vbproj",
+        "guid": "19F8C6F0-B217-4F69-8919-F4F92371F507"
+      }
+    ]
+  },
+  {
+    "name": "slnTransmisionSUSESO",
+    "path": "proyectos\\slnTransmisionSUSESO\\slnTransmisionSUSESO.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "sysTransmisionSUSESO",
+        "path": "..\\..\\sys\\sysTransmisionSUSESO\\sysTransmisionSUSESO.vbproj",
+        "guid": "EE2BB092-3D92-4B33-9BF6-FE9A0590AE9B"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "BlTransmisionSUSESO",
+        "path": "..\\..\\bl\\BlTransmisionSUSESO\\BlTransmisionSUSESO.vbproj",
+        "guid": "C5844931-189B-4166-A4C5-239040F03F7E"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebTransmisionSUSESO",
+        "path": "..\\..\\WebTransmisionSUSESO.vbproj",
+        "guid": "8EF1B411-AE03-48D8-934B-4A6FA6B7C8E1"
+      }
+    ]
+  },
+  {
+    "name": "WebWPF2",
+    "path": "proyectos\\WebApplication1\\WebWPF2.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebWPF",
+        "path": "WebApplication1\\WebWPF.vbproj",
+        "guid": "E9454452-8B1B-4B39-80F0-92675D21E78F"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blWPF2",
+        "path": "..\\..\\bl\\blWPF2\\blWPF2.vbproj",
+        "guid": "9D9D8835-969F-48D1-8497-7AB208334CB1"
+      }
+    ]
+  },
+  {
+    "name": "slnMensajes",
+    "path": "proyectos\\WebApplication2\\slnMensajes.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebMenajes",
+        "path": "WebApplication2\\WebMenajes.vbproj",
+        "guid": "EDB13487-C24E-4453-A81C-0847944B1218"
+      }
+    ]
+  },
+  {
+    "name": "SlnMensajes",
+    "path": "proyectos\\WebMensajes\\SlnMensajes.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebMensajes",
+        "path": "WebMensajes\\WebMensajes.vbproj",
+        "guid": "C0F34E63-86D9-4821-83B0-EC563883A4BC"
+      }
+    ]
+  },
+  {
+    "name": "slnSUBProvisiones",
+    "path": "proyectos\\slnSUBProvisiones\\Backup\\slnSUBProvisiones.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebSUBProvisiones",
+        "path": "..\\..\\WebSUBProvisiones.vbproj",
+        "guid": "12DEAF2E-3462-40EF-AF43-98D7E90F69B0"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blProvisiones",
+        "path": "..\\..\\bl\\blProvisiones\\blProvisiones.vbproj",
+        "guid": "DAFA43A1-9725-4613-90CE-16C236ACC746"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "sysProvisiones",
+        "path": "..\\..\\sys\\sysProvisiones\\sysProvisiones.vbproj",
+        "guid": "2AE63BE0-CE0C-4D86-97B3-6FFD4A2D6C5C"
+      }
+    ]
+  },
+  {
+    "name": "slnSUBAntecedentesPago",
+    "path": "proyectos\\slnSUBAntecedentesPago\\Backup1\\slnSUBAntecedentesPago.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blSUBAntecedentesPago",
+        "path": "..\\..\\bl\\blSUBAntecedentesPago\\blSUBAntecedentesPago.vbproj",
+        "guid": "C63DA48E-7E7D-44C0-B52A-9028941182B5"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebSUBAntecedentesPago",
+        "path": "..\\..\\WebSUBAntecedentesPago.vbproj",
+        "guid": "C99F4F4E-1E5D-43EA-808B-27A640D4309B"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "sysSUBBusPagos",
+        "path": "..\\..\\sys\\sysSUBBusPagos\\sysSUBBusPagos.vbproj",
+        "guid": "47226E31-5387-40FE-9312-0AE8BC770191"
+      }
+    ]
+  },
+  {
+    "name": "slnMEDUPoliprogramado",
+    "path": "proyectos\\slnMEDUPoliprogramado\\Backup\\slnMEDUPoliprogramado.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "sysMEDUPoliprogramado",
+        "path": "..\\..\\sys\\sysMEDUPoliprogramado\\sysMEDUPoliprogramado.vbproj",
+        "guid": "F9D460A4-7F70-4852-81FD-02AF08BF336E"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blMEDUPoliprogramado",
+        "path": "..\\..\\bl\\blMEDUPoliprogramado\\blMEDUPoliprogramado.vbproj",
+        "guid": "DF8CBD1E-BA6B-4C73-9CFE-8218B777E9F0"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebMEDUPoliprogramado",
+        "path": "..\\..\\WebMEDUPoliprogramado.vbproj",
+        "guid": "342DD819-C4F1-4978-A4AE-18AB259CDD52"
+      }
+    ]
+  },
+  {
+    "name": "slnMedServicios",
+    "path": "proyectos\\slnMedServicios\\Backup\\slnMedServicios.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "sysMedServicios",
+        "path": "..\\..\\sys\\sysMedServicios\\sysMedServicios.vbproj",
+        "guid": "5DFA4F69-47F0-4BE0-B52F-C141C8F8AB9D"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blMedServicios",
+        "path": "..\\..\\bl\\blMedServicios\\blMedServicios.vbproj",
+        "guid": "A4B80B46-A07C-46B6-AA3F-C741AABF5D48"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebMEDServicios",
+        "path": "..\\..\\WebMEDServicios.vbproj",
+        "guid": "A9E5F949-7522-4E83-91CF-03C81870E7A1"
+      }
+    ]
+  },
+  {
+    "name": "slnMEDInvestigacion",
+    "path": "proyectos\\slnMEDInvestigacion\\Backup\\slnMEDInvestigacion.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "sysFunGenerales",
+        "path": "..\\..\\sys\\sysFunGenerales\\sysFunGenerales.vbproj",
+        "guid": "E237CD6A-5F2D-42B0-AE39-E5BD44F3D01A"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "sysPARGenerales",
+        "path": "..\\..\\sys\\sysPARGenerales\\sysPARGenerales.vbproj",
+        "guid": "48780935-61D4-4DEA-A282-A5DD81EA2067"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blParGenerales",
+        "path": "..\\..\\bl\\blParGenerales\\blParGenerales.vbproj",
+        "guid": "00E702A4-0FE1-4B40-A61E-3E569A3FC99D"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blFunGenerales",
+        "path": "..\\..\\bl\\blFunGenerales\\blFunGenerales.vbproj",
+        "guid": "EF6F344C-3E12-48CB-92FB-73B65746D15D"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebMEDInvestigacion",
+        "path": "..\\..\\WebMEDInvestigacion.vbproj",
+        "guid": "F1FC1956-466D-4695-887B-FD0897E98761"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "BLMedInvestigacion",
+        "path": "..\\..\\bl\\blMedInvestigacion\\BLMedInvestigacion.vbproj",
+        "guid": "B23821FC-53A5-43BB-A57A-A15176BFA83F"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "sysMEDInvestigacion",
+        "path": "..\\..\\sys\\sysMEDInvestigacion\\sysMEDInvestigacion.vbproj",
+        "guid": "E4B6A41E-1931-48EB-8818-8433425142FD"
+      }
+    ]
+  },
+  {
+    "name": "slnMEDDespacho_2010",
+    "path": "proyectos\\slnMEDDespacho\\Backup\\slnMEDDespacho_2010.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "sysMEDDespacho",
+        "path": "..\\..\\sys\\sysMEDDespacho\\sysMEDDespacho.vbproj",
+        "guid": "FE59F126-F9FB-4375-BF86-2E44C2F6F6A8"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blMedDespacho",
+        "path": "..\\..\\bl\\blMedDespacho\\blMedDespacho.vbproj",
+        "guid": "1DE3F32F-5DE0-434F-B671-D636687D1D0A"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebMEDDespacho",
+        "path": "..\\..\\WebMEDDespacho.vbproj",
+        "guid": "81247585-3D4D-434F-9A35-064296B2DC23"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blMEDUPoliprogramado",
+        "path": "..\\..\\bl\\blMEDUPoliprogramado\\blMEDUPoliprogramado.vbproj",
+        "guid": "DF8CBD1E-BA6B-4C73-9CFE-8218B777E9F0"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "sysMEDUPoliprogramado",
+        "path": "..\\..\\sys\\sysMEDUPoliprogramado\\sysMEDUPoliprogramado.vbproj",
+        "guid": "F9D460A4-7F70-4852-81FD-02AF08BF336E"
+      }
+    ]
+  },
+  {
+    "name": "slnMEDAgendaNew",
+    "path": "proyectos\\slnMEDAgendaNew\\Backup\\slnMEDAgendaNew.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "sysMEDAgendaNew",
+        "path": "..\\..\\sys\\sysMEDAgendaNew\\sysMEDAgendaNew.vbproj",
+        "guid": "48B1ACD8-42EA-43DD-9E8F-3D14F0513FDB"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "BlMedAgendaNew",
+        "path": "..\\..\\bl\\blMedAgendaNew\\BlMedAgendaNew.vbproj",
+        "guid": "68F8E01D-9155-4405-A97A-E694206E4000"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebMedAgendaNew",
+        "path": "..\\..\\WebMedAgendaNew.vbproj",
+        "guid": "2CB28A6A-2418-4497-B372-5C6BE85B6731"
+      }
+    ]
+  },
+  {
+    "name": "slnMEDAgenda",
+    "path": "proyectos\\slnMEDAgenda\\Backup\\slnMEDAgenda.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "sysMEDAgenda",
+        "path": "..\\..\\sys\\sysMEDAgenda\\sysMEDAgenda.vbproj",
+        "guid": "C3534033-857C-4F27-890A-A631CA632F69"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "BLMedAgenda",
+        "path": "..\\..\\bl\\blMedAgenda\\BLMedAgenda.vbproj",
+        "guid": "3706C4C8-03EA-4CAB-9709-BF40A86B3259"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebMEDAgenda",
+        "path": "..\\..\\WebMEDAgenda.vbproj",
+        "guid": "8141AC1F-D6D7-46CE-A643-8E26D5759C60"
+      }
+    ]
+  },
+  {
+    "name": "slnMEDAdmision",
+    "path": "proyectos\\slnMEDAdmision\\Backup\\slnMEDAdmision.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "sysMEDAdmision",
+        "path": "..\\..\\sys\\sysMEDAdmision\\sysMEDAdmision.vbproj",
+        "guid": "CB75E970-68D9-4C8C-9C99-B2E4066386CA"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blMedAdmision",
+        "path": "..\\..\\bl\\blMedAdmision\\blMedAdmision.vbproj",
+        "guid": "CBB691EA-7E29-401C-A806-62A71952C1A6"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "webMedAdmision",
+        "path": "..\\..\\webMedAdmision.vbproj",
+        "guid": "8E2C1528-51F6-404A-AE0A-5A40D5C71599"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "sysADHAdherentes",
+        "path": "..\\..\\sys\\sysADHAdherentes\\sysADHAdherentes.vbproj",
+        "guid": "F5A88443-B236-4C9E-BF9A-C963707FAEA7"
+      }
+    ]
+  },
+  {
+    "name": "slnMEDAdministracion",
+    "path": "proyectos\\slnMEDAdministracion\\Backup\\slnMEDAdministracion.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "sysMEDAdministracion",
+        "path": "..\\..\\sys\\sysMEDAdministracion\\sysMEDAdministracion.vbproj",
+        "guid": "47A503EE-AE7F-4B5B-9B62-60C37D7BA545"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "BlMedAdministracion",
+        "path": "..\\..\\bl\\blMedAdministracion\\BlMedAdministracion.vbproj",
+        "guid": "F53691EE-6B8D-4202-994F-4B8B85C0126B"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebMEDAdministracion",
+        "path": "..\\..\\WebMEDAdministracion.vbproj",
+        "guid": "2684702A-2FFB-46AC-ABEE-71331162169E"
+      }
+    ]
+  },
+  {
+    "name": "slnInformesSubsidios",
+    "path": "proyectos\\slnInformesSubsidios\\Backup\\slnInformesSubsidios.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "sysInformeSubsidio",
+        "path": "..\\..\\sys\\sysInformesSubsidios\\sysInformeSubsidio.vbproj",
+        "guid": "CAECE286-D24F-4B58-8004-2E8ADF378BEE"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blInformeSubsidio",
+        "path": "..\\..\\bl\\blInformesSubsidios\\blInformeSubsidio.vbproj",
+        "guid": "BC42CF51-ADB9-4AFD-B1E3-837DB93FBCB0"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebInformesSubsidios",
+        "path": "..\\..\\WebInformesSubsidios.vbproj",
+        "guid": "198E571C-FD59-48C5-8781-6B75ED9BFCA0"
+      }
+    ]
+  },
+  {
+    "name": "slnIndemnizacion",
+    "path": "proyectos\\slnIndemnizacion\\Backup\\slnIndemnizacion.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "BLIndemnizacion",
+        "path": "..\\..\\bl\\blIndemnizacion\\BLIndemnizacion.vbproj",
+        "guid": "219ADA54-2DC3-4A30-9124-FED2420C9A33"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebIndemnizacion",
+        "path": "..\\..\\WebIndemnizacion.vbproj",
+        "guid": "57FAE651-8D3D-4626-94C1-D3AA27AE36DE"
+      }
+    ]
+  },
+  {
+    "name": "slnIndemnizacion",
+    "path": "proyectos\\slnIndemnizacion\\Backup6\\slnIndemnizacion.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "BLIndemnizacion",
+        "path": "..\\..\\bl\\blIndemnizacion\\BLIndemnizacion.vbproj",
+        "guid": "219ADA54-2DC3-4A30-9124-FED2420C9A33"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebIndemnizacion",
+        "path": "..\\..\\WebIndemnizacion.vbproj",
+        "guid": "57FAE651-8D3D-4626-94C1-D3AA27AE36DE"
+      }
+    ]
+  },
+  {
+    "name": "slnFicha",
+    "path": "proyectos\\slnFiscalizacionRemota\\slnFicha\\slnFicha.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blFicha",
+        "path": "..\\..\\bl\\blFicha\\blFicha.vbproj",
+        "guid": "0C33AA14-543A-4FB8-8F0D-E291F98A3B69"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebFicha",
+        "path": "..\\..\\WebFicha.vbproj",
+        "guid": "6B6F0579-9398-4CA3-A64F-30033CA840BB"
+      }
+    ]
+  },
+  {
+    "name": "slnFicha",
+    "path": "proyectos\\slnFicha\\Backup\\slnFicha.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebFicha",
+        "path": "..\\..\\WebFicha.vbproj",
+        "guid": "6B6F0579-9398-4CA3-A64F-30033CA840BB"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blFicha",
+        "path": "..\\..\\bl\\blFicha\\blFicha.vbproj",
+        "guid": "0C33AA14-543A-4FB8-8F0D-E291F98A3B69"
+      }
+    ]
+  },
+  {
+    "name": "slnDocVisualiza1_2010",
+    "path": "proyectos\\slnDocVisualiza1\\Backup\\slnDocVisualiza1_2010.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blDocVisualiza1",
+        "path": "..\\..\\bl\\blDocVisualiza1\\blDocVisualiza1.vbproj",
+        "guid": "1FD12A14-DD1B-4FA2-B248-F11DFB68D4E8"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebDocVisualiza1",
+        "path": "..\\..\\WebDocVisualiza1.vbproj",
+        "guid": "9305F7E6-CC9B-4B6C-8233-9A7A4E86D66C"
+      }
+    ]
+  },
+  {
+    "name": "slnCOTProcRecaud_2010",
+    "path": "proyectos\\slnCOTProcRecaud\\Backup\\slnCOTProcRecaud_2010.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "webCOTProcRecaud",
+        "path": "..\\..\\webCOTProcRecaud.vbproj",
+        "guid": "CD3E1794-D56E-46A5-9EA8-C77F5218024C"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blCOTProcRecaud",
+        "path": "..\\..\\bl\\blCOTProcRecaud\\blCOTProcRecaud.vbproj",
+        "guid": "F00A9391-30F6-45D4-B61B-81191D410DFE"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "sysCOTProcRecaud",
+        "path": "..\\..\\sys\\sysCOTProcRecaud\\sysCOTProcRecaud.vbproj",
+        "guid": "3D531086-148E-442F-B12B-CA128E75CCE0"
+      }
+    ]
+  },
+  {
+    "name": "slnCOTCompDevol",
+    "path": "proyectos\\slnCOTCompDevol\\Backup2\\slnCOTCompDevol.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "webCOTCompDevol",
+        "path": "..\\..\\webCOTCompDevol.vbproj",
+        "guid": "536B8BFD-BDBE-4438-9FB1-EB83454785D4"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "sysCOTCompDevol",
+        "path": "..\\..\\sys\\sysCOTCompDevol\\sysCOTCompDevol.vbproj",
+        "guid": "03BB0AB4-0A4C-496D-B5CE-7655E526E11B"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blCOTCompDevol",
+        "path": "..\\..\\bl\\blCOTCompDevol\\blCOTCompDevol.vbproj",
+        "guid": "44ACC92D-9075-4858-98A7-0B7F5985F3C1"
+      }
+    ]
+  },
+  {
+    "name": "slnBusquedas",
+    "path": "proyectos\\slnBusquedas\\Backup\\slnBusquedas.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blBusquedas",
+        "path": "..\\..\\bl\\blBusquedas\\blBusquedas.vbproj",
+        "guid": "4DD58480-F4B4-4657-8A2E-FC05FF2AC6A1"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebBusquedas",
+        "path": "..\\..\\WebBusquedas.vbproj",
+        "guid": "CC807F18-F818-4F1A-930D-3A3B336BC820"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "sysADHAdherentes",
+        "path": "..\\..\\sys\\sysADHAdherentes\\sysADHAdherentes.vbproj",
+        "guid": "F5A88443-B236-4C9E-BF9A-C963707FAEA7"
+      }
+    ]
+  },
+  {
+    "name": "slnADHTraspaso_2010",
+    "path": "proyectos\\slnADHTraspaso\\Backup\\slnADHTraspaso_2010.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "sysADHTraspaso",
+        "path": "..\\..\\sys\\sysADHTraspaso\\sysADHTraspaso.vbproj",
+        "guid": "4D99DE26-1388-4DE1-A966-1688AEA17686"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blADHTraspaso",
+        "path": "..\\..\\bl\\blADHTraspaso\\blADHTraspaso.vbproj",
+        "guid": "C54B4FE4-78B9-4EA9-BA8C-261F37EEE7DD"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebADHTraspaso",
+        "path": "..\\..\\WebADHTraspaso.vbproj",
+        "guid": "3A0B6DE9-0A87-4B7F-88EB-DA925ECD5DAD"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blParGenerales",
+        "path": "..\\..\\bl\\blParGenerales\\blParGenerales.vbproj",
+        "guid": "00E702A4-0FE1-4B40-A61E-3E569A3FC99D"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "sysPARGenerales",
+        "path": "..\\..\\sys\\sysPARGenerales\\sysPARGenerales.vbproj",
+        "guid": "48780935-61D4-4DEA-A282-A5DD81EA2067"
+      }
+    ]
+  },
+  {
+    "name": "slnADHSolicitud2_2010",
+    "path": "proyectos\\slnADHSolicitud2\\Backup\\slnADHSolicitud2_2010.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blADHSolicitud2",
+        "path": "..\\..\\bl\\blADHSolicitud2\\blADHSolicitud2.vbproj",
+        "guid": "A81B3A80-B318-4337-8C45-68B2E1CB464E"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebADHSolicitud2",
+        "path": "..\\..\\WebADHSolicitud2.vbproj",
+        "guid": "31534408-5DD5-4746-9A8B-69DA4039A54C"
+      }
+    ]
+  },
+  {
+    "name": "slnADHSolicitud_2010",
+    "path": "proyectos\\slnADHSolicitud\\Backup\\slnADHSolicitud_2010.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "sysADHSolicitud",
+        "path": "..\\..\\sys\\sysADHSolicitud\\sysADHSolicitud.vbproj",
+        "guid": "5BF243A4-2733-475F-8412-58AAC59DC271"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blADHSolicitud",
+        "path": "..\\..\\bl\\blADHSolicitud\\blADHSolicitud.vbproj",
+        "guid": "62E20297-D45E-4427-AAD3-ADBA0C814716"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebADHSolicitud",
+        "path": "..\\..\\WebADHSolicitud.vbproj",
+        "guid": "6C297C7E-C81D-4085-A8FE-8C7423BE429F"
+      }
+    ]
+  },
+  {
+    "name": "slnADHEspecial",
+    "path": "proyectos\\slnADHEspecial\\Backup\\slnADHEspecial.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebADHEspecial",
+        "path": "..\\..\\WebADHEspecial.vbproj",
+        "guid": "141B7DD4-EF71-46DB-91E8-A4C2BACC2055"
+      }
+    ]
+  },
+  {
+    "name": "slnADHContratos",
+    "path": "proyectos\\slnADHContratos\\Backup\\slnADHContratos.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "sysADHContratos",
+        "path": "..\\..\\sys\\sysADHContratos\\sysADHContratos.vbproj",
+        "guid": "C07E3CF6-1694-4E23-9953-566CB00DEBCB"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blADHContratos",
+        "path": "..\\..\\bl\\blADHContratos\\blADHContratos.vbproj",
+        "guid": "20C79609-9AA7-40FA-ACA6-92D92BD7ACAF"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebADHContratos",
+        "path": "..\\..\\WebADHContratos.vbproj",
+        "guid": "9F3FA852-75D8-40D7-8B79-42B4D7B7034A"
+      }
+    ]
+  },
+  {
+    "name": "slnCC",
+    "path": "cc\\slnCC\\slnCC.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "ccMED",
+        "path": "ccBASE\\ccMED.vbproj",
+        "guid": "063FBC8F-EA78-4038-B9FC-46337483BC16"
+      }
+    ]
+  },
+  {
+    "name": "blCalculador",
+    "path": "bl\\blCalculador\\blCalculador.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blCalculador",
+        "path": "blCalculador.vbproj",
+        "guid": "E383DEFB-B760-4831-A166-98BE99E98CBF"
+      }
+    ]
+  },
+  {
+    "name": "blEvaluador",
+    "path": "bl\\blEvaluador\\blEvaluador.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blEvaluador",
+        "path": "blEvaluador.vbproj",
+        "guid": "E03B46D6-0460-4409-A90D-0A5971545744"
+      }
+    ]
+  },
+  {
+    "name": "blLiquidacion",
+    "path": "bl\\blLiquidacion\\blLiquidacion.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blLiquidacion",
+        "path": "blLiquidacion.vbproj",
+        "guid": "3306C527-EA9C-4B8E-90A5-D9F0A74B78F0"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blCalculador",
+        "path": "..\\blCalculador\\blCalculador.vbproj",
+        "guid": "E383DEFB-B760-4831-A166-98BE99E98CBF"
+      }
+    ]
+  },
+  {
+    "name": "SlnPENProcesoResoluciones",
+    "path": "bl\\blPENResoluciones\\SlnPENProcesoResoluciones.root\\SlnPENProcesoResoluciones\\SlnPENProcesoResoluciones.sln",
+    "projects": [
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebPENProcesoResoluciones",
+        "path": "http://localhost/MUT/Web/WebPENProcesoResoluciones/WebPENProcesoResoluciones.vbproj",
+        "guid": "BC0386BE-E4B8-4FBC-9424-24E8EA3E8334"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blPENResoluciones",
+        "path": "..\\..\\BL\\BlPenResoluciones\\blPENResoluciones.vbproj",
+        "guid": "39F058B0-A28A-4C4B-933C-81489B8F75B9"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "sysPENResoluciones",
+        "path": "..\\..\\SYS\\sysPENResoluciones\\sysPENResoluciones.vbproj",
+        "guid": "081444C5-8A82-4B04-B3BD-EDB1F00CF102"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "WebPENCalculoPensionIndem",
+        "path": "http://localhost/MUT/web/WebPENCalculoPensionIndem/WebPENCalculoPensionIndem.vbproj",
+        "guid": "A636D3B9-76DF-4986-A48A-E6F24A9FAC8F"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "sysPENCalculoPension",
+        "path": "..\\..\\SYS\\sysPENCalculoPension\\sysPENCalculoPension.vbproj",
+        "guid": "C4223001-3F8D-4DE8-B8D2-2038BC9CDA00"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "blPENCalculoPension",
+        "path": "..\\..\\BL\\BlPENCalculoPension\\blPENCalculoPension.vbproj",
+        "guid": "E72A339D-E884-454F-A4FF-6A2D1C38F166"
+      },
+      {
+        "type_guid": "F184B08F-C81C-45F6-A57F-5ABD9991F28F",
+        "name": "BlIstSIAGF",
+        "path": "http://localhost/MUT/Bl/BlIstSIAGF/BlIstSIAGF.vbproj",
+        "guid": "F1D69DA7-ECDF-456D-875F-E4D8A0C03F46"
+      }
+    ]
+  }
+]

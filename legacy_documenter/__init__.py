@@ -1,0 +1,1 @@
+"""Legacy .NET documentation analyzer."""
