@@ -1,0 +1,66 @@
+{
+  "examples": {
+    "A_explicit_classification": {
+      "approval": "NOT_PERFORMED",
+      "candidate_natures": [],
+      "canonical_knowledge": "NOT_GENERATED",
+      "classification_id": "CLS-6a91ea6e93717d773422718a2aaf222c6e4f92a9c12485bd616f7471398b83d2",
+      "classification_method": "EXPLICIT",
+      "classified_by": "Technical Lead (fixture)",
+      "knowledge_statement": "NOT_CREATED",
+      "material_id": "MAT-1fdd95aa454f0b8690dc7d769b63843f9c7678bb7c85b679a4c71fdc2398486c",
+      "rationale": "Fixture: explicitly declared as architecture documentation.",
+      "selected_nature": "ARCHITECTURE",
+      "source_type": "PROJECT_DOCUMENT",
+      "status": "CLASSIFIED"
+    },
+    "B_different_source_and_nature": {
+      "approval": "NOT_PERFORMED",
+      "candidate_natures": [],
+      "canonical_knowledge": "NOT_GENERATED",
+      "classification_id": "CLS-ee4fb0d692cac4459b5f4f0657e6bcd696bd250e902b5a469cc6ddb7dfc485cd",
+      "classification_method": "EXPLICIT",
+      "classified_by": null,
+      "knowledge_statement": "NOT_CREATED",
+      "material_id": "MAT-5cf1d1876ad520113e79e12257a5936238651e10f68e3937ec101b8f0572c767",
+      "rationale": "Fixture: demonstrates source_type/nature independence (HUMAN_REQUIREMENT -> BUSINESS_RULE).",
+      "selected_nature": "BUSINESS_RULE",
+      "source_type": "HUMAN_REQUIREMENT",
+      "status": "CLASSIFIED"
+    },
+    "C_unclassified": {
+      "approval": "NOT_PERFORMED",
+      "candidate_natures": [],
+      "canonical_knowledge": "NOT_GENERATED",
+      "classification_id": "CLS-bdc6f9e967bbe1cbff8dc282e9353fc911ca117a5ce5abf66f29589d7cfc14f8",
+      "classification_method": "UNRESOLVED",
+      "classified_by": null,
+      "knowledge_statement": "NOT_CREATED",
+      "material_id": "MAT-f5e384a20f0b9833d44c462bb85f24f4f2caae18c872783458d8cfc6a5bfa463",
+      "rationale": null,
+      "selected_nature": null,
+      "source_type": "BUSINESS_CONTEXT",
+      "status": "UNCLASSIFIED"
+    },
+    "D_ambiguous": {
+      "approval": "NOT_PERFORMED",
+      "candidate_natures": [
+        "FLOW",
+        "PROCESS"
+      ],
+      "canonical_knowledge": "NOT_GENERATED",
+      "classification_id": "CLS-2242136850313537f30f98c9b0f6e042bc88ad537e337ec014474c469efb2593",
+      "classification_method": "EXPLICIT",
+      "classified_by": null,
+      "knowledge_statement": "NOT_CREATED",
+      "material_id": "MAT-b02f0847b90b4f28542c9365703f6ba1fed71c231fa8c1b9358da653d86c78cf",
+      "rationale": "Fixture: ambiguous between a full process and one specific flow within it.",
+      "selected_nature": null,
+      "source_type": "PROJECT_DOCUMENT",
+      "status": "AMBIGUOUS"
+    }
+  },
+  "kind": "KNOWLEDGE_CLASSIFICATION_EXAMPLE_FIXTURE",
+  "note": "Synthetic example only. SOURCE_TYPE_IS_NOT_KNOWLEDGE_NATURE. CLASSIFIED_IS_NOT_APPROVED_KNOWLEDGE: none of these classifications are approved, canonical, or promoted to a KnowledgeStatement merely by existing.",
+  "schema_version": "V4-R5"
+}

@@ -1,0 +1,138 @@
+{
+  "ai_boundary": "AI_PROPOSED is reserved in the ClassificationMethod enum for a future round; R5 never produces it and makes no LLM/provider call.",
+  "ambiguity_policy": "AMBIGUOUS requires at least two distinct candidates and never auto-selects a winner.",
+  "approval_distinction": "ClassificationRecord carries no approved/approval_status/authoritative_truth field. CLASSIFIED is a resolution state, not a Technical Lead approval (R9).",
+  "batch_policy": "classify_batch evaluates each request independently and preserves original input order in both accepted and rejected lists.",
+  "candidate_policy": "candidate_natures is canonicalized to a duplicate-free tuple sorted by enum value before storage; unknown/invalid enum values are rejected, never coerced.",
+  "canonical_knowledge_distinction": "Classification never creates a KnowledgeStatement or any canonical Knowledge Source content (R10).",
+  "classification_methods": [
+    "AI_PROPOSED",
+    "DETERMINISTIC_RULE",
+    "EXPLICIT",
+    "UNRESOLVED"
+  ],
+  "classification_record_contract": "ClassificationRecord{classification_id, material_id, source_type, status, classification_method, selected_nature?, candidate_natures[], rationale?, classified_by?, metadata}. CLASSIFIED requires exactly one selected_nature and no candidates; UNCLASSIFIED requires neither; AMBIGUOUS requires no selected_nature and >=2 distinct candidates.",
+  "classification_statuses": [
+    "AMBIGUOUS",
+    "CLASSIFIED",
+    "UNCLASSIFIED"
+  ],
+  "contract_kind": "KNOWLEDGE_CLASSIFICATION_CONTRACT_PROJECTION",
+  "external_io_policy": "No file open, network fetch, API call, or directory scan occurs anywhere in this module. Classification operates only on an already-ingested MaterialItem and explicitly supplied enum values/text.",
+  "failure_isolation_policy": "One invalid batch request is rejected with a sanitized, deterministic reason; it never removes or corrupts another request's acceptance.",
+  "identity_policy": "classification_id is derived via stable_id from (material_id, status, selected_nature, canonical candidate tuple, classification_method) only — rationale/classified_by/metadata are excluded from identity as attribution/explanatory data, not decision data.",
+  "knowledge_natures": [
+    {
+      "nature": "ARCHITECTURE",
+      "notes": "May describe an existing (descriptive) or intended (prescriptive) architecture.",
+      "prescriptive_or_descriptive": "context-dependent",
+      "semantic_role": "Architectural description, principle, topology, component relationship, or technical structural design."
+    },
+    {
+      "nature": "BUSINESS_RULE",
+      "notes": "Not automatically equivalent to corporate governance NORM.",
+      "prescriptive_or_descriptive": "prescriptive",
+      "semantic_role": "Rule belonging to business/domain behavior."
+    },
+    {
+      "nature": "CATALOG",
+      "notes": "A structural listing, not a narrative process description.",
+      "prescriptive_or_descriptive": "descriptive",
+      "semantic_role": "Inventory/listing of available or existing entities, capabilities, or resources."
+    },
+    {
+      "nature": "CONSTRAINT",
+      "notes": "A bounding condition, not evidence that the current system already satisfies or violates it.",
+      "prescriptive_or_descriptive": "prescriptive",
+      "semantic_role": "Technical, organizational, regulatory, operational, or project constraint."
+    },
+    {
+      "nature": "DECISION",
+      "notes": "Classification as DECISION does not itself establish approval authority.",
+      "prescriptive_or_descriptive": "descriptive",
+      "semantic_role": "Explicit choice among alternatives or direction selected by an authorized process/person."
+    },
+    {
+      "nature": "EXISTING_IMPLEMENTATION",
+      "notes": "Classification alone does not prove the implementation currently exists; evidence/provenance is still required by later knowledge stages.",
+      "prescriptive_or_descriptive": "descriptive",
+      "semantic_role": "Description of what is currently implemented."
+    },
+    {
+      "nature": "FLOW",
+      "notes": "May be narrower than a PROCESS; R5 does not attempt semantic decomposition.",
+      "prescriptive_or_descriptive": "context-dependent",
+      "semantic_role": "Specific flow/path through a process/system."
+    },
+    {
+      "nature": "GLOSSARY",
+      "notes": "Definitional reference material.",
+      "prescriptive_or_descriptive": "descriptive",
+      "semantic_role": "Defined terminology and vocabulary."
+    },
+    {
+      "nature": "LESSON",
+      "notes": "Reflective/retrospective in nature, not a mandatory rule by itself.",
+      "prescriptive_or_descriptive": "descriptive",
+      "semantic_role": "Recorded lesson learned or experience-derived guidance."
+    },
+    {
+      "nature": "LEVANTAMIENTO",
+      "notes": "Describes what has been observed/documented, not what must be.",
+      "prescriptive_or_descriptive": "descriptive",
+      "semantic_role": "Descriptive inventory or documented observation of the current state (current tool inventory, current agent inventory, system survey, technical/functional survey)."
+    },
+    {
+      "nature": "NEED",
+      "notes": "Precedes REQUIREMENT in maturity; not itself a formal commitment.",
+      "prescriptive_or_descriptive": "context-dependent",
+      "semantic_role": "Need, problem, or objective that motivates work but may not yet be a formal requirement."
+    },
+    {
+      "nature": "NORM",
+      "notes": "Does not imply implementation or compliance.",
+      "prescriptive_or_descriptive": "prescriptive",
+      "semantic_role": "Prescriptive rule defining how something should be done (governance rule, development standard, security rule, methodology, mandatory operating rule)."
+    },
+    {
+      "nature": "PROCESS",
+      "notes": "May be broader than a single FLOW; R5 does not decompose one into the other.",
+      "prescriptive_or_descriptive": "context-dependent",
+      "semantic_role": "Ordered business or technical process."
+    },
+    {
+      "nature": "PROJECT",
+      "notes": "Scope is the project itself, not a specific rule/process/architecture within it.",
+      "prescriptive_or_descriptive": "context-dependent",
+      "semantic_role": "Knowledge describing a project, accompaniment, initiative, or project-specific context."
+    },
+    {
+      "nature": "REQUIREMENT",
+      "notes": "Do not assume REQUIREMENT implies TO_BE unless temporal state was explicitly established elsewhere.",
+      "prescriptive_or_descriptive": "prescriptive",
+      "semantic_role": "Explicit requirement stating something that must be satisfied."
+    },
+    {
+      "nature": "RESOLUTION",
+      "notes": "Kept distinct from generic DECISION only when the caller explicitly distinguishes them.",
+      "prescriptive_or_descriptive": "descriptive",
+      "semantic_role": "Formal resolution/outcome addressing a previously identified matter."
+    },
+    {
+      "nature": "TRAINING",
+      "notes": "Instructional content aimed at people, not a system specification.",
+      "prescriptive_or_descriptive": "descriptive",
+      "semantic_role": "Training, onboarding, or learning material."
+    }
+  ],
+  "material_linkage": "By material_id only (legacy_documenter.knowledge.domain.models.MaterialItem.material_id); no material payload is duplicated inside a ClassificationRecord.",
+  "module": "legacy_documenter.knowledge.classification",
+  "note": "SOURCE_TYPE_IS_NOT_KNOWLEDGE_NATURE. CLASSIFIED_IS_NOT_APPROVED_KNOWLEDGE. Classification records what semantic nature has been explicitly established for already-ingested material; it never establishes truth, currency, approval, or canonical status.",
+  "provenance_distinction": "Classification never creates, rewrites, or reads R3 ProvenanceGraph state; the two concerns are independent and both keyed by material_id only.",
+  "schema_version": "V4-R5",
+  "security_policy": "rationale, classified_by, and metadata are sanitized (reusing the existing sanitizer and R2's metadata validator) before storage.",
+  "serialization_policy": "candidate_natures is always stored pre-sorted; two ClassificationRecords built from the same candidate set in different input orders are structurally identical and serialize byte-identically.",
+  "source_type_distinction": "source_type is copied from the classified MaterialItem and never mutated. It is preserved for correlation only, never used to derive selected_nature.",
+  "temporal_distinction": "Classification never reads or infers MaterialItem.temporal_state; the same selected_nature is valid regardless of AS_IS/TO_BE/HISTORICAL/None.",
+  "unclassified_policy": "UNCLASSIFIED requires no selected_nature and no candidates; it is a legitimate, permanent-until-revisited lifecycle state, not an error or a default fallback."
+}
