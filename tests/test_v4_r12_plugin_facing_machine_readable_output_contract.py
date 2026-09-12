@@ -4,6 +4,7 @@ import dataclasses
 import hashlib
 import json
 import pathlib
+import re
 import subprocess
 import sys
 import unittest
@@ -71,8 +72,16 @@ class EntryGateTests(unittest.TestCase):
         self.assertTrue(hasattr(CanonicalKnowledgeCollection, "list"))
 
     def test_project_state_records_r11_approved(self):
+        # Historical precondition: at the time R12 began, R11 had to be approved.
+        # `PROJECT_STATE.json` is a live pointer, not a historical log, so once R12
+        # (and later rounds) close and advance it, a hardcoded "== V4-R11" literal
+        # goes stale by design (see V4-R13 regression finding REG-001). The durable
+        # invariant this test protects is "R11 or later is approved", not an exact
+        # snapshot value.
         state = json.loads(Path("PROJECT_STATE.json").read_text(encoding="utf-8"))
-        self.assertEqual(state.get("latest_approved_round"), "V4-R11")
+        match = re.search(r"V4-R(\d+)", state.get("latest_approved_round", ""))
+        self.assertIsNotNone(match)
+        self.assertGreaterEqual(int(match.group(1)), 11)
 
     def test_baseline_test_count_marker(self):
         state = json.loads(Path("PROJECT_STATE.json").read_text(encoding="utf-8"))

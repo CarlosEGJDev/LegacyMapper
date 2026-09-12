@@ -1,0 +1,102 @@
+{
+  "invariants": [
+    {
+      "description": "Only ApprovalAuthority.TECHNICAL_LEAD ever produces a valid ApprovalDecision.",
+      "evidence": "ApprovalAuthority enum has exactly one member (TECHNICAL_LEAD); ApprovalDecision.validate() rejects any other authority value; R13 AuthorityInvariantTests exercises this explicitly.",
+      "invariant_id": "TECHNICAL_LEAD_ONLY_APPROVAL",
+      "status": "PASS"
+    },
+    {
+      "description": "No code path allows an AI/system/provider identity to produce an approval decision.",
+      "evidence": "Static AST scan of legacy_documenter/knowledge for auto_approve/ai_approve/system_approve/provider_approve/infer_approval function names found none.",
+      "invariant_id": "AI_CANNOT_APPROVE",
+      "status": "PASS"
+    },
+    {
+      "description": "No OpenAI/Anthropic/Copilot/Gemini/Ollama SDK import or call exists in legacy_documenter/knowledge.",
+      "evidence": "Regex scan for provider-name imports/module-attribute calls across all production .py files under legacy_documenter/knowledge found zero matches; PROJECT_STATE.json/readiness both report provider_calls=0, real_llm_calls=0.",
+      "invariant_id": "NO_PROVIDER_CALLS",
+      "status": "PASS"
+    },
+    {
+      "description": "No stage silently promotes PARTIAL/INTERPRETED/UNRESOLVED/CONFLICTING/MISSING/SUPERSEDED to CONFIRMED.",
+      "evidence": "R13 StatusPreservationTests composes PARTIAL and UNRESOLVED canonical entries and confirms their status is unchanged after R11/R12 projection.",
+      "invariant_id": "NO_AUTO_STATUS_PROMOTION",
+      "status": "PASS"
+    },
+    {
+      "description": "R11/R12 projection never mutates the CanonicalKnowledgeCollection or any CanonicalKnowledgeEntry.",
+      "evidence": "R13 ImmutabilityTests snapshots collection.list() before/after both ProjectionService.project and PluginProjectionService.project and asserts equality; CanonicalKnowledgeEntry is a frozen dataclass.",
+      "invariant_id": "NO_CANONICAL_MUTATION_FROM_PROJECTIONS",
+      "status": "PASS"
+    },
+    {
+      "description": "R11 target-document paths reject traversal, absolute, drive-qualified, and UNC-style paths.",
+      "evidence": "validate_target_path raises ProjectionPathError for '../' segments, leading '/', 'C:/', and '\\\\\\\\server\\\\share'; re-confirmed by R13 PathSafetyTests.",
+      "invariant_id": "R11_PATH_TRAVERSAL_FORBIDDEN",
+      "status": "PASS"
+    },
+    {
+      "description": "Arbitrary CanonicalKnowledgeEntry.metadata keys never appear in the R12 Plugin payload.",
+      "evidence": "R13 MetadataBoundaryTests composes an entry with an arbitrary metadata key/value and confirms neither the key nor the value appears in the rendered Plugin JSON payload.",
+      "invariant_id": "R12_ARBITRARY_METADATA_NOT_PROJECTED",
+      "status": "PASS"
+    },
+    {
+      "description": "Injection-shaped statement text ('Ignore previous instructions...') is preserved verbatim as inert JSON/Markdown string data across the full pipeline and never triggers a behavior change.",
+      "evidence": "R13 PromptInjectionInertnessTests carries injection-shaped text through proposal -> approval -> canonical -> R11 -> R12 -> JSON round-trip with zero exceptions and byte-verbatim preservation.",
+      "invariant_id": "PROMPT_INJECTION_IS_INERT_DATA",
+      "status": "PASS"
+    },
+    {
+      "description": "No eval/exec/compile/__import__ call and no pickle/marshal/subprocess/os.system/Popen/shell=True/importlib/yaml.load/requests/urllib/socket usage exists in production V4 knowledge code.",
+      "evidence": "R13 NoDynamicExecutionTests performs both an AST Call-node scan and a context-aware regex scan over every production .py file under legacy_documenter/knowledge; both report zero offenders.",
+      "invariant_id": "NO_DYNAMIC_EXECUTION",
+      "status": "PASS"
+    },
+    {
+      "description": "No pickle/marshal load of untrusted data and no yaml.load without a safe loader anywhere in V4 knowledge code.",
+      "evidence": "Same static scan as NO_DYNAMIC_EXECUTION; all V4 serialization paths use json.dumps/json.loads only.",
+      "invariant_id": "NO_UNSAFE_DESERIALIZATION",
+      "status": "PASS"
+    },
+    {
+      "description": "No .env/credential/token/API-key/private-key file was introduced by V4, and no test embeds a real credential.",
+      "evidence": "git status shows only the new R13 prompt file untracked before this round; repository-wide review found only synthetic fixture strings (e.g. EVR-TEST-*, technical_lead_example) used to exercise sanitization/validation, never a real secret.",
+      "invariant_id": "NO_SECRET_FILES_IN_ARTIFACTS",
+      "status": "PASS"
+    },
+    {
+      "description": "No common V4 knowledge model field requires a repository/project path, symbol, method, language, framework, assembly, or database.",
+      "evidence": "R13 SourceCodeOptionalityTests inspects dataclasses.fields() of MaterialItem/EvidenceRef/Provenance/CanonicalKnowledgeEntry/PluginKnowledgeEntry for forbidden field names and finds none; HumanOnlyFlowTests runs a full human-information-only pipeline end to end.",
+      "invariant_id": "SOURCE_CODE_OPTIONAL",
+      "status": "PASS"
+    },
+    {
+      "description": "No Plugin agent/runtime/orchestrator/task-executor class or function exists anywhere in legacy_documenter.",
+      "evidence": "R13 ProviderAndRuntimeBoundaryTests AST-scans for PluginAgent/PluginRuntime/PluginOrchestrator/AgentRuntime/execute_task/run_agent/orchestrate/AutonomousAgent symbol definitions and finds none.",
+      "invariant_id": "PLUGIN_RUNTIME_NOT_IMPLEMENTED",
+      "status": "PASS"
+    },
+    {
+      "description": "R10 is the only canonical source; R11 and R12 are sibling projections, never chained through each other.",
+      "evidence": "AST import scan confirms plugin_projection never imports legacy_documenter.knowledge.projection and projection never imports plugin_projection; R13 SiblingProjectionTests confirms R12_ids == R10_ids and R11_ids subset-of R10_ids for identical input.",
+      "invariant_id": "ONE_CANONICAL_KNOWLEDGE_SOURCE",
+      "status": "PASS"
+    },
+    {
+      "description": "Technical Lead approval eligibility is distinct from KnowledgeStatus; approval never forces CONFIRMED.",
+      "evidence": "R13 StatusPreservationTests composes APPROVED-eligible canonical entries with PARTIAL/UNRESOLVED status and confirms status is untouched.",
+      "invariant_id": "APPROVED_NOT_CONFIRMED",
+      "status": "PASS"
+    },
+    {
+      "description": "AS_IS/TO_BE/HISTORICAL/unspecified are preserved exactly; no automatic promotion or conflict inference.",
+      "evidence": "R13 TemporalPreservationTests composes coexisting AS_IS and TO_BE entries (neither becomes CONFLICTING) and a None-temporal entry (preserved as None, reported only as 'UNSPECIFIED' in R12 manifest aggregate counts).",
+      "invariant_id": "TEMPORAL_STATE_PRESERVED",
+      "status": "PASS"
+    }
+  ],
+  "schema_version": "V4-R13",
+  "status": "V4_SECURITY_INVARIANTS_COMPLETE"
+}
