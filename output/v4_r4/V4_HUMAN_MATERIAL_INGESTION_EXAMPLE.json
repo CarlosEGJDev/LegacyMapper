@@ -1,0 +1,85 @@
+{
+  "accepted_count": 4,
+  "accepted_materials": [
+    {
+      "approved": false,
+      "canonical_knowledge": false,
+      "content": "Applicant income must be at least 1000 units per month.",
+      "knowledge_nature_assigned": false,
+      "material_id": "MAT-3cd510a36ed94a038bd057aab1fb34e8d00b1925f3bbda618f6e99d9dd169a54",
+      "origin": {
+        "contributor": "Technical Lead (fixture)",
+        "kind": "HUMAN_INPUT",
+        "reference": null
+      },
+      "provenance_node": {
+        "node_id": "MAT-3cd510a36ed94a038bd057aab1fb34e8d00b1925f3bbda618f6e99d9dd169a54",
+        "node_kind": "MATERIAL",
+        "provenance_status": "COMPLETE"
+      },
+      "reference": null,
+      "source_type": "HUMAN_REQUIREMENT",
+      "temporal_state": "TO_BE",
+      "title": "Minimum income requirement (fixture)"
+    },
+    {
+      "approved": false,
+      "canonical_knowledge": false,
+      "content": "The loan approval process currently involves three manual review steps.",
+      "knowledge_nature_assigned": false,
+      "material_id": "MAT-35bcb37702e083629193e666fc777902fa9b3f350e9525921c42336c4447f10a",
+      "origin": null,
+      "provenance_node": {
+        "node_id": "MAT-35bcb37702e083629193e666fc777902fa9b3f350e9525921c42336c4447f10a",
+        "node_kind": "MATERIAL",
+        "provenance_status": "UNRESOLVED"
+      },
+      "reference": null,
+      "source_type": "BUSINESS_CONTEXT",
+      "temporal_state": "AS_IS",
+      "title": null
+    },
+    {
+      "approved": false,
+      "canonical_knowledge": false,
+      "content": null,
+      "knowledge_nature_assigned": false,
+      "material_id": "MAT-c49b3c861ea6d74421da334f1a50881a8db9b71c117031861b1864b031d223ff",
+      "origin": {
+        "contributor": null,
+        "kind": "PROJECT_DOCUMENTATION",
+        "reference": "docs/fixture/onboarding-guide.md"
+      },
+      "provenance_node": {
+        "node_id": "MAT-c49b3c861ea6d74421da334f1a50881a8db9b71c117031861b1864b031d223ff",
+        "node_kind": "MATERIAL",
+        "provenance_status": "COMPLETE"
+      },
+      "reference": "docs/fixture/onboarding-guide.md",
+      "source_type": "PROJECT_DOCUMENT",
+      "temporal_state": null,
+      "title": "Legacy onboarding guide (fixture)"
+    },
+    {
+      "approved": false,
+      "canonical_knowledge": false,
+      "content": "It is not currently known who owns the purchase-approval process.",
+      "knowledge_nature_assigned": false,
+      "material_id": "MAT-225af6efcce564e8dc64e6fcb08f5f63fd1840e096c285fd614dde2e5d018e50",
+      "origin": null,
+      "provenance_node": {
+        "node_id": "MAT-225af6efcce564e8dc64e6fcb08f5f63fd1840e096c285fd614dde2e5d018e50",
+        "node_kind": "MATERIAL",
+        "provenance_status": "UNRESOLVED"
+      },
+      "reference": null,
+      "source_type": "UNRESOLVED",
+      "temporal_state": null,
+      "title": null
+    }
+  ],
+  "kind": "HUMAN_MATERIAL_INGESTION_EXAMPLE_FIXTURE",
+  "note": "Synthetic example only. INGESTED_MATERIAL_IS_NOT_APPROVED_KNOWLEDGE: none of this material is true, current, complete, approved, or canonical merely by being ingested.",
+  "rejected_count": 0,
+  "schema_version": "V4-R4"
+}

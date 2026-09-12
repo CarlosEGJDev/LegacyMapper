@@ -59,7 +59,12 @@ class MaterialItem:
     A `MaterialItem` may be code-derived, but it may equally be a paragraph of
     text a Technical Lead pasted in directly. `content` and `reference` are
     both optional individually; at least one of them must be present so the
-    item carries something to evaluate.
+    item carries something to evaluate. `temporal_state` (added in V4-R4) is
+    optional and defaults to `None`, preserving every pre-existing call site;
+    it exists because R4 ingestion may receive an explicitly supplied
+    AS_IS/TO_BE/HISTORICAL declaration on the *material itself* (for example
+    "this document describes the target/TO_BE process"), which has nowhere
+    else in R1 to live without being hidden inside `metadata`.
     """
 
     material_id: str
@@ -69,6 +74,7 @@ class MaterialItem:
     reference: str | None = None
     origin: Origin | None = None
     metadata: dict = field(default_factory=dict)
+    temporal_state: TemporalState | None = None
 
     def validate(self) -> bool:
         """Performs the minimal structural check every `MaterialItem` must satisfy."""
@@ -78,6 +84,8 @@ class MaterialItem:
             raise DomainValidationError("invalid_source_type")
         if self.content is None and self.reference is None:
             raise DomainValidationError("material_requires_content_or_reference")
+        if self.temporal_state is not None and not isinstance(self.temporal_state, TemporalState):
+            raise DomainValidationError("invalid_temporal_state")
         if self.origin is not None:
             self.origin.validate()
         return True

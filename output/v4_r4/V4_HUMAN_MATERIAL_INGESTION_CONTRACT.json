@@ -1,0 +1,43 @@
+{
+  "accepted_source_types": [
+    "APPROVED_DECISION",
+    "BUSINESS_CONTEXT",
+    "BUSINESS_REQUIREMENT",
+    "CORPORATE_STANDARD",
+    "EXTERNAL_DOCUMENT",
+    "HUMAN_REQUIREMENT",
+    "PROJECT_DOCUMENT",
+    "TECHNICAL_CONSTRAINT",
+    "UNRESOLVED",
+    "USER_STORY"
+  ],
+  "ai_boundary": "AI_INTERPRETATION is rejected by the human-ingestion boundary before R2 validation runs, so it is never silently accepted merely because its payload is text.",
+  "approval_boundary": "R4 never sets any approval/authoritative state. Submission and Technical Lead approval are distinct lifecycle events (R9).",
+  "batch_policy": "Each item is ingested independently; accepted and rejected lists both preserve original input order. All accepted items in one ingest_batch call share one ProvenanceGraph.",
+  "classification_boundary": "R4 never assigns KnowledgeNature. Source type and knowledge nature remain distinct dimensions; classification is R5's responsibility.",
+  "contract_kind": "HUMAN_MATERIAL_INGESTION_CONTRACT_PROJECTION",
+  "duplicate_policy": "DETERMINISTIC_EXACT_ONLY: same normalized identity produces the same material_id and the same MATERIAL node id; adding an exact duplicate node to the shared batch graph is an idempotent no-op per R3's documented policy. No semantic/fuzzy deduplication.",
+  "external_io_policy": "No file open, network fetch, SharePoint/Confluence/Bitbucket query, provider call, or directory scan occurs anywhere in this module. A reference is stored and sanitized as a string only.",
+  "failure_isolation_policy": "One invalid batch item is rejected with a sanitized, deterministic reason; it never removes or corrupts another item's acceptance.",
+  "identity_policy": "material_id is derived deterministically via legacy_documenter.knowledge.domain.models.new_material_id from (source_type, normalized content, normalized reference, normalized title); the MATERIAL provenance node reuses the same id, so the two records always correlate.",
+  "input_contract": "Reuses legacy_documenter.knowledge.input.validator.validate_source_input (R2) unchanged; R4 never weakens or duplicates R2 rules.",
+  "knowledge_boundary": "R4 produces MaterialItem + a MATERIAL provenance node only; it never produces a KnowledgeStatement, a PROPOSAL, or canonical Knowledge Source content.",
+  "material_contract": "Reuses legacy_documenter.knowledge.domain.models.MaterialItem (R1), extended in V4-R4 with an optional temporal_state field (backward compatible, defaults to None).",
+  "module": "legacy_documenter.knowledge.ingestion",
+  "normalization_policy": "DETERMINISTIC_NON_SEMANTIC: whitespace/blank-to-absent canonicalization and sanitization only (via R2 normalization and the existing sanitizer). No summarization, paraphrasing, requirement/actor/rule extraction, or inference.",
+  "note": "INGESTED_MATERIAL_IS_NOT_APPROVED_KNOWLEDGE. Ingestion produces traceable material; it never produces approved, current, complete, or canonical knowledge.",
+  "origin_policy": "Human contributor/origin is preserved verbatim (sanitized, never rewritten). Missing origin remains missing; LegacyMapper's own processing identity never replaces the original contributor.",
+  "prompt_injection_policy": "All ingested content is DATA. Instruction-like or prompt-injection-style text (e.g. \"Ignore previous instructions...\") is stored verbatim (after routine sanitization) as inert material; it is never executed, never obeyed, and never triggers a provider/LLM call, by construction (no code path in this module interprets material content as instructions).",
+  "provenance_contract": "Reuses legacy_documenter.knowledge.provenance.graph.material_node_from_source_input (R3) to produce a single MATERIAL-kind ProvenanceNode per ingested item; R4 never creates EVIDENCE, STATEMENT, INTERPRETATION, PROPOSAL, or KNOWLEDGE nodes.",
+  "rejected_source_types": [
+    "AI_INTERPRETATION",
+    "DETERMINISTIC_CODE_FACT"
+  ],
+  "rejected_source_types_reason": {
+    "AI_INTERPRETATION": "not human-supplied material, regardless of whether its payload reads as text",
+    "DETERMINISTIC_CODE_FACT": "belongs to the deterministic code pipeline, not the human-ingestion boundary"
+  },
+  "schema_version": "V4-R4",
+  "security_policy": "All content/reference/title/contributor/metadata is sanitized (reusing the existing sanitizer and R2's metadata validator) before storage; Origin fields, untouched by R2, are separately sanitized at the ingestion boundary without modifying R1's Origin type.",
+  "temporal_policy": "An explicitly supplied AS_IS/TO_BE/HISTORICAL is preserved verbatim on MaterialItem. Missing temporal_state remains missing (None). Never inferred from prose."
+}
