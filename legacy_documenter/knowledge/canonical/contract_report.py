@@ -1,0 +1,188 @@
+"""Deterministic contract-projection report for the V4-R10 canonical knowledge composition layer.
+
+Projects the code-level explicit-composition contract for human/tool
+consumption. This is the Canonical Knowledge Source's own contract
+projection, not R11 human-readable documentation and not an R12
+Plugin-facing payload.
+"""
+import json
+
+from legacy_documenter.knowledge.domain.enums import KnowledgeNature, KnowledgeStatus, SourceType, TemporalState
+
+SCHEMA_VERSION = "V4-R10"
+
+
+def build_canonical_contract() -> dict:
+    """Builds the full deterministic R10 canonical-composition contract-projection payload as a plain dict."""
+    return {
+        "schema_version": SCHEMA_VERSION,
+        "contract_kind": "CANONICAL_KNOWLEDGE_COMPOSITION_CONTRACT_PROJECTION",
+        "module": "legacy_documenter.knowledge.canonical",
+        "note": "NO_APPROVAL_NO_CANONICAL_COMPOSITION. REJECTED_NOT_ELIGIBLE. "
+                "CORRECTION_REQUESTED_NOT_ELIGIBLE. APPROVED_IS_ELIGIBLE_NOT_AUTOMATICALLY_COMPOSED. "
+                "ONE_CANONICAL_KNOWLEDGE_SOURCE. CANONICAL_ENTRY_RETAINS_PROPOSAL_ID. "
+                "CANONICAL_ENTRY_RETAINS_APPROVAL_DECISION_ID. APPROVAL_DOES_NOT_ERASE_ORIGIN. "
+                "APPROVAL_STATUS_DOES_NOT_REPLACE_KNOWLEDGE_STATUS. "
+                "R10_DOES_NOT_RESOLVE_RELATIONS_AUTOMATICALLY. "
+                "R11_AND_R12_ARE_PROJECTIONS_OF_THE_SAME_CANONICAL_SOURCE. "
+                "AI_NEVER_DECIDES_CANONICAL_INCLUSION.",
+        "canonical_model": {
+            "knowledge_id": "Deterministic KNO- id (see canonical_identity_policy). Never time/UUID/random/"
+                             "machine-identity derived.",
+            "statement": "Taken verbatim from the already-sanitized, already-approved Proposal.statement. Never "
+                         "re-derived, re-summarized, or re-generated from any other free text.",
+            "source_type": "One of the closed R1 SourceType values, supplied explicitly by the composition "
+                            "request. Never inferred from whether code evidence exists.",
+            "nature": "One of the closed R1 KnowledgeNature values, supplied explicitly by the composition "
+                      "request. Never inferred from proposal_kind or statement text.",
+            "status": "One of the closed R1 KnowledgeStatus values, supplied explicitly by the composition "
+                       "request. Orthogonal to the R9 ApprovalDecisionType that authorized composition.",
+            "temporal_state": "Optional; one of the closed R1 TemporalState values when supplied. Never inferred "
+                               "when absent.",
+            "evidence_refs": "Zero or more R1 EvidenceRef records, supplied explicitly by the composition "
+                              "request. Never invented; never derived from proposal text.",
+            "provenance": "Optional R1 Provenance record, supplied explicitly by the composition request. This "
+                          "module never constructs one from proposal/approval content on the caller's behalf.",
+            "related_statement_ids": "Zero or more explicit statement ids, canonicalized (sorted, unique). Never "
+                                      "inferred from textual similarity.",
+            "proposal_id": "REQUIRED. The R8 Proposal id that was composed. Never erased, defaulted away, or "
+                            "overwritten.",
+            "approval_decision_id": "REQUIRED. The R9 ApprovalDecision id that authorized composition. Never "
+                                     "erased, defaulted away, or overwritten.",
+            "metadata": "Optional JSON-compatible dict, sanitized before storage.",
+        },
+        "canonical_identity_policy": "knowledge_id is derived via stable_id (KNO- prefix) from (proposal_id, "
+                                      "approval_decision_id, source_type, nature, knowledge_status, "
+                                      "temporal_state, canonical sorted evidence ids, canonical sorted "
+                                      "related_statement_ids) only. metadata, current time, randomness, a UUID, "
+                                      "and machine/object identity are excluded from identity. Composing the same "
+                                      "approved proposal with the same explicit composition semantics twice "
+                                      "always yields the same knowledge_id.",
+            "eligibility_policy": {
+            "rule": "Composition is allowed only when proposal.status == READY_FOR_REVIEW AND "
+                    "approval_decision.proposal_id == proposal.proposal_id AND "
+                    "approval_decision.decision == APPROVED AND approval_decision.authority == TECHNICAL_LEAD.",
+            "NO_APPROVAL": "NO_CANONICAL_COMPOSITION",
+            "REJECTED": "NOT_ELIGIBLE",
+            "CORRECTION_REQUESTED": "NOT_ELIGIBLE",
+            "APPROVED": "ELIGIBLE_NOT_AUTOMATICALLY_COMPOSED",
+            "approval_for_different_proposal_id": "NOT_ELIGIBLE",
+            "non_ready_proposal": "NOT_ELIGIBLE",
+            "automatic_repair_policy": "NONE. A failed eligibility condition is rejected deterministically; it is "
+                                        "never silently repaired, re-derived, or approximated.",
+        },
+        "approval_requirements": {
+            "authority": "TECHNICAL_LEAD only, reusing the closed R9 ApprovalAuthority vocabulary. No AI/SYSTEM/"
+                          "ADMIN/MANAGER/REVIEWER authority is ever accepted.",
+            "decision": "APPROVED only, reusing the closed R9 ApprovalDecisionType vocabulary. REJECTED and "
+                        "CORRECTION_REQUESTED are structurally rejected by this module, never composed.",
+            "proposal_id_match": "REQUIRED. approval_decision.proposal_id must equal proposal.proposal_id.",
+        },
+        "canonical_source_policy": "ONE_CANONICAL_KNOWLEDGE_SOURCE. A single CanonicalKnowledgeCollection type "
+                                    "exists in this module; no parallel human_truth/plugin_truth/technical_truth/"
+                                    "functional_truth/AI_truth store is ever created. R11 and R12 are expected to "
+                                    "later project this same collection; neither exists in this module.",
+        "proposal_traceability_policy": "Every composed CanonicalKnowledgeEntry retains proposal_id permanently. "
+                                         "Indirect traceability (material basis, relation basis, evidence basis, "
+                                         "proposal method, proposal origin) remains recoverable by looking up "
+                                         "proposal_id in the R8 ProposalCollection, never duplicated onto the "
+                                         "canonical entry itself.",
+        "approval_traceability_policy": "Every composed CanonicalKnowledgeEntry retains approval_decision_id "
+                                         "permanently. The R9 ApprovalDecision (authority, decided_by, rationale) "
+                                         "remains recoverable by looking up approval_decision_id in the R9 "
+                                         "ApprovalCollection, never duplicated onto the canonical entry itself.",
+        "evidence_policy": "Evidence references are preserved verbatim from the composition request; this module "
+                            "never invents evidence. Where the target knowledge_status requires authoritative "
+                            "evidence under the existing R1 contract (CONFIRMED), that invariant is enforced "
+                            "identically via KnowledgeStatement.validate() reuse. Technical Lead approval never "
+                            "bypasses this rule.",
+        "provenance_policy": "R10 preserves traceability rather than erasing intermediate stages: "
+                              "SOURCE -> MATERIAL -> EVIDENCE -> INTERPRETATION/RELATION -> PROPOSAL -> APPROVAL "
+                              "-> CANONICAL_KNOWLEDGE. The existing R3 ProvenanceGraph/NodeKind/EdgeRelationship "
+                              "taxonomy is never modified by this module; an optional R1 Provenance record may be "
+                              "attached to a canonical entry unchanged, supplied explicitly by the caller.",
+        "source_type_policy": "PRESERVED_FROM_EXPLICIT_INPUT_ONLY. Never inferred from free text and never "
+                               "silently assigned DETERMINISTIC_CODE_FACT merely because code evidence exists.",
+        "knowledge_nature_policy": "PRESERVED_FROM_EXPLICIT_INPUT_ONLY. Never inferred from proposal_kind or "
+                                    "statement text.",
+        "knowledge_status_policy": "APPROVAL_DOES_NOT_REPLACE_KNOWLEDGE_STATUS. An APPROVED ApprovalDecision never "
+                                    "forces CONFIRMED (or any other KnowledgeStatus); the caller supplies "
+                                    "knowledge_status explicitly, and R1's own evidence invariant for that status "
+                                    "is still enforced.",
+        "temporal_state_policy": "PRESERVED_FROM_EXPLICIT_INPUT_ONLY when supplied; never inferred when absent. "
+                                  "AS_IS and TO_BE entries may coexist without automatic conflict. HISTORICAL is "
+                                  "never automatically marked SUPERSEDED.",
+        "duplicate_policy": {
+            "exact_recomposition": "IDEMPOTENT_NO_OP (same proposal_id + approval_decision_id + composition "
+                                    "semantics; no duplicate canonical entry is created).",
+            "conflicting_recomposition_same_proposal": "REJECTED (same proposal_id, different composition "
+                                                        "semantics/knowledge_id; never silently overwritten).",
+            "conflicting_duplicate_knowledge_id": "REJECTED (defense in depth; unreachable in practice since "
+                                                   "knowledge_id is a deterministic hash of the same content).",
+        },
+        "idempotency_policy": "Composing the exact same approved proposal with the exact same explicit "
+                               "composition semantics more than once is always an idempotent no-op: the existing "
+                               "CanonicalKnowledgeEntry is returned unchanged and CanonicalKnowledgeCollection's "
+                               "entry count does not increase.",
+        "one_proposal_one_canonical_entry_policy": "DEFAULT_V4_RULE. One approved immutable proposal version "
+                                                    "produces at most one canonical entry. This module never "
+                                                    "splits one proposal into multiple canonical facts "
+                                                    "automatically; CanonicalKnowledgeCollection enforces this by "
+                                                    "indexing entries by proposal_id.",
+        "supersession_policy": "NONE_IMPLEMENTED. No canonical entry is ever automatically superseded because a "
+                                "new proposal was approved, a newer date exists, a TO_BE entry exists, or a "
+                                "similar statement exists. No physical deletion of a canonical entry ever occurs "
+                                "in this module.",
+        "conflict_policy": "R10_DOES_NOT_RESOLVE_RELATIONS_AUTOMATICALLY. Composing an approved RESOLUTION "
+                            "proposal may add the approved resolution statement as a new canonical entry, but "
+                            "never mutates the historical R7 KnowledgeRelation(kind=CONFLICT) it references. "
+                            "Conflict history is preserved.",
+        "gap_policy": "GAP_NEVER_AUTOMATICALLY_FILLED. Composing an approved KNOWLEDGE_ADDITION/MIGRATION "
+                      "proposal may add canonical knowledge, but never mutates the historical R7 "
+                      "KnowledgeRelation(kind=GAP) it references.",
+        "proposal_mutation_policy": "NONE. Composition never sets any Proposal field and never calls "
+                                     "transition_proposal/ProposalCollection.transition/.supersede.",
+        "approval_mutation_policy": "NONE. Composition never sets any ApprovalDecision field and never calls "
+                                     "ApprovalCollection.record_decision.",
+        "relation_mutation_policy": "NONE. No KnowledgeRelation field is ever set or overwritten by this module.",
+        "material_mutation_policy": "NONE. No MaterialItem field is ever set or overwritten by this module.",
+        "classification_mutation_policy": "NONE. No ClassificationRecord field is ever set or overwritten by "
+                                           "this module.",
+        "temporal_mutation_policy": "NONE. No TemporalPlacement field is ever set or overwritten by this module.",
+        "provenance_mutation_policy": "NONE. No ProvenanceGraph/ProvenanceNode/ProvenanceEdge field is ever set "
+                                       "or overwritten by this module.",
+        "origin_preservation_policy": "An AI_PROPOSED proposal approved by TECHNICAL_LEAD retains both facts "
+                                       "distinctly and permanently after composition: proposal.proposal_method "
+                                       "stays AI_PROPOSED (read, never mutated) and "
+                                       "approval_decision.authority stays TECHNICAL_LEAD (read, never mutated). "
+                                       "Neither fact is ever collapsed, merged, or mislabeled onto the other.",
+        "R11_boundary": "R10 produces the Canonical Knowledge Source only. No Markdown/human-readable document "
+                         "rendering occurs anywhere in this module; that remains R11's exclusive responsibility "
+                         "over the same canonical source.",
+        "R12_boundary": "R10 produces the Canonical Knowledge Source only. No Plugin-facing machine-readable "
+                         "payload is generated anywhere in this module; that remains R12's exclusive "
+                         "responsibility over the same canonical source.",
+        "AI_boundary": "No LLM/provider call occurs anywhere in this module. AI must never decide canonical "
+                        "inclusion, infer approval, select a winning conflict side, invent evidence, or infer "
+                        "source_type/nature/temporal_state/knowledge_status.",
+        "security_policy": "statement (sourced from the already-sanitized Proposal.statement), metadata, and any "
+                            "human-originated evidence/provenance description are treated as untrusted data. "
+                            "metadata passes through the shared JSON-compatible data sanitizer before storage; no "
+                            "eval/exec/dynamic import/shell/template execution occurs anywhere in this module, so "
+                            "prompt-injection-shaped content remains inert. Exception messages use fixed codes "
+                            "only and never echo untrusted statement/metadata/evidence content.",
+        "external_io_policy": "No file, network, provider, database, or directory-scan activity occurs anywhere "
+                               "in the canonical domain/service layer. It operates only on already-available "
+                               "in-memory Proposal/ApprovalDecision records and explicit composition requests. "
+                               "Only this module's own contract/example report generators deterministically "
+                               "render JSON text, following the established R7/R8/R9 pattern.",
+        "source_type_values": sorted(value.value for value in SourceType),
+        "knowledge_nature_values": sorted(value.value for value in KnowledgeNature),
+        "knowledge_status_values": sorted(value.value for value in KnowledgeStatus),
+        "temporal_state_values": sorted(value.value for value in TemporalState),
+    }
+
+
+def render_canonical_contract_json() -> str:
+    """Renders the report as canonical, deterministic JSON text (stable key order, no whitespace drift)."""
+    return json.dumps(build_canonical_contract(), ensure_ascii=False, sort_keys=True, separators=(",", ":"))
