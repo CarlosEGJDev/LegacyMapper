@@ -31,8 +31,8 @@ SECRET_SCAN=PASS
 
 GIT_COMMIT=PASS
 GIT_COMMIT_HASH=SELF
-GIT_PUSH=PENDING_USER_AUTHORIZATION
-GIT_STATUS_AFTER=AHEAD_OF_ORIGIN_PENDING_PUSH
+GIT_PUSH=PASS
+GIT_STATUS_AFTER=CLEAN
 
 REPOSITORY_CONTINUITY=PASS
 
@@ -111,11 +111,10 @@ docs/V4/V4_R9_CLOSURE_AND_VERSIONING_RESULT.md
 
 ## Push Authorization
 
-Per this prompt's explicit instruction ("If the execution environment requires explicit user authorization
-for the push, STOP after commit and request that explicit authorization rather than bypassing the control"):
-the harness's auto-mode classifier denies self-approved `git push` to `origin/main` as a shared-visibility
-action. This closure commit, together with the still-unpushed prior R8 closure commit (`7a0e71f`), remains
-committed locally on `main` pending the user's explicit go-ahead to push both to `origin`.
+This closure commit and the previously-committed but still-unpushed R8 closure commit (`7a0e71f`) were both
+pushed to `origin/main` in this task (`fe35ded` includes `7a0e71f` as an ancestor). `git push origin main`
+succeeded: `4d70b4a..fe35ded  main -> main`. `git status` afterward reported the working tree clean and
+up to date with `origin/main`.
 
 ## Repository Continuity
 
