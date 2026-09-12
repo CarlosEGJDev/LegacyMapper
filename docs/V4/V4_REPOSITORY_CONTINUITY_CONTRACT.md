@@ -35,7 +35,9 @@ It must NOT automatically contain generated heavy data, regenerable intermediate
 ## Tests
 
 * `tests/` (all test modules and `tests/fixtures/`, excluding `__pycache__/`)
-* Baseline: 676 tests must pass (`python -m unittest discover -s tests`).
+* Baseline: `python -m unittest discover -s tests` must pass in full; see `PROJECT_STATE.json.tests`
+  for the current authoritative count (676 at the time this contract was first written, by V4-R1.1;
+  it has grown additively with every subsequent round and must never decrease).
 
 ## Agent-Independent Governance
 
@@ -80,7 +82,13 @@ Historical execution noise that is NOT retained: the full/reproducibility legacy
 
 * `output/v4_bootstrap/` (V4-00 reuse inventory, gap analysis, technical debt classification)
 * `output/v4_r1/` (V4-R1 domain model contract)
-* `output/v4_r1_1/` (this round's inventory, large-artifact analysis, GitHub suitability report)
+* `output/v4_r1_1/` (V4-R1.1 inventory, large-artifact analysis, GitHub suitability report)
+* `output/v4_r2/` … `output/v4_r13/` (each subsequent round's small, non-heavy contract/example
+  and, for V4-R13, regression/security JSON artifacts — added by each round as it was implemented;
+  this list is additive and was not rewritten retroactively by each new round). None of these
+  directories is a full/reproducibility legacy-repository scan dump; each is well under 1 MiB.
+* `output/v4_r14/` (V4-R14 final baseline/manifest — this closure round's own deterministic
+  artifacts, added by V4-R14)
 
 ## Historical `codex/` Directories — Explicit Statement
 

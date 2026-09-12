@@ -20,9 +20,14 @@ V3:
 FORMALLY_CLOSED
 
 V4:
-FOUNDATION / DEFINITION
+IMPLEMENTATION_IN_PROGRESS
 
-V4 implementation has not started.
+V4-R1 through V4-R13 are implemented and formally approved; V4-R14 (Manuals and Final Baseline) is
+the final planned V4 round. Do not treat the "not started" language below this point in this
+document as current — it describes V4's state at the moment this handover was first written, before
+any round began. For the actual current round/approval state, always read `PROJECT_STATE.json`
+(`latest_completed_round`, `latest_approved_round`, `round_status`, `next`), never this file's own
+memory of a past state.
 
 ## Required Starting Point
 

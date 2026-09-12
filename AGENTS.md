@@ -82,18 +82,15 @@ Never promote unresolved evidence to confirmed without deterministic evidence.
 
 ## Phase Control
 
-Follow the currently assigned V2 phase/round exactly.
+Follow the currently assigned phase/round exactly.
 
 Do not automatically start the next round.
 
-Current progression:
-
-V1 -> CLOSED
-V2-R1.1 -> APPROVED
-V2-R2 -> APPROVED
-V2-R3.1 -> APPROVED
-V2-R4 -> CURRENT
-V2-R5 -> NOT STARTED
+Current progression is not duplicated here, to avoid it going stale: `PROJECT_STATE.json`
+(`latest_completed_round`, `latest_approved_round`, `round_status`, `next`) is the single
+authoritative, machine-readable pointer to the current phase/round for any active LegacyMapper
+version (V1, V2, V3, V4, or a future version). Read it, not this file's memory of a past round list,
+to determine what is current.
 
 When the current round is complete:
 
