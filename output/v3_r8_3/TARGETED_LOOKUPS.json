@@ -1,0 +1,108 @@
+{
+  "lookups": [
+    {
+      "applicable": true,
+      "evidence_found": [
+        "R83-DATA-7eeae94c431bd70c",
+        "R83-DATA-60c4b09f42a59723",
+        "R83-DATA-9f6daa8232c7dfd3",
+        "R83-DATA-3b0a0e3d099e8f76",
+        "R83-DATA-d32a40432ae71ed2",
+        "R83-DATA-4b33a5659fbcb421",
+        "R83-DATA-39a4ea1b1b056058",
+        "R83-DATA-ef162c3bda48a86b",
+        "R83-DATA-b1db463efd58ded9",
+        "R83-DATA-2dcdfe4ccff88504",
+        "R83-DATA-f43babc3c5e95169",
+        "R83-DATA-34bb93f0c3829ae6"
+      ],
+      "evidence_not_found": [
+        "Authoritative business purpose for each operation."
+      ],
+      "files_examined": [
+        "PREComite.vb",
+        "bl\\blPistCargaArchSisesat.vb",
+        "ucADHCargaRecupero.ascx.vb",
+        "ucADHMO829ObsExcel.ascx.vb",
+        "webADHAdmCalculoDs67\\ucADHMO829ObsExcel.ascx.vb",
+        "webADHContratos2\\ucADHExclusiones.ascx.vb",
+        "webFiscalizacionRemota\\ucCargaExcel.ascx.vb",
+        "webIstSIATEP\\ucNominaPagoBcoCON.ascx.vb",
+        "webPREComite\\FuncionesEsp.vb",
+        "webPREPrevencion\\FuncionesEsp.vb",
+        "webSoporteEsp\\ucServiceMail_Prueba.ascx.vb",
+        "webSoporteEsp\\ucSoporteEsp2.aspx.vb"
+      ],
+      "lookup_reason": "Exact functional context of data operations was absent from compact R8.2 evidence.",
+      "lookup_scope": "At most 12 exact source files cited by existing data-access evidence; five-line windows only.",
+      "performed": true,
+      "target_id": "FMI-007"
+    },
+    {
+      "applicable": false,
+      "evidence_found": [
+        "DEEP-ASM-000d083620195457",
+        "DEEP-ASM-001d31483ea17632",
+        "DEEP-ASM-00331e5a00290b97",
+        "DEEP-ASM-006457330b7cada9",
+        "DEEP-ASM-0067cd48eb72aad0",
+        "DEEP-ASM-0085c3189de2b5f6",
+        "DEEP-PROJ-016fcc65cc8e85ad",
+        "DEEP-PROJ-01bbd17a6507ee16",
+        "DEEP-PROJ-0385d9a8aab68d1a",
+        "DEEP-PROJ-05657fc3c978fe54",
+        "DEEP-PROJ-0654aaaf46745d55",
+        "DEEP-PROJ-06888a7387e44036",
+        "R81-ARCH-00",
+        "R81-ARCH-01",
+        "R81-ARCH-02",
+        "R81-ARCH-03",
+        "R81-SUMMARY-counts-external_dependencies",
+        "R81-SUMMARY-counts-integrations",
+        "R81-SUMMARY-counts-stored_procedures",
+        "R81-SUMMARY-counts-webforms"
+      ],
+      "evidence_not_found": [
+        "Authoritative formal architecture declaration."
+      ],
+      "files_examined": [],
+      "lookup_reason": "Canonical target asks for formal architecture; general architecture reopening is prohibited.",
+      "lookup_scope": "Existing R8.1/R8.2 architecture evidence only.",
+      "performed": false,
+      "target_id": "TMI-001"
+    },
+    {
+      "applicable": false,
+      "evidence_found": [
+        "DEEP-ASM-000d083620195457",
+        "DEEP-ASM-001d31483ea17632",
+        "DEEP-ASM-00331e5a00290b97",
+        "DEEP-ASM-006457330b7cada9",
+        "DEEP-ASM-0067cd48eb72aad0",
+        "DEEP-ASM-0085c3189de2b5f6",
+        "DEEP-PROJ-016fcc65cc8e85ad",
+        "DEEP-PROJ-01bbd17a6507ee16",
+        "DEEP-PROJ-0385d9a8aab68d1a",
+        "DEEP-PROJ-05657fc3c978fe54",
+        "DEEP-PROJ-0654aaaf46745d55",
+        "DEEP-PROJ-06888a7387e44036",
+        "R81-ARCH-00",
+        "R81-ARCH-01",
+        "R81-ARCH-02",
+        "R81-ARCH-03",
+        "R81-SUMMARY-counts-external_dependencies",
+        "R81-SUMMARY-counts-integrations",
+        "R81-SUMMARY-counts-stored_procedures",
+        "R81-SUMMARY-counts-webforms"
+      ],
+      "evidence_not_found": [
+        "Authoritative layer-boundary specification."
+      ],
+      "files_examined": [],
+      "lookup_reason": "Canonical target asks for architecture/layer boundaries; general architecture reopening is prohibited.",
+      "lookup_scope": "Existing R8.1/R8.2 architecture evidence only.",
+      "performed": false,
+      "target_id": "TMI-011"
+    }
+  ]
+}

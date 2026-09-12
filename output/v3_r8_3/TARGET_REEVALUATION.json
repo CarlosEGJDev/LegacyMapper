@@ -1,0 +1,391 @@
+{
+  "targets": [
+    {
+      "analysis_steps": [
+        "RECOVER_CANONICAL_DEFINITION",
+        "CHECK_V1_V2_R7_R8_R8_1_R8_2",
+        "BOUNDED_SOURCE_LOOKUP",
+        "EVALUATE_EXHAUSTION"
+      ],
+      "candidate_status": "EXTERNAL_INFORMATION_REQUIRED",
+      "evidence_exhausted": true,
+      "existing_evidence_used": [
+        "COV-DATA_ACCESS-03-2331fde6dd",
+        "COV-STORED_PROCEDURES-05-6df7f1d261",
+        "COV-UNRESOLVED_BOUNDARIES-03-4d0ceb9973",
+        "DEEP-ASM-000d083620195457",
+        "DEEP-ASM-001d31483ea17632",
+        "DEEP-ASM-00331e5a00290b97",
+        "DEEP-ASM-006457330b7cada9",
+        "DEEP-ASM-0067cd48eb72aad0",
+        "DEEP-ASM-0085c3189de2b5f6",
+        "DEEP-INT-000f278d0f060571",
+        "DEEP-INT-00198ff54b4ffed9",
+        "DEEP-INT-00647ea337391a19",
+        "DEEP-INT-0086b24c4a36fc1c",
+        "DEEP-INT-00ab23ebd603a580",
+        "DEEP-INT-00ae524b5b79c6eb"
+      ],
+      "external_information_reason": "Business purpose cannot be confirmed from structural/source naming alone.",
+      "new_deterministic_evidence": [
+        "R83-DATA-7eeae94c431bd70c",
+        "R83-DATA-60c4b09f42a59723",
+        "R83-DATA-9f6daa8232c7dfd3",
+        "R83-DATA-3b0a0e3d099e8f76",
+        "R83-DATA-d32a40432ae71ed2",
+        "R83-DATA-4b33a5659fbcb421",
+        "R83-DATA-39a4ea1b1b056058",
+        "R83-DATA-ef162c3bda48a86b",
+        "R83-DATA-b1db463efd58ded9",
+        "R83-DATA-2dcdfe4ccff88504",
+        "R83-DATA-f43babc3c5e95169",
+        "R83-DATA-34bb93f0c3829ae6"
+      ],
+      "original_definition": {
+        "blocking_status": "IMPORTANT",
+        "definition_status": "RECOVERED",
+        "description": "¿Qué comportamiento funcional representan las operaciones de datos, transacciones y procedimientos almacenados dentro de cada flujo?",
+        "document_profile": "functional",
+        "family": "UNCLASSIFIED",
+        "human_disposition": "NEEDS_ANALYSIS",
+        "original_claim_context": [
+          "ASSESS-c9336a10a09a08ebdfbf8ad7d4c36b8681fbbc5d8de95f029193f0d1f5438360:FA-C1",
+          "ASSESS-c9336a10a09a08ebdfbf8ad7d4c36b8681fbbc5d8de95f029193f0d1f5438360:FA-C5"
+        ],
+        "original_evidence_references": [
+          "COV-DATA_ACCESS-03-2331fde6dd",
+          "COV-STORED_PROCEDURES-05-6df7f1d261",
+          "COV-UNRESOLVED_BOUNDARIES-03-4d0ceb9973"
+        ],
+        "original_id": "FMI-007",
+        "previous_analysis_status": "REQUIRES_EXTERNAL_INFORMATION",
+        "reason": "La evidencia confirma operaciones de acceso a datos y procedimientos almacenados, pero no proporciona su semántica funcional completa ni su asignación determinista a funcionalidades de usuario.",
+        "target_id": "FMI-007"
+      },
+      "remaining_unknowns": [
+        "Business purpose cannot be confirmed from structural/source naming alone."
+      ],
+      "target_id": "FMI-007",
+      "targeted_lookups": [
+        {
+          "applicable": true,
+          "evidence_found": [
+            "R83-DATA-7eeae94c431bd70c",
+            "R83-DATA-60c4b09f42a59723",
+            "R83-DATA-9f6daa8232c7dfd3",
+            "R83-DATA-3b0a0e3d099e8f76",
+            "R83-DATA-d32a40432ae71ed2",
+            "R83-DATA-4b33a5659fbcb421",
+            "R83-DATA-39a4ea1b1b056058",
+            "R83-DATA-ef162c3bda48a86b",
+            "R83-DATA-b1db463efd58ded9",
+            "R83-DATA-2dcdfe4ccff88504",
+            "R83-DATA-f43babc3c5e95169",
+            "R83-DATA-34bb93f0c3829ae6"
+          ],
+          "evidence_not_found": [
+            "Authoritative business purpose for each operation."
+          ],
+          "files_examined": [
+            "PREComite.vb",
+            "bl\\blPistCargaArchSisesat.vb",
+            "ucADHCargaRecupero.ascx.vb",
+            "ucADHMO829ObsExcel.ascx.vb",
+            "webADHAdmCalculoDs67\\ucADHMO829ObsExcel.ascx.vb",
+            "webADHContratos2\\ucADHExclusiones.ascx.vb",
+            "webFiscalizacionRemota\\ucCargaExcel.ascx.vb",
+            "webIstSIATEP\\ucNominaPagoBcoCON.ascx.vb",
+            "webPREComite\\FuncionesEsp.vb",
+            "webPREPrevencion\\FuncionesEsp.vb",
+            "webSoporteEsp\\ucServiceMail_Prueba.ascx.vb",
+            "webSoporteEsp\\ucSoporteEsp2.aspx.vb"
+          ],
+          "lookup_reason": "Exact functional context of data operations was absent from compact R8.2 evidence.",
+          "lookup_scope": "At most 12 exact source files cited by existing data-access evidence; five-line windows only.",
+          "performed": true,
+          "target_id": "FMI-007"
+        }
+      ]
+    },
+    {
+      "analysis_steps": [
+        "RECOVER_CANONICAL_DEFINITION",
+        "CHECK_V1_V2_R7_R8_R8_1_R8_2",
+        "SOURCE_LOOKUP_NOT_APPLICABLE_BY_CONTRACT",
+        "EVALUATE_EXHAUSTION"
+      ],
+      "candidate_status": "EXTERNAL_INFORMATION_REQUIRED",
+      "evidence_exhausted": true,
+      "existing_evidence_used": [
+        "COV-DATA_ACCESS-01-583d103a14",
+        "COV-DATA_ACCESS-02-166407d645",
+        "COV-DATA_ACCESS-05-68523c171e",
+        "COV-DATA_ACCESS-06-ca2fbbeaa3",
+        "COV-DATA_ACCESS-09-fb92030580",
+        "COV-FUNCTIONAL_FLOWS-00-f888def72c",
+        "COV-FUNCTIONAL_FLOWS-04-fb5f70d0be",
+        "COV-FUNCTIONAL_FLOWS-05-9843f32695",
+        "COV-FUNCTIONAL_FLOWS-06-e2788b309c",
+        "COV-FUNCTIONAL_FLOWS-08-dacbbff82c",
+        "COV-STORED_PROCEDURES-07-1775b3de79",
+        "COV-SYSTEM-METRICS",
+        "COV-UNRESOLVED_BOUNDARIES-00-6943a207fe",
+        "COV-UNRESOLVED_BOUNDARIES-02-2e4ec1810b",
+        "COV-UNRESOLVED_BOUNDARIES-03-4d0ceb9973",
+        "COV-UNRESOLVED_BOUNDARIES-05-4ece18e276",
+        "COV-WEBFORMS-00-cd4b1b1a13",
+        "COV-WEBFORMS-03-6ef2e96894",
+        "COV-WEBFORMS-07-4bd9dd37d9",
+        "DEEP-ASM-000d083620195457",
+        "DEEP-ASM-001d31483ea17632",
+        "DEEP-ASM-00331e5a00290b97",
+        "DEEP-ASM-006457330b7cada9",
+        "DEEP-ASM-0067cd48eb72aad0",
+        "DEEP-ASM-0085c3189de2b5f6",
+        "DEEP-PROJ-016fcc65cc8e85ad",
+        "DEEP-PROJ-01bbd17a6507ee16",
+        "DEEP-PROJ-0385d9a8aab68d1a",
+        "DEEP-PROJ-05657fc3c978fe54",
+        "DEEP-PROJ-0654aaaf46745d55",
+        "DEEP-PROJ-06888a7387e44036",
+        "R81-ARCH-00",
+        "R81-ARCH-01",
+        "R81-ARCH-02",
+        "R81-ARCH-03",
+        "R81-SUMMARY-counts-external_dependencies",
+        "R81-SUMMARY-counts-integrations",
+        "R81-SUMMARY-counts-stored_procedures",
+        "R81-SUMMARY-counts-webforms"
+      ],
+      "external_information_reason": "Formal architecture is not declared in repository evidence.",
+      "new_deterministic_evidence": [
+        "DEEP-ASM-000d083620195457",
+        "DEEP-ASM-001d31483ea17632",
+        "DEEP-ASM-00331e5a00290b97",
+        "DEEP-ASM-006457330b7cada9",
+        "DEEP-ASM-0067cd48eb72aad0",
+        "DEEP-ASM-0085c3189de2b5f6",
+        "DEEP-PROJ-016fcc65cc8e85ad",
+        "DEEP-PROJ-01bbd17a6507ee16",
+        "DEEP-PROJ-0385d9a8aab68d1a",
+        "DEEP-PROJ-05657fc3c978fe54",
+        "DEEP-PROJ-0654aaaf46745d55",
+        "DEEP-PROJ-06888a7387e44036",
+        "R81-ARCH-00",
+        "R81-ARCH-01",
+        "R81-ARCH-02",
+        "R81-ARCH-03",
+        "R81-SUMMARY-counts-external_dependencies",
+        "R81-SUMMARY-counts-integrations",
+        "R81-SUMMARY-counts-stored_procedures",
+        "R81-SUMMARY-counts-webforms"
+      ],
+      "original_definition": {
+        "blocking_status": "BLOCKING_FOR_APPROVAL",
+        "definition_status": "RECOVERED",
+        "description": "¿Qué patrón o arquitectura formal declara y aplica el sistema, y qué evidencia de código respalda esa clasificación?",
+        "document_profile": "technical",
+        "family": "TECHNICAL_ARCHITECTURE_PATTERN",
+        "human_disposition": "NEEDS_ANALYSIS",
+        "original_claim_context": [
+          "ASSESS-057e59167097a11e17c580e5fec17c34acc0e015414b27fbcf2251bb9cac7339:C003",
+          "ASSESS-057e59167097a11e17c580e5fec17c34acc0e015414b27fbcf2251bb9cac7339:C004",
+          "ASSESS-057e59167097a11e17c580e5fec17c34acc0e015414b27fbcf2251bb9cac7339:C005",
+          "ASSESS-0b706af36af1e00c07738c824e513e1f31c2a9ed3f99856a4140be0f1f2c6a20:CLM-005",
+          "ASSESS-1ebbd52c8a6956cac27854c055844e3755c15df26a92d40ee9d8510348ee1a35:C07",
+          "ASSESS-48b7fa40c99ae86d26ae7edf14ecacd795e35fc9a4711446307c13729f7cee88:C012",
+          "ASSESS-48b7fa40c99ae86d26ae7edf14ecacd795e35fc9a4711446307c13729f7cee88:C013",
+          "ASSESS-58ad854b51e2b2e8250e06b38cebd3e6f494e43043ba5bfbe8cf046fb2c47f4d:C7",
+          "ASSESS-68ecdc424fd62f20bad69fa18a37373073935b87a0fa35dbd520fdaa1ecc8b4a:C003",
+          "ASSESS-68ecdc424fd62f20bad69fa18a37373073935b87a0fa35dbd520fdaa1ecc8b4a:C004",
+          "ASSESS-7b368b9d42af7a0e9768162d11a383e307fbfe8d1a9641022a7d828cee67de52:claim_5",
+          "ASSESS-d08badd7f113e77912ef5e0472ef5748dfedfd6f3d5fc284be73fe28ede58755:C001",
+          "ASSESS-d08badd7f113e77912ef5e0472ef5748dfedfd6f3d5fc284be73fe28ede58755:C003",
+          "ASSESS-d08badd7f113e77912ef5e0472ef5748dfedfd6f3d5fc284be73fe28ede58755:C005"
+        ],
+        "original_evidence_references": [
+          "COV-DATA_ACCESS-01-583d103a14",
+          "COV-DATA_ACCESS-02-166407d645",
+          "COV-DATA_ACCESS-05-68523c171e",
+          "COV-DATA_ACCESS-06-ca2fbbeaa3",
+          "COV-DATA_ACCESS-09-fb92030580",
+          "COV-FUNCTIONAL_FLOWS-00-f888def72c",
+          "COV-FUNCTIONAL_FLOWS-04-fb5f70d0be",
+          "COV-FUNCTIONAL_FLOWS-05-9843f32695",
+          "COV-FUNCTIONAL_FLOWS-06-e2788b309c",
+          "COV-FUNCTIONAL_FLOWS-08-dacbbff82c",
+          "COV-STORED_PROCEDURES-07-1775b3de79",
+          "COV-SYSTEM-METRICS",
+          "COV-UNRESOLVED_BOUNDARIES-00-6943a207fe",
+          "COV-UNRESOLVED_BOUNDARIES-02-2e4ec1810b",
+          "COV-UNRESOLVED_BOUNDARIES-03-4d0ceb9973",
+          "COV-UNRESOLVED_BOUNDARIES-05-4ece18e276",
+          "COV-WEBFORMS-00-cd4b1b1a13",
+          "COV-WEBFORMS-03-6ef2e96894",
+          "COV-WEBFORMS-07-4bd9dd37d9"
+        ],
+        "original_id": "TMI-001",
+        "previous_analysis_status": "REQUIRES_EXTERNAL_INFORMATION",
+        "reason": "La evidencia muestra proyectos, WebForms, acceso a datos y procedimientos, pero no proporciona una definición arquitectónica autorizada ni relaciones completas suficientes para confirmarla.",
+        "target_id": "TMI-001"
+      },
+      "remaining_unknowns": [
+        "Formal architecture is not declared in repository evidence."
+      ],
+      "target_id": "TMI-001",
+      "targeted_lookups": [
+        {
+          "applicable": false,
+          "evidence_found": [
+            "DEEP-ASM-000d083620195457",
+            "DEEP-ASM-001d31483ea17632",
+            "DEEP-ASM-00331e5a00290b97",
+            "DEEP-ASM-006457330b7cada9",
+            "DEEP-ASM-0067cd48eb72aad0",
+            "DEEP-ASM-0085c3189de2b5f6",
+            "DEEP-PROJ-016fcc65cc8e85ad",
+            "DEEP-PROJ-01bbd17a6507ee16",
+            "DEEP-PROJ-0385d9a8aab68d1a",
+            "DEEP-PROJ-05657fc3c978fe54",
+            "DEEP-PROJ-0654aaaf46745d55",
+            "DEEP-PROJ-06888a7387e44036",
+            "R81-ARCH-00",
+            "R81-ARCH-01",
+            "R81-ARCH-02",
+            "R81-ARCH-03",
+            "R81-SUMMARY-counts-external_dependencies",
+            "R81-SUMMARY-counts-integrations",
+            "R81-SUMMARY-counts-stored_procedures",
+            "R81-SUMMARY-counts-webforms"
+          ],
+          "evidence_not_found": [
+            "Authoritative formal architecture declaration."
+          ],
+          "files_examined": [],
+          "lookup_reason": "Canonical target asks for formal architecture; general architecture reopening is prohibited.",
+          "lookup_scope": "Existing R8.1/R8.2 architecture evidence only.",
+          "performed": false,
+          "target_id": "TMI-001"
+        }
+      ]
+    },
+    {
+      "analysis_steps": [
+        "RECOVER_CANONICAL_DEFINITION",
+        "CHECK_V1_V2_R7_R8_R8_1_R8_2",
+        "SOURCE_LOOKUP_NOT_APPLICABLE_BY_CONTRACT",
+        "EVALUATE_EXHAUSTION"
+      ],
+      "candidate_status": "EXTERNAL_INFORMATION_REQUIRED",
+      "evidence_exhausted": true,
+      "existing_evidence_used": [
+        "COV-FUNCTIONAL_FLOWS-02-0f3dcb2864",
+        "COV-SYSTEM-METRICS",
+        "COV-UNRESOLVED_BOUNDARIES-04-393e8ce004",
+        "DEEP-ASM-000d083620195457",
+        "DEEP-ASM-001d31483ea17632",
+        "DEEP-ASM-00331e5a00290b97",
+        "DEEP-ASM-006457330b7cada9",
+        "DEEP-ASM-0067cd48eb72aad0",
+        "DEEP-ASM-0085c3189de2b5f6",
+        "DEEP-PROJ-016fcc65cc8e85ad",
+        "DEEP-PROJ-01bbd17a6507ee16",
+        "DEEP-PROJ-0385d9a8aab68d1a",
+        "DEEP-PROJ-05657fc3c978fe54",
+        "DEEP-PROJ-0654aaaf46745d55",
+        "DEEP-PROJ-06888a7387e44036",
+        "R81-ARCH-00",
+        "R81-ARCH-01",
+        "R81-ARCH-02",
+        "R81-ARCH-03",
+        "R81-SUMMARY-counts-external_dependencies",
+        "R81-SUMMARY-counts-integrations",
+        "R81-SUMMARY-counts-stored_procedures",
+        "R81-SUMMARY-counts-webforms"
+      ],
+      "external_information_reason": "Authoritative architecture/layer boundary specification is absent.",
+      "new_deterministic_evidence": [
+        "DEEP-ASM-000d083620195457",
+        "DEEP-ASM-001d31483ea17632",
+        "DEEP-ASM-00331e5a00290b97",
+        "DEEP-ASM-006457330b7cada9",
+        "DEEP-ASM-0067cd48eb72aad0",
+        "DEEP-ASM-0085c3189de2b5f6",
+        "DEEP-PROJ-016fcc65cc8e85ad",
+        "DEEP-PROJ-01bbd17a6507ee16",
+        "DEEP-PROJ-0385d9a8aab68d1a",
+        "DEEP-PROJ-05657fc3c978fe54",
+        "DEEP-PROJ-0654aaaf46745d55",
+        "DEEP-PROJ-06888a7387e44036",
+        "R81-ARCH-00",
+        "R81-ARCH-01",
+        "R81-ARCH-02",
+        "R81-ARCH-03",
+        "R81-SUMMARY-counts-external_dependencies",
+        "R81-SUMMARY-counts-integrations",
+        "R81-SUMMARY-counts-stored_procedures",
+        "R81-SUMMARY-counts-webforms"
+      ],
+      "original_definition": {
+        "blocking_status": "BLOCKING_FOR_APPROVAL",
+        "definition_status": "RECOVERED",
+        "description": "¿Existe documentación o evidencia de código suficiente para confirmar un patrón arquitectónico específico y sus límites de capa?",
+        "document_profile": "technical",
+        "family": "UNCLASSIFIED",
+        "human_disposition": "NEEDS_ANALYSIS",
+        "original_claim_context": [
+          "ASSESS-c235b68c33fbc3932a2ef65c9f3f9902ea9e3e8ab8cacddd0d13dc7e45add514:C4",
+          "ASSESS-c235b68c33fbc3932a2ef65c9f3f9902ea9e3e8ab8cacddd0d13dc7e45add514:C5"
+        ],
+        "original_evidence_references": [
+          "COV-FUNCTIONAL_FLOWS-02-0f3dcb2864",
+          "COV-SYSTEM-METRICS",
+          "COV-UNRESOLVED_BOUNDARIES-04-393e8ce004"
+        ],
+        "original_id": "TMI-011",
+        "previous_analysis_status": "REQUIRES_EXTERNAL_INFORMATION",
+        "reason": "Los datos de cobertura, flujos, WebForms y acceso a datos no bastan para confirmar un patrón arquitectónico; además, existen límites no resueltos.",
+        "target_id": "TMI-011"
+      },
+      "remaining_unknowns": [
+        "Authoritative architecture/layer boundary specification is absent."
+      ],
+      "target_id": "TMI-011",
+      "targeted_lookups": [
+        {
+          "applicable": false,
+          "evidence_found": [
+            "DEEP-ASM-000d083620195457",
+            "DEEP-ASM-001d31483ea17632",
+            "DEEP-ASM-00331e5a00290b97",
+            "DEEP-ASM-006457330b7cada9",
+            "DEEP-ASM-0067cd48eb72aad0",
+            "DEEP-ASM-0085c3189de2b5f6",
+            "DEEP-PROJ-016fcc65cc8e85ad",
+            "DEEP-PROJ-01bbd17a6507ee16",
+            "DEEP-PROJ-0385d9a8aab68d1a",
+            "DEEP-PROJ-05657fc3c978fe54",
+            "DEEP-PROJ-0654aaaf46745d55",
+            "DEEP-PROJ-06888a7387e44036",
+            "R81-ARCH-00",
+            "R81-ARCH-01",
+            "R81-ARCH-02",
+            "R81-ARCH-03",
+            "R81-SUMMARY-counts-external_dependencies",
+            "R81-SUMMARY-counts-integrations",
+            "R81-SUMMARY-counts-stored_procedures",
+            "R81-SUMMARY-counts-webforms"
+          ],
+          "evidence_not_found": [
+            "Authoritative layer-boundary specification."
+          ],
+          "files_examined": [],
+          "lookup_reason": "Canonical target asks for architecture/layer boundaries; general architecture reopening is prohibited.",
+          "lookup_scope": "Existing R8.1/R8.2 architecture evidence only.",
+          "performed": false,
+          "target_id": "TMI-011"
+        }
+      ]
+    }
+  ]
+}

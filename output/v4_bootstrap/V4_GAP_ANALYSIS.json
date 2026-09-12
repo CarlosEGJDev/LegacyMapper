@@ -1,0 +1,76 @@
+{
+  "schema_version": "V4-BOOTSTRAP-1",
+  "baseline": "output/v3_final/V3_FINAL_BASELINE.json",
+  "contract": "docs/V4/V4_CONTRACT_FOUNDATION.md",
+  "gaps": [
+    {
+      "capability": "MULTI_SOURCE_KNOWLEDGE",
+      "status": "MISSING",
+      "current_state": "V3 knowledge (claims, evidence, projection) is derived exclusively from code discovery (V1/V2 extraction and resolution).",
+      "gap": "No domain model or ingestion path exists for HUMAN_REQUIREMENT, USER_STORY, BUSINESS_REQUIREMENT, BUSINESS_CONTEXT, TECHNICAL_CONSTRAINT, CORPORATE_STANDARD, APPROVED_DECISION, EXTERNAL_DOCUMENT, or PROJECT_DOCUMENT source types listed in V4_CONTRACT_FOUNDATION section 4."
+    },
+    {
+      "capability": "HUMAN_INFORMATION_INGESTION",
+      "status": "MISSING",
+      "current_state": "The only human input V3 accepts is a fixed set of Markdown disposition records for a closed round (human_review.py, second_review.py), with a hardcoded FMI/TMI id vocabulary.",
+      "gap": "No general-purpose, contract-validated intake mechanism for Technical-Lead-supplied MATERIAL (documents, decisions, standards) exists."
+    },
+    {
+      "capability": "PROVENANCE",
+      "status": "PARTIAL",
+      "current_state": "Evidence model and evidence_catalog already track canonical ids, lineage and snapshots for code-derived evidence.",
+      "gap": "Provenance tracking does not yet extend to non-code MATERIAL sources or record who (Technical Lead) authorized incorporation, as required by V4_CONTRACT_FOUNDATION section 2 and 3.5."
+    },
+    {
+      "capability": "KNOWLEDGE_CLASSIFICATION",
+      "status": "PARTIAL",
+      "current_state": "V3 classifies claims by status (CONFIRMED/INTERPRETED/UNRESOLVED) and by knowledge projection (fact/interpretation/partial/unresolved limitation/ineligible).",
+      "gap": "No classification by 'nature' (norma, levantamiento, requerimiento, necesidad, regla de negocio, decisión, arquitectura, proceso, flujo, catálogo, proyecto, resolución, lección, capacitación, glosario, restricción, implementación existente) as required by V4_CONTRACT_FOUNDATION section 5; no MATERIAL->EVIDENCE->INTERPRETATION->PROPOSAL->APPROVED_KNOWLEDGE staged lifecycle."
+    },
+    {
+      "capability": "AS_IS_TO_BE_SEPARATION",
+      "status": "MISSING",
+      "current_state": "V3 models only what currently exists (as observed in code) plus interpretation/uncertainty states; there is no notion of a desired future state.",
+      "gap": "No AS_IS/TO_BE/HISTORICAL temporal dimension exists anywhere in the current data model, per V4_CONTRACT_FOUNDATION section 6."
+    },
+    {
+      "capability": "GAP_DETECTION",
+      "status": "MISSING",
+      "current_state": "V3 has no concept of comparing a desired state to an observed state.",
+      "gap": "No mechanism to detect or represent a GAP (difference between AS_IS and TO_BE) exists; this depends on AS_IS_TO_BE_SEPARATION being implemented first."
+    },
+    {
+      "capability": "CONFLICT_DETECTION",
+      "status": "MISSING",
+      "current_state": "documentation/consistency.py performs deterministic cross-document consistency checks, but only within the fixed V3 functional/technical document pair and its closed claim vocabulary.",
+      "gap": "No general representation of a conflict between two knowledge statements from different sources (with implicated sources, statements, nature, state, evidence, possible cause, human resolution) as required by V4_CONTRACT_FOUNDATION section 7."
+    },
+    {
+      "capability": "KNOWLEDGE_PROPOSAL",
+      "status": "MISSING",
+      "current_state": "V3 has no proposal stage; claims move directly from extraction/interpretation to document assessment and human review of the whole document.",
+      "gap": "No PROPOSAL entity/lifecycle exists between AI_INTERPRETATION and APPROVED_KNOWLEDGE (V4_CONTRACT_FOUNDATION section 3.2)."
+    },
+    {
+      "capability": "TECHNICAL_LEADER_APPROVAL",
+      "status": "PARTIAL",
+      "current_state": "human_review.py/second_review.py implement a document-level, all-or-nothing approval workflow for a specific closed round with a fixed reviewer role.",
+      "gap": "No per-proposal, repeatable approval/rejection/correction workflow tied explicitly to a 'Technical Lead' authority role as the controlled operator (V4_CONTRACT_FOUNDATION section 2)."
+    },
+    {
+      "capability": "KNOWLEDGE_COMPOSITION",
+      "status": "MISSING",
+      "current_state": "V3 composes context packages (ContextComposer) strictly from code-derived records for LLM consumption, not a canonical multi-source Knowledge Source.",
+      "gap": "No mechanism composes approved knowledge from multiple heterogeneous source types into one structured, versionable, traceable Knowledge Source as described in V4_CONTRACT_FOUNDATION section 8."
+    },
+    {
+      "capability": "DOCUMENT_PROJECTION",
+      "status": "PARTIAL",
+      "current_state": "V3 already projects code-derived knowledge deterministically into two fixed Markdown documents (LEVANTAMIENTO_FUNCIONAL/TECNICO) via generator.py/renderer.py.",
+      "gap": "Projection logic is hardcoded to those two documents and to code-derived claims; it does not yet project from a general multi-source, multi-nature Knowledge Source, nor produce a Plugin-facing output contract."
+    }
+  ],
+  "out_of_v4_scope_confirmed": [
+    "Full language/framework/technology/project-layout agnosticism (deferred to V5, per V4_CONTRACT_FOUNDATION section 11)."
+  ]
+}

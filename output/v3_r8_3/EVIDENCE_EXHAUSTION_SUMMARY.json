@@ -1,0 +1,22 @@
+{
+  "ai_knowledge_allowed": false,
+  "all_definitions_recovered": true,
+  "all_evidence_exhausted": true,
+  "candidate_statuses": {
+    "EXTERNAL_INFORMATION_REQUIRED": 3
+  },
+  "contract_observation": "Canonical TMI-001 and TMI-011 definitions are architecture requests; task subsections describing dependency/integration meanings were not used to override canonical meaning.",
+  "effective_model": null,
+  "effective_provider": null,
+  "model_change_reason": "No LLM execution required; repository evidence limits are deterministic.",
+  "model_change_recommended": false,
+  "model_failure_classification": null,
+  "real_llm_calls": 0,
+  "retries": 0,
+  "status": "V3-R8_3_TARGETED_EVIDENCE_EXHAUSTION_COMPLETE",
+  "targets": [
+    "FMI-007",
+    "TMI-001",
+    "TMI-011"
+  ]
+}

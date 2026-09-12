@@ -1,0 +1,103 @@
+{
+  "calls": 7,
+  "comparison": {
+    "functional": {
+      "after": {
+        "confirmed": 10,
+        "data_operations_linked": 19159,
+        "flows_represented": 12642,
+        "interpreted": 1,
+        "missing_information": 19,
+        "projects_represented": 259,
+        "stored_procedures_linked": 5389,
+        "unresolved": 2,
+        "webforms_represented": 3346
+      },
+      "before": {
+        "confirmed": 10,
+        "flows_represented": 4,
+        "interpreted": 1,
+        "missing_information": 3,
+        "projects_represented": 6,
+        "unresolved": 4,
+        "webforms_represented": 6
+      }
+    },
+    "technical": {
+      "after": {
+        "confirmed": 10,
+        "data_operations_linked": 19159,
+        "flows_represented": 12642,
+        "interpreted": 2,
+        "missing_information": 33,
+        "projects_represented": 259,
+        "stored_procedures_linked": 5389,
+        "unresolved": 2,
+        "webforms_represented": 3346
+      },
+      "before": {
+        "confirmed": 16,
+        "flows_represented": 4,
+        "interpreted": 1,
+        "missing_information": 4,
+        "projects_represented": 6,
+        "unresolved": 8,
+        "webforms_represented": 6
+      }
+    }
+  },
+  "envelope": "PYTHON_CONTROLLED_IDENTITY",
+  "hierarchy_depth": {
+    "functional": 2,
+    "technical": 2
+  },
+  "intermediate": {
+    "functional": 2,
+    "technical": 2
+  },
+  "invalidated": 0,
+  "max_request_estimated_tokens": 4759,
+  "metrics": {
+    "covered_projects": 234,
+    "interpretation_coverage": {
+      "semantic_coverage_percent": null,
+      "units_planned": 87
+    },
+    "linked_data_operations": 19159,
+    "linked_stored_procedures": 5389,
+    "partially_covered_projects": 24,
+    "priority_counts": {
+      "P0": 33,
+      "P1": 48,
+      "P2": 6
+    },
+    "projects_without_usable_evidence": 1,
+    "represented_flows": 12642,
+    "represented_solutions": 113,
+    "represented_unresolved_relationships": 162914,
+    "represented_webforms": 3346,
+    "structural_coverage": {
+      "categories_inventory": [
+        "PROJECTS",
+        "SOLUTIONS",
+        "WEBFORMS",
+        "FUNCTIONAL_FLOWS",
+        "DATA_ACCESS",
+        "STORED_PROCEDURES",
+        "UNRESOLVED_BOUNDARIES"
+      ],
+      "projects_classified": 259
+    },
+    "total_data_operations": 20082,
+    "total_flows": 12642,
+    "total_projects": 259,
+    "total_solutions": 113,
+    "total_stored_procedures": 5389,
+    "total_webforms": 3346,
+    "unresolved_ownership_projects": 0,
+    "unresolved_relationships": 162914
+  },
+  "migrated": 0,
+  "reused": 15,
+  "schema_version": "3.1.0"
+}

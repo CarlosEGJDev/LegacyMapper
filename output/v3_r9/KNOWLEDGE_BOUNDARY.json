@@ -1,0 +1,61 @@
+{
+  "WHAT_IS_INTERPRETED": [
+    "KR-FUNCTIONAL-C04",
+    "KR-TECHNICAL-C010",
+    "KR-TECHNICAL-C014"
+  ],
+  "WHAT_IS_KNOWN": [
+    "KR-FUNCTIONAL-C01",
+    "KR-FUNCTIONAL-C02",
+    "KR-FUNCTIONAL-C03",
+    "KR-FUNCTIONAL-C11",
+    "KR-FUNCTIONAL-C05",
+    "KR-FUNCTIONAL-C06",
+    "KR-FUNCTIONAL-C07",
+    "KR-FUNCTIONAL-C08",
+    "KR-FUNCTIONAL-C09",
+    "KR-FUNCTIONAL-C10",
+    "KR-TECHNICAL-C001",
+    "KR-TECHNICAL-C003",
+    "KR-TECHNICAL-C002",
+    "KR-TECHNICAL-C011",
+    "KR-TECHNICAL-C004",
+    "KR-TECHNICAL-C005",
+    "KR-TECHNICAL-C006",
+    "KR-TECHNICAL-C007",
+    "KR-TECHNICAL-C008",
+    "KR-TECHNICAL-C009",
+    "KR-FMI-008",
+    "KR-TMI-002",
+    "KR-TMI-005"
+  ],
+  "WHAT_IS_NOT_ALLOWED_TO_BE_ASSERTED": [
+    "Declarar MVC basándose en ausencia de referencias MVC.",
+    "Declarar una arquitectura formal sin evidencia autoritativa.",
+    "Asignar propósito de negocio a procedimientos almacenados solo por su nombre.",
+    "Resolver información externa aceptada como no resuelta.",
+    "Convertir relaciones parciales en relaciones completas."
+  ],
+  "WHAT_IS_PARTIALLY_KNOWN": [
+    "KR-FMI-001",
+    "KR-FMI-002",
+    "KR-FMI-003",
+    "KR-FMI-004",
+    "KR-FMI-005",
+    "KR-FMI-006",
+    "KR-TMI-003",
+    "KR-TMI-004",
+    "KR-TMI-006",
+    "KR-TMI-007",
+    "KR-TMI-008",
+    "KR-TMI-009",
+    "KR-TMI-010",
+    "KR-TMI-012"
+  ],
+  "WHAT_IS_UNKNOWN_AND_ACCEPTED": [
+    "KR-FMI-007",
+    "KR-TMI-001",
+    "KR-TMI-011"
+  ],
+  "schema_version": "V3-R9"
+}

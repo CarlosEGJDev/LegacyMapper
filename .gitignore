@@ -1,0 +1,137 @@
+# ==========================================
+# LegacyMapper .gitignore
+#
+# Principle (see docs/GENERATED_ARTIFACT_POLICY.md and
+# docs/V4/V4_REPOSITORY_CONTINUITY_CONTRACT.md):
+# ignore generated/heavy/local noise explicitly by path;
+# never use a broad wildcard that could hide authoritative
+# source, tests, docs, prompts, codex history or baselines.
+# ==========================================
+
+# ------------------------------------------
+# Python caches and build artifacts
+# ------------------------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# ------------------------------------------
+# Virtual environments
+# ------------------------------------------
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+.venv/
+
+# ------------------------------------------
+# Secrets and local environment configuration
+# ------------------------------------------
+.env
+.env.local
+.env.*.local
+*.env
+
+# ------------------------------------------
+# Test/coverage/lint caches
+# ------------------------------------------
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+cover/
+.ruff_cache/
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.ipynb_checkpoints
+
+# ------------------------------------------
+# Editors / IDEs
+# ------------------------------------------
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# ------------------------------------------
+# OS / logs
+# ------------------------------------------
+*.log
+.DS_Store
+Thumbs.db
+*.bak
+*.tmp
+
+# ------------------------------------------
+# Runtime working directory (context/)
+# Populated at runtime by context/context_builder.py.
+# Kept present via context/.gitkeep; contents are not versioned.
+# ------------------------------------------
+/context/*
+!/context/.gitkeep
+
+# ------------------------------------------
+# output/ — explicit, path-based exclusions only.
+# Everything under output/ is tracked by default EXCEPT
+# the named heavy/regenerable/smoke-test directories below.
+# See docs/GENERATED_ARTIFACT_POLICY.md for the full rationale
+# and docs/PROJECT_RECOVERY.md for regeneration commands.
+# ------------------------------------------
+
+# Full/reproducibility legacy-repository scan dumps
+# (regenerable via: python main.py "<legacy_repo>" --output "output/<name>" --verbose)
+/output/v1_r1_full/
+/output/v2_r4_full/
+/output/v2_r4_1_full/
+/output/v2_r4_1_repro_a/
+/output/v2_r4_1_repro_b/
+/output/v2_r5_full/
+/output/v2_r5_1_full/
+/output/v2_r5_1_repro/
+/output/v3_r8_1/
+
+# Leftover development/smoke-test run outputs (not canonical, not referenced
+# by V3_FINAL_BASELINE.json or any approved V3/V4 result)
+/output/context/
+/output/documentation/
+/output/index/
+/output/v1_r1_internal/
+/output/v2_r4_1_internal/
+
+# Any future ad-hoc full-repository run output directory, opt-in naming
+# convention: prefix with "_local_" to keep it out of Git without editing
+# this file again.
+/output/_local_*/

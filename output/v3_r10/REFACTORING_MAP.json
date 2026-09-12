@@ -1,0 +1,38 @@
+{
+  "schema_version": "V3-R10-1",
+  "changes": [
+    {
+      "old_module_class": "legacy_documenter.knowledge.readiness.run",
+      "new_module_class": "legacy_documenter.knowledge.readiness.KnowledgeReadinessService",
+      "reason": "Make the readiness orchestration boundary explicit and familiar while preserving Python-first helpers.",
+      "compatibility_impact": "NONE: run(workspace) remains a documented compatibility wrapper with identical output.",
+      "tests_covering_change": [
+        "tests.test_v3_r9",
+        "tests.test_v3_r10.EngineeringQualityTests.test_service_entry_point_preserves_ready",
+        "tests.test_v3_r10.EngineeringQualityTests.test_compatibility_wrapper_preserves_ready"
+      ]
+    },
+    {
+      "old_module_class": "No deterministic maintainability inventory",
+      "new_module_class": "legacy_documenter.quality.maintainability_audit",
+      "reason": "Provide reproducible AST indicators without importing or executing analyzed modules.",
+      "compatibility_impact": "NONE: additive engineering tooling only.",
+      "tests_covering_change": [
+        "tests.test_v3_r10.EngineeringQualityTests.test_audit_is_deterministic",
+        "tests.test_v3_r10.EngineeringQualityTests.test_audit_inventory_is_nonempty",
+        "tests.test_v3_r10.EngineeringQualityTests.test_audit_has_coverage_indicators"
+      ]
+    }
+  ],
+  "classes_created": ["KnowledgeReadinessService"],
+  "classes_moved": [],
+  "compatibility_wrappers": ["legacy_documenter.knowledge.readiness.run"],
+  "dead_code_removed": [],
+  "duplication_reduced": [],
+  "technical_debt_preserved": [
+    "Compact historical R7/R8 modules with limited type hints and docstrings.",
+    "Broad exception boundaries inside external provider adapters where safe error conversion is required.",
+    "No unified CLI for all V3 engineering rounds.",
+    "Potential cross-round helper duplication retained pending a separately scoped compatibility analysis."
+  ]
+}

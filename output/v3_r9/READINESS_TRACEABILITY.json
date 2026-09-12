@@ -1,0 +1,29 @@
+{
+  "claim_evidence_links": 139,
+  "documents": {
+    "functional": {
+      "claims": 13,
+      "missing_information": 8,
+      "sha256": "e392653849a5b272d4f9e5d2ea874979b53fd5538f198ff73a9ca8d0c803e6a7",
+      "source_snapshot": "6ad94c8f0b735dea3fb1d7daf55b6c3633cb6f6d04a9ee326baac8bef91c599a"
+    },
+    "technical": {
+      "claims": 14,
+      "missing_information": 12,
+      "sha256": "77e9f4ccb1dfdecfe49b2ececf3eab69bc62ee1cc3482a8197f152ef9a38c66c",
+      "source_snapshot": "6ad94c8f0b735dea3fb1d7daf55b6c3633cb6f6d04a9ee326baac8bef91c599a"
+    }
+  },
+  "human_review": {
+    "dispositions": 20,
+    "path": "codex/V3/V3_R8_4_REVISION_HUMANA_APROBADA.md",
+    "sha256": "30c42cb658ac4951e545188c26d3c59cfa8570f3644de03e7dbf745df7161f94"
+  },
+  "request_traceability_records": 20,
+  "unresolved_aliases": {
+    "assessments": [],
+    "evidence": [],
+    "packages": [],
+    "snapshots": []
+  }
+}

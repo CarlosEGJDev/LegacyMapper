@@ -1,0 +1,757 @@
+{
+  "schema_version": "1.0",
+  "scope": "output/ heavy generated artifacts (>1 MiB directories) plus repository-wide size thresholds",
+  "heavy_artifacts": [
+    {
+      "path": "output/v1_r1_full",
+      "type": "directory",
+      "total_size_bytes": 30292015,
+      "total_size_mib": 28.89,
+      "file_count": 17,
+      "canonical_or_reproducible": "4_GENERATED_INTERMEDIATE_STATE",
+      "determination": "GENERATED_INTERMEDIATE_STATE",
+      "notes": "Full-repository scan output for V1-R1, the earliest full run. Historical interest only; not referenced by the V3 canonical baseline.",
+      "regenerable": true,
+      "regeneration_source": "python main.py \"C:\\Users\\cgalianj\\source\\IST_40\\operacional\" --output \"output/v1_r1_full\" --verbose",
+      "largest_files": [
+        {
+          "path": "output/v1_r1_full/index/dependencies.json",
+          "size": 8908691
+        },
+        {
+          "path": "output/v1_r1_full/index/symbols.json",
+          "size": 8402674
+        },
+        {
+          "path": "output/v1_r1_full/index/webforms.json",
+          "size": 4376182
+        },
+        {
+          "path": "output/v1_r1_full/index/files.json",
+          "size": 3630043
+        },
+        {
+          "path": "output/v1_r1_full/documentation/WEBFORMS_MAP.md",
+          "size": 1372218
+        }
+      ],
+      "duplicated_of": null,
+      "recommended_disposition": "IGNORE_REGENERABLE"
+    },
+    {
+      "path": "output/v2_r4_full",
+      "type": "directory",
+      "total_size_bytes": 955832146,
+      "total_size_mib": 911.55,
+      "file_count": 29,
+      "canonical_or_reproducible": "4_GENERATED_INTERMEDIATE_STATE",
+      "determination": "GENERATED_INTERMEDIATE_STATE",
+      "notes": "Full-repository scan output for V2-R4/R4.1, including reproducibility (repro_a/repro_b) duplicate runs used to prove determinism. Superseded by later rounds; not referenced by the V3 canonical baseline.",
+      "regenerable": true,
+      "regeneration_source": "python main.py \"C:\\Users\\cgalianj\\source\\IST_40\\operacional\" --output \"output/v2_r4_full\" --verbose",
+      "largest_files": [
+        {
+          "path": "output/v2_r4_full/index/functional_dependencies.json",
+          "size": 227153633
+        },
+        {
+          "path": "output/v2_r4_full/index/calls.json",
+          "size": 211588538
+        },
+        {
+          "path": "output/v2_r4_full/index/functional_flows.json",
+          "size": 123233553
+        },
+        {
+          "path": "output/v2_r4_full/index/functional_paths.json",
+          "size": 102188002
+        },
+        {
+          "path": "output/v2_r4_full/index/flow_unresolved.json",
+          "size": 97366670
+        }
+      ],
+      "duplicated_of": null,
+      "recommended_disposition": "IGNORE_REGENERABLE"
+    },
+    {
+      "path": "output/v2_r4_1_full",
+      "type": "directory",
+      "total_size_bytes": 998734139,
+      "total_size_mib": 952.47,
+      "file_count": 29,
+      "canonical_or_reproducible": "4_GENERATED_INTERMEDIATE_STATE",
+      "determination": "GENERATED_INTERMEDIATE_STATE",
+      "notes": "Full-repository scan output for V2-R4/R4.1, including reproducibility (repro_a/repro_b) duplicate runs used to prove determinism. Superseded by later rounds; not referenced by the V3 canonical baseline.",
+      "regenerable": true,
+      "regeneration_source": "python main.py \"C:\\Users\\cgalianj\\source\\IST_40\\operacional\" --output \"output/v2_r4_1_full\" --verbose",
+      "largest_files": [
+        {
+          "path": "output/v2_r4_1_full/index/functional_dependencies.json",
+          "size": 227153633
+        },
+        {
+          "path": "output/v2_r4_1_full/index/calls.json",
+          "size": 211588538
+        },
+        {
+          "path": "output/v2_r4_1_full/index/functional_paths.json",
+          "size": 124174498
+        },
+        {
+          "path": "output/v2_r4_1_full/index/functional_flows.json",
+          "size": 123233553
+        },
+        {
+          "path": "output/v2_r4_1_full/index/flow_unresolved.json",
+          "size": 118282168
+        }
+      ],
+      "duplicated_of": null,
+      "recommended_disposition": "IGNORE_REGENERABLE"
+    },
+    {
+      "path": "output/v2_r4_1_repro_a",
+      "type": "directory",
+      "total_size_bytes": 998734137,
+      "total_size_mib": 952.47,
+      "file_count": 29,
+      "canonical_or_reproducible": "4_GENERATED_INTERMEDIATE_STATE",
+      "determination": "GENERATED_INTERMEDIATE_STATE",
+      "notes": "Full-repository scan output for V2-R4/R4.1, including reproducibility (repro_a/repro_b) duplicate runs used to prove determinism. Superseded by later rounds; not referenced by the V3 canonical baseline.",
+      "regenerable": true,
+      "regeneration_source": "python main.py \"C:\\Users\\cgalianj\\source\\IST_40\\operacional\" --output \"output/v2_r4_1_repro_a\" --verbose",
+      "largest_files": [
+        {
+          "path": "output/v2_r4_1_repro_a/index/functional_dependencies.json",
+          "size": 227153633
+        },
+        {
+          "path": "output/v2_r4_1_repro_a/index/calls.json",
+          "size": 211588538
+        },
+        {
+          "path": "output/v2_r4_1_repro_a/index/functional_paths.json",
+          "size": 124174498
+        },
+        {
+          "path": "output/v2_r4_1_repro_a/index/functional_flows.json",
+          "size": 123233553
+        },
+        {
+          "path": "output/v2_r4_1_repro_a/index/flow_unresolved.json",
+          "size": 118282168
+        }
+      ],
+      "duplicated_of": null,
+      "recommended_disposition": "IGNORE_REGENERABLE"
+    },
+    {
+      "path": "output/v2_r4_1_repro_b",
+      "type": "directory",
+      "total_size_bytes": 998734139,
+      "total_size_mib": 952.47,
+      "file_count": 29,
+      "canonical_or_reproducible": "4_GENERATED_INTERMEDIATE_STATE",
+      "determination": "GENERATED_INTERMEDIATE_STATE",
+      "notes": "Full-repository scan output for V2-R4/R4.1, including reproducibility (repro_a/repro_b) duplicate runs used to prove determinism. Superseded by later rounds; not referenced by the V3 canonical baseline.",
+      "regenerable": true,
+      "regeneration_source": "python main.py \"C:\\Users\\cgalianj\\source\\IST_40\\operacional\" --output \"output/v2_r4_1_repro_b\" --verbose",
+      "largest_files": [
+        {
+          "path": "output/v2_r4_1_repro_b/index/functional_dependencies.json",
+          "size": 227153633
+        },
+        {
+          "path": "output/v2_r4_1_repro_b/index/calls.json",
+          "size": 211588538
+        },
+        {
+          "path": "output/v2_r4_1_repro_b/index/functional_paths.json",
+          "size": 124174498
+        },
+        {
+          "path": "output/v2_r4_1_repro_b/index/functional_flows.json",
+          "size": 123233553
+        },
+        {
+          "path": "output/v2_r4_1_repro_b/index/flow_unresolved.json",
+          "size": 118282168
+        }
+      ],
+      "duplicated_of": null,
+      "recommended_disposition": "IGNORE_REGENERABLE"
+    },
+    {
+      "path": "output/v2_r5_full",
+      "type": "directory",
+      "total_size_bytes": 1347864019,
+      "total_size_mib": 1285.42,
+      "file_count": 34,
+      "canonical_or_reproducible": "4_GENERATED_INTERMEDIATE_STATE",
+      "determination": "GENERATED_INTERMEDIATE_STATE",
+      "notes": "Full-repository scan output for V2-R5/R5.1, including a reproducibility duplicate run. Superseded by V3; not referenced by the V3 canonical baseline.",
+      "regenerable": true,
+      "regeneration_source": "python main.py \"C:\\Users\\cgalianj\\source\\IST_40\\operacional\" --output \"output/v2_r5_full\" --verbose",
+      "largest_files": [
+        {
+          "path": "output/v2_r5_full/index/functional_dependencies.json",
+          "size": 227153633
+        },
+        {
+          "path": "output/v2_r5_full/index/calls.json",
+          "size": 211588538
+        },
+        {
+          "path": "output/v2_r5_full/ai_context/FUNCTIONAL_FLOWS.json",
+          "size": 144309946
+        },
+        {
+          "path": "output/v2_r5_full/ai_context/ARCHITECTURE_GRAPH.json",
+          "size": 139390147
+        },
+        {
+          "path": "output/v2_r5_full/index/functional_paths.json",
+          "size": 124174498
+        }
+      ],
+      "duplicated_of": null,
+      "recommended_disposition": "IGNORE_REGENERABLE"
+    },
+    {
+      "path": "output/v2_r5_1_full",
+      "type": "directory",
+      "total_size_bytes": 1277912605,
+      "total_size_mib": 1218.71,
+      "file_count": 34,
+      "canonical_or_reproducible": "4_GENERATED_INTERMEDIATE_STATE",
+      "determination": "GENERATED_INTERMEDIATE_STATE",
+      "notes": "Full-repository scan output for V2-R5/R5.1, including a reproducibility duplicate run. Superseded by V3; not referenced by the V3 canonical baseline.",
+      "regenerable": true,
+      "regeneration_source": "python main.py \"C:\\Users\\cgalianj\\source\\IST_40\\operacional\" --output \"output/v2_r5_1_full\" --verbose",
+      "largest_files": [
+        {
+          "path": "output/v2_r5_1_full/index/functional_dependencies.json",
+          "size": 227153633
+        },
+        {
+          "path": "output/v2_r5_1_full/index/calls.json",
+          "size": 211588538
+        },
+        {
+          "path": "output/v2_r5_1_full/ai_context/FUNCTIONAL_FLOWS.json",
+          "size": 144008622
+        },
+        {
+          "path": "output/v2_r5_1_full/index/functional_paths.json",
+          "size": 124174498
+        },
+        {
+          "path": "output/v2_r5_1_full/index/functional_flows.json",
+          "size": 123233553
+        }
+      ],
+      "duplicated_of": null,
+      "recommended_disposition": "IGNORE_REGENERABLE"
+    },
+    {
+      "path": "output/v2_r5_1_repro",
+      "type": "directory",
+      "total_size_bytes": 1277912605,
+      "total_size_mib": 1218.71,
+      "file_count": 34,
+      "canonical_or_reproducible": "4_GENERATED_INTERMEDIATE_STATE",
+      "determination": "GENERATED_INTERMEDIATE_STATE",
+      "notes": "Full-repository scan output for V2-R5/R5.1, including a reproducibility duplicate run. Superseded by V3; not referenced by the V3 canonical baseline.",
+      "regenerable": true,
+      "regeneration_source": "python main.py \"C:\\Users\\cgalianj\\source\\IST_40\\operacional\" --output \"output/v2_r5_1_repro\" --verbose",
+      "largest_files": [
+        {
+          "path": "output/v2_r5_1_repro/index/functional_dependencies.json",
+          "size": 227153633
+        },
+        {
+          "path": "output/v2_r5_1_repro/index/calls.json",
+          "size": 211588538
+        },
+        {
+          "path": "output/v2_r5_1_repro/ai_context/FUNCTIONAL_FLOWS.json",
+          "size": 144008622
+        },
+        {
+          "path": "output/v2_r5_1_repro/index/functional_paths.json",
+          "size": 124174498
+        },
+        {
+          "path": "output/v2_r5_1_repro/index/functional_flows.json",
+          "size": 123233553
+        }
+      ],
+      "duplicated_of": null,
+      "recommended_disposition": "IGNORE_REGENERABLE"
+    },
+    {
+      "path": "output/v3_r8_1",
+      "type": "directory",
+      "total_size_bytes": 755252732,
+      "total_size_mib": 720.27,
+      "file_count": 7,
+      "canonical_or_reproducible": "4_GENERATED_INTERMEDIATE_STATE",
+      "determination": "GENERATED_INTERMEDIATE_STATE",
+      "notes": "V3-R8.1 deep source analysis engine raw output (evidence/flows dumps). The evidence-exhaustion conclusions it fed into (v3_r8_2, v3_r8_3) are retained separately as small canonical artifacts; this raw dump itself is regenerable and not referenced by the V3 canonical baseline.",
+      "regenerable": true,
+      "regeneration_source": "python main.py \"C:\\Users\\cgalianj\\source\\IST_40\\operacional\" --output \"output/v3_r8_1\" --verbose",
+      "largest_files": [
+        {
+          "path": "output/v3_r8_1/DEEP_ANALYSIS_FLOWS.json",
+          "size": 388587881
+        },
+        {
+          "path": "output/v3_r8_1/DEEP_ANALYSIS_EVIDENCE.json",
+          "size": 361750471
+        },
+        {
+          "path": "output/v3_r8_1/EXTERNAL_DEPENDENCIES.json",
+          "size": 4682253
+        },
+        {
+          "path": "output/v3_r8_1/MISSING_INFORMATION_REEVALUATION.json",
+          "size": 138470
+        },
+        {
+          "path": "output/v3_r8_1/PROJECT_DEPENDENCIES.json",
+          "size": 89247
+        }
+      ],
+      "duplicated_of": null,
+      "recommended_disposition": "IGNORE_REGENERABLE"
+    }
+  ],
+  "duplication_finding": {
+    "observation": "DUPLICATED_LARGE_FILES_ACROSS_RUNS",
+    "detail": "index/functional_dependencies.json (~227 MiB) and index/calls.json (~211 MiB) recur byte-identical-sized across v2_r4_full, v2_r4_1_full, v2_r4_1_repro_a, v2_r4_1_repro_b, v2_r5_full, v2_r5_1_full, v2_r5_1_repro. These are repeated full/reproducibility runs of the same legacy source, not distinct canonical states.",
+    "impact": "Excluding all seven directories removes ~8.2 GiB of duplicated, regenerable data with no loss of unique information."
+  },
+  "size_thresholds": {
+    "files_over_1_mib_count": 133,
+    "files_over_10_mib_count": 67,
+    "files_over_50_mib_count": 53,
+    "files_over_100_mib_count": 39,
+    "files_over_50_mib": [
+      {
+        "path": "output/v3_r8_1/DEEP_ANALYSIS_FLOWS.json",
+        "size": 388587881
+      },
+      {
+        "path": "output/v3_r8_1/DEEP_ANALYSIS_EVIDENCE.json",
+        "size": 361750471
+      },
+      {
+        "path": "output/v2_r5_full/index/functional_dependencies.json",
+        "size": 227153633
+      },
+      {
+        "path": "output/v2_r5_1_repro/index/functional_dependencies.json",
+        "size": 227153633
+      },
+      {
+        "path": "output/v2_r5_1_full/index/functional_dependencies.json",
+        "size": 227153633
+      },
+      {
+        "path": "output/v2_r4_full/index/functional_dependencies.json",
+        "size": 227153633
+      },
+      {
+        "path": "output/v2_r4_1_repro_b/index/functional_dependencies.json",
+        "size": 227153633
+      },
+      {
+        "path": "output/v2_r4_1_repro_a/index/functional_dependencies.json",
+        "size": 227153633
+      },
+      {
+        "path": "output/v2_r4_1_full/index/functional_dependencies.json",
+        "size": 227153633
+      },
+      {
+        "path": "output/v2_r5_full/index/calls.json",
+        "size": 211588538
+      },
+      {
+        "path": "output/v2_r5_1_repro/index/calls.json",
+        "size": 211588538
+      },
+      {
+        "path": "output/v2_r5_1_full/index/calls.json",
+        "size": 211588538
+      },
+      {
+        "path": "output/v2_r4_full/index/calls.json",
+        "size": 211588538
+      },
+      {
+        "path": "output/v2_r4_1_repro_b/index/calls.json",
+        "size": 211588538
+      },
+      {
+        "path": "output/v2_r4_1_repro_a/index/calls.json",
+        "size": 211588538
+      },
+      {
+        "path": "output/v2_r4_1_full/index/calls.json",
+        "size": 211588538
+      },
+      {
+        "path": "output/v2_r5_full/ai_context/FUNCTIONAL_FLOWS.json",
+        "size": 144309946
+      },
+      {
+        "path": "output/v2_r5_1_repro/ai_context/FUNCTIONAL_FLOWS.json",
+        "size": 144008622
+      },
+      {
+        "path": "output/v2_r5_1_full/ai_context/FUNCTIONAL_FLOWS.json",
+        "size": 144008622
+      },
+      {
+        "path": "output/v2_r5_full/ai_context/ARCHITECTURE_GRAPH.json",
+        "size": 139390147
+      },
+      {
+        "path": "output/v2_r5_full/index/functional_paths.json",
+        "size": 124174498
+      },
+      {
+        "path": "output/v2_r5_1_repro/index/functional_paths.json",
+        "size": 124174498
+      },
+      {
+        "path": "output/v2_r5_1_full/index/functional_paths.json",
+        "size": 124174498
+      },
+      {
+        "path": "output/v2_r4_1_repro_b/index/functional_paths.json",
+        "size": 124174498
+      },
+      {
+        "path": "output/v2_r4_1_repro_a/index/functional_paths.json",
+        "size": 124174498
+      },
+      {
+        "path": "output/v2_r4_1_full/index/functional_paths.json",
+        "size": 124174498
+      },
+      {
+        "path": "output/v2_r5_full/index/functional_flows.json",
+        "size": 123233553
+      },
+      {
+        "path": "output/v2_r5_1_repro/index/functional_flows.json",
+        "size": 123233553
+      },
+      {
+        "path": "output/v2_r5_1_full/index/functional_flows.json",
+        "size": 123233553
+      },
+      {
+        "path": "output/v2_r4_full/index/functional_flows.json",
+        "size": 123233553
+      },
+      {
+        "path": "output/v2_r4_1_repro_b/index/functional_flows.json",
+        "size": 123233553
+      },
+      {
+        "path": "output/v2_r4_1_repro_a/index/functional_flows.json",
+        "size": 123233553
+      },
+      {
+        "path": "output/v2_r4_1_full/index/functional_flows.json",
+        "size": 123233553
+      },
+      {
+        "path": "output/v2_r5_full/index/flow_unresolved.json",
+        "size": 118282168
+      },
+      {
+        "path": "output/v2_r5_1_repro/index/flow_unresolved.json",
+        "size": 118282168
+      },
+      {
+        "path": "output/v2_r5_1_full/index/flow_unresolved.json",
+        "size": 118282168
+      },
+      {
+        "path": "output/v2_r4_1_repro_b/index/flow_unresolved.json",
+        "size": 118282168
+      },
+      {
+        "path": "output/v2_r4_1_repro_a/index/flow_unresolved.json",
+        "size": 118282168
+      },
+      {
+        "path": "output/v2_r4_1_full/index/flow_unresolved.json",
+        "size": 118282168
+      },
+      {
+        "path": "output/v2_r4_full/index/functional_paths.json",
+        "size": 102188002
+      },
+      {
+        "path": "output/v2_r4_full/index/flow_unresolved.json",
+        "size": 97366670
+      },
+      {
+        "path": "output/v2_r5_full/index/data_parameters.json",
+        "size": 90890159
+      },
+      {
+        "path": "output/v2_r5_1_repro/index/data_parameters.json",
+        "size": 90890159
+      },
+      {
+        "path": "output/v2_r5_1_full/index/data_parameters.json",
+        "size": 90890159
+      },
+      {
+        "path": "output/v2_r4_full/index/data_parameters.json",
+        "size": 90890159
+      },
+      {
+        "path": "output/v2_r4_1_repro_b/index/data_parameters.json",
+        "size": 90890159
+      },
+      {
+        "path": "output/v2_r4_1_repro_a/index/data_parameters.json",
+        "size": 90890159
+      },
+      {
+        "path": "output/v2_r4_1_full/index/data_parameters.json",
+        "size": 90890159
+      },
+      {
+        "path": "output/v2_r5_1_repro/ai_context/ARCHITECTURE_GRAPH.json",
+        "size": 69740057
+      },
+      {
+        "path": "output/v2_r5_1_full/ai_context/ARCHITECTURE_GRAPH.json",
+        "size": 69740057
+      },
+      {
+        "path": "output/v2_r5_full/ai_context/TRACEABILITY.json",
+        "size": 59358789
+      },
+      {
+        "path": "output/v2_r5_1_repro/ai_context/TRACEABILITY.json",
+        "size": 59358789
+      },
+      {
+        "path": "output/v2_r5_1_full/ai_context/TRACEABILITY.json",
+        "size": 59358789
+      }
+    ],
+    "files_over_100_mib": [
+      {
+        "path": "output/v3_r8_1/DEEP_ANALYSIS_FLOWS.json",
+        "size": 388587881
+      },
+      {
+        "path": "output/v3_r8_1/DEEP_ANALYSIS_EVIDENCE.json",
+        "size": 361750471
+      },
+      {
+        "path": "output/v2_r5_full/index/functional_dependencies.json",
+        "size": 227153633
+      },
+      {
+        "path": "output/v2_r5_1_repro/index/functional_dependencies.json",
+        "size": 227153633
+      },
+      {
+        "path": "output/v2_r5_1_full/index/functional_dependencies.json",
+        "size": 227153633
+      },
+      {
+        "path": "output/v2_r4_full/index/functional_dependencies.json",
+        "size": 227153633
+      },
+      {
+        "path": "output/v2_r4_1_repro_b/index/functional_dependencies.json",
+        "size": 227153633
+      },
+      {
+        "path": "output/v2_r4_1_repro_a/index/functional_dependencies.json",
+        "size": 227153633
+      },
+      {
+        "path": "output/v2_r4_1_full/index/functional_dependencies.json",
+        "size": 227153633
+      },
+      {
+        "path": "output/v2_r5_full/index/calls.json",
+        "size": 211588538
+      },
+      {
+        "path": "output/v2_r5_1_repro/index/calls.json",
+        "size": 211588538
+      },
+      {
+        "path": "output/v2_r5_1_full/index/calls.json",
+        "size": 211588538
+      },
+      {
+        "path": "output/v2_r4_full/index/calls.json",
+        "size": 211588538
+      },
+      {
+        "path": "output/v2_r4_1_repro_b/index/calls.json",
+        "size": 211588538
+      },
+      {
+        "path": "output/v2_r4_1_repro_a/index/calls.json",
+        "size": 211588538
+      },
+      {
+        "path": "output/v2_r4_1_full/index/calls.json",
+        "size": 211588538
+      },
+      {
+        "path": "output/v2_r5_full/ai_context/FUNCTIONAL_FLOWS.json",
+        "size": 144309946
+      },
+      {
+        "path": "output/v2_r5_1_repro/ai_context/FUNCTIONAL_FLOWS.json",
+        "size": 144008622
+      },
+      {
+        "path": "output/v2_r5_1_full/ai_context/FUNCTIONAL_FLOWS.json",
+        "size": 144008622
+      },
+      {
+        "path": "output/v2_r5_full/ai_context/ARCHITECTURE_GRAPH.json",
+        "size": 139390147
+      },
+      {
+        "path": "output/v2_r5_full/index/functional_paths.json",
+        "size": 124174498
+      },
+      {
+        "path": "output/v2_r5_1_repro/index/functional_paths.json",
+        "size": 124174498
+      },
+      {
+        "path": "output/v2_r5_1_full/index/functional_paths.json",
+        "size": 124174498
+      },
+      {
+        "path": "output/v2_r4_1_repro_b/index/functional_paths.json",
+        "size": 124174498
+      },
+      {
+        "path": "output/v2_r4_1_repro_a/index/functional_paths.json",
+        "size": 124174498
+      },
+      {
+        "path": "output/v2_r4_1_full/index/functional_paths.json",
+        "size": 124174498
+      },
+      {
+        "path": "output/v2_r5_full/index/functional_flows.json",
+        "size": 123233553
+      },
+      {
+        "path": "output/v2_r5_1_repro/index/functional_flows.json",
+        "size": 123233553
+      },
+      {
+        "path": "output/v2_r5_1_full/index/functional_flows.json",
+        "size": 123233553
+      },
+      {
+        "path": "output/v2_r4_full/index/functional_flows.json",
+        "size": 123233553
+      },
+      {
+        "path": "output/v2_r4_1_repro_b/index/functional_flows.json",
+        "size": 123233553
+      },
+      {
+        "path": "output/v2_r4_1_repro_a/index/functional_flows.json",
+        "size": 123233553
+      },
+      {
+        "path": "output/v2_r4_1_full/index/functional_flows.json",
+        "size": 123233553
+      },
+      {
+        "path": "output/v2_r5_full/index/flow_unresolved.json",
+        "size": 118282168
+      },
+      {
+        "path": "output/v2_r5_1_repro/index/flow_unresolved.json",
+        "size": 118282168
+      },
+      {
+        "path": "output/v2_r5_1_full/index/flow_unresolved.json",
+        "size": 118282168
+      },
+      {
+        "path": "output/v2_r4_1_repro_b/index/flow_unresolved.json",
+        "size": 118282168
+      },
+      {
+        "path": "output/v2_r4_1_repro_a/index/flow_unresolved.json",
+        "size": 118282168
+      },
+      {
+        "path": "output/v2_r4_1_full/index/flow_unresolved.json",
+        "size": 118282168
+      }
+    ],
+    "top_10_files_over_10_mib": [
+      {
+        "path": "output/v3_r8_1/DEEP_ANALYSIS_FLOWS.json",
+        "size": 388587881
+      },
+      {
+        "path": "output/v3_r8_1/DEEP_ANALYSIS_EVIDENCE.json",
+        "size": 361750471
+      },
+      {
+        "path": "output/v2_r5_full/index/functional_dependencies.json",
+        "size": 227153633
+      },
+      {
+        "path": "output/v2_r5_1_repro/index/functional_dependencies.json",
+        "size": 227153633
+      },
+      {
+        "path": "output/v2_r5_1_full/index/functional_dependencies.json",
+        "size": 227153633
+      },
+      {
+        "path": "output/v2_r4_full/index/functional_dependencies.json",
+        "size": 227153633
+      },
+      {
+        "path": "output/v2_r4_1_repro_b/index/functional_dependencies.json",
+        "size": 227153633
+      },
+      {
+        "path": "output/v2_r4_1_repro_a/index/functional_dependencies.json",
+        "size": 227153633
+      },
+      {
+        "path": "output/v2_r4_1_full/index/functional_dependencies.json",
+        "size": 227153633
+      },
+      {
+        "path": "output/v2_r5_full/index/calls.json",
+        "size": 211588538
+      }
+    ]
+  },
+  "zip_archives_found": [],
+  "total_heavy_bytes_excluded": 8641268537
+}

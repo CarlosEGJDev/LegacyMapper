@@ -1,0 +1,53 @@
+{
+  "schema_version": "1.0",
+  "retained_candidate": {
+    "total_size_bytes": 2735738,
+    "total_size_mib": 2.609,
+    "entry_count": 176,
+    "approx_file_count": 274,
+    "largest_retained_entries": [
+      {
+        "path": "output/v3_r7_2/LOCAL_ASSESSMENTS.json",
+        "size": 216337,
+        "type": "file"
+      },
+      {
+        "path": "tests",
+        "size": 190921,
+        "type": "directory"
+      },
+      {
+        "path": "output/v4_r1_1",
+        "size": 167681,
+        "type": "directory"
+      },
+      {
+        "path": "output/v3_r8_2/MISSING_INFORMATION_REEVALUATION.json",
+        "size": 143781,
+        "type": "file"
+      },
+      {
+        "path": "legacy_documenter/documentation",
+        "size": 128544,
+        "type": "directory"
+      }
+    ]
+  },
+  "files_over_50_mib_retained": [],
+  "files_over_100_mib_retained": [],
+  "lfs_candidates": [],
+  "excluded_generated_data": {
+    "total_size_bytes": 8641268537,
+    "total_size_gib": 8.05,
+    "directory_count": 9
+  },
+  "secret_scan_status": "PASS",
+  "secret_scan_notes": "Manual pattern scan (api[_-]?key, password=, secret=, BEGIN PRIVATE/RSA KEY, token=) across all KEEP_IN_GIT-candidate text files found only: (1) test fixtures using well-known fake Oracle credentials (scott/tiger) to exercise the sanitizer, (2) references to environment-variable *names* (GEMINI_API_KEY, OPENAI_API_KEY, ANTHROPIC_API_KEY) read via os.environ.get, never a literal secret value. No real credential, token, private key, or connection string was found.",
+  "continuity_status": "PRESERVED",
+  "goal_check": {
+    "no_tracked_file_over_100_mib": true,
+    "no_tracked_artifact_near_100_mib": true,
+    "heavy_generated_data_excluded": true,
+    "source_docs_tests_complete": true
+  }
+}

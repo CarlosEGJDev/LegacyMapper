@@ -1,0 +1,50 @@
+{
+  "ai_knowledge_allowed": false,
+  "effective_model": "gpt-5.6-luna",
+  "effective_provider": "copilot-local",
+  "group_results": [
+    {
+      "group": 1,
+      "status": "VALID",
+      "target_ids": [
+        "FMI-001",
+        "FMI-007"
+      ]
+    },
+    {
+      "group": 2,
+      "status": "VALID",
+      "target_ids": [
+        "FMI-008",
+        "TMI-001",
+        "TMI-006",
+        "TMI-011"
+      ]
+    },
+    {
+      "group": 3,
+      "status": "VALID",
+      "target_ids": [
+        "TMI-002",
+        "TMI-009"
+      ]
+    }
+  ],
+  "model_change_reason": "No model-capability failure.",
+  "model_change_recommended": false,
+  "model_failure_classification": null,
+  "real_llm_calls": 3,
+  "request_groups": 3,
+  "retries": 0,
+  "status": "V3-R8_2_INTERPRETATION_COMPLETE",
+  "targets": [
+    "FMI-001",
+    "FMI-007",
+    "FMI-008",
+    "TMI-001",
+    "TMI-002",
+    "TMI-006",
+    "TMI-009",
+    "TMI-011"
+  ]
+}

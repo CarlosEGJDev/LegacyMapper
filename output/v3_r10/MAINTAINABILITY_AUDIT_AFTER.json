@@ -1,0 +1,1099 @@
+{
+  "analysis_type": "STATIC_AST_INVENTORY",
+  "compatibility_entry_points": [
+    "legacy_documenter.main.main",
+    "legacy_documenter.knowledge.readiness.run"
+  ],
+  "limitations": [
+    "Line count is an inventory signal, not a quality verdict.",
+    "Responsibility candidates are lexical prompts for human review."
+  ],
+  "modules": [
+    {
+      "classes": [],
+      "docstring_coverage_percent": 100.0,
+      "functions_and_methods": 0,
+      "large_methods": [],
+      "lines": 1,
+      "module": "legacy_documenter/__init__.py",
+      "multiple_responsibilities_candidate": false,
+      "responsibility_signals": [],
+      "typing_coverage_percent": 100.0
+    },
+    {
+      "classes": [],
+      "docstring_coverage_percent": 100.0,
+      "functions_and_methods": 0,
+      "large_methods": [],
+      "lines": 1,
+      "module": "legacy_documenter/analysis/__init__.py",
+      "multiple_responsibilities_candidate": false,
+      "responsibility_signals": [],
+      "typing_coverage_percent": 100.0
+    },
+    {
+      "classes": [
+        "CallResolver"
+      ],
+      "docstring_coverage_percent": 0.0,
+      "functions_and_methods": 9,
+      "large_methods": [
+        "resolve"
+      ],
+      "lines": 146,
+      "module": "legacy_documenter/analysis/call_resolver.py",
+      "multiple_responsibilities_candidate": false,
+      "responsibility_signals": [],
+      "typing_coverage_percent": 100.0
+    },
+    {
+      "classes": [
+        "DatabaseResolver"
+      ],
+      "docstring_coverage_percent": 0.0,
+      "functions_and_methods": 11,
+      "large_methods": [
+        "resolve"
+      ],
+      "lines": 154,
+      "module": "legacy_documenter/analysis/database_resolver.py",
+      "multiple_responsibilities_candidate": false,
+      "responsibility_signals": [
+        "provider"
+      ],
+      "typing_coverage_percent": 100.0
+    },
+    {
+      "classes": [],
+      "docstring_coverage_percent": 0.0,
+      "functions_and_methods": 10,
+      "large_methods": [],
+      "lines": 101,
+      "module": "legacy_documenter/analysis/deep_interpretation.py",
+      "multiple_responsibilities_candidate": true,
+      "responsibility_signals": [
+        "json",
+        "provider",
+        "read_text",
+        "write_text"
+      ],
+      "typing_coverage_percent": 0.0
+    },
+    {
+      "classes": [
+        "DeepEvidence"
+      ],
+      "docstring_coverage_percent": 0.0,
+      "functions_and_methods": 12,
+      "large_methods": [],
+      "lines": 151,
+      "module": "legacy_documenter/analysis/deep_source.py",
+      "multiple_responsibilities_candidate": true,
+      "responsibility_signals": [
+        "json",
+        "provider",
+        "read_text",
+        "write_text"
+      ],
+      "typing_coverage_percent": 0.0
+    },
+    {
+      "classes": [
+        "DependencyResolver"
+      ],
+      "docstring_coverage_percent": 0.0,
+      "functions_and_methods": 7,
+      "large_methods": [],
+      "lines": 80,
+      "module": "legacy_documenter/analysis/dependency_resolver.py",
+      "multiple_responsibilities_candidate": false,
+      "responsibility_signals": [],
+      "typing_coverage_percent": 100.0
+    },
+    {
+      "classes": [
+        "FunctionalFlowResolver"
+      ],
+      "docstring_coverage_percent": 0.0,
+      "functions_and_methods": 24,
+      "large_methods": [
+        "_walk",
+        "resolve"
+      ],
+      "lines": 319,
+      "module": "legacy_documenter/analysis/flow_resolver.py",
+      "multiple_responsibilities_candidate": false,
+      "responsibility_signals": [
+        "json"
+      ],
+      "typing_coverage_percent": 95.83
+    },
+    {
+      "classes": [],
+      "docstring_coverage_percent": 0.0,
+      "functions_and_methods": 6,
+      "large_methods": [],
+      "lines": 70,
+      "module": "legacy_documenter/analysis/targeted_exhaustion.py",
+      "multiple_responsibilities_candidate": true,
+      "responsibility_signals": [
+        "json",
+        "provider",
+        "read_text",
+        "write_text"
+      ],
+      "typing_coverage_percent": 0.0
+    },
+    {
+      "classes": [
+        "WebEntryResolver"
+      ],
+      "docstring_coverage_percent": 0.0,
+      "functions_and_methods": 14,
+      "large_methods": [
+        "_add_binding_and_entry",
+        "resolve"
+      ],
+      "lines": 217,
+      "module": "legacy_documenter/analysis/web_entry_resolver.py",
+      "multiple_responsibilities_candidate": false,
+      "responsibility_signals": [
+        "render"
+      ],
+      "typing_coverage_percent": 100.0
+    },
+    {
+      "classes": [],
+      "docstring_coverage_percent": 100.0,
+      "functions_and_methods": 0,
+      "large_methods": [],
+      "lines": 28,
+      "module": "legacy_documenter/config.py",
+      "multiple_responsibilities_candidate": false,
+      "responsibility_signals": [],
+      "typing_coverage_percent": 100.0
+    },
+    {
+      "classes": [],
+      "docstring_coverage_percent": 100.0,
+      "functions_and_methods": 0,
+      "large_methods": [],
+      "lines": 1,
+      "module": "legacy_documenter/context/__init__.py",
+      "multiple_responsibilities_candidate": false,
+      "responsibility_signals": [],
+      "typing_coverage_percent": 100.0
+    },
+    {
+      "classes": [
+        "ContextComposer"
+      ],
+      "docstring_coverage_percent": 0.0,
+      "functions_and_methods": 2,
+      "large_methods": [],
+      "lines": 31,
+      "module": "legacy_documenter/context/composer.py",
+      "multiple_responsibilities_candidate": false,
+      "responsibility_signals": [
+        "json"
+      ],
+      "typing_coverage_percent": 0.0
+    },
+    {
+      "classes": [
+        "ContextBuilder"
+      ],
+      "docstring_coverage_percent": 0.0,
+      "functions_and_methods": 1,
+      "large_methods": [],
+      "lines": 30,
+      "module": "legacy_documenter/context/context_builder.py",
+      "multiple_responsibilities_candidate": false,
+      "responsibility_signals": [
+        "json",
+        "write_text"
+      ],
+      "typing_coverage_percent": 100.0
+    },
+    {
+      "classes": [
+        "ContextResolver"
+      ],
+      "docstring_coverage_percent": 0.0,
+      "functions_and_methods": 4,
+      "large_methods": [],
+      "lines": 29,
+      "module": "legacy_documenter/context/resolver.py",
+      "multiple_responsibilities_candidate": false,
+      "responsibility_signals": [
+        "json",
+        "read_text"
+      ],
+      "typing_coverage_percent": 0.0
+    },
+    {
+      "classes": [
+        "SystemContextBuilder"
+      ],
+      "docstring_coverage_percent": 0.0,
+      "functions_and_methods": 9,
+      "large_methods": [],
+      "lines": 118,
+      "module": "legacy_documenter/context/system_context_builder.py",
+      "multiple_responsibilities_candidate": false,
+      "responsibility_signals": [
+        "json",
+        "write_text"
+      ],
+      "typing_coverage_percent": 22.22
+    },
+    {
+      "classes": [],
+      "docstring_coverage_percent": 100.0,
+      "functions_and_methods": 0,
+      "large_methods": [],
+      "lines": 5,
+      "module": "legacy_documenter/documentation/__init__.py",
+      "multiple_responsibilities_candidate": false,
+      "responsibility_signals": [
+        "render"
+      ],
+      "typing_coverage_percent": 100.0
+    },
+    {
+      "classes": [],
+      "docstring_coverage_percent": 0.0,
+      "functions_and_methods": 4,
+      "large_methods": [],
+      "lines": 53,
+      "module": "legacy_documenter/documentation/aggregation.py",
+      "multiple_responsibilities_candidate": false,
+      "responsibility_signals": [
+        "json",
+        "validate"
+      ],
+      "typing_coverage_percent": 0.0
+    },
+    {
+      "classes": [
+        "MetricFact"
+      ],
+      "docstring_coverage_percent": 20.0,
+      "functions_and_methods": 14,
+      "large_methods": [
+        "build_metric_index"
+      ],
+      "lines": 253,
+      "module": "legacy_documenter/documentation/consistency.py",
+      "multiple_responsibilities_candidate": false,
+      "responsibility_signals": [
+        "json",
+        "validate"
+      ],
+      "typing_coverage_percent": 0.0
+    },
+    {
+      "classes": [],
+      "docstring_coverage_percent": 0.0,
+      "functions_and_methods": 3,
+      "large_methods": [],
+      "lines": 76,
+      "module": "legacy_documenter/documentation/consistency_run.py",
+      "multiple_responsibilities_candidate": true,
+      "responsibility_signals": [
+        "json",
+        "render",
+        "validate",
+        "write_text"
+      ],
+      "typing_coverage_percent": 0.0
+    },
+    {
+      "classes": [
+        "ArchitecturePatternAssessment",
+        "DocumentClaim",
+        "DocumentMetadata",
+        "DocumentationContract",
+        "EvidenceReference",
+        "FunctionalModule",
+        "MissingInformation"
+      ],
+      "docstring_coverage_percent": 0.0,
+      "functions_and_methods": 6,
+      "large_methods": [],
+      "lines": 55,
+      "module": "legacy_documenter/documentation/contracts.py",
+      "multiple_responsibilities_candidate": false,
+      "responsibility_signals": [
+        "json",
+        "provider",
+        "validate"
+      ],
+      "typing_coverage_percent": 0.0
+    },
+    {
+      "classes": [
+        "CoveragePlanner"
+      ],
+      "docstring_coverage_percent": 0.0,
+      "functions_and_methods": 9,
+      "large_methods": [],
+      "lines": 57,
+      "module": "legacy_documenter/documentation/coverage.py",
+      "multiple_responsibilities_candidate": false,
+      "responsibility_signals": [
+        "json",
+        "provider",
+        "read_text"
+      ],
+      "typing_coverage_percent": 0.0
+    },
+    {
+      "classes": [],
+      "docstring_coverage_percent": 0.0,
+      "functions_and_methods": 5,
+      "large_methods": [],
+      "lines": 23,
+      "module": "legacy_documenter/documentation/envelope.py",
+      "multiple_responsibilities_candidate": false,
+      "responsibility_signals": [
+        "json",
+        "provider"
+      ],
+      "typing_coverage_percent": 0.0
+    },
+    {
+      "classes": [
+        "EvidenceCatalogError"
+      ],
+      "docstring_coverage_percent": 0.0,
+      "functions_and_methods": 8,
+      "large_methods": [],
+      "lines": 45,
+      "module": "legacy_documenter/documentation/evidence_catalog.py",
+      "multiple_responsibilities_candidate": false,
+      "responsibility_signals": [
+        "json",
+        "validate"
+      ],
+      "typing_coverage_percent": 0.0
+    },
+    {
+      "classes": [],
+      "docstring_coverage_percent": 100.0,
+      "functions_and_methods": 0,
+      "large_methods": [],
+      "lines": 3,
+      "module": "legacy_documenter/documentation/evidence_resume.py",
+      "multiple_responsibilities_candidate": false,
+      "responsibility_signals": [
+        "json"
+      ],
+      "typing_coverage_percent": 100.0
+    },
+    {
+      "classes": [],
+      "docstring_coverage_percent": 0.0,
+      "functions_and_methods": 8,
+      "large_methods": [],
+      "lines": 94,
+      "module": "legacy_documenter/documentation/generator.py",
+      "multiple_responsibilities_candidate": true,
+      "responsibility_signals": [
+        "json",
+        "provider",
+        "render",
+        "validate",
+        "write_text"
+      ],
+      "typing_coverage_percent": 0.0
+    },
+    {
+      "classes": [],
+      "docstring_coverage_percent": 0.0,
+      "functions_and_methods": 2,
+      "large_methods": [
+        "run"
+      ],
+      "lines": 72,
+      "module": "legacy_documenter/documentation/hierarchical.py",
+      "multiple_responsibilities_candidate": true,
+      "responsibility_signals": [
+        "json",
+        "provider",
+        "render",
+        "validate",
+        "write_text"
+      ],
+      "typing_coverage_percent": 0.0
+    },
+    {
+      "classes": [],
+      "docstring_coverage_percent": 0.0,
+      "functions_and_methods": 9,
+      "large_methods": [],
+      "lines": 173,
+      "module": "legacy_documenter/documentation/human_review.py",
+      "multiple_responsibilities_candidate": true,
+      "responsibility_signals": [
+        "json",
+        "read_text",
+        "validate",
+        "write_text"
+      ],
+      "typing_coverage_percent": 0.0
+    },
+    {
+      "classes": [
+        "AssessmentValidator",
+        "DocumentationProfile",
+        "DocumentationPrompt"
+      ],
+      "docstring_coverage_percent": 0.0,
+      "functions_and_methods": 4,
+      "large_methods": [],
+      "lines": 46,
+      "module": "legacy_documenter/documentation/interpretation.py",
+      "multiple_responsibilities_candidate": false,
+      "responsibility_signals": [
+        "json",
+        "validate"
+      ],
+      "typing_coverage_percent": 0.0
+    },
+    {
+      "classes": [],
+      "docstring_coverage_percent": 0.0,
+      "functions_and_methods": 1,
+      "large_methods": [],
+      "lines": 29,
+      "module": "legacy_documenter/documentation/renderer.py",
+      "multiple_responsibilities_candidate": false,
+      "responsibility_signals": [
+        "json",
+        "provider",
+        "render"
+      ],
+      "typing_coverage_percent": 0.0
+    },
+    {
+      "classes": [],
+      "docstring_coverage_percent": 0.0,
+      "functions_and_methods": 3,
+      "large_methods": [
+        "run"
+      ],
+      "lines": 82,
+      "module": "legacy_documenter/documentation/resume.py",
+      "multiple_responsibilities_candidate": true,
+      "responsibility_signals": [
+        "json",
+        "provider",
+        "render",
+        "validate",
+        "write_text"
+      ],
+      "typing_coverage_percent": 0.0
+    },
+    {
+      "classes": [],
+      "docstring_coverage_percent": 0.0,
+      "functions_and_methods": 7,
+      "large_methods": [],
+      "lines": 46,
+      "module": "legacy_documenter/documentation/second_review.py",
+      "multiple_responsibilities_candidate": true,
+      "responsibility_signals": [
+        "json",
+        "read_text",
+        "validate",
+        "write_text"
+      ],
+      "typing_coverage_percent": 0.0
+    },
+    {
+      "classes": [
+        "AssessmentStore",
+        "SynthesisPlanner"
+      ],
+      "docstring_coverage_percent": 0.0,
+      "functions_and_methods": 12,
+      "large_methods": [],
+      "lines": 85,
+      "module": "legacy_documenter/documentation/synthesis.py",
+      "multiple_responsibilities_candidate": true,
+      "responsibility_signals": [
+        "json",
+        "provider",
+        "read_text",
+        "validate"
+      ],
+      "typing_coverage_percent": 0.0
+    },
+    {
+      "classes": [],
+      "docstring_coverage_percent": 0.0,
+      "functions_and_methods": 5,
+      "large_methods": [],
+      "lines": 74,
+      "module": "legacy_documenter/documentation/systematic.py",
+      "multiple_responsibilities_candidate": true,
+      "responsibility_signals": [
+        "json",
+        "provider",
+        "read_text",
+        "render",
+        "validate",
+        "write_text"
+      ],
+      "typing_coverage_percent": 0.0
+    },
+    {
+      "classes": [],
+      "docstring_coverage_percent": 100.0,
+      "functions_and_methods": 0,
+      "large_methods": [],
+      "lines": 1,
+      "module": "legacy_documenter/exporters/__init__.py",
+      "multiple_responsibilities_candidate": false,
+      "responsibility_signals": [],
+      "typing_coverage_percent": 100.0
+    },
+    {
+      "classes": [
+        "JSONExporter"
+      ],
+      "docstring_coverage_percent": 0.0,
+      "functions_and_methods": 1,
+      "large_methods": [],
+      "lines": 15,
+      "module": "legacy_documenter/exporters/json_exporter.py",
+      "multiple_responsibilities_candidate": false,
+      "responsibility_signals": [
+        "json",
+        "write_text"
+      ],
+      "typing_coverage_percent": 100.0
+    },
+    {
+      "classes": [
+        "MarkdownExporter"
+      ],
+      "docstring_coverage_percent": 0.0,
+      "functions_and_methods": 8,
+      "large_methods": [],
+      "lines": 66,
+      "module": "legacy_documenter/exporters/markdown_exporter.py",
+      "multiple_responsibilities_candidate": false,
+      "responsibility_signals": [
+        "write_text"
+      ],
+      "typing_coverage_percent": 100.0
+    },
+    {
+      "classes": [],
+      "docstring_coverage_percent": 100.0,
+      "functions_and_methods": 0,
+      "large_methods": [],
+      "lines": 1,
+      "module": "legacy_documenter/extractors/__init__.py",
+      "multiple_responsibilities_candidate": false,
+      "responsibility_signals": [],
+      "typing_coverage_percent": 100.0
+    },
+    {
+      "classes": [
+        "CallExtractor"
+      ],
+      "docstring_coverage_percent": 0.0,
+      "functions_and_methods": 9,
+      "large_methods": [
+        "extract"
+      ],
+      "lines": 243,
+      "module": "legacy_documenter/extractors/call_extractor.py",
+      "multiple_responsibilities_candidate": false,
+      "responsibility_signals": [
+        "read_text"
+      ],
+      "typing_coverage_percent": 77.78
+    },
+    {
+      "classes": [
+        "DatabaseExtractor"
+      ],
+      "docstring_coverage_percent": 0.0,
+      "functions_and_methods": 27,
+      "large_methods": [
+        "extract"
+      ],
+      "lines": 423,
+      "module": "legacy_documenter/extractors/database_extractor.py",
+      "multiple_responsibilities_candidate": false,
+      "responsibility_signals": [
+        "provider",
+        "read_text"
+      ],
+      "typing_coverage_percent": 96.3
+    },
+    {
+      "classes": [
+        "SolutionExtractor"
+      ],
+      "docstring_coverage_percent": 0.0,
+      "functions_and_methods": 1,
+      "large_methods": [],
+      "lines": 17,
+      "module": "legacy_documenter/extractors/solution_extractor.py",
+      "multiple_responsibilities_candidate": false,
+      "responsibility_signals": [
+        "read_text"
+      ],
+      "typing_coverage_percent": 100.0
+    },
+    {
+      "classes": [
+        "VBNetExtractor"
+      ],
+      "docstring_coverage_percent": 0.0,
+      "functions_and_methods": 4,
+      "large_methods": [
+        "extract"
+      ],
+      "lines": 106,
+      "module": "legacy_documenter/extractors/vbnet_extractor.py",
+      "multiple_responsibilities_candidate": false,
+      "responsibility_signals": [
+        "read_text"
+      ],
+      "typing_coverage_percent": 100.0
+    },
+    {
+      "classes": [
+        "VBProjExtractor"
+      ],
+      "docstring_coverage_percent": 0.0,
+      "functions_and_methods": 5,
+      "large_methods": [],
+      "lines": 62,
+      "module": "legacy_documenter/extractors/vbproj_extractor.py",
+      "multiple_responsibilities_candidate": false,
+      "responsibility_signals": [],
+      "typing_coverage_percent": 100.0
+    },
+    {
+      "classes": [
+        "WebEventExtractor"
+      ],
+      "docstring_coverage_percent": 0.0,
+      "functions_and_methods": 5,
+      "large_methods": [
+        "extract"
+      ],
+      "lines": 113,
+      "module": "legacy_documenter/extractors/web_event_extractor.py",
+      "multiple_responsibilities_candidate": false,
+      "responsibility_signals": [
+        "read_text",
+        "render"
+      ],
+      "typing_coverage_percent": 100.0
+    },
+    {
+      "classes": [
+        "WebConfigExtractor"
+      ],
+      "docstring_coverage_percent": 0.0,
+      "functions_and_methods": 3,
+      "large_methods": [
+        "extract"
+      ],
+      "lines": 64,
+      "module": "legacy_documenter/extractors/webconfig_extractor.py",
+      "multiple_responsibilities_candidate": false,
+      "responsibility_signals": [],
+      "typing_coverage_percent": 100.0
+    },
+    {
+      "classes": [
+        "WebFormsExtractor"
+      ],
+      "docstring_coverage_percent": 0.0,
+      "functions_and_methods": 2,
+      "large_methods": [],
+      "lines": 61,
+      "module": "legacy_documenter/extractors/webforms_extractor.py",
+      "multiple_responsibilities_candidate": false,
+      "responsibility_signals": [
+        "read_text"
+      ],
+      "typing_coverage_percent": 100.0
+    },
+    {
+      "classes": [],
+      "docstring_coverage_percent": 100.0,
+      "functions_and_methods": 0,
+      "large_methods": [],
+      "lines": 2,
+      "module": "legacy_documenter/knowledge/__init__.py",
+      "multiple_responsibilities_candidate": false,
+      "responsibility_signals": [],
+      "typing_coverage_percent": 100.0
+    },
+    {
+      "classes": [
+        "KnowledgeReadinessService"
+      ],
+      "docstring_coverage_percent": 100.0,
+      "functions_and_methods": 20,
+      "large_methods": [
+        "_execute"
+      ],
+      "lines": 292,
+      "module": "legacy_documenter/knowledge/readiness.py",
+      "multiple_responsibilities_candidate": true,
+      "responsibility_signals": [
+        "json",
+        "provider",
+        "read_text",
+        "security",
+        "validate",
+        "write_text"
+      ],
+      "typing_coverage_percent": 100.0
+    },
+    {
+      "classes": [],
+      "docstring_coverage_percent": 100.0,
+      "functions_and_methods": 0,
+      "large_methods": [],
+      "lines": 1,
+      "module": "legacy_documenter/llm/__init__.py",
+      "multiple_responsibilities_candidate": false,
+      "responsibility_signals": [],
+      "typing_coverage_percent": 100.0
+    },
+    {
+      "classes": [],
+      "docstring_coverage_percent": 0.0,
+      "functions_and_methods": 4,
+      "large_methods": [],
+      "lines": 57,
+      "module": "legacy_documenter/llm/copilot_pilot.py",
+      "multiple_responsibilities_candidate": false,
+      "responsibility_signals": [
+        "json",
+        "provider",
+        "validate"
+      ],
+      "typing_coverage_percent": 0.0
+    },
+    {
+      "classes": [
+        "FakeLLMProvider",
+        "LLMCapabilities",
+        "LLMModelInfo",
+        "LLMProvider",
+        "LLMRequest",
+        "LLMResponse",
+        "ProviderConfig",
+        "ProviderError",
+        "ProviderRegistry",
+        "Usage"
+      ],
+      "docstring_coverage_percent": 0.0,
+      "functions_and_methods": 12,
+      "large_methods": [],
+      "lines": 69,
+      "module": "legacy_documenter/llm/core.py",
+      "multiple_responsibilities_candidate": false,
+      "responsibility_signals": [
+        "json",
+        "provider"
+      ],
+      "typing_coverage_percent": 0.0
+    },
+    {
+      "classes": [],
+      "docstring_coverage_percent": 100.0,
+      "functions_and_methods": 0,
+      "large_methods": [],
+      "lines": 2,
+      "module": "legacy_documenter/llm/providers/__init__.py",
+      "multiple_responsibilities_candidate": false,
+      "responsibility_signals": [
+        "provider"
+      ],
+      "typing_coverage_percent": 100.0
+    },
+    {
+      "classes": [
+        "CopilotProvider"
+      ],
+      "docstring_coverage_percent": 0.0,
+      "functions_and_methods": 9,
+      "large_methods": [
+        "_generate"
+      ],
+      "lines": 65,
+      "module": "legacy_documenter/llm/providers/copilot.py",
+      "multiple_responsibilities_candidate": false,
+      "responsibility_signals": [
+        "json",
+        "provider"
+      ],
+      "typing_coverage_percent": 0.0
+    },
+    {
+      "classes": [
+        "GeminiProvider"
+      ],
+      "docstring_coverage_percent": 0.0,
+      "functions_and_methods": 8,
+      "large_methods": [],
+      "lines": 26,
+      "module": "legacy_documenter/llm/providers/gemini.py",
+      "multiple_responsibilities_candidate": false,
+      "responsibility_signals": [
+        "json",
+        "provider"
+      ],
+      "typing_coverage_percent": 0.0
+    },
+    {
+      "classes": [],
+      "docstring_coverage_percent": 0.0,
+      "functions_and_methods": 5,
+      "large_methods": [
+        "analyze_repository"
+      ],
+      "lines": 224,
+      "module": "legacy_documenter/main.py",
+      "multiple_responsibilities_candidate": false,
+      "responsibility_signals": [
+        "json"
+      ],
+      "typing_coverage_percent": 100.0
+    },
+    {
+      "classes": [],
+      "docstring_coverage_percent": 100.0,
+      "functions_and_methods": 0,
+      "large_methods": [],
+      "lines": 22,
+      "module": "legacy_documenter/models/__init__.py",
+      "multiple_responsibilities_candidate": false,
+      "responsibility_signals": [],
+      "typing_coverage_percent": 100.0
+    },
+    {
+      "classes": [
+        "Call",
+        "Instantiation",
+        "TypeReference"
+      ],
+      "docstring_coverage_percent": 0.0,
+      "functions_and_methods": 3,
+      "large_methods": [],
+      "lines": 54,
+      "module": "legacy_documenter/models/call.py",
+      "multiple_responsibilities_candidate": false,
+      "responsibility_signals": [],
+      "typing_coverage_percent": 100.0
+    },
+    {
+      "classes": [
+        "Dependency"
+      ],
+      "docstring_coverage_percent": 0.0,
+      "functions_and_methods": 1,
+      "large_methods": [],
+      "lines": 14,
+      "module": "legacy_documenter/models/dependency.py",
+      "multiple_responsibilities_candidate": false,
+      "responsibility_signals": [],
+      "typing_coverage_percent": 100.0
+    },
+    {
+      "classes": [
+        "EntryPoint",
+        "EventBinding"
+      ],
+      "docstring_coverage_percent": 0.0,
+      "functions_and_methods": 2,
+      "large_methods": [],
+      "lines": 37,
+      "module": "legacy_documenter/models/entry_point.py",
+      "multiple_responsibilities_candidate": false,
+      "responsibility_signals": [],
+      "typing_coverage_percent": 100.0
+    },
+    {
+      "classes": [
+        "Evidence"
+      ],
+      "docstring_coverage_percent": 0.0,
+      "functions_and_methods": 1,
+      "large_methods": [],
+      "lines": 14,
+      "module": "legacy_documenter/models/evidence.py",
+      "multiple_responsibilities_candidate": false,
+      "responsibility_signals": [],
+      "typing_coverage_percent": 100.0
+    },
+    {
+      "classes": [
+        "Project"
+      ],
+      "docstring_coverage_percent": 0.0,
+      "functions_and_methods": 1,
+      "large_methods": [],
+      "lines": 19,
+      "module": "legacy_documenter/models/project.py",
+      "multiple_responsibilities_candidate": false,
+      "responsibility_signals": [],
+      "typing_coverage_percent": 100.0
+    },
+    {
+      "classes": [
+        "SourceFile"
+      ],
+      "docstring_coverage_percent": 0.0,
+      "functions_and_methods": 1,
+      "large_methods": [],
+      "lines": 14,
+      "module": "legacy_documenter/models/source_file.py",
+      "multiple_responsibilities_candidate": false,
+      "responsibility_signals": [],
+      "typing_coverage_percent": 100.0
+    },
+    {
+      "classes": [
+        "Symbol"
+      ],
+      "docstring_coverage_percent": 0.0,
+      "functions_and_methods": 1,
+      "large_methods": [],
+      "lines": 22,
+      "module": "legacy_documenter/models/symbol.py",
+      "multiple_responsibilities_candidate": false,
+      "responsibility_signals": [],
+      "typing_coverage_percent": 100.0
+    },
+    {
+      "classes": [
+        "WebForm"
+      ],
+      "docstring_coverage_percent": 0.0,
+      "functions_and_methods": 1,
+      "large_methods": [],
+      "lines": 19,
+      "module": "legacy_documenter/models/webform.py",
+      "multiple_responsibilities_candidate": false,
+      "responsibility_signals": [],
+      "typing_coverage_percent": 100.0
+    },
+    {
+      "classes": [],
+      "docstring_coverage_percent": 100.0,
+      "functions_and_methods": 0,
+      "large_methods": [],
+      "lines": 2,
+      "module": "legacy_documenter/quality/__init__.py",
+      "multiple_responsibilities_candidate": false,
+      "responsibility_signals": [],
+      "typing_coverage_percent": 100.0
+    },
+    {
+      "classes": [],
+      "docstring_coverage_percent": 100.0,
+      "functions_and_methods": 6,
+      "large_methods": [],
+      "lines": 87,
+      "module": "legacy_documenter/quality/maintainability_audit.py",
+      "multiple_responsibilities_candidate": true,
+      "responsibility_signals": [
+        "json",
+        "provider",
+        "read_text",
+        "render",
+        "security",
+        "validate",
+        "write_text"
+      ],
+      "typing_coverage_percent": 100.0
+    },
+    {
+      "classes": [],
+      "docstring_coverage_percent": 100.0,
+      "functions_and_methods": 0,
+      "large_methods": [],
+      "lines": 1,
+      "module": "legacy_documenter/scanner/__init__.py",
+      "multiple_responsibilities_candidate": false,
+      "responsibility_signals": [],
+      "typing_coverage_percent": 100.0
+    },
+    {
+      "classes": [
+        "FileClassifier"
+      ],
+      "docstring_coverage_percent": 0.0,
+      "functions_and_methods": 2,
+      "large_methods": [],
+      "lines": 43,
+      "module": "legacy_documenter/scanner/file_classifier.py",
+      "multiple_responsibilities_candidate": false,
+      "responsibility_signals": [],
+      "typing_coverage_percent": 100.0
+    },
+    {
+      "classes": [
+        "RepositoryScanner"
+      ],
+      "docstring_coverage_percent": 0.0,
+      "functions_and_methods": 3,
+      "large_methods": [],
+      "lines": 44,
+      "module": "legacy_documenter/scanner/repository_scanner.py",
+      "multiple_responsibilities_candidate": false,
+      "responsibility_signals": [],
+      "typing_coverage_percent": 66.67
+    },
+    {
+      "classes": [],
+      "docstring_coverage_percent": 100.0,
+      "functions_and_methods": 0,
+      "large_methods": [],
+      "lines": 3,
+      "module": "legacy_documenter/utils/__init__.py",
+      "multiple_responsibilities_candidate": false,
+      "responsibility_signals": [],
+      "typing_coverage_percent": 100.0
+    },
+    {
+      "classes": [],
+      "docstring_coverage_percent": 0.0,
+      "functions_and_methods": 2,
+      "large_methods": [],
+      "lines": 29,
+      "module": "legacy_documenter/utils/sanitizer.py",
+      "multiple_responsibilities_candidate": false,
+      "responsibility_signals": [],
+      "typing_coverage_percent": 100.0
+    }
+  ],
+  "python_files": 71,
+  "schema_version": "V3-R10-1",
+  "summary": {
+    "classes": 61,
+    "docstring_coverage_percent": 7.19,
+    "documented_symbols": 30,
+    "functions_and_methods": 356,
+    "large_module_candidates": 4,
+    "multiple_responsibility_candidates": 13,
+    "symbols": 417,
+    "typed_functions_and_methods": 177,
+    "typing_coverage_percent": 49.72
+  }
+}

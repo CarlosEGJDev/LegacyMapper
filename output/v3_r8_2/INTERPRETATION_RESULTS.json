@@ -1,0 +1,356 @@
+{
+  "interpretations": [
+    {
+      "canonical_evidence_ids": [
+        "DEEP-INT-000f278d0f060571",
+        "DEEP-INT-00198ff54b4ffed9",
+        "DEEP-INT-00647ea337391a19",
+        "DEEP-INT-0086b24c4a36fc1c",
+        "DEEP-INT-00ab23ebd603a580",
+        "DEEP-INT-00ae524b5b79c6eb",
+        "R81-SUMMARY-counts-webforms"
+      ],
+      "claim_candidates": [
+        {
+          "evidence_aliases": [
+            "E12",
+            "E19",
+            "E20",
+            "E21",
+            "E22",
+            "E23",
+            "E24"
+          ],
+          "statement": "INTERPRETED: Web Forms artifacts are present in the supplied evidence.",
+          "status": "INTERPRETED"
+        }
+      ],
+      "evidence_aliases": [
+        "E12",
+        "E19",
+        "E20",
+        "E21",
+        "E22",
+        "E23",
+        "E24"
+      ],
+      "interpretation_status": "VALID",
+      "recommended_next_status": "PARTIALLY_RESOLVED_WITH_INTERPRETATION",
+      "semantic_summary": "PATTERN_SUPPORTED: The evidence supports the presence of an ASP.NET Web Forms pattern through Web Forms controls and pages with code-behind and Inherits directives; it does not establish MVC.",
+      "source_snapshots": [
+        "c65b0a03ae7895d885c8d9b28705acc9cce1913904c3e42fc0bd342a0ac5871e"
+      ],
+      "target_id": "FMI-001",
+      "unresolved_aspects": [
+        "The target-specific meaning of FMI-001 is not supplied.",
+        "The evidence does not establish the broader application architecture beyond the identified Web Forms artifacts."
+      ]
+    },
+    {
+      "canonical_evidence_ids": [
+        "DEEP-ASM-000d083620195457",
+        "DEEP-ASM-001d31483ea17632",
+        "DEEP-ASM-00331e5a00290b97",
+        "DEEP-ASM-006457330b7cada9",
+        "DEEP-ASM-0067cd48eb72aad0",
+        "DEEP-ASM-0085c3189de2b5f6",
+        "DEEP-INT-000f278d0f060571",
+        "DEEP-INT-00198ff54b4ffed9",
+        "DEEP-INT-00647ea337391a19",
+        "DEEP-INT-0086b24c4a36fc1c",
+        "DEEP-INT-00ab23ebd603a580",
+        "DEEP-INT-00ae524b5b79c6eb"
+      ],
+      "claim_candidates": [
+        {
+          "evidence_aliases": [],
+          "statement": "UNRESOLVED: The target-specific interpretation of FMI-007 cannot be determined from the supplied evidence.",
+          "status": "UNRESOLVED"
+        }
+      ],
+      "evidence_aliases": [
+        "E13",
+        "E14",
+        "E15",
+        "E16",
+        "E17",
+        "E18",
+        "E19",
+        "E20",
+        "E21",
+        "E22",
+        "E23",
+        "E24"
+      ],
+      "interpretation_status": "INSUFFICIENT_EVIDENCE",
+      "recommended_next_status": "REQUIRES_EXTERNAL_INFORMATION",
+      "semantic_summary": "NO_PATTERN_CONFIRMED: The supplied records show assembly references and integration indicators, but do not identify the target-specific pattern or provide enough context to interpret FMI-007.",
+      "source_snapshots": [
+        "c65b0a03ae7895d885c8d9b28705acc9cce1913904c3e42fc0bd342a0ac5871e"
+      ],
+      "target_id": "FMI-007",
+      "unresolved_aspects": [
+        "The target-specific meaning of FMI-007 is not supplied.",
+        "The evidence does not establish which assembly or integration relationship is relevant to this target."
+      ]
+    },
+    {
+      "canonical_evidence_ids": [
+        "R81-ARCH-00",
+        "R81-ARCH-03",
+        "R81-SUMMARY-counts-webforms"
+      ],
+      "claim_candidates": [
+        {
+          "evidence_aliases": [
+            "E12",
+            "E13",
+            "E16"
+          ],
+          "statement": "The evidence supports a WebForms-oriented application pattern, while MVC remains unsupported by the available indicators.",
+          "status": "INTERPRETED"
+        }
+      ],
+      "evidence_aliases": [
+        "E12",
+        "E13",
+        "E16"
+      ],
+      "interpretation_status": "VALID",
+      "recommended_next_status": "RESOLVED_WITH_INTERPRETATION",
+      "semantic_summary": "PATTERN_SUPPORTED: The available indicators support a WebForms-oriented application pattern; they do not support concluding that MVC is present.",
+      "source_snapshots": [
+        "c65b0a03ae7895d885c8d9b28705acc9cce1913904c3e42fc0bd342a0ac5871e"
+      ],
+      "target_id": "FMI-008",
+      "unresolved_aspects": [
+        "The evidence does not establish whether additional architectural patterns coexist with WebForms."
+      ]
+    },
+    {
+      "canonical_evidence_ids": [
+        "DEEP-PROJ-016fcc65cc8e85ad",
+        "DEEP-PROJ-01bbd17a6507ee16",
+        "DEEP-PROJ-0385d9a8aab68d1a",
+        "DEEP-PROJ-05657fc3c978fe54",
+        "DEEP-PROJ-0654aaaf46745d55",
+        "DEEP-PROJ-06888a7387e44036",
+        "R81-ARCH-01"
+      ],
+      "claim_candidates": [],
+      "evidence_aliases": [
+        "E14",
+        "E17",
+        "E18",
+        "E19",
+        "E20",
+        "E21",
+        "E22"
+      ],
+      "interpretation_status": "INSUFFICIENT_EVIDENCE",
+      "recommended_next_status": "REQUIRES_EXTERNAL_INFORMATION",
+      "semantic_summary": "The evidence indicates a project-reference landscape containing both resolved and unresolved relationships, but it does not establish the target-specific dependency structure.",
+      "source_snapshots": [
+        "c65b0a03ae7895d885c8d9b28705acc9cce1913904c3e42fc0bd342a0ac5871e"
+      ],
+      "target_id": "TMI-001",
+      "unresolved_aspects": [
+        "The target-specific dependency relationships are not identified.",
+        "Unresolved relationships cannot support a complete dependency interpretation."
+      ]
+    },
+    {
+      "canonical_evidence_ids": [
+        "R81-ARCH-02",
+        "R81-SUMMARY-counts-stored_procedures"
+      ],
+      "claim_candidates": [
+        {
+          "evidence_aliases": [
+            "E11",
+            "E15"
+          ],
+          "statement": "The available indicators support interpreting the system as data-access-heavy, with stored procedures forming a significant part of the observed persistence surface.",
+          "status": "INTERPRETED"
+        }
+      ],
+      "evidence_aliases": [
+        "E11",
+        "E15"
+      ],
+      "interpretation_status": "VALID",
+      "recommended_next_status": "PARTIALLY_RESOLVED_WITH_INTERPRETATION",
+      "semantic_summary": "The evidence supports a data-access-heavy system with substantial stored-procedure involvement, but it does not establish the associated business rules or ownership boundaries.",
+      "source_snapshots": [
+        "c65b0a03ae7895d885c8d9b28705acc9cce1913904c3e42fc0bd342a0ac5871e"
+      ],
+      "target_id": "TMI-006",
+      "unresolved_aspects": [
+        "The evidence does not identify the data-access technologies, layering, or business rules."
+      ]
+    },
+    {
+      "canonical_evidence_ids": [
+        "DEEP-ASM-000d083620195457",
+        "DEEP-ASM-001d31483ea17632",
+        "DEEP-ASM-00331e5a00290b97",
+        "DEEP-ASM-006457330b7cada9",
+        "DEEP-ASM-0067cd48eb72aad0",
+        "DEEP-ASM-0085c3189de2b5f6",
+        "R81-SUMMARY-counts-external_dependencies",
+        "R81-SUMMARY-counts-integrations"
+      ],
+      "claim_candidates": [],
+      "evidence_aliases": [
+        "E05",
+        "E08",
+        "E23",
+        "E24",
+        "E25",
+        "E26",
+        "E27",
+        "E28"
+      ],
+      "interpretation_status": "INSUFFICIENT_EVIDENCE",
+      "recommended_next_status": "REQUIRES_EXTERNAL_INFORMATION",
+      "semantic_summary": "The evidence indicates substantial external-dependency and integration activity, but it does not identify the target-specific integrations or their semantics.",
+      "source_snapshots": [
+        "c65b0a03ae7895d885c8d9b28705acc9cce1913904c3e42fc0bd342a0ac5871e"
+      ],
+      "target_id": "TMI-011",
+      "unresolved_aspects": [
+        "The external systems and integration purposes are not identified.",
+        "Assembly references alone do not establish runtime integration behavior."
+      ]
+    },
+    {
+      "canonical_evidence_ids": [
+        "DEEP-INT-000f278d0f060571",
+        "DEEP-INT-00198ff54b4ffed9",
+        "DEEP-INT-00647ea337391a19",
+        "DEEP-INT-0086b24c4a36fc1c",
+        "DEEP-INT-00ab23ebd603a580",
+        "DEEP-INT-00ae524b5b79c6eb"
+      ],
+      "claim_candidates": [
+        {
+          "evidence_aliases": [
+            "E25",
+            "E26",
+            "E27",
+            "E28",
+            "E29",
+            "E30"
+          ],
+          "statement": "The available UI excerpts are consistent with an ASP.NET WebForms pattern using pages and server-side user controls.",
+          "status": "INTERPRETED"
+        }
+      ],
+      "evidence_aliases": [
+        "E25",
+        "E26",
+        "E27",
+        "E28",
+        "E29",
+        "E30"
+      ],
+      "interpretation_status": "VALID",
+      "recommended_next_status": "RESOLVED_WITH_INTERPRETATION",
+      "semantic_summary": "PATTERN_SUPPORTED: The supplied excerpts support a legacy ASP.NET WebForms presentation pattern, including .aspx pages and .ascx user controls with code-behind and Inherits declarations. This does not establish an MVC architecture.",
+      "source_snapshots": [
+        "c65b0a03ae7895d885c8d9b28705acc9cce1913904c3e42fc0bd342a0ac5871e"
+      ],
+      "target_id": "TMI-002",
+      "unresolved_aspects": [
+        "The evidence does not establish the architecture of components without corresponding UI excerpts.",
+        "The evidence does not establish whether any MVC components coexist elsewhere."
+      ]
+    },
+    {
+      "canonical_evidence_ids": [
+        "DEEP-ASM-000d083620195457",
+        "DEEP-ASM-001d31483ea17632",
+        "DEEP-ASM-00331e5a00290b97",
+        "DEEP-ASM-006457330b7cada9",
+        "DEEP-ASM-0067cd48eb72aad0",
+        "DEEP-ASM-0085c3189de2b5f6",
+        "DEEP-INT-000f278d0f060571",
+        "DEEP-INT-00198ff54b4ffed9",
+        "DEEP-INT-00647ea337391a19",
+        "DEEP-INT-0086b24c4a36fc1c",
+        "DEEP-INT-00ab23ebd603a580",
+        "DEEP-INT-00ae524b5b79c6eb",
+        "DEEP-PROJ-016fcc65cc8e85ad",
+        "DEEP-PROJ-01bbd17a6507ee16",
+        "DEEP-PROJ-0385d9a8aab68d1a",
+        "DEEP-PROJ-05657fc3c978fe54",
+        "DEEP-PROJ-0654aaaf46745d55",
+        "DEEP-PROJ-06888a7387e44036"
+      ],
+      "claim_candidates": [
+        {
+          "evidence_aliases": [
+            "E13",
+            "E14",
+            "E15",
+            "E16",
+            "E17",
+            "E18",
+            "E19",
+            "E20",
+            "E21",
+            "E22",
+            "E23",
+            "E24"
+          ],
+          "statement": "The supplied dependency evidence indicates both project-level and assembly-level references, with some project-reference resolutions remaining unresolved.",
+          "status": "INTERPRETED"
+        },
+        {
+          "evidence_aliases": [
+            "E25",
+            "E26",
+            "E27",
+            "E28",
+            "E29",
+            "E30"
+          ],
+          "statement": "The integration excerpts support the presence of legacy WebForms-related integration artifacts, but do not establish their runtime relationships.",
+          "status": "INTERPRETED"
+        }
+      ],
+      "evidence_aliases": [
+        "E13",
+        "E14",
+        "E15",
+        "E16",
+        "E17",
+        "E18",
+        "E19",
+        "E20",
+        "E21",
+        "E22",
+        "E23",
+        "E24",
+        "E25",
+        "E26",
+        "E27",
+        "E28",
+        "E29",
+        "E30"
+      ],
+      "interpretation_status": "VALID",
+      "recommended_next_status": "PARTIALLY_RESOLVED_WITH_INTERPRETATION",
+      "semantic_summary": "HYBRID_PATTERN: The evidence supports a mixed dependency landscape containing confirmed project references, assembly references, and integration indicators, while several project references remain unresolved. The supplied records are insufficient to determine the complete runtime dependency or integration architecture.",
+      "source_snapshots": [
+        "c65b0a03ae7895d885c8d9b28705acc9cce1913904c3e42fc0bd342a0ac5871e"
+      ],
+      "target_id": "TMI-009",
+      "unresolved_aspects": [
+        "The unresolved project references cannot be semantically resolved from the supplied evidence.",
+        "Runtime dependency direction and integration behavior are not established.",
+        "The complete architecture cannot be determined from the focused evidence set."
+      ]
+    }
+  ]
+}

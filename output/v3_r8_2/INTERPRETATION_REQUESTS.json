@@ -1,0 +1,1495 @@
+{
+  "requests": [
+    {
+      "allowed_evidence_catalog": [
+        {
+          "alias": "E01",
+          "kind": "SYSTEM_COUNT"
+        },
+        {
+          "alias": "E02",
+          "kind": "SYSTEM_COUNT"
+        },
+        {
+          "alias": "E03",
+          "kind": "SYSTEM_COUNT"
+        },
+        {
+          "alias": "E04",
+          "kind": "SYSTEM_COUNT"
+        },
+        {
+          "alias": "E05",
+          "kind": "SYSTEM_COUNT"
+        },
+        {
+          "alias": "E06",
+          "kind": "SYSTEM_COUNT"
+        },
+        {
+          "alias": "E07",
+          "kind": "SYSTEM_COUNT"
+        },
+        {
+          "alias": "E08",
+          "kind": "SYSTEM_COUNT"
+        },
+        {
+          "alias": "E09",
+          "kind": "SYSTEM_COUNT"
+        },
+        {
+          "alias": "E10",
+          "kind": "SYSTEM_COUNT"
+        },
+        {
+          "alias": "E11",
+          "kind": "SYSTEM_COUNT"
+        },
+        {
+          "alias": "E12",
+          "kind": "SYSTEM_COUNT"
+        },
+        {
+          "alias": "E13",
+          "kind": "ASSEMBLY_REFERENCE"
+        },
+        {
+          "alias": "E14",
+          "kind": "ASSEMBLY_REFERENCE"
+        },
+        {
+          "alias": "E15",
+          "kind": "ASSEMBLY_REFERENCE"
+        },
+        {
+          "alias": "E16",
+          "kind": "ASSEMBLY_REFERENCE"
+        },
+        {
+          "alias": "E17",
+          "kind": "ASSEMBLY_REFERENCE"
+        },
+        {
+          "alias": "E18",
+          "kind": "ASSEMBLY_REFERENCE"
+        },
+        {
+          "alias": "E19",
+          "kind": "INTEGRATION_INDICATOR"
+        },
+        {
+          "alias": "E20",
+          "kind": "INTEGRATION_INDICATOR"
+        },
+        {
+          "alias": "E21",
+          "kind": "INTEGRATION_INDICATOR"
+        },
+        {
+          "alias": "E22",
+          "kind": "INTEGRATION_INDICATOR"
+        },
+        {
+          "alias": "E23",
+          "kind": "INTEGRATION_INDICATOR"
+        },
+        {
+          "alias": "E24",
+          "kind": "INTEGRATION_INDICATOR"
+        }
+      ],
+      "context_package_id": "CTX-R82-c80dbc3ef2f743c866437dc617510e9c9dc90261a0d981cee87cb89afa11cdbc",
+      "deterministic_facts": [
+        {
+          "canonical_id": "R81-SUMMARY-counts-calls",
+          "fact": {
+            "calls": 4328
+          }
+        },
+        {
+          "canonical_id": "R81-SUMMARY-counts-data_access",
+          "fact": {
+            "data_access": 20082
+          }
+        },
+        {
+          "canonical_id": "R81-SUMMARY-counts-entry_points",
+          "fact": {
+            "entry_points": 12662
+          }
+        },
+        {
+          "canonical_id": "R81-SUMMARY-counts-errors",
+          "fact": {
+            "errors": 0
+          }
+        },
+        {
+          "canonical_id": "R81-SUMMARY-counts-external_dependencies",
+          "fact": {
+            "external_dependencies": 4838
+          }
+        },
+        {
+          "canonical_id": "R81-SUMMARY-counts-files",
+          "fact": {
+            "files": 15138
+          }
+        },
+        {
+          "canonical_id": "R81-SUMMARY-counts-flows",
+          "fact": {
+            "flows": 12642
+          }
+        },
+        {
+          "canonical_id": "R81-SUMMARY-counts-integrations",
+          "fact": {
+            "integrations": 3871
+          }
+        },
+        {
+          "canonical_id": "R81-SUMMARY-counts-paths",
+          "fact": {
+            "paths": 170020
+          }
+        },
+        {
+          "canonical_id": "R81-SUMMARY-counts-project_dependencies",
+          "fact": {
+            "project_dependencies": 167
+          }
+        },
+        {
+          "canonical_id": "R81-SUMMARY-counts-stored_procedures",
+          "fact": {
+            "stored_procedures": 5389
+          }
+        },
+        {
+          "canonical_id": "R81-SUMMARY-counts-webforms",
+          "fact": {
+            "webforms": 3346
+          }
+        },
+        {
+          "canonical_id": "DEEP-ASM-000d083620195457",
+          "fact": {
+            "assembly": "System.Runtime.Serialization",
+            "hint_path": null,
+            "resolution_status": "CONFIRMED",
+            "source_project": "WebPENTramite.vbproj",
+            "version": null
+          }
+        },
+        {
+          "canonical_id": "DEEP-ASM-001d31483ea17632",
+          "fact": {
+            "assembly": "System",
+            "hint_path": null,
+            "resolution_status": "CONFIRMED",
+            "source_project": "proyectos\\slnMEDDespacho\\Archivos de copia de seguridad de Crystal Reports\\WebMEDDespacho.vbproj",
+            "version": null
+          }
+        },
+        {
+          "canonical_id": "DEEP-ASM-00331e5a00290b97",
+          "fact": {
+            "assembly": "System.Web.Entity",
+            "hint_path": null,
+            "resolution_status": "CONFIRMED",
+            "source_project": "proyectos\\slnIndemnizacion\\Archivos de copia de seguridad de Crystal Reports\\WebIndemnizacion.vbproj",
+            "version": null
+          }
+        },
+        {
+          "canonical_id": "DEEP-ASM-006457330b7cada9",
+          "fact": {
+            "assembly": "blParGenerales",
+            "hint_path": "dll\\blParGenerales.dll",
+            "resolution_status": "CONFIRMED",
+            "source_project": "WebAdhCargaArchivos.vbproj",
+            "version": null
+          }
+        },
+        {
+          "canonical_id": "DEEP-ASM-0067cd48eb72aad0",
+          "fact": {
+            "assembly": "SondaNetWebUI",
+            "hint_path": "..\\..\\dll\\SondaNetWebUI.dll",
+            "resolution_status": "CONFIRMED",
+            "source_project": "proyectos\\slnMedServicios\\Backup\\WebMEDServicios\\WebMEDServicios.vbproj",
+            "version": null
+          }
+        },
+        {
+          "canonical_id": "DEEP-ASM-0085c3189de2b5f6",
+          "fact": {
+            "assembly": "System.Web",
+            "hint_path": null,
+            "resolution_status": "CONFIRMED",
+            "source_project": "bl\\blCobMantencion\\blCobMantencion.vbproj",
+            "version": null
+          }
+        },
+        {
+          "canonical_id": "DEEP-INT-000f278d0f060571",
+          "fact": {
+            "excerpt": "<meta name=\"vs_targetSchema\" content=\"http://schemas.microsoft.com/intellisense/ie5\">",
+            "indicators": [
+              "COM"
+            ],
+            "line": 9,
+            "resolution_status": "CONFIRMED",
+            "source_file": "proyectos\\slnInformesSubsidios\\Backup\\WebInformesSubsidios\\header.aspx"
+          }
+        },
+        {
+          "canonical_id": "DEEP-INT-00198ff54b4ffed9",
+          "fact": {
+            "excerpt": "<%@ Control Language=\"vb\" AutoEventWireup=\"false\" Codebehind=\"ucDesMo210.ascx.vb\" Inherits=\"Sonda.Gestion.Nssmut.Web.MED.Despacho.ucDesMo210\" TargetSchema=\"http://schemas.microsoft.com/intellisense/ie5\" %>",
+            "indicators": [
+              "COM"
+            ],
+            "line": 1,
+            "resolution_status": "CONFIRMED",
+            "source_file": "proyectos\\slnMEDDespacho\\Backup1\\WebMEDDespacho\\ucDesMo210.ascx"
+          }
+        },
+        {
+          "canonical_id": "DEEP-INT-00647ea337391a19",
+          "fact": {
+            "excerpt": "<%@ Control Language=\"vb\" AutoEventWireup=\"false\" CodeBehind=\"ucAgeMo035.ascx.vb\" Inherits=\"Sonda.Gestion.Nssmut.Web.MEDICO.ucAgeMo035\" TargetSchema=\"http://schemas.microsoft.com/intellisense/ie5\" %>",
+            "indicators": [
+              "COM"
+            ],
+            "line": 1,
+            "resolution_status": "CONFIRMED",
+            "source_file": "webMEDAgenda\\ucAgeMo035.ascx"
+          }
+        },
+        {
+          "canonical_id": "DEEP-INT-0086b24c4a36fc1c",
+          "fact": {
+            "excerpt": "<%@ Control Language=\"vb\" AutoEventWireup=\"false\" CodeBehind=\"ucADHReplicarCalculo.ascx.vb\" Inherits=\"Sonda.Gestion.Nssmut.Web.ADHAdmCalculoDs67.ucADHReplicarCalculo\" TargetSchema=\"http://schemas.microsoft.com/intellisense/ie5\" %>",
+            "indicators": [
+              "COM"
+            ],
+            "line": 1,
+            "resolution_status": "CONFIRMED",
+            "source_file": "ucADHReplicarCalculo.ascx"
+          }
+        },
+        {
+          "canonical_id": "DEEP-INT-00ab23ebd603a580",
+          "fact": {
+            "excerpt": "<%@ Control Language=\"vb\" AutoEventWireup=\"false\" Codebehind=\"ucAdmImprimir.ascx.vb\" Inherits=\"Sonda.Gestion.Nssmut.Web.Medico.ucAdmImprimir\" TargetSchema=\"http://schemas.microsoft.com/intellisense/ie5\" %>",
+            "indicators": [
+              "COM"
+            ],
+            "line": 1,
+            "resolution_status": "CONFIRMED",
+            "source_file": "proyectos\\slnMEDAdmision\\Archivos de copia de seguridad de Crystal Reports\\ucAdmImprimir.ascx"
+          }
+        },
+        {
+          "canonical_id": "DEEP-INT-00ae524b5b79c6eb",
+          "fact": {
+            "excerpt": "<%@ Control Language=\"vb\" AutoEventWireup=\"false\" Codebehind=\"usuMantencionJRolesMain.ascx.vb\" Inherits=\"Sonda.Gestion.Adm.WEB.Soporte.ControlAccesoUsuario.usuMantencionJRolesMain\" TargetSchema=\"http://schemas.microsoft.com/intellisense/ie5\" %>",
+            "indicators": [
+              "COM"
+            ],
+            "line": 1,
+            "resolution_status": "CONFIRMED",
+            "source_file": "webControlAccesoUsuario\\usuMantencionJRolesMain.ascx"
+          }
+        }
+      ],
+      "estimated_tokens": 1289,
+      "group": 1,
+      "output_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "interpretations": {
+            "items": {
+              "additionalProperties": false,
+              "properties": {
+                "claim_candidates": {
+                  "items": {
+                    "additionalProperties": false,
+                    "properties": {
+                      "evidence_aliases": {
+                        "items": {
+                          "enum": [
+                            "E01",
+                            "E02",
+                            "E03",
+                            "E04",
+                            "E05",
+                            "E06",
+                            "E07",
+                            "E08",
+                            "E09",
+                            "E10",
+                            "E11",
+                            "E12",
+                            "E13",
+                            "E14",
+                            "E15",
+                            "E16",
+                            "E17",
+                            "E18",
+                            "E19",
+                            "E20",
+                            "E21",
+                            "E22",
+                            "E23",
+                            "E24"
+                          ],
+                          "type": "string"
+                        },
+                        "type": "array"
+                      },
+                      "statement": {
+                        "type": "string"
+                      },
+                      "status": {
+                        "enum": [
+                          "INTERPRETED",
+                          "UNRESOLVED"
+                        ],
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "statement",
+                      "status",
+                      "evidence_aliases"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "evidence_aliases": {
+                  "items": {
+                    "enum": [
+                      "E01",
+                      "E02",
+                      "E03",
+                      "E04",
+                      "E05",
+                      "E06",
+                      "E07",
+                      "E08",
+                      "E09",
+                      "E10",
+                      "E11",
+                      "E12",
+                      "E13",
+                      "E14",
+                      "E15",
+                      "E16",
+                      "E17",
+                      "E18",
+                      "E19",
+                      "E20",
+                      "E21",
+                      "E22",
+                      "E23",
+                      "E24"
+                    ],
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "interpretation_status": {
+                  "enum": [
+                    "VALID",
+                    "INVALID",
+                    "INSUFFICIENT_EVIDENCE"
+                  ],
+                  "type": "string"
+                },
+                "recommended_next_status": {
+                  "enum": [
+                    "PARTIALLY_RESOLVED_WITH_INTERPRETATION",
+                    "REQUIRES_EXTERNAL_INFORMATION",
+                    "REQUIRES_HUMAN_KNOWLEDGE",
+                    "RESOLVED_WITH_INTERPRETATION",
+                    "STILL_UNRESOLVED"
+                  ],
+                  "type": "string"
+                },
+                "semantic_summary": {
+                  "type": "string"
+                },
+                "target_id": {
+                  "enum": [
+                    "FMI-001",
+                    "FMI-007"
+                  ],
+                  "type": "string"
+                },
+                "unresolved_aspects": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "target_id",
+                "interpretation_status",
+                "semantic_summary",
+                "claim_candidates",
+                "evidence_aliases",
+                "unresolved_aspects",
+                "recommended_next_status"
+              ],
+              "type": "object"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array"
+          }
+        },
+        "required": [
+          "interpretations"
+        ],
+        "type": "object"
+      },
+      "provider_neutral_metadata": true,
+      "source_snapshot_ids": [
+        "c65b0a03ae7895d885c8d9b28705acc9cce1913904c3e42fc0bd342a0ac5871e"
+      ],
+      "target_ids": [
+        "FMI-001",
+        "FMI-007"
+      ],
+      "token_budget": 4200
+    },
+    {
+      "allowed_evidence_catalog": [
+        {
+          "alias": "E01",
+          "kind": "SYSTEM_COUNT"
+        },
+        {
+          "alias": "E02",
+          "kind": "SYSTEM_COUNT"
+        },
+        {
+          "alias": "E03",
+          "kind": "SYSTEM_COUNT"
+        },
+        {
+          "alias": "E04",
+          "kind": "SYSTEM_COUNT"
+        },
+        {
+          "alias": "E05",
+          "kind": "SYSTEM_COUNT"
+        },
+        {
+          "alias": "E06",
+          "kind": "SYSTEM_COUNT"
+        },
+        {
+          "alias": "E07",
+          "kind": "SYSTEM_COUNT"
+        },
+        {
+          "alias": "E08",
+          "kind": "SYSTEM_COUNT"
+        },
+        {
+          "alias": "E09",
+          "kind": "SYSTEM_COUNT"
+        },
+        {
+          "alias": "E10",
+          "kind": "SYSTEM_COUNT"
+        },
+        {
+          "alias": "E11",
+          "kind": "SYSTEM_COUNT"
+        },
+        {
+          "alias": "E12",
+          "kind": "SYSTEM_COUNT"
+        },
+        {
+          "alias": "E13",
+          "kind": "ARCHITECTURE_INDICATOR"
+        },
+        {
+          "alias": "E14",
+          "kind": "ARCHITECTURE_INDICATOR"
+        },
+        {
+          "alias": "E15",
+          "kind": "ARCHITECTURE_INDICATOR"
+        },
+        {
+          "alias": "E16",
+          "kind": "ARCHITECTURE_INDICATOR"
+        },
+        {
+          "alias": "E17",
+          "kind": "PROJECT_DEPENDENCY"
+        },
+        {
+          "alias": "E18",
+          "kind": "PROJECT_DEPENDENCY"
+        },
+        {
+          "alias": "E19",
+          "kind": "PROJECT_DEPENDENCY"
+        },
+        {
+          "alias": "E20",
+          "kind": "PROJECT_DEPENDENCY"
+        },
+        {
+          "alias": "E21",
+          "kind": "PROJECT_DEPENDENCY"
+        },
+        {
+          "alias": "E22",
+          "kind": "PROJECT_DEPENDENCY"
+        },
+        {
+          "alias": "E23",
+          "kind": "ASSEMBLY_REFERENCE"
+        },
+        {
+          "alias": "E24",
+          "kind": "ASSEMBLY_REFERENCE"
+        },
+        {
+          "alias": "E25",
+          "kind": "ASSEMBLY_REFERENCE"
+        },
+        {
+          "alias": "E26",
+          "kind": "ASSEMBLY_REFERENCE"
+        },
+        {
+          "alias": "E27",
+          "kind": "ASSEMBLY_REFERENCE"
+        },
+        {
+          "alias": "E28",
+          "kind": "ASSEMBLY_REFERENCE"
+        }
+      ],
+      "context_package_id": "CTX-R82-87713b815f6697b5754174905763d04b755af11e885e95db68b88b4f1b61f1ea",
+      "deterministic_facts": [
+        {
+          "canonical_id": "R81-SUMMARY-counts-calls",
+          "fact": {
+            "calls": 4328
+          }
+        },
+        {
+          "canonical_id": "R81-SUMMARY-counts-data_access",
+          "fact": {
+            "data_access": 20082
+          }
+        },
+        {
+          "canonical_id": "R81-SUMMARY-counts-entry_points",
+          "fact": {
+            "entry_points": 12662
+          }
+        },
+        {
+          "canonical_id": "R81-SUMMARY-counts-errors",
+          "fact": {
+            "errors": 0
+          }
+        },
+        {
+          "canonical_id": "R81-SUMMARY-counts-external_dependencies",
+          "fact": {
+            "external_dependencies": 4838
+          }
+        },
+        {
+          "canonical_id": "R81-SUMMARY-counts-files",
+          "fact": {
+            "files": 15138
+          }
+        },
+        {
+          "canonical_id": "R81-SUMMARY-counts-flows",
+          "fact": {
+            "flows": 12642
+          }
+        },
+        {
+          "canonical_id": "R81-SUMMARY-counts-integrations",
+          "fact": {
+            "integrations": 3871
+          }
+        },
+        {
+          "canonical_id": "R81-SUMMARY-counts-paths",
+          "fact": {
+            "paths": 170020
+          }
+        },
+        {
+          "canonical_id": "R81-SUMMARY-counts-project_dependencies",
+          "fact": {
+            "project_dependencies": 167
+          }
+        },
+        {
+          "canonical_id": "R81-SUMMARY-counts-stored_procedures",
+          "fact": {
+            "stored_procedures": 5389
+          }
+        },
+        {
+          "canonical_id": "R81-SUMMARY-counts-webforms",
+          "fact": {
+            "webforms": 3346
+          }
+        },
+        {
+          "canonical_id": "R81-ARCH-00",
+          "fact": {
+            "count": 3346,
+            "indicator": "WEBFORMS_USAGE",
+            "status": "SUPPORTED"
+          }
+        },
+        {
+          "canonical_id": "R81-ARCH-01",
+          "fact": {
+            "count": 167,
+            "indicator": "PROJECT_REFERENCE_DIRECTION",
+            "status": "SUPPORTED"
+          }
+        },
+        {
+          "canonical_id": "R81-ARCH-02",
+          "fact": {
+            "count": 20082,
+            "indicator": "DATA_ACCESS_OPERATIONS",
+            "status": "SUPPORTED"
+          }
+        },
+        {
+          "canonical_id": "R81-ARCH-03",
+          "fact": {
+            "count": 0,
+            "indicator": "MVC_FRAMEWORK_REFERENCE",
+            "status": "INSUFFICIENT_EVIDENCE"
+          }
+        },
+        {
+          "canonical_id": "DEEP-PROJ-016fcc65cc8e85ad",
+          "fact": {
+            "name": "sysMEDAdmision",
+            "relationship_type": "PROJECT_REFERENCE",
+            "resolution_status": "CONFIRMED",
+            "source_project": "bl\\blMedAdmision\\blMedAdmision.vbproj",
+            "target": "sys\\sysMEDAdmision\\sysMEDAdmision.vbproj"
+          }
+        },
+        {
+          "canonical_id": "DEEP-PROJ-0385d9a8aab68d1a",
+          "fact": {
+            "name": "sysCOTProcRecaud",
+            "relationship_type": "PROJECT_REFERENCE",
+            "resolution_status": "CONFIRMED",
+            "source_project": "webCOTProcRecaud.vbproj",
+            "target": "sys\\sysCOTProcRecaud\\sysCOTProcRecaud.vbproj"
+          }
+        },
+        {
+          "canonical_id": "DEEP-PROJ-0654aaaf46745d55",
+          "fact": {
+            "name": "sysPREPrevencion",
+            "relationship_type": "PROJECT_REFERENCE",
+            "resolution_status": "CONFIRMED",
+            "source_project": "WebPrePrevencion.vbproj",
+            "target": "sys\\sysPREPrevencion\\sysPREPrevencion.vbproj"
+          }
+        },
+        {
+          "canonical_id": "DEEP-ASM-000d083620195457",
+          "fact": {
+            "assembly": "System.Runtime.Serialization",
+            "hint_path": null,
+            "resolution_status": "CONFIRMED",
+            "source_project": "WebPENTramite.vbproj",
+            "version": null
+          }
+        },
+        {
+          "canonical_id": "DEEP-ASM-001d31483ea17632",
+          "fact": {
+            "assembly": "System",
+            "hint_path": null,
+            "resolution_status": "CONFIRMED",
+            "source_project": "proyectos\\slnMEDDespacho\\Archivos de copia de seguridad de Crystal Reports\\WebMEDDespacho.vbproj",
+            "version": null
+          }
+        },
+        {
+          "canonical_id": "DEEP-ASM-00331e5a00290b97",
+          "fact": {
+            "assembly": "System.Web.Entity",
+            "hint_path": null,
+            "resolution_status": "CONFIRMED",
+            "source_project": "proyectos\\slnIndemnizacion\\Archivos de copia de seguridad de Crystal Reports\\WebIndemnizacion.vbproj",
+            "version": null
+          }
+        },
+        {
+          "canonical_id": "DEEP-ASM-006457330b7cada9",
+          "fact": {
+            "assembly": "blParGenerales",
+            "hint_path": "dll\\blParGenerales.dll",
+            "resolution_status": "CONFIRMED",
+            "source_project": "WebAdhCargaArchivos.vbproj",
+            "version": null
+          }
+        },
+        {
+          "canonical_id": "DEEP-ASM-0067cd48eb72aad0",
+          "fact": {
+            "assembly": "SondaNetWebUI",
+            "hint_path": "..\\..\\dll\\SondaNetWebUI.dll",
+            "resolution_status": "CONFIRMED",
+            "source_project": "proyectos\\slnMedServicios\\Backup\\WebMEDServicios\\WebMEDServicios.vbproj",
+            "version": null
+          }
+        },
+        {
+          "canonical_id": "DEEP-ASM-0085c3189de2b5f6",
+          "fact": {
+            "assembly": "System.Web",
+            "hint_path": null,
+            "resolution_status": "CONFIRMED",
+            "source_project": "bl\\blCobMantencion\\blCobMantencion.vbproj",
+            "version": null
+          }
+        }
+      ],
+      "estimated_tokens": 1257,
+      "group": 2,
+      "output_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "interpretations": {
+            "items": {
+              "additionalProperties": false,
+              "properties": {
+                "claim_candidates": {
+                  "items": {
+                    "additionalProperties": false,
+                    "properties": {
+                      "evidence_aliases": {
+                        "items": {
+                          "enum": [
+                            "E01",
+                            "E02",
+                            "E03",
+                            "E04",
+                            "E05",
+                            "E06",
+                            "E07",
+                            "E08",
+                            "E09",
+                            "E10",
+                            "E11",
+                            "E12",
+                            "E13",
+                            "E14",
+                            "E15",
+                            "E16",
+                            "E17",
+                            "E18",
+                            "E19",
+                            "E20",
+                            "E21",
+                            "E22",
+                            "E23",
+                            "E24",
+                            "E25",
+                            "E26",
+                            "E27",
+                            "E28"
+                          ],
+                          "type": "string"
+                        },
+                        "type": "array"
+                      },
+                      "statement": {
+                        "type": "string"
+                      },
+                      "status": {
+                        "enum": [
+                          "INTERPRETED",
+                          "UNRESOLVED"
+                        ],
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "statement",
+                      "status",
+                      "evidence_aliases"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "evidence_aliases": {
+                  "items": {
+                    "enum": [
+                      "E01",
+                      "E02",
+                      "E03",
+                      "E04",
+                      "E05",
+                      "E06",
+                      "E07",
+                      "E08",
+                      "E09",
+                      "E10",
+                      "E11",
+                      "E12",
+                      "E13",
+                      "E14",
+                      "E15",
+                      "E16",
+                      "E17",
+                      "E18",
+                      "E19",
+                      "E20",
+                      "E21",
+                      "E22",
+                      "E23",
+                      "E24",
+                      "E25",
+                      "E26",
+                      "E27",
+                      "E28"
+                    ],
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "interpretation_status": {
+                  "enum": [
+                    "VALID",
+                    "INVALID",
+                    "INSUFFICIENT_EVIDENCE"
+                  ],
+                  "type": "string"
+                },
+                "recommended_next_status": {
+                  "enum": [
+                    "PARTIALLY_RESOLVED_WITH_INTERPRETATION",
+                    "REQUIRES_EXTERNAL_INFORMATION",
+                    "REQUIRES_HUMAN_KNOWLEDGE",
+                    "RESOLVED_WITH_INTERPRETATION",
+                    "STILL_UNRESOLVED"
+                  ],
+                  "type": "string"
+                },
+                "semantic_summary": {
+                  "type": "string"
+                },
+                "target_id": {
+                  "enum": [
+                    "FMI-008",
+                    "TMI-001",
+                    "TMI-006",
+                    "TMI-011"
+                  ],
+                  "type": "string"
+                },
+                "unresolved_aspects": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "target_id",
+                "interpretation_status",
+                "semantic_summary",
+                "claim_candidates",
+                "evidence_aliases",
+                "unresolved_aspects",
+                "recommended_next_status"
+              ],
+              "type": "object"
+            },
+            "maxItems": 4,
+            "minItems": 4,
+            "type": "array"
+          }
+        },
+        "required": [
+          "interpretations"
+        ],
+        "type": "object"
+      },
+      "provider_neutral_metadata": true,
+      "source_snapshot_ids": [
+        "c65b0a03ae7895d885c8d9b28705acc9cce1913904c3e42fc0bd342a0ac5871e"
+      ],
+      "target_ids": [
+        "FMI-008",
+        "TMI-001",
+        "TMI-006",
+        "TMI-011"
+      ],
+      "token_budget": 4200
+    },
+    {
+      "allowed_evidence_catalog": [
+        {
+          "alias": "E01",
+          "kind": "SYSTEM_COUNT"
+        },
+        {
+          "alias": "E02",
+          "kind": "SYSTEM_COUNT"
+        },
+        {
+          "alias": "E03",
+          "kind": "SYSTEM_COUNT"
+        },
+        {
+          "alias": "E04",
+          "kind": "SYSTEM_COUNT"
+        },
+        {
+          "alias": "E05",
+          "kind": "SYSTEM_COUNT"
+        },
+        {
+          "alias": "E06",
+          "kind": "SYSTEM_COUNT"
+        },
+        {
+          "alias": "E07",
+          "kind": "SYSTEM_COUNT"
+        },
+        {
+          "alias": "E08",
+          "kind": "SYSTEM_COUNT"
+        },
+        {
+          "alias": "E09",
+          "kind": "SYSTEM_COUNT"
+        },
+        {
+          "alias": "E10",
+          "kind": "SYSTEM_COUNT"
+        },
+        {
+          "alias": "E11",
+          "kind": "SYSTEM_COUNT"
+        },
+        {
+          "alias": "E12",
+          "kind": "SYSTEM_COUNT"
+        },
+        {
+          "alias": "E13",
+          "kind": "PROJECT_DEPENDENCY"
+        },
+        {
+          "alias": "E14",
+          "kind": "PROJECT_DEPENDENCY"
+        },
+        {
+          "alias": "E15",
+          "kind": "PROJECT_DEPENDENCY"
+        },
+        {
+          "alias": "E16",
+          "kind": "PROJECT_DEPENDENCY"
+        },
+        {
+          "alias": "E17",
+          "kind": "PROJECT_DEPENDENCY"
+        },
+        {
+          "alias": "E18",
+          "kind": "PROJECT_DEPENDENCY"
+        },
+        {
+          "alias": "E19",
+          "kind": "ASSEMBLY_REFERENCE"
+        },
+        {
+          "alias": "E20",
+          "kind": "ASSEMBLY_REFERENCE"
+        },
+        {
+          "alias": "E21",
+          "kind": "ASSEMBLY_REFERENCE"
+        },
+        {
+          "alias": "E22",
+          "kind": "ASSEMBLY_REFERENCE"
+        },
+        {
+          "alias": "E23",
+          "kind": "ASSEMBLY_REFERENCE"
+        },
+        {
+          "alias": "E24",
+          "kind": "ASSEMBLY_REFERENCE"
+        },
+        {
+          "alias": "E25",
+          "kind": "INTEGRATION_INDICATOR"
+        },
+        {
+          "alias": "E26",
+          "kind": "INTEGRATION_INDICATOR"
+        },
+        {
+          "alias": "E27",
+          "kind": "INTEGRATION_INDICATOR"
+        },
+        {
+          "alias": "E28",
+          "kind": "INTEGRATION_INDICATOR"
+        },
+        {
+          "alias": "E29",
+          "kind": "INTEGRATION_INDICATOR"
+        },
+        {
+          "alias": "E30",
+          "kind": "INTEGRATION_INDICATOR"
+        }
+      ],
+      "context_package_id": "CTX-R82-cec2651e178ce7e040aeb5d951ae650401f78e66fe2ce59ddf8288d6462a0656",
+      "deterministic_facts": [
+        {
+          "canonical_id": "R81-SUMMARY-counts-calls",
+          "fact": {
+            "calls": 4328
+          }
+        },
+        {
+          "canonical_id": "R81-SUMMARY-counts-data_access",
+          "fact": {
+            "data_access": 20082
+          }
+        },
+        {
+          "canonical_id": "R81-SUMMARY-counts-entry_points",
+          "fact": {
+            "entry_points": 12662
+          }
+        },
+        {
+          "canonical_id": "R81-SUMMARY-counts-errors",
+          "fact": {
+            "errors": 0
+          }
+        },
+        {
+          "canonical_id": "R81-SUMMARY-counts-external_dependencies",
+          "fact": {
+            "external_dependencies": 4838
+          }
+        },
+        {
+          "canonical_id": "R81-SUMMARY-counts-files",
+          "fact": {
+            "files": 15138
+          }
+        },
+        {
+          "canonical_id": "R81-SUMMARY-counts-flows",
+          "fact": {
+            "flows": 12642
+          }
+        },
+        {
+          "canonical_id": "R81-SUMMARY-counts-integrations",
+          "fact": {
+            "integrations": 3871
+          }
+        },
+        {
+          "canonical_id": "R81-SUMMARY-counts-paths",
+          "fact": {
+            "paths": 170020
+          }
+        },
+        {
+          "canonical_id": "R81-SUMMARY-counts-project_dependencies",
+          "fact": {
+            "project_dependencies": 167
+          }
+        },
+        {
+          "canonical_id": "R81-SUMMARY-counts-stored_procedures",
+          "fact": {
+            "stored_procedures": 5389
+          }
+        },
+        {
+          "canonical_id": "R81-SUMMARY-counts-webforms",
+          "fact": {
+            "webforms": 3346
+          }
+        },
+        {
+          "canonical_id": "DEEP-PROJ-016fcc65cc8e85ad",
+          "fact": {
+            "name": "sysMEDAdmision",
+            "relationship_type": "PROJECT_REFERENCE",
+            "resolution_status": "CONFIRMED",
+            "source_project": "bl\\blMedAdmision\\blMedAdmision.vbproj",
+            "target": "sys\\sysMEDAdmision\\sysMEDAdmision.vbproj"
+          }
+        },
+        {
+          "canonical_id": "DEEP-PROJ-0385d9a8aab68d1a",
+          "fact": {
+            "name": "sysCOTProcRecaud",
+            "relationship_type": "PROJECT_REFERENCE",
+            "resolution_status": "CONFIRMED",
+            "source_project": "webCOTProcRecaud.vbproj",
+            "target": "sys\\sysCOTProcRecaud\\sysCOTProcRecaud.vbproj"
+          }
+        },
+        {
+          "canonical_id": "DEEP-PROJ-0654aaaf46745d55",
+          "fact": {
+            "name": "sysPREPrevencion",
+            "relationship_type": "PROJECT_REFERENCE",
+            "resolution_status": "CONFIRMED",
+            "source_project": "WebPrePrevencion.vbproj",
+            "target": "sys\\sysPREPrevencion\\sysPREPrevencion.vbproj"
+          }
+        },
+        {
+          "canonical_id": "DEEP-ASM-000d083620195457",
+          "fact": {
+            "assembly": "System.Runtime.Serialization",
+            "hint_path": null,
+            "resolution_status": "CONFIRMED",
+            "source_project": "WebPENTramite.vbproj",
+            "version": null
+          }
+        },
+        {
+          "canonical_id": "DEEP-ASM-001d31483ea17632",
+          "fact": {
+            "assembly": "System",
+            "hint_path": null,
+            "resolution_status": "CONFIRMED",
+            "source_project": "proyectos\\slnMEDDespacho\\Archivos de copia de seguridad de Crystal Reports\\WebMEDDespacho.vbproj",
+            "version": null
+          }
+        },
+        {
+          "canonical_id": "DEEP-ASM-00331e5a00290b97",
+          "fact": {
+            "assembly": "System.Web.Entity",
+            "hint_path": null,
+            "resolution_status": "CONFIRMED",
+            "source_project": "proyectos\\slnIndemnizacion\\Archivos de copia de seguridad de Crystal Reports\\WebIndemnizacion.vbproj",
+            "version": null
+          }
+        },
+        {
+          "canonical_id": "DEEP-ASM-006457330b7cada9",
+          "fact": {
+            "assembly": "blParGenerales",
+            "hint_path": "dll\\blParGenerales.dll",
+            "resolution_status": "CONFIRMED",
+            "source_project": "WebAdhCargaArchivos.vbproj",
+            "version": null
+          }
+        },
+        {
+          "canonical_id": "DEEP-ASM-0067cd48eb72aad0",
+          "fact": {
+            "assembly": "SondaNetWebUI",
+            "hint_path": "..\\..\\dll\\SondaNetWebUI.dll",
+            "resolution_status": "CONFIRMED",
+            "source_project": "proyectos\\slnMedServicios\\Backup\\WebMEDServicios\\WebMEDServicios.vbproj",
+            "version": null
+          }
+        },
+        {
+          "canonical_id": "DEEP-ASM-0085c3189de2b5f6",
+          "fact": {
+            "assembly": "System.Web",
+            "hint_path": null,
+            "resolution_status": "CONFIRMED",
+            "source_project": "bl\\blCobMantencion\\blCobMantencion.vbproj",
+            "version": null
+          }
+        },
+        {
+          "canonical_id": "DEEP-INT-000f278d0f060571",
+          "fact": {
+            "excerpt": "<meta name=\"vs_targetSchema\" content=\"http://schemas.microsoft.com/intellisense/ie5\">",
+            "indicators": [
+              "COM"
+            ],
+            "line": 9,
+            "resolution_status": "CONFIRMED",
+            "source_file": "proyectos\\slnInformesSubsidios\\Backup\\WebInformesSubsidios\\header.aspx"
+          }
+        },
+        {
+          "canonical_id": "DEEP-INT-00198ff54b4ffed9",
+          "fact": {
+            "excerpt": "<%@ Control Language=\"vb\" AutoEventWireup=\"false\" Codebehind=\"ucDesMo210.ascx.vb\" Inherits=\"Sonda.Gestion.Nssmut.Web.MED.Despacho.ucDesMo210\" TargetSchema=\"http://schemas.microsoft.com/intellisense/ie5\" %>",
+            "indicators": [
+              "COM"
+            ],
+            "line": 1,
+            "resolution_status": "CONFIRMED",
+            "source_file": "proyectos\\slnMEDDespacho\\Backup1\\WebMEDDespacho\\ucDesMo210.ascx"
+          }
+        },
+        {
+          "canonical_id": "DEEP-INT-00647ea337391a19",
+          "fact": {
+            "excerpt": "<%@ Control Language=\"vb\" AutoEventWireup=\"false\" CodeBehind=\"ucAgeMo035.ascx.vb\" Inherits=\"Sonda.Gestion.Nssmut.Web.MEDICO.ucAgeMo035\" TargetSchema=\"http://schemas.microsoft.com/intellisense/ie5\" %>",
+            "indicators": [
+              "COM"
+            ],
+            "line": 1,
+            "resolution_status": "CONFIRMED",
+            "source_file": "webMEDAgenda\\ucAgeMo035.ascx"
+          }
+        },
+        {
+          "canonical_id": "DEEP-INT-0086b24c4a36fc1c",
+          "fact": {
+            "excerpt": "<%@ Control Language=\"vb\" AutoEventWireup=\"false\" CodeBehind=\"ucADHReplicarCalculo.ascx.vb\" Inherits=\"Sonda.Gestion.Nssmut.Web.ADHAdmCalculoDs67.ucADHReplicarCalculo\" TargetSchema=\"http://schemas.microsoft.com/intellisense/ie5\" %>",
+            "indicators": [
+              "COM"
+            ],
+            "line": 1,
+            "resolution_status": "CONFIRMED",
+            "source_file": "ucADHReplicarCalculo.ascx"
+          }
+        },
+        {
+          "canonical_id": "DEEP-INT-00ab23ebd603a580",
+          "fact": {
+            "excerpt": "<%@ Control Language=\"vb\" AutoEventWireup=\"false\" Codebehind=\"ucAdmImprimir.ascx.vb\" Inherits=\"Sonda.Gestion.Nssmut.Web.Medico.ucAdmImprimir\" TargetSchema=\"http://schemas.microsoft.com/intellisense/ie5\" %>",
+            "indicators": [
+              "COM"
+            ],
+            "line": 1,
+            "resolution_status": "CONFIRMED",
+            "source_file": "proyectos\\slnMEDAdmision\\Archivos de copia de seguridad de Crystal Reports\\ucAdmImprimir.ascx"
+          }
+        },
+        {
+          "canonical_id": "DEEP-INT-00ae524b5b79c6eb",
+          "fact": {
+            "excerpt": "<%@ Control Language=\"vb\" AutoEventWireup=\"false\" Codebehind=\"usuMantencionJRolesMain.ascx.vb\" Inherits=\"Sonda.Gestion.Adm.WEB.Soporte.ControlAccesoUsuario.usuMantencionJRolesMain\" TargetSchema=\"http://schemas.microsoft.com/intellisense/ie5\" %>",
+            "indicators": [
+              "COM"
+            ],
+            "line": 1,
+            "resolution_status": "CONFIRMED",
+            "source_file": "webControlAccesoUsuario\\usuMantencionJRolesMain.ascx"
+          }
+        }
+      ],
+      "estimated_tokens": 1751,
+      "group": 3,
+      "output_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "interpretations": {
+            "items": {
+              "additionalProperties": false,
+              "properties": {
+                "claim_candidates": {
+                  "items": {
+                    "additionalProperties": false,
+                    "properties": {
+                      "evidence_aliases": {
+                        "items": {
+                          "enum": [
+                            "E01",
+                            "E02",
+                            "E03",
+                            "E04",
+                            "E05",
+                            "E06",
+                            "E07",
+                            "E08",
+                            "E09",
+                            "E10",
+                            "E11",
+                            "E12",
+                            "E13",
+                            "E14",
+                            "E15",
+                            "E16",
+                            "E17",
+                            "E18",
+                            "E19",
+                            "E20",
+                            "E21",
+                            "E22",
+                            "E23",
+                            "E24",
+                            "E25",
+                            "E26",
+                            "E27",
+                            "E28",
+                            "E29",
+                            "E30"
+                          ],
+                          "type": "string"
+                        },
+                        "type": "array"
+                      },
+                      "statement": {
+                        "type": "string"
+                      },
+                      "status": {
+                        "enum": [
+                          "INTERPRETED",
+                          "UNRESOLVED"
+                        ],
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "statement",
+                      "status",
+                      "evidence_aliases"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "evidence_aliases": {
+                  "items": {
+                    "enum": [
+                      "E01",
+                      "E02",
+                      "E03",
+                      "E04",
+                      "E05",
+                      "E06",
+                      "E07",
+                      "E08",
+                      "E09",
+                      "E10",
+                      "E11",
+                      "E12",
+                      "E13",
+                      "E14",
+                      "E15",
+                      "E16",
+                      "E17",
+                      "E18",
+                      "E19",
+                      "E20",
+                      "E21",
+                      "E22",
+                      "E23",
+                      "E24",
+                      "E25",
+                      "E26",
+                      "E27",
+                      "E28",
+                      "E29",
+                      "E30"
+                    ],
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "interpretation_status": {
+                  "enum": [
+                    "VALID",
+                    "INVALID",
+                    "INSUFFICIENT_EVIDENCE"
+                  ],
+                  "type": "string"
+                },
+                "recommended_next_status": {
+                  "enum": [
+                    "PARTIALLY_RESOLVED_WITH_INTERPRETATION",
+                    "REQUIRES_EXTERNAL_INFORMATION",
+                    "REQUIRES_HUMAN_KNOWLEDGE",
+                    "RESOLVED_WITH_INTERPRETATION",
+                    "STILL_UNRESOLVED"
+                  ],
+                  "type": "string"
+                },
+                "semantic_summary": {
+                  "type": "string"
+                },
+                "target_id": {
+                  "enum": [
+                    "TMI-002",
+                    "TMI-009"
+                  ],
+                  "type": "string"
+                },
+                "unresolved_aspects": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                }
+              },
+              "required": [
+                "target_id",
+                "interpretation_status",
+                "semantic_summary",
+                "claim_candidates",
+                "evidence_aliases",
+                "unresolved_aspects",
+                "recommended_next_status"
+              ],
+              "type": "object"
+            },
+            "maxItems": 2,
+            "minItems": 2,
+            "type": "array"
+          }
+        },
+        "required": [
+          "interpretations"
+        ],
+        "type": "object"
+      },
+      "provider_neutral_metadata": true,
+      "source_snapshot_ids": [
+        "c65b0a03ae7895d885c8d9b28705acc9cce1913904c3e42fc0bd342a0ac5871e"
+      ],
+      "target_ids": [
+        "TMI-002",
+        "TMI-009"
+      ],
+      "token_budget": 4200
+    }
+  ]
+}

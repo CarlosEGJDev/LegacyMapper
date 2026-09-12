@@ -1,0 +1,2259 @@
+{
+  "assessments": [
+    {
+      "assessment_id": "ASSESS-381fd01a93b3ff2e741948f4a560e80ff1b6c8a3a7101c77cb822a30c225ddd2",
+      "assessment_payload": {
+        "assessment_id": "ASSESS-381fd01a93b3ff2e741948f4a560e80ff1b6c8a3a7101c77cb822a30c225ddd2",
+        "claims": [
+          {
+            "claim_id": "C01",
+            "context_package_ids": [
+              "CTX-SYN-4bc3be5211928a2a8dd2f7c84ac7ee482e15baffbc3b4dce753972eeb223b01e"
+            ],
+            "evidence_refs": [
+              "SYN-c6f67b587385a463fa5e"
+            ],
+            "section": "Resumen funcional del aplicativo",
+            "source_type": "DETERMINISTIC_CODE_FACT",
+            "statement": "El aplicativo está representado por 259 proyectos clasificados, 113 soluciones, 3.346 WebForms y 12.642 flujos funcionales.",
+            "status": "CONFIRMED"
+          },
+          {
+            "claim_id": "C02",
+            "context_package_ids": [
+              "CTX-SYN-4bc3be5211928a2a8dd2f7c84ac7ee482e15baffbc3b4dce753972eeb223b01e"
+            ],
+            "evidence_refs": [
+              "SYN-33a0eab4346d26c069a0"
+            ],
+            "section": "Resumen funcional del aplicativo",
+            "source_type": "DETERMINISTIC_CODE_FACT",
+            "statement": "La cobertura estructural registra 259 proyectos, 12.642 flujos representados y 3.346 WebForms representados.",
+            "status": "CONFIRMED"
+          },
+          {
+            "claim_id": "C03",
+            "context_package_ids": [
+              "CTX-SYN-4bc3be5211928a2a8dd2f7c84ac7ee482e15baffbc3b4dce753972eeb223b01e"
+            ],
+            "evidence_refs": [
+              "SYN-3d9932e8879b9dbb1b3e"
+            ],
+            "section": "Módulos o áreas funcionales identificadas",
+            "source_type": "DETERMINISTIC_CODE_FACT",
+            "statement": "El inventario incluye áreas representadas por proyectos WebForms y bibliotecas, entre ellas WebCO.",
+            "status": "CONFIRMED"
+          },
+          {
+            "claim_id": "C04",
+            "context_package_ids": [
+              "CTX-SYN-4bc3be5211928a2a8dd2f7c84ac7ee482e15baffbc3b4dce753972eeb223b01e"
+            ],
+            "evidence_refs": [
+              "SYN-7aa78b5106a1603b0e29"
+            ],
+            "section": "Módulos o áreas funcionales identificadas",
+            "source_type": "AI_INTERPRETATION",
+            "statement": "La evidencia permite interpretar áreas funcionales asociadas con administración, agenda, camas y otras áreas identificadas en el inventario.",
+            "status": "INTERPRETED"
+          },
+          {
+            "claim_id": "C05",
+            "context_package_ids": [
+              "CTX-SYN-4bc3be5211928a2a8dd2f7c84ac7ee482e15baffbc3b4dce753972eeb223b01e"
+            ],
+            "evidence_refs": [
+              "SYN-8b0286aa286eb43398e7"
+            ],
+            "section": "Pantallas, WebForms o puntos de entrada relevantes",
+            "source_type": "DETERMINISTIC_CODE_FACT",
+            "statement": "Existen WebForms y controles ASCX identificados como puntos de entrada, incluidos controles relacionados con las áreas inventariadas.",
+            "status": "CONFIRMED"
+          },
+          {
+            "claim_id": "C06",
+            "context_package_ids": [
+              "CTX-SYN-4bc3be5211928a2a8dd2f7c84ac7ee482e15baffbc3b4dce753972eeb223b01e"
+            ],
+            "evidence_refs": [
+              "SYN-abce5baac208543790af"
+            ],
+            "section": "Pantallas, WebForms o puntos de entrada relevantes",
+            "source_type": "DETERMINISTIC_CODE_FACT",
+            "statement": "Se identifican WebForms y controles de usuario como puntos de entrada; Register.aspx figura entre ellos.",
+            "status": "CONFIRMED"
+          },
+          {
+            "claim_id": "C07",
+            "context_package_ids": [
+              "CTX-SYN-4bc3be5211928a2a8dd2f7c84ac7ee482e15baffbc3b4dce753972eeb223b01e"
+            ],
+            "evidence_refs": [
+              "SYN-b861ece624778784d823"
+            ],
+            "section": "Flujos funcionales identificados",
+            "source_type": "DETERMINISTIC_CODE_FACT",
+            "statement": "Los flujos funcionales representados incluyen rutas asociadas a proyectos como WebADHEspecial y otros proyectos inventariados.",
+            "status": "CONFIRMED"
+          },
+          {
+            "claim_id": "C08",
+            "context_package_ids": [
+              "CTX-SYN-4bc3be5211928a2a8dd2f7c84ac7ee482e15baffbc3b4dce753972eeb223b01e"
+            ],
+            "evidence_refs": [
+              "SYN-e2418a3ad47a05f5cad9"
+            ],
+            "section": "Flujos funcionales identificados",
+            "source_type": "DETERMINISTIC_CODE_FACT",
+            "statement": "Existen flujos funcionales registrados con identificadores y caminos asociados a proyectos inventariados.",
+            "status": "CONFIRMED"
+          },
+          {
+            "claim_id": "C09",
+            "context_package_ids": [
+              "CTX-SYN-4bc3be5211928a2a8dd2f7c84ac7ee482e15baffbc3b4dce753972eeb223b01e"
+            ],
+            "evidence_refs": [
+              "SYN-2b8b82555a5d65daa4f2"
+            ],
+            "section": "Operaciones de datos relacionadas con funcionalidades",
+            "source_type": "DETERMINISTIC_CODE_FACT",
+            "statement": "Las operaciones funcionales de datos incluyen wrappers de repositorio, transacciones y llamadas a procedimientos almacenados.",
+            "status": "CONFIRMED"
+          },
+          {
+            "claim_id": "C10",
+            "context_package_ids": [
+              "CTX-SYN-4bc3be5211928a2a8dd2f7c84ac7ee482e15baffbc3b4dce753972eeb223b01e"
+            ],
+            "evidence_refs": [
+              "SYN-c6bea32f34f2ad828e8d"
+            ],
+            "section": "Operaciones de datos relacionadas con funcionalidades",
+            "source_type": "DETERMINISTIC_CODE_FACT",
+            "statement": "Las funcionalidades registradas se relacionan con operaciones de datos implementadas mediante wrappers y otros mecanismos de acceso a datos.",
+            "status": "CONFIRMED"
+          },
+          {
+            "claim_id": "C11",
+            "context_package_ids": [
+              "CTX-SYN-4bc3be5211928a2a8dd2f7c84ac7ee482e15baffbc3b4dce753972eeb223b01e"
+            ],
+            "evidence_refs": [
+              "SYN-f6279064bf0dfa681be9"
+            ],
+            "section": "Módulos o áreas funcionales identificadas",
+            "source_type": "DETERMINISTIC_CODE_FACT",
+            "statement": "Se identifican áreas o conjuntos de proyectos relacionados con WebMEDHospital y webMEDInvestigacion.",
+            "status": "CONFIRMED"
+          },
+          {
+            "claim_id": "C12",
+            "context_package_ids": [
+              "CTX-SYN-4bc3be5211928a2a8dd2f7c84ac7ee482e15baffbc3b4dce753972eeb223b01e"
+            ],
+            "evidence_refs": [
+              "SYN-19870796af0ca99fba5c"
+            ],
+            "section": "Información no determinada",
+            "source_type": "UNRESOLVED",
+            "statement": "No está resuelta la conexión determinista entre los WebForms o controles identificados y los flujos funcionales correspondientes.",
+            "status": "UNRESOLVED"
+          },
+          {
+            "claim_id": "C13",
+            "context_package_ids": [
+              "CTX-SYN-4bc3be5211928a2a8dd2f7c84ac7ee482e15baffbc3b4dce753972eeb223b01e"
+            ],
+            "evidence_refs": [
+              "SYN-41ce962b7c153b2587fb"
+            ],
+            "section": "Información no determinada",
+            "source_type": "UNRESOLVED",
+            "statement": "La evidencia disponible no determina de forma específica qué flujo funcional o destino corresponde a cada punto de entrada identificado.",
+            "status": "UNRESOLVED"
+          }
+        ],
+        "context_package_ids": [
+          "CTX-SYN-4bc3be5211928a2a8dd2f7c84ac7ee482e15baffbc3b4dce753972eeb223b01e"
+        ],
+        "missing_information": [
+          {
+            "blocking_level": "BLOCKING_FOR_APPROVAL",
+            "document": "FUNCTIONAL_ASSESSMENT",
+            "question": "¿Qué WebForm o control ASCX inicia cada flujo funcional identificado y cuál es su secuencia de navegación?",
+            "reason": "La evidencia confirma la existencia de puntos de entrada y flujos, pero no aporta una relación determinista entre ambos.",
+            "related_claim_ids": [
+              "C05",
+              "C06",
+              "C07",
+              "C08",
+              "C12"
+            ],
+            "related_evidence_ids": [
+              "SYN-19870796af0ca99fba5c"
+            ],
+            "request_id": "MI01",
+            "section": "Flujos funcionales identificados"
+          },
+          {
+            "blocking_level": "IMPORTANT",
+            "document": "FUNCTIONAL_ASSESSMENT",
+            "question": "¿Cuál es el destino funcional o sistema relacionado con cada flujo iniciado desde los puntos de entrada identificados?",
+            "reason": "La evidencia no determina de forma específica los destinos asociados a los flujos o puntos de entrada.",
+            "related_claim_ids": [
+              "C07",
+              "C08",
+              "C13"
+            ],
+            "related_evidence_ids": [
+              "SYN-41ce962b7c153b2587fb"
+            ],
+            "request_id": "MI02",
+            "section": "Integraciones funcionales detectadas"
+          }
+        ],
+        "profile_id": "FUNCTIONAL_ASSESSMENT",
+        "source_snapshots": [
+          "6ad94c8f0b735dea3fb1d7daf55b6c3633cb6f6d04a9ee326baac8bef91c599a"
+        ],
+        "status": "PARTIAL",
+        "summary": "La evidencia confirma una cobertura estructural amplia del aplicativo, con proyectos, soluciones, WebForms, flujos funcionales y operaciones de datos representados. También identifica puntos de entrada y rutas de flujo, pero no determina de forma concluyente la conexión entre cada punto de entrada, su flujo funcional y su destino."
+      },
+      "assessment_status": "PARTIAL",
+      "claims": [
+        {
+          "claim_id": "C01",
+          "context_package_ids": [
+            "CTX-SYN-4bc3be5211928a2a8dd2f7c84ac7ee482e15baffbc3b4dce753972eeb223b01e"
+          ],
+          "evidence_refs": [
+            "SYN-c6f67b587385a463fa5e"
+          ],
+          "section": "Resumen funcional del aplicativo",
+          "source_type": "DETERMINISTIC_CODE_FACT",
+          "statement": "El aplicativo está representado por 259 proyectos clasificados, 113 soluciones, 3.346 WebForms y 12.642 flujos funcionales.",
+          "status": "CONFIRMED"
+        },
+        {
+          "claim_id": "C02",
+          "context_package_ids": [
+            "CTX-SYN-4bc3be5211928a2a8dd2f7c84ac7ee482e15baffbc3b4dce753972eeb223b01e"
+          ],
+          "evidence_refs": [
+            "SYN-33a0eab4346d26c069a0"
+          ],
+          "section": "Resumen funcional del aplicativo",
+          "source_type": "DETERMINISTIC_CODE_FACT",
+          "statement": "La cobertura estructural registra 259 proyectos, 12.642 flujos representados y 3.346 WebForms representados.",
+          "status": "CONFIRMED"
+        },
+        {
+          "claim_id": "C03",
+          "context_package_ids": [
+            "CTX-SYN-4bc3be5211928a2a8dd2f7c84ac7ee482e15baffbc3b4dce753972eeb223b01e"
+          ],
+          "evidence_refs": [
+            "SYN-3d9932e8879b9dbb1b3e"
+          ],
+          "section": "Módulos o áreas funcionales identificadas",
+          "source_type": "DETERMINISTIC_CODE_FACT",
+          "statement": "El inventario incluye áreas representadas por proyectos WebForms y bibliotecas, entre ellas WebCO.",
+          "status": "CONFIRMED"
+        },
+        {
+          "claim_id": "C04",
+          "context_package_ids": [
+            "CTX-SYN-4bc3be5211928a2a8dd2f7c84ac7ee482e15baffbc3b4dce753972eeb223b01e"
+          ],
+          "evidence_refs": [
+            "SYN-7aa78b5106a1603b0e29"
+          ],
+          "section": "Módulos o áreas funcionales identificadas",
+          "source_type": "AI_INTERPRETATION",
+          "statement": "La evidencia permite interpretar áreas funcionales asociadas con administración, agenda, camas y otras áreas identificadas en el inventario.",
+          "status": "INTERPRETED"
+        },
+        {
+          "claim_id": "C05",
+          "context_package_ids": [
+            "CTX-SYN-4bc3be5211928a2a8dd2f7c84ac7ee482e15baffbc3b4dce753972eeb223b01e"
+          ],
+          "evidence_refs": [
+            "SYN-8b0286aa286eb43398e7"
+          ],
+          "section": "Pantallas, WebForms o puntos de entrada relevantes",
+          "source_type": "DETERMINISTIC_CODE_FACT",
+          "statement": "Existen WebForms y controles ASCX identificados como puntos de entrada, incluidos controles relacionados con las áreas inventariadas.",
+          "status": "CONFIRMED"
+        },
+        {
+          "claim_id": "C06",
+          "context_package_ids": [
+            "CTX-SYN-4bc3be5211928a2a8dd2f7c84ac7ee482e15baffbc3b4dce753972eeb223b01e"
+          ],
+          "evidence_refs": [
+            "SYN-abce5baac208543790af"
+          ],
+          "section": "Pantallas, WebForms o puntos de entrada relevantes",
+          "source_type": "DETERMINISTIC_CODE_FACT",
+          "statement": "Se identifican WebForms y controles de usuario como puntos de entrada; Register.aspx figura entre ellos.",
+          "status": "CONFIRMED"
+        },
+        {
+          "claim_id": "C07",
+          "context_package_ids": [
+            "CTX-SYN-4bc3be5211928a2a8dd2f7c84ac7ee482e15baffbc3b4dce753972eeb223b01e"
+          ],
+          "evidence_refs": [
+            "SYN-b861ece624778784d823"
+          ],
+          "section": "Flujos funcionales identificados",
+          "source_type": "DETERMINISTIC_CODE_FACT",
+          "statement": "Los flujos funcionales representados incluyen rutas asociadas a proyectos como WebADHEspecial y otros proyectos inventariados.",
+          "status": "CONFIRMED"
+        },
+        {
+          "claim_id": "C08",
+          "context_package_ids": [
+            "CTX-SYN-4bc3be5211928a2a8dd2f7c84ac7ee482e15baffbc3b4dce753972eeb223b01e"
+          ],
+          "evidence_refs": [
+            "SYN-e2418a3ad47a05f5cad9"
+          ],
+          "section": "Flujos funcionales identificados",
+          "source_type": "DETERMINISTIC_CODE_FACT",
+          "statement": "Existen flujos funcionales registrados con identificadores y caminos asociados a proyectos inventariados.",
+          "status": "CONFIRMED"
+        },
+        {
+          "claim_id": "C09",
+          "context_package_ids": [
+            "CTX-SYN-4bc3be5211928a2a8dd2f7c84ac7ee482e15baffbc3b4dce753972eeb223b01e"
+          ],
+          "evidence_refs": [
+            "SYN-2b8b82555a5d65daa4f2"
+          ],
+          "section": "Operaciones de datos relacionadas con funcionalidades",
+          "source_type": "DETERMINISTIC_CODE_FACT",
+          "statement": "Las operaciones funcionales de datos incluyen wrappers de repositorio, transacciones y llamadas a procedimientos almacenados.",
+          "status": "CONFIRMED"
+        },
+        {
+          "claim_id": "C10",
+          "context_package_ids": [
+            "CTX-SYN-4bc3be5211928a2a8dd2f7c84ac7ee482e15baffbc3b4dce753972eeb223b01e"
+          ],
+          "evidence_refs": [
+            "SYN-c6bea32f34f2ad828e8d"
+          ],
+          "section": "Operaciones de datos relacionadas con funcionalidades",
+          "source_type": "DETERMINISTIC_CODE_FACT",
+          "statement": "Las funcionalidades registradas se relacionan con operaciones de datos implementadas mediante wrappers y otros mecanismos de acceso a datos.",
+          "status": "CONFIRMED"
+        },
+        {
+          "claim_id": "C11",
+          "context_package_ids": [
+            "CTX-SYN-4bc3be5211928a2a8dd2f7c84ac7ee482e15baffbc3b4dce753972eeb223b01e"
+          ],
+          "evidence_refs": [
+            "SYN-f6279064bf0dfa681be9"
+          ],
+          "section": "Módulos o áreas funcionales identificadas",
+          "source_type": "DETERMINISTIC_CODE_FACT",
+          "statement": "Se identifican áreas o conjuntos de proyectos relacionados con WebMEDHospital y webMEDInvestigacion.",
+          "status": "CONFIRMED"
+        },
+        {
+          "claim_id": "C12",
+          "context_package_ids": [
+            "CTX-SYN-4bc3be5211928a2a8dd2f7c84ac7ee482e15baffbc3b4dce753972eeb223b01e"
+          ],
+          "evidence_refs": [
+            "SYN-19870796af0ca99fba5c"
+          ],
+          "section": "Información no determinada",
+          "source_type": "UNRESOLVED",
+          "statement": "No está resuelta la conexión determinista entre los WebForms o controles identificados y los flujos funcionales correspondientes.",
+          "status": "UNRESOLVED"
+        },
+        {
+          "claim_id": "C13",
+          "context_package_ids": [
+            "CTX-SYN-4bc3be5211928a2a8dd2f7c84ac7ee482e15baffbc3b4dce753972eeb223b01e"
+          ],
+          "evidence_refs": [
+            "SYN-41ce962b7c153b2587fb"
+          ],
+          "section": "Información no determinada",
+          "source_type": "UNRESOLVED",
+          "statement": "La evidencia disponible no determina de forma específica qué flujo funcional o destino corresponde a cada punto de entrada identificado.",
+          "status": "UNRESOLVED"
+        }
+      ],
+      "content_hash": "a0ea167e329c770efd0cce6aa99ba359f6ee70ac9c2d3edf815b63497a341b93",
+      "context_package_id": "CTX-SYN-4bc3be5211928a2a8dd2f7c84ac7ee482e15baffbc3b4dce753972eeb223b01e",
+      "identity": {
+        "context_package_id": "CTX-SYN-4bc3be5211928a2a8dd2f7c84ac7ee482e15baffbc3b4dce753972eeb223b01e",
+        "profile_id": "FUNCTIONAL_ASSESSMENT",
+        "prompt_contract_version": "V3-R7.1-CANONICAL-1",
+        "request_hash": "1d5f73fe1857ce13dafc3a0c0be80706a3fa8db85348cf294e613a0edb6f2946",
+        "schema_version": "3.1.0",
+        "source_snapshot": "6ad94c8f0b735dea3fb1d7daf55b6c3633cb6f6d04a9ee326baac8bef91c599a"
+      },
+      "missing_information": [
+        {
+          "blocking_level": "BLOCKING_FOR_APPROVAL",
+          "document": "FUNCTIONAL_ASSESSMENT",
+          "question": "¿Qué WebForm o control ASCX inicia cada flujo funcional identificado y cuál es su secuencia de navegación?",
+          "reason": "La evidencia confirma la existencia de puntos de entrada y flujos, pero no aporta una relación determinista entre ambos.",
+          "related_claim_ids": [
+            "C05",
+            "C06",
+            "C07",
+            "C08",
+            "C12"
+          ],
+          "related_evidence_ids": [
+            "SYN-19870796af0ca99fba5c"
+          ],
+          "request_id": "MI01",
+          "section": "Flujos funcionales identificados"
+        },
+        {
+          "blocking_level": "IMPORTANT",
+          "document": "FUNCTIONAL_ASSESSMENT",
+          "question": "¿Cuál es el destino funcional o sistema relacionado con cada flujo iniciado desde los puntos de entrada identificados?",
+          "reason": "La evidencia no determina de forma específica los destinos asociados a los flujos o puntos de entrada.",
+          "related_claim_ids": [
+            "C07",
+            "C08",
+            "C13"
+          ],
+          "related_evidence_ids": [
+            "SYN-41ce962b7c153b2587fb"
+          ],
+          "request_id": "MI02",
+          "section": "Integraciones funcionales detectadas"
+        }
+      ],
+      "model_id": "gpt-5.6-luna",
+      "profile_id": "FUNCTIONAL_ASSESSMENT",
+      "prompt_contract_version": "V3-R7.1-CANONICAL-1",
+      "provider": "COPILOT",
+      "schema_version": "3.1.0",
+      "source_snapshot": "6ad94c8f0b735dea3fb1d7daf55b6c3633cb6f6d04a9ee326baac8bef91c599a",
+      "stage": "GLOBAL_FUNCTIONAL",
+      "validation_status": "VALID"
+    },
+    {
+      "assessment_id": "ASSESS-48b7fa40c99ae86d26ae7edf14ecacd795e35fc9a4711446307c13729f7cee88",
+      "assessment_payload": {
+        "assessment_id": "ASSESS-48b7fa40c99ae86d26ae7edf14ecacd795e35fc9a4711446307c13729f7cee88",
+        "claims": [
+          {
+            "claim_id": "C001",
+            "context_package_ids": [
+              "CTX-SYN-b6b0574c1164a1c6697a76abf4e79140c590241add9775a84235321e3f478a03"
+            ],
+            "evidence_refs": [
+              "SYN-1ed325a5620b2eaa2674",
+              "SYN-e2f1d90fdfe4377962ac"
+            ],
+            "section": "Organización de soluciones y proyectos",
+            "source_type": "DETERMINISTIC_CODE_FACT",
+            "statement": "El inventario registra 113 soluciones representadas, 234 proyectos cubiertos y 259 proyectos clasificados.",
+            "status": "CONFIRMED"
+          },
+          {
+            "claim_id": "C002",
+            "context_package_ids": [
+              "CTX-SYN-b6b0574c1164a1c6697a76abf4e79140c590241add9775a84235321e3f478a03"
+            ],
+            "evidence_refs": [
+              "SYN-4190adb974cd5748a4fd"
+            ],
+            "section": "Componentes técnicos identificados",
+            "source_type": "DETERMINISTIC_CODE_FACT",
+            "statement": "Se identifican proyectos Web y proyectos de lógica o servicios dentro del inventario.",
+            "status": "CONFIRMED"
+          },
+          {
+            "claim_id": "C003",
+            "context_package_ids": [
+              "CTX-SYN-b6b0574c1164a1c6697a76abf4e79140c590241add9775a84235321e3f478a03"
+            ],
+            "evidence_refs": [
+              "SYN-6c362dedb3c195c3be38"
+            ],
+            "section": "Organización de soluciones y proyectos",
+            "source_type": "DETERMINISTIC_CODE_FACT",
+            "statement": "La clasificación de proyectos distingue los estados COVERED y PARTIALLY_COVERED, por lo que la cobertura del inventario no es uniforme.",
+            "status": "CONFIRMED"
+          },
+          {
+            "claim_id": "C004",
+            "context_package_ids": [
+              "CTX-SYN-b6b0574c1164a1c6697a76abf4e79140c590241add9775a84235321e3f478a03"
+            ],
+            "evidence_refs": [
+              "SYN-1e96d4051c6230786740",
+              "SYN-c71e88c9824039ffc6e0"
+            ],
+            "section": "WebForms y capa de presentación",
+            "source_type": "DETERMINISTIC_CODE_FACT",
+            "statement": "La capa de presentación incluye componentes WebForms ASPX y controles de usuario ASCX.",
+            "status": "CONFIRMED"
+          },
+          {
+            "claim_id": "C005",
+            "context_package_ids": [
+              "CTX-SYN-b6b0574c1164a1c6697a76abf4e79140c590241add9775a84235321e3f478a03"
+            ],
+            "evidence_refs": [
+              "SYN-1e96d4051c6230786740"
+            ],
+            "section": "WebForms y capa de presentación",
+            "source_type": "DETERMINISTIC_CODE_FACT",
+            "statement": "Se identifican 3.346 WebForms y 335 controles o archivos ASCX representados.",
+            "status": "CONFIRMED"
+          },
+          {
+            "claim_id": "C006",
+            "context_package_ids": [
+              "CTX-SYN-b6b0574c1164a1c6697a76abf4e79140c590241add9775a84235321e3f478a03"
+            ],
+            "evidence_refs": [
+              "SYN-85b59a3b5446555dafe1",
+              "SYN-a49d73c2b6c17776f4a2"
+            ],
+            "section": "Acceso a datos",
+            "source_type": "DETERMINISTIC_CODE_FACT",
+            "statement": "El acceso a datos registra operaciones enlazadas y wrappers de repositorio asociados al proyecto.",
+            "status": "CONFIRMED"
+          },
+          {
+            "claim_id": "C007",
+            "context_package_ids": [
+              "CTX-SYN-b6b0574c1164a1c6697a76abf4e79140c590241add9775a84235321e3f478a03"
+            ],
+            "evidence_refs": [
+              "SYN-85b59a3b5446555dafe1",
+              "SYN-a49d73c2b6c17776f4a2"
+            ],
+            "section": "Acceso a datos",
+            "source_type": "DETERMINISTIC_CODE_FACT",
+            "statement": "El inventario registra 2.009 operaciones de acceso a datos enlazadas.",
+            "status": "CONFIRMED"
+          },
+          {
+            "claim_id": "C008",
+            "context_package_ids": [
+              "CTX-SYN-b6b0574c1164a1c6697a76abf4e79140c590241add9775a84235321e3f478a03"
+            ],
+            "evidence_refs": [
+              "SYN-83cf4134a69beb9fff7e",
+              "SYN-92a89dd0da4e54c25dba"
+            ],
+            "section": "Oracle / procedimientos almacenados / SQL",
+            "source_type": "DETERMINISTIC_CODE_FACT",
+            "statement": "El inventario registra procedimientos almacenados Oracle identificados y procedimientos vinculados a paquetes y procedimientos.",
+            "status": "CONFIRMED"
+          },
+          {
+            "claim_id": "C009",
+            "context_package_ids": [
+              "CTX-SYN-b6b0574c1164a1c6697a76abf4e79140c590241add9775a84235321e3f478a03"
+            ],
+            "evidence_refs": [
+              "SYN-83cf4134a69beb9fff7e"
+            ],
+            "section": "Oracle / procedimientos almacenados / SQL",
+            "source_type": "DETERMINISTIC_CODE_FACT",
+            "statement": "El inventario registra 674 procedimientos almacenados Oracle identificados.",
+            "status": "CONFIRMED"
+          },
+          {
+            "claim_id": "C010",
+            "context_package_ids": [
+              "CTX-SYN-b6b0574c1164a1c6697a76abf4e79140c590241add9775a84235321e3f478a03"
+            ],
+            "evidence_refs": [
+              "SYN-be4c8351a477b1c2733a"
+            ],
+            "section": "Flujos técnicos representativos",
+            "source_type": "UNRESOLVED",
+            "statement": "Se representan 12.642 flujos y 1.265 relaciones registradas; los límites y el significado completo de esas relaciones no están determinados por la evidencia disponible.",
+            "status": "INTERPRETED"
+          },
+          {
+            "claim_id": "C011",
+            "context_package_ids": [
+              "CTX-SYN-b6b0574c1164a1c6697a76abf4e79140c590241add9775a84235321e3f478a03"
+            ],
+            "evidence_refs": [
+              "SYN-9fb925d88fb4e0ecd9b1"
+            ],
+            "section": "Dependencias entre componentes",
+            "source_type": "DETERMINISTIC_CODE_FACT",
+            "statement": "Existen límites no resueltos en parte de los flujos y en operaciones de vinculación de interfaces.",
+            "status": "CONFIRMED"
+          },
+          {
+            "claim_id": "C012",
+            "context_package_ids": [
+              "CTX-SYN-b6b0574c1164a1c6697a76abf4e79140c590241add9775a84235321e3f478a03"
+            ],
+            "evidence_refs": [
+              "SYN-063929556654a450c1de"
+            ],
+            "section": "Patrón de diseño / arquitectura",
+            "source_type": "UNRESOLVED",
+            "statement": "La evidencia disponible no permite confirmar un patrón arquitectónico específico.",
+            "status": "UNRESOLVED"
+          },
+          {
+            "claim_id": "C013",
+            "context_package_ids": [
+              "CTX-SYN-b6b0574c1164a1c6697a76abf4e79140c590241add9775a84235321e3f478a03"
+            ],
+            "evidence_refs": [
+              "SYN-1c4c4963b2df301770d7"
+            ],
+            "section": "Evidencia contradictoria o ambigua",
+            "source_type": "UNRESOLVED",
+            "statement": "La evidencia no permite confirmar un patrón de diseño o arquitectura único para el sistema.",
+            "status": "UNRESOLVED"
+          },
+          {
+            "claim_id": "C014",
+            "context_package_ids": [
+              "CTX-SYN-b6b0574c1164a1c6697a76abf4e79140c590241add9775a84235321e3f478a03"
+            ],
+            "evidence_refs": [
+              "SYN-6c362dedb3c195c3be38",
+              "SYN-9fb925d88fb4e0ecd9b1"
+            ],
+            "section": "Riesgos técnicos observables",
+            "source_type": "DETERMINISTIC_CODE_FACT",
+            "statement": "La cobertura disponible es parcial e incluye proyectos parcialmente cubiertos y relaciones no resueltas.",
+            "status": "INTERPRETED"
+          }
+        ],
+        "context_package_ids": [
+          "CTX-SYN-b6b0574c1164a1c6697a76abf4e79140c590241add9775a84235321e3f478a03"
+        ],
+        "missing_information": [
+          {
+            "blocking_level": "BLOCKING_FOR_APPROVAL",
+            "document": "TECHNICAL_ASSESSMENT",
+            "question": "¿Qué patrón o arquitectura, si existe, se declara y aplica formalmente en el sistema?",
+            "reason": "La evidencia disponible declara que no puede confirmarse un patrón arquitectónico específico ni un patrón único.",
+            "related_claim_ids": [
+              "C012",
+              "C013"
+            ],
+            "related_evidence_ids": [
+              "SYN-063929556654a450c1de",
+              "SYN-1c4c4963b2df301770d7"
+            ],
+            "request_id": "M001",
+            "section": "Patrón de diseño / arquitectura"
+          },
+          {
+            "blocking_level": "IMPORTANT",
+            "document": "TECHNICAL_ASSESSMENT",
+            "question": "¿Cuáles son las relaciones concretas entre componentes, proyectos, interfaces y operaciones enlazadas?",
+            "reason": "Se identifican límites no resueltos en parte de los flujos y en las operaciones de vinculación de interfaces.",
+            "related_claim_ids": [
+              "C010",
+              "C011"
+            ],
+            "related_evidence_ids": [
+              "SYN-9fb925d88fb4e0ecd9b1",
+              "SYN-be4c8351a477b1c2733a"
+            ],
+            "request_id": "M002",
+            "section": "Dependencias entre componentes"
+          },
+          {
+            "blocking_level": "IMPORTANT",
+            "document": "TECHNICAL_ASSESSMENT",
+            "question": "¿Qué ensamblados, bibliotecas externas y versiones participan en las dependencias del sistema?",
+            "reason": "La evidencia suministrada no identifica dependencias externas ni ensamblados concretos.",
+            "related_claim_ids": [],
+            "related_evidence_ids": [],
+            "request_id": "M003",
+            "section": "Dependencias externas y ensamblados"
+          },
+          {
+            "blocking_level": "IMPORTANT",
+            "document": "TECHNICAL_ASSESSMENT",
+            "question": "¿Qué componentes implementan reglas de negocio y cómo se distribuyen entre proyectos Web, lógica y servicios?",
+            "reason": "La evidencia confirma la existencia de proyectos Web y de lógica o servicios, pero no detalla responsabilidades funcionales.",
+            "related_claim_ids": [
+              "C002"
+            ],
+            "related_evidence_ids": [
+              "SYN-4190adb974cd5748a4fd"
+            ],
+            "request_id": "M004",
+            "section": "Lógica de aplicación / negocio"
+          }
+        ],
+        "profile_id": "TECHNICAL_ASSESSMENT",
+        "source_snapshots": [
+          "6ad94c8f0b735dea3fb1d7daf55b6c3633cb6f6d04a9ee326baac8bef91c599a"
+        ],
+        "status": "PARTIAL",
+        "summary": "El inventario aporta evidencia determinista sobre soluciones, proyectos, WebForms, acceso a datos y procedimientos Oracle. La cobertura es parcial y no permite confirmar un patrón arquitectónico único ni resolver completamente los límites de algunos flujos y relaciones."
+      },
+      "assessment_status": "PARTIAL",
+      "claims": [
+        {
+          "claim_id": "C001",
+          "context_package_ids": [
+            "CTX-SYN-b6b0574c1164a1c6697a76abf4e79140c590241add9775a84235321e3f478a03"
+          ],
+          "evidence_refs": [
+            "SYN-1ed325a5620b2eaa2674",
+            "SYN-e2f1d90fdfe4377962ac"
+          ],
+          "section": "Organización de soluciones y proyectos",
+          "source_type": "DETERMINISTIC_CODE_FACT",
+          "statement": "El inventario registra 113 soluciones representadas, 234 proyectos cubiertos y 259 proyectos clasificados.",
+          "status": "CONFIRMED"
+        },
+        {
+          "claim_id": "C002",
+          "context_package_ids": [
+            "CTX-SYN-b6b0574c1164a1c6697a76abf4e79140c590241add9775a84235321e3f478a03"
+          ],
+          "evidence_refs": [
+            "SYN-4190adb974cd5748a4fd"
+          ],
+          "section": "Componentes técnicos identificados",
+          "source_type": "DETERMINISTIC_CODE_FACT",
+          "statement": "Se identifican proyectos Web y proyectos de lógica o servicios dentro del inventario.",
+          "status": "CONFIRMED"
+        },
+        {
+          "claim_id": "C003",
+          "context_package_ids": [
+            "CTX-SYN-b6b0574c1164a1c6697a76abf4e79140c590241add9775a84235321e3f478a03"
+          ],
+          "evidence_refs": [
+            "SYN-6c362dedb3c195c3be38"
+          ],
+          "section": "Organización de soluciones y proyectos",
+          "source_type": "DETERMINISTIC_CODE_FACT",
+          "statement": "La clasificación de proyectos distingue los estados COVERED y PARTIALLY_COVERED, por lo que la cobertura del inventario no es uniforme.",
+          "status": "CONFIRMED"
+        },
+        {
+          "claim_id": "C004",
+          "context_package_ids": [
+            "CTX-SYN-b6b0574c1164a1c6697a76abf4e79140c590241add9775a84235321e3f478a03"
+          ],
+          "evidence_refs": [
+            "SYN-1e96d4051c6230786740",
+            "SYN-c71e88c9824039ffc6e0"
+          ],
+          "section": "WebForms y capa de presentación",
+          "source_type": "DETERMINISTIC_CODE_FACT",
+          "statement": "La capa de presentación incluye componentes WebForms ASPX y controles de usuario ASCX.",
+          "status": "CONFIRMED"
+        },
+        {
+          "claim_id": "C005",
+          "context_package_ids": [
+            "CTX-SYN-b6b0574c1164a1c6697a76abf4e79140c590241add9775a84235321e3f478a03"
+          ],
+          "evidence_refs": [
+            "SYN-1e96d4051c6230786740"
+          ],
+          "section": "WebForms y capa de presentación",
+          "source_type": "DETERMINISTIC_CODE_FACT",
+          "statement": "Se identifican 3.346 WebForms y 335 controles o archivos ASCX representados.",
+          "status": "CONFIRMED"
+        },
+        {
+          "claim_id": "C006",
+          "context_package_ids": [
+            "CTX-SYN-b6b0574c1164a1c6697a76abf4e79140c590241add9775a84235321e3f478a03"
+          ],
+          "evidence_refs": [
+            "SYN-85b59a3b5446555dafe1",
+            "SYN-a49d73c2b6c17776f4a2"
+          ],
+          "section": "Acceso a datos",
+          "source_type": "DETERMINISTIC_CODE_FACT",
+          "statement": "El acceso a datos registra operaciones enlazadas y wrappers de repositorio asociados al proyecto.",
+          "status": "CONFIRMED"
+        },
+        {
+          "claim_id": "C007",
+          "context_package_ids": [
+            "CTX-SYN-b6b0574c1164a1c6697a76abf4e79140c590241add9775a84235321e3f478a03"
+          ],
+          "evidence_refs": [
+            "SYN-85b59a3b5446555dafe1",
+            "SYN-a49d73c2b6c17776f4a2"
+          ],
+          "section": "Acceso a datos",
+          "source_type": "DETERMINISTIC_CODE_FACT",
+          "statement": "El inventario registra 2.009 operaciones de acceso a datos enlazadas.",
+          "status": "CONFIRMED"
+        },
+        {
+          "claim_id": "C008",
+          "context_package_ids": [
+            "CTX-SYN-b6b0574c1164a1c6697a76abf4e79140c590241add9775a84235321e3f478a03"
+          ],
+          "evidence_refs": [
+            "SYN-83cf4134a69beb9fff7e",
+            "SYN-92a89dd0da4e54c25dba"
+          ],
+          "section": "Oracle / procedimientos almacenados / SQL",
+          "source_type": "DETERMINISTIC_CODE_FACT",
+          "statement": "El inventario registra procedimientos almacenados Oracle identificados y procedimientos vinculados a paquetes y procedimientos.",
+          "status": "CONFIRMED"
+        },
+        {
+          "claim_id": "C009",
+          "context_package_ids": [
+            "CTX-SYN-b6b0574c1164a1c6697a76abf4e79140c590241add9775a84235321e3f478a03"
+          ],
+          "evidence_refs": [
+            "SYN-83cf4134a69beb9fff7e"
+          ],
+          "section": "Oracle / procedimientos almacenados / SQL",
+          "source_type": "DETERMINISTIC_CODE_FACT",
+          "statement": "El inventario registra 674 procedimientos almacenados Oracle identificados.",
+          "status": "CONFIRMED"
+        },
+        {
+          "claim_id": "C010",
+          "context_package_ids": [
+            "CTX-SYN-b6b0574c1164a1c6697a76abf4e79140c590241add9775a84235321e3f478a03"
+          ],
+          "evidence_refs": [
+            "SYN-be4c8351a477b1c2733a"
+          ],
+          "section": "Flujos técnicos representativos",
+          "source_type": "UNRESOLVED",
+          "statement": "Se representan 12.642 flujos y 1.265 relaciones registradas; los límites y el significado completo de esas relaciones no están determinados por la evidencia disponible.",
+          "status": "INTERPRETED"
+        },
+        {
+          "claim_id": "C011",
+          "context_package_ids": [
+            "CTX-SYN-b6b0574c1164a1c6697a76abf4e79140c590241add9775a84235321e3f478a03"
+          ],
+          "evidence_refs": [
+            "SYN-9fb925d88fb4e0ecd9b1"
+          ],
+          "section": "Dependencias entre componentes",
+          "source_type": "DETERMINISTIC_CODE_FACT",
+          "statement": "Existen límites no resueltos en parte de los flujos y en operaciones de vinculación de interfaces.",
+          "status": "CONFIRMED"
+        },
+        {
+          "claim_id": "C012",
+          "context_package_ids": [
+            "CTX-SYN-b6b0574c1164a1c6697a76abf4e79140c590241add9775a84235321e3f478a03"
+          ],
+          "evidence_refs": [
+            "SYN-063929556654a450c1de"
+          ],
+          "section": "Patrón de diseño / arquitectura",
+          "source_type": "UNRESOLVED",
+          "statement": "La evidencia disponible no permite confirmar un patrón arquitectónico específico.",
+          "status": "UNRESOLVED"
+        },
+        {
+          "claim_id": "C013",
+          "context_package_ids": [
+            "CTX-SYN-b6b0574c1164a1c6697a76abf4e79140c590241add9775a84235321e3f478a03"
+          ],
+          "evidence_refs": [
+            "SYN-1c4c4963b2df301770d7"
+          ],
+          "section": "Evidencia contradictoria o ambigua",
+          "source_type": "UNRESOLVED",
+          "statement": "La evidencia no permite confirmar un patrón de diseño o arquitectura único para el sistema.",
+          "status": "UNRESOLVED"
+        },
+        {
+          "claim_id": "C014",
+          "context_package_ids": [
+            "CTX-SYN-b6b0574c1164a1c6697a76abf4e79140c590241add9775a84235321e3f478a03"
+          ],
+          "evidence_refs": [
+            "SYN-6c362dedb3c195c3be38",
+            "SYN-9fb925d88fb4e0ecd9b1"
+          ],
+          "section": "Riesgos técnicos observables",
+          "source_type": "DETERMINISTIC_CODE_FACT",
+          "statement": "La cobertura disponible es parcial e incluye proyectos parcialmente cubiertos y relaciones no resueltas.",
+          "status": "INTERPRETED"
+        }
+      ],
+      "content_hash": "dadbfe402c9b0a85ae4aa98f99d8ddfb672ce87e0c6c93486e0aa9cbab22f0ae",
+      "context_package_id": "CTX-SYN-b6b0574c1164a1c6697a76abf4e79140c590241add9775a84235321e3f478a03",
+      "identity": {
+        "context_package_id": "CTX-SYN-b6b0574c1164a1c6697a76abf4e79140c590241add9775a84235321e3f478a03",
+        "profile_id": "TECHNICAL_ASSESSMENT",
+        "prompt_contract_version": "V3-R7.1-CANONICAL-1",
+        "request_hash": "96b496bcab7fca1b163b1fed7328949c0d4d4bdc82861aecf413e9b891ffba2f",
+        "schema_version": "3.1.0",
+        "source_snapshot": "6ad94c8f0b735dea3fb1d7daf55b6c3633cb6f6d04a9ee326baac8bef91c599a"
+      },
+      "missing_information": [
+        {
+          "blocking_level": "BLOCKING_FOR_APPROVAL",
+          "document": "TECHNICAL_ASSESSMENT",
+          "question": "¿Qué patrón o arquitectura, si existe, se declara y aplica formalmente en el sistema?",
+          "reason": "La evidencia disponible declara que no puede confirmarse un patrón arquitectónico específico ni un patrón único.",
+          "related_claim_ids": [
+            "C012",
+            "C013"
+          ],
+          "related_evidence_ids": [
+            "SYN-063929556654a450c1de",
+            "SYN-1c4c4963b2df301770d7"
+          ],
+          "request_id": "M001",
+          "section": "Patrón de diseño / arquitectura"
+        },
+        {
+          "blocking_level": "IMPORTANT",
+          "document": "TECHNICAL_ASSESSMENT",
+          "question": "¿Cuáles son las relaciones concretas entre componentes, proyectos, interfaces y operaciones enlazadas?",
+          "reason": "Se identifican límites no resueltos en parte de los flujos y en las operaciones de vinculación de interfaces.",
+          "related_claim_ids": [
+            "C010",
+            "C011"
+          ],
+          "related_evidence_ids": [
+            "SYN-9fb925d88fb4e0ecd9b1",
+            "SYN-be4c8351a477b1c2733a"
+          ],
+          "request_id": "M002",
+          "section": "Dependencias entre componentes"
+        },
+        {
+          "blocking_level": "IMPORTANT",
+          "document": "TECHNICAL_ASSESSMENT",
+          "question": "¿Qué ensamblados, bibliotecas externas y versiones participan en las dependencias del sistema?",
+          "reason": "La evidencia suministrada no identifica dependencias externas ni ensamblados concretos.",
+          "related_claim_ids": [],
+          "related_evidence_ids": [],
+          "request_id": "M003",
+          "section": "Dependencias externas y ensamblados"
+        },
+        {
+          "blocking_level": "IMPORTANT",
+          "document": "TECHNICAL_ASSESSMENT",
+          "question": "¿Qué componentes implementan reglas de negocio y cómo se distribuyen entre proyectos Web, lógica y servicios?",
+          "reason": "La evidencia confirma la existencia de proyectos Web y de lógica o servicios, pero no detalla responsabilidades funcionales.",
+          "related_claim_ids": [
+            "C002"
+          ],
+          "related_evidence_ids": [
+            "SYN-4190adb974cd5748a4fd"
+          ],
+          "request_id": "M004",
+          "section": "Lógica de aplicación / negocio"
+        }
+      ],
+      "model_id": "gpt-5.6-luna",
+      "profile_id": "TECHNICAL_ASSESSMENT",
+      "prompt_contract_version": "V3-R7.1-CANONICAL-1",
+      "provider": "COPILOT",
+      "schema_version": "3.1.0",
+      "source_snapshot": "6ad94c8f0b735dea3fb1d7daf55b6c3633cb6f6d04a9ee326baac8bef91c599a",
+      "stage": "GLOBAL_TECHNICAL",
+      "validation_status": "VALID"
+    },
+    {
+      "assessment_id": "ASSESS-91686e665442bc18fac9bc6b74d3a312a175c24f5515025389a667de59f5b499",
+      "assessment_payload": {
+        "assessment_id": "ASSESS-91686e665442bc18fac9bc6b74d3a312a175c24f5515025389a667de59f5b499",
+        "claims": [
+          {
+            "claim_id": "C01",
+            "context_package_ids": [
+              "CTX-SYN-2a4a5a535b97b657895b3e8321be4fd38427e3521c63234c9c0990e772efec93"
+            ],
+            "evidence_refs": [
+              "SYN-e35eb12e2955c10b77fe"
+            ],
+            "section": "Resumen funcional del aplicativo",
+            "source_type": "DETERMINISTIC_CODE_FACT",
+            "statement": "El aplicativo está representado por 259 proyectos clasificados, 113 soluciones, 3.346 WebForms y 12.642 flujos funcionales representados.",
+            "status": "CONFIRMED"
+          },
+          {
+            "claim_id": "C02",
+            "context_package_ids": [
+              "CTX-SYN-2a4a5a535b97b657895b3e8321be4fd38427e3521c63234c9c0990e772efec93"
+            ],
+            "evidence_refs": [
+              "SYN-913bed67f0b52dd301e5"
+            ],
+            "section": "Módulos o áreas funcionales identificadas",
+            "source_type": "DETERMINISTIC_CODE_FACT",
+            "statement": "Se identifican áreas o conjuntos de proyectos relacionados con WebMEDHospital, webMEDInvestigacion y otras áreas del inventario.",
+            "status": "CONFIRMED"
+          },
+          {
+            "claim_id": "C03",
+            "context_package_ids": [
+              "CTX-SYN-2a4a5a535b97b657895b3e8321be4fd38427e3521c63234c9c0990e772efec93"
+            ],
+            "evidence_refs": [
+              "SYN-ba0c4b3a308c0ce93ddd"
+            ],
+            "section": "Módulos o áreas funcionales identificadas",
+            "source_type": "DETERMINISTIC_CODE_FACT",
+            "statement": "El inventario incluye áreas representadas por proyectos WebForms y bibliotecas, entre ellas WebCOTMantenimiento y otras áreas identificadas en el código.",
+            "status": "CONFIRMED"
+          },
+          {
+            "claim_id": "C04",
+            "context_package_ids": [
+              "CTX-SYN-2a4a5a535b97b657895b3e8321be4fd38427e3521c63234c9c0990e772efec93"
+            ],
+            "evidence_refs": [
+              "SYN-a02a15562815d46e7a42",
+              "SYN-c8a5c463199818a3d838"
+            ],
+            "section": "Pantallas, WebForms o puntos de entrada relevantes",
+            "source_type": "DETERMINISTIC_CODE_FACT",
+            "statement": "Se identifican WebForms y controles de usuario como puntos de entrada; Register.aspx figura con el identificador EP-0410112696 y también se registra ucAgeMo020.aspx.",
+            "status": "CONFIRMED"
+          },
+          {
+            "claim_id": "C05",
+            "context_package_ids": [
+              "CTX-SYN-2a4a5a535b97b657895b3e8321be4fd38427e3521c63234c9c0990e772efec93"
+            ],
+            "evidence_refs": [
+              "SYN-937260a67e06cc9d5129"
+            ],
+            "section": "Flujos funcionales identificados",
+            "source_type": "DETERMINISTIC_CODE_FACT",
+            "statement": "Existen flujos funcionales registrados con identificadores y caminos asociados en proyectos como WebMEDInvestigacion y otros proyectos del inventario.",
+            "status": "CONFIRMED"
+          },
+          {
+            "claim_id": "C06",
+            "context_package_ids": [
+              "CTX-SYN-2a4a5a535b97b657895b3e8321be4fd38427e3521c63234c9c0990e772efec93"
+            ],
+            "evidence_refs": [
+              "SYN-a5013241e26427654826",
+              "SYN-b954f45c1c66f2d2deff"
+            ],
+            "section": "Operaciones de datos relacionadas con funcionalidades",
+            "source_type": "DETERMINISTIC_CODE_FACT",
+            "statement": "Las funcionalidades registradas se relacionan con operaciones de datos implementadas mediante wrappers de repositorio y procedimientos almacenados, incluyendo transacciones.",
+            "status": "CONFIRMED"
+          },
+          {
+            "claim_id": "C07",
+            "context_package_ids": [
+              "CTX-SYN-2a4a5a535b97b657895b3e8321be4fd38427e3521c63234c9c0990e772efec93"
+            ],
+            "evidence_refs": [
+              "SYN-a9c5da9a4993bf97e193",
+              "SYN-ede70e3f19fad453cf7c",
+              "SYN-f24edaadf7111bab8a19"
+            ],
+            "section": "Información no determinada",
+            "source_type": "UNRESOLVED",
+            "statement": "La evidencia disponible no determina de forma específica qué flujo funcional o destino corresponde a cada punto de entrada concreto.",
+            "status": "UNRESOLVED"
+          }
+        ],
+        "context_package_ids": [
+          "CTX-SYN-2a4a5a535b97b657895b3e8321be4fd38427e3521c63234c9c0990e772efec93"
+        ],
+        "missing_information": [
+          {
+            "blocking_level": "BLOCKING_FOR_APPROVAL",
+            "document": "FUNCTIONAL_ASSESSMENT",
+            "question": "¿Qué flujo funcional y destino funcional corresponden determinísticamente a cada WebForm o control de usuario identificado?",
+            "reason": "La evidencia registra puntos de entrada y flujos, pero no aporta una asociación específica y verificable entre ambos.",
+            "related_claim_ids": [
+              "C04",
+              "C05",
+              "C07"
+            ],
+            "related_evidence_ids": [
+              "SYN-937260a67e06cc9d5129",
+              "SYN-a02a15562815d46e7a42",
+              "SYN-a9c5da9a4993bf97e193",
+              "SYN-ede70e3f19fad453cf7c",
+              "SYN-f24edaadf7111bab8a19"
+            ],
+            "request_id": "MI01",
+            "section": "Flujos funcionales identificados"
+          },
+          {
+            "blocking_level": "IMPORTANT",
+            "document": "FUNCTIONAL_ASSESSMENT",
+            "question": "¿Qué integraciones funcionales externas están implementadas y qué puntos de entrada o flujos las utilizan?",
+            "reason": "No hay evidencia suficiente para confirmar integraciones concretas ni su vinculación con entradas o flujos.",
+            "related_claim_ids": [
+              "C07"
+            ],
+            "related_evidence_ids": [
+              "SYN-f3724c145c7c1f0ef675"
+            ],
+            "request_id": "MI02",
+            "section": "Integraciones funcionales detectadas"
+          }
+        ],
+        "profile_id": "FUNCTIONAL_ASSESSMENT",
+        "source_snapshots": [
+          "6ad94c8f0b735dea3fb1d7daf55b6c3633cb6f6d04a9ee326baac8bef91c599a"
+        ],
+        "status": "PARTIAL",
+        "summary": "La evidencia confirma un aplicativo amplio con múltiples áreas, puntos de entrada WebForms, flujos funcionales registrados y operaciones de datos mediante wrappers y procedimientos almacenados. No está determinada la conexión específica entre puntos de entrada concretos y flujos o destinos funcionales."
+      },
+      "assessment_status": "PARTIAL",
+      "claims": [
+        {
+          "claim_id": "C01",
+          "context_package_ids": [
+            "CTX-SYN-2a4a5a535b97b657895b3e8321be4fd38427e3521c63234c9c0990e772efec93"
+          ],
+          "evidence_refs": [
+            "SYN-e35eb12e2955c10b77fe"
+          ],
+          "section": "Resumen funcional del aplicativo",
+          "source_type": "DETERMINISTIC_CODE_FACT",
+          "statement": "El aplicativo está representado por 259 proyectos clasificados, 113 soluciones, 3.346 WebForms y 12.642 flujos funcionales representados.",
+          "status": "CONFIRMED"
+        },
+        {
+          "claim_id": "C02",
+          "context_package_ids": [
+            "CTX-SYN-2a4a5a535b97b657895b3e8321be4fd38427e3521c63234c9c0990e772efec93"
+          ],
+          "evidence_refs": [
+            "SYN-913bed67f0b52dd301e5"
+          ],
+          "section": "Módulos o áreas funcionales identificadas",
+          "source_type": "DETERMINISTIC_CODE_FACT",
+          "statement": "Se identifican áreas o conjuntos de proyectos relacionados con WebMEDHospital, webMEDInvestigacion y otras áreas del inventario.",
+          "status": "CONFIRMED"
+        },
+        {
+          "claim_id": "C03",
+          "context_package_ids": [
+            "CTX-SYN-2a4a5a535b97b657895b3e8321be4fd38427e3521c63234c9c0990e772efec93"
+          ],
+          "evidence_refs": [
+            "SYN-ba0c4b3a308c0ce93ddd"
+          ],
+          "section": "Módulos o áreas funcionales identificadas",
+          "source_type": "DETERMINISTIC_CODE_FACT",
+          "statement": "El inventario incluye áreas representadas por proyectos WebForms y bibliotecas, entre ellas WebCOTMantenimiento y otras áreas identificadas en el código.",
+          "status": "CONFIRMED"
+        },
+        {
+          "claim_id": "C04",
+          "context_package_ids": [
+            "CTX-SYN-2a4a5a535b97b657895b3e8321be4fd38427e3521c63234c9c0990e772efec93"
+          ],
+          "evidence_refs": [
+            "SYN-a02a15562815d46e7a42",
+            "SYN-c8a5c463199818a3d838"
+          ],
+          "section": "Pantallas, WebForms o puntos de entrada relevantes",
+          "source_type": "DETERMINISTIC_CODE_FACT",
+          "statement": "Se identifican WebForms y controles de usuario como puntos de entrada; Register.aspx figura con el identificador EP-0410112696 y también se registra ucAgeMo020.aspx.",
+          "status": "CONFIRMED"
+        },
+        {
+          "claim_id": "C05",
+          "context_package_ids": [
+            "CTX-SYN-2a4a5a535b97b657895b3e8321be4fd38427e3521c63234c9c0990e772efec93"
+          ],
+          "evidence_refs": [
+            "SYN-937260a67e06cc9d5129"
+          ],
+          "section": "Flujos funcionales identificados",
+          "source_type": "DETERMINISTIC_CODE_FACT",
+          "statement": "Existen flujos funcionales registrados con identificadores y caminos asociados en proyectos como WebMEDInvestigacion y otros proyectos del inventario.",
+          "status": "CONFIRMED"
+        },
+        {
+          "claim_id": "C06",
+          "context_package_ids": [
+            "CTX-SYN-2a4a5a535b97b657895b3e8321be4fd38427e3521c63234c9c0990e772efec93"
+          ],
+          "evidence_refs": [
+            "SYN-a5013241e26427654826",
+            "SYN-b954f45c1c66f2d2deff"
+          ],
+          "section": "Operaciones de datos relacionadas con funcionalidades",
+          "source_type": "DETERMINISTIC_CODE_FACT",
+          "statement": "Las funcionalidades registradas se relacionan con operaciones de datos implementadas mediante wrappers de repositorio y procedimientos almacenados, incluyendo transacciones.",
+          "status": "CONFIRMED"
+        },
+        {
+          "claim_id": "C07",
+          "context_package_ids": [
+            "CTX-SYN-2a4a5a535b97b657895b3e8321be4fd38427e3521c63234c9c0990e772efec93"
+          ],
+          "evidence_refs": [
+            "SYN-a9c5da9a4993bf97e193",
+            "SYN-ede70e3f19fad453cf7c",
+            "SYN-f24edaadf7111bab8a19"
+          ],
+          "section": "Información no determinada",
+          "source_type": "UNRESOLVED",
+          "statement": "La evidencia disponible no determina de forma específica qué flujo funcional o destino corresponde a cada punto de entrada concreto.",
+          "status": "UNRESOLVED"
+        }
+      ],
+      "content_hash": "58706135161b725501e883ea93092e6856a7f3bf4872500b775101d7d1ab3ae1",
+      "context_package_id": "CTX-SYN-2a4a5a535b97b657895b3e8321be4fd38427e3521c63234c9c0990e772efec93",
+      "identity": {
+        "context_package_id": "CTX-SYN-2a4a5a535b97b657895b3e8321be4fd38427e3521c63234c9c0990e772efec93",
+        "profile_id": "FUNCTIONAL_ASSESSMENT",
+        "prompt_contract_version": "V3-R7.1-CANONICAL-1",
+        "request_hash": "7d22e08d75c691f2d94d434205fd494413663d81c610b47203957bfcddcb94e3",
+        "schema_version": "3.1.0",
+        "source_snapshot": "6ad94c8f0b735dea3fb1d7daf55b6c3633cb6f6d04a9ee326baac8bef91c599a"
+      },
+      "missing_information": [
+        {
+          "blocking_level": "BLOCKING_FOR_APPROVAL",
+          "document": "FUNCTIONAL_ASSESSMENT",
+          "question": "¿Qué flujo funcional y destino funcional corresponden determinísticamente a cada WebForm o control de usuario identificado?",
+          "reason": "La evidencia registra puntos de entrada y flujos, pero no aporta una asociación específica y verificable entre ambos.",
+          "related_claim_ids": [
+            "C04",
+            "C05",
+            "C07"
+          ],
+          "related_evidence_ids": [
+            "SYN-937260a67e06cc9d5129",
+            "SYN-a02a15562815d46e7a42",
+            "SYN-a9c5da9a4993bf97e193",
+            "SYN-ede70e3f19fad453cf7c",
+            "SYN-f24edaadf7111bab8a19"
+          ],
+          "request_id": "MI01",
+          "section": "Flujos funcionales identificados"
+        },
+        {
+          "blocking_level": "IMPORTANT",
+          "document": "FUNCTIONAL_ASSESSMENT",
+          "question": "¿Qué integraciones funcionales externas están implementadas y qué puntos de entrada o flujos las utilizan?",
+          "reason": "No hay evidencia suficiente para confirmar integraciones concretas ni su vinculación con entradas o flujos.",
+          "related_claim_ids": [
+            "C07"
+          ],
+          "related_evidence_ids": [
+            "SYN-f3724c145c7c1f0ef675"
+          ],
+          "request_id": "MI02",
+          "section": "Integraciones funcionales detectadas"
+        }
+      ],
+      "model_id": "gpt-5.6-luna",
+      "profile_id": "FUNCTIONAL_ASSESSMENT",
+      "prompt_contract_version": "V3-R7.1-CANONICAL-1",
+      "provider": "COPILOT",
+      "schema_version": "3.1.0",
+      "source_snapshot": "6ad94c8f0b735dea3fb1d7daf55b6c3633cb6f6d04a9ee326baac8bef91c599a",
+      "stage": "INTERMEDIATE_FUNCTIONAL_L1",
+      "validation_status": "VALID"
+    },
+    {
+      "assessment_id": "ASSESS-ce0fe807fd36929e6b91cdc7b1200e542b13b9712eb3b1b6b72017ad47c50cd4",
+      "assessment_payload": {
+        "assessment_id": "ASSESS-ce0fe807fd36929e6b91cdc7b1200e542b13b9712eb3b1b6b72017ad47c50cd4",
+        "claims": [
+          {
+            "claim_id": "C001",
+            "context_package_ids": [
+              "CTX-SYN-91152975666af794eb58702aaf0de2220b4aea829a5485a02ebadcbcdfc2d883"
+            ],
+            "evidence_refs": [
+              "SYN-6a2234c5c5eeeae6889d"
+            ],
+            "section": "Resumen funcional del aplicativo",
+            "source_type": "DETERMINISTIC_CODE_FACT",
+            "statement": "La cobertura estructural registra 259 proyectos, 12642 flujos representados, 3346 WebForms representados y 191 soluciones representadas.",
+            "status": "CONFIRMED"
+          },
+          {
+            "claim_id": "C002",
+            "context_package_ids": [
+              "CTX-SYN-91152975666af794eb58702aaf0de2220b4aea829a5485a02ebadcbcdfc2d883"
+            ],
+            "evidence_refs": [
+              "SYN-1e50a7e3e57226e2b844",
+              "SYN-4a0303d16e30bcfbdc2a",
+              "SYN-5a3a03c62fe9629800b1"
+            ],
+            "section": "Pantallas, WebForms o puntos de entrada relevantes",
+            "source_type": "DETERMINISTIC_CODE_FACT",
+            "statement": "Existen WebForms y controles ASCX identificados como puntos de entrada, incluidos controles relacionados con liquidación de subsidios e interfaces de solicitud.",
+            "status": "CONFIRMED"
+          },
+          {
+            "claim_id": "C003",
+            "context_package_ids": [
+              "CTX-SYN-91152975666af794eb58702aaf0de2220b4aea829a5485a02ebadcbcdfc2d883"
+            ],
+            "evidence_refs": [
+              "SYN-1962a24d672e772c2cd1"
+            ],
+            "section": "Flujos funcionales identificados",
+            "source_type": "DETERMINISTIC_CODE_FACT",
+            "statement": "Los flujos funcionales representados incluyen rutas asociadas a proyectos como WebADHEspecial y otros proyectos registrados en la evidencia.",
+            "status": "CONFIRMED"
+          },
+          {
+            "claim_id": "C004",
+            "context_package_ids": [
+              "CTX-SYN-91152975666af794eb58702aaf0de2220b4aea829a5485a02ebadcbcdfc2d883"
+            ],
+            "evidence_refs": [
+              "SYN-021a775d5fa0e2929ad2",
+              "SYN-289a2bae84045ce88ee9",
+              "SYN-581ba2ecababa47c9e7d",
+              "SYN-7a9019b4fc896c776454"
+            ],
+            "section": "Operaciones de datos relacionadas con funcionalidades",
+            "source_type": "DETERMINISTIC_CODE_FACT",
+            "statement": "Las operaciones funcionales de datos incluyen wrappers de repositorio, transacciones y llamadas a procedimientos almacenados mediante OraConn.",
+            "status": "CONFIRMED"
+          },
+          {
+            "claim_id": "C005",
+            "context_package_ids": [
+              "CTX-SYN-91152975666af794eb58702aaf0de2220b4aea829a5485a02ebadcbcdfc2d883"
+            ],
+            "evidence_refs": [
+              "SYN-25683b4d5e38d3c00b6c",
+              "SYN-5a253840c9be638f8665",
+              "SYN-65c6e3a433e20ed37f84"
+            ],
+            "section": "Módulos o áreas funcionales identificadas",
+            "source_type": "AI_INTERPRETATION",
+            "statement": "La evidencia permite interpretar áreas funcionales asociadas con administración, agenda, camas, despacho, interfaces, procesos, documentos, subsidios y programas médicos.",
+            "status": "INTERPRETED"
+          },
+          {
+            "claim_id": "C006",
+            "context_package_ids": [
+              "CTX-SYN-91152975666af794eb58702aaf0de2220b4aea829a5485a02ebadcbcdfc2d883"
+            ],
+            "evidence_refs": [
+              "SYN-01ca329768fcdd181296",
+              "SYN-28236b7cc95e7cb2f62e",
+              "SYN-738e76d2b75fb59781b3"
+            ],
+            "section": "Flujos funcionales identificados",
+            "source_type": "UNRESOLVED",
+            "statement": "No está resuelta la conexión determinista entre los WebForms o controles identificados y los flujos funcionales específicos.",
+            "status": "UNRESOLVED"
+          }
+        ],
+        "context_package_ids": [
+          "CTX-SYN-91152975666af794eb58702aaf0de2220b4aea829a5485a02ebadcbcdfc2d883"
+        ],
+        "missing_information": [
+          {
+            "blocking_level": "BLOCKING_FOR_APPROVAL",
+            "document": "FUNCTIONAL_ASSESSMENT",
+            "question": "¿Qué relación explícita existe entre cada entry_point_id de WebForm o control ASCX y uno o más identificadores de flujo funcional?",
+            "reason": "La evidencia declara no resuelta la conexión general entre puntos de entrada y flujos, y registra estados unresolved_boundary y dead_end.",
+            "related_claim_ids": [
+              "C002",
+              "C003",
+              "C006"
+            ],
+            "related_evidence_ids": [
+              "SYN-01ca329768fcdd181296",
+              "SYN-28236b7cc95e7cb2f62e",
+              "SYN-738e76d2b75fb59781b3"
+            ],
+            "request_id": "MI001",
+            "section": "Flujos funcionales identificados"
+          },
+          {
+            "blocking_level": "IMPORTANT",
+            "document": "FUNCTIONAL_ASSESSMENT",
+            "question": "¿Qué funcionalidad concreta corresponde a cada proyecto, WebForm, control ASCX y flujo identificado?",
+            "reason": "Las áreas funcionales están interpretadas a partir de proyectos y nombres registrados, sin evidencia autoritativa suficiente para asignar funcionalidades detalladas por punto de entrada.",
+            "related_claim_ids": [
+              "C002",
+              "C005"
+            ],
+            "related_evidence_ids": [
+              "SYN-25683b4d5e38d3c00b6c",
+              "SYN-5a253840c9be638f8665",
+              "SYN-65c6e3a433e20ed37f84"
+            ],
+            "request_id": "MI002",
+            "section": "Funcionalidades por módulo/área"
+          }
+        ],
+        "profile_id": "FUNCTIONAL_ASSESSMENT",
+        "source_snapshots": [
+          "6ad94c8f0b735dea3fb1d7daf55b6c3633cb6f6d04a9ee326baac8bef91c599a"
+        ],
+        "status": "PARTIAL",
+        "summary": "La evidencia confirma la existencia de proyectos, WebForms, controles ASCX, flujos funcionales y operaciones de datos, pero no permite conectar de forma determinista los puntos de entrada con flujos funcionales específicos."
+      },
+      "assessment_status": "PARTIAL",
+      "claims": [
+        {
+          "claim_id": "C001",
+          "context_package_ids": [
+            "CTX-SYN-91152975666af794eb58702aaf0de2220b4aea829a5485a02ebadcbcdfc2d883"
+          ],
+          "evidence_refs": [
+            "SYN-6a2234c5c5eeeae6889d"
+          ],
+          "section": "Resumen funcional del aplicativo",
+          "source_type": "DETERMINISTIC_CODE_FACT",
+          "statement": "La cobertura estructural registra 259 proyectos, 12642 flujos representados, 3346 WebForms representados y 191 soluciones representadas.",
+          "status": "CONFIRMED"
+        },
+        {
+          "claim_id": "C002",
+          "context_package_ids": [
+            "CTX-SYN-91152975666af794eb58702aaf0de2220b4aea829a5485a02ebadcbcdfc2d883"
+          ],
+          "evidence_refs": [
+            "SYN-1e50a7e3e57226e2b844",
+            "SYN-4a0303d16e30bcfbdc2a",
+            "SYN-5a3a03c62fe9629800b1"
+          ],
+          "section": "Pantallas, WebForms o puntos de entrada relevantes",
+          "source_type": "DETERMINISTIC_CODE_FACT",
+          "statement": "Existen WebForms y controles ASCX identificados como puntos de entrada, incluidos controles relacionados con liquidación de subsidios e interfaces de solicitud.",
+          "status": "CONFIRMED"
+        },
+        {
+          "claim_id": "C003",
+          "context_package_ids": [
+            "CTX-SYN-91152975666af794eb58702aaf0de2220b4aea829a5485a02ebadcbcdfc2d883"
+          ],
+          "evidence_refs": [
+            "SYN-1962a24d672e772c2cd1"
+          ],
+          "section": "Flujos funcionales identificados",
+          "source_type": "DETERMINISTIC_CODE_FACT",
+          "statement": "Los flujos funcionales representados incluyen rutas asociadas a proyectos como WebADHEspecial y otros proyectos registrados en la evidencia.",
+          "status": "CONFIRMED"
+        },
+        {
+          "claim_id": "C004",
+          "context_package_ids": [
+            "CTX-SYN-91152975666af794eb58702aaf0de2220b4aea829a5485a02ebadcbcdfc2d883"
+          ],
+          "evidence_refs": [
+            "SYN-021a775d5fa0e2929ad2",
+            "SYN-289a2bae84045ce88ee9",
+            "SYN-581ba2ecababa47c9e7d",
+            "SYN-7a9019b4fc896c776454"
+          ],
+          "section": "Operaciones de datos relacionadas con funcionalidades",
+          "source_type": "DETERMINISTIC_CODE_FACT",
+          "statement": "Las operaciones funcionales de datos incluyen wrappers de repositorio, transacciones y llamadas a procedimientos almacenados mediante OraConn.",
+          "status": "CONFIRMED"
+        },
+        {
+          "claim_id": "C005",
+          "context_package_ids": [
+            "CTX-SYN-91152975666af794eb58702aaf0de2220b4aea829a5485a02ebadcbcdfc2d883"
+          ],
+          "evidence_refs": [
+            "SYN-25683b4d5e38d3c00b6c",
+            "SYN-5a253840c9be638f8665",
+            "SYN-65c6e3a433e20ed37f84"
+          ],
+          "section": "Módulos o áreas funcionales identificadas",
+          "source_type": "AI_INTERPRETATION",
+          "statement": "La evidencia permite interpretar áreas funcionales asociadas con administración, agenda, camas, despacho, interfaces, procesos, documentos, subsidios y programas médicos.",
+          "status": "INTERPRETED"
+        },
+        {
+          "claim_id": "C006",
+          "context_package_ids": [
+            "CTX-SYN-91152975666af794eb58702aaf0de2220b4aea829a5485a02ebadcbcdfc2d883"
+          ],
+          "evidence_refs": [
+            "SYN-01ca329768fcdd181296",
+            "SYN-28236b7cc95e7cb2f62e",
+            "SYN-738e76d2b75fb59781b3"
+          ],
+          "section": "Flujos funcionales identificados",
+          "source_type": "UNRESOLVED",
+          "statement": "No está resuelta la conexión determinista entre los WebForms o controles identificados y los flujos funcionales específicos.",
+          "status": "UNRESOLVED"
+        }
+      ],
+      "content_hash": "0add9f9ec607569e8abbfb0e39ef2b35f459c302596ae1fbe4cc032bc9d3e628",
+      "context_package_id": "CTX-SYN-91152975666af794eb58702aaf0de2220b4aea829a5485a02ebadcbcdfc2d883",
+      "identity": {
+        "context_package_id": "CTX-SYN-91152975666af794eb58702aaf0de2220b4aea829a5485a02ebadcbcdfc2d883",
+        "profile_id": "FUNCTIONAL_ASSESSMENT",
+        "prompt_contract_version": "V3-R7.1-CANONICAL-1",
+        "request_hash": "efb585252247ccc8a33fbd5a315004df51c5040a6c584e4cb46e687202e76dc5",
+        "schema_version": "3.1.0",
+        "source_snapshot": "6ad94c8f0b735dea3fb1d7daf55b6c3633cb6f6d04a9ee326baac8bef91c599a"
+      },
+      "missing_information": [
+        {
+          "blocking_level": "BLOCKING_FOR_APPROVAL",
+          "document": "FUNCTIONAL_ASSESSMENT",
+          "question": "¿Qué relación explícita existe entre cada entry_point_id de WebForm o control ASCX y uno o más identificadores de flujo funcional?",
+          "reason": "La evidencia declara no resuelta la conexión general entre puntos de entrada y flujos, y registra estados unresolved_boundary y dead_end.",
+          "related_claim_ids": [
+            "C002",
+            "C003",
+            "C006"
+          ],
+          "related_evidence_ids": [
+            "SYN-01ca329768fcdd181296",
+            "SYN-28236b7cc95e7cb2f62e",
+            "SYN-738e76d2b75fb59781b3"
+          ],
+          "request_id": "MI001",
+          "section": "Flujos funcionales identificados"
+        },
+        {
+          "blocking_level": "IMPORTANT",
+          "document": "FUNCTIONAL_ASSESSMENT",
+          "question": "¿Qué funcionalidad concreta corresponde a cada proyecto, WebForm, control ASCX y flujo identificado?",
+          "reason": "Las áreas funcionales están interpretadas a partir de proyectos y nombres registrados, sin evidencia autoritativa suficiente para asignar funcionalidades detalladas por punto de entrada.",
+          "related_claim_ids": [
+            "C002",
+            "C005"
+          ],
+          "related_evidence_ids": [
+            "SYN-25683b4d5e38d3c00b6c",
+            "SYN-5a253840c9be638f8665",
+            "SYN-65c6e3a433e20ed37f84"
+          ],
+          "request_id": "MI002",
+          "section": "Funcionalidades por módulo/área"
+        }
+      ],
+      "model_id": "gpt-5.6-luna",
+      "profile_id": "FUNCTIONAL_ASSESSMENT",
+      "prompt_contract_version": "V3-R7.1-CANONICAL-1",
+      "provider": "COPILOT",
+      "schema_version": "3.1.0",
+      "source_snapshot": "6ad94c8f0b735dea3fb1d7daf55b6c3633cb6f6d04a9ee326baac8bef91c599a",
+      "stage": "INTERMEDIATE_FUNCTIONAL_L1",
+      "validation_status": "VALID"
+    },
+    {
+      "assessment_id": "ASSESS-1ebbd52c8a6956cac27854c055844e3755c15df26a92d40ee9d8510348ee1a35",
+      "assessment_payload": {
+        "assessment_id": "ASSESS-1ebbd52c8a6956cac27854c055844e3755c15df26a92d40ee9d8510348ee1a35",
+        "claims": [
+          {
+            "claim_id": "C01",
+            "context_package_ids": [
+              "CTX-SYN-7235ddd97ff1f5de632d20c409d49692256055a225cd8cf5bf20cac40f0332da"
+            ],
+            "evidence_refs": [
+              "SYN-8f67332f7c44ae0435ae"
+            ],
+            "section": "Organización de soluciones y proyectos",
+            "source_type": "DETERMINISTIC_CODE_FACT",
+            "statement": "El inventario registra 113 soluciones y 259 proyectos clasificados.",
+            "status": "CONFIRMED"
+          },
+          {
+            "claim_id": "C02",
+            "context_package_ids": [
+              "CTX-SYN-7235ddd97ff1f5de632d20c409d49692256055a225cd8cf5bf20cac40f0332da"
+            ],
+            "evidence_refs": [
+              "SYN-0910ead5abfd00de49f1",
+              "SYN-8d55dc17d36ab9f6f32c"
+            ],
+            "section": "Componentes técnicos identificados",
+            "source_type": "DETERMINISTIC_CODE_FACT",
+            "statement": "Se identifican proyectos Web y proyectos de lógica o servicios dentro del inventario.",
+            "status": "CONFIRMED"
+          },
+          {
+            "claim_id": "C03",
+            "context_package_ids": [
+              "CTX-SYN-7235ddd97ff1f5de632d20c409d49692256055a225cd8cf5bf20cac40f0332da"
+            ],
+            "evidence_refs": [
+              "SYN-21f448c7eccb735dc87b",
+              "SYN-23be93815c3949c694e9",
+              "SYN-7be94811c14a88d4ce31"
+            ],
+            "section": "WebForms y capa de presentación",
+            "source_type": "DETERMINISTIC_CODE_FACT",
+            "statement": "La capa de presentación incluye componentes WebForms ASPX y controles de usuario ASCX; el inventario reporta 3.346 WebForms.",
+            "status": "CONFIRMED"
+          },
+          {
+            "claim_id": "C04",
+            "context_package_ids": [
+              "CTX-SYN-7235ddd97ff1f5de632d20c409d49692256055a225cd8cf5bf20cac40f0332da"
+            ],
+            "evidence_refs": [
+              "SYN-0066b35d8cf5b3cf2c21",
+              "SYN-3420782e69184a90b1aa",
+              "SYN-4c99c9a40d2402928e98"
+            ],
+            "section": "Acceso a datos",
+            "source_type": "DETERMINISTIC_CODE_FACT",
+            "statement": "El acceso a datos incluye 2.009 operaciones vinculadas y wrappers de repositorio asociados al proveedor OraConn, con operaciones transaccionales identificadas.",
+            "status": "CONFIRMED"
+          },
+          {
+            "claim_id": "C05",
+            "context_package_ids": [
+              "CTX-SYN-7235ddd97ff1f5de632d20c409d49692256055a225cd8cf5bf20cac40f0332da"
+            ],
+            "evidence_refs": [
+              "SYN-47e9f51124e5d3128a25"
+            ],
+            "section": "Oracle / procedimientos almacenados / SQL",
+            "source_type": "DETERMINISTIC_CODE_FACT",
+            "statement": "El inventario registra 674 procedimientos almacenados Oracle identificados.",
+            "status": "CONFIRMED"
+          },
+          {
+            "claim_id": "C06",
+            "context_package_ids": [
+              "CTX-SYN-7235ddd97ff1f5de632d20c409d49692256055a225cd8cf5bf20cac40f0332da"
+            ],
+            "evidence_refs": [
+              "SYN-2e90dbf74faf31a27c51",
+              "SYN-8e629719ce12e899b679"
+            ],
+            "section": "Riesgos técnicos observables",
+            "source_type": "DETERMINISTIC_CODE_FACT",
+            "statement": "Existen límites no resueltos en parte de los flujos y en operaciones de vinculación de interfaces; también se registran relaciones no resueltas.",
+            "status": "CONFIRMED"
+          },
+          {
+            "claim_id": "C07",
+            "context_package_ids": [
+              "CTX-SYN-7235ddd97ff1f5de632d20c409d49692256055a225cd8cf5bf20cac40f0332da"
+            ],
+            "evidence_refs": [
+              "SYN-374885204a3f6d45f45a",
+              "SYN-57648ee919651038f625"
+            ],
+            "section": "Patrón de diseño / arquitectura",
+            "source_type": "UNRESOLVED",
+            "statement": "La evidencia no permite confirmar un patrón de diseño o arquitectura único para el sistema.",
+            "status": "UNRESOLVED"
+          }
+        ],
+        "context_package_ids": [
+          "CTX-SYN-7235ddd97ff1f5de632d20c409d49692256055a225cd8cf5bf20cac40f0332da"
+        ],
+        "missing_information": [
+          {
+            "blocking_level": "IMPORTANT",
+            "document": "TECHNICAL_ASSESSMENT",
+            "question": "¿Qué referencias de proyecto y ensamblado conectan cada solución, proyecto Web, proyecto de lógica y componente de acceso a datos?",
+            "reason": "El inventario identifica soluciones y proyectos, pero la evidencia disponible no proporciona un mapa completo y verificable de dependencias entre proyectos y ensamblados.",
+            "related_claim_ids": [
+              "C01",
+              "C02"
+            ],
+            "related_evidence_ids": [
+              "SYN-05f3c88af914bef91f96",
+              "SYN-0910ead5abfd00de49f1",
+              "SYN-8f67332f7c44ae0435ae"
+            ],
+            "request_id": "M01",
+            "section": "Dependencias entre proyectos"
+          },
+          {
+            "blocking_level": "BLOCKING_FOR_APPROVAL",
+            "document": "TECHNICAL_ASSESSMENT",
+            "question": "¿Qué estructura arquitectónica o patrón de diseño se aplica de forma explícita y consistente en el sistema?",
+            "reason": "La evidencia declara que no se determina un patrón único y no aporta documentación arquitectónica suficiente para resolver la ambigüedad.",
+            "related_claim_ids": [
+              "C07"
+            ],
+            "related_evidence_ids": [
+              "SYN-374885204a3f6d45f45a",
+              "SYN-57648ee919651038f625"
+            ],
+            "request_id": "M02",
+            "section": "Patrón de diseño / arquitectura"
+          },
+          {
+            "blocking_level": "IMPORTANT",
+            "document": "TECHNICAL_ASSESSMENT",
+            "question": "¿Cuáles son los flujos completos desde los puntos de entrada WebForms hasta la lógica, el acceso a datos y los procedimientos Oracle?",
+            "reason": "Se observan límites y relaciones no resueltas en parte de los flujos, por lo que no puede establecerse una trazabilidad completa.",
+            "related_claim_ids": [
+              "C03",
+              "C04",
+              "C05",
+              "C06"
+            ],
+            "related_evidence_ids": [
+              "SYN-2e90dbf74faf31a27c51",
+              "SYN-47e9f51124e5d3128a25",
+              "SYN-4c99c9a40d2402928e98",
+              "SYN-8e629719ce12e899b679"
+            ],
+            "request_id": "M03",
+            "section": "Flujos técnicos representativos"
+          }
+        ],
+        "profile_id": "TECHNICAL_ASSESSMENT",
+        "source_snapshots": [
+          "6ad94c8f0b735dea3fb1d7daf55b6c3633cb6f6d04a9ee326baac8bef91c599a"
+        ],
+        "status": "PARTIAL",
+        "summary": "El inventario evidencia una solución extensa con múltiples soluciones, proyectos Web y de lógica, componentes WebForms, acceso a datos mediante wrappers y procedimientos Oracle. La evidencia disponible no determina de forma única la arquitectura ni resuelve completamente las dependencias y los límites de los flujos."
+      },
+      "assessment_status": "PARTIAL",
+      "claims": [
+        {
+          "claim_id": "C01",
+          "context_package_ids": [
+            "CTX-SYN-7235ddd97ff1f5de632d20c409d49692256055a225cd8cf5bf20cac40f0332da"
+          ],
+          "evidence_refs": [
+            "SYN-8f67332f7c44ae0435ae"
+          ],
+          "section": "Organización de soluciones y proyectos",
+          "source_type": "DETERMINISTIC_CODE_FACT",
+          "statement": "El inventario registra 113 soluciones y 259 proyectos clasificados.",
+          "status": "CONFIRMED"
+        },
+        {
+          "claim_id": "C02",
+          "context_package_ids": [
+            "CTX-SYN-7235ddd97ff1f5de632d20c409d49692256055a225cd8cf5bf20cac40f0332da"
+          ],
+          "evidence_refs": [
+            "SYN-0910ead5abfd00de49f1",
+            "SYN-8d55dc17d36ab9f6f32c"
+          ],
+          "section": "Componentes técnicos identificados",
+          "source_type": "DETERMINISTIC_CODE_FACT",
+          "statement": "Se identifican proyectos Web y proyectos de lógica o servicios dentro del inventario.",
+          "status": "CONFIRMED"
+        },
+        {
+          "claim_id": "C03",
+          "context_package_ids": [
+            "CTX-SYN-7235ddd97ff1f5de632d20c409d49692256055a225cd8cf5bf20cac40f0332da"
+          ],
+          "evidence_refs": [
+            "SYN-21f448c7eccb735dc87b",
+            "SYN-23be93815c3949c694e9",
+            "SYN-7be94811c14a88d4ce31"
+          ],
+          "section": "WebForms y capa de presentación",
+          "source_type": "DETERMINISTIC_CODE_FACT",
+          "statement": "La capa de presentación incluye componentes WebForms ASPX y controles de usuario ASCX; el inventario reporta 3.346 WebForms.",
+          "status": "CONFIRMED"
+        },
+        {
+          "claim_id": "C04",
+          "context_package_ids": [
+            "CTX-SYN-7235ddd97ff1f5de632d20c409d49692256055a225cd8cf5bf20cac40f0332da"
+          ],
+          "evidence_refs": [
+            "SYN-0066b35d8cf5b3cf2c21",
+            "SYN-3420782e69184a90b1aa",
+            "SYN-4c99c9a40d2402928e98"
+          ],
+          "section": "Acceso a datos",
+          "source_type": "DETERMINISTIC_CODE_FACT",
+          "statement": "El acceso a datos incluye 2.009 operaciones vinculadas y wrappers de repositorio asociados al proveedor OraConn, con operaciones transaccionales identificadas.",
+          "status": "CONFIRMED"
+        },
+        {
+          "claim_id": "C05",
+          "context_package_ids": [
+            "CTX-SYN-7235ddd97ff1f5de632d20c409d49692256055a225cd8cf5bf20cac40f0332da"
+          ],
+          "evidence_refs": [
+            "SYN-47e9f51124e5d3128a25"
+          ],
+          "section": "Oracle / procedimientos almacenados / SQL",
+          "source_type": "DETERMINISTIC_CODE_FACT",
+          "statement": "El inventario registra 674 procedimientos almacenados Oracle identificados.",
+          "status": "CONFIRMED"
+        },
+        {
+          "claim_id": "C06",
+          "context_package_ids": [
+            "CTX-SYN-7235ddd97ff1f5de632d20c409d49692256055a225cd8cf5bf20cac40f0332da"
+          ],
+          "evidence_refs": [
+            "SYN-2e90dbf74faf31a27c51",
+            "SYN-8e629719ce12e899b679"
+          ],
+          "section": "Riesgos técnicos observables",
+          "source_type": "DETERMINISTIC_CODE_FACT",
+          "statement": "Existen límites no resueltos en parte de los flujos y en operaciones de vinculación de interfaces; también se registran relaciones no resueltas.",
+          "status": "CONFIRMED"
+        },
+        {
+          "claim_id": "C07",
+          "context_package_ids": [
+            "CTX-SYN-7235ddd97ff1f5de632d20c409d49692256055a225cd8cf5bf20cac40f0332da"
+          ],
+          "evidence_refs": [
+            "SYN-374885204a3f6d45f45a",
+            "SYN-57648ee919651038f625"
+          ],
+          "section": "Patrón de diseño / arquitectura",
+          "source_type": "UNRESOLVED",
+          "statement": "La evidencia no permite confirmar un patrón de diseño o arquitectura único para el sistema.",
+          "status": "UNRESOLVED"
+        }
+      ],
+      "content_hash": "d9ba5875d2d9ee72ea1c450f80f52af2828ed9f7ae21abc19e62950d695ded70",
+      "context_package_id": "CTX-SYN-7235ddd97ff1f5de632d20c409d49692256055a225cd8cf5bf20cac40f0332da",
+      "identity": {
+        "context_package_id": "CTX-SYN-7235ddd97ff1f5de632d20c409d49692256055a225cd8cf5bf20cac40f0332da",
+        "profile_id": "TECHNICAL_ASSESSMENT",
+        "prompt_contract_version": "V3-R7.1-CANONICAL-1",
+        "request_hash": "ed80048b2765d5a30ef2b8600c857514348b5d12c709926a1c81ab3f835a16c9",
+        "schema_version": "3.1.0",
+        "source_snapshot": "6ad94c8f0b735dea3fb1d7daf55b6c3633cb6f6d04a9ee326baac8bef91c599a"
+      },
+      "missing_information": [
+        {
+          "blocking_level": "IMPORTANT",
+          "document": "TECHNICAL_ASSESSMENT",
+          "question": "¿Qué referencias de proyecto y ensamblado conectan cada solución, proyecto Web, proyecto de lógica y componente de acceso a datos?",
+          "reason": "El inventario identifica soluciones y proyectos, pero la evidencia disponible no proporciona un mapa completo y verificable de dependencias entre proyectos y ensamblados.",
+          "related_claim_ids": [
+            "C01",
+            "C02"
+          ],
+          "related_evidence_ids": [
+            "SYN-05f3c88af914bef91f96",
+            "SYN-0910ead5abfd00de49f1",
+            "SYN-8f67332f7c44ae0435ae"
+          ],
+          "request_id": "M01",
+          "section": "Dependencias entre proyectos"
+        },
+        {
+          "blocking_level": "BLOCKING_FOR_APPROVAL",
+          "document": "TECHNICAL_ASSESSMENT",
+          "question": "¿Qué estructura arquitectónica o patrón de diseño se aplica de forma explícita y consistente en el sistema?",
+          "reason": "La evidencia declara que no se determina un patrón único y no aporta documentación arquitectónica suficiente para resolver la ambigüedad.",
+          "related_claim_ids": [
+            "C07"
+          ],
+          "related_evidence_ids": [
+            "SYN-374885204a3f6d45f45a",
+            "SYN-57648ee919651038f625"
+          ],
+          "request_id": "M02",
+          "section": "Patrón de diseño / arquitectura"
+        },
+        {
+          "blocking_level": "IMPORTANT",
+          "document": "TECHNICAL_ASSESSMENT",
+          "question": "¿Cuáles son los flujos completos desde los puntos de entrada WebForms hasta la lógica, el acceso a datos y los procedimientos Oracle?",
+          "reason": "Se observan límites y relaciones no resueltas en parte de los flujos, por lo que no puede establecerse una trazabilidad completa.",
+          "related_claim_ids": [
+            "C03",
+            "C04",
+            "C05",
+            "C06"
+          ],
+          "related_evidence_ids": [
+            "SYN-2e90dbf74faf31a27c51",
+            "SYN-47e9f51124e5d3128a25",
+            "SYN-4c99c9a40d2402928e98",
+            "SYN-8e629719ce12e899b679"
+          ],
+          "request_id": "M03",
+          "section": "Flujos técnicos representativos"
+        }
+      ],
+      "model_id": "gpt-5.6-luna",
+      "profile_id": "TECHNICAL_ASSESSMENT",
+      "prompt_contract_version": "V3-R7.1-CANONICAL-1",
+      "provider": "COPILOT",
+      "schema_version": "3.1.0",
+      "source_snapshot": "6ad94c8f0b735dea3fb1d7daf55b6c3633cb6f6d04a9ee326baac8bef91c599a",
+      "stage": "INTERMEDIATE_TECHNICAL_L1",
+      "validation_status": "VALID"
+    },
+    {
+      "assessment_id": "ASSESS-58ad854b51e2b2e8250e06b38cebd3e6f494e43043ba5bfbe8cf046fb2c47f4d",
+      "assessment_payload": {
+        "assessment_id": "ASSESS-58ad854b51e2b2e8250e06b38cebd3e6f494e43043ba5bfbe8cf046fb2c47f4d",
+        "claims": [
+          {
+            "claim_id": "C1",
+            "context_package_ids": [
+              "CTX-SYN-fec23c72cf0bf4ba923b8e41f31cd94e77061d8649dcba41114dc494c0af5bea"
+            ],
+            "evidence_refs": [
+              "SYN-9d2c0f8204c30c3dd0b9",
+              "SYN-d41e0ec930d4872989e1"
+            ],
+            "section": "Organización de soluciones y proyectos",
+            "source_type": "DETERMINISTIC_CODE_FACT",
+            "statement": "El inventario registra 113 soluciones representadas, 234 proyectos cubiertos y 259 proyectos clasificados.",
+            "status": "CONFIRMED"
+          },
+          {
+            "claim_id": "C2",
+            "context_package_ids": [
+              "CTX-SYN-fec23c72cf0bf4ba923b8e41f31cd94e77061d8649dcba41114dc494c0af5bea"
+            ],
+            "evidence_refs": [
+              "SYN-9bf69f14a265c799b195"
+            ],
+            "section": "Organización de soluciones y proyectos",
+            "source_type": "DETERMINISTIC_CODE_FACT",
+            "statement": "La clasificación de proyectos distingue estados COVERED y PARTIALLY_COVERED, por lo que la cobertura representada no es uniforme.",
+            "status": "CONFIRMED"
+          },
+          {
+            "claim_id": "C3",
+            "context_package_ids": [
+              "CTX-SYN-fec23c72cf0bf4ba923b8e41f31cd94e77061d8649dcba41114dc494c0af5bea"
+            ],
+            "evidence_refs": [
+              "SYN-b710f5bab4771993604d",
+              "SYN-f2814dbd9a707d4bccce"
+            ],
+            "section": "WebForms y capa de presentación",
+            "source_type": "DETERMINISTIC_CODE_FACT",
+            "statement": "Se identifican 3.346 WebForms y 335 controles o archivos ASCX representados.",
+            "status": "CONFIRMED"
+          },
+          {
+            "claim_id": "C4",
+            "context_package_ids": [
+              "CTX-SYN-fec23c72cf0bf4ba923b8e41f31cd94e77061d8649dcba41114dc494c0af5bea"
+            ],
+            "evidence_refs": [
+              "SYN-be6d726b2edb0cfb3229",
+              "SYN-f76c717ad4636650d9b1"
+            ],
+            "section": "Acceso a datos",
+            "source_type": "DETERMINISTIC_CODE_FACT",
+            "statement": "El acceso a datos registra 2.009 operaciones enlazadas, incluidos envoltorios de repositorio con operaciones transaccionales y llamadas a procedimientos almacenados.",
+            "status": "CONFIRMED"
+          },
+          {
+            "claim_id": "C5",
+            "context_package_ids": [
+              "CTX-SYN-fec23c72cf0bf4ba923b8e41f31cd94e77061d8649dcba41114dc494c0af5bea"
+            ],
+            "evidence_refs": [
+              "SYN-c24fd83ac1c337c1ed01",
+              "SYN-c5284e540af8d9f0012e",
+              "SYN-d9cee84d73b49f31b0cf"
+            ],
+            "section": "Oracle / procedimientos almacenados / SQL",
+            "source_type": "DETERMINISTIC_CODE_FACT",
+            "statement": "El inventario identifica 674 procedimientos almacenados Oracle vinculados a paquetes y procedimientos, y registra 674 referencias enlazadas a estos elementos.",
+            "status": "CONFIRMED"
+          },
+          {
+            "claim_id": "C6",
+            "context_package_ids": [
+              "CTX-SYN-fec23c72cf0bf4ba923b8e41f31cd94e77061d8649dcba41114dc494c0af5bea"
+            ],
+            "evidence_refs": [
+              "SYN-9ece9fc1b4442efb5dbc",
+              "SYN-d5a8b1115ff7e29e37db"
+            ],
+            "section": "Flujos técnicos representativos",
+            "source_type": "UNRESOLVED",
+            "statement": "El inventario contiene 12.642 flujos representados y 1.265 relaciones registradas; los límites y puntos finales de los flujos no están completamente determinados.",
+            "status": "INTERPRETED"
+          },
+          {
+            "claim_id": "C7",
+            "context_package_ids": [
+              "CTX-SYN-fec23c72cf0bf4ba923b8e41f31cd94e77061d8649dcba41114dc494c0af5bea"
+            ],
+            "evidence_refs": [
+              "SYN-e546d0620d822507ab4b"
+            ],
+            "section": "Patrón de diseño / arquitectura",
+            "source_type": "UNRESOLVED",
+            "statement": "La evidencia disponible no permite confirmar un patrón arquitectónico específico.",
+            "status": "UNRESOLVED"
+          }
+        ],
+        "context_package_ids": [
+          "CTX-SYN-fec23c72cf0bf4ba923b8e41f31cd94e77061d8649dcba41114dc494c0af5bea"
+        ],
+        "missing_information": [
+          {
+            "blocking_level": "IMPORTANT",
+            "document": "TECHNICAL_ASSESSMENT",
+            "question": "¿Cuál es el grafo verificable de referencias entre proyectos y soluciones, incluyendo sus direcciones y proyectos no cubiertos?",
+            "reason": "El inventario suministrado informa cantidades y estados de cobertura, pero no aporta referencias de proyecto suficientes para reconstruir las dependencias.",
+            "related_claim_ids": [
+              "C1",
+              "C2"
+            ],
+            "related_evidence_ids": [
+              "SYN-936be46964b62f88dae0",
+              "SYN-9bf69f14a265c799b195",
+              "SYN-9d2c0f8204c30c3dd0b9"
+            ],
+            "request_id": "M1",
+            "section": "Dependencias entre proyectos"
+          },
+          {
+            "blocking_level": "IMPORTANT",
+            "document": "TECHNICAL_ASSESSMENT",
+            "question": "¿Qué ensamblados, paquetes y dependencias externas utiliza cada proyecto?",
+            "reason": "No se proporcionan registros específicos de ensamblados o dependencias externas.",
+            "related_claim_ids": [],
+            "related_evidence_ids": [],
+            "request_id": "M2",
+            "section": "Dependencias externas y ensamblados"
+          },
+          {
+            "blocking_level": "IMPORTANT",
+            "document": "TECHNICAL_ASSESSMENT",
+            "question": "¿Cuáles son los límites, puntos iniciales y puntos finales de los flujos técnicos representados?",
+            "reason": "La evidencia declara que los flujos están representados parcialmente y que sus límites y puntos finales permanecen no resueltos.",
+            "related_claim_ids": [
+              "C6"
+            ],
+            "related_evidence_ids": [
+              "SYN-9ece9fc1b4442efb5dbc",
+              "SYN-d5a8b1115ff7e29e37db"
+            ],
+            "request_id": "M3",
+            "section": "Flujos técnicos representativos"
+          },
+          {
+            "blocking_level": "BLOCKING_FOR_APPROVAL",
+            "document": "TECHNICAL_ASSESSMENT",
+            "question": "¿Qué patrón arquitectónico específico describe el sistema y qué evidencia autoritativa lo confirma?",
+            "reason": "La evidencia disponible no permite confirmar un patrón arquitectónico específico.",
+            "related_claim_ids": [
+              "C7"
+            ],
+            "related_evidence_ids": [
+              "SYN-e546d0620d822507ab4b"
+            ],
+            "request_id": "M4",
+            "section": "Patrón de diseño / arquitectura"
+          }
+        ],
+        "profile_id": "TECHNICAL_ASSESSMENT",
+        "source_snapshots": [
+          "6ad94c8f0b735dea3fb1d7daf55b6c3633cb6f6d04a9ee326baac8bef91c599a"
+        ],
+        "status": "PARTIAL",
+        "summary": "La evidencia confirma un inventario amplio de soluciones, proyectos, WebForms, operaciones de acceso a datos y procedimientos Oracle. La cobertura es parcial y no permite determinar de forma concluyente un patrón arquitectónico ni reconstruir completamente los flujos y dependencias entre proyectos."
+      },
+      "assessment_status": "PARTIAL",
+      "claims": [
+        {
+          "claim_id": "C1",
+          "context_package_ids": [
+            "CTX-SYN-fec23c72cf0bf4ba923b8e41f31cd94e77061d8649dcba41114dc494c0af5bea"
+          ],
+          "evidence_refs": [
+            "SYN-9d2c0f8204c30c3dd0b9",
+            "SYN-d41e0ec930d4872989e1"
+          ],
+          "section": "Organización de soluciones y proyectos",
+          "source_type": "DETERMINISTIC_CODE_FACT",
+          "statement": "El inventario registra 113 soluciones representadas, 234 proyectos cubiertos y 259 proyectos clasificados.",
+          "status": "CONFIRMED"
+        },
+        {
+          "claim_id": "C2",
+          "context_package_ids": [
+            "CTX-SYN-fec23c72cf0bf4ba923b8e41f31cd94e77061d8649dcba41114dc494c0af5bea"
+          ],
+          "evidence_refs": [
+            "SYN-9bf69f14a265c799b195"
+          ],
+          "section": "Organización de soluciones y proyectos",
+          "source_type": "DETERMINISTIC_CODE_FACT",
+          "statement": "La clasificación de proyectos distingue estados COVERED y PARTIALLY_COVERED, por lo que la cobertura representada no es uniforme.",
+          "status": "CONFIRMED"
+        },
+        {
+          "claim_id": "C3",
+          "context_package_ids": [
+            "CTX-SYN-fec23c72cf0bf4ba923b8e41f31cd94e77061d8649dcba41114dc494c0af5bea"
+          ],
+          "evidence_refs": [
+            "SYN-b710f5bab4771993604d",
+            "SYN-f2814dbd9a707d4bccce"
+          ],
+          "section": "WebForms y capa de presentación",
+          "source_type": "DETERMINISTIC_CODE_FACT",
+          "statement": "Se identifican 3.346 WebForms y 335 controles o archivos ASCX representados.",
+          "status": "CONFIRMED"
+        },
+        {
+          "claim_id": "C4",
+          "context_package_ids": [
+            "CTX-SYN-fec23c72cf0bf4ba923b8e41f31cd94e77061d8649dcba41114dc494c0af5bea"
+          ],
+          "evidence_refs": [
+            "SYN-be6d726b2edb0cfb3229",
+            "SYN-f76c717ad4636650d9b1"
+          ],
+          "section": "Acceso a datos",
+          "source_type": "DETERMINISTIC_CODE_FACT",
+          "statement": "El acceso a datos registra 2.009 operaciones enlazadas, incluidos envoltorios de repositorio con operaciones transaccionales y llamadas a procedimientos almacenados.",
+          "status": "CONFIRMED"
+        },
+        {
+          "claim_id": "C5",
+          "context_package_ids": [
+            "CTX-SYN-fec23c72cf0bf4ba923b8e41f31cd94e77061d8649dcba41114dc494c0af5bea"
+          ],
+          "evidence_refs": [
+            "SYN-c24fd83ac1c337c1ed01",
+            "SYN-c5284e540af8d9f0012e",
+            "SYN-d9cee84d73b49f31b0cf"
+          ],
+          "section": "Oracle / procedimientos almacenados / SQL",
+          "source_type": "DETERMINISTIC_CODE_FACT",
+          "statement": "El inventario identifica 674 procedimientos almacenados Oracle vinculados a paquetes y procedimientos, y registra 674 referencias enlazadas a estos elementos.",
+          "status": "CONFIRMED"
+        },
+        {
+          "claim_id": "C6",
+          "context_package_ids": [
+            "CTX-SYN-fec23c72cf0bf4ba923b8e41f31cd94e77061d8649dcba41114dc494c0af5bea"
+          ],
+          "evidence_refs": [
+            "SYN-9ece9fc1b4442efb5dbc",
+            "SYN-d5a8b1115ff7e29e37db"
+          ],
+          "section": "Flujos técnicos representativos",
+          "source_type": "UNRESOLVED",
+          "statement": "El inventario contiene 12.642 flujos representados y 1.265 relaciones registradas; los límites y puntos finales de los flujos no están completamente determinados.",
+          "status": "INTERPRETED"
+        },
+        {
+          "claim_id": "C7",
+          "context_package_ids": [
+            "CTX-SYN-fec23c72cf0bf4ba923b8e41f31cd94e77061d8649dcba41114dc494c0af5bea"
+          ],
+          "evidence_refs": [
+            "SYN-e546d0620d822507ab4b"
+          ],
+          "section": "Patrón de diseño / arquitectura",
+          "source_type": "UNRESOLVED",
+          "statement": "La evidencia disponible no permite confirmar un patrón arquitectónico específico.",
+          "status": "UNRESOLVED"
+        }
+      ],
+      "content_hash": "b2fd3f80288add449ee21f66ec75babeb9e05091ccf035d95c3972faac485c1a",
+      "context_package_id": "CTX-SYN-fec23c72cf0bf4ba923b8e41f31cd94e77061d8649dcba41114dc494c0af5bea",
+      "identity": {
+        "context_package_id": "CTX-SYN-fec23c72cf0bf4ba923b8e41f31cd94e77061d8649dcba41114dc494c0af5bea",
+        "profile_id": "TECHNICAL_ASSESSMENT",
+        "prompt_contract_version": "V3-R7.1-CANONICAL-1",
+        "request_hash": "540974a04c4a8baa98bf8c122e3d5c2c2cded1739e819089e08ac71b4e27b973",
+        "schema_version": "3.1.0",
+        "source_snapshot": "6ad94c8f0b735dea3fb1d7daf55b6c3633cb6f6d04a9ee326baac8bef91c599a"
+      },
+      "missing_information": [
+        {
+          "blocking_level": "IMPORTANT",
+          "document": "TECHNICAL_ASSESSMENT",
+          "question": "¿Cuál es el grafo verificable de referencias entre proyectos y soluciones, incluyendo sus direcciones y proyectos no cubiertos?",
+          "reason": "El inventario suministrado informa cantidades y estados de cobertura, pero no aporta referencias de proyecto suficientes para reconstruir las dependencias.",
+          "related_claim_ids": [
+            "C1",
+            "C2"
+          ],
+          "related_evidence_ids": [
+            "SYN-936be46964b62f88dae0",
+            "SYN-9bf69f14a265c799b195",
+            "SYN-9d2c0f8204c30c3dd0b9"
+          ],
+          "request_id": "M1",
+          "section": "Dependencias entre proyectos"
+        },
+        {
+          "blocking_level": "IMPORTANT",
+          "document": "TECHNICAL_ASSESSMENT",
+          "question": "¿Qué ensamblados, paquetes y dependencias externas utiliza cada proyecto?",
+          "reason": "No se proporcionan registros específicos de ensamblados o dependencias externas.",
+          "related_claim_ids": [],
+          "related_evidence_ids": [],
+          "request_id": "M2",
+          "section": "Dependencias externas y ensamblados"
+        },
+        {
+          "blocking_level": "IMPORTANT",
+          "document": "TECHNICAL_ASSESSMENT",
+          "question": "¿Cuáles son los límites, puntos iniciales y puntos finales de los flujos técnicos representados?",
+          "reason": "La evidencia declara que los flujos están representados parcialmente y que sus límites y puntos finales permanecen no resueltos.",
+          "related_claim_ids": [
+            "C6"
+          ],
+          "related_evidence_ids": [
+            "SYN-9ece9fc1b4442efb5dbc",
+            "SYN-d5a8b1115ff7e29e37db"
+          ],
+          "request_id": "M3",
+          "section": "Flujos técnicos representativos"
+        },
+        {
+          "blocking_level": "BLOCKING_FOR_APPROVAL",
+          "document": "TECHNICAL_ASSESSMENT",
+          "question": "¿Qué patrón arquitectónico específico describe el sistema y qué evidencia autoritativa lo confirma?",
+          "reason": "La evidencia disponible no permite confirmar un patrón arquitectónico específico.",
+          "related_claim_ids": [
+            "C7"
+          ],
+          "related_evidence_ids": [
+            "SYN-e546d0620d822507ab4b"
+          ],
+          "request_id": "M4",
+          "section": "Patrón de diseño / arquitectura"
+        }
+      ],
+      "model_id": "gpt-5.6-luna",
+      "profile_id": "TECHNICAL_ASSESSMENT",
+      "prompt_contract_version": "V3-R7.1-CANONICAL-1",
+      "provider": "COPILOT",
+      "schema_version": "3.1.0",
+      "source_snapshot": "6ad94c8f0b735dea3fb1d7daf55b6c3633cb6f6d04a9ee326baac8bef91c599a",
+      "stage": "INTERMEDIATE_TECHNICAL_L1",
+      "validation_status": "VALID"
+    }
+  ],
+  "schema_version": "3.1.0"
+}

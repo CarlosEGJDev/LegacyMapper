@@ -1,0 +1,36 @@
+{
+  "schema_version": "V4-BOOTSTRAP-1",
+  "source": "output/v3_r10_1/TECHNICAL_DEBT_REMAINING.json",
+  "items": [
+    {
+      "id": "TD-001",
+      "area": "compact_one_line_contracts",
+      "classification": "DEFER",
+      "reason": "Purely cosmetic/formatting debt in historical R7/R8 modules. Does not block any V4 capability and V3's own plan already says to reformat only when the owning contract changes."
+    },
+    {
+      "id": "TD-002",
+      "area": "provider_exception_boundaries",
+      "classification": "RELEVANT_TO_V4",
+      "reason": "V4 will add new interpretation/classification LLM purposes on top of the same provider abstraction (legacy_documenter/llm/core.py, providers/). Broad exception boundaries directly affect how safely new V4 provider calls degrade, so this should be revisited once V4 introduces new provider-facing contracts, per the item's own plan (evaluate when provider-specific exception taxonomies are contract-tested)."
+    },
+    {
+      "id": "TD-003",
+      "area": "cross_round_helpers",
+      "classification": "RELEVANT_TO_V4",
+      "reason": "V4 will introduce new rounds/stages (proposal, approval, composition) alongside existing V3 round helpers. The item's own plan requires evaluating contract equivalence before any consolidation, which is precisely what a V4 architecture pass must avoid doing carelessly."
+    },
+    {
+      "id": "TD-004",
+      "area": "large_orchestrators",
+      "classification": "DEFER",
+      "reason": "Splitting V3 discovery/round orchestration remains high-risk and unrelated to unblocking any V4 capability in the gap analysis; V4 should add new orchestration alongside rather than refactor existing orchestrators now."
+    },
+    {
+      "id": "TD-005",
+      "area": "type_hints",
+      "classification": "RELEVANT_TO_V4",
+      "reason": "V4 introduces new nested JSON contracts (multi-source records, proposals, conflicts). The item's own plan to introduce narrow TypedDict models incrementally at newly modified boundaries directly applies to the new V4 data model rather than being deferred further."
+    }
+  ]
+}

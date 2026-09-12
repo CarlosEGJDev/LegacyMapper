@@ -1,0 +1,95 @@
+{
+  "targets": [
+    {
+      "blocking_status": "IMPORTANT",
+      "definition_status": "RECOVERED",
+      "description": "¿Qué comportamiento funcional representan las operaciones de datos, transacciones y procedimientos almacenados dentro de cada flujo?",
+      "document_profile": "functional",
+      "family": "UNCLASSIFIED",
+      "human_disposition": "NEEDS_ANALYSIS",
+      "original_claim_context": [
+        "ASSESS-c9336a10a09a08ebdfbf8ad7d4c36b8681fbbc5d8de95f029193f0d1f5438360:FA-C1",
+        "ASSESS-c9336a10a09a08ebdfbf8ad7d4c36b8681fbbc5d8de95f029193f0d1f5438360:FA-C5"
+      ],
+      "original_evidence_references": [
+        "COV-DATA_ACCESS-03-2331fde6dd",
+        "COV-STORED_PROCEDURES-05-6df7f1d261",
+        "COV-UNRESOLVED_BOUNDARIES-03-4d0ceb9973"
+      ],
+      "original_id": "FMI-007",
+      "previous_analysis_status": "REQUIRES_EXTERNAL_INFORMATION",
+      "reason": "La evidencia confirma operaciones de acceso a datos y procedimientos almacenados, pero no proporciona su semántica funcional completa ni su asignación determinista a funcionalidades de usuario.",
+      "target_id": "FMI-007"
+    },
+    {
+      "blocking_status": "BLOCKING_FOR_APPROVAL",
+      "definition_status": "RECOVERED",
+      "description": "¿Qué patrón o arquitectura formal declara y aplica el sistema, y qué evidencia de código respalda esa clasificación?",
+      "document_profile": "technical",
+      "family": "TECHNICAL_ARCHITECTURE_PATTERN",
+      "human_disposition": "NEEDS_ANALYSIS",
+      "original_claim_context": [
+        "ASSESS-057e59167097a11e17c580e5fec17c34acc0e015414b27fbcf2251bb9cac7339:C003",
+        "ASSESS-057e59167097a11e17c580e5fec17c34acc0e015414b27fbcf2251bb9cac7339:C004",
+        "ASSESS-057e59167097a11e17c580e5fec17c34acc0e015414b27fbcf2251bb9cac7339:C005",
+        "ASSESS-0b706af36af1e00c07738c824e513e1f31c2a9ed3f99856a4140be0f1f2c6a20:CLM-005",
+        "ASSESS-1ebbd52c8a6956cac27854c055844e3755c15df26a92d40ee9d8510348ee1a35:C07",
+        "ASSESS-48b7fa40c99ae86d26ae7edf14ecacd795e35fc9a4711446307c13729f7cee88:C012",
+        "ASSESS-48b7fa40c99ae86d26ae7edf14ecacd795e35fc9a4711446307c13729f7cee88:C013",
+        "ASSESS-58ad854b51e2b2e8250e06b38cebd3e6f494e43043ba5bfbe8cf046fb2c47f4d:C7",
+        "ASSESS-68ecdc424fd62f20bad69fa18a37373073935b87a0fa35dbd520fdaa1ecc8b4a:C003",
+        "ASSESS-68ecdc424fd62f20bad69fa18a37373073935b87a0fa35dbd520fdaa1ecc8b4a:C004",
+        "ASSESS-7b368b9d42af7a0e9768162d11a383e307fbfe8d1a9641022a7d828cee67de52:claim_5",
+        "ASSESS-d08badd7f113e77912ef5e0472ef5748dfedfd6f3d5fc284be73fe28ede58755:C001",
+        "ASSESS-d08badd7f113e77912ef5e0472ef5748dfedfd6f3d5fc284be73fe28ede58755:C003",
+        "ASSESS-d08badd7f113e77912ef5e0472ef5748dfedfd6f3d5fc284be73fe28ede58755:C005"
+      ],
+      "original_evidence_references": [
+        "COV-DATA_ACCESS-01-583d103a14",
+        "COV-DATA_ACCESS-02-166407d645",
+        "COV-DATA_ACCESS-05-68523c171e",
+        "COV-DATA_ACCESS-06-ca2fbbeaa3",
+        "COV-DATA_ACCESS-09-fb92030580",
+        "COV-FUNCTIONAL_FLOWS-00-f888def72c",
+        "COV-FUNCTIONAL_FLOWS-04-fb5f70d0be",
+        "COV-FUNCTIONAL_FLOWS-05-9843f32695",
+        "COV-FUNCTIONAL_FLOWS-06-e2788b309c",
+        "COV-FUNCTIONAL_FLOWS-08-dacbbff82c",
+        "COV-STORED_PROCEDURES-07-1775b3de79",
+        "COV-SYSTEM-METRICS",
+        "COV-UNRESOLVED_BOUNDARIES-00-6943a207fe",
+        "COV-UNRESOLVED_BOUNDARIES-02-2e4ec1810b",
+        "COV-UNRESOLVED_BOUNDARIES-03-4d0ceb9973",
+        "COV-UNRESOLVED_BOUNDARIES-05-4ece18e276",
+        "COV-WEBFORMS-00-cd4b1b1a13",
+        "COV-WEBFORMS-03-6ef2e96894",
+        "COV-WEBFORMS-07-4bd9dd37d9"
+      ],
+      "original_id": "TMI-001",
+      "previous_analysis_status": "REQUIRES_EXTERNAL_INFORMATION",
+      "reason": "La evidencia muestra proyectos, WebForms, acceso a datos y procedimientos, pero no proporciona una definición arquitectónica autorizada ni relaciones completas suficientes para confirmarla.",
+      "target_id": "TMI-001"
+    },
+    {
+      "blocking_status": "BLOCKING_FOR_APPROVAL",
+      "definition_status": "RECOVERED",
+      "description": "¿Existe documentación o evidencia de código suficiente para confirmar un patrón arquitectónico específico y sus límites de capa?",
+      "document_profile": "technical",
+      "family": "UNCLASSIFIED",
+      "human_disposition": "NEEDS_ANALYSIS",
+      "original_claim_context": [
+        "ASSESS-c235b68c33fbc3932a2ef65c9f3f9902ea9e3e8ab8cacddd0d13dc7e45add514:C4",
+        "ASSESS-c235b68c33fbc3932a2ef65c9f3f9902ea9e3e8ab8cacddd0d13dc7e45add514:C5"
+      ],
+      "original_evidence_references": [
+        "COV-FUNCTIONAL_FLOWS-02-0f3dcb2864",
+        "COV-SYSTEM-METRICS",
+        "COV-UNRESOLVED_BOUNDARIES-04-393e8ce004"
+      ],
+      "original_id": "TMI-011",
+      "previous_analysis_status": "REQUIRES_EXTERNAL_INFORMATION",
+      "reason": "Los datos de cobertura, flujos, WebForms y acceso a datos no bastan para confirmar un patrón arquitectónico; además, existen límites no resueltos.",
+      "target_id": "TMI-011"
+    }
+  ]
+}

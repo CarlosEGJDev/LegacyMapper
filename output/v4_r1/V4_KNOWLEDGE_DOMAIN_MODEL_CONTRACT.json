@@ -1,0 +1,88 @@
+{
+  "schema_version": "V4-R1-1",
+  "module": "legacy_documenter.knowledge.domain",
+  "files": [
+    "legacy_documenter/knowledge/domain/__init__.py",
+    "legacy_documenter/knowledge/domain/enums.py",
+    "legacy_documenter/knowledge/domain/models.py"
+  ],
+  "design_decision": "New standalone V4 package (COMPOSE), not a mutation of V3 legacy_documenter/models/evidence.py or documentation/contracts.py. Reused legacy_documenter.documentation.contracts.stable_id for deterministic id derivation (COMPOSE) instead of duplicating hashing logic. V3 SOURCE_TYPES/FACT_STATUSES in documentation/contracts.py and documentation/interpretation.py are untouched and keep their V3 meaning.",
+  "enums": {
+    "SourceType": ["DETERMINISTIC_CODE_FACT", "HUMAN_REQUIREMENT", "USER_STORY", "BUSINESS_REQUIREMENT", "BUSINESS_CONTEXT", "TECHNICAL_CONSTRAINT", "CORPORATE_STANDARD", "APPROVED_DECISION", "EXTERNAL_DOCUMENT", "PROJECT_DOCUMENT", "AI_INTERPRETATION", "UNRESOLVED"],
+    "KnowledgeNature": ["NORM", "LEVANTAMIENTO", "REQUIREMENT", "NEED", "BUSINESS_RULE", "DECISION", "ARCHITECTURE", "PROCESS", "FLOW", "CATALOG", "PROJECT", "RESOLUTION", "LESSON", "TRAINING", "GLOSSARY", "CONSTRAINT", "EXISTING_IMPLEMENTATION"],
+    "KnowledgeStatus": ["CONFIRMED", "INTERPRETED", "PARTIAL", "UNRESOLVED", "MISSING", "CONFLICTING", "SUPERSEDED"],
+    "TemporalState": ["AS_IS", "TO_BE", "HISTORICAL"],
+    "ApprovalStatus": ["NOT_APPROVED", "APPROVED", "REJECTED", "CORRECTED"]
+  },
+  "types": {
+    "Origin": {
+      "fields": ["kind", "reference?", "contributor?", "captured_at?"],
+      "note": "reference is optional; not every origin has a filesystem path or URL."
+    },
+    "MaterialItem": {
+      "fields": ["material_id", "source_type", "title?", "content?", "reference?", "origin?", "metadata"],
+      "validation": ["material_id non-empty", "source_type in SourceType", "at least one of content/reference present", "embedded origin, if present, is valid"]
+    },
+    "EvidenceRef": {
+      "fields": ["evidence_id", "source_type", "origin?", "locator?", "excerpt?", "authoritative"],
+      "validation": ["evidence_id non-empty", "source_type in SourceType", "embedded origin, if present, is valid"]
+    },
+    "Provenance": {
+      "fields": ["origin", "material_ids", "evidence_ids", "contributor?", "notes?"],
+      "validation": ["embedded origin is valid"]
+    },
+    "ApprovalInfo": {
+      "fields": ["approval_status", "approver?", "approved_at?", "correction_notes?"],
+      "validation": ["approval_status in ApprovalStatus"]
+    },
+    "KnowledgeStatement": {
+      "fields": ["statement_id", "statement", "source_type", "nature", "status", "evidence_refs", "provenance?", "temporal_state?", "related_statement_ids", "approval", "metadata"],
+      "validation": [
+        "statement_id non-empty",
+        "statement non-empty",
+        "source_type in SourceType",
+        "nature in KnowledgeNature",
+        "status in KnowledgeStatus",
+        "temporal_state, if present, in TemporalState",
+        "no duplicate evidence_id across evidence_refs",
+        "each evidence_ref individually valid",
+        "CONFIRMED status requires at least one authoritative evidence_ref",
+        "embedded provenance, if present, is valid",
+        "embedded approval is valid"
+      ]
+    }
+  },
+  "id_helpers": {
+    "new_statement_id": "KST-<sha256>",
+    "new_material_id": "MAT-<sha256>",
+    "new_evidence_id": "EVR-<sha256>"
+  },
+  "code_optional_guarantee": "No field on MaterialItem, EvidenceRef, Provenance or KnowledgeStatement requires a code file, code symbol, project file, repository scan, language, framework or technology to be present for the record to validate.",
+  "forbidden_in_r1_confirmed_not_implemented": [
+    "general-purpose human ingestion pipeline",
+    "LLM classification",
+    "automated knowledge classification engine",
+    "GAP detection",
+    "CONFLICT detection engine",
+    "proposal lifecycle engine",
+    "Technical Lead approval workflow",
+    "canonical Knowledge Source composer",
+    "Markdown projection",
+    "Plugin output",
+    "V5 extractors",
+    "language/framework agnosticism refactor",
+    "real provider calls",
+    "AI_KNOWLEDGE generation"
+  ],
+  "test_file": "tests/test_v4_r1_knowledge_domain_model.py",
+  "test_scenarios": [
+    "CODE_ONLY",
+    "CODE_AND_HUMAN_INFORMATION",
+    "HUMAN_INFORMATION_ONLY",
+    "PARTIAL_INFORMATION",
+    "AS_IS_TO_BE_COEXISTENCE",
+    "TARGET_FAMILY_REPRESENTATION",
+    "INVALID_CONTRACTS",
+    "V3_REGRESSION (full suite)"
+  ]
+}

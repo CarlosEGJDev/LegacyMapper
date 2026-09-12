@@ -1,0 +1,87 @@
+STATUS
+V3-R8_WAITING_FOR_HUMAN_REVIEW
+
+FILES_CHANGED
+legacy_documenter/documentation/human_review.py
+tests/test_v3_r8.py
+codex/V3/V3_R8_PAQUETE_REVISION_HUMANA.md
+codex/V3/V3_R8_RESPUESTA_REVISION.md
+codex/V3/V3_R8_RESULTADO.md
+
+PRECONDITIONS
+PASS: both documents are DRAFT, human_review_required=true, approved=false and knowledge_source_eligible=false. Parent status V3-R7_2_4_READY_FOR_HUMAN_REVIEW verified.
+
+REVIEW_INPUTS
+output/LEVANTAMIENTO_FUNCIONAL.md; output/LEVANTAMIENTO_TECNICO.md; output/v3_r7_2/LOCAL_ASSESSMENTS.json; output/v3_r7_2/INTERMEDIATE_ASSESSMENTS.json; output/v3_r7_2/COVERAGE_INDEX.json; codex/V3/V3_R7_2_4_RESULTADO.md.
+
+FUNCTIONAL_DOCUMENT
+PASS: 13 claims; 10 CONFIRMED, 1 INTERPRETED, 2 UNRESOLVED; DRAFT and unchanged. SHA-256=e31a35fac44259bde1e362bfa03d3854bce9e3f157a3163ab6c17096f7ab9fc7.
+
+TECHNICAL_DOCUMENT
+PASS: 14 claims; 10 CONFIRMED, 2 INTERPRETED, 2 UNRESOLVED; DRAFT and unchanged. SHA-256=ccaf7af9ad2892af11457911557ab9cbaa4ee54b51031c8d52f3c1a5eb6e5e0f.
+
+STRUCTURAL_COVERAGE
+PROJECTS_CLASSIFIED=259; SOLUTIONS_REPRESENTED=113; WEBFORMS_REPRESENTED=3346; FUNCTIONAL_FLOWS_REPRESENTED=12642; LINKED_DATA_OPERATIONS=19159; LINKED_STORED_PROCEDURES=5389; UNRESOLVED_RELATIONSHIPS=162914. STRUCTURAL_COVERAGE != COMPLETE_SEMANTIC_UNDERSTANDING.
+
+FUNCTIONAL_CLAIMS
+PASS: all validated claims grouped by CONFIRMED, INTERPRETED and UNRESOLVED with compact evidence summaries. INTERPRETED claims marked REQUIRES_HUMAN_CONFIRMATION.
+
+FUNCTIONAL_MISSING_INFORMATION
+PASS: FMI-001..FMI-008 presented with family, blocking level, original question/reason and detailed-source reference.
+
+TECHNICAL_CLAIMS
+PASS: all validated claims grouped by CONFIRMED, INTERPRETED and UNRESOLVED with compact evidence summaries. INTERPRETED claims marked REQUIRES_HUMAN_CONFIRMATION.
+
+TECHNICAL_MISSING_INFORMATION
+PASS: TMI-001..TMI-012 presented with family, blocking level, original question/reason and detailed-source reference.
+
+BLOCKING_ITEMS
+FUNCTIONAL_BLOCKING_ITEMS=FMI-002,FMI-005. TECHNICAL_BLOCKING_ITEMS=TMI-001,TMI-006,TMI-011. Each requires explicit human disposition: ANSWERED, ACCEPTED_AS_UNRESOLVED, NEEDS_ANALYSIS or NOT_APPLICABLE.
+
+REVIEW_PACKAGE
+PASS: codex/V3/V3_R8_PAQUETE_REVISION_HUMANA.md; SHA-256=e6dd1244a181045f4bc69c79b997b4f337e28cea86664028e38ea9492bbaf210; deterministic repeated generation byte-identical.
+
+REVIEW_RESPONSE_TEMPLATE
+PASS: codex/V3/V3_R8_RESPUESTA_REVISION.md; FUNCTIONAL_DECISION=PENDING and TECHNICAL_DECISION=PENDING; no selected approval. SHA-256=7180b561cbb696fc2d0e9d05ecd1bf0c9f98c71acb6c51ad37de921dadb5b9c4.
+
+REVIEW_OBSERVATIONS
+Five functional and seven technical MissingInformation requests remain conservatively UNCLASSIFIED from R7.2.4. No source-document correction was performed. Human review may request a later correction round.
+
+NEW_REAL_LLM_CALLS
+0
+
+PROVIDER_CALLS
+0
+
+SOURCE_DOCUMENTS_UNCHANGED
+PASS: functional and technical SHA-256 hashes equal their pre-execution hashes.
+
+ASSESSMENTS_UNCHANGED
+PASS: LOCAL_ASSESSMENTS.json=fbac45f95913d56f138cb89eef3b811b522c348135ac05cd10f02ea608e0bc6d; INTERMEDIATE_ASSESSMENTS.json=f6e6bc37ca6d470900b0b26e63a0ff31b198695957df8769ae643214960dc293; hashes equal pre-execution values.
+
+V2_IMMUTABILITY
+PASS: aggregate SHA-256 across 34 artifacts=bc73783aafc53e2029f656edd502291501aac8e0da3a7a76167095d824bd556f before and after.
+
+SOURCE_IMMUTABILITY
+PASS: no raw repository scan and no legacy-source access or modification in R8 execution.
+
+UNIT_TESTS
+PASS: 48 V3-R8 offline tests.
+
+TOTAL_TESTS
+407 PASS
+
+REGRESSION
+PASS: python -m unittest discover -s tests.
+
+AI_KNOWLEDGE_ALLOWED
+false
+
+HUMAN_DECISION
+PENDING
+
+DECISION
+WAITING_FOR_EXPLICIT_HUMAN_REVIEW
+
+NEXT
+USER_REVIEW

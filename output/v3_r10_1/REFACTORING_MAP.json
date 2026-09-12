@@ -1,0 +1,514 @@
+{
+  "batches": [
+    "BATCH_1",
+    "BATCH_2",
+    "BATCH_3",
+    "BATCH_4",
+    "BATCH_5",
+    "BATCH_6",
+    "BATCH_7"
+  ],
+  "changes": [
+    {
+      "batch": "BATCH_6",
+      "behavior_change": false,
+      "changes": [
+        "DOCSTRINGS"
+      ],
+      "compatibility_impact": "NONE",
+      "module": "legacy_documenter/analysis/call_resolver.py"
+    },
+    {
+      "batch": "BATCH_6",
+      "behavior_change": false,
+      "changes": [
+        "DOCSTRINGS"
+      ],
+      "compatibility_impact": "NONE",
+      "module": "legacy_documenter/analysis/database_resolver.py"
+    },
+    {
+      "batch": "BATCH_6",
+      "behavior_change": false,
+      "changes": [
+        "DOCSTRINGS"
+      ],
+      "compatibility_impact": "NONE",
+      "module": "legacy_documenter/analysis/deep_interpretation.py"
+    },
+    {
+      "batch": "BATCH_6",
+      "behavior_change": false,
+      "changes": [
+        "DOCSTRINGS"
+      ],
+      "compatibility_impact": "NONE",
+      "module": "legacy_documenter/analysis/deep_source.py"
+    },
+    {
+      "batch": "BATCH_6",
+      "behavior_change": false,
+      "changes": [
+        "DOCSTRINGS"
+      ],
+      "compatibility_impact": "NONE",
+      "module": "legacy_documenter/analysis/dependency_resolver.py"
+    },
+    {
+      "batch": "BATCH_6",
+      "behavior_change": false,
+      "changes": [
+        "DOCSTRINGS"
+      ],
+      "compatibility_impact": "NONE",
+      "module": "legacy_documenter/analysis/flow_resolver.py"
+    },
+    {
+      "batch": "BATCH_6",
+      "behavior_change": false,
+      "changes": [
+        "DOCSTRINGS"
+      ],
+      "compatibility_impact": "NONE",
+      "module": "legacy_documenter/analysis/targeted_exhaustion.py"
+    },
+    {
+      "batch": "BATCH_6",
+      "behavior_change": false,
+      "changes": [
+        "DOCSTRINGS"
+      ],
+      "compatibility_impact": "NONE",
+      "module": "legacy_documenter/analysis/web_entry_resolver.py"
+    },
+    {
+      "batch": "BATCH_3",
+      "behavior_change": false,
+      "changes": [
+        "DOCSTRINGS",
+        "TYPE_HINTS"
+      ],
+      "compatibility_impact": "NONE",
+      "module": "legacy_documenter/context/composer.py"
+    },
+    {
+      "batch": "BATCH_3",
+      "behavior_change": false,
+      "changes": [
+        "DOCSTRINGS"
+      ],
+      "compatibility_impact": "NONE",
+      "module": "legacy_documenter/context/context_builder.py"
+    },
+    {
+      "batch": "BATCH_3",
+      "behavior_change": false,
+      "changes": [
+        "DOCSTRINGS",
+        "TYPE_HINTS"
+      ],
+      "compatibility_impact": "NONE",
+      "module": "legacy_documenter/context/resolver.py"
+    },
+    {
+      "batch": "BATCH_3",
+      "behavior_change": false,
+      "changes": [
+        "DOCSTRINGS"
+      ],
+      "compatibility_impact": "NONE",
+      "module": "legacy_documenter/context/system_context_builder.py"
+    },
+    {
+      "batch": "BATCH_5",
+      "behavior_change": false,
+      "changes": [
+        "DOCSTRINGS"
+      ],
+      "compatibility_impact": "NONE",
+      "module": "legacy_documenter/documentation/aggregation.py"
+    },
+    {
+      "batch": "BATCH_5",
+      "behavior_change": false,
+      "changes": [
+        "DOCSTRINGS"
+      ],
+      "compatibility_impact": "NONE",
+      "module": "legacy_documenter/documentation/consistency.py"
+    },
+    {
+      "batch": "BATCH_5",
+      "behavior_change": false,
+      "changes": [
+        "DOCSTRINGS"
+      ],
+      "compatibility_impact": "NONE",
+      "module": "legacy_documenter/documentation/consistency_run.py"
+    },
+    {
+      "batch": "BATCH_5",
+      "behavior_change": false,
+      "changes": [
+        "DOCSTRINGS"
+      ],
+      "compatibility_impact": "NONE",
+      "module": "legacy_documenter/documentation/contracts.py"
+    },
+    {
+      "batch": "BATCH_5",
+      "behavior_change": false,
+      "changes": [
+        "DOCSTRINGS"
+      ],
+      "compatibility_impact": "NONE",
+      "module": "legacy_documenter/documentation/coverage.py"
+    },
+    {
+      "batch": "BATCH_5",
+      "behavior_change": false,
+      "changes": [
+        "DOCSTRINGS"
+      ],
+      "compatibility_impact": "NONE",
+      "module": "legacy_documenter/documentation/envelope.py"
+    },
+    {
+      "batch": "BATCH_5",
+      "behavior_change": false,
+      "changes": [
+        "DOCSTRINGS"
+      ],
+      "compatibility_impact": "NONE",
+      "module": "legacy_documenter/documentation/evidence_catalog.py"
+    },
+    {
+      "batch": "BATCH_5",
+      "behavior_change": false,
+      "changes": [
+        "DOCSTRINGS"
+      ],
+      "compatibility_impact": "NONE",
+      "module": "legacy_documenter/documentation/generator.py"
+    },
+    {
+      "batch": "BATCH_5",
+      "behavior_change": false,
+      "changes": [
+        "DOCSTRINGS"
+      ],
+      "compatibility_impact": "NONE",
+      "module": "legacy_documenter/documentation/hierarchical.py"
+    },
+    {
+      "batch": "BATCH_5",
+      "behavior_change": false,
+      "changes": [
+        "DOCSTRINGS"
+      ],
+      "compatibility_impact": "NONE",
+      "module": "legacy_documenter/documentation/human_review.py"
+    },
+    {
+      "batch": "BATCH_5",
+      "behavior_change": false,
+      "changes": [
+        "DOCSTRINGS"
+      ],
+      "compatibility_impact": "NONE",
+      "module": "legacy_documenter/documentation/interpretation.py"
+    },
+    {
+      "batch": "BATCH_5",
+      "behavior_change": false,
+      "changes": [
+        "DOCSTRINGS"
+      ],
+      "compatibility_impact": "NONE",
+      "module": "legacy_documenter/documentation/renderer.py"
+    },
+    {
+      "batch": "BATCH_5",
+      "behavior_change": false,
+      "changes": [
+        "DOCSTRINGS"
+      ],
+      "compatibility_impact": "NONE",
+      "module": "legacy_documenter/documentation/resume.py"
+    },
+    {
+      "batch": "BATCH_5",
+      "behavior_change": false,
+      "changes": [
+        "DOCSTRINGS"
+      ],
+      "compatibility_impact": "NONE",
+      "module": "legacy_documenter/documentation/second_review.py"
+    },
+    {
+      "batch": "BATCH_5",
+      "behavior_change": false,
+      "changes": [
+        "DOCSTRINGS"
+      ],
+      "compatibility_impact": "NONE",
+      "module": "legacy_documenter/documentation/synthesis.py"
+    },
+    {
+      "batch": "BATCH_5",
+      "behavior_change": false,
+      "changes": [
+        "DOCSTRINGS"
+      ],
+      "compatibility_impact": "NONE",
+      "module": "legacy_documenter/documentation/systematic.py"
+    },
+    {
+      "batch": "BATCH_7",
+      "behavior_change": false,
+      "changes": [
+        "DOCSTRINGS"
+      ],
+      "compatibility_impact": "NONE",
+      "module": "legacy_documenter/exporters/json_exporter.py"
+    },
+    {
+      "batch": "BATCH_7",
+      "behavior_change": false,
+      "changes": [
+        "DOCSTRINGS"
+      ],
+      "compatibility_impact": "NONE",
+      "module": "legacy_documenter/exporters/markdown_exporter.py"
+    },
+    {
+      "batch": "BATCH_2",
+      "behavior_change": false,
+      "changes": [
+        "DOCSTRINGS"
+      ],
+      "compatibility_impact": "NONE",
+      "module": "legacy_documenter/extractors/call_extractor.py"
+    },
+    {
+      "batch": "BATCH_2",
+      "behavior_change": false,
+      "changes": [
+        "DOCSTRINGS"
+      ],
+      "compatibility_impact": "NONE",
+      "module": "legacy_documenter/extractors/database_extractor.py"
+    },
+    {
+      "batch": "BATCH_2",
+      "behavior_change": false,
+      "changes": [
+        "DOCSTRINGS"
+      ],
+      "compatibility_impact": "NONE",
+      "module": "legacy_documenter/extractors/solution_extractor.py"
+    },
+    {
+      "batch": "BATCH_2",
+      "behavior_change": false,
+      "changes": [
+        "DOCSTRINGS"
+      ],
+      "compatibility_impact": "NONE",
+      "module": "legacy_documenter/extractors/vbnet_extractor.py"
+    },
+    {
+      "batch": "BATCH_2",
+      "behavior_change": false,
+      "changes": [
+        "DOCSTRINGS"
+      ],
+      "compatibility_impact": "NONE",
+      "module": "legacy_documenter/extractors/vbproj_extractor.py"
+    },
+    {
+      "batch": "BATCH_2",
+      "behavior_change": false,
+      "changes": [
+        "DOCSTRINGS"
+      ],
+      "compatibility_impact": "NONE",
+      "module": "legacy_documenter/extractors/web_event_extractor.py"
+    },
+    {
+      "batch": "BATCH_2",
+      "behavior_change": false,
+      "changes": [
+        "DOCSTRINGS"
+      ],
+      "compatibility_impact": "NONE",
+      "module": "legacy_documenter/extractors/webconfig_extractor.py"
+    },
+    {
+      "batch": "BATCH_2",
+      "behavior_change": false,
+      "changes": [
+        "DOCSTRINGS"
+      ],
+      "compatibility_impact": "NONE",
+      "module": "legacy_documenter/extractors/webforms_extractor.py"
+    },
+    {
+      "batch": "BATCH_4",
+      "behavior_change": false,
+      "changes": [
+        "DOCSTRINGS"
+      ],
+      "compatibility_impact": "NONE",
+      "module": "legacy_documenter/llm/copilot_pilot.py"
+    },
+    {
+      "batch": "BATCH_4",
+      "behavior_change": false,
+      "changes": [
+        "DOCSTRINGS",
+        "TYPE_HINTS"
+      ],
+      "compatibility_impact": "NONE",
+      "module": "legacy_documenter/llm/core.py"
+    },
+    {
+      "batch": "BATCH_4",
+      "behavior_change": false,
+      "changes": [
+        "DOCSTRINGS",
+        "TYPE_HINTS"
+      ],
+      "compatibility_impact": "NONE",
+      "module": "legacy_documenter/llm/providers/copilot.py"
+    },
+    {
+      "batch": "BATCH_4",
+      "behavior_change": false,
+      "changes": [
+        "DOCSTRINGS",
+        "TYPE_HINTS"
+      ],
+      "compatibility_impact": "NONE",
+      "module": "legacy_documenter/llm/providers/gemini.py"
+    },
+    {
+      "batch": "BATCH_7",
+      "behavior_change": false,
+      "changes": [
+        "DOCSTRINGS"
+      ],
+      "compatibility_impact": "NONE",
+      "module": "legacy_documenter/main.py"
+    },
+    {
+      "batch": "BATCH_1",
+      "behavior_change": false,
+      "changes": [
+        "DOCSTRINGS"
+      ],
+      "compatibility_impact": "NONE",
+      "module": "legacy_documenter/models/call.py"
+    },
+    {
+      "batch": "BATCH_1",
+      "behavior_change": false,
+      "changes": [
+        "DOCSTRINGS"
+      ],
+      "compatibility_impact": "NONE",
+      "module": "legacy_documenter/models/dependency.py"
+    },
+    {
+      "batch": "BATCH_1",
+      "behavior_change": false,
+      "changes": [
+        "DOCSTRINGS"
+      ],
+      "compatibility_impact": "NONE",
+      "module": "legacy_documenter/models/entry_point.py"
+    },
+    {
+      "batch": "BATCH_1",
+      "behavior_change": false,
+      "changes": [
+        "DOCSTRINGS"
+      ],
+      "compatibility_impact": "NONE",
+      "module": "legacy_documenter/models/evidence.py"
+    },
+    {
+      "batch": "BATCH_1",
+      "behavior_change": false,
+      "changes": [
+        "DOCSTRINGS"
+      ],
+      "compatibility_impact": "NONE",
+      "module": "legacy_documenter/models/project.py"
+    },
+    {
+      "batch": "BATCH_1",
+      "behavior_change": false,
+      "changes": [
+        "DOCSTRINGS"
+      ],
+      "compatibility_impact": "NONE",
+      "module": "legacy_documenter/models/source_file.py"
+    },
+    {
+      "batch": "BATCH_1",
+      "behavior_change": false,
+      "changes": [
+        "DOCSTRINGS"
+      ],
+      "compatibility_impact": "NONE",
+      "module": "legacy_documenter/models/symbol.py"
+    },
+    {
+      "batch": "BATCH_1",
+      "behavior_change": false,
+      "changes": [
+        "DOCSTRINGS"
+      ],
+      "compatibility_impact": "NONE",
+      "module": "legacy_documenter/models/webform.py"
+    },
+    {
+      "batch": "BATCH_2",
+      "behavior_change": false,
+      "changes": [
+        "DOCSTRINGS"
+      ],
+      "compatibility_impact": "NONE",
+      "module": "legacy_documenter/scanner/file_classifier.py"
+    },
+    {
+      "batch": "BATCH_2",
+      "behavior_change": false,
+      "changes": [
+        "DOCSTRINGS"
+      ],
+      "compatibility_impact": "NONE",
+      "module": "legacy_documenter/scanner/repository_scanner.py"
+    },
+    {
+      "batch": "BATCH_1",
+      "behavior_change": false,
+      "changes": [
+        "DOCSTRINGS"
+      ],
+      "compatibility_impact": "NONE",
+      "module": "legacy_documenter/utils/sanitizer.py"
+    }
+  ],
+  "classes_created": [],
+  "classes_moved": [],
+  "compatibility_wrappers": [
+    "legacy_documenter.knowledge.readiness.run"
+  ],
+  "dead_code_removed": [],
+  "production_modules_analyzed": 71,
+  "production_modules_changed": 54,
+  "schema_version": "V3-R10.1-1",
+  "semantic_contract": "UNCHANGED"
+}

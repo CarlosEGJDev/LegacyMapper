@@ -1,0 +1,98 @@
+{
+  "schema_version": "V4-BOOTSTRAP-1",
+  "generated_by": "V4_00_BOOTSTRAP_AND_BASELINE",
+  "capabilities": [
+    {
+      "capability": "provenance",
+      "components": [
+        {"path": "legacy_documenter/models/evidence.py", "classification": "EXTEND", "reason": "Evidence model already carries canonical id, category, lineage and snapshot, but V4 provenance must also cover non-code MATERIAL (human documents, requirements) which is out of this model's current scope."},
+        {"path": "legacy_documenter/documentation/evidence_catalog.py", "classification": "EXTEND", "reason": "AllowedEvidenceCatalog resolves local E* keys to canonical ids and rejects unknown keys; the same closed-catalog pattern is reusable for multi-source provenance but needs new source-type registration."}
+      ]
+    },
+    {
+      "capability": "evidence_references",
+      "components": [
+        {"path": "legacy_documenter/documentation/evidence_resume.py", "classification": "REUSE_AS_IS", "reason": "Deterministic evidence-reference resumption/traceability logic is source-agnostic in its contract shape (ids, refs, snapshots)."},
+        {"path": "legacy_documenter/models/evidence.py", "classification": "EXTEND", "reason": "Needs additional source-type discriminators for HUMAN_REQUIREMENT, EXTERNAL_DOCUMENT, etc., beyond code-derived evidence."}
+      ]
+    },
+    {
+      "capability": "context_packaging",
+      "components": [
+        {"path": "legacy_documenter/context/context_builder.py", "classification": "REUSE_AS_IS", "reason": "Builds ai_context packages from deterministic V1/V2 outputs; contract is independent of V4 concerns."},
+        {"path": "legacy_documenter/context/resolver.py", "classification": "REUSE_AS_IS", "reason": "ContextResolver produces CTX-* ids from canonical JSON; mechanism is source-neutral."},
+        {"path": "legacy_documenter/context/composer.py", "classification": "EXTEND", "reason": "ContextComposer's priority/budget/truncation mechanism (P0..P4, profiles) is directly reusable, but its record categories (flow_refs, path_refs, data_access_refs) are code-centric and must be extended for human-supplied and business knowledge records."},
+        {"path": "legacy_documenter/context/system_context_builder.py", "classification": "ADAPT", "reason": "System-level context composition assumes a single code-derived system; V4 multi-source composition needs a broader input model."}
+      ]
+    },
+    {
+      "capability": "document_claims",
+      "components": [
+        {"path": "legacy_documenter/documentation/contracts.py", "classification": "EXTEND", "reason": "Existing claim/status contract (CONFIRMED/INTERPRETED/UNRESOLVED) is the direct basis for V4 knowledge classification states, but V4 needs additional states (CONFLICTING, MISSING, SUPERSEDED, PARTIAL as first-class) per V4_CONTRACT_FOUNDATION section 3.6."},
+        {"path": "legacy_documenter/documentation/human_review.py", "classification": "EXTEND", "reason": "parse_document/claim parsing pattern is reusable groundwork for parsing Technical Lead-authored disposition records, but the fixed FMI/TMI schema is V3-specific and must generalize."},
+        {"path": "legacy_documenter/documentation/second_review.py", "classification": "ADAPT", "reason": "Encodes V3's exact R8.4 disposition set (PARTIAL/EXTERNAL/RESOLVED constants); the mechanism of recording human dispositions is reusable, the specific closed sets are not."}
+      ]
+    },
+    {
+      "capability": "human_review",
+      "components": [
+        {"path": "legacy_documenter/documentation/human_review.py", "classification": "EXTEND", "reason": "Precondition validation and claim/missing-information parsing generalize to Technical Lead approval workflows required by V4 section on Authority Model."},
+        {"path": "legacy_documenter/documentation/second_review.py", "classification": "ADAPT", "reason": "Represents one closed historical review round; V4 needs an open-ended, repeatable Technical Lead approval lifecycle (PROPOSAL -> APPROVED KNOWLEDGE), not a fixed round."}
+      ]
+    },
+    {
+      "capability": "readiness",
+      "components": [
+        {"path": "legacy_documenter/knowledge/readiness.py", "classification": "ADAPT", "reason": "KnowledgeReadinessService validates a fixed, V3-specific set of preconditions (specific FMI/TMI ids, fixed prohibited assertions, hardcoded human-confirmed ids). The validation pattern (checks dict, deterministic gate, no provider calls) is directly reusable; the fixed data must become configurable/contract-driven for multi-source V4 knowledge."}
+      ]
+    },
+    {
+      "capability": "knowledge_projection",
+      "components": [
+        {"path": "legacy_documenter/knowledge/readiness.py", "classification": "ADAPT", "reason": "build_projection()/build_boundary() (per V3 manual sections 26-27) already classify records into fact/interpretation/partial/unresolved/ineligible; this is the closest existing analog to V4 KNOWLEDGE_CLASSIFICATION and AS_IS_TO_BE_SEPARATION, but currently only classifies code-derived claims, not multi-source knowledge with AS_IS/TO_BE/HISTORICAL temporal state."}
+      ]
+    },
+    {
+      "capability": "provider_abstraction",
+      "components": [
+        {"path": "legacy_documenter/llm/core.py", "classification": "REUSE_AS_IS", "reason": "LLMProvider/LLMRequest/LLMResponse abstraction is already provider-neutral, purpose-typed and includes FakeLLMProvider for deterministic testing; directly satisfies V4's requirement that AI never gains authority and provider specifics stay isolated."},
+        {"path": "legacy_documenter/llm/providers/copilot.py", "classification": "REUSE_AS_IS", "reason": "CopilotProvider adapter pattern (tools/dynamic instructions disabled, strict JSON) is a template for any V4 interpretation-only provider call."},
+        {"path": "legacy_documenter/llm/providers/gemini.py", "classification": "REUSE_AS_IS", "reason": "Second working adapter proves the abstraction supports multiple vendors without core changes, consistent with V4 Agent Independence Rule."},
+        {"path": "legacy_documenter/llm/copilot_pilot.py", "classification": "ADAPT", "reason": "Wires a specific historical pilot flow (V3 interpretation purposes); V4 will need new PURPOSES (e.g. KNOWLEDGE_GENERATION already exists as a constant but is unused) and new orchestration, not a new provider abstraction."}
+      ]
+    },
+    {
+      "capability": "deterministic_validation",
+      "components": [
+        {"path": "legacy_documenter/documentation/consistency.py", "classification": "REUSE_AS_IS", "reason": "Deterministic cross-document consistency checking is source-agnostic."},
+        {"path": "legacy_documenter/documentation/coverage.py", "classification": "REUSE_AS_IS", "reason": "Deterministic coverage computation over claims/evidence is reusable for any claim population."},
+        {"path": "legacy_documenter/documentation/envelope.py", "classification": "REUSE_AS_IS", "reason": "Deterministic response/document envelope validation is contract-shape validation, independent of source type."}
+      ]
+    },
+    {
+      "capability": "security",
+      "components": [
+        {"path": "legacy_documenter/utils/sanitizer.py", "classification": "REUSE_AS_IS", "reason": "sanitize_text/sanitize_data secret-redaction is generic over any string/dict/list payload; directly reusable for sanitizing human-supplied MATERIAL before it enters context packages."},
+        {"path": "legacy_documenter/knowledge/readiness.py", "classification": "REUSE_AS_IS", "reason": "SECRET_RE-based secret-shape detection in the projection step generalizes without change."}
+      ]
+    },
+    {
+      "capability": "traceability",
+      "components": [
+        {"path": "legacy_documenter/documentation/evidence_resume.py", "classification": "REUSE_AS_IS", "reason": "Resume/traceability chain (document -> claim -> evidence -> package -> snapshot) is the backbone V4 provenance must extend, not replace."},
+        {"path": "legacy_documenter/documentation/resume.py", "classification": "REUSE_AS_IS", "reason": "General resumption/continuation contract is independent of source type."}
+      ]
+    },
+    {
+      "capability": "code_discovery_not_directly_v4",
+      "components": [
+        {"path": "legacy_documenter/scanner/repository_scanner.py", "classification": "DO_NOT_REUSE", "reason": "V4's core additions (human ingestion, provenance, classification, approval) are not code-discovery concerns; this module remains valid for the DETERMINISTIC_CODE_FACT source type but requires no change for V4 itself."},
+        {"path": "legacy_documenter/extractors/vbnet_extractor.py", "classification": "DO_NOT_REUSE", "reason": "VB.NET-specific extraction is orthogonal to V4 scope; V4 does not touch code extraction."},
+        {"path": "legacy_documenter/analysis/call_resolver.py", "classification": "DO_NOT_REUSE", "reason": "Code relationship resolution is unrelated to multi-source knowledge composition; no V4 change needed or expected here."}
+      ]
+    }
+  ],
+  "plugin_boundary_flags": [
+    {"item": "Any future component that autonomously documents, designs, develops or validates target-system code changes", "classification": "OUT_OF_SCOPE_PLUGIN_RESPONSIBILITY", "reason": "V4_CONTRACT_FOUNDATION section 9-10 reserves autonomous project work for the multi-agent Plugin; LegacyMapper only constructs the Knowledge Source."}
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "items": [
+    {
+      "area": "compact_one_line_contracts",
+      "id": "TD-001",
+      "plan": "Format only when the owning contract next changes.",
+      "reason": "Reformatting historical R7/R8 one-line contracts would create broad noisy diffs without semantic benefit."
+    },
+    {
+      "area": "provider_exception_boundaries",
+      "id": "TD-002",
+      "plan": "Retain until provider-specific exception taxonomies are contract-tested.",
+      "reason": "Broad boundaries deliberately convert external SDK/HTTP failures into safe domain responses."
+    },
+    {
+      "area": "cross_round_helpers",
+      "id": "TD-003",
+      "plan": "Evaluate contract equivalence before any V4 consolidation.",
+      "reason": "Similar helpers have different validated round semantics and cannot be merged by textual similarity."
+    },
+    {
+      "area": "large_orchestrators",
+      "id": "TD-004",
+      "plan": "Extract only behind characterization tests in a separately scoped change.",
+      "reason": "Splitting discovery and historical round orchestration now risks ordering and output compatibility."
+    },
+    {
+      "area": "type_hints",
+      "id": "TD-005",
+      "plan": "Introduce narrow TypedDict models incrementally at future modified boundaries.",
+      "reason": "Ambiguous nested historical JSON shapes were not annotated with misleading object/Any types."
+    }
+  ],
+  "schema_version": "V3-R10.1-1"
+}

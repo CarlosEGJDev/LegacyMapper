@@ -1,0 +1,187 @@
+{
+  "contradicting_indicators": [],
+  "deterministic_indicators": [
+    {
+      "count": 3346,
+      "indicator": "WEBFORMS_USAGE",
+      "status": "SUPPORTED"
+    },
+    {
+      "count": 167,
+      "indicator": "PROJECT_REFERENCE_DIRECTION",
+      "status": "SUPPORTED"
+    },
+    {
+      "count": 20082,
+      "indicator": "DATA_ACCESS_OPERATIONS",
+      "status": "SUPPORTED"
+    },
+    {
+      "count": 0,
+      "indicator": "MVC_FRAMEWORK_REFERENCE",
+      "status": "INSUFFICIENT_EVIDENCE"
+    }
+  ],
+  "evidence_ids": [
+    "DEEP-ASM-000d083620195457",
+    "DEEP-ASM-001d31483ea17632",
+    "DEEP-ASM-00331e5a00290b97",
+    "DEEP-ASM-006457330b7cada9",
+    "DEEP-ASM-0067cd48eb72aad0",
+    "DEEP-ASM-0085c3189de2b5f6",
+    "DEEP-PROJ-016fcc65cc8e85ad",
+    "DEEP-PROJ-01bbd17a6507ee16",
+    "DEEP-PROJ-0385d9a8aab68d1a",
+    "DEEP-PROJ-05657fc3c978fe54",
+    "DEEP-PROJ-0654aaaf46745d55",
+    "DEEP-PROJ-06888a7387e44036",
+    "R81-ARCH-00",
+    "R81-ARCH-01",
+    "R81-ARCH-02",
+    "R81-ARCH-03",
+    "R81-SUMMARY-counts-external_dependencies",
+    "R81-SUMMARY-counts-integrations",
+    "R81-SUMMARY-counts-stored_procedures",
+    "R81-SUMMARY-counts-webforms"
+  ],
+  "llm_interpretation": [
+    {
+      "canonical_evidence_ids": [
+        "R81-ARCH-00",
+        "R81-ARCH-03",
+        "R81-SUMMARY-counts-webforms"
+      ],
+      "claim_candidates": [
+        {
+          "evidence_aliases": [
+            "E12",
+            "E13",
+            "E16"
+          ],
+          "statement": "The evidence supports a WebForms-oriented application pattern, while MVC remains unsupported by the available indicators.",
+          "status": "INTERPRETED"
+        }
+      ],
+      "evidence_aliases": [
+        "E12",
+        "E13",
+        "E16"
+      ],
+      "interpretation_status": "VALID",
+      "recommended_next_status": "RESOLVED_WITH_INTERPRETATION",
+      "semantic_summary": "PATTERN_SUPPORTED: The available indicators support a WebForms-oriented application pattern; they do not support concluding that MVC is present.",
+      "source_snapshots": [
+        "c65b0a03ae7895d885c8d9b28705acc9cce1913904c3e42fc0bd342a0ac5871e"
+      ],
+      "target_id": "FMI-008",
+      "unresolved_aspects": [
+        "The evidence does not establish whether additional architectural patterns coexist with WebForms."
+      ]
+    },
+    {
+      "canonical_evidence_ids": [
+        "DEEP-PROJ-016fcc65cc8e85ad",
+        "DEEP-PROJ-01bbd17a6507ee16",
+        "DEEP-PROJ-0385d9a8aab68d1a",
+        "DEEP-PROJ-05657fc3c978fe54",
+        "DEEP-PROJ-0654aaaf46745d55",
+        "DEEP-PROJ-06888a7387e44036",
+        "R81-ARCH-01"
+      ],
+      "claim_candidates": [],
+      "evidence_aliases": [
+        "E14",
+        "E17",
+        "E18",
+        "E19",
+        "E20",
+        "E21",
+        "E22"
+      ],
+      "interpretation_status": "INSUFFICIENT_EVIDENCE",
+      "recommended_next_status": "REQUIRES_EXTERNAL_INFORMATION",
+      "semantic_summary": "The evidence indicates a project-reference landscape containing both resolved and unresolved relationships, but it does not establish the target-specific dependency structure.",
+      "source_snapshots": [
+        "c65b0a03ae7895d885c8d9b28705acc9cce1913904c3e42fc0bd342a0ac5871e"
+      ],
+      "target_id": "TMI-001",
+      "unresolved_aspects": [
+        "The target-specific dependency relationships are not identified.",
+        "Unresolved relationships cannot support a complete dependency interpretation."
+      ]
+    },
+    {
+      "canonical_evidence_ids": [
+        "R81-ARCH-02",
+        "R81-SUMMARY-counts-stored_procedures"
+      ],
+      "claim_candidates": [
+        {
+          "evidence_aliases": [
+            "E11",
+            "E15"
+          ],
+          "statement": "The available indicators support interpreting the system as data-access-heavy, with stored procedures forming a significant part of the observed persistence surface.",
+          "status": "INTERPRETED"
+        }
+      ],
+      "evidence_aliases": [
+        "E11",
+        "E15"
+      ],
+      "interpretation_status": "VALID",
+      "recommended_next_status": "PARTIALLY_RESOLVED_WITH_INTERPRETATION",
+      "semantic_summary": "The evidence supports a data-access-heavy system with substantial stored-procedure involvement, but it does not establish the associated business rules or ownership boundaries.",
+      "source_snapshots": [
+        "c65b0a03ae7895d885c8d9b28705acc9cce1913904c3e42fc0bd342a0ac5871e"
+      ],
+      "target_id": "TMI-006",
+      "unresolved_aspects": [
+        "The evidence does not identify the data-access technologies, layering, or business rules."
+      ]
+    },
+    {
+      "canonical_evidence_ids": [
+        "DEEP-ASM-000d083620195457",
+        "DEEP-ASM-001d31483ea17632",
+        "DEEP-ASM-00331e5a00290b97",
+        "DEEP-ASM-006457330b7cada9",
+        "DEEP-ASM-0067cd48eb72aad0",
+        "DEEP-ASM-0085c3189de2b5f6",
+        "R81-SUMMARY-counts-external_dependencies",
+        "R81-SUMMARY-counts-integrations"
+      ],
+      "claim_candidates": [],
+      "evidence_aliases": [
+        "E05",
+        "E08",
+        "E23",
+        "E24",
+        "E25",
+        "E26",
+        "E27",
+        "E28"
+      ],
+      "interpretation_status": "INSUFFICIENT_EVIDENCE",
+      "recommended_next_status": "REQUIRES_EXTERNAL_INFORMATION",
+      "semantic_summary": "The evidence indicates substantial external-dependency and integration activity, but it does not identify the target-specific integrations or their semantics.",
+      "source_snapshots": [
+        "c65b0a03ae7895d885c8d9b28705acc9cce1913904c3e42fc0bd342a0ac5871e"
+      ],
+      "target_id": "TMI-011",
+      "unresolved_aspects": [
+        "The external systems and integration purposes are not identified.",
+        "Assembly references alone do not establish runtime integration behavior."
+      ]
+    }
+  ],
+  "pattern_status": "NO_PATTERN_CONFIRMED",
+  "unresolved_points": [
+    "Assembly references alone do not establish runtime integration behavior.",
+    "The evidence does not establish whether additional architectural patterns coexist with WebForms.",
+    "The evidence does not identify the data-access technologies, layering, or business rules.",
+    "The external systems and integration purposes are not identified.",
+    "The target-specific dependency relationships are not identified.",
+    "Unresolved relationships cannot support a complete dependency interpretation."
+  ]
+}

@@ -1,0 +1,2 @@
+"""Deterministic knowledge-readiness validation."""
+
