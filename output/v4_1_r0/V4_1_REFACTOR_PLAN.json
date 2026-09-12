@@ -1,0 +1,325 @@
+{
+  "baseline_tests": 1380,
+  "behavior_change": "FORBIDDEN",
+  "behavior_preservation_strategy": {
+    "artifact_equivalence": "A specific historical file (e.g. output/v4_r12/V4_PLUGIN_FACING_OUTPUT_EXAMPLE.json) remains byte-identical on disk; V4.1 never regenerates a closed historical artifact.",
+    "behavioral_equivalence": "Same observable outcome for the same input (e.g. the same knowledge ids, the same PASS/FAIL readiness verdict) even if internal steps changed.",
+    "implementation_equivalence": "NOT required -- V4.1's entire purpose is to change implementation structure (module layout, class boundaries, naming) while preserving the three equivalences above.",
+    "minimum_proof_per_round": [
+      "full test suite pass",
+      "readiness gate pass",
+      "unchanged hash for every artifact the round did not intend to touch",
+      "new characterization tests pass where required"
+    ],
+    "serialized_contract_equivalence": "Byte-identical JSON/Markdown output for every existing contract/example artifact, proven by the existing SHA-256 tests."
+  },
+  "deferred_items": [
+    "TD-002 (provider exception taxonomy narrowing) -- deliberately not addressed in V4.1; revisit only when a future round introduces contract-tested provider-specific exception types.",
+    "DUP-002 / TD-003 builder-body consolidation -- deliberately not merged; only the shared renderer tail (DUP-001) is extracted in V4.1-R1.",
+    "legacy_documenter/context/* package renames -- deferred until a dedicated characterization pass identifies the true entry point (see naming_candidates).",
+    "Any extraction of legacy_documenter/extractors/database_extractor.py or legacy_documenter/analysis/flow_resolver.py beyond characterization -- explicitly deferred to a design-reviewed sub-round of V4.1-R6, one module at a time."
+  ],
+  "deterministic_artifact_preservation": {
+    "CURRENT_STATE_ARTIFACT": [
+      "output/v4_1_r0/V4_1_MAINTAINABILITY_INVENTORY.json",
+      "output/v4_1_r0/V4_1_REFACTOR_PLAN.json",
+      "PROJECT_STATE.json"
+    ],
+    "IMMUTABLE_HISTORICAL_ARTIFACT": [
+      "output/v4_r10/*.json",
+      "output/v4_r11/*.json",
+      "output/v4_r12/*.json",
+      "output/v4_r13/*.json",
+      "output/v3_final/V3_FINAL_BASELINE.json"
+    ],
+    "NOT_APPLICABLE": [
+      "output/v1_r1_full/, output/v2_r4_full/, ... (excluded from git; not part of V4.1 scope)"
+    ],
+    "REGENERATABLE_WITH_EQUAL_HASH_REQUIRED": [
+      "output/v4_r14/V4_FINAL_BASELINE.json (only if a future round intentionally advances it; must reproduce the same hash unless the Technical Lead explicitly approves a new one)"
+    ]
+  },
+  "global_invariants": [
+    "V4 contracts (R7-R14) remain byte-identical unless a round explicitly proves contract/behavioral equivalence and a Technical Lead approves the change.",
+    "Technical-Lead-only approval authority is never altered.",
+    "provenance/temporal/relation semantics, proposal/approval lifecycles, deterministic ID derivation, and the Plugin boundary (R11/R12 non-import direction) are never altered.",
+    "Source-code optionality and the read-only legacy-source-repository rule are never altered.",
+    "No round introduces a new third-party dependency.",
+    "No round performs a real LLM/provider call.",
+    "Every round preserves the full existing test suite; a round never weakens or removes an assertion to force a PASS."
+  ],
+  "goal": "READABILITY_AND_MAINTAINABILITY",
+  "maintainability_success_criteria": [
+    "Zero behavior regressions: full test suite passes at every round, readiness stays READY.",
+    "Zero contract/hash drift on every artifact not explicitly and intentionally touched.",
+    "DEBT-001/DUP-001 duplication eliminated (one shared renderer, 11 call sites) without any output byte change.",
+    "DEBT-002 resolved: readiness.py's three responsibilities separated behind an unchanged public entry point.",
+    "DEBT-003 resolved: no remaining generic `requests` parameter name in classification/proposals/relations services.",
+    "Reduced VERY_HIGH risk_category file count from this round's baseline (risk_summary.very_high_risk_files: legacy_documenter/analysis/deep_source.py, legacy_documenter/documentation/{generator,hierarchical,resume,systematic}.py, legacy_documenter/knowledge/readiness.py) only after each has characterization tests -- not by reclassification alone. database_extractor.py and flow_resolver.py score HIGH (not VERY_HIGH) on the mechanical file-level heuristic despite their oversized single classes, which is why responsibility_candidates/characterization_needs track them separately by class-cohesion evidence rather than by risk_category alone.",
+    "No new oversized orchestrator introduced (no new file added to largest_modules top 5 by line count).",
+    "Every symbol whose path moves has an explicit compatibility strategy from public_compatibility, verified by a passing test exercising the old path.",
+    "These criteria are evaluated against re-run inventory numbers, not self-reported percentages, to avoid gaming (e.g. a file cannot claim reduced responsibility_count by deleting its docstring-derived signals)."
+  ],
+  "phase": "V4.1",
+  "required_final_validation": [
+    "python -m unittest discover -s tests (>= current test count, 0 failures)",
+    "python -m legacy_documenter.knowledge.readiness (READY, ai_knowledge_generated=false, provider_calls=0, real_llm_calls=0)",
+    "re-hash every artifact listed in output/v4_r10/, output/v4_r11/, output/v4_r12/, output/v4_r13/, output/v4_r14/ and confirm equality with the SHA-256 values recorded in their closure documents",
+    "re-run the V4-R13-style architectural/security invariant scan (Plugin-runtime absence, plugin_projection/projection non-import, canonical id superset/subset relationship, no auto-approve function, frozen dataclass immutability)",
+    "compare this round's V4_1_MAINTAINABILITY_INVENTORY.json against the R10 closure inventory on the specific, non-gameable success criteria below"
+  ],
+  "rounds": [
+    {
+      "allowed_changes": [
+        "test assertion correction (round-ordinal style, matching REG-001's fix shape)",
+        "new shared internal helper module for JSON rendering",
+        "call-site update to use it"
+      ],
+      "characterization_required": false,
+      "debt_items_addressed": [
+        "REG-002-CANDIDATE",
+        "DEBT-001",
+        "TD-001"
+      ],
+      "expected_tests": "All existing per-round contract/example hash tests must still pass unchanged; add tests for the new shared helper.",
+      "forbidden_changes": [
+        "any change to a builder function's dict shape",
+        "any contract/example hash change"
+      ],
+      "human_review_gate": true,
+      "objective": "Fix the newly discovered REG-002-CANDIDATE stale-snapshot test defect (test-only), then extract the shared JSON contract-renderer helper (DEBT-001/DUP-001).",
+      "primary_files": [
+        "tests/test_v4_r14_manuals_and_final_baseline.py",
+        "legacy_documenter/knowledge/*/contract_report.py"
+      ],
+      "risk": "LOW",
+      "rollback_boundary": "Single commit; revert restores both the prior test and the per-package renderer bodies.",
+      "round_id": "V4.1-R1",
+      "title": "Entry-Gate Fix + Shared Reporting/Serialization Cleanup"
+    },
+    {
+      "allowed_changes": [
+        "adding type hints",
+        "adding TypedDict/dataclass models for existing dict shapes"
+      ],
+      "characterization_required": false,
+      "debt_items_addressed": [
+        "TD-005"
+      ],
+      "expected_tests": "Full suite unchanged; mypy/typing is diagnostic only (no new dependency), so no new gate is added.",
+      "forbidden_changes": [
+        "changing runtime behavior of any annotated function",
+        "renaming any public symbol"
+      ],
+      "human_review_gate": true,
+      "objective": "Improve annotation coverage at public service boundaries in the lowest-scoring files (type_safety_candidates), and introduce narrow TypedDict models only where TD-005 already flagged ambiguous nested JSON at a boundary a round is touching.",
+      "primary_files": [
+        "files listed in type_safety_candidates"
+      ],
+      "risk": "LOW",
+      "rollback_boundary": "Per-file commits; each file's annotations can be reverted independently.",
+      "round_id": "V4.1-R2",
+      "title": "Type Safety at Service/Contract Boundaries (Incremental)"
+    },
+    {
+      "allowed_changes": [
+        "parameter renames",
+        "adding a compatibility alias for a renamed function"
+      ],
+      "characterization_required": false,
+      "debt_items_addressed": [
+        "DEBT-003"
+      ],
+      "expected_tests": "Full suite unchanged; add a test asserting the compatibility alias still resolves.",
+      "forbidden_changes": [
+        "changing any method's positional/keyword calling contract observed by tests",
+        "removing the old name without a wrapper"
+      ],
+      "human_review_gate": true,
+      "objective": "Apply the naming_candidates entries with NO_WRAPPER/REEXPORT compatibility strategy (DEBT-003 requests-parameter rename; maintainability_audit.audit alias).",
+      "primary_files": [
+        "legacy_documenter/knowledge/classification/service.py",
+        "legacy_documenter/knowledge/proposals/service.py",
+        "legacy_documenter/knowledge/relations/service.py",
+        "legacy_documenter/quality/maintainability_audit.py"
+      ],
+      "risk": "LOW",
+      "rollback_boundary": "Per-file commits.",
+      "round_id": "V4.1-R3",
+      "title": "Naming Pass Part 1 (Low-Risk Parameter/Internal Renames)"
+    },
+    {
+      "allowed_changes": [
+        "splitting into new internal modules",
+        "adding a `readiness.py` compatibility wrapper re-exporting `run()` and the CLI `__main__` behavior unchanged"
+      ],
+      "characterization_required": true,
+      "debt_items_addressed": [
+        "DEBT-002"
+      ],
+      "expected_tests": "New characterization tests pinning current output for at least one PASS and one FAIL fixture, added before the split; full suite must still pass after.",
+      "forbidden_changes": [
+        "changing any of the four output files' schema or content",
+        "changing the `checks`/`readiness` boolean logic"
+      ],
+      "human_review_gate": true,
+      "objective": "Split legacy_documenter/knowledge/readiness.py (DEBT-002) into parsing / evidence-closure computation / file-I/O modules behind a compatibility wrapper, only after characterization tests freeze its current output for the existing fixture set.",
+      "primary_files": [
+        "legacy_documenter/knowledge/readiness.py"
+      ],
+      "risk": "MEDIUM",
+      "rollback_boundary": "Single round, single revert; wrapper keeps the public entry point stable throughout.",
+      "round_id": "V4.1-R4",
+      "title": "Readiness Module Decomposition"
+    },
+    {
+      "allowed_changes": [
+        "adding characterization tests only"
+      ],
+      "characterization_required": true,
+      "debt_items_addressed": [
+        "TD-004"
+      ],
+      "expected_tests": "New characterization test modules for each of the four files, run against existing fixtures.",
+      "forbidden_changes": [
+        "any production code change"
+      ],
+      "human_review_gate": true,
+      "objective": "Add characterization tests for the highest-risk historical modules: the mechanical VERY_HIGH set (deep_source.py, documentation/{generator,hierarchical,resume,systematic}.py, knowledge/readiness.py -- readiness.py is covered separately in R4) plus the two HIGH-risk, oversized-class modules found by direct reading (database_extractor.py's 27-method class, flow_resolver.py's 24-method class). Perform NO extraction/splitting in this round -- characterization first, extraction only in a later, separately scoped round once tests exist and a design decision is made per module.",
+      "primary_files": [
+        "legacy_documenter/extractors/database_extractor.py",
+        "legacy_documenter/analysis/flow_resolver.py",
+        "legacy_documenter/analysis/deep_source.py",
+        "legacy_documenter/documentation/resume.py",
+        "legacy_documenter/documentation/hierarchical.py",
+        "legacy_documenter/documentation/generator.py",
+        "legacy_documenter/documentation/systematic.py"
+      ],
+      "risk": "LOW (test-only round)",
+      "rollback_boundary": "New test files only; trivially revertible.",
+      "round_id": "V4.1-R5",
+      "title": "Large Historical Orchestrators -- Characterization Only"
+    },
+    {
+      "allowed_changes": [
+        "extraction into new internal collaborator classes/modules within the same package",
+        "compatibility wrapper preserving the existing public class/function"
+      ],
+      "characterization_required": true,
+      "debt_items_addressed": [
+        "TD-004 (continued)"
+      ],
+      "expected_tests": "R5's characterization tests plus the full suite must pass unchanged after each extraction.",
+      "forbidden_changes": [
+        "any change to characterization-test-observed output",
+        "any contract change"
+      ],
+      "human_review_gate": true,
+      "objective": "For each VERY_HIGH-risk module characterized in R5, and only after an explicit Technical Lead design decision on the target shape, extract responsibilities in small, independently reviewable steps (e.g. separate DatabaseExtractor's text-scanning from its classification decisions).",
+      "primary_files": [
+        "one module per sub-round; not batched"
+      ],
+      "risk": "HIGH",
+      "rollback_boundary": "One module per commit/PR; each is independently revertible.",
+      "round_id": "V4.1-R6",
+      "title": "Extraction Behind Characterization (Design-Reviewed, Per Module)"
+    },
+    {
+      "allowed_changes": [
+        "narrowing an except clause's exception type where a characterization test proves it safe",
+        "adding an explanatory comment per the development standard's exception-boundary rule"
+      ],
+      "characterization_required": true,
+      "debt_items_addressed": [
+        "TD-002 (documented as intentionally deferred, not addressed)"
+      ],
+      "expected_tests": "R5 characterization tests plus new negative-path tests proving the narrowed exception still surfaces the same safe behavior.",
+      "forbidden_changes": [
+        "touching legacy_documenter/llm/providers/* or copilot_pilot.py (provider boundary, deliberately out of scope per TD-002)"
+      ],
+      "human_review_gate": true,
+      "objective": "Review the HISTORICAL_COMPATIBILITY-classified broad exception handlers in documentation/generator.py, hierarchical.py, systematic.py, and the REFACTOR_CANDIDATE in resume.py, narrowing only where characterization tests (from R5) prove the narrower catch still degrades safely. Provider boundaries (TD-002) are explicitly left alone in this round.",
+      "primary_files": [
+        "legacy_documenter/documentation/generator.py",
+        "legacy_documenter/documentation/hierarchical.py",
+        "legacy_documenter/documentation/systematic.py",
+        "legacy_documenter/documentation/resume.py"
+      ],
+      "risk": "MEDIUM",
+      "rollback_boundary": "Per-file commits.",
+      "round_id": "V4.1-R7",
+      "title": "Exception Boundary Review (Non-Provider Modules Only)"
+    },
+    {
+      "allowed_changes": [
+        "file rename with re-export wrapper",
+        "adding/expanding docstrings",
+        "cosmetic reformatting of a file already touched for another reason"
+      ],
+      "characterization_required": "Only for legacy_documenter/context/* moves",
+      "debt_items_addressed": [
+        "TD-001",
+        "remaining naming_candidates"
+      ],
+      "expected_tests": "Full suite unchanged.",
+      "forbidden_changes": [
+        "repository-wide reformat",
+        "moving a context/ file without a prior characterization round"
+      ],
+      "human_review_gate": true,
+      "objective": "Apply the remaining naming_candidates (copilot_pilot.py rename with REEXPORT wrapper, context/ package entry-point clarification once characterized), close out TD-001's cosmetic reformat opportunistically, and fill documentation_candidates gaps.",
+      "primary_files": [
+        "legacy_documenter/llm/copilot_pilot.py",
+        "legacy_documenter/context/*",
+        "files listed in documentation_candidates"
+      ],
+      "risk": "LOW",
+      "rollback_boundary": "Per-file commits.",
+      "round_id": "V4.1-R8",
+      "title": "Naming Pass Part 2 + Documentation/Formatting Pass"
+    },
+    {
+      "allowed_changes": [
+        "new regression/verification test module only"
+      ],
+      "characterization_required": false,
+      "debt_items_addressed": [],
+      "expected_tests": "Full suite + new V4.1 regression suite, all passing.",
+      "forbidden_changes": [
+        "any production code change"
+      ],
+      "human_review_gate": true,
+      "objective": "Re-run and extend the V4-R13-style regression/security methodology across every V4.1-R1..R8 change: re-hash every approved artifact, re-verify architectural invariants, re-verify the knowledge-domain dependency direction, and prove no serialized-contract byte changed except where explicitly and intentionally allowed (none are expected).",
+      "primary_files": [
+        "repository-wide, read-only verification"
+      ],
+      "risk": "LOW (verification round)",
+      "rollback_boundary": "New test file only.",
+      "round_id": "V4.1-R9",
+      "title": "Comprehensive Regression & Behavioral Equivalence"
+    },
+    {
+      "allowed_changes": [
+        "new closure artifacts and result document"
+      ],
+      "characterization_required": false,
+      "debt_items_addressed": [
+        "closes out any remaining LOW-risk items accepted as permanently deferred"
+      ],
+      "expected_tests": "Full suite passing at closure.",
+      "forbidden_changes": [
+        "any production code change in this round itself"
+      ],
+      "human_review_gate": true,
+      "objective": "Regenerate the maintainability diagnostic baseline (not any V4 contract artifact), compare it against this round's V4_1_MAINTAINABILITY_INVENTORY.json to show measurable improvement against the success criteria, and formally close V4.1 pending Technical Lead approval.",
+      "primary_files": [
+        "output/v4_1_r10/*"
+      ],
+      "risk": "LOW",
+      "rollback_boundary": "New artifacts/docs only.",
+      "round_id": "V4.1-R10",
+      "title": "Maintainability Final Baseline & Closure"
+    }
+  ],
+  "schema_version": "V4.1-R0-1"
+}

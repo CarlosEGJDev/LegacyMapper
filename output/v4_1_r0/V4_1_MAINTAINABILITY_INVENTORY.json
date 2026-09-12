@@ -1,0 +1,5644 @@
+{
+  "baseline": {
+    "ai_knowledge_allowed": true,
+    "ai_knowledge_generated": false,
+    "baseline_test_count": 1380,
+    "entry_gate_note": "1379 PASS / 1 FAIL out of 1380 collected tests; see known_debt REG-002-CANDIDATE. No production code, contract, or test semantics were changed to investigate this.",
+    "entry_gate_result": "PASS_WITH_ONE_PRE_EXISTING_TEST_FAILURE",
+    "latest_approved_round": "V4-R14",
+    "latest_completed_round": "V4-R14",
+    "phase": "V4.1",
+    "provider_calls": 0,
+    "readiness": "READY",
+    "real_llm_calls": 0,
+    "round": "V4.1-R0",
+    "v4_status": "FORMALLY_CLOSED"
+  },
+  "characterization_needs": [
+    {
+      "behaviors_to_freeze": [
+        "exact set and ordering of detected database access findings for a representative VB.NET fixture",
+        "classification labels assigned to ambiguous/ADO.NET-shaped access patterns"
+      ],
+      "classification": "TOO_RISKY_WITHOUT_DESIGN_REVIEW",
+      "path": "legacy_documenter/extractors/database_extractor.py"
+    },
+    {
+      "behaviors_to_freeze": [
+        "resolved call graph shape for a representative multi-file fixture",
+        "narrative/report text emitted for at least one branch/loop/error-path scenario"
+      ],
+      "classification": "TOO_RISKY_WITHOUT_DESIGN_REVIEW",
+      "path": "legacy_documenter/analysis/flow_resolver.py"
+    },
+    {
+      "behaviors_to_freeze": [
+        "the four fixed output files' exact content for the existing fixture set",
+        "the ineligible-record count and every `checks` boolean for at least one PASS and one FAIL scenario"
+      ],
+      "classification": "ADDITIONAL_CHARACTERIZATION_REQUIRED",
+      "path": "legacy_documenter/knowledge/readiness.py"
+    },
+    {
+      "behaviors_to_freeze": [
+        "checkpoint/resume state transitions across an interrupted-then-resumed run",
+        "which of the 6 exception paths is exercised by which failure fixture"
+      ],
+      "classification": "ADDITIONAL_CHARACTERIZATION_REQUIRED",
+      "path": "legacy_documenter/documentation/resume.py"
+    },
+    {
+      "behaviors_to_freeze": [
+        "the exact set of interpreted findings for a representative deep-source fixture",
+        "which findings are attributed to which of its 7 mixed responsibilities, so extraction can be verified per concern"
+      ],
+      "classification": "ADDITIONAL_CHARACTERIZATION_REQUIRED",
+      "path": "legacy_documenter/analysis/deep_source.py"
+    },
+    {
+      "behaviors_to_freeze": [
+        "existing per-round contract/example SHA-256 hash tests already pin the exact serialized bytes; the DUP-001 extraction changes only where the identical `json.dumps(...)` call is written, not its arguments or output"
+      ],
+      "classification": "EXISTING_TESTS_SUFFICIENT",
+      "path": "legacy_documenter/knowledge/*/contract_report.py (DUP-001 extraction)"
+    }
+  ],
+  "dependency_findings": {
+    "cycle_note": "The single reported cycle (legacy_documenter.llm <-> .core <-> .providers.copilot) is a package-facade self-loop: llm/__init__.py does `from .core import *`, and providers/copilot.py imports from the `legacy_documenter.llm` facade instead of `legacy_documenter.llm.core` directly. There is no real circular import at module-init time (providers is a separate sub-package imported after llm/__init__ completes); this is a naming/import-clarity finding, not a behavioral defect.",
+    "cycles_detected": [
+      [
+        "legacy_documenter.llm",
+        "legacy_documenter.llm.core",
+        "legacy_documenter.llm.providers.copilot",
+        "legacy_documenter.llm"
+      ]
+    ],
+    "knowledge_domain_direction_note": "plugin_projection.service imports only canonical.service/models and domain; projection.service imports only canonical.service/models, projection.models and domain; neither imports the other, confirming the R13-established acyclic direction still holds.",
+    "knowledge_domain_direction_reverified": "PASS",
+    "module_count": 143
+  },
+  "documentation_candidates": [
+    {
+      "docstring_coverage_percent": 7.14,
+      "module_docstring_present": false,
+      "path": "legacy_documenter/extractors/database_extractor.py"
+    },
+    {
+      "docstring_coverage_percent": 8.0,
+      "module_docstring_present": false,
+      "path": "legacy_documenter/analysis/flow_resolver.py"
+    },
+    {
+      "docstring_coverage_percent": 13.33,
+      "module_docstring_present": false,
+      "path": "legacy_documenter/analysis/web_entry_resolver.py"
+    },
+    {
+      "docstring_coverage_percent": 16.67,
+      "module_docstring_present": false,
+      "path": "legacy_documenter/analysis/database_resolver.py"
+    },
+    {
+      "docstring_coverage_percent": 20.0,
+      "module_docstring_present": false,
+      "path": "legacy_documenter/analysis/call_resolver.py"
+    },
+    {
+      "docstring_coverage_percent": 20.0,
+      "module_docstring_present": true,
+      "path": "legacy_documenter/documentation/systematic.py"
+    },
+    {
+      "docstring_coverage_percent": 20.0,
+      "module_docstring_present": false,
+      "path": "legacy_documenter/extractors/call_extractor.py"
+    },
+    {
+      "docstring_coverage_percent": 25.0,
+      "module_docstring_present": false,
+      "path": "legacy_documenter/analysis/dependency_resolver.py"
+    },
+    {
+      "docstring_coverage_percent": 30.0,
+      "module_docstring_present": true,
+      "path": "legacy_documenter/documentation/coverage.py"
+    },
+    {
+      "docstring_coverage_percent": 30.0,
+      "module_docstring_present": false,
+      "path": "legacy_documenter/llm/providers/copilot.py"
+    },
+    {
+      "docstring_coverage_percent": 33.33,
+      "module_docstring_present": true,
+      "path": "legacy_documenter/documentation/consistency_run.py"
+    },
+    {
+      "docstring_coverage_percent": 33.33,
+      "module_docstring_present": false,
+      "path": "legacy_documenter/extractors/vbproj_extractor.py"
+    },
+    {
+      "docstring_coverage_percent": 33.33,
+      "module_docstring_present": false,
+      "path": "legacy_documenter/extractors/web_event_extractor.py"
+    },
+    {
+      "docstring_coverage_percent": 33.33,
+      "module_docstring_present": false,
+      "path": "legacy_documenter/llm/providers/gemini.py"
+    },
+    {
+      "docstring_coverage_percent": 37.5,
+      "module_docstring_present": true,
+      "path": "legacy_documenter/documentation/generator.py"
+    }
+  ],
+  "duplication_candidates": [
+    {
+      "classification": "SAFE_TO_CONSOLIDATE",
+      "evidence": "All 11 render_* functions have the identical one-line body `json.dumps(build_X(), ensure_ascii=False, sort_keys=True, separators=(\",\", \":\"))` -- verified by direct grep across every knowledge sub-package's contract_report.py, differing only in which builder function is called.",
+      "files": [
+        "legacy_documenter/knowledge/approval/contract_report.py",
+        "legacy_documenter/knowledge/canonical/contract_report.py",
+        "legacy_documenter/knowledge/classification/contract_report.py",
+        "legacy_documenter/knowledge/ingestion/contract_report.py",
+        "legacy_documenter/knowledge/input/contract_report.py",
+        "legacy_documenter/knowledge/plugin_projection/contract_report.py",
+        "legacy_documenter/knowledge/projection/contract_report.py",
+        "legacy_documenter/knowledge/proposals/contract_report.py",
+        "legacy_documenter/knowledge/provenance/contract_report.py",
+        "legacy_documenter/knowledge/relations/contract_report.py",
+        "legacy_documenter/knowledge/temporal/contract_report.py"
+      ],
+      "id": "DUP-001",
+      "pattern": "JSON contract renderer (`render_<x>_contract_json`)",
+      "recommended_action": "Extract a single `render_contract_json(builder) -> str` helper (e.g. `legacy_documenter/knowledge/_shared/json_rendering.py`) and have each contract_report.py call it; output is byte-identical because the call is textually identical today. Each package's `build_<x>_contract()` stays where it is -- only the serialization line moves.",
+      "risk": "LOW",
+      "tracked_as": "DEBT-001"
+    },
+    {
+      "classification": "SIMILAR_BUT_SEMANTICALLY_DISTINCT",
+      "evidence": "Each builder assembles a hand-written nested dict describing that round's own contract; field names, nesting, and semantics differ per round (R7 relation contract vs R10 canonical contract vs R12 plugin contract are not interchangeable).",
+      "files": [
+        "legacy_documenter/knowledge/*/contract_report.py",
+        "legacy_documenter/knowledge/*/example_report.py"
+      ],
+      "id": "DUP-002",
+      "pattern": "`build_<x>_contract()` plain-dict-builder shape",
+      "recommended_action": "Do not merge builder bodies. A shared *shape* (e.g. a TypedDict for the envelope fields common to every contract report) could be introduced without touching per-round field content, but only after per-round field-set equivalence is explicitly verified round by round.",
+      "risk": "MEDIUM",
+      "tracked_as": "TD-003"
+    },
+    {
+      "classification": "NEEDS_CHARACTERIZATION",
+      "evidence": "`classify_batch(self, requests: list[ClassificationRequest])`, `create_proposal_batch(self, requests: list[ProposalRequest])`, `create_relation_batch(self, requests: list[RelationRequest])` -- confirmed by direct grep; matches DEBT-003 exactly.",
+      "files": [
+        "legacy_documenter/knowledge/classification/service.py",
+        "legacy_documenter/knowledge/proposals/service.py",
+        "legacy_documenter/knowledge/relations/service.py"
+      ],
+      "id": "DUP-003",
+      "pattern": "generic `requests` batch-parameter naming",
+      "recommended_action": "Not a behavior duplication at all -- three distinct methods that happen to reuse a generic parameter name. Rename the parameter only (e.g. `classification_requests`), which is source-only and has no serialized-contract impact; still requires a full regression run since it is a public method signature.",
+      "risk": "LOW",
+      "tracked_as": "DEBT-003"
+    },
+    {
+      "classification": "DO_NOT_CONSOLIDATE",
+      "evidence": "Every V4 round package (approval, canonical, classification, ingestion, projection, plugin_projection, proposals, provenance, relations, temporal) follows the same file-role convention, confirmed by directory listing; this is intentional consistency, not duplication.",
+      "files": [
+        "legacy_documenter/knowledge/*/models.py",
+        "legacy_documenter/knowledge/*/service.py"
+      ],
+      "id": "DUP-004",
+      "pattern": "per-package `models.py` + `service.py` + `enums.py` V4 round layout",
+      "recommended_action": "Keep as-is. This is the desired 'one recognizable module role per round' pattern the development standard asks for, not code to merge.",
+      "risk": "LOW",
+      "tracked_as": null
+    }
+  ],
+  "exception_candidates": [
+    {
+      "bare_except_count": 0,
+      "classification": "HISTORICAL_COMPATIBILITY",
+      "except_exception_count": 1,
+      "note": "V1-era orchestrator; broad handler predates the V4 domain-exception style. No behavior regression found, but a future round should verify it isn't silently swallowing an error worth surfacing.",
+      "path": "legacy_documenter/documentation/generator.py"
+    },
+    {
+      "bare_except_count": 0,
+      "classification": "HISTORICAL_COMPATIBILITY",
+      "except_exception_count": 1,
+      "note": "Same V1-era orchestration pattern as generator.py.",
+      "path": "legacy_documenter/documentation/hierarchical.py"
+    },
+    {
+      "bare_except_count": 0,
+      "classification": "REFACTOR_CANDIDATE",
+      "except_exception_count": 1,
+      "note": "6 handlers in one module including a broad one guarding checkpoint/resume I/O; higher handler density than peers, worth narrowing to specific exception types once characterization tests exist.",
+      "path": "legacy_documenter/documentation/resume.py"
+    },
+    {
+      "bare_except_count": 0,
+      "classification": "HISTORICAL_COMPATIBILITY",
+      "except_exception_count": 1,
+      "note": "Same V1-era orchestration pattern as generator.py.",
+      "path": "legacy_documenter/documentation/systematic.py"
+    },
+    {
+      "bare_except_count": 0,
+      "classification": "JUSTIFIED_BOUNDARY",
+      "except_exception_count": 1,
+      "note": "Wraps an external interactive session; single broad handler at the outer call boundary.",
+      "path": "legacy_documenter/llm/copilot_pilot.py"
+    },
+    {
+      "bare_except_count": 0,
+      "classification": "JUSTIFIED_BOUNDARY",
+      "except_exception_count": 4,
+      "note": "Provider adapter boundary converting external Copilot Chat/subprocess failures into a domain `ProviderError`, matching TD-002's own stated plan.",
+      "path": "legacy_documenter/llm/providers/copilot.py"
+    },
+    {
+      "bare_except_count": 0,
+      "classification": "JUSTIFIED_BOUNDARY",
+      "except_exception_count": 2,
+      "note": "Provider adapter boundary converting external HTTP/urllib failures into a domain `ProviderError`, matching TD-002.",
+      "path": "legacy_documenter/llm/providers/gemini.py"
+    },
+    {
+      "bare_except_count": 0,
+      "classification": "JUSTIFIED_BOUNDARY",
+      "except_exception_count": 4,
+      "note": "Top-level CLI entry point translating internal stage failures into a safe exit path; this is the documented outermost boundary.",
+      "path": "legacy_documenter/main.py"
+    }
+  ],
+  "known_debt": [
+    {
+      "affected_files": [
+        "legacy_documenter/knowledge/*/contract_report.py"
+      ],
+      "current_relevance": "Still accurate; R7-R12 contract_report.py files still use compact literal formatting.",
+      "id": "TD-001",
+      "original_description": "Reformatting historical R7/R8 one-line contracts would create broad noisy diffs without semantic benefit.",
+      "recommended_action": "Reformat only opportunistically inside a round that already touches the file for another reason (per its own original plan); do not run a repository-wide reformat.",
+      "recommended_round": "V4.1-R8",
+      "risk": "LOW",
+      "source": "output/v3_r10_1/TECHNICAL_DEBT_REMAINING.json"
+    },
+    {
+      "affected_files": [
+        "legacy_documenter/llm/providers/copilot.py",
+        "legacy_documenter/llm/providers/gemini.py",
+        "legacy_documenter/llm/copilot_pilot.py"
+      ],
+      "current_relevance": "Still accurate and confirmed in this round's exception scan: legacy_documenter/llm/providers/{copilot,gemini}.py and llm/copilot_pilot.py hold every remaining broad `except Exception` at the true provider boundary.",
+      "id": "TD-002",
+      "original_description": "Broad boundaries deliberately convert external SDK/HTTP failures into safe domain responses.",
+      "recommended_action": "Keep the boundary; consider narrowing to a documented provider-specific exception tuple once each provider's real failure taxonomy is contract-tested, exactly as originally planned. No behavior change without new characterization tests proving the narrower catch still degrades safely.",
+      "recommended_round": "V4.1-R7",
+      "risk": "LOW",
+      "source": "output/v3_r10_1/TECHNICAL_DEBT_REMAINING.json"
+    },
+    {
+      "affected_files": [
+        "legacy_documenter/knowledge/*/contract_report.py",
+        "legacy_documenter/knowledge/*/example_report.py"
+      ],
+      "current_relevance": "Still accurate; DUP-002 in this inventory found per-round `build_<x>_contract()` builders are textually similar but semantically distinct (see duplication_candidates).",
+      "id": "TD-003",
+      "original_description": "Similar helpers have different validated round semantics and cannot be merged by textual similarity.",
+      "recommended_action": "Only the JSON-serialization tail (DUP-001/DEBT-001) is safe to consolidate. Builder bodies (DUP-002) stay separate unless a future round explicitly verifies field-by-field equivalence for a specific pair.",
+      "recommended_round": "V4.1-R6",
+      "risk": "MEDIUM",
+      "source": "output/v3_r10_1/TECHNICAL_DEBT_REMAINING.json"
+    },
+    {
+      "affected_files": [
+        "legacy_documenter/main.py",
+        "legacy_documenter/documentation/resume.py",
+        "legacy_documenter/documentation/hierarchical.py",
+        "legacy_documenter/documentation/generator.py"
+      ],
+      "current_relevance": "Still accurate; `legacy_documenter/main.py`, `documentation/resume.py`, `documentation/hierarchical.py` remain large multi-responsibility orchestrators with no dedicated characterization test module targeting their internal ordering.",
+      "id": "TD-004",
+      "original_description": "Splitting discovery and historical round orchestration now risks ordering and output compatibility.",
+      "recommended_action": "Add characterization tests capturing current end-to-end output for representative fixtures before any extraction; extract only behind those tests, in small steps, per the item's own original plan.",
+      "recommended_round": "V4.1-R5 (characterization first)",
+      "risk": "VERY_HIGH",
+      "source": "output/v3_r10_1/TECHNICAL_DEBT_REMAINING.json"
+    },
+    {
+      "affected_files": [
+        "legacy_documenter/documentation/*.py",
+        "legacy_documenter/analysis/*.py",
+        "legacy_documenter/extractors/*.py"
+      ],
+      "current_relevance": "Still accurate; type_safety_candidates in this inventory shows the lowest-annotation-coverage files remain concentrated in the historical `documentation/`, `analysis/`, and `extractors/` packages.",
+      "id": "TD-005",
+      "original_description": "Ambiguous nested historical JSON shapes were not annotated with misleading object/Any types.",
+      "recommended_action": "Introduce narrow TypedDict/dataclass models only at boundaries a round is already modifying for another reason; do not retrofit typing repository-wide in one pass.",
+      "recommended_round": "V4.1-R2 / V4.1-R4 (incremental, per touched boundary)",
+      "risk": "MEDIUM",
+      "source": "output/v3_r10_1/TECHNICAL_DEBT_REMAINING.json"
+    },
+    {
+      "affected_files": [
+        "legacy_documenter/knowledge/*/contract_report.py"
+      ],
+      "current_relevance": "Confirmed with hard evidence in this round: DUP-001 shows all 11 `render_*_contract_json` functions share an identical one-line body.",
+      "id": "DEBT-001",
+      "original_description": "every R7-R12 package repeats the same plain-dict-builder + sorted-key JSON-renderer pattern in its contract_report.py. No behavioral defect; a shared thin helper is a safe future refactor candidate.",
+      "recommended_action": "Extract the shared renderer helper described in DUP-001. Output is byte-identical; verify with the existing per-round contract/example artifact hash tests.",
+      "recommended_round": "V4.1-R1",
+      "risk": "LOW",
+      "source": "docs/V4/V4_R13_REGRESSION_AND_SECURITY_RESULT.md"
+    },
+    {
+      "affected_files": [
+        "legacy_documenter/knowledge/readiness.py"
+      ],
+      "current_relevance": "Still accurate; readiness.py is 292 lines, VERY_HIGH risk_category in this inventory (multiple responsibility signals + broad-ish orchestration), and is exercised by the entry-gate command every round.",
+      "id": "DEBT-002",
+      "original_description": "legacy_documenter/knowledge/readiness.py (the historical V3-R9 gate) mixes document parsing, evidence-closure computation, and file I/O in one large module. Unmodified V3 code; left as-is.",
+      "recommended_action": "Decompose into parsing / evidence-closure computation / file I/O modules behind a compatibility wrapper that preserves `python -m legacy_documenter.knowledge.readiness` and the `run()` entry point exactly.",
+      "recommended_round": "V4.1-R4",
+      "risk": "HIGH",
+      "source": "docs/V4/V4_R13_REGRESSION_AND_SECURITY_RESULT.md"
+    },
+    {
+      "affected_files": [
+        "legacy_documenter/knowledge/classification/service.py",
+        "legacy_documenter/knowledge/proposals/service.py",
+        "legacy_documenter/knowledge/relations/service.py"
+      ],
+      "current_relevance": "Confirmed with hard evidence in this round: DUP-003/naming_candidates lists the exact three method signatures.",
+      "id": "DEBT-003",
+      "original_description": "generic requests/request batch-parameter naming repeats across proposals/relations/classification services; harmless, but a shared naming-convention note could help future readers.",
+      "recommended_action": "Rename the parameter (not the type) to a request-kind-specific name; parameter names are not part of the JSON contract, so this is a documentation-grade, low-risk rename.",
+      "recommended_round": "V4.1-R8",
+      "risk": "LOW",
+      "source": "docs/V4/V4_R13_REGRESSION_AND_SECURITY_RESULT.md"
+    },
+    {
+      "affected_files": [
+        "tests/test_v4_r14_manuals_and_final_baseline.py",
+        "output/v4_r14/V4_FINAL_BASELINE.json"
+      ],
+      "current_relevance": "Newly discovered by this round's entry gate (1379 PASS / 1 FAIL out of 1380, not the expected clean 1380 PASS). Not fixed here: R0 is analysis-only and TEST_SEMANTIC_MODIFICATION_ALLOWED=false.",
+      "id": "REG-002-CANDIDATE",
+      "original_description": "`tests/test_v4_r14_manuals_and_final_baseline.py::DeterminismTests.test_baseline_matches_on_disk_artifact` fails on a clean current checkout: it rebuilds `V4_FINAL_BASELINE.json` live from the *current* `PROJECT_STATE.json` (`latest_approved_round=V4-R14`) and compares it to the frozen on-disk artifact, which was generated and hashed before V4-R14 itself was approved (`latest_approved_round=V4-R13` at generation time). Same defect shape as REG-001 (R13): a generated snapshot compared against a moving-target live value.",
+      "recommended_action": "Apply the same fix shape as REG-001: change the test to compare against the round-in-progress-at-generation-time value recorded inside the frozen artifact itself, or treat `latest_approved_round` as an 'as of generation' field excluded from the live-rebuild comparison, instead of asserting live-vs-frozen equality on a field that is expected to advance. Test-only change; no production code or contract touched.",
+      "recommended_round": "V4.1-R1 (test-only fix, first)",
+      "risk": "LOW",
+      "source": "V4.1-R0 entry gate (this round)"
+    }
+  ],
+  "largest_classes": [
+    {
+      "class_name": "DatabaseExtractor",
+      "classification": "DO_NOT_TOUCH_WITHOUT_DESIGN_DECISION",
+      "line_count": 395,
+      "method_count": 27,
+      "path": "legacy_documenter/extractors/database_extractor.py"
+    },
+    {
+      "class_name": "FunctionalFlowResolver",
+      "classification": "DO_NOT_TOUCH_WITHOUT_DESIGN_DECISION",
+      "line_count": 316,
+      "method_count": 24,
+      "path": "legacy_documenter/analysis/flow_resolver.py"
+    },
+    {
+      "class_name": "ProvenanceGraph",
+      "classification": "REVIEW",
+      "line_count": 157,
+      "method_count": 16,
+      "path": "legacy_documenter/knowledge/provenance/graph.py"
+    },
+    {
+      "class_name": "WebEntryResolver",
+      "classification": "REVIEW",
+      "line_count": 214,
+      "method_count": 14,
+      "path": "legacy_documenter/analysis/web_entry_resolver.py"
+    },
+    {
+      "class_name": "DatabaseResolver",
+      "classification": "REVIEW",
+      "line_count": 151,
+      "method_count": 11,
+      "path": "legacy_documenter/analysis/database_resolver.py"
+    },
+    {
+      "class_name": "CanonicalKnowledgeCollection",
+      "classification": "REVIEW",
+      "line_count": 96,
+      "method_count": 11,
+      "path": "legacy_documenter/knowledge/canonical/service.py"
+    },
+    {
+      "class_name": "ProposalCollection",
+      "classification": "REVIEW",
+      "line_count": 94,
+      "method_count": 10,
+      "path": "legacy_documenter/knowledge/proposals/service.py"
+    },
+    {
+      "class_name": "CallExtractor",
+      "classification": "OK",
+      "line_count": 174,
+      "method_count": 9,
+      "path": "legacy_documenter/extractors/call_extractor.py"
+    },
+    {
+      "class_name": "CallResolver",
+      "classification": "OK",
+      "line_count": 143,
+      "method_count": 9,
+      "path": "legacy_documenter/analysis/call_resolver.py"
+    },
+    {
+      "class_name": "MarkdownExporter",
+      "classification": "OK",
+      "line_count": 70,
+      "method_count": 8,
+      "path": "legacy_documenter/exporters/markdown_exporter.py"
+    },
+    {
+      "class_name": "CopilotProvider",
+      "classification": "OK",
+      "line_count": 65,
+      "method_count": 8,
+      "path": "legacy_documenter/llm/providers/copilot.py"
+    },
+    {
+      "class_name": "GeminiProvider",
+      "classification": "OK",
+      "line_count": 27,
+      "method_count": 8,
+      "path": "legacy_documenter/llm/providers/gemini.py"
+    },
+    {
+      "class_name": "SystemContextBuilder",
+      "classification": "OK",
+      "line_count": 113,
+      "method_count": 7,
+      "path": "legacy_documenter/context/system_context_builder.py"
+    },
+    {
+      "class_name": "DependencyResolver",
+      "classification": "OK",
+      "line_count": 77,
+      "method_count": 7,
+      "path": "legacy_documenter/analysis/dependency_resolver.py"
+    },
+    {
+      "class_name": "ApprovalCollection",
+      "classification": "OK",
+      "line_count": 72,
+      "method_count": 7,
+      "path": "legacy_documenter/knowledge/approval/service.py"
+    },
+    {
+      "class_name": "CoveragePlanner",
+      "classification": "OK",
+      "line_count": 50,
+      "method_count": 7,
+      "path": "legacy_documenter/documentation/coverage.py"
+    },
+    {
+      "class_name": "RelationCollection",
+      "classification": "OK",
+      "line_count": 33,
+      "method_count": 6,
+      "path": "legacy_documenter/knowledge/relations/service.py"
+    },
+    {
+      "class_name": "FakeLLMProvider",
+      "classification": "OK",
+      "line_count": 27,
+      "method_count": 6,
+      "path": "legacy_documenter/llm/core.py"
+    },
+    {
+      "class_name": "WebEventExtractor",
+      "classification": "OK",
+      "line_count": 100,
+      "method_count": 5,
+      "path": "legacy_documenter/extractors/web_event_extractor.py"
+    },
+    {
+      "class_name": "VBNetExtractor",
+      "classification": "OK",
+      "line_count": 86,
+      "method_count": 4,
+      "path": "legacy_documenter/extractors/vbnet_extractor.py"
+    }
+  ],
+  "largest_functions": [
+    {
+      "classification": "REVIEW",
+      "line_count": 285,
+      "path": "legacy_documenter/knowledge/canonical/example_report.py",
+      "qualified_name": "build_canonical_example"
+    },
+    {
+      "classification": "REVIEW",
+      "line_count": 221,
+      "path": "legacy_documenter/knowledge/approval/example_report.py",
+      "qualified_name": "build_approval_example"
+    },
+    {
+      "classification": "REVIEW",
+      "line_count": 169,
+      "path": "legacy_documenter/knowledge/canonical/contract_report.py",
+      "qualified_name": "build_canonical_contract"
+    },
+    {
+      "classification": "REVIEW",
+      "line_count": 159,
+      "path": "legacy_documenter/knowledge/plugin_projection/contract_report.py",
+      "qualified_name": "build_plugin_contract"
+    },
+    {
+      "classification": "REVIEW",
+      "line_count": 146,
+      "path": "legacy_documenter/knowledge/projection/contract_report.py",
+      "qualified_name": "build_projection_contract"
+    },
+    {
+      "classification": "CHARACTERIZATION_REQUIRED",
+      "line_count": 137,
+      "path": "legacy_documenter/extractors/database_extractor.py",
+      "qualified_name": "DatabaseExtractor.extract"
+    },
+    {
+      "classification": "REVIEW",
+      "line_count": 137,
+      "path": "legacy_documenter/knowledge/proposals/example_report.py",
+      "qualified_name": "build_proposal_example"
+    },
+    {
+      "classification": "REVIEW",
+      "line_count": 131,
+      "path": "legacy_documenter/knowledge/proposals/contract_report.py",
+      "qualified_name": "build_proposal_contract"
+    },
+    {
+      "classification": "REVIEW",
+      "line_count": 124,
+      "path": "legacy_documenter/knowledge/approval/contract_report.py",
+      "qualified_name": "build_approval_contract"
+    },
+    {
+      "classification": "CHARACTERIZATION_REQUIRED",
+      "line_count": 114,
+      "path": "legacy_documenter/main.py",
+      "qualified_name": "analyze_repository"
+    },
+    {
+      "classification": "REVIEW",
+      "line_count": 103,
+      "path": "legacy_documenter/knowledge/plugin_projection/example_report.py",
+      "qualified_name": "build_example_entries"
+    },
+    {
+      "classification": "REVIEW",
+      "line_count": 98,
+      "path": "legacy_documenter/knowledge/closure/maintainability.py",
+      "qualified_name": "build_maintainability_baseline"
+    },
+    {
+      "classification": "REVIEW",
+      "line_count": 97,
+      "path": "legacy_documenter/knowledge/plugin_projection/validator.py",
+      "qualified_name": "validate_payload_dict"
+    },
+    {
+      "classification": "REVIEW",
+      "line_count": 95,
+      "path": "legacy_documenter/knowledge/closure/baseline_report.py",
+      "qualified_name": "build_final_baseline"
+    },
+    {
+      "classification": "REVIEW",
+      "line_count": 93,
+      "path": "legacy_documenter/knowledge/relations/contract_report.py",
+      "qualified_name": "build_relation_contract"
+    },
+    {
+      "classification": "REVIEW",
+      "line_count": 80,
+      "path": "legacy_documenter/extractors/call_extractor.py",
+      "qualified_name": "CallExtractor.extract"
+    },
+    {
+      "classification": "REVIEW",
+      "line_count": 74,
+      "path": "legacy_documenter/knowledge/projection/example_report.py",
+      "qualified_name": "build_projection_example"
+    },
+    {
+      "classification": "REVIEW",
+      "line_count": 73,
+      "path": "legacy_documenter/knowledge/canonical/service.py",
+      "qualified_name": "CanonicalCompositionService.compose"
+    },
+    {
+      "classification": "REVIEW",
+      "line_count": 72,
+      "path": "legacy_documenter/analysis/database_resolver.py",
+      "qualified_name": "DatabaseResolver.resolve"
+    },
+    {
+      "classification": "REVIEW",
+      "line_count": 68,
+      "path": "legacy_documenter/analysis/flow_resolver.py",
+      "qualified_name": "FunctionalFlowResolver.resolve"
+    }
+  ],
+  "largest_modules": [
+    {
+      "classification": "DO_NOT_TOUCH_WITHOUT_DESIGN_DECISION",
+      "line_count": 425,
+      "path": "legacy_documenter/extractors/database_extractor.py"
+    },
+    {
+      "classification": "REFACTOR_CANDIDATE",
+      "line_count": 344,
+      "path": "legacy_documenter/knowledge/canonical/example_report.py"
+    },
+    {
+      "classification": "DO_NOT_TOUCH_WITHOUT_DESIGN_DECISION",
+      "line_count": 321,
+      "path": "legacy_documenter/analysis/flow_resolver.py"
+    },
+    {
+      "classification": "CHARACTERIZATION_REQUIRED",
+      "line_count": 292,
+      "path": "legacy_documenter/knowledge/readiness.py"
+    },
+    {
+      "classification": "REVIEW",
+      "line_count": 287,
+      "path": "legacy_documenter/knowledge/canonical/service.py"
+    },
+    {
+      "classification": "CHARACTERIZATION_REQUIRED",
+      "line_count": 263,
+      "path": "legacy_documenter/documentation/consistency.py"
+    },
+    {
+      "classification": "REVIEW",
+      "line_count": 260,
+      "path": "legacy_documenter/knowledge/approval/example_report.py"
+    },
+    {
+      "classification": "REVIEW",
+      "line_count": 254,
+      "path": "legacy_documenter/knowledge/proposals/service.py"
+    },
+    {
+      "classification": "REVIEW",
+      "line_count": 250,
+      "path": "legacy_documenter/knowledge/plugin_projection/example_report.py"
+    },
+    {
+      "classification": "REVIEW",
+      "line_count": 245,
+      "path": "legacy_documenter/extractors/call_extractor.py"
+    },
+    {
+      "classification": "REVIEW",
+      "line_count": 239,
+      "path": "legacy_documenter/knowledge/domain/models.py"
+    },
+    {
+      "classification": "REVIEW",
+      "line_count": 233,
+      "path": "legacy_documenter/knowledge/relations/service.py"
+    },
+    {
+      "classification": "REVIEW",
+      "line_count": 228,
+      "path": "legacy_documenter/main.py"
+    },
+    {
+      "classification": "REVIEW",
+      "line_count": 227,
+      "path": "legacy_documenter/knowledge/approval/service.py"
+    },
+    {
+      "classification": "REVIEW",
+      "line_count": 219,
+      "path": "legacy_documenter/analysis/web_entry_resolver.py"
+    },
+    {
+      "classification": "REVIEW",
+      "line_count": 216,
+      "path": "legacy_documenter/knowledge/plugin_projection/models.py"
+    },
+    {
+      "classification": "REVIEW",
+      "line_count": 212,
+      "path": "legacy_documenter/knowledge/projection/example_report.py"
+    },
+    {
+      "classification": "REVIEW",
+      "line_count": 207,
+      "path": "legacy_documenter/knowledge/provenance/graph.py"
+    },
+    {
+      "classification": "REVIEW",
+      "line_count": 206,
+      "path": "legacy_documenter/knowledge/projection/models.py"
+    },
+    {
+      "classification": "REVIEW",
+      "line_count": 205,
+      "path": "legacy_documenter/knowledge/projection/rules.py"
+    }
+  ],
+  "naming_candidates": [
+    {
+      "compatibility_strategy": "NO_WRAPPER (parameter names are not part of the JSON contract; grep confirmed no keyword-argument call site uses `requests=`).",
+      "current_name": "requests (parameter)",
+      "locations": [
+        "legacy_documenter/knowledge/classification/service.py:classify_batch",
+        "legacy_documenter/knowledge/proposals/service.py:create_proposal_batch",
+        "legacy_documenter/knowledge/relations/service.py:create_relation_batch"
+      ],
+      "public_api_impact": "Parameter rename only; positional callers unaffected, keyword callers (if any) would need updating -- verify via repository-wide grep before renaming.",
+      "reason": "Generic name shadows the well-known `requests` HTTP library and gives no hint of which request type; confirmed distinct per DUP-003/DEBT-003.",
+      "suggested_name": "classification_requests / proposal_requests / relation_requests"
+    },
+    {
+      "compatibility_strategy": "REEXPORT (keep a thin `copilot_pilot.py` module re-exporting from the new location for one round, per the standard's 'small wrappers when moving implementation' rule).",
+      "current_name": "copilot_pilot.py / CopilotPilot-shaped helpers",
+      "locations": [
+        "legacy_documenter/llm/copilot_pilot.py"
+      ],
+      "public_api_impact": "Internal to legacy_documenter.llm; verify no external import path is documented in the V4 manuals before moving.",
+      "reason": "'Pilot' does not describe a responsibility (adapter, client, session?); a C#-background reader cannot infer behavior from the name alone.",
+      "suggested_name": "copilot_session.py (module), matching its actual role driving a Copilot Chat session"
+    },
+    {
+      "compatibility_strategy": "COMPATIBILITY_WRAPPER (keep `audit = build_maintainability_inventory` alias for one round; V3 round result documents may reference the literal name).",
+      "current_name": "legacy_documenter/quality/maintainability_audit.py: `audit`",
+      "locations": [
+        "legacy_documenter/quality/maintainability_audit.py"
+      ],
+      "public_api_impact": "Referenced only from `__main__` in the same file and from its own historical V3 round tests; grep found no cross-package import.",
+      "reason": "`audit()` is a generic verb with no object; unclear from the call site alone what it audits or returns without opening the module.",
+      "suggested_name": "build_maintainability_inventory"
+    },
+    {
+      "compatibility_strategy": "DO_NOT_MOVE (until a characterization pass exists for this package).",
+      "current_name": "legacy_documenter/context/composer.py, resolver.py, context_builder.py, system_context_builder.py (four *_builder/composer/resolver names in one package)",
+      "locations": [
+        "legacy_documenter/context/"
+      ],
+      "public_api_impact": "Unknown until characterized; historical V1-V2 package with no dedicated per-file test module found by name.",
+      "reason": "Four similarly-named orchestration files in one package (`composer`, `resolver`, `context_builder`, `system_context_builder`) make it hard to guess which one is the entry point without reading all four.",
+      "suggested_name": "No rename proposed yet -- first characterize which module is the public entry point, then consider renaming the others to reflect their narrower role (e.g. `file_context_resolver.py`)."
+    }
+  ],
+  "production_inventory": [
+    {
+      "class_count": 0,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 0,
+      "imports": [],
+      "internal_dependencies": [],
+      "line_count": 1,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/__init__.py",
+      "public_symbol_count": 0,
+      "responsibility_count": 0,
+      "responsibility_signals": [],
+      "risk_category": "LOW",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 0,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 0,
+      "imports": [],
+      "internal_dependencies": [],
+      "line_count": 1,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/analysis/__init__.py",
+      "public_symbol_count": 0,
+      "responsibility_count": 0,
+      "responsibility_signals": [],
+      "risk_category": "MEDIUM",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 1,
+      "docstring_coverage_percent": 20.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 9,
+      "imports": [
+        "collections",
+        "legacy_documenter.models"
+      ],
+      "internal_dependencies": [
+        "legacy_documenter.models"
+      ],
+      "line_count": 148,
+      "module_docstring_present": false,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/analysis/call_resolver.py",
+      "public_symbol_count": 2,
+      "responsibility_count": 1,
+      "responsibility_signals": [
+        "serialization"
+      ],
+      "risk_category": "MEDIUM",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 1,
+      "docstring_coverage_percent": 16.67,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": true,
+      "function_count": 11,
+      "imports": [
+        "legacy_documenter.models",
+        "pathlib"
+      ],
+      "internal_dependencies": [
+        "legacy_documenter.models"
+      ],
+      "line_count": 156,
+      "module_docstring_present": false,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/analysis/database_resolver.py",
+      "public_symbol_count": 2,
+      "responsibility_count": 3,
+      "responsibility_signals": [
+        "filesystem",
+        "provider_or_network",
+        "serialization"
+      ],
+      "risk_category": "MEDIUM",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 0,
+      "docstring_coverage_percent": 80.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 1
+      },
+      "filesystem_access": true,
+      "function_count": 10,
+      "imports": [
+        "asyncio",
+        "hashlib",
+        "json",
+        "legacy_documenter.llm",
+        "legacy_documenter.llm.copilot_pilot",
+        "legacy_documenter.utils",
+        "os",
+        "pathlib"
+      ],
+      "internal_dependencies": [
+        "legacy_documenter.llm",
+        "legacy_documenter.llm.copilot_pilot",
+        "legacy_documenter.utils"
+      ],
+      "line_count": 109,
+      "module_docstring_present": true,
+      "network_or_provider_access": true,
+      "path": "legacy_documenter/analysis/deep_interpretation.py",
+      "public_symbol_count": 10,
+      "responsibility_count": 4,
+      "responsibility_signals": [
+        "filesystem",
+        "provider_or_network",
+        "serialization",
+        "validation"
+      ],
+      "risk_category": "HIGH",
+      "typed_functions_percent": 0.0
+    },
+    {
+      "class_count": 1,
+      "docstring_coverage_percent": 92.31,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": true,
+      "function_count": 12,
+      "imports": [
+        "argparse",
+        "collections",
+        "dataclasses",
+        "hashlib",
+        "json",
+        "legacy_documenter.main",
+        "legacy_documenter.utils",
+        "pathlib",
+        "posixpath",
+        "re",
+        "shutil"
+      ],
+      "internal_dependencies": [
+        "legacy_documenter.main",
+        "legacy_documenter.utils"
+      ],
+      "line_count": 163,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/analysis/deep_source.py",
+      "public_symbol_count": 13,
+      "responsibility_count": 7,
+      "responsibility_signals": [
+        "domain_modeling",
+        "filesystem",
+        "orchestration",
+        "parsing",
+        "provider_or_network",
+        "serialization",
+        "validation"
+      ],
+      "risk_category": "VERY_HIGH",
+      "typed_functions_percent": 0.0
+    },
+    {
+      "class_count": 1,
+      "docstring_coverage_percent": 25.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": true,
+      "function_count": 7,
+      "imports": [
+        "legacy_documenter.models",
+        "pathlib"
+      ],
+      "internal_dependencies": [
+        "legacy_documenter.models"
+      ],
+      "line_count": 82,
+      "module_docstring_present": false,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/analysis/dependency_resolver.py",
+      "public_symbol_count": 2,
+      "responsibility_count": 0,
+      "responsibility_signals": [],
+      "risk_category": "MEDIUM",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 1,
+      "docstring_coverage_percent": 8.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 24,
+      "imports": [
+        "collections",
+        "hashlib",
+        "json"
+      ],
+      "internal_dependencies": [],
+      "line_count": 321,
+      "module_docstring_present": false,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/analysis/flow_resolver.py",
+      "public_symbol_count": 2,
+      "responsibility_count": 3,
+      "responsibility_signals": [
+        "filesystem",
+        "serialization",
+        "validation"
+      ],
+      "risk_category": "HIGH",
+      "typed_functions_percent": 95.83
+    },
+    {
+      "class_count": 0,
+      "docstring_coverage_percent": 66.67,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 1
+      },
+      "filesystem_access": true,
+      "function_count": 6,
+      "imports": [
+        "collections",
+        "hashlib",
+        "json",
+        "legacy_documenter.documentation.human_review",
+        "legacy_documenter.utils",
+        "pathlib",
+        "re"
+      ],
+      "internal_dependencies": [
+        "legacy_documenter.documentation.human_review",
+        "legacy_documenter.utils"
+      ],
+      "line_count": 74,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/analysis/targeted_exhaustion.py",
+      "public_symbol_count": 4,
+      "responsibility_count": 5,
+      "responsibility_signals": [
+        "filesystem",
+        "orchestration",
+        "provider_or_network",
+        "serialization",
+        "validation"
+      ],
+      "risk_category": "HIGH",
+      "typed_functions_percent": 0.0
+    },
+    {
+      "class_count": 1,
+      "docstring_coverage_percent": 13.33,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": true,
+      "function_count": 14,
+      "imports": [
+        "legacy_documenter.models",
+        "pathlib"
+      ],
+      "internal_dependencies": [
+        "legacy_documenter.models"
+      ],
+      "line_count": 219,
+      "module_docstring_present": false,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/analysis/web_entry_resolver.py",
+      "public_symbol_count": 2,
+      "responsibility_count": 2,
+      "responsibility_signals": [
+        "filesystem",
+        "serialization"
+      ],
+      "risk_category": "MEDIUM",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 0,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 0,
+      "imports": [],
+      "internal_dependencies": [],
+      "line_count": 28,
+      "module_docstring_present": false,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/config.py",
+      "public_symbol_count": 0,
+      "responsibility_count": 0,
+      "responsibility_signals": [],
+      "risk_category": "LOW",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 0,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 0,
+      "imports": [],
+      "internal_dependencies": [],
+      "line_count": 1,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/context/__init__.py",
+      "public_symbol_count": 0,
+      "responsibility_count": 1,
+      "responsibility_signals": [
+        "provider_or_network"
+      ],
+      "risk_category": "MEDIUM",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 1,
+      "docstring_coverage_percent": 66.67,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 2,
+      "imports": [
+        "hashlib",
+        "json",
+        "math"
+      ],
+      "internal_dependencies": [],
+      "line_count": 33,
+      "module_docstring_present": false,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/context/composer.py",
+      "public_symbol_count": 2,
+      "responsibility_count": 2,
+      "responsibility_signals": [
+        "serialization",
+        "validation"
+      ],
+      "risk_category": "MEDIUM",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 1,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": true,
+      "function_count": 1,
+      "imports": [
+        "json",
+        "pathlib"
+      ],
+      "internal_dependencies": [],
+      "line_count": 32,
+      "module_docstring_present": false,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/context/context_builder.py",
+      "public_symbol_count": 2,
+      "responsibility_count": 2,
+      "responsibility_signals": [
+        "filesystem",
+        "serialization"
+      ],
+      "risk_category": "MEDIUM",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 1,
+      "docstring_coverage_percent": 60.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": true,
+      "function_count": 4,
+      "imports": [
+        "hashlib",
+        "json",
+        "pathlib"
+      ],
+      "internal_dependencies": [],
+      "line_count": 32,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/context/resolver.py",
+      "public_symbol_count": 3,
+      "responsibility_count": 3,
+      "responsibility_signals": [
+        "filesystem",
+        "serialization",
+        "validation"
+      ],
+      "risk_category": "MEDIUM",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 1,
+      "docstring_coverage_percent": 40.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": true,
+      "function_count": 9,
+      "imports": [
+        "collections",
+        "json",
+        "legacy_documenter.utils",
+        "pathlib"
+      ],
+      "internal_dependencies": [
+        "legacy_documenter.utils"
+      ],
+      "line_count": 122,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/context/system_context_builder.py",
+      "public_symbol_count": 4,
+      "responsibility_count": 3,
+      "responsibility_signals": [
+        "filesystem",
+        "provider_or_network",
+        "serialization"
+      ],
+      "risk_category": "MEDIUM",
+      "typed_functions_percent": 22.22
+    },
+    {
+      "class_count": 0,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 0,
+      "imports": [
+        ".aggregation",
+        ".contracts",
+        ".renderer"
+      ],
+      "internal_dependencies": [
+        ".aggregation",
+        ".contracts",
+        ".renderer"
+      ],
+      "line_count": 5,
+      "module_docstring_present": false,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/documentation/__init__.py",
+      "public_symbol_count": 0,
+      "responsibility_count": 0,
+      "responsibility_signals": [],
+      "risk_category": "MEDIUM",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 0,
+      "docstring_coverage_percent": 75.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 4,
+      "imports": [
+        "hashlib",
+        "json"
+      ],
+      "internal_dependencies": [],
+      "line_count": 56,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/documentation/aggregation.py",
+      "public_symbol_count": 3,
+      "responsibility_count": 2,
+      "responsibility_signals": [
+        "serialization",
+        "validation"
+      ],
+      "risk_category": "MEDIUM",
+      "typed_functions_percent": 0.0
+    },
+    {
+      "class_count": 1,
+      "docstring_coverage_percent": 86.67,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 14,
+      "imports": [
+        "dataclasses",
+        "hashlib",
+        "json",
+        "re",
+        "unicodedata"
+      ],
+      "internal_dependencies": [],
+      "line_count": 263,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/documentation/consistency.py",
+      "public_symbol_count": 13,
+      "responsibility_count": 3,
+      "responsibility_signals": [
+        "domain_modeling",
+        "serialization",
+        "validation"
+      ],
+      "risk_category": "HIGH",
+      "typed_functions_percent": 0.0
+    },
+    {
+      "class_count": 0,
+      "docstring_coverage_percent": 33.33,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": true,
+      "function_count": 3,
+      "imports": [
+        "json",
+        "legacy_documenter.documentation.aggregation",
+        "legacy_documenter.documentation.consistency",
+        "legacy_documenter.documentation.coverage",
+        "legacy_documenter.documentation.interpretation",
+        "legacy_documenter.documentation.renderer",
+        "legacy_documenter.documentation.synthesis",
+        "legacy_documenter.documentation.systematic",
+        "pathlib"
+      ],
+      "internal_dependencies": [
+        "legacy_documenter.documentation.aggregation",
+        "legacy_documenter.documentation.consistency",
+        "legacy_documenter.documentation.coverage",
+        "legacy_documenter.documentation.interpretation",
+        "legacy_documenter.documentation.renderer",
+        "legacy_documenter.documentation.synthesis",
+        "legacy_documenter.documentation.systematic"
+      ],
+      "line_count": 77,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/documentation/consistency_run.py",
+      "public_symbol_count": 1,
+      "responsibility_count": 4,
+      "responsibility_signals": [
+        "filesystem",
+        "orchestration",
+        "serialization",
+        "validation"
+      ],
+      "risk_category": "HIGH",
+      "typed_functions_percent": 0.0
+    },
+    {
+      "class_count": 7,
+      "docstring_coverage_percent": 92.31,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 6,
+      "imports": [
+        "dataclasses",
+        "hashlib",
+        "json"
+      ],
+      "internal_dependencies": [],
+      "line_count": 67,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/documentation/contracts.py",
+      "public_symbol_count": 13,
+      "responsibility_count": 4,
+      "responsibility_signals": [
+        "domain_modeling",
+        "provider_or_network",
+        "serialization",
+        "validation"
+      ],
+      "risk_category": "HIGH",
+      "typed_functions_percent": 0.0
+    },
+    {
+      "class_count": 1,
+      "docstring_coverage_percent": 30.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": true,
+      "function_count": 9,
+      "imports": [
+        "collections",
+        "hashlib",
+        "json",
+        "math",
+        "pathlib"
+      ],
+      "internal_dependencies": [],
+      "line_count": 60,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/documentation/coverage.py",
+      "public_symbol_count": 4,
+      "responsibility_count": 4,
+      "responsibility_signals": [
+        "filesystem",
+        "provider_or_network",
+        "serialization",
+        "validation"
+      ],
+      "risk_category": "HIGH",
+      "typed_functions_percent": 0.0
+    },
+    {
+      "class_count": 0,
+      "docstring_coverage_percent": 80.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 5,
+      "imports": [
+        "copy",
+        "legacy_documenter.documentation.interpretation",
+        "legacy_documenter.documentation.synthesis"
+      ],
+      "internal_dependencies": [
+        "legacy_documenter.documentation.interpretation",
+        "legacy_documenter.documentation.synthesis"
+      ],
+      "line_count": 27,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/documentation/envelope.py",
+      "public_symbol_count": 5,
+      "responsibility_count": 1,
+      "responsibility_signals": [
+        "provider_or_network"
+      ],
+      "risk_category": "MEDIUM",
+      "typed_functions_percent": 0.0
+    },
+    {
+      "class_count": 1,
+      "docstring_coverage_percent": 66.67,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 8,
+      "imports": [
+        "copy",
+        "json",
+        "legacy_documenter.documentation.envelope",
+        "legacy_documenter.documentation.interpretation",
+        "math"
+      ],
+      "internal_dependencies": [
+        "legacy_documenter.documentation.envelope",
+        "legacy_documenter.documentation.interpretation"
+      ],
+      "line_count": 51,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/documentation/evidence_catalog.py",
+      "public_symbol_count": 8,
+      "responsibility_count": 2,
+      "responsibility_signals": [
+        "serialization",
+        "validation"
+      ],
+      "risk_category": "MEDIUM",
+      "typed_functions_percent": 0.0
+    },
+    {
+      "class_count": 0,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 0,
+      "imports": [
+        "json",
+        "legacy_documenter.documentation.resume"
+      ],
+      "internal_dependencies": [
+        "legacy_documenter.documentation.resume"
+      ],
+      "line_count": 3,
+      "module_docstring_present": false,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/documentation/evidence_resume.py",
+      "public_symbol_count": 0,
+      "responsibility_count": 1,
+      "responsibility_signals": [
+        "serialization"
+      ],
+      "risk_category": "MEDIUM",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 0,
+      "docstring_coverage_percent": 37.5,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 1,
+        "total_handlers": 1
+      },
+      "filesystem_access": true,
+      "function_count": 8,
+      "imports": [
+        "asyncio",
+        "hashlib",
+        "json",
+        "legacy_documenter.context.composer",
+        "legacy_documenter.context.resolver",
+        "legacy_documenter.documentation.aggregation",
+        "legacy_documenter.documentation.interpretation",
+        "legacy_documenter.documentation.renderer",
+        "legacy_documenter.llm",
+        "legacy_documenter.llm.copilot_pilot",
+        "legacy_documenter.llm.providers.copilot",
+        "pathlib"
+      ],
+      "internal_dependencies": [
+        "legacy_documenter.context.composer",
+        "legacy_documenter.context.resolver",
+        "legacy_documenter.documentation.aggregation",
+        "legacy_documenter.documentation.interpretation",
+        "legacy_documenter.documentation.renderer",
+        "legacy_documenter.llm",
+        "legacy_documenter.llm.copilot_pilot",
+        "legacy_documenter.llm.providers.copilot"
+      ],
+      "line_count": 97,
+      "module_docstring_present": true,
+      "network_or_provider_access": true,
+      "path": "legacy_documenter/documentation/generator.py",
+      "public_symbol_count": 4,
+      "responsibility_count": 5,
+      "responsibility_signals": [
+        "filesystem",
+        "orchestration",
+        "provider_or_network",
+        "serialization",
+        "validation"
+      ],
+      "risk_category": "VERY_HIGH",
+      "typed_functions_percent": 0.0
+    },
+    {
+      "class_count": 0,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 1,
+        "total_handlers": 3
+      },
+      "filesystem_access": true,
+      "function_count": 2,
+      "imports": [
+        "asyncio",
+        "json",
+        "legacy_documenter.documentation.aggregation",
+        "legacy_documenter.documentation.coverage",
+        "legacy_documenter.documentation.generator",
+        "legacy_documenter.documentation.interpretation",
+        "legacy_documenter.documentation.renderer",
+        "legacy_documenter.documentation.synthesis",
+        "legacy_documenter.documentation.systematic",
+        "legacy_documenter.llm",
+        "legacy_documenter.llm.copilot_pilot",
+        "legacy_documenter.llm.providers.copilot",
+        "pathlib"
+      ],
+      "internal_dependencies": [
+        "legacy_documenter.documentation.aggregation",
+        "legacy_documenter.documentation.coverage",
+        "legacy_documenter.documentation.generator",
+        "legacy_documenter.documentation.interpretation",
+        "legacy_documenter.documentation.renderer",
+        "legacy_documenter.documentation.synthesis",
+        "legacy_documenter.documentation.systematic",
+        "legacy_documenter.llm",
+        "legacy_documenter.llm.copilot_pilot",
+        "legacy_documenter.llm.providers.copilot"
+      ],
+      "line_count": 74,
+      "module_docstring_present": true,
+      "network_or_provider_access": true,
+      "path": "legacy_documenter/documentation/hierarchical.py",
+      "public_symbol_count": 2,
+      "responsibility_count": 5,
+      "responsibility_signals": [
+        "filesystem",
+        "orchestration",
+        "provider_or_network",
+        "serialization",
+        "validation"
+      ],
+      "risk_category": "VERY_HIGH",
+      "typed_functions_percent": 0.0
+    },
+    {
+      "class_count": 0,
+      "docstring_coverage_percent": 66.67,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": true,
+      "function_count": 9,
+      "imports": [
+        "json",
+        "pathlib",
+        "re"
+      ],
+      "internal_dependencies": [],
+      "line_count": 179,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/documentation/human_review.py",
+      "public_symbol_count": 6,
+      "responsibility_count": 5,
+      "responsibility_signals": [
+        "filesystem",
+        "orchestration",
+        "parsing",
+        "serialization",
+        "validation"
+      ],
+      "risk_category": "HIGH",
+      "typed_functions_percent": 0.0
+    },
+    {
+      "class_count": 3,
+      "docstring_coverage_percent": 85.71,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 4,
+      "imports": [
+        "dataclasses",
+        "hashlib",
+        "json",
+        "legacy_documenter.documentation.contracts",
+        "legacy_documenter.llm"
+      ],
+      "internal_dependencies": [
+        "legacy_documenter.documentation.contracts",
+        "legacy_documenter.llm"
+      ],
+      "line_count": 52,
+      "module_docstring_present": false,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/documentation/interpretation.py",
+      "public_symbol_count": 7,
+      "responsibility_count": 4,
+      "responsibility_signals": [
+        "domain_modeling",
+        "provider_or_network",
+        "serialization",
+        "validation"
+      ],
+      "risk_category": "HIGH",
+      "typed_functions_percent": 0.0
+    },
+    {
+      "class_count": 0,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 1,
+      "imports": [],
+      "internal_dependencies": [],
+      "line_count": 30,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/documentation/renderer.py",
+      "public_symbol_count": 1,
+      "responsibility_count": 2,
+      "responsibility_signals": [
+        "provider_or_network",
+        "serialization"
+      ],
+      "risk_category": "MEDIUM",
+      "typed_functions_percent": 0.0
+    },
+    {
+      "class_count": 0,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 1,
+        "total_handlers": 6
+      },
+      "filesystem_access": true,
+      "function_count": 3,
+      "imports": [
+        "asyncio",
+        "json",
+        "legacy_documenter.documentation.aggregation",
+        "legacy_documenter.documentation.coverage",
+        "legacy_documenter.documentation.envelope",
+        "legacy_documenter.documentation.evidence_catalog",
+        "legacy_documenter.documentation.generator",
+        "legacy_documenter.documentation.interpretation",
+        "legacy_documenter.documentation.renderer",
+        "legacy_documenter.documentation.synthesis",
+        "legacy_documenter.documentation.systematic",
+        "legacy_documenter.llm",
+        "legacy_documenter.llm.copilot_pilot",
+        "legacy_documenter.llm.providers.copilot",
+        "pathlib"
+      ],
+      "internal_dependencies": [
+        "legacy_documenter.documentation.aggregation",
+        "legacy_documenter.documentation.coverage",
+        "legacy_documenter.documentation.envelope",
+        "legacy_documenter.documentation.evidence_catalog",
+        "legacy_documenter.documentation.generator",
+        "legacy_documenter.documentation.interpretation",
+        "legacy_documenter.documentation.renderer",
+        "legacy_documenter.documentation.synthesis",
+        "legacy_documenter.documentation.systematic",
+        "legacy_documenter.llm",
+        "legacy_documenter.llm.copilot_pilot",
+        "legacy_documenter.llm.providers.copilot"
+      ],
+      "line_count": 85,
+      "module_docstring_present": true,
+      "network_or_provider_access": true,
+      "path": "legacy_documenter/documentation/resume.py",
+      "public_symbol_count": 3,
+      "responsibility_count": 5,
+      "responsibility_signals": [
+        "filesystem",
+        "orchestration",
+        "provider_or_network",
+        "serialization",
+        "validation"
+      ],
+      "risk_category": "VERY_HIGH",
+      "typed_functions_percent": 0.0
+    },
+    {
+      "class_count": 0,
+      "docstring_coverage_percent": 71.43,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": true,
+      "function_count": 7,
+      "imports": [
+        "json",
+        "legacy_documenter.documentation.human_review",
+        "pathlib"
+      ],
+      "internal_dependencies": [
+        "legacy_documenter.documentation.human_review"
+      ],
+      "line_count": 51,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/documentation/second_review.py",
+      "public_symbol_count": 7,
+      "responsibility_count": 5,
+      "responsibility_signals": [
+        "filesystem",
+        "orchestration",
+        "provider_or_network",
+        "serialization",
+        "validation"
+      ],
+      "risk_category": "HIGH",
+      "typed_functions_percent": 0.0
+    },
+    {
+      "class_count": 2,
+      "docstring_coverage_percent": 71.43,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": true,
+      "function_count": 12,
+      "imports": [
+        "hashlib",
+        "json",
+        "os",
+        "pathlib",
+        "tempfile"
+      ],
+      "internal_dependencies": [],
+      "line_count": 95,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/documentation/synthesis.py",
+      "public_symbol_count": 11,
+      "responsibility_count": 4,
+      "responsibility_signals": [
+        "filesystem",
+        "provider_or_network",
+        "serialization",
+        "validation"
+      ],
+      "risk_category": "HIGH",
+      "typed_functions_percent": 0.0
+    },
+    {
+      "class_count": 0,
+      "docstring_coverage_percent": 20.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 1,
+        "total_handlers": 1
+      },
+      "filesystem_access": true,
+      "function_count": 5,
+      "imports": [
+        "asyncio",
+        "collections",
+        "hashlib",
+        "json",
+        "legacy_documenter.documentation.aggregation",
+        "legacy_documenter.documentation.coverage",
+        "legacy_documenter.documentation.generator",
+        "legacy_documenter.documentation.interpretation",
+        "legacy_documenter.documentation.renderer",
+        "legacy_documenter.llm",
+        "legacy_documenter.llm.copilot_pilot",
+        "legacy_documenter.llm.providers.copilot",
+        "pathlib",
+        "re"
+      ],
+      "internal_dependencies": [
+        "legacy_documenter.documentation.aggregation",
+        "legacy_documenter.documentation.coverage",
+        "legacy_documenter.documentation.generator",
+        "legacy_documenter.documentation.interpretation",
+        "legacy_documenter.documentation.renderer",
+        "legacy_documenter.llm",
+        "legacy_documenter.llm.copilot_pilot",
+        "legacy_documenter.llm.providers.copilot"
+      ],
+      "line_count": 75,
+      "module_docstring_present": true,
+      "network_or_provider_access": true,
+      "path": "legacy_documenter/documentation/systematic.py",
+      "public_symbol_count": 1,
+      "responsibility_count": 5,
+      "responsibility_signals": [
+        "filesystem",
+        "orchestration",
+        "provider_or_network",
+        "serialization",
+        "validation"
+      ],
+      "risk_category": "VERY_HIGH",
+      "typed_functions_percent": 0.0
+    },
+    {
+      "class_count": 0,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 0,
+      "imports": [],
+      "internal_dependencies": [],
+      "line_count": 1,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/exporters/__init__.py",
+      "public_symbol_count": 0,
+      "responsibility_count": 0,
+      "responsibility_signals": [],
+      "risk_category": "LOW",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 1,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": true,
+      "function_count": 1,
+      "imports": [
+        "json",
+        "legacy_documenter.utils",
+        "pathlib"
+      ],
+      "internal_dependencies": [
+        "legacy_documenter.utils"
+      ],
+      "line_count": 17,
+      "module_docstring_present": false,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/exporters/json_exporter.py",
+      "public_symbol_count": 2,
+      "responsibility_count": 2,
+      "responsibility_signals": [
+        "filesystem",
+        "serialization"
+      ],
+      "risk_category": "LOW",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 1,
+      "docstring_coverage_percent": 88.89,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": true,
+      "function_count": 8,
+      "imports": [
+        "collections",
+        "pathlib"
+      ],
+      "internal_dependencies": [],
+      "line_count": 74,
+      "module_docstring_present": false,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/exporters/markdown_exporter.py",
+      "public_symbol_count": 8,
+      "responsibility_count": 1,
+      "responsibility_signals": [
+        "filesystem"
+      ],
+      "risk_category": "LOW",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 0,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 0,
+      "imports": [],
+      "internal_dependencies": [],
+      "line_count": 1,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/extractors/__init__.py",
+      "public_symbol_count": 0,
+      "responsibility_count": 0,
+      "responsibility_signals": [],
+      "risk_category": "LOW",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 1,
+      "docstring_coverage_percent": 20.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": true,
+      "function_count": 9,
+      "imports": [
+        "legacy_documenter.models",
+        "pathlib",
+        "re"
+      ],
+      "internal_dependencies": [
+        "legacy_documenter.models"
+      ],
+      "line_count": 245,
+      "module_docstring_present": false,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/extractors/call_extractor.py",
+      "public_symbol_count": 2,
+      "responsibility_count": 3,
+      "responsibility_signals": [
+        "filesystem",
+        "parsing",
+        "serialization"
+      ],
+      "risk_category": "MEDIUM",
+      "typed_functions_percent": 77.78
+    },
+    {
+      "class_count": 1,
+      "docstring_coverage_percent": 7.14,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": true,
+      "function_count": 27,
+      "imports": [
+        "legacy_documenter.utils",
+        "pathlib",
+        "re"
+      ],
+      "internal_dependencies": [
+        "legacy_documenter.utils"
+      ],
+      "line_count": 425,
+      "module_docstring_present": false,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/extractors/database_extractor.py",
+      "public_symbol_count": 2,
+      "responsibility_count": 3,
+      "responsibility_signals": [
+        "filesystem",
+        "parsing",
+        "provider_or_network"
+      ],
+      "risk_category": "HIGH",
+      "typed_functions_percent": 96.3
+    },
+    {
+      "class_count": 1,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": true,
+      "function_count": 1,
+      "imports": [
+        "pathlib",
+        "re"
+      ],
+      "internal_dependencies": [],
+      "line_count": 19,
+      "module_docstring_present": false,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/extractors/solution_extractor.py",
+      "public_symbol_count": 2,
+      "responsibility_count": 2,
+      "responsibility_signals": [
+        "filesystem",
+        "parsing"
+      ],
+      "risk_category": "LOW",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 1,
+      "docstring_coverage_percent": 40.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": true,
+      "function_count": 4,
+      "imports": [
+        "legacy_documenter.models",
+        "pathlib",
+        "re"
+      ],
+      "internal_dependencies": [
+        "legacy_documenter.models"
+      ],
+      "line_count": 108,
+      "module_docstring_present": false,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/extractors/vbnet_extractor.py",
+      "public_symbol_count": 2,
+      "responsibility_count": 3,
+      "responsibility_signals": [
+        "domain_modeling",
+        "filesystem",
+        "parsing"
+      ],
+      "risk_category": "MEDIUM",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 1,
+      "docstring_coverage_percent": 33.33,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": true,
+      "function_count": 5,
+      "imports": [
+        "legacy_documenter.models",
+        "pathlib",
+        "xml.etree.ElementTree"
+      ],
+      "internal_dependencies": [
+        "legacy_documenter.models"
+      ],
+      "line_count": 64,
+      "module_docstring_present": false,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/extractors/vbproj_extractor.py",
+      "public_symbol_count": 2,
+      "responsibility_count": 2,
+      "responsibility_signals": [
+        "filesystem",
+        "parsing"
+      ],
+      "risk_category": "LOW",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 1,
+      "docstring_coverage_percent": 33.33,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": true,
+      "function_count": 5,
+      "imports": [
+        "pathlib",
+        "re"
+      ],
+      "internal_dependencies": [],
+      "line_count": 115,
+      "module_docstring_present": false,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/extractors/web_event_extractor.py",
+      "public_symbol_count": 2,
+      "responsibility_count": 2,
+      "responsibility_signals": [
+        "filesystem",
+        "parsing"
+      ],
+      "risk_category": "LOW",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 1,
+      "docstring_coverage_percent": 75.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": true,
+      "function_count": 3,
+      "imports": [
+        "pathlib",
+        "re",
+        "xml.etree.ElementTree"
+      ],
+      "internal_dependencies": [],
+      "line_count": 67,
+      "module_docstring_present": false,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/extractors/webconfig_extractor.py",
+      "public_symbol_count": 3,
+      "responsibility_count": 2,
+      "responsibility_signals": [
+        "filesystem",
+        "parsing"
+      ],
+      "risk_category": "LOW",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 1,
+      "docstring_coverage_percent": 66.67,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": true,
+      "function_count": 2,
+      "imports": [
+        "legacy_documenter.models",
+        "pathlib",
+        "re"
+      ],
+      "internal_dependencies": [
+        "legacy_documenter.models"
+      ],
+      "line_count": 63,
+      "module_docstring_present": false,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/extractors/webforms_extractor.py",
+      "public_symbol_count": 2,
+      "responsibility_count": 2,
+      "responsibility_signals": [
+        "filesystem",
+        "parsing"
+      ],
+      "risk_category": "LOW",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 0,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 0,
+      "imports": [],
+      "internal_dependencies": [],
+      "line_count": 2,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/knowledge/__init__.py",
+      "public_symbol_count": 0,
+      "responsibility_count": 0,
+      "responsibility_signals": [],
+      "risk_category": "LOW",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 0,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 0,
+      "imports": [],
+      "internal_dependencies": [],
+      "line_count": 12,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/knowledge/approval/__init__.py",
+      "public_symbol_count": 0,
+      "responsibility_count": 0,
+      "responsibility_signals": [],
+      "risk_category": "LOW",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 0,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 2,
+      "imports": [
+        "json",
+        "legacy_documenter.knowledge.approval.enums"
+      ],
+      "internal_dependencies": [
+        "legacy_documenter.knowledge.approval.enums"
+      ],
+      "line_count": 142,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/knowledge/approval/contract_report.py",
+      "public_symbol_count": 2,
+      "responsibility_count": 2,
+      "responsibility_signals": [
+        "provider_or_network",
+        "serialization"
+      ],
+      "risk_category": "LOW",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 2,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 0,
+      "imports": [
+        "enum"
+      ],
+      "internal_dependencies": [],
+      "line_count": 46,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/knowledge/approval/enums.py",
+      "public_symbol_count": 2,
+      "responsibility_count": 1,
+      "responsibility_signals": [
+        "domain_modeling"
+      ],
+      "risk_category": "LOW",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 0,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 2
+      },
+      "filesystem_access": false,
+      "function_count": 3,
+      "imports": [
+        "json",
+        "legacy_documenter.knowledge.approval.enums",
+        "legacy_documenter.knowledge.approval.service",
+        "legacy_documenter.knowledge.proposals.enums",
+        "legacy_documenter.knowledge.proposals.service"
+      ],
+      "internal_dependencies": [
+        "legacy_documenter.knowledge.approval.enums",
+        "legacy_documenter.knowledge.approval.service",
+        "legacy_documenter.knowledge.proposals.enums",
+        "legacy_documenter.knowledge.proposals.service"
+      ],
+      "line_count": 260,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/knowledge/approval/example_report.py",
+      "public_symbol_count": 2,
+      "responsibility_count": 1,
+      "responsibility_signals": [
+        "serialization"
+      ],
+      "risk_category": "MEDIUM",
+      "typed_functions_percent": 66.67
+    },
+    {
+      "class_count": 2,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 2,
+      "imports": [
+        "dataclasses",
+        "legacy_documenter.documentation.contracts",
+        "legacy_documenter.knowledge.approval.enums"
+      ],
+      "internal_dependencies": [
+        "legacy_documenter.documentation.contracts",
+        "legacy_documenter.knowledge.approval.enums"
+      ],
+      "line_count": 102,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/knowledge/approval/models.py",
+      "public_symbol_count": 4,
+      "responsibility_count": 2,
+      "responsibility_signals": [
+        "domain_modeling",
+        "validation"
+      ],
+      "risk_category": "LOW",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 4,
+      "docstring_coverage_percent": 92.31,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 1
+      },
+      "filesystem_access": false,
+      "function_count": 9,
+      "imports": [
+        "dataclasses",
+        "legacy_documenter.knowledge.approval.enums",
+        "legacy_documenter.knowledge.approval.models",
+        "legacy_documenter.knowledge.proposals.enums",
+        "legacy_documenter.knowledge.proposals.models",
+        "legacy_documenter.utils.sanitizer"
+      ],
+      "internal_dependencies": [
+        "legacy_documenter.knowledge.approval.enums",
+        "legacy_documenter.knowledge.approval.models",
+        "legacy_documenter.knowledge.proposals.enums",
+        "legacy_documenter.knowledge.proposals.models",
+        "legacy_documenter.utils.sanitizer"
+      ],
+      "line_count": 227,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/knowledge/approval/service.py",
+      "public_symbol_count": 12,
+      "responsibility_count": 3,
+      "responsibility_signals": [
+        "domain_modeling",
+        "provider_or_network",
+        "validation"
+      ],
+      "risk_category": "MEDIUM",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 0,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 0,
+      "imports": [],
+      "internal_dependencies": [],
+      "line_count": 25,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/knowledge/canonical/__init__.py",
+      "public_symbol_count": 0,
+      "responsibility_count": 2,
+      "responsibility_signals": [
+        "provider_or_network",
+        "validation"
+      ],
+      "risk_category": "LOW",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 0,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 2,
+      "imports": [
+        "json",
+        "legacy_documenter.knowledge.domain.enums"
+      ],
+      "internal_dependencies": [
+        "legacy_documenter.knowledge.domain.enums"
+      ],
+      "line_count": 188,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/knowledge/canonical/contract_report.py",
+      "public_symbol_count": 2,
+      "responsibility_count": 3,
+      "responsibility_signals": [
+        "provider_or_network",
+        "serialization",
+        "validation"
+      ],
+      "risk_category": "MEDIUM",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 0,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 4
+      },
+      "filesystem_access": false,
+      "function_count": 4,
+      "imports": [
+        "json",
+        "legacy_documenter.knowledge.approval.enums",
+        "legacy_documenter.knowledge.approval.service",
+        "legacy_documenter.knowledge.canonical.service",
+        "legacy_documenter.knowledge.domain.enums",
+        "legacy_documenter.knowledge.domain.models",
+        "legacy_documenter.knowledge.proposals.enums",
+        "legacy_documenter.knowledge.proposals.service"
+      ],
+      "internal_dependencies": [
+        "legacy_documenter.knowledge.approval.enums",
+        "legacy_documenter.knowledge.approval.service",
+        "legacy_documenter.knowledge.canonical.service",
+        "legacy_documenter.knowledge.domain.enums",
+        "legacy_documenter.knowledge.domain.models",
+        "legacy_documenter.knowledge.proposals.enums",
+        "legacy_documenter.knowledge.proposals.service"
+      ],
+      "line_count": 344,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/knowledge/canonical/example_report.py",
+      "public_symbol_count": 2,
+      "responsibility_count": 1,
+      "responsibility_signals": [
+        "serialization"
+      ],
+      "risk_category": "MEDIUM",
+      "typed_functions_percent": 50.0
+    },
+    {
+      "class_count": 2,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 1
+      },
+      "filesystem_access": false,
+      "function_count": 3,
+      "imports": [
+        "dataclasses",
+        "legacy_documenter.documentation.contracts",
+        "legacy_documenter.knowledge.domain.enums",
+        "legacy_documenter.knowledge.domain.models"
+      ],
+      "internal_dependencies": [
+        "legacy_documenter.documentation.contracts",
+        "legacy_documenter.knowledge.domain.enums",
+        "legacy_documenter.knowledge.domain.models"
+      ],
+      "line_count": 145,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/knowledge/canonical/models.py",
+      "public_symbol_count": 5,
+      "responsibility_count": 3,
+      "responsibility_signals": [
+        "domain_modeling",
+        "provider_or_network",
+        "validation"
+      ],
+      "risk_category": "MEDIUM",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 4,
+      "docstring_coverage_percent": 94.12,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 1
+      },
+      "filesystem_access": false,
+      "function_count": 13,
+      "imports": [
+        "dataclasses",
+        "legacy_documenter.knowledge.approval.enums",
+        "legacy_documenter.knowledge.approval.models",
+        "legacy_documenter.knowledge.canonical.models",
+        "legacy_documenter.knowledge.domain.enums",
+        "legacy_documenter.knowledge.domain.models",
+        "legacy_documenter.knowledge.proposals.enums",
+        "legacy_documenter.knowledge.proposals.models",
+        "legacy_documenter.utils.sanitizer"
+      ],
+      "internal_dependencies": [
+        "legacy_documenter.knowledge.approval.enums",
+        "legacy_documenter.knowledge.approval.models",
+        "legacy_documenter.knowledge.canonical.models",
+        "legacy_documenter.knowledge.domain.enums",
+        "legacy_documenter.knowledge.domain.models",
+        "legacy_documenter.knowledge.proposals.enums",
+        "legacy_documenter.knowledge.proposals.models",
+        "legacy_documenter.utils.sanitizer"
+      ],
+      "line_count": 287,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/knowledge/canonical/service.py",
+      "public_symbol_count": 16,
+      "responsibility_count": 3,
+      "responsibility_signals": [
+        "domain_modeling",
+        "provider_or_network",
+        "validation"
+      ],
+      "risk_category": "MEDIUM",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 0,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 0,
+      "imports": [],
+      "internal_dependencies": [],
+      "line_count": 12,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/knowledge/classification/__init__.py",
+      "public_symbol_count": 0,
+      "responsibility_count": 0,
+      "responsibility_signals": [],
+      "risk_category": "LOW",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 3,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 3,
+      "imports": [
+        "dataclasses",
+        "legacy_documenter.knowledge.domain.enums"
+      ],
+      "internal_dependencies": [
+        "legacy_documenter.knowledge.domain.enums"
+      ],
+      "line_count": 171,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/knowledge/classification/catalog.py",
+      "public_symbol_count": 6,
+      "responsibility_count": 1,
+      "responsibility_signals": [
+        "domain_modeling"
+      ],
+      "risk_category": "LOW",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 0,
+      "docstring_coverage_percent": 66.67,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 3,
+      "imports": [
+        "json",
+        "legacy_documenter.knowledge.classification.catalog",
+        "legacy_documenter.knowledge.classification.enums",
+        "legacy_documenter.knowledge.domain.enums"
+      ],
+      "internal_dependencies": [
+        "legacy_documenter.knowledge.classification.catalog",
+        "legacy_documenter.knowledge.classification.enums",
+        "legacy_documenter.knowledge.domain.enums"
+      ],
+      "line_count": 83,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/knowledge/classification/contract_report.py",
+      "public_symbol_count": 2,
+      "responsibility_count": 2,
+      "responsibility_signals": [
+        "provider_or_network",
+        "serialization"
+      ],
+      "risk_category": "LOW",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 2,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 0,
+      "imports": [
+        "enum"
+      ],
+      "internal_dependencies": [],
+      "line_count": 39,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/knowledge/classification/enums.py",
+      "public_symbol_count": 2,
+      "responsibility_count": 2,
+      "responsibility_signals": [
+        "domain_modeling",
+        "provider_or_network"
+      ],
+      "risk_category": "LOW",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 2,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 2,
+      "imports": [
+        "dataclasses",
+        "legacy_documenter.documentation.contracts",
+        "legacy_documenter.knowledge.classification.enums",
+        "legacy_documenter.knowledge.domain.enums"
+      ],
+      "internal_dependencies": [
+        "legacy_documenter.documentation.contracts",
+        "legacy_documenter.knowledge.classification.enums",
+        "legacy_documenter.knowledge.domain.enums"
+      ],
+      "line_count": 109,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/knowledge/classification/models.py",
+      "public_symbol_count": 4,
+      "responsibility_count": 2,
+      "responsibility_signals": [
+        "domain_modeling",
+        "validation"
+      ],
+      "risk_category": "LOW",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 5,
+      "docstring_coverage_percent": 75.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 3
+      },
+      "filesystem_access": false,
+      "function_count": 7,
+      "imports": [
+        "dataclasses",
+        "legacy_documenter.knowledge.classification.enums",
+        "legacy_documenter.knowledge.classification.models",
+        "legacy_documenter.knowledge.domain.enums",
+        "legacy_documenter.knowledge.domain.models",
+        "legacy_documenter.knowledge.input.contracts",
+        "legacy_documenter.knowledge.input.normalization",
+        "legacy_documenter.utils.sanitizer"
+      ],
+      "internal_dependencies": [
+        "legacy_documenter.knowledge.classification.enums",
+        "legacy_documenter.knowledge.classification.models",
+        "legacy_documenter.knowledge.domain.enums",
+        "legacy_documenter.knowledge.domain.models",
+        "legacy_documenter.knowledge.input.contracts",
+        "legacy_documenter.knowledge.input.normalization",
+        "legacy_documenter.utils.sanitizer"
+      ],
+      "line_count": 184,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/knowledge/classification/service.py",
+      "public_symbol_count": 9,
+      "responsibility_count": 3,
+      "responsibility_signals": [
+        "domain_modeling",
+        "provider_or_network",
+        "validation"
+      ],
+      "risk_category": "MEDIUM",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 0,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 0,
+      "imports": [],
+      "internal_dependencies": [],
+      "line_count": 19,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/knowledge/closure/__init__.py",
+      "public_symbol_count": 0,
+      "responsibility_count": 0,
+      "responsibility_signals": [],
+      "risk_category": "LOW",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 1,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": true,
+      "function_count": 4,
+      "imports": [
+        "__future__",
+        "hashlib",
+        "pathlib",
+        "re"
+      ],
+      "internal_dependencies": [],
+      "line_count": 116,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/knowledge/closure/artifact_hashes.py",
+      "public_symbol_count": 3,
+      "responsibility_count": 1,
+      "responsibility_signals": [
+        "filesystem"
+      ],
+      "risk_category": "LOW",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 1,
+      "docstring_coverage_percent": 75.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": true,
+      "function_count": 3,
+      "imports": [
+        "__future__",
+        "json",
+        "legacy_documenter.knowledge.closure.artifact_hashes",
+        "legacy_documenter.knowledge.closure.maintainability",
+        "pathlib"
+      ],
+      "internal_dependencies": [
+        "legacy_documenter.knowledge.closure.artifact_hashes",
+        "legacy_documenter.knowledge.closure.maintainability"
+      ],
+      "line_count": 154,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/knowledge/closure/baseline_report.py",
+      "public_symbol_count": 3,
+      "responsibility_count": 4,
+      "responsibility_signals": [
+        "filesystem",
+        "provider_or_network",
+        "serialization",
+        "validation"
+      ],
+      "risk_category": "MEDIUM",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 0,
+      "docstring_coverage_percent": 75.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 1
+      },
+      "filesystem_access": true,
+      "function_count": 4,
+      "imports": [
+        "__future__",
+        "ast",
+        "pathlib"
+      ],
+      "internal_dependencies": [],
+      "line_count": 159,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/knowledge/closure/maintainability.py",
+      "public_symbol_count": 1,
+      "responsibility_count": 2,
+      "responsibility_signals": [
+        "filesystem",
+        "parsing"
+      ],
+      "risk_category": "LOW",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 1,
+      "docstring_coverage_percent": 50.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": true,
+      "function_count": 7,
+      "imports": [
+        "__future__",
+        "json",
+        "pathlib"
+      ],
+      "internal_dependencies": [],
+      "line_count": 140,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/knowledge/closure/manifest_report.py",
+      "public_symbol_count": 3,
+      "responsibility_count": 1,
+      "responsibility_signals": [
+        "serialization"
+      ],
+      "risk_category": "LOW",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 0,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 0,
+      "imports": [],
+      "internal_dependencies": [],
+      "line_count": 7,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/knowledge/domain/__init__.py",
+      "public_symbol_count": 0,
+      "responsibility_count": 0,
+      "responsibility_signals": [],
+      "risk_category": "LOW",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 5,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 0,
+      "imports": [
+        "enum"
+      ],
+      "internal_dependencies": [],
+      "line_count": 97,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/knowledge/domain/enums.py",
+      "public_symbol_count": 5,
+      "responsibility_count": 1,
+      "responsibility_signals": [
+        "domain_modeling"
+      ],
+      "risk_category": "LOW",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 7,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 9,
+      "imports": [
+        "dataclasses",
+        "legacy_documenter.documentation.contracts",
+        "legacy_documenter.knowledge.domain.enums"
+      ],
+      "internal_dependencies": [
+        "legacy_documenter.documentation.contracts",
+        "legacy_documenter.knowledge.domain.enums"
+      ],
+      "line_count": 239,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/knowledge/domain/models.py",
+      "public_symbol_count": 16,
+      "responsibility_count": 2,
+      "responsibility_signals": [
+        "domain_modeling",
+        "validation"
+      ],
+      "risk_category": "MEDIUM",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 0,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 0,
+      "imports": [],
+      "internal_dependencies": [],
+      "line_count": 13,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/knowledge/ingestion/__init__.py",
+      "public_symbol_count": 0,
+      "responsibility_count": 0,
+      "responsibility_signals": [],
+      "risk_category": "LOW",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 0,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 2,
+      "imports": [
+        "json",
+        "legacy_documenter.knowledge.domain.enums",
+        "legacy_documenter.knowledge.ingestion.service"
+      ],
+      "internal_dependencies": [
+        "legacy_documenter.knowledge.domain.enums",
+        "legacy_documenter.knowledge.ingestion.service"
+      ],
+      "line_count": 80,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/knowledge/ingestion/contract_report.py",
+      "public_symbol_count": 2,
+      "responsibility_count": 3,
+      "responsibility_signals": [
+        "provider_or_network",
+        "serialization",
+        "validation"
+      ],
+      "risk_category": "MEDIUM",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 4,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 2,
+      "imports": [
+        "dataclasses",
+        "legacy_documenter.knowledge.domain.models",
+        "legacy_documenter.knowledge.provenance.models"
+      ],
+      "internal_dependencies": [
+        "legacy_documenter.knowledge.domain.models",
+        "legacy_documenter.knowledge.provenance.models"
+      ],
+      "line_count": 65,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/knowledge/ingestion/models.py",
+      "public_symbol_count": 6,
+      "responsibility_count": 1,
+      "responsibility_signals": [
+        "domain_modeling"
+      ],
+      "risk_category": "LOW",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 1,
+      "docstring_coverage_percent": 71.43,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 4
+      },
+      "filesystem_access": false,
+      "function_count": 6,
+      "imports": [
+        "dataclasses",
+        "legacy_documenter.knowledge.domain.enums",
+        "legacy_documenter.knowledge.domain.models",
+        "legacy_documenter.knowledge.ingestion.models",
+        "legacy_documenter.knowledge.input.catalog",
+        "legacy_documenter.knowledge.input.contracts",
+        "legacy_documenter.knowledge.input.validator",
+        "legacy_documenter.knowledge.provenance.enums",
+        "legacy_documenter.knowledge.provenance.graph",
+        "legacy_documenter.knowledge.provenance.models",
+        "legacy_documenter.utils.sanitizer"
+      ],
+      "internal_dependencies": [
+        "legacy_documenter.knowledge.domain.enums",
+        "legacy_documenter.knowledge.domain.models",
+        "legacy_documenter.knowledge.ingestion.models",
+        "legacy_documenter.knowledge.input.catalog",
+        "legacy_documenter.knowledge.input.contracts",
+        "legacy_documenter.knowledge.input.validator",
+        "legacy_documenter.knowledge.provenance.enums",
+        "legacy_documenter.knowledge.provenance.graph",
+        "legacy_documenter.knowledge.provenance.models",
+        "legacy_documenter.utils.sanitizer"
+      ],
+      "line_count": 162,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/knowledge/ingestion/service.py",
+      "public_symbol_count": 3,
+      "responsibility_count": 3,
+      "responsibility_signals": [
+        "domain_modeling",
+        "provider_or_network",
+        "validation"
+      ],
+      "risk_category": "MEDIUM",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 0,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 0,
+      "imports": [],
+      "internal_dependencies": [],
+      "line_count": 11,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/knowledge/input/__init__.py",
+      "public_symbol_count": 0,
+      "responsibility_count": 0,
+      "responsibility_signals": [],
+      "risk_category": "LOW",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 3,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 3,
+      "imports": [
+        "dataclasses",
+        "legacy_documenter.knowledge.domain.enums"
+      ],
+      "internal_dependencies": [
+        "legacy_documenter.knowledge.domain.enums"
+      ],
+      "line_count": 171,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/knowledge/input/catalog.py",
+      "public_symbol_count": 6,
+      "responsibility_count": 1,
+      "responsibility_signals": [
+        "domain_modeling"
+      ],
+      "risk_category": "LOW",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 0,
+      "docstring_coverage_percent": 66.67,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 3,
+      "imports": [
+        "json",
+        "legacy_documenter.knowledge.domain.enums",
+        "legacy_documenter.knowledge.input.catalog"
+      ],
+      "internal_dependencies": [
+        "legacy_documenter.knowledge.domain.enums",
+        "legacy_documenter.knowledge.input.catalog"
+      ],
+      "line_count": 85,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/knowledge/input/contract_report.py",
+      "public_symbol_count": 2,
+      "responsibility_count": 1,
+      "responsibility_signals": [
+        "serialization"
+      ],
+      "risk_category": "LOW",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 2,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 1,
+      "imports": [
+        "dataclasses",
+        "legacy_documenter.documentation.contracts",
+        "legacy_documenter.knowledge.domain.enums",
+        "legacy_documenter.knowledge.domain.models"
+      ],
+      "internal_dependencies": [
+        "legacy_documenter.documentation.contracts",
+        "legacy_documenter.knowledge.domain.enums",
+        "legacy_documenter.knowledge.domain.models"
+      ],
+      "line_count": 63,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/knowledge/input/contracts.py",
+      "public_symbol_count": 3,
+      "responsibility_count": 2,
+      "responsibility_signals": [
+        "domain_modeling",
+        "validation"
+      ],
+      "risk_category": "LOW",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 0,
+      "docstring_coverage_percent": 75.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 4,
+      "imports": [
+        "dataclasses",
+        "legacy_documenter.knowledge.input.contracts",
+        "legacy_documenter.utils.sanitizer",
+        "typing"
+      ],
+      "internal_dependencies": [
+        "legacy_documenter.knowledge.input.contracts",
+        "legacy_documenter.utils.sanitizer"
+      ],
+      "line_count": 74,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/knowledge/input/normalization.py",
+      "public_symbol_count": 2,
+      "responsibility_count": 2,
+      "responsibility_signals": [
+        "domain_modeling",
+        "validation"
+      ],
+      "risk_category": "LOW",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 0,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 12,
+      "imports": [
+        "legacy_documenter.knowledge.domain.enums",
+        "legacy_documenter.knowledge.input.catalog",
+        "legacy_documenter.knowledge.input.contracts",
+        "legacy_documenter.knowledge.input.normalization"
+      ],
+      "internal_dependencies": [
+        "legacy_documenter.knowledge.domain.enums",
+        "legacy_documenter.knowledge.input.catalog",
+        "legacy_documenter.knowledge.input.contracts",
+        "legacy_documenter.knowledge.input.normalization"
+      ],
+      "line_count": 154,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/knowledge/input/validator.py",
+      "public_symbol_count": 1,
+      "responsibility_count": 2,
+      "responsibility_signals": [
+        "provider_or_network",
+        "validation"
+      ],
+      "risk_category": "LOW",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 0,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 0,
+      "imports": [],
+      "internal_dependencies": [],
+      "line_count": 10,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/knowledge/plugin_projection/__init__.py",
+      "public_symbol_count": 0,
+      "responsibility_count": 0,
+      "responsibility_signals": [],
+      "risk_category": "LOW",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 0,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 2,
+      "imports": [
+        "json",
+        "legacy_documenter.knowledge.domain.enums",
+        "legacy_documenter.knowledge.plugin_projection.models"
+      ],
+      "internal_dependencies": [
+        "legacy_documenter.knowledge.domain.enums",
+        "legacy_documenter.knowledge.plugin_projection.models"
+      ],
+      "line_count": 186,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/knowledge/plugin_projection/contract_report.py",
+      "public_symbol_count": 2,
+      "responsibility_count": 3,
+      "responsibility_signals": [
+        "provider_or_network",
+        "serialization",
+        "validation"
+      ],
+      "risk_category": "MEDIUM",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 0,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 7,
+      "imports": [
+        "json",
+        "legacy_documenter.knowledge.canonical.models",
+        "legacy_documenter.knowledge.canonical.service",
+        "legacy_documenter.knowledge.domain.enums",
+        "legacy_documenter.knowledge.domain.models",
+        "legacy_documenter.knowledge.plugin_projection.serializer",
+        "legacy_documenter.knowledge.plugin_projection.service"
+      ],
+      "internal_dependencies": [
+        "legacy_documenter.knowledge.canonical.models",
+        "legacy_documenter.knowledge.canonical.service",
+        "legacy_documenter.knowledge.domain.enums",
+        "legacy_documenter.knowledge.domain.models",
+        "legacy_documenter.knowledge.plugin_projection.serializer",
+        "legacy_documenter.knowledge.plugin_projection.service"
+      ],
+      "line_count": 250,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/knowledge/plugin_projection/example_report.py",
+      "public_symbol_count": 6,
+      "responsibility_count": 2,
+      "responsibility_signals": [
+        "serialization",
+        "validation"
+      ],
+      "risk_category": "MEDIUM",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 5,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 5,
+      "imports": [
+        "dataclasses",
+        "legacy_documenter.knowledge.canonical.models",
+        "legacy_documenter.knowledge.domain.enums",
+        "legacy_documenter.knowledge.domain.models"
+      ],
+      "internal_dependencies": [
+        "legacy_documenter.knowledge.canonical.models",
+        "legacy_documenter.knowledge.domain.enums",
+        "legacy_documenter.knowledge.domain.models"
+      ],
+      "line_count": 216,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/knowledge/plugin_projection/models.py",
+      "public_symbol_count": 10,
+      "responsibility_count": 3,
+      "responsibility_signals": [
+        "domain_modeling",
+        "provider_or_network",
+        "validation"
+      ],
+      "risk_category": "MEDIUM",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 0,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 9,
+      "imports": [
+        "hashlib",
+        "json",
+        "legacy_documenter.knowledge.domain.models",
+        "legacy_documenter.knowledge.plugin_projection.models"
+      ],
+      "internal_dependencies": [
+        "legacy_documenter.knowledge.domain.models",
+        "legacy_documenter.knowledge.plugin_projection.models"
+      ],
+      "line_count": 136,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/knowledge/plugin_projection/serializer.py",
+      "public_symbol_count": 6,
+      "responsibility_count": 1,
+      "responsibility_signals": [
+        "serialization"
+      ],
+      "risk_category": "LOW",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 2,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 1
+      },
+      "filesystem_access": false,
+      "function_count": 1,
+      "imports": [
+        "legacy_documenter.knowledge.canonical.service",
+        "legacy_documenter.knowledge.plugin_projection.models"
+      ],
+      "internal_dependencies": [
+        "legacy_documenter.knowledge.canonical.service",
+        "legacy_documenter.knowledge.plugin_projection.models"
+      ],
+      "line_count": 84,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/knowledge/plugin_projection/service.py",
+      "public_symbol_count": 3,
+      "responsibility_count": 2,
+      "responsibility_signals": [
+        "provider_or_network",
+        "validation"
+      ],
+      "risk_category": "LOW",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 1,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 1,
+      "imports": [
+        "legacy_documenter.knowledge.domain.enums",
+        "legacy_documenter.knowledge.plugin_projection.models"
+      ],
+      "internal_dependencies": [
+        "legacy_documenter.knowledge.domain.enums",
+        "legacy_documenter.knowledge.plugin_projection.models"
+      ],
+      "line_count": 149,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/knowledge/plugin_projection/validator.py",
+      "public_symbol_count": 2,
+      "responsibility_count": 2,
+      "responsibility_signals": [
+        "serialization",
+        "validation"
+      ],
+      "risk_category": "LOW",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 0,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 0,
+      "imports": [
+        "legacy_documenter.knowledge.projection.markdown_renderer",
+        "legacy_documenter.knowledge.projection.models",
+        "legacy_documenter.knowledge.projection.rules",
+        "legacy_documenter.knowledge.projection.service"
+      ],
+      "internal_dependencies": [
+        "legacy_documenter.knowledge.projection.markdown_renderer",
+        "legacy_documenter.knowledge.projection.models",
+        "legacy_documenter.knowledge.projection.rules",
+        "legacy_documenter.knowledge.projection.service"
+      ],
+      "line_count": 35,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/knowledge/projection/__init__.py",
+      "public_symbol_count": 0,
+      "responsibility_count": 3,
+      "responsibility_signals": [
+        "provider_or_network",
+        "serialization",
+        "validation"
+      ],
+      "risk_category": "MEDIUM",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 0,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 2,
+      "imports": [
+        "json",
+        "legacy_documenter.knowledge.domain.enums",
+        "legacy_documenter.knowledge.projection.markdown_renderer",
+        "legacy_documenter.knowledge.projection.rules"
+      ],
+      "internal_dependencies": [
+        "legacy_documenter.knowledge.domain.enums",
+        "legacy_documenter.knowledge.projection.markdown_renderer",
+        "legacy_documenter.knowledge.projection.rules"
+      ],
+      "line_count": 167,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/knowledge/projection/contract_report.py",
+      "public_symbol_count": 2,
+      "responsibility_count": 4,
+      "responsibility_signals": [
+        "parsing",
+        "provider_or_network",
+        "serialization",
+        "validation"
+      ],
+      "risk_category": "MEDIUM",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 0,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": true,
+      "function_count": 1,
+      "imports": [
+        "pathlib"
+      ],
+      "internal_dependencies": [],
+      "line_count": 24,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/knowledge/projection/disk_io.py",
+      "public_symbol_count": 1,
+      "responsibility_count": 2,
+      "responsibility_signals": [
+        "filesystem",
+        "validation"
+      ],
+      "risk_category": "LOW",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 0,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 5,
+      "imports": [
+        "json",
+        "legacy_documenter.knowledge.canonical.models",
+        "legacy_documenter.knowledge.canonical.service",
+        "legacy_documenter.knowledge.domain.enums",
+        "legacy_documenter.knowledge.domain.models",
+        "legacy_documenter.knowledge.projection.markdown_renderer",
+        "legacy_documenter.knowledge.projection.rules",
+        "legacy_documenter.knowledge.projection.service"
+      ],
+      "internal_dependencies": [
+        "legacy_documenter.knowledge.canonical.models",
+        "legacy_documenter.knowledge.canonical.service",
+        "legacy_documenter.knowledge.domain.enums",
+        "legacy_documenter.knowledge.domain.models",
+        "legacy_documenter.knowledge.projection.markdown_renderer",
+        "legacy_documenter.knowledge.projection.rules",
+        "legacy_documenter.knowledge.projection.service"
+      ],
+      "line_count": 212,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/knowledge/projection/example_report.py",
+      "public_symbol_count": 4,
+      "responsibility_count": 2,
+      "responsibility_signals": [
+        "serialization",
+        "validation"
+      ],
+      "risk_category": "MEDIUM",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 0,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 3,
+      "imports": [
+        "legacy_documenter.knowledge.canonical.models",
+        "legacy_documenter.knowledge.projection.models"
+      ],
+      "internal_dependencies": [
+        "legacy_documenter.knowledge.canonical.models",
+        "legacy_documenter.knowledge.projection.models"
+      ],
+      "line_count": 95,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/knowledge/projection/markdown_renderer.py",
+      "public_symbol_count": 2,
+      "responsibility_count": 1,
+      "responsibility_signals": [
+        "serialization"
+      ],
+      "risk_category": "LOW",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 5,
+      "docstring_coverage_percent": 83.33,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 7,
+      "imports": [
+        "dataclasses",
+        "legacy_documenter.knowledge.canonical.models",
+        "legacy_documenter.knowledge.domain.enums"
+      ],
+      "internal_dependencies": [
+        "legacy_documenter.knowledge.canonical.models",
+        "legacy_documenter.knowledge.domain.enums"
+      ],
+      "line_count": 206,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/knowledge/projection/models.py",
+      "public_symbol_count": 10,
+      "responsibility_count": 5,
+      "responsibility_signals": [
+        "domain_modeling",
+        "filesystem",
+        "provider_or_network",
+        "serialization",
+        "validation"
+      ],
+      "risk_category": "HIGH",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 0,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 1,
+      "imports": [
+        "legacy_documenter.knowledge.domain.enums",
+        "legacy_documenter.knowledge.projection.models"
+      ],
+      "internal_dependencies": [
+        "legacy_documenter.knowledge.domain.enums",
+        "legacy_documenter.knowledge.projection.models"
+      ],
+      "line_count": 205,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/knowledge/projection/rules.py",
+      "public_symbol_count": 0,
+      "responsibility_count": 1,
+      "responsibility_signals": [
+        "validation"
+      ],
+      "risk_category": "MEDIUM",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 2,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 2,
+      "imports": [
+        "dataclasses",
+        "legacy_documenter.knowledge.canonical.models",
+        "legacy_documenter.knowledge.canonical.service",
+        "legacy_documenter.knowledge.projection.models"
+      ],
+      "internal_dependencies": [
+        "legacy_documenter.knowledge.canonical.models",
+        "legacy_documenter.knowledge.canonical.service",
+        "legacy_documenter.knowledge.projection.models"
+      ],
+      "line_count": 105,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/knowledge/projection/service.py",
+      "public_symbol_count": 3,
+      "responsibility_count": 2,
+      "responsibility_signals": [
+        "domain_modeling",
+        "provider_or_network"
+      ],
+      "risk_category": "LOW",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 0,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 0,
+      "imports": [],
+      "internal_dependencies": [],
+      "line_count": 9,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/knowledge/proposals/__init__.py",
+      "public_symbol_count": 0,
+      "responsibility_count": 0,
+      "responsibility_signals": [],
+      "risk_category": "LOW",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 0,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 2,
+      "imports": [
+        "json",
+        "legacy_documenter.knowledge.proposals.enums"
+      ],
+      "internal_dependencies": [
+        "legacy_documenter.knowledge.proposals.enums"
+      ],
+      "line_count": 149,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/knowledge/proposals/contract_report.py",
+      "public_symbol_count": 2,
+      "responsibility_count": 3,
+      "responsibility_signals": [
+        "provider_or_network",
+        "serialization",
+        "validation"
+      ],
+      "risk_category": "MEDIUM",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 3,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 0,
+      "imports": [
+        "enum"
+      ],
+      "internal_dependencies": [],
+      "line_count": 68,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/knowledge/proposals/enums.py",
+      "public_symbol_count": 3,
+      "responsibility_count": 3,
+      "responsibility_signals": [
+        "domain_modeling",
+        "provider_or_network",
+        "validation"
+      ],
+      "risk_category": "MEDIUM",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 0,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 2,
+      "imports": [
+        "json",
+        "legacy_documenter.knowledge.proposals.enums",
+        "legacy_documenter.knowledge.proposals.service"
+      ],
+      "internal_dependencies": [
+        "legacy_documenter.knowledge.proposals.enums",
+        "legacy_documenter.knowledge.proposals.service"
+      ],
+      "line_count": 158,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/knowledge/proposals/example_report.py",
+      "public_symbol_count": 2,
+      "responsibility_count": 1,
+      "responsibility_signals": [
+        "serialization"
+      ],
+      "risk_category": "LOW",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 3,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 5,
+      "imports": [
+        "dataclasses",
+        "legacy_documenter.documentation.contracts",
+        "legacy_documenter.knowledge.proposals.enums"
+      ],
+      "internal_dependencies": [
+        "legacy_documenter.documentation.contracts",
+        "legacy_documenter.knowledge.proposals.enums"
+      ],
+      "line_count": 179,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/knowledge/proposals/models.py",
+      "public_symbol_count": 7,
+      "responsibility_count": 2,
+      "responsibility_signals": [
+        "domain_modeling",
+        "validation"
+      ],
+      "risk_category": "LOW",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 6,
+      "docstring_coverage_percent": 94.44,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 3
+      },
+      "filesystem_access": false,
+      "function_count": 12,
+      "imports": [
+        "dataclasses",
+        "legacy_documenter.knowledge.proposals.enums",
+        "legacy_documenter.knowledge.proposals.models",
+        "legacy_documenter.utils.sanitizer"
+      ],
+      "internal_dependencies": [
+        "legacy_documenter.knowledge.proposals.enums",
+        "legacy_documenter.knowledge.proposals.models",
+        "legacy_documenter.utils.sanitizer"
+      ],
+      "line_count": 254,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/knowledge/proposals/service.py",
+      "public_symbol_count": 17,
+      "responsibility_count": 3,
+      "responsibility_signals": [
+        "domain_modeling",
+        "provider_or_network",
+        "validation"
+      ],
+      "risk_category": "MEDIUM",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 0,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 0,
+      "imports": [],
+      "internal_dependencies": [],
+      "line_count": 10,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/knowledge/provenance/__init__.py",
+      "public_symbol_count": 0,
+      "responsibility_count": 0,
+      "responsibility_signals": [],
+      "risk_category": "LOW",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 0,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 2,
+      "imports": [
+        "json",
+        "legacy_documenter.knowledge.provenance.enums"
+      ],
+      "internal_dependencies": [
+        "legacy_documenter.knowledge.provenance.enums"
+      ],
+      "line_count": 71,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/knowledge/provenance/contract_report.py",
+      "public_symbol_count": 2,
+      "responsibility_count": 2,
+      "responsibility_signals": [
+        "serialization",
+        "validation"
+      ],
+      "risk_category": "LOW",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 4,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 0,
+      "imports": [
+        "enum"
+      ],
+      "internal_dependencies": [],
+      "line_count": 69,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/knowledge/provenance/enums.py",
+      "public_symbol_count": 4,
+      "responsibility_count": 2,
+      "responsibility_signals": [
+        "domain_modeling",
+        "validation"
+      ],
+      "risk_category": "LOW",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 1,
+      "docstring_coverage_percent": 88.89,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 1
+      },
+      "filesystem_access": false,
+      "function_count": 17,
+      "imports": [
+        "dataclasses",
+        "json",
+        "legacy_documenter.knowledge.domain.enums",
+        "legacy_documenter.knowledge.input.contracts",
+        "legacy_documenter.knowledge.provenance.enums",
+        "legacy_documenter.knowledge.provenance.models"
+      ],
+      "internal_dependencies": [
+        "legacy_documenter.knowledge.domain.enums",
+        "legacy_documenter.knowledge.input.contracts",
+        "legacy_documenter.knowledge.provenance.enums",
+        "legacy_documenter.knowledge.provenance.models"
+      ],
+      "line_count": 207,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/knowledge/provenance/graph.py",
+      "public_symbol_count": 15,
+      "responsibility_count": 3,
+      "responsibility_signals": [
+        "domain_modeling",
+        "serialization",
+        "validation"
+      ],
+      "risk_category": "MEDIUM",
+      "typed_functions_percent": 94.12
+    },
+    {
+      "class_count": 3,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 1
+      },
+      "filesystem_access": false,
+      "function_count": 7,
+      "imports": [
+        "dataclasses",
+        "legacy_documenter.documentation.contracts",
+        "legacy_documenter.knowledge.domain.enums",
+        "legacy_documenter.knowledge.domain.models",
+        "legacy_documenter.knowledge.input.contracts",
+        "legacy_documenter.knowledge.input.normalization",
+        "legacy_documenter.knowledge.provenance.enums",
+        "legacy_documenter.utils.sanitizer"
+      ],
+      "internal_dependencies": [
+        "legacy_documenter.documentation.contracts",
+        "legacy_documenter.knowledge.domain.enums",
+        "legacy_documenter.knowledge.domain.models",
+        "legacy_documenter.knowledge.input.contracts",
+        "legacy_documenter.knowledge.input.normalization",
+        "legacy_documenter.knowledge.provenance.enums",
+        "legacy_documenter.utils.sanitizer"
+      ],
+      "line_count": 132,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/knowledge/provenance/models.py",
+      "public_symbol_count": 9,
+      "responsibility_count": 2,
+      "responsibility_signals": [
+        "domain_modeling",
+        "validation"
+      ],
+      "risk_category": "LOW",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 1,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": true,
+      "function_count": 20,
+      "imports": [
+        "hashlib",
+        "json",
+        "legacy_documenter.documentation.human_review",
+        "legacy_documenter.documentation.second_review",
+        "pathlib",
+        "re",
+        "typing"
+      ],
+      "internal_dependencies": [
+        "legacy_documenter.documentation.human_review",
+        "legacy_documenter.documentation.second_review"
+      ],
+      "line_count": 292,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/knowledge/readiness.py",
+      "public_symbol_count": 12,
+      "responsibility_count": 6,
+      "responsibility_signals": [
+        "filesystem",
+        "orchestration",
+        "parsing",
+        "provider_or_network",
+        "serialization",
+        "validation"
+      ],
+      "risk_category": "VERY_HIGH",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 0,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 0,
+      "imports": [],
+      "internal_dependencies": [],
+      "line_count": 1,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/knowledge/relations/__init__.py",
+      "public_symbol_count": 0,
+      "responsibility_count": 0,
+      "responsibility_signals": [],
+      "risk_category": "LOW",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 0,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 2,
+      "imports": [
+        "json",
+        "legacy_documenter.knowledge.relations.enums"
+      ],
+      "internal_dependencies": [
+        "legacy_documenter.knowledge.relations.enums"
+      ],
+      "line_count": 111,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/knowledge/relations/contract_report.py",
+      "public_symbol_count": 2,
+      "responsibility_count": 2,
+      "responsibility_signals": [
+        "provider_or_network",
+        "serialization"
+      ],
+      "risk_category": "LOW",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 3,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 0,
+      "imports": [
+        "enum"
+      ],
+      "internal_dependencies": [],
+      "line_count": 49,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/knowledge/relations/enums.py",
+      "public_symbol_count": 3,
+      "responsibility_count": 1,
+      "responsibility_signals": [
+        "domain_modeling"
+      ],
+      "risk_category": "LOW",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 0,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 2,
+      "imports": [
+        "json",
+        "legacy_documenter.knowledge.relations.enums",
+        "legacy_documenter.knowledge.relations.service"
+      ],
+      "internal_dependencies": [
+        "legacy_documenter.knowledge.relations.enums",
+        "legacy_documenter.knowledge.relations.service"
+      ],
+      "line_count": 89,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/knowledge/relations/example_report.py",
+      "public_symbol_count": 2,
+      "responsibility_count": 1,
+      "responsibility_signals": [
+        "serialization"
+      ],
+      "risk_category": "LOW",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 2,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 6,
+      "imports": [
+        "dataclasses",
+        "legacy_documenter.documentation.contracts",
+        "legacy_documenter.knowledge.relations.enums"
+      ],
+      "internal_dependencies": [
+        "legacy_documenter.documentation.contracts",
+        "legacy_documenter.knowledge.relations.enums"
+      ],
+      "line_count": 114,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/knowledge/relations/models.py",
+      "public_symbol_count": 8,
+      "responsibility_count": 2,
+      "responsibility_signals": [
+        "domain_modeling",
+        "validation"
+      ],
+      "risk_category": "LOW",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 6,
+      "docstring_coverage_percent": 93.75,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 3
+      },
+      "filesystem_access": false,
+      "function_count": 10,
+      "imports": [
+        "dataclasses",
+        "legacy_documenter.knowledge.classification.models",
+        "legacy_documenter.knowledge.relations.enums",
+        "legacy_documenter.knowledge.relations.models",
+        "legacy_documenter.knowledge.temporal.models",
+        "legacy_documenter.utils.sanitizer"
+      ],
+      "internal_dependencies": [
+        "legacy_documenter.knowledge.classification.models",
+        "legacy_documenter.knowledge.relations.enums",
+        "legacy_documenter.knowledge.relations.models",
+        "legacy_documenter.knowledge.temporal.models",
+        "legacy_documenter.utils.sanitizer"
+      ],
+      "line_count": 233,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/knowledge/relations/service.py",
+      "public_symbol_count": 15,
+      "responsibility_count": 3,
+      "responsibility_signals": [
+        "domain_modeling",
+        "provider_or_network",
+        "validation"
+      ],
+      "risk_category": "MEDIUM",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 0,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 0,
+      "imports": [],
+      "internal_dependencies": [],
+      "line_count": 14,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/knowledge/temporal/__init__.py",
+      "public_symbol_count": 0,
+      "responsibility_count": 0,
+      "responsibility_signals": [],
+      "risk_category": "LOW",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 0,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 2,
+      "imports": [
+        "json",
+        "legacy_documenter.knowledge.domain.enums",
+        "legacy_documenter.knowledge.temporal.enums"
+      ],
+      "internal_dependencies": [
+        "legacy_documenter.knowledge.domain.enums",
+        "legacy_documenter.knowledge.temporal.enums"
+      ],
+      "line_count": 83,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/knowledge/temporal/contract_report.py",
+      "public_symbol_count": 2,
+      "responsibility_count": 2,
+      "responsibility_signals": [
+        "provider_or_network",
+        "serialization"
+      ],
+      "risk_category": "LOW",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 1,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 0,
+      "imports": [
+        "enum"
+      ],
+      "internal_dependencies": [],
+      "line_count": 22,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/knowledge/temporal/enums.py",
+      "public_symbol_count": 1,
+      "responsibility_count": 1,
+      "responsibility_signals": [
+        "domain_modeling"
+      ],
+      "risk_category": "LOW",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 2,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 3,
+      "imports": [
+        "dataclasses",
+        "legacy_documenter.documentation.contracts",
+        "legacy_documenter.knowledge.domain.enums",
+        "legacy_documenter.knowledge.temporal.enums"
+      ],
+      "internal_dependencies": [
+        "legacy_documenter.documentation.contracts",
+        "legacy_documenter.knowledge.domain.enums",
+        "legacy_documenter.knowledge.temporal.enums"
+      ],
+      "line_count": 73,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/knowledge/temporal/models.py",
+      "public_symbol_count": 5,
+      "responsibility_count": 2,
+      "responsibility_signals": [
+        "domain_modeling",
+        "validation"
+      ],
+      "risk_category": "LOW",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 4,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 3
+      },
+      "filesystem_access": false,
+      "function_count": 4,
+      "imports": [
+        "dataclasses",
+        "legacy_documenter.knowledge.classification.models",
+        "legacy_documenter.knowledge.domain.models",
+        "legacy_documenter.knowledge.temporal.enums",
+        "legacy_documenter.knowledge.temporal.models"
+      ],
+      "internal_dependencies": [
+        "legacy_documenter.knowledge.classification.models",
+        "legacy_documenter.knowledge.domain.models",
+        "legacy_documenter.knowledge.temporal.enums",
+        "legacy_documenter.knowledge.temporal.models"
+      ],
+      "line_count": 141,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/knowledge/temporal/service.py",
+      "public_symbol_count": 8,
+      "responsibility_count": 2,
+      "responsibility_signals": [
+        "domain_modeling",
+        "validation"
+      ],
+      "risk_category": "LOW",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 0,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 0,
+      "imports": [
+        ".core"
+      ],
+      "internal_dependencies": [
+        ".core"
+      ],
+      "line_count": 1,
+      "module_docstring_present": false,
+      "network_or_provider_access": true,
+      "path": "legacy_documenter/llm/__init__.py",
+      "public_symbol_count": 0,
+      "responsibility_count": 0,
+      "responsibility_signals": [],
+      "risk_category": "LOW",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 0,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 1,
+        "total_handlers": 1
+      },
+      "filesystem_access": false,
+      "function_count": 4,
+      "imports": [
+        "asyncio",
+        "copilot",
+        "importlib.util",
+        "json",
+        "legacy_documenter.documentation.interpretation",
+        "legacy_documenter.llm",
+        "legacy_documenter.llm.providers.copilot"
+      ],
+      "internal_dependencies": [
+        "legacy_documenter.documentation.interpretation",
+        "legacy_documenter.llm",
+        "legacy_documenter.llm.providers.copilot"
+      ],
+      "line_count": 61,
+      "module_docstring_present": true,
+      "network_or_provider_access": true,
+      "path": "legacy_documenter/llm/copilot_pilot.py",
+      "public_symbol_count": 4,
+      "responsibility_count": 4,
+      "responsibility_signals": [
+        "orchestration",
+        "provider_or_network",
+        "serialization",
+        "validation"
+      ],
+      "risk_category": "HIGH",
+      "typed_functions_percent": 0.0
+    },
+    {
+      "class_count": 10,
+      "docstring_coverage_percent": 59.09,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 12,
+      "imports": [
+        ".providers.copilot",
+        "__future__",
+        "abc",
+        "dataclasses",
+        "hashlib",
+        "json"
+      ],
+      "internal_dependencies": [
+        ".providers.copilot"
+      ],
+      "line_count": 84,
+      "module_docstring_present": false,
+      "network_or_provider_access": true,
+      "path": "legacy_documenter/llm/core.py",
+      "public_symbol_count": 19,
+      "responsibility_count": 4,
+      "responsibility_signals": [
+        "domain_modeling",
+        "provider_or_network",
+        "serialization",
+        "validation"
+      ],
+      "risk_category": "MEDIUM",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 0,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 0,
+      "imports": [
+        ".copilot",
+        ".gemini"
+      ],
+      "internal_dependencies": [
+        ".copilot",
+        ".gemini"
+      ],
+      "line_count": 2,
+      "module_docstring_present": false,
+      "network_or_provider_access": true,
+      "path": "legacy_documenter/llm/providers/__init__.py",
+      "public_symbol_count": 0,
+      "responsibility_count": 1,
+      "responsibility_signals": [
+        "provider_or_network"
+      ],
+      "risk_category": "LOW",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 1,
+      "docstring_coverage_percent": 30.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 4,
+        "total_handlers": 5
+      },
+      "filesystem_access": false,
+      "function_count": 9,
+      "imports": [
+        "asyncio",
+        "copilot",
+        "copilot.generated.rpc",
+        "inspect",
+        "json",
+        "legacy_documenter.llm",
+        "time"
+      ],
+      "internal_dependencies": [
+        "legacy_documenter.llm"
+      ],
+      "line_count": 68,
+      "module_docstring_present": false,
+      "network_or_provider_access": true,
+      "path": "legacy_documenter/llm/providers/copilot.py",
+      "public_symbol_count": 6,
+      "responsibility_count": 2,
+      "responsibility_signals": [
+        "provider_or_network",
+        "serialization"
+      ],
+      "risk_category": "MEDIUM",
+      "typed_functions_percent": 88.89
+    },
+    {
+      "class_count": 1,
+      "docstring_coverage_percent": 33.33,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 2,
+        "total_handlers": 3
+      },
+      "filesystem_access": true,
+      "function_count": 8,
+      "imports": [
+        "json",
+        "legacy_documenter.llm",
+        "os",
+        "urllib.error",
+        "urllib.request"
+      ],
+      "internal_dependencies": [
+        "legacy_documenter.llm"
+      ],
+      "line_count": 29,
+      "module_docstring_present": false,
+      "network_or_provider_access": true,
+      "path": "legacy_documenter/llm/providers/gemini.py",
+      "public_symbol_count": 5,
+      "responsibility_count": 3,
+      "responsibility_signals": [
+        "filesystem",
+        "provider_or_network",
+        "serialization"
+      ],
+      "risk_category": "MEDIUM",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 0,
+      "docstring_coverage_percent": 80.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 4,
+        "total_handlers": 4
+      },
+      "filesystem_access": true,
+      "function_count": 5,
+      "imports": [
+        "argparse",
+        "legacy_documenter.analysis.call_resolver",
+        "legacy_documenter.analysis.database_resolver",
+        "legacy_documenter.analysis.dependency_resolver",
+        "legacy_documenter.analysis.flow_resolver",
+        "legacy_documenter.analysis.web_entry_resolver",
+        "legacy_documenter.context.context_builder",
+        "legacy_documenter.context.system_context_builder",
+        "legacy_documenter.exporters.json_exporter",
+        "legacy_documenter.exporters.markdown_exporter",
+        "legacy_documenter.extractors.call_extractor",
+        "legacy_documenter.extractors.database_extractor",
+        "legacy_documenter.extractors.solution_extractor",
+        "legacy_documenter.extractors.vbnet_extractor",
+        "legacy_documenter.extractors.vbproj_extractor",
+        "legacy_documenter.extractors.web_event_extractor",
+        "legacy_documenter.extractors.webconfig_extractor",
+        "legacy_documenter.extractors.webforms_extractor",
+        "legacy_documenter.scanner.file_classifier",
+        "legacy_documenter.scanner.repository_scanner",
+        "logging",
+        "pathlib",
+        "time"
+      ],
+      "internal_dependencies": [
+        "legacy_documenter.analysis.call_resolver",
+        "legacy_documenter.analysis.database_resolver",
+        "legacy_documenter.analysis.dependency_resolver",
+        "legacy_documenter.analysis.flow_resolver",
+        "legacy_documenter.analysis.web_entry_resolver",
+        "legacy_documenter.context.context_builder",
+        "legacy_documenter.context.system_context_builder",
+        "legacy_documenter.exporters.json_exporter",
+        "legacy_documenter.exporters.markdown_exporter",
+        "legacy_documenter.extractors.call_extractor",
+        "legacy_documenter.extractors.database_extractor",
+        "legacy_documenter.extractors.solution_extractor",
+        "legacy_documenter.extractors.vbnet_extractor",
+        "legacy_documenter.extractors.vbproj_extractor",
+        "legacy_documenter.extractors.web_event_extractor",
+        "legacy_documenter.extractors.webconfig_extractor",
+        "legacy_documenter.extractors.webforms_extractor",
+        "legacy_documenter.scanner.file_classifier",
+        "legacy_documenter.scanner.repository_scanner"
+      ],
+      "line_count": 228,
+      "module_docstring_present": false,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/main.py",
+      "public_symbol_count": 4,
+      "responsibility_count": 3,
+      "responsibility_signals": [
+        "filesystem",
+        "orchestration",
+        "serialization"
+      ],
+      "risk_category": "HIGH",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 0,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 0,
+      "imports": [
+        ".call",
+        ".dependency",
+        ".entry_point",
+        ".evidence",
+        ".project",
+        ".source_file",
+        ".symbol",
+        ".webform"
+      ],
+      "internal_dependencies": [
+        ".call",
+        ".dependency",
+        ".entry_point",
+        ".evidence",
+        ".project",
+        ".source_file",
+        ".symbol",
+        ".webform"
+      ],
+      "line_count": 22,
+      "module_docstring_present": false,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/models/__init__.py",
+      "public_symbol_count": 0,
+      "responsibility_count": 0,
+      "responsibility_signals": [],
+      "risk_category": "LOW",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 3,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 3,
+      "imports": [
+        "dataclasses",
+        "legacy_documenter.models.evidence"
+      ],
+      "internal_dependencies": [
+        "legacy_documenter.models.evidence"
+      ],
+      "line_count": 60,
+      "module_docstring_present": false,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/models/call.py",
+      "public_symbol_count": 6,
+      "responsibility_count": 2,
+      "responsibility_signals": [
+        "domain_modeling",
+        "serialization"
+      ],
+      "risk_category": "LOW",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 1,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 1,
+      "imports": [
+        "dataclasses"
+      ],
+      "internal_dependencies": [],
+      "line_count": 16,
+      "module_docstring_present": false,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/models/dependency.py",
+      "public_symbol_count": 2,
+      "responsibility_count": 2,
+      "responsibility_signals": [
+        "domain_modeling",
+        "serialization"
+      ],
+      "risk_category": "LOW",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 2,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 2,
+      "imports": [
+        "dataclasses"
+      ],
+      "internal_dependencies": [],
+      "line_count": 41,
+      "module_docstring_present": false,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/models/entry_point.py",
+      "public_symbol_count": 4,
+      "responsibility_count": 2,
+      "responsibility_signals": [
+        "domain_modeling",
+        "serialization"
+      ],
+      "risk_category": "LOW",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 1,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 1,
+      "imports": [
+        "dataclasses"
+      ],
+      "internal_dependencies": [],
+      "line_count": 16,
+      "module_docstring_present": false,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/models/evidence.py",
+      "public_symbol_count": 2,
+      "responsibility_count": 2,
+      "responsibility_signals": [
+        "domain_modeling",
+        "serialization"
+      ],
+      "risk_category": "LOW",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 1,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 1,
+      "imports": [
+        "dataclasses"
+      ],
+      "internal_dependencies": [],
+      "line_count": 21,
+      "module_docstring_present": false,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/models/project.py",
+      "public_symbol_count": 2,
+      "responsibility_count": 2,
+      "responsibility_signals": [
+        "domain_modeling",
+        "serialization"
+      ],
+      "risk_category": "LOW",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 1,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 1,
+      "imports": [
+        "dataclasses"
+      ],
+      "internal_dependencies": [],
+      "line_count": 16,
+      "module_docstring_present": false,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/models/source_file.py",
+      "public_symbol_count": 2,
+      "responsibility_count": 2,
+      "responsibility_signals": [
+        "domain_modeling",
+        "serialization"
+      ],
+      "risk_category": "LOW",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 1,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 1,
+      "imports": [
+        "dataclasses"
+      ],
+      "internal_dependencies": [],
+      "line_count": 24,
+      "module_docstring_present": false,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/models/symbol.py",
+      "public_symbol_count": 2,
+      "responsibility_count": 2,
+      "responsibility_signals": [
+        "domain_modeling",
+        "serialization"
+      ],
+      "risk_category": "LOW",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 1,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 1,
+      "imports": [
+        "dataclasses"
+      ],
+      "internal_dependencies": [],
+      "line_count": 21,
+      "module_docstring_present": false,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/models/webform.py",
+      "public_symbol_count": 2,
+      "responsibility_count": 2,
+      "responsibility_signals": [
+        "domain_modeling",
+        "serialization"
+      ],
+      "risk_category": "LOW",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 0,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 0,
+      "imports": [],
+      "internal_dependencies": [],
+      "line_count": 2,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/quality/__init__.py",
+      "public_symbol_count": 0,
+      "responsibility_count": 0,
+      "responsibility_signals": [],
+      "risk_category": "LOW",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 0,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": true,
+      "function_count": 8,
+      "imports": [
+        "__future__",
+        "ast",
+        "json",
+        "pathlib",
+        "sys"
+      ],
+      "internal_dependencies": [],
+      "line_count": 154,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/quality/maintainability_audit.py",
+      "public_symbol_count": 3,
+      "responsibility_count": 6,
+      "responsibility_signals": [
+        "filesystem",
+        "orchestration",
+        "parsing",
+        "provider_or_network",
+        "serialization",
+        "validation"
+      ],
+      "risk_category": "HIGH",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 0,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 0,
+      "imports": [],
+      "internal_dependencies": [],
+      "line_count": 1,
+      "module_docstring_present": true,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/scanner/__init__.py",
+      "public_symbol_count": 0,
+      "responsibility_count": 0,
+      "responsibility_signals": [],
+      "risk_category": "MEDIUM",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 1,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": true,
+      "function_count": 2,
+      "imports": [
+        "collections",
+        "pathlib"
+      ],
+      "internal_dependencies": [],
+      "line_count": 46,
+      "module_docstring_present": false,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/scanner/file_classifier.py",
+      "public_symbol_count": 3,
+      "responsibility_count": 0,
+      "responsibility_signals": [],
+      "risk_category": "MEDIUM",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 1,
+      "docstring_coverage_percent": 50.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 1
+      },
+      "filesystem_access": true,
+      "function_count": 3,
+      "imports": [
+        "legacy_documenter.config",
+        "legacy_documenter.models",
+        "legacy_documenter.scanner.file_classifier",
+        "pathlib"
+      ],
+      "internal_dependencies": [
+        "legacy_documenter.config",
+        "legacy_documenter.models",
+        "legacy_documenter.scanner.file_classifier"
+      ],
+      "line_count": 46,
+      "module_docstring_present": false,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/scanner/repository_scanner.py",
+      "public_symbol_count": 2,
+      "responsibility_count": 1,
+      "responsibility_signals": [
+        "filesystem"
+      ],
+      "risk_category": "MEDIUM",
+      "typed_functions_percent": 66.67
+    },
+    {
+      "class_count": 0,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 0,
+      "imports": [
+        "legacy_documenter.utils.sanitizer"
+      ],
+      "internal_dependencies": [
+        "legacy_documenter.utils.sanitizer"
+      ],
+      "line_count": 3,
+      "module_docstring_present": false,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/utils/__init__.py",
+      "public_symbol_count": 0,
+      "responsibility_count": 0,
+      "responsibility_signals": [],
+      "risk_category": "LOW",
+      "typed_functions_percent": 100.0
+    },
+    {
+      "class_count": 0,
+      "docstring_coverage_percent": 100.0,
+      "exception_boundary_observations": {
+        "bare_except": 0,
+        "except_exception": 0,
+        "total_handlers": 0
+      },
+      "filesystem_access": false,
+      "function_count": 2,
+      "imports": [
+        "copy",
+        "re",
+        "typing"
+      ],
+      "internal_dependencies": [],
+      "line_count": 31,
+      "module_docstring_present": false,
+      "network_or_provider_access": false,
+      "path": "legacy_documenter/utils/sanitizer.py",
+      "public_symbol_count": 2,
+      "responsibility_count": 1,
+      "responsibility_signals": [
+        "parsing"
+      ],
+      "risk_category": "LOW",
+      "typed_functions_percent": 100.0
+    }
+  ],
+  "public_compatibility": [
+    {
+      "compatibility_strategy": "DO_NOT_MOVE",
+      "symbol": "legacy_documenter.main.main / analyze_repository",
+      "usage_evidence": "Imported by top-level main.py and tests/test_v1*.py."
+    },
+    {
+      "compatibility_strategy": "COMPATIBILITY_WRAPPER",
+      "symbol": "legacy_documenter.knowledge.readiness.run (module __main__ + `python -m ...`)",
+      "usage_evidence": "Documented CLI entry point in docs/PROJECT_RECOVERY.md and every round's entry gate."
+    },
+    {
+      "compatibility_strategy": "REEXPORT (keep function name and location; only its internal serialization call moves to the shared helper)",
+      "symbol": "legacy_documenter.knowledge.*.contract_report.render_*_contract_json / build_*_contract",
+      "usage_evidence": "Referenced by each package's own contract/example hash tests (grep-confirmed)."
+    },
+    {
+      "compatibility_strategy": "COMPATIBILITY_WRAPPER",
+      "symbol": "legacy_documenter.quality.maintainability_audit.audit / write_audit",
+      "usage_evidence": "Referenced from its own `__main__` block only; grep found no cross-package import."
+    },
+    {
+      "compatibility_strategy": "NO_WRAPPER (already public via the facade; a provider importing from `.core` directly instead of the facade is an internal-only clarity change)",
+      "symbol": "legacy_documenter.llm.* (facade re-export of .core)",
+      "usage_evidence": "`legacy_documenter/llm/providers/copilot.py` imports from the `legacy_documenter.llm` facade rather than `legacy_documenter.llm.core` directly (see dependency_findings self-loop)."
+    }
+  ],
+  "responsibility_candidates": [
+    {
+      "classification": "REFACTOR_CANDIDATE",
+      "evidence": "Single module reads manuals/artifacts from disk, computes closure/eligibility over records, and writes four fixed output files, per DEBT-002 (docs/V4/V4_R13_REGRESSION_AND_SECURITY_RESULT.md).",
+      "path": "legacy_documenter/knowledge/readiness.py",
+      "responsibilities": [
+        "document parsing",
+        "evidence-closure computation",
+        "file I/O",
+        "gate orchestration"
+      ],
+      "risk": "MEDIUM"
+    },
+    {
+      "classification": "CHARACTERIZATION_REQUIRED",
+      "evidence": "Largest class in the repository (DatabaseExtractor, 27 methods, 395 lines); mixes low-level text scanning with higher-level interpretation decisions in the same class.",
+      "path": "legacy_documenter/extractors/database_extractor.py",
+      "responsibilities": [
+        "VB.NET/SQL text parsing",
+        "domain classification of database access",
+        "heuristic inference"
+      ],
+      "risk": "VERY_HIGH"
+    },
+    {
+      "classification": "CHARACTERIZATION_REQUIRED",
+      "evidence": "FunctionalFlowResolver (24 methods, 316 lines) combines structural resolution with output formatting in one class.",
+      "path": "legacy_documenter/analysis/flow_resolver.py",
+      "responsibilities": [
+        "control-flow graph construction",
+        "cross-file call resolution",
+        "narrative/report text assembly"
+      ],
+      "risk": "VERY_HIGH"
+    },
+    {
+      "classification": "CHARACTERIZATION_REQUIRED",
+      "evidence": "6 exception handlers incl. 1 broad `except Exception`; combines checkpoint/resume state with aggregation and disk access. No dedicated unit test module targets it directly by name.",
+      "path": "legacy_documenter/documentation/resume.py",
+      "responsibilities": [
+        "orchestration/resume-state tracking",
+        "aggregation",
+        "file I/O"
+      ],
+      "risk": "HIGH"
+    },
+    {
+      "classification": "REVIEW",
+      "evidence": "4 broad `except Exception` handlers translate internal stage failures into CLI exit behavior; this is a legitimate top-level boundary (see exception_candidates) but it also decides pipeline ordering, which is a second responsibility.",
+      "path": "legacy_documenter/main.py",
+      "responsibilities": [
+        "CLI argument handling",
+        "pipeline orchestration",
+        "broad exception-to-exit-code translation"
+      ],
+      "risk": "MEDIUM"
+    },
+    {
+      "classification": "REVIEW",
+      "evidence": "4 broad `except Exception` handlers around asyncio/subprocess-shaped provider calls; appropriate for an adapter boundary (see exception_candidates) but combined with response-shape parsing in the same class.",
+      "path": "legacy_documenter/llm/providers/copilot.py",
+      "responsibilities": [
+        "provider protocol/HTTP-shaped adapter logic",
+        "response parsing",
+        "error translation"
+      ],
+      "risk": "MEDIUM"
+    },
+    {
+      "classification": "REFACTOR_CANDIDATE",
+      "evidence": "Highest responsibility-signal count of any file in the repository (7 distinct signals in only 163 lines); small size does not offset the number of distinct concerns present -- a genuine cohesion finding, not a line-count trigger.",
+      "path": "legacy_documenter/analysis/deep_source.py",
+      "responsibilities": [
+        "source-text parsing",
+        "domain-object construction",
+        "filesystem access",
+        "provider-shaped invocation",
+        "serialization",
+        "validation",
+        "orchestration"
+      ],
+      "risk": "HIGH"
+    }
+  ],
+  "risk_summary": {
+    "files_by_risk_category": {
+      "HIGH": 16,
+      "LOW": 74,
+      "MEDIUM": 47,
+      "VERY_HIGH": 6
+    },
+    "high_risk_files": [
+      "legacy_documenter/analysis/deep_interpretation.py",
+      "legacy_documenter/analysis/flow_resolver.py",
+      "legacy_documenter/analysis/targeted_exhaustion.py",
+      "legacy_documenter/documentation/consistency.py",
+      "legacy_documenter/documentation/consistency_run.py",
+      "legacy_documenter/documentation/contracts.py",
+      "legacy_documenter/documentation/coverage.py",
+      "legacy_documenter/documentation/human_review.py",
+      "legacy_documenter/documentation/interpretation.py",
+      "legacy_documenter/documentation/second_review.py",
+      "legacy_documenter/documentation/synthesis.py",
+      "legacy_documenter/extractors/database_extractor.py",
+      "legacy_documenter/knowledge/projection/models.py",
+      "legacy_documenter/llm/copilot_pilot.py",
+      "legacy_documenter/main.py",
+      "legacy_documenter/quality/maintainability_audit.py"
+    ],
+    "very_high_risk_files": [
+      "legacy_documenter/analysis/deep_source.py",
+      "legacy_documenter/documentation/generator.py",
+      "legacy_documenter/documentation/hierarchical.py",
+      "legacy_documenter/documentation/resume.py",
+      "legacy_documenter/documentation/systematic.py",
+      "legacy_documenter/knowledge/readiness.py"
+    ]
+  },
+  "schema_version": "V4.1-R0-1",
+  "side_effect_candidates": [
+    {
+      "file_count": 39,
+      "files": [
+        "legacy_documenter/analysis/database_resolver.py",
+        "legacy_documenter/analysis/deep_interpretation.py",
+        "legacy_documenter/analysis/deep_source.py",
+        "legacy_documenter/analysis/dependency_resolver.py",
+        "legacy_documenter/analysis/targeted_exhaustion.py",
+        "legacy_documenter/analysis/web_entry_resolver.py",
+        "legacy_documenter/context/context_builder.py",
+        "legacy_documenter/context/resolver.py",
+        "legacy_documenter/context/system_context_builder.py",
+        "legacy_documenter/documentation/consistency_run.py",
+        "legacy_documenter/documentation/coverage.py",
+        "legacy_documenter/documentation/generator.py",
+        "legacy_documenter/documentation/hierarchical.py",
+        "legacy_documenter/documentation/human_review.py",
+        "legacy_documenter/documentation/resume.py",
+        "legacy_documenter/documentation/second_review.py",
+        "legacy_documenter/documentation/synthesis.py",
+        "legacy_documenter/documentation/systematic.py",
+        "legacy_documenter/exporters/json_exporter.py",
+        "legacy_documenter/exporters/markdown_exporter.py",
+        "legacy_documenter/extractors/call_extractor.py",
+        "legacy_documenter/extractors/database_extractor.py",
+        "legacy_documenter/extractors/solution_extractor.py",
+        "legacy_documenter/extractors/vbnet_extractor.py",
+        "legacy_documenter/extractors/vbproj_extractor.py",
+        "legacy_documenter/extractors/web_event_extractor.py",
+        "legacy_documenter/extractors/webconfig_extractor.py",
+        "legacy_documenter/extractors/webforms_extractor.py",
+        "legacy_documenter/knowledge/closure/artifact_hashes.py",
+        "legacy_documenter/knowledge/closure/baseline_report.py",
+        "legacy_documenter/knowledge/closure/maintainability.py",
+        "legacy_documenter/knowledge/closure/manifest_report.py",
+        "legacy_documenter/knowledge/projection/disk_io.py",
+        "legacy_documenter/knowledge/readiness.py",
+        "legacy_documenter/llm/providers/gemini.py",
+        "legacy_documenter/main.py",
+        "legacy_documenter/quality/maintainability_audit.py",
+        "legacy_documenter/scanner/file_classifier.py",
+        "legacy_documenter/scanner/repository_scanner.py"
+      ],
+      "kind": "filesystem_access",
+      "observation": "Filesystem access is spread across extractors/scanner (reading the read-only legacy repository), documentation/exporters (writing generated output), and two isolated knowledge-package writers (`projection/disk_io.py`, `readiness.py`) -- consistent with R13's own finding that only those two knowledge modules touch disk."
+    },
+    {
+      "file_count": 11,
+      "files": [
+        "legacy_documenter/analysis/deep_interpretation.py",
+        "legacy_documenter/documentation/generator.py",
+        "legacy_documenter/documentation/hierarchical.py",
+        "legacy_documenter/documentation/resume.py",
+        "legacy_documenter/documentation/systematic.py",
+        "legacy_documenter/llm/__init__.py",
+        "legacy_documenter/llm/copilot_pilot.py",
+        "legacy_documenter/llm/core.py",
+        "legacy_documenter/llm/providers/__init__.py",
+        "legacy_documenter/llm/providers/copilot.py",
+        "legacy_documenter/llm/providers/gemini.py"
+      ],
+      "kind": "network_or_provider_access",
+      "observation": "Network/provider access is confined to `legacy_documenter/llm/` (core, providers/, copilot_pilot.py) plus name-hint matches inside knowledge services that only *reference* provider-shaped types (e.g. `AI_INTERPRETATION` provenance) without importing a network module -- verified no `legacy_documenter/knowledge/**` file imports urllib/requests/socket per V4-R13's own AST scan, which this inventory's import list corroborates."
+    }
+  ],
+  "type_safety_candidates": [
+    {
+      "function_count": 10,
+      "note": "Below-average return/parameter annotation coverage for this file; a diagnostic signal, not a lint failure -- `-> None` and dunder methods are sometimes legitimately unannotated.",
+      "path": "legacy_documenter/analysis/deep_interpretation.py",
+      "typed_functions_percent": 0.0
+    },
+    {
+      "function_count": 12,
+      "note": "Below-average return/parameter annotation coverage for this file; a diagnostic signal, not a lint failure -- `-> None` and dunder methods are sometimes legitimately unannotated.",
+      "path": "legacy_documenter/analysis/deep_source.py",
+      "typed_functions_percent": 0.0
+    },
+    {
+      "function_count": 6,
+      "note": "Below-average return/parameter annotation coverage for this file; a diagnostic signal, not a lint failure -- `-> None` and dunder methods are sometimes legitimately unannotated.",
+      "path": "legacy_documenter/analysis/targeted_exhaustion.py",
+      "typed_functions_percent": 0.0
+    },
+    {
+      "function_count": 4,
+      "note": "Below-average return/parameter annotation coverage for this file; a diagnostic signal, not a lint failure -- `-> None` and dunder methods are sometimes legitimately unannotated.",
+      "path": "legacy_documenter/documentation/aggregation.py",
+      "typed_functions_percent": 0.0
+    },
+    {
+      "function_count": 14,
+      "note": "Below-average return/parameter annotation coverage for this file; a diagnostic signal, not a lint failure -- `-> None` and dunder methods are sometimes legitimately unannotated.",
+      "path": "legacy_documenter/documentation/consistency.py",
+      "typed_functions_percent": 0.0
+    },
+    {
+      "function_count": 3,
+      "note": "Below-average return/parameter annotation coverage for this file; a diagnostic signal, not a lint failure -- `-> None` and dunder methods are sometimes legitimately unannotated.",
+      "path": "legacy_documenter/documentation/consistency_run.py",
+      "typed_functions_percent": 0.0
+    },
+    {
+      "function_count": 6,
+      "note": "Below-average return/parameter annotation coverage for this file; a diagnostic signal, not a lint failure -- `-> None` and dunder methods are sometimes legitimately unannotated.",
+      "path": "legacy_documenter/documentation/contracts.py",
+      "typed_functions_percent": 0.0
+    },
+    {
+      "function_count": 9,
+      "note": "Below-average return/parameter annotation coverage for this file; a diagnostic signal, not a lint failure -- `-> None` and dunder methods are sometimes legitimately unannotated.",
+      "path": "legacy_documenter/documentation/coverage.py",
+      "typed_functions_percent": 0.0
+    },
+    {
+      "function_count": 5,
+      "note": "Below-average return/parameter annotation coverage for this file; a diagnostic signal, not a lint failure -- `-> None` and dunder methods are sometimes legitimately unannotated.",
+      "path": "legacy_documenter/documentation/envelope.py",
+      "typed_functions_percent": 0.0
+    },
+    {
+      "function_count": 8,
+      "note": "Below-average return/parameter annotation coverage for this file; a diagnostic signal, not a lint failure -- `-> None` and dunder methods are sometimes legitimately unannotated.",
+      "path": "legacy_documenter/documentation/evidence_catalog.py",
+      "typed_functions_percent": 0.0
+    },
+    {
+      "function_count": 8,
+      "note": "Below-average return/parameter annotation coverage for this file; a diagnostic signal, not a lint failure -- `-> None` and dunder methods are sometimes legitimately unannotated.",
+      "path": "legacy_documenter/documentation/generator.py",
+      "typed_functions_percent": 0.0
+    },
+    {
+      "function_count": 2,
+      "note": "Below-average return/parameter annotation coverage for this file; a diagnostic signal, not a lint failure -- `-> None` and dunder methods are sometimes legitimately unannotated.",
+      "path": "legacy_documenter/documentation/hierarchical.py",
+      "typed_functions_percent": 0.0
+    },
+    {
+      "function_count": 9,
+      "note": "Below-average return/parameter annotation coverage for this file; a diagnostic signal, not a lint failure -- `-> None` and dunder methods are sometimes legitimately unannotated.",
+      "path": "legacy_documenter/documentation/human_review.py",
+      "typed_functions_percent": 0.0
+    },
+    {
+      "function_count": 4,
+      "note": "Below-average return/parameter annotation coverage for this file; a diagnostic signal, not a lint failure -- `-> None` and dunder methods are sometimes legitimately unannotated.",
+      "path": "legacy_documenter/documentation/interpretation.py",
+      "typed_functions_percent": 0.0
+    },
+    {
+      "function_count": 1,
+      "note": "Below-average return/parameter annotation coverage for this file; a diagnostic signal, not a lint failure -- `-> None` and dunder methods are sometimes legitimately unannotated.",
+      "path": "legacy_documenter/documentation/renderer.py",
+      "typed_functions_percent": 0.0
+    }
+  ]
+}
