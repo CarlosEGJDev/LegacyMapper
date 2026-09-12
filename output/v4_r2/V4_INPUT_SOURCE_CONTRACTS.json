@@ -1,0 +1,378 @@
+{
+  "contract_kind": "INPUT_SOURCE_CONTRACT_PROJECTION",
+  "module": "legacy_documenter.knowledge.input",
+  "note": "This artifact is a contract projection, not canonical Knowledge Source content. A valid input means LegacyMapper can safely and deterministically understand the material as its declared source type; it does not mean the material is true, approved, or belongs in canonical knowledge.",
+  "schema_version": "V4-R2",
+  "source_types": [
+    {
+      "authority_semantics": {
+        "authority_allowed": true,
+        "authority_scope": "This content was produced through AI interpretation from the identified model/process; it never becomes authoritative merely by being structurally valid."
+      },
+      "code_dependency": false,
+      "description": "Requires meaningful content plus sufficient origin/model/process reference (origin.reference, metadata['model'], or metadata['process']) so it remains identifiable as AI-origin material. Never becomes authoritative merely by being structurally valid.",
+      "human_only_operation_supported": true,
+      "optional": [
+        "contributor",
+        "metadata",
+        "temporal_state",
+        "title"
+      ],
+      "required": [
+        "content",
+        "origin.reference or metadata.model or metadata.process"
+      ],
+      "sanitization_behavior": "content/reference/title/contributor/metadata sanitized via legacy_documenter.utils.sanitizer before validation",
+      "source_type": "AI_INTERPRETATION",
+      "temporal_state_behavior": "optional_closed_enum_never_inferred",
+      "traceability_requirement": {
+        "code_traceable": false,
+        "decision_identity": false,
+        "explicit_content": false,
+        "model_traceable": true,
+        "origin_traceable": false,
+        "story_structure": false
+      },
+      "validation_behavior": "deterministic_structural_validation_only; not approval; not truth"
+    },
+    {
+      "authority_semantics": {
+        "authority_allowed": true,
+        "authority_scope": "A decision was approved by the identified authority outside the V4 proposal lifecycle; this does not by itself make the material canonical V4 approved knowledge."
+      },
+      "code_dependency": false,
+      "description": "Requires enough information to identify the decision (reference or metadata['decision_id']) and its approval/source authority (origin.contributor, origin.reference, or metadata['approver']). Never auto-promoted to canonical V4 approved knowledge; still passes through provenance/composition.",
+      "human_only_operation_supported": true,
+      "optional": [
+        "contributor",
+        "metadata",
+        "temporal_state",
+        "title"
+      ],
+      "required": [
+        "content_or_reference",
+        "metadata.approver or origin.contributor or origin.reference",
+        "reference or metadata.decision_id"
+      ],
+      "sanitization_behavior": "content/reference/title/contributor/metadata sanitized via legacy_documenter.utils.sanitizer before validation",
+      "source_type": "APPROVED_DECISION",
+      "temporal_state_behavior": "optional_closed_enum_never_inferred",
+      "traceability_requirement": {
+        "code_traceable": false,
+        "decision_identity": true,
+        "explicit_content": false,
+        "model_traceable": false,
+        "origin_traceable": false,
+        "story_structure": false
+      },
+      "validation_behavior": "deterministic_structural_validation_only; not approval; not truth"
+    },
+    {
+      "authority_semantics": {
+        "authority_allowed": true,
+        "authority_scope": "This is supplied contextual business information; it is not automatically a requirement or a norm by itself."
+      },
+      "code_dependency": false,
+      "description": "Requires meaningful content or reference. Context is never automatically a requirement or norm.",
+      "human_only_operation_supported": true,
+      "optional": [
+        "contributor",
+        "metadata",
+        "temporal_state",
+        "title"
+      ],
+      "required": [
+        "content_or_reference"
+      ],
+      "sanitization_behavior": "content/reference/title/contributor/metadata sanitized via legacy_documenter.utils.sanitizer before validation",
+      "source_type": "BUSINESS_CONTEXT",
+      "temporal_state_behavior": "optional_closed_enum_never_inferred",
+      "traceability_requirement": {
+        "code_traceable": false,
+        "decision_identity": false,
+        "explicit_content": false,
+        "model_traceable": false,
+        "origin_traceable": false,
+        "story_structure": false
+      },
+      "validation_behavior": "deterministic_structural_validation_only; not approval; not truth"
+    },
+    {
+      "authority_semantics": {
+        "authority_allowed": true,
+        "authority_scope": "This is the required business behavior/outcome as stated; it is not automatically evidence that it is currently implemented."
+      },
+      "code_dependency": false,
+      "description": "Requires meaningful content or reference describing the required business behavior/outcome. No code required; implementation is never inferred.",
+      "human_only_operation_supported": true,
+      "optional": [
+        "contributor",
+        "metadata",
+        "temporal_state",
+        "title"
+      ],
+      "required": [
+        "content_or_reference"
+      ],
+      "sanitization_behavior": "content/reference/title/contributor/metadata sanitized via legacy_documenter.utils.sanitizer before validation",
+      "source_type": "BUSINESS_REQUIREMENT",
+      "temporal_state_behavior": "optional_closed_enum_never_inferred",
+      "traceability_requirement": {
+        "code_traceable": false,
+        "decision_identity": false,
+        "explicit_content": false,
+        "model_traceable": false,
+        "origin_traceable": false,
+        "story_structure": false
+      },
+      "validation_behavior": "deterministic_structural_validation_only; not approval; not truth"
+    },
+    {
+      "authority_semantics": {
+        "authority_allowed": true,
+        "authority_scope": "The organization requires this standard; it is not automatically evidence that every existing application complies with it."
+      },
+      "code_dependency": false,
+      "description": "Requires meaningful content or reference plus a traceable origin/reference establishing where the standard came from.",
+      "human_only_operation_supported": true,
+      "optional": [
+        "contributor",
+        "metadata",
+        "reference or origin.reference (at least one required for traceability)",
+        "temporal_state",
+        "title"
+      ],
+      "required": [
+        "content_or_reference"
+      ],
+      "sanitization_behavior": "content/reference/title/contributor/metadata sanitized via legacy_documenter.utils.sanitizer before validation",
+      "source_type": "CORPORATE_STANDARD",
+      "temporal_state_behavior": "optional_closed_enum_never_inferred",
+      "traceability_requirement": {
+        "code_traceable": false,
+        "decision_identity": false,
+        "explicit_content": false,
+        "model_traceable": false,
+        "origin_traceable": true,
+        "story_structure": false
+      },
+      "validation_behavior": "deterministic_structural_validation_only; not approval; not truth"
+    },
+    {
+      "authority_semantics": {
+        "authority_allowed": true,
+        "authority_scope": "The analyzed code contains this observed structure/behavior; it is not automatically evidence of the intended business behavior."
+      },
+      "code_dependency": true,
+      "description": "Requires a code locator (reference) and an origin identifying the code repository/scanner, sufficient to trace the fact back to code evidence. Does not require every possible code metadata field.",
+      "human_only_operation_supported": false,
+      "optional": [
+        "contributor",
+        "metadata",
+        "temporal_state",
+        "title"
+      ],
+      "required": [
+        "origin.kind (code repository/scanner)",
+        "reference (code locator)"
+      ],
+      "sanitization_behavior": "content/reference/title/contributor/metadata sanitized via legacy_documenter.utils.sanitizer before validation",
+      "source_type": "DETERMINISTIC_CODE_FACT",
+      "temporal_state_behavior": "optional_closed_enum_never_inferred",
+      "traceability_requirement": {
+        "code_traceable": true,
+        "decision_identity": false,
+        "explicit_content": false,
+        "model_traceable": false,
+        "origin_traceable": false,
+        "story_structure": false
+      },
+      "validation_behavior": "deterministic_structural_validation_only; not approval; not truth"
+    },
+    {
+      "authority_semantics": {
+        "authority_allowed": true,
+        "authority_scope": "This material originates from the identified external source; external origin does not imply authoritativeness of its content."
+      },
+      "code_dependency": false,
+      "description": "Requires meaningful content or reference plus a traceable origin/reference. External origin never implies authoritativeness by itself.",
+      "human_only_operation_supported": true,
+      "optional": [
+        "contributor",
+        "metadata",
+        "reference or origin.reference (at least one required for traceability)",
+        "temporal_state",
+        "title"
+      ],
+      "required": [
+        "content_or_reference"
+      ],
+      "sanitization_behavior": "content/reference/title/contributor/metadata sanitized via legacy_documenter.utils.sanitizer before validation",
+      "source_type": "EXTERNAL_DOCUMENT",
+      "temporal_state_behavior": "optional_closed_enum_never_inferred",
+      "traceability_requirement": {
+        "code_traceable": false,
+        "decision_identity": false,
+        "explicit_content": false,
+        "model_traceable": false,
+        "origin_traceable": true,
+        "story_structure": false
+      },
+      "validation_behavior": "deterministic_structural_validation_only; not approval; not truth"
+    },
+    {
+      "authority_semantics": {
+        "authority_allowed": true,
+        "authority_scope": "This requirement was supplied/approved as a requirement; it is not automatically evidence that the current system implements it."
+      },
+      "code_dependency": false,
+      "description": "Requires meaningful content or a traceable reference to the supplied requirement. No code required.",
+      "human_only_operation_supported": true,
+      "optional": [
+        "contributor",
+        "metadata",
+        "temporal_state",
+        "title"
+      ],
+      "required": [
+        "content_or_reference"
+      ],
+      "sanitization_behavior": "content/reference/title/contributor/metadata sanitized via legacy_documenter.utils.sanitizer before validation",
+      "source_type": "HUMAN_REQUIREMENT",
+      "temporal_state_behavior": "optional_closed_enum_never_inferred",
+      "traceability_requirement": {
+        "code_traceable": false,
+        "decision_identity": false,
+        "explicit_content": false,
+        "model_traceable": false,
+        "origin_traceable": false,
+        "story_structure": false
+      },
+      "validation_behavior": "deterministic_structural_validation_only; not approval; not truth"
+    },
+    {
+      "authority_semantics": {
+        "authority_allowed": true,
+        "authority_scope": "This is an existing project document from the identified origin; it is not automatically current or approved."
+      },
+      "code_dependency": false,
+      "description": "Requires meaningful content or reference plus enough project/document origin to trace the material. Never assumed current or approved.",
+      "human_only_operation_supported": true,
+      "optional": [
+        "contributor",
+        "metadata",
+        "reference or origin.reference (at least one required for traceability)",
+        "temporal_state",
+        "title"
+      ],
+      "required": [
+        "content_or_reference"
+      ],
+      "sanitization_behavior": "content/reference/title/contributor/metadata sanitized via legacy_documenter.utils.sanitizer before validation",
+      "source_type": "PROJECT_DOCUMENT",
+      "temporal_state_behavior": "optional_closed_enum_never_inferred",
+      "traceability_requirement": {
+        "code_traceable": false,
+        "decision_identity": false,
+        "explicit_content": false,
+        "model_traceable": false,
+        "origin_traceable": true,
+        "story_structure": false
+      },
+      "validation_behavior": "deterministic_structural_validation_only; not approval; not truth"
+    },
+    {
+      "authority_semantics": {
+        "authority_allowed": true,
+        "authority_scope": "This is a stated technical restriction/condition; it is not automatically evidence that the current system already satisfies or violates it."
+      },
+      "code_dependency": false,
+      "description": "Requires meaningful content or reference describing the restriction/mandatory condition. Never conflated with implementation evidence.",
+      "human_only_operation_supported": true,
+      "optional": [
+        "contributor",
+        "metadata",
+        "temporal_state",
+        "title"
+      ],
+      "required": [
+        "content_or_reference"
+      ],
+      "sanitization_behavior": "content/reference/title/contributor/metadata sanitized via legacy_documenter.utils.sanitizer before validation",
+      "source_type": "TECHNICAL_CONSTRAINT",
+      "temporal_state_behavior": "optional_closed_enum_never_inferred",
+      "traceability_requirement": {
+        "code_traceable": false,
+        "decision_identity": false,
+        "explicit_content": false,
+        "model_traceable": false,
+        "origin_traceable": false,
+        "story_structure": false
+      },
+      "validation_behavior": "deterministic_structural_validation_only; not approval; not truth"
+    },
+    {
+      "authority_semantics": {
+        "authority_allowed": false,
+        "authority_scope": ""
+      },
+      "code_dependency": false,
+      "description": "Requires explicit content explaining what is unresolved. Never coerced into another source type merely to avoid uncertainty, and never accepted as authoritative.",
+      "human_only_operation_supported": true,
+      "optional": [
+        "contributor",
+        "metadata",
+        "temporal_state",
+        "title"
+      ],
+      "required": [
+        "content (explicit explanation of what is unresolved)"
+      ],
+      "sanitization_behavior": "content/reference/title/contributor/metadata sanitized via legacy_documenter.utils.sanitizer before validation",
+      "source_type": "UNRESOLVED",
+      "temporal_state_behavior": "optional_closed_enum_never_inferred",
+      "traceability_requirement": {
+        "code_traceable": false,
+        "decision_identity": false,
+        "explicit_content": true,
+        "model_traceable": false,
+        "origin_traceable": false,
+        "story_structure": false
+      },
+      "validation_behavior": "deterministic_structural_validation_only; not approval; not truth"
+    },
+    {
+      "authority_semantics": {
+        "authority_allowed": true,
+        "authority_scope": "This user story was supplied as project/business material; it is not automatically approved scope or evidence of implementation."
+      },
+      "code_dependency": false,
+      "description": "Requires free-form story content, or structured actor/goal information in metadata when no free-form content is supplied. No code required.",
+      "human_only_operation_supported": true,
+      "optional": [
+        "contributor",
+        "metadata",
+        "metadata.actor",
+        "metadata.benefit (structured form accepted only when free-form content is absent)",
+        "metadata.goal",
+        "temporal_state",
+        "title"
+      ],
+      "required": [
+        "content_or_reference"
+      ],
+      "sanitization_behavior": "content/reference/title/contributor/metadata sanitized via legacy_documenter.utils.sanitizer before validation",
+      "source_type": "USER_STORY",
+      "temporal_state_behavior": "optional_closed_enum_never_inferred",
+      "traceability_requirement": {
+        "code_traceable": false,
+        "decision_identity": false,
+        "explicit_content": false,
+        "model_traceable": false,
+        "origin_traceable": false,
+        "story_structure": true
+      },
+      "validation_behavior": "deterministic_structural_validation_only; not approval; not truth"
+    }
+  ]
+}
