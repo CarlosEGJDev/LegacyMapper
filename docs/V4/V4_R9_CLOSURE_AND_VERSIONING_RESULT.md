@@ -144,5 +144,6 @@ next = V4-R10
 recorded prior to this task) has been registered in `PROJECT_STATE.json` (`latest_approved_round=V4-R9`,
 `round_status=V4-R9_APPROVED`, `next=V4-R10`), the closure section was appended to the R9 result, this closure
 record was created, and the checkpoint was committed locally to `main`. This task did not grant approval, did
-not modify R9 semantics, and did not begin V4-R10. The push to `origin/main` (for this commit and the
-still-pending R8 closure commit) awaits explicit user authorization.
+not modify R9 semantics, and did not begin V4-R10. The R9 closure commit and the previously pending R8
+closure commit were successfully pushed to `origin/main`. The working tree was clean and up to date with
+`origin/main` after that push.
