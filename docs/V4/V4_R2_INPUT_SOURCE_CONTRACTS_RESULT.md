@@ -107,3 +107,16 @@ NEXT=HUMAN_REVIEW_V4_R2
 V4-R3 (provenance lineage), V4-R4 (human-material ingestion pipeline), V4-R5 (classification), V4-R6 (AS_IS/TO_BE separation logic beyond the closed enum already in R1), V4-R7 (gap/conflict detection), V4-R8 (proposal lifecycle), V4-R9 (Technical Lead approval workflow), V4-R10/R11/R12 (canonical composition and projections), and any V5 language/framework/project-layout agnosticism work. No VB.NET extraction/scanning code was touched.
 
 Stop. `V4-R3` has not been implemented. `V4-R2` is not marked human-approved; `PROJECT_STATE.json.next = "HUMAN_REVIEW_V4_R2"` until the Technical Lead reviews it.
+
+## Closure — Human Approval Recorded
+
+This section was added by `V4_R2_APPROVAL_AND_VERSIONING`; nothing above it was altered.
+
+```text
+HUMAN_REVIEW=APPROVED
+APPROVAL_AUTHORITY=TECHNICAL_LEAD
+ROUND_STATUS=APPROVED
+NEXT=V4-R3
+```
+
+The Technical Lead's approval was issued outside the development agent and is recorded here as authoritative; it was not re-evaluated or independently granted by the agent. See `docs/V4/V4_R2_CLOSURE_AND_VERSIONING_RESULT.md` for the full closure/versioning record.
