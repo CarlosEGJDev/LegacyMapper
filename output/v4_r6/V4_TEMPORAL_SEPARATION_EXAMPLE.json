@@ -1,0 +1,90 @@
+{
+  "classification_correlation_demonstration": {
+    "A_architecture_as_is": {
+      "bucket": "AS_IS",
+      "nature": "ARCHITECTURE"
+    },
+    "B_architecture_to_be": {
+      "bucket": "TO_BE",
+      "nature": "ARCHITECTURE"
+    },
+    "note": "Same KnowledgeNature (ARCHITECTURE) correlated with two different temporal buckets, proving classification and temporal state are independent dimensions."
+  },
+  "kind": "TEMPORAL_SEPARATION_EXAMPLE_FIXTURE",
+  "materials": {
+    "A_as_is": {
+      "approval": "NOT_PERFORMED",
+      "bucket": "AS_IS",
+      "canonical_knowledge": "NOT_GENERATED",
+      "conflict": "NOT_DETERMINED",
+      "correlation": {
+        "bucket": "AS_IS",
+        "classification_status": "CLASSIFIED",
+        "material_id": "MAT-1fdd95aa454f0b8690dc7d769b63843f9c7678bb7c85b679a4c71fdc2398486c",
+        "selected_nature": "ARCHITECTURE",
+        "temporal_state": "AS_IS"
+      },
+      "gap": "NOT_DETERMINED",
+      "material_id": "MAT-1fdd95aa454f0b8690dc7d769b63843f9c7678bb7c85b679a4c71fdc2398486c",
+      "placement_id": "TMP-5d146abdc6520d63d3c837c910e865e802c4e100db678aa87f681fbcdafcaed3",
+      "superseded": "NOT_DETERMINED",
+      "temporal_state": "AS_IS"
+    },
+    "B_to_be": {
+      "approval": "NOT_PERFORMED",
+      "bucket": "TO_BE",
+      "canonical_knowledge": "NOT_GENERATED",
+      "conflict": "NOT_DETERMINED",
+      "correlation": {
+        "bucket": "TO_BE",
+        "classification_status": "CLASSIFIED",
+        "material_id": "MAT-839812d862f32de27aa4caa09472ea56e84509b6c513b4df4167b88beafff25d",
+        "selected_nature": "ARCHITECTURE",
+        "temporal_state": "TO_BE"
+      },
+      "gap": "NOT_DETERMINED",
+      "material_id": "MAT-839812d862f32de27aa4caa09472ea56e84509b6c513b4df4167b88beafff25d",
+      "placement_id": "TMP-7694c450c8c5d82d23d8bfc781b5df4ae1dbbb565c4bbea1c63f9d59cf498b21",
+      "superseded": "NOT_DETERMINED",
+      "temporal_state": "TO_BE"
+    },
+    "C_historical": {
+      "approval": "NOT_PERFORMED",
+      "bucket": "HISTORICAL",
+      "canonical_knowledge": "NOT_GENERATED",
+      "conflict": "NOT_DETERMINED",
+      "correlation": {
+        "bucket": "HISTORICAL",
+        "classification_status": null,
+        "material_id": "MAT-ae3f4a6b7eca54716f42cbd53c89c93b20d78349ce4645667ce2a2306b807d09",
+        "selected_nature": null,
+        "temporal_state": "HISTORICAL"
+      },
+      "gap": "NOT_DETERMINED",
+      "material_id": "MAT-ae3f4a6b7eca54716f42cbd53c89c93b20d78349ce4645667ce2a2306b807d09",
+      "placement_id": "TMP-6eaba94f8efd22e74cd6d2afc2b4094b84e78667d732b8570196b456bddb351b",
+      "superseded": "NOT_DETERMINED",
+      "temporal_state": "HISTORICAL"
+    },
+    "D_unspecified": {
+      "approval": "NOT_PERFORMED",
+      "bucket": "UNSPECIFIED",
+      "canonical_knowledge": "NOT_GENERATED",
+      "conflict": "NOT_DETERMINED",
+      "correlation": {
+        "bucket": "UNSPECIFIED",
+        "classification_status": null,
+        "material_id": "MAT-f361de7d4625f6a2f32495a0dded37762df008d2df974179b262935b3732b4d3",
+        "selected_nature": null,
+        "temporal_state": null
+      },
+      "gap": "NOT_DETERMINED",
+      "material_id": "MAT-f361de7d4625f6a2f32495a0dded37762df008d2df974179b262935b3732b4d3",
+      "placement_id": "TMP-cc5b3eb26703ea33ed2cb334e8a5df6818773ad9d87751b28f75240d07f5b773",
+      "superseded": "NOT_DETERMINED",
+      "temporal_state": null
+    }
+  },
+  "note": "Synthetic example only. AS_IS_TO_BE_DIFFERENCE_IS_NOT_AUTOMATICALLY_CONFLICT. HISTORICAL_IS_NOT_AUTOMATICALLY_SUPERSEDED. UNSPECIFIED_IS_VALID. None of conflict/gap/supersession/approval/canonical knowledge is determined by this module.",
+  "schema_version": "V4-R6"
+}
