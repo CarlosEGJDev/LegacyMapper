@@ -1,0 +1,66 @@
+{
+  "ai_ancestry_semantics": "has_ai_ancestry(node_id) is true if the node itself or any transitive ancestor has source_type=AI_INTERPRETATION. AI ancestry does not invalidate knowledge; it must remain traceable through arbitrarily many derivation levels.",
+  "approval_distinction": "TRACEABLE != APPROVED. Completeness (COMPLETE/PARTIAL/UNRESOLVED/INVALID) is a lineage-knowledge statement only, never a Technical Lead approval signal.",
+  "authority_distinction": "TRACEABLE != AUTHORITATIVE. Neither ProvenanceNode nor ProvenanceEdge carries an authority/authoritative field; roots are not privileged.",
+  "completeness_states": [
+    "COMPLETE",
+    "INVALID",
+    "PARTIAL",
+    "UNRESOLVED"
+  ],
+  "contract_kind": "PROVENANCE_CONTRACT_PROJECTION",
+  "cycle_policy": "REJECT_SELF_CYCLE_AND_TRANSITIVE_CYCLE_AT_ADD_EDGE_TIME",
+  "dangling_reference_policy": "REJECT_EDGE_REFERENCING_UNKNOWN_FROM_OR_TO_NODE",
+  "duplicate_policy": {
+    "duplicate_edge_conflicting_content": "FAIL",
+    "duplicate_edge_exact": "IDEMPOTENT_NO_OP",
+    "duplicate_node_conflicting_content": "FAIL",
+    "duplicate_node_same_content": "IDEMPOTENT_NO_OP"
+  },
+  "edge_direction": "EARLIER_SOURCE_TO_LATER_DERIVED",
+  "edge_relationships": [
+    "DERIVED_FROM",
+    "EVIDENCE_FROM",
+    "INTERPRETED_FROM",
+    "MATERIALIZED_FROM",
+    "ORIGINATES_FROM",
+    "REFERENCES"
+  ],
+  "identity_rules": {
+    "depends_on": [
+      "node/edge semantic fields only"
+    ],
+    "edge_id_prefix": "PED-",
+    "hashing": "reuses legacy_documenter.documentation.contracts.stable_id (SHA-256 over canonical JSON parts)",
+    "never_depends_on": [
+      "current time",
+      "random UUID",
+      "memory address",
+      "semantically irrelevant traversal order",
+      "machine-specific paths"
+    ],
+    "node_id_prefix": "PRN-"
+  },
+  "module": "legacy_documenter.knowledge.provenance",
+  "node_kinds": [
+    "EVIDENCE",
+    "INTERPRETATION",
+    "KNOWLEDGE",
+    "MATERIAL",
+    "PROPOSAL",
+    "SOURCE",
+    "STATEMENT"
+  ],
+  "note": "This artifact is a contract projection, not canonical Knowledge Source content. Provenance answers where material came from; it never answers whether it is true, approved, current, or canonical.",
+  "r1_provenance_relationship": "legacy_documenter.knowledge.domain.models.Provenance is a compact, per-KnowledgeStatement provenance summary (origin + material_ids + evidence_ids + contributor + notes). ProvenanceGraph is the full deterministic multi-node/multi-edge lineage structure. Both are valid and may coexist: R1 Provenance is authoritative for a single statement's compact summary; ProvenanceGraph is authoritative for full graph traversal, ancestry, root discovery, and AI-ancestry queries.",
+  "r2_input_relationship": "legacy_documenter.knowledge.provenance.graph.material_node_from_source_input represents a validated R2 SourceInput as a MATERIAL-kind ProvenanceNode, demonstrating SourceInput -> Material linkage without performing R4 ingestion.",
+  "schema_version": "V4-R3",
+  "transformation_types": [
+    "AGGREGATION",
+    "AI_INTERPRETATION",
+    "DETERMINISTIC_EXTRACTION",
+    "HUMAN_SUPPLIED",
+    "MANUAL_CORRECTION",
+    "NORMALIZATION"
+  ]
+}

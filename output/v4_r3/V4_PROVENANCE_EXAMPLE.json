@@ -1,0 +1,105 @@
+{
+  "derived_node_ancestors": [
+    "PRN-110ef8fa385fc5d7298d9fe164f8d1432d1304dba010cd81e1b516045c5be57c",
+    "PRN-1d352376d61431ce105c98ef6837cf56e013f3e31f6def9a453dc08104ffa92f",
+    "PRN-62e4f19a89fb0e9634f19409dda4603d4345feb72d0c905fede0f78e7b9d4447"
+  ],
+  "derived_node_completeness": "PARTIAL",
+  "derived_node_parents": [
+    "PRN-110ef8fa385fc5d7298d9fe164f8d1432d1304dba010cd81e1b516045c5be57c",
+    "PRN-1d352376d61431ce105c98ef6837cf56e013f3e31f6def9a453dc08104ffa92f",
+    "PRN-62e4f19a89fb0e9634f19409dda4603d4345feb72d0c905fede0f78e7b9d4447"
+  ],
+  "graph": {
+    "edges": [
+      {
+        "edge_id": "PED-770b8b18b06ca6dc89d5bb5b9da5d66f20c6aaa611995136e1f327dfd13eaeed",
+        "from_node_id": "PRN-62e4f19a89fb0e9634f19409dda4603d4345feb72d0c905fede0f78e7b9d4447",
+        "metadata": {},
+        "relationship": "DERIVED_FROM",
+        "to_node_id": "PRN-12f01cf2553627483b87b2816842bf06ac213e23d90aa3c898fc887d532f055a",
+        "transformation": null
+      },
+      {
+        "edge_id": "PED-820c2769acb84e82b533281a1c260f7f0e7761285477e2286063543908a06a7c",
+        "from_node_id": "PRN-1d352376d61431ce105c98ef6837cf56e013f3e31f6def9a453dc08104ffa92f",
+        "metadata": {},
+        "relationship": "DERIVED_FROM",
+        "to_node_id": "PRN-12f01cf2553627483b87b2816842bf06ac213e23d90aa3c898fc887d532f055a",
+        "transformation": "HUMAN_SUPPLIED"
+      },
+      {
+        "edge_id": "PED-86b01291543ff0c8472649ee7bfa26d7bb4a975403f4383c6a8390bac8885bdd",
+        "from_node_id": "PRN-110ef8fa385fc5d7298d9fe164f8d1432d1304dba010cd81e1b516045c5be57c",
+        "metadata": {},
+        "relationship": "DERIVED_FROM",
+        "to_node_id": "PRN-12f01cf2553627483b87b2816842bf06ac213e23d90aa3c898fc887d532f055a",
+        "transformation": "DETERMINISTIC_EXTRACTION"
+      }
+    ],
+    "nodes": [
+      {
+        "metadata": {},
+        "node_id": "PRN-110ef8fa385fc5d7298d9fe164f8d1432d1304dba010cd81e1b516045c5be57c",
+        "node_kind": "MATERIAL",
+        "origin": {
+          "captured_at": null,
+          "contributor": null,
+          "kind": "CODE_REPOSITORY",
+          "reference": "Modulo1.vb"
+        },
+        "provenance_status": "COMPLETE",
+        "reference": "Modulo1.vb:42",
+        "source_type": "DETERMINISTIC_CODE_FACT"
+      },
+      {
+        "metadata": {
+          "note": "fixture only; not canonical knowledge"
+        },
+        "node_id": "PRN-12f01cf2553627483b87b2816842bf06ac213e23d90aa3c898fc887d532f055a",
+        "node_kind": "PROPOSAL",
+        "origin": null,
+        "provenance_status": "PARTIAL",
+        "reference": null,
+        "source_type": "UNRESOLVED"
+      },
+      {
+        "metadata": {},
+        "node_id": "PRN-1d352376d61431ce105c98ef6837cf56e013f3e31f6def9a453dc08104ffa92f",
+        "node_kind": "MATERIAL",
+        "origin": {
+          "captured_at": null,
+          "contributor": "Technical Lead (fixture)",
+          "kind": "HUMAN_INPUT",
+          "reference": null
+        },
+        "provenance_status": "COMPLETE",
+        "reference": null,
+        "source_type": "HUMAN_REQUIREMENT"
+      },
+      {
+        "metadata": {},
+        "node_id": "PRN-62e4f19a89fb0e9634f19409dda4603d4345feb72d0c905fede0f78e7b9d4447",
+        "node_kind": "MATERIAL",
+        "origin": {
+          "captured_at": null,
+          "contributor": null,
+          "kind": "CORPORATE_POLICY_REPOSITORY",
+          "reference": "STD-PRICING-01"
+        },
+        "provenance_status": "COMPLETE",
+        "reference": "STD-PRICING-01",
+        "source_type": "CORPORATE_STANDARD"
+      }
+    ]
+  },
+  "has_ai_ancestry": false,
+  "kind": "PROVENANCE_EXAMPLE_FIXTURE",
+  "note": "Synthetic example only. Not canonical knowledge; do not treat any node/edge here as approved or true.",
+  "roots": [
+    "PRN-110ef8fa385fc5d7298d9fe164f8d1432d1304dba010cd81e1b516045c5be57c",
+    "PRN-1d352376d61431ce105c98ef6837cf56e013f3e31f6def9a453dc08104ffa92f",
+    "PRN-62e4f19a89fb0e9634f19409dda4603d4345feb72d0c905fede0f78e7b9d4447"
+  ],
+  "schema_version": "V4-R3"
+}
