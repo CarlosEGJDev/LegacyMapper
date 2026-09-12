@@ -1,0 +1,59 @@
+{
+  "example_1_neutral_difference": {
+    "approval": "NOT_PERFORMED",
+    "conflict": "NOT_INFERRED",
+    "gap": "NOT_INFERRED",
+    "materials": [
+      "MAT-EXAMPLE-A",
+      "MAT-EXAMPLE-B"
+    ],
+    "relation": "DIFFERENCE",
+    "relation_id": "REL-66d0c9e9906aee882fa049f595caab940ac5f09d3cda5e3823dbf31d44994eac"
+  },
+  "example_2_explicit_gap": {
+    "conflict": "NOT_INFERRED",
+    "direction_explicitly_supplied": true,
+    "gap": "REPRESENTED",
+    "materials": {
+      "from_as_is": "MAT-EXAMPLE-A",
+      "to_to_be": "MAT-EXAMPLE-B"
+    },
+    "proposal": "NOT_CREATED",
+    "relation": "GAP",
+    "relation_id": "REL-df3476e0206146c590b39016b57e79c994dd919dad5b578c3c5454ad1f39fb23"
+  },
+  "example_3_explicit_conflict": {
+    "approval": "NOT_PERFORMED",
+    "materials": [
+      "MAT-EXAMPLE-C",
+      "MAT-EXAMPLE-D"
+    ],
+    "relation": "CONFLICT",
+    "relation_id": "REL-05c1d24917fe92bdf12298d23d270b56641dd741c9a686b9c86906eef47abaef",
+    "truth": "NOT_DETERMINED",
+    "winner": "NOT_SELECTED"
+  },
+  "example_4_temporal_evolution": {
+    "materials": {
+      "from": "MAT-EXAMPLE-A",
+      "to": "MAT-EXAMPLE-B"
+    },
+    "migration": "NOT_INFERRED",
+    "relation": "TEMPORAL_EVOLUTION",
+    "relation_id": "REL-b45378c392e663d1b8bf188782d0532e001eb9caa5fe9e2bd4d9cbc1bb3762e2",
+    "supersession": "NOT_INFERRED"
+  },
+  "example_5_no_relation_from_temporal_separation_alone": {
+    "conflict": "NOT_INFERRED",
+    "explicit_relation_request": null,
+    "gap": "NOT_INFERRED",
+    "materials": {
+      "as_is": "MAT-EXAMPLE-A",
+      "to_be": "MAT-EXAMPLE-B"
+    },
+    "relation": "NONE",
+    "temporal_evolution": "NOT_INFERRED"
+  },
+  "kind": "GAP_CONFLICT_RELATION_EXAMPLE_FIXTURE",
+  "schema_version": "V4-R7"
+}
