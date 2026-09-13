@@ -4,6 +4,14 @@ from legacy_documenter.documentation.envelope import SEMANTIC_FIELDS,SEMANTIC_CL
 from legacy_documenter.documentation.interpretation import ASSESSMENT_STATUSES,FACT_STATUSES,MODEL_SOURCE_TYPES,BLOCKING_LEVELS
 
 class EvidenceCatalogError(ValueError): pass
+
+EvidenceKeyMap = dict[str,str]
+"""Maps a request-local evidence key (e.g. "E01") to its canonical evidence id.
+
+Intentionally narrow: `build_catalog` guarantees every entry is exactly a
+{key: canonical_id} pair -- unlike the evidence records themselves (open,
+heterogeneous "fact" payloads), this resolution mapping's shape never varies,
+so a plain `dict[str, str]` is accurate rather than a misleading `Any`."""
 def _safe(value):
  if isinstance(value,dict): return {k:_safe(v) for k,v in sorted(value.items()) if "id" not in k.lower() and "ref" not in k.lower() and k!="lineage"}
  if isinstance(value,list): return [_safe(x) for x in value[:4]]
@@ -14,14 +22,14 @@ def build_catalog(package):
  records=sorted(package.get("records",[]),key=lambda x:str(x.get("ref",""))); width=max(2,len(str(len(records)))); entries=[]
  for i,r in enumerate(records,1): entries.append({"key":"E"+str(i).zfill(width),"type":r.get("category") or r.get("type") or "EVIDENCE","description":json.dumps(_safe(r.get("fact",{})),ensure_ascii=False,sort_keys=True,separators=(",",":"))[:500],"canonical_id":str(r["ref"])})
  validate_catalog(entries,package); return entries
-def validate_catalog(catalog,package):
+def validate_catalog(catalog,package)->bool:
  """Performs validate catalog while preserving this module's deterministic contract."""
  keys=[x.get("key") for x in catalog]; ids=[x.get("canonical_id") for x in catalog]; known=[str(r["ref"]) for r in package.get("records",[])]
  if len(keys)!=len(set(keys)) or any(not k or not k.startswith("E") for k in keys): raise EvidenceCatalogError("duplicate_or_invalid_key")
  if len(ids)!=len(set(ids)) or set(ids)!=set(known): raise EvidenceCatalogError("canonical_closure")
  if any(not isinstance(x.get("description"),str) for x in catalog): raise EvidenceCatalogError("description")
  return True
-def visible_catalog(catalog): return [{"key":x["key"],"type":x["type"],"description":x["description"]} for x in catalog]
+def visible_catalog(catalog)->list: return [{"key":x["key"],"type":x["type"],"description":x["description"]} for x in catalog]
 def catalog_schema(profile,catalog,sections):
  """Performs catalog schema while preserving this module's deterministic contract."""
  keys=[x["key"] for x in catalog]; cp={"claim_id":{"type":"string"},"statement":{"type":"string"},"status":{"type":"string","enum":sorted(FACT_STATUSES)},"source_type":{"type":"string","enum":sorted(MODEL_SOURCE_TYPES)},"evidence_keys":{"type":"array","minItems":1,"items":{"type":"string","enum":keys}},"section":{"type":"string","enum":list(sections)}}; mp={"request_id":{"type":"string"},"section":{"type":"string","enum":list(sections)},"question":{"type":"string"},"reason":{"type":"string"},"blocking_level":{"type":"string","enum":sorted(BLOCKING_LEVELS)},"related_claim_ids":{"type":"array","items":{"type":"string"}},"related_evidence_keys":{"type":"array","items":{"type":"string","enum":keys}}}
@@ -33,7 +41,7 @@ def catalog_request(base_request,profile,package,sections,catalog):
  base_request.metadata["evidence_transport"]="REQUEST_LOCAL_KEYS"; return base_request
 def resolve_payload(payload,catalog):
  """Performs resolve payload while preserving this module's deterministic contract."""
- mapping={x["key"]:x["canonical_id"] for x in catalog}; result=copy.deepcopy(payload)
+ mapping:EvidenceKeyMap={x["key"]:x["canonical_id"] for x in catalog}; result=copy.deepcopy(payload)
  for c in result.get("claims",[]):
   keys=c.get("evidence_keys")
   if not isinstance(keys,list) or any(k not in mapping for k in keys): raise EvidenceCatalogError("unknown_claim_key")
@@ -43,7 +51,7 @@ def resolve_payload(payload,catalog):
   if not isinstance(keys,list) or any(k not in mapping for k in keys): raise EvidenceCatalogError("unknown_missing_key")
   m["related_evidence_ids"]=[mapping[k] for k in keys]; del m["related_evidence_keys"]
  return result
-def resolution_preserves_semantics(original,resolved):
+def resolution_preserves_semantics(original,resolved)->bool:
  """Performs resolution preserves semantics while preserving this module's deterministic contract."""
  a=copy.deepcopy(original); b=copy.deepcopy(resolved)
  for x,y in zip(a.get("claims",[]),b.get("claims",[])): x.pop("evidence_keys",None); y.pop("evidence_refs",None)

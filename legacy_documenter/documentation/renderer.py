@@ -2,7 +2,7 @@
 FUNCTIONAL_SECTIONS=["Metadata","Alcance del levantamiento","Resumen funcional del aplicativo","Módulos o áreas funcionales identificadas","Funcionalidades por módulo/área","Pantallas, WebForms o puntos de entrada relevantes","Flujos funcionales identificados","Integraciones funcionales detectadas","Operaciones de datos relacionadas con funcionalidades","Dependencias funcionales relevantes","Información no determinada","Solicitudes de información adicional","Cobertura del levantamiento","Trazabilidad","Estado de revisión"]
 TECHNICAL_SECTIONS=["Metadata","Alcance técnico","Resumen tecnológico","Organización de soluciones y proyectos","Componentes técnicos identificados","Dependencias entre componentes","WebForms y capa de presentación","Lógica de aplicación / negocio","Acceso a datos","Oracle / procedimientos almacenados / SQL","Flujos técnicos representativos","Dependencias entre proyectos","Dependencias externas y ensamblados","Patrón de diseño / arquitectura","Evidencia a favor del patrón","Evidencia contradictoria o ambigua","Riesgos técnicos observables","Información técnica no determinada","Solicitudes de información adicional","Cobertura técnica","Trazabilidad","Estado de revisión"]
 
-def render(document,kind,model_id):
+def render(document,kind,model_id)->str:
  """Performs render while preserving this module's deterministic contract."""
  sections=FUNCTIONAL_SECTIONS if kind=="functional" else TECHNICAL_SECTIONS; title="LEVANTAMIENTO FUNCIONAL" if kind=="functional" else "LEVANTAMIENTO TÉCNICO"
  grouped={s:[] for s in sections}; fallback="Resumen funcional del aplicativo" if kind=="functional" else "Resumen tecnológico"

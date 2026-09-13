@@ -8,7 +8,7 @@ CLAIM_RE = re.compile(r"^- \[(CONFIRMED|INTERPRETED|UNRESOLVED)\] (.*?) \(`([^`]
 MISSING_RE = re.compile(r"^- `((?:FMI|TMI)-\d{3})` \[([^]]+)] \(([^)]+)\): (.*)$")
 
 
-def validate_preconditions(functional_text, technical_text, parent_text):
+def validate_preconditions(functional_text, technical_text, parent_text)->bool:
     """Performs validate preconditions while preserving this module's deterministic contract."""
     required = ("document_status=DRAFT", "human_review_required=true",
                 "approved=false", "knowledge_source_eligible=false")
@@ -17,7 +17,7 @@ def validate_preconditions(functional_text, technical_text, parent_text):
             and "V3-R7_2_4_READY_FOR_HUMAN_REVIEW" in parent_text)
 
 
-def parse_document(text):
+def parse_document(text)->dict:
     """Performs parse document while preserving this module's deterministic contract."""
     claims = []
     missing = []
@@ -38,13 +38,13 @@ def parse_document(text):
     return {"claims": claims, "missing_information": missing}
 
 
-def _evidence_summary(refs):
+def _evidence_summary(refs)->str:
     shown = refs[:3]
     suffix = f" (+{len(refs)-3} referencias)" if len(refs) > 3 else ""
     return ", ".join(shown) + suffix
 
 
-def _claim_groups(parsed, number):
+def _claim_groups(parsed, number)->list[str]:
     labels = (("CONFIRMED", "Confirmed"), ("INTERPRETED", "Interpreted"), ("UNRESOLVED", "Unresolved"))
     lines = []
     for offset, (status, label) in enumerate(labels, 1):
@@ -61,7 +61,7 @@ def _claim_groups(parsed, number):
     return lines
 
 
-def _missing(items, source):
+def _missing(items, source)->list[str]:
     lines = []
     for item in items:
         lines += [f"- `{item['request_id']}` | `{item['family']}` | `{item['blocking_level']}`",
@@ -86,7 +86,7 @@ TECHNICAL_CHECKLIST = (
 )
 
 
-def response_template():
+def response_template()->str:
     """Performs response template while preserving this module's deterministic contract."""
     return """# Respuesta de revisión humana — LegacyMapper V3
 
@@ -107,12 +107,12 @@ GENERAL_COMMENTS=
 """
 
 
-def knowledge_ready(functional_decision, technical_decision):
+def knowledge_ready(functional_decision, technical_decision)->bool:
     """Performs knowledge ready while preserving this module's deterministic contract."""
     return functional_decision == "APPROVED" and technical_decision == "APPROVED"
 
 
-def build_package(functional_text, technical_text, metrics):
+def build_package(functional_text, technical_text, metrics)->str:
     """Performs build package while preserving this module's deterministic contract."""
     functional = parse_document(functional_text)
     technical = parse_document(technical_text)
@@ -152,7 +152,7 @@ def build_package(functional_text, technical_text, metrics):
     return "\n".join(lines)
 
 
-def run(workspace="."):
+def run(workspace: str = ".") -> dict:
     """Performs run while preserving this module's deterministic contract."""
     workspace = Path(workspace)
     functional_path = workspace / "output" / "LEVANTAMIENTO_FUNCIONAL.md"

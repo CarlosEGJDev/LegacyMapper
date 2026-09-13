@@ -11,7 +11,7 @@ MISSING_INFORMATION_FIELDS=("request_id","document","section","question","reason
 BLOCKING_LEVELS={"INFORMATIONAL","IMPORTANT","BLOCKING_FOR_APPROVAL"}
 MODEL_SOURCE_TYPES=SOURCE_TYPES-{"APPROVED_FUNCTIONAL_DOCUMENT","APPROVED_TECHNICAL_DOCUMENT","APPROVED_EXTERNAL_INFORMATION"}
 
-def canonical_assessment_schema(profile,package,sections):
+def canonical_assessment_schema(profile,package,sections)->dict:
  """Performs canonical assessment schema while preserving this module's deterministic contract."""
  evidence=sorted(str(r["ref"]) for r in package.get("records",[]) if r.get("ref") is not None)
  claim_properties={"claim_id":{"type":"string"},"statement":{"type":"string"},"status":{"type":"string","enum":sorted(FACT_STATUSES)},"source_type":{"type":"string","enum":sorted(MODEL_SOURCE_TYPES)},"evidence_refs":{"type":"array","items":{"type":"string","enum":evidence},"minItems":1},"context_package_ids":{"type":"array","const":[package["package_id"]]},"section":{"type":"string","enum":list(sections)}}
@@ -28,8 +28,8 @@ class DocumentationPrompt:
  """Provides the cohesive DocumentationPrompt responsibility for this module."""
  profile:DocumentationProfile; packages:list[dict]; prompt_contract_version:str=PROMPT_VERSION
  @property
- def prompt_id(self): return "PROMPT-"+hashlib.sha256(json.dumps({"profile":self.profile.profile_id,"version":self.profile.profile_version,"packages":[x["package_id"] for x in self.packages]},sort_keys=True,separators=(",",":" )).encode()).hexdigest()
- def to_request(self):
+ def prompt_id(self)->str: return "PROMPT-"+hashlib.sha256(json.dumps({"profile":self.profile.profile_id,"version":self.profile.profile_version,"packages":[x["package_id"] for x in self.packages]},sort_keys=True,separators=(",",":" )).encode()).hexdigest()
+ def to_request(self)->LLMRequest:
   """Performs to request while preserving this module's deterministic contract."""
   system="You are an evidence-grounded software-system analyst. Use only supplied evidence. Never promote interpretation into deterministic fact. Mark insufficient evidence unresolved. All claims require traceable evidence. Do not infer unsupported architecture or business behavior. Output only the requested structured format."
   context={"packages":self.packages,"completeness":[x.get("statistics",{}).get("completeness") for x in self.packages],"unresolved_refs":[r for x in self.packages for r in x.get("unresolved_refs",[])]}
@@ -37,7 +37,7 @@ class DocumentationPrompt:
   return LLMRequest(self.profile.purpose,system,task,context,"+".join(x["package_id"] for x in self.packages),"3.1.0","+".join(sorted({x["source_snapshot"] for x in self.packages})),structured_output=True,metadata={"prompt_id":self.prompt_id,"profile_id":self.profile.profile_id,"evidence_policy":self.profile.claim_policy,"missing_information_policy":self.profile.missing_information_policy})
 class AssessmentValidator:
  """Provides the cohesive AssessmentValidator responsibility for this module."""
- def validate(self,result,profile,packages):
+ def validate(self,result,profile,packages)->dict:
   """Performs validate while preserving this module's deterministic contract."""
   errors=[]; package_ids={x["package_id"] for x in packages}; snapshots={x["source_snapshot"] for x in packages}; evidence={str(r.get("ref")) for x in packages for r in x.get("records",[])}
   if result.get("profile_id")!=profile.profile_id: errors.append("profile")

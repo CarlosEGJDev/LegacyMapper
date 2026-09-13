@@ -23,7 +23,7 @@ class MetricFact:
     source_snapshot: str
     status: str = "CONFIRMED"
 
-    def to_dict(self):
+    def to_dict(self)->dict:
         """Performs to dict while preserving this module's deterministic contract."""
         value = asdict(self)
         value["source_refs"] = list(self.source_refs)
@@ -35,7 +35,7 @@ def _plain(value):
     return re.sub(r"[^a-z0-9]+", " ", value).strip()
 
 
-def extract_numbers(statement):
+def extract_numbers(statement)->list[int]:
     """Performs extract numbers while preserving this module's deterministic contract."""
     return [int(token.replace(".", "")) for token in re.findall(r"(?<![\w])\d{1,3}(?:\.\d{3})+|(?<![\w])\d+(?![\w])", statement)]
 
@@ -87,7 +87,7 @@ def build_metric_index(coverage, packages):
     return sorted(facts, key=lambda x: (x.metric_name, x.value, x.source_refs))
 
 
-def validate_equivalent(left, right):
+def validate_equivalent(left, right)->bool:
     """Performs validate equivalent while preserving this module's deterministic contract."""
     if (left.metric_name, left.scope, left.population, left.aggregation) == (right.metric_name, right.scope, right.population, right.aggregation):
         return left.value == right.value
@@ -146,7 +146,7 @@ def qualify_quantitative_claims(document, metric_index):
     return result
 
 
-def validate_quantitative_consistency(document):
+def validate_quantitative_consistency(document)->bool:
     """Performs validate quantitative consistency while preserving this module's deterministic contract."""
     for claim in document["claims"]:
         numbers = extract_numbers(claim.get("statement", ""))
@@ -251,13 +251,13 @@ def missing_records(assessments, packages):
     return records
 
 
-def traceability_closed(canonical, originals):
+def traceability_closed(canonical, originals)->bool:
     """Performs traceability closed while preserving this module's deterministic contract."""
     original_refs = {x["source_request_ref"] for x in originals}
     represented = {x for item in canonical for x in item["source_request_ids"]}
     return represented == original_refs and all(item["related_evidence_ids"] for item in canonical)
 
 
-def stable_hash(value):
+def stable_hash(value)->str:
     """Performs stable hash while preserving this module's deterministic contract."""
     return hashlib.sha256(json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode()).hexdigest()

@@ -4,7 +4,7 @@ import hashlib,json
 STATUS_RANK={"UNRESOLVED":0,"INTERPRETED":1,"CONFIRMED":2}
 ALLOWED_SOURCES={"DETERMINISTIC_CODE_FACT","AI_INTERPRETATION","UNRESOLVED"}
 
-def _stable(prefix,value):
+def _stable(prefix,value)->str:
  return prefix+"-"+hashlib.sha256(json.dumps(value,sort_keys=True,separators=(",",":"),ensure_ascii=False).encode()).hexdigest()[:16]
 
 def aggregate(assessments,packages):
@@ -32,7 +32,7 @@ def aggregate(assessments,packages):
    missing[key]=value
  return {"claims":[claims[k] for k in sorted(claims)],"missing_information":[missing[k] for k in sorted(missing)],"context_package_ids":package_ids,"source_snapshots":snapshots,"evidence_ids":sorted(evidence),"provenance":[p.get("provenance",{}) for p in sorted(packages,key=lambda x:x["package_id"])]}
 
-def evidence_closed(document):
+def evidence_closed(document)->bool:
  """Performs evidence closed while preserving this module's deterministic contract."""
  known=set(document.get("evidence_ids",[]))
  return all(set(c.get("evidence_refs",[]))<=known for c in document.get("claims",[])) and all(set(m.get("related_evidence_ids",[]))<=known for m in document.get("missing_information",[]))

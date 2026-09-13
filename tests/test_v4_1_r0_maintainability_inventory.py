@@ -244,6 +244,18 @@ class GeneratedArtifactOnDiskTests(unittest.TestCase):
             "legacy_documenter/knowledge/provenance/contract_report.py",
             "legacy_documenter/knowledge/relations/contract_report.py",
             "legacy_documenter/knowledge/temporal/contract_report.py",
+            # V4.1-R2 added narrow, safe return-type annotations (see
+            # output/v4_1_r2/V4_1_R2_TYPE_AND_CONTRACT_EQUIVALENCE.json)
+            # to functions in these R0-identified type_safety_candidates
+            # files. No parameter typing of ambiguous nested JSON shapes,
+            # no behavior change; only typed_functions_percent/line_count
+            # for these six files move.
+            "legacy_documenter/documentation/contracts.py",
+            "legacy_documenter/documentation/interpretation.py",
+            "legacy_documenter/documentation/consistency.py",
+            "legacy_documenter/documentation/coverage.py",
+            "legacy_documenter/documentation/human_review.py",
+            "legacy_documenter/documentation/evidence_catalog.py",
         }
 
         normalized_on_disk = dict(on_disk)
@@ -283,6 +295,37 @@ class GeneratedArtifactOnDiskTests(unittest.TestCase):
         self.assertEqual(fresh_dep, on_disk_dep)
         normalized_on_disk.pop("dependency_findings", None)
         normalized_fresh.pop("dependency_findings", None)
+
+        # V4.1-R2 raised typed_functions_percent for a handful of
+        # below-average files (see touched_paths above). type_safety_
+        # candidates is a relative-threshold diagnostic: improving those
+        # files' coverage shifts the repository-wide average the threshold
+        # is computed against, which mechanically drops the now-improved
+        # files off the candidate list and mechanically admits a few
+        # previously-just-above-average files onto it. This is an
+        # expected side effect of a relative diagnostic, not a behavior
+        # change -- assert the shift landed exactly where expected rather
+        # than skip the section outright.
+        r2_resolved_candidates = {
+            "legacy_documenter/documentation/contracts.py",
+            "legacy_documenter/documentation/interpretation.py",
+            "legacy_documenter/documentation/consistency.py",
+            "legacy_documenter/documentation/coverage.py",
+            "legacy_documenter/documentation/human_review.py",
+        }
+        r2_newly_below_average = {
+            "legacy_documenter/documentation/synthesis.py",
+            "legacy_documenter/llm/copilot_pilot.py",
+            "legacy_documenter/documentation/systematic.py",
+            "legacy_documenter/documentation/resume.py",
+            "legacy_documenter/documentation/second_review.py",
+        }
+        on_disk_ts = {e["path"] for e in on_disk["type_safety_candidates"]}
+        fresh_ts = {e["path"] for e in fresh["type_safety_candidates"]}
+        self.assertEqual(on_disk_ts - fresh_ts, r2_resolved_candidates)
+        self.assertEqual(fresh_ts - on_disk_ts, r2_newly_below_average)
+        normalized_on_disk.pop("type_safety_candidates", None)
+        normalized_fresh.pop("type_safety_candidates", None)
 
         self.assertEqual(normalized_on_disk, normalized_fresh)
 

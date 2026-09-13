@@ -1,0 +1,569 @@
+{
+  "approved_artifact_integrity": {
+    "hashes_checked": [
+      "output/v4_r14/V4_FINAL_BASELINE.json",
+      "output/v4_r14/V4_FINAL_MANIFEST.json",
+      "output/v4_1_r1/V4_1_R1_BEHAVIORAL_EQUIVALENCE.json"
+    ],
+    "note": "None of the R2-touched files (legacy_documenter/analysis/*.py, legacy_documenter/documentation/*.py) are imported by any legacy_documenter/knowledge/* package or by any V4 R7-R14 artifact generator; confirmed by grep. Full regression suite (1442 tests) passing corroborates no other approved artifact drifted.",
+    "result": "ALL_UNCHANGED"
+  },
+  "candidates_changed": 11,
+  "candidates_considered": 16,
+  "candidates_deferred": [
+    {
+      "path": "legacy_documenter/analysis/deep_source.py",
+      "reason": "R0 Step-5 characterization-sensitive module (DO_NOT_TOUCH_WITHOUT_DESIGN_DECISION); default DEFER_TO_CHARACTERIZATION_ROUND applies."
+    },
+    {
+      "path": "legacy_documenter/documentation/generator.py",
+      "reason": "Orchestration run()/_request()/_strict() functions return a different key set per branch (early-return failure paths vs success path); a single return annotation would be an inaccurate narrow type, worse than no annotation."
+    },
+    {
+      "path": "legacy_documenter/documentation/consistency_run.py",
+      "reason": "Same heterogeneous-per-branch return shape as generator.py; run() left untyped."
+    },
+    {
+      "path": "legacy_documenter/documentation/hierarchical.py",
+      "reason": "Same heterogeneous-per-branch return shape as generator.py; execute()/run() left untyped."
+    },
+    {
+      "path": "legacy_documenter/documentation/interpretation.py (canonical_assessment_schema parameters, AssessmentValidator.validate parameters)",
+      "reason": "profile/package/result/packages parameters carry open, historically-evolved dict shapes with no single stable TypedDict-worthy contract across all call sites; SAFE_TO_NARROW could not be established, so left as implicit Any (NECESSARY_DYNAMIC_BOUNDARY). Only their return types were annotated."
+    },
+    {
+      "path": "legacy_documenter/analysis/deep_interpretation.py (evidence_pool, select_for_group, plan_requests, resolve_result, merge_reevaluation, run_deep_interpretation parameters and returns)",
+      "reason": "Every one of these functions builds or consumes an ad hoc dict shape assembled via dict comprehensions/spreads with fields that differ per call site (SYSTEM_COUNT vs ARCHITECTURE_INDICATOR vs PROJECT_DEPENDENCY records each carry different `fact` keys); UNKNOWN/SIMILAR_SHAPE_DIFFERENT_SEMANTICS per Step 7, so no shared type was introduced and no misleading narrow annotation was added. Only the two pure helper functions (hid, estimate) with unambiguous scalar returns were annotated."
+    },
+    {
+      "path": "legacy_documenter/analysis/targeted_exhaustion.py (recover_definitions, targeted_data_lookup, run parameters and most returns)",
+      "reason": "Same reasoning as deep_interpretation.py -- ambiguous nested dict/list parameters and per-branch heterogeneous returns; only _safe_path (-> Path) and exhaustion_status (-> tuple[str, bool]) had unambiguous, stable shapes."
+    },
+    {
+      "path": "legacy_documenter/documentation/{aggregation,envelope,evidence_catalog}.py (document/assessment/package/payload/catalog parameters)",
+      "reason": "Same class of ambiguous, evolving nested-JSON parameter as above; left dynamic. Only pure predicate/helper functions with scalar or already-typed-dataclass-only parameters were annotated."
+    },
+    {
+      "path": "legacy_documenter/documentation/consistency.py (build_metric_index, resolve_claim_metrics, qualify_quantitative_claims, classify_missing, canonicalize_missing, missing_records parameters)",
+      "reason": "coverage/document/claim/record parameters are open, historically-evolved dict shapes (fields added via **-merges); UNKNOWN per Step 7. Only functions whose entire signature was already scalar/dataclass-only, or that already had fully concrete parameter types, were annotated."
+    }
+  ],
+  "dynamic_boundaries_preserved": [
+    {
+      "classification": "NECESSARY_DYNAMIC_BOUNDARY",
+      "location": "legacy_documenter.documentation.aggregation.aggregate (assessments, packages params)",
+      "reason": "Open, evolving claim/package dict shapes with fields added via ** merges; a stable TypedDict cannot be proven without a characterization pass."
+    },
+    {
+      "classification": "NECESSARY_DYNAMIC_BOUNDARY",
+      "location": "legacy_documenter.documentation.evidence_catalog.build_catalog/resolve_payload (package, payload params)",
+      "reason": "Package 'records' entries carry a heterogeneous 'fact' payload whose shape differs by category (SYSTEM_COUNT vs ARCHITECTURE_INDICATOR vs PROJECT_DEPENDENCY etc.)."
+    },
+    {
+      "classification": "NECESSARY_DYNAMIC_BOUNDARY",
+      "location": "legacy_documenter.documentation.interpretation.canonical_assessment_schema/AssessmentValidator.validate (profile, package, result, packages params)",
+      "reason": "profile/package carry historically-evolved fields across V3-R7 through R8.3 rounds; narrowing risks an inaccurate TypedDict, which the round's own Any policy rates worse than leaving Any."
+    },
+    {
+      "classification": "NECESSARY_DYNAMIC_BOUNDARY",
+      "location": "legacy_documenter.analysis.deep_interpretation.* (pool, plan, payload, r81 params)",
+      "reason": "Evidence pool records mix 6 distinct 'fact' shapes (SYSTEM_COUNT, ARCHITECTURE_INDICATOR, PROJECT_DEPENDENCY, ASSEMBLY_REFERENCE, INTEGRATION_INDICATOR) with no common structural contract beyond 'canonical_id'/'kind'/'fact'/'authoritative'."
+    },
+    {
+      "classification": "NECESSARY_DYNAMIC_BOUNDARY",
+      "location": "legacy_documenter.analysis.targeted_exhaustion.* (operations, r82_items, deep, architecture params)",
+      "reason": "Same class of heterogeneous, round-specific evidence dict as deep_interpretation.py."
+    },
+    {
+      "classification": "NECESSARY_DYNAMIC_BOUNDARY",
+      "location": "legacy_documenter.documentation.generator/consistency_run/hierarchical.run() return values",
+      "reason": "Each early-return branch returns a distinct key set (e.g. {'status','calls'} on failure vs a much larger success payload); a single return type would misrepresent the contract."
+    }
+  ],
+  "high_risk_modules": {
+    "classification": "DEFER_TO_CHARACTERIZATION_ROUND (all five, per R0 Step 5)",
+    "confirmed_untouched": [
+      "legacy_documenter/extractors/database_extractor.py",
+      "legacy_documenter/analysis/flow_resolver.py",
+      "legacy_documenter/knowledge/readiness.py",
+      "legacy_documenter/documentation/resume.py",
+      "legacy_documenter/analysis/deep_source.py"
+    ],
+    "verification_method": "SHA-256 byte-hash spot-check plus AST top-level class-name check (tests/test_v4_1_r2_models_types_and_public_contracts.py::HighRiskModulesUntouchedTests)"
+  },
+  "model_equivalence": {
+    "legacy_documenter.documentation.consistency.MetricFact": "PASS",
+    "legacy_documenter.documentation.contracts.ArchitecturePatternAssessment": "PASS",
+    "legacy_documenter.documentation.contracts.DocumentClaim": "PASS",
+    "legacy_documenter.documentation.contracts.DocumentMetadata": "PASS",
+    "legacy_documenter.documentation.contracts.DocumentationContract": "PASS",
+    "legacy_documenter.documentation.contracts.EvidenceReference": "PASS",
+    "legacy_documenter.documentation.contracts.FunctionalModule": "PASS",
+    "legacy_documenter.documentation.contracts.MissingInformation": "PASS",
+    "legacy_documenter.documentation.interpretation.DocumentationProfile": "PASS",
+    "legacy_documenter.documentation.interpretation.DocumentationPrompt": "PASS",
+    "note": "No dataclass field was added, removed, reordered, or given a changed default/default_factory/frozen state in this round; only return-type annotations were added to their methods."
+  },
+  "production_behavior_changed": false,
+  "public_symbols": [
+    {
+      "callers_found": "grep-confirmed: only positional callers within this module and its tests",
+      "current_signature": "(prefix, *parts)",
+      "import_path": "legacy_documenter.documentation.contracts.stable_id",
+      "kind": "function",
+      "module": "legacy_documenter.documentation.contracts",
+      "proposed_signature": "(prefix, *parts) -> str",
+      "runtime_contract_changed": false,
+      "symbol": "stable_id"
+    },
+    {
+      "callers_found": "grep-confirmed: no positional/keyword arguments passed anywhere",
+      "current_signature": "(self)",
+      "import_path": "legacy_documenter.documentation.contracts.DocumentationContract.validate",
+      "kind": "method",
+      "module": "legacy_documenter.documentation.contracts",
+      "proposed_signature": "(self) -> bool",
+      "runtime_contract_changed": false,
+      "symbol": "DocumentationContract.validate"
+    },
+    {
+      "callers_found": "grep-confirmed: no callers outside tests",
+      "current_signature": "(self)",
+      "import_path": "legacy_documenter.documentation.contracts.DocumentationContract.canonical_json",
+      "kind": "method",
+      "module": "legacy_documenter.documentation.contracts",
+      "proposed_signature": "(self) -> str",
+      "runtime_contract_changed": false,
+      "symbol": "DocumentationContract.canonical_json"
+    },
+    {
+      "callers_found": "grep-confirmed: positional-only call sites",
+      "current_signature": "(functional: DocumentationContract, technical: DocumentationContract)",
+      "import_path": "legacy_documenter.documentation.contracts.approval_gate",
+      "kind": "function",
+      "module": "legacy_documenter.documentation.contracts",
+      "proposed_signature": "(functional: DocumentationContract, technical: DocumentationContract) -> bool",
+      "runtime_contract_changed": false,
+      "symbol": "approval_gate"
+    },
+    {
+      "callers_found": "grep-confirmed: no-argument call sites only",
+      "current_signature": "()",
+      "import_path": "legacy_documenter.documentation.contracts.functional_markdown_template",
+      "kind": "function",
+      "module": "legacy_documenter.documentation.contracts",
+      "proposed_signature": "() -> str",
+      "runtime_contract_changed": false,
+      "symbol": "functional_markdown_template"
+    },
+    {
+      "callers_found": "grep-confirmed: no-argument call sites only",
+      "current_signature": "()",
+      "import_path": "legacy_documenter.documentation.contracts.technical_markdown_template",
+      "kind": "function",
+      "module": "legacy_documenter.documentation.contracts",
+      "proposed_signature": "() -> str",
+      "runtime_contract_changed": false,
+      "symbol": "technical_markdown_template"
+    },
+    {
+      "callers_found": "grep-confirmed: positional callers in generator.py, hierarchical.py, evidence_catalog.py",
+      "current_signature": "(profile, package, sections)",
+      "import_path": "legacy_documenter.documentation.interpretation.canonical_assessment_schema",
+      "kind": "function",
+      "module": "legacy_documenter.documentation.interpretation",
+      "proposed_signature": "(profile, package, sections) -> dict",
+      "runtime_contract_changed": false,
+      "symbol": "canonical_assessment_schema"
+    },
+    {
+      "callers_found": "grep-confirmed: attribute access only, no call sites take arguments",
+      "current_signature": "(self)",
+      "import_path": "legacy_documenter.documentation.interpretation.DocumentationPrompt.prompt_id",
+      "kind": "property",
+      "module": "legacy_documenter.documentation.interpretation",
+      "proposed_signature": "(self) -> str",
+      "runtime_contract_changed": false,
+      "symbol": "DocumentationPrompt.prompt_id"
+    },
+    {
+      "callers_found": "grep-confirmed: no-argument call sites only",
+      "current_signature": "(self)",
+      "import_path": "legacy_documenter.documentation.interpretation.DocumentationPrompt.to_request",
+      "kind": "method",
+      "module": "legacy_documenter.documentation.interpretation",
+      "proposed_signature": "(self) -> LLMRequest",
+      "runtime_contract_changed": false,
+      "symbol": "DocumentationPrompt.to_request"
+    },
+    {
+      "callers_found": "grep-confirmed: positional callers in generator.py",
+      "current_signature": "(self, result, profile, packages)",
+      "import_path": "legacy_documenter.documentation.interpretation.AssessmentValidator.validate",
+      "kind": "method",
+      "module": "legacy_documenter.documentation.interpretation",
+      "proposed_signature": "(self, result, profile, packages) -> dict",
+      "runtime_contract_changed": false,
+      "symbol": "AssessmentValidator.validate"
+    },
+    {
+      "callers_found": "grep-confirmed: positional callers in generator.py, hierarchical.py, systematic.py",
+      "current_signature": "(document, kind, model_id)",
+      "import_path": "legacy_documenter.documentation.renderer.render",
+      "kind": "function",
+      "module": "legacy_documenter.documentation.renderer",
+      "proposed_signature": "(document, kind, model_id) -> str",
+      "runtime_contract_changed": false,
+      "symbol": "render"
+    },
+    {
+      "callers_found": "grep-confirmed: positional callers across documentation/*.py",
+      "current_signature": "(document)",
+      "import_path": "legacy_documenter.documentation.aggregation.evidence_closed",
+      "kind": "function",
+      "module": "legacy_documenter.documentation.aggregation",
+      "proposed_signature": "(document) -> bool",
+      "runtime_contract_changed": false,
+      "symbol": "evidence_closed"
+    },
+    {
+      "callers_found": "grep-confirmed: no-argument call sites only",
+      "current_signature": "(self)",
+      "import_path": "legacy_documenter.documentation.consistency.MetricFact.to_dict",
+      "kind": "method",
+      "module": "legacy_documenter.documentation.consistency",
+      "proposed_signature": "(self) -> dict",
+      "runtime_contract_changed": false,
+      "symbol": "MetricFact.to_dict"
+    },
+    {
+      "callers_found": "grep-confirmed: positional and one keyword (statement=) caller in this round's own test",
+      "current_signature": "(statement)",
+      "import_path": "legacy_documenter.documentation.consistency.extract_numbers",
+      "kind": "function",
+      "module": "legacy_documenter.documentation.consistency",
+      "proposed_signature": "(statement) -> list[int]",
+      "runtime_contract_changed": false,
+      "symbol": "extract_numbers"
+    },
+    {
+      "callers_found": "grep-confirmed: positional callers only",
+      "current_signature": "(left, right)",
+      "import_path": "legacy_documenter.documentation.consistency.validate_equivalent",
+      "kind": "function",
+      "module": "legacy_documenter.documentation.consistency",
+      "proposed_signature": "(left, right) -> bool",
+      "runtime_contract_changed": false,
+      "symbol": "validate_equivalent"
+    },
+    {
+      "callers_found": "grep-confirmed: positional callers only",
+      "current_signature": "(document)",
+      "import_path": "legacy_documenter.documentation.consistency.validate_quantitative_consistency",
+      "kind": "function",
+      "module": "legacy_documenter.documentation.consistency",
+      "proposed_signature": "(document) -> bool",
+      "runtime_contract_changed": false,
+      "symbol": "validate_quantitative_consistency"
+    },
+    {
+      "callers_found": "grep-confirmed: positional callers only",
+      "current_signature": "(canonical, originals)",
+      "import_path": "legacy_documenter.documentation.consistency.traceability_closed",
+      "kind": "function",
+      "module": "legacy_documenter.documentation.consistency",
+      "proposed_signature": "(canonical, originals) -> bool",
+      "runtime_contract_changed": false,
+      "symbol": "traceability_closed"
+    },
+    {
+      "callers_found": "grep-confirmed: positional callers only",
+      "current_signature": "(value)",
+      "import_path": "legacy_documenter.documentation.consistency.stable_hash",
+      "kind": "function",
+      "module": "legacy_documenter.documentation.consistency",
+      "proposed_signature": "(value) -> str",
+      "runtime_contract_changed": false,
+      "symbol": "stable_hash"
+    },
+    {
+      "callers_found": "grep-confirmed: positional callers only (build_catalog)",
+      "current_signature": "(catalog, package)",
+      "import_path": "legacy_documenter.documentation.evidence_catalog.validate_catalog",
+      "kind": "function",
+      "module": "legacy_documenter.documentation.evidence_catalog",
+      "proposed_signature": "(catalog, package) -> bool",
+      "runtime_contract_changed": false,
+      "symbol": "validate_catalog"
+    },
+    {
+      "callers_found": "grep-confirmed: positional callers only",
+      "current_signature": "(catalog)",
+      "import_path": "legacy_documenter.documentation.evidence_catalog.visible_catalog",
+      "kind": "function",
+      "module": "legacy_documenter.documentation.evidence_catalog",
+      "proposed_signature": "(catalog) -> list",
+      "runtime_contract_changed": false,
+      "symbol": "visible_catalog"
+    },
+    {
+      "callers_found": "grep-confirmed: only this module's own tests call it",
+      "current_signature": "(original, resolved)",
+      "import_path": "legacy_documenter.documentation.evidence_catalog.resolution_preserves_semantics",
+      "kind": "function",
+      "module": "legacy_documenter.documentation.evidence_catalog",
+      "proposed_signature": "(original, resolved) -> bool",
+      "runtime_contract_changed": false,
+      "symbol": "resolution_preserves_semantics"
+    },
+    {
+      "callers_found": "new symbol; used as a local variable annotation inside resolve_payload only",
+      "current_signature": "n/a (new symbol)",
+      "import_path": "legacy_documenter.documentation.evidence_catalog.EvidenceKeyMap",
+      "kind": "type_alias",
+      "module": "legacy_documenter.documentation.evidence_catalog",
+      "proposed_signature": "dict[str, str]",
+      "runtime_contract_changed": false,
+      "symbol": "EvidenceKeyMap"
+    },
+    {
+      "callers_found": "grep-confirmed: positional callers only",
+      "current_signature": "(payload, composed)",
+      "import_path": "legacy_documenter.documentation.envelope.semantic_unchanged",
+      "kind": "function",
+      "module": "legacy_documenter.documentation.envelope",
+      "proposed_signature": "(payload, composed) -> bool",
+      "runtime_contract_changed": false,
+      "symbol": "semantic_unchanged"
+    },
+    {
+      "callers_found": "grep-confirmed: attribute access only",
+      "current_signature": "(self)",
+      "import_path": "legacy_documenter.documentation.coverage.CoveragePlanner.snapshot",
+      "kind": "property",
+      "module": "legacy_documenter.documentation.coverage",
+      "proposed_signature": "(self) -> str",
+      "runtime_contract_changed": false,
+      "symbol": "CoveragePlanner.snapshot"
+    },
+    {
+      "callers_found": "grep-confirmed: positional callers only",
+      "current_signature": "(functional_text, technical_text, parent_text)",
+      "import_path": "legacy_documenter.documentation.human_review.validate_preconditions",
+      "kind": "function",
+      "module": "legacy_documenter.documentation.human_review",
+      "proposed_signature": "(functional_text, technical_text, parent_text) -> bool",
+      "runtime_contract_changed": false,
+      "symbol": "validate_preconditions"
+    },
+    {
+      "callers_found": "grep-confirmed: positional callers in this module and analysis/targeted_exhaustion.py",
+      "current_signature": "(text)",
+      "import_path": "legacy_documenter.documentation.human_review.parse_document",
+      "kind": "function",
+      "module": "legacy_documenter.documentation.human_review",
+      "proposed_signature": "(text) -> dict",
+      "runtime_contract_changed": false,
+      "symbol": "parse_document"
+    },
+    {
+      "callers_found": "grep-confirmed: no-argument call sites only",
+      "current_signature": "()",
+      "import_path": "legacy_documenter.documentation.human_review.response_template",
+      "kind": "function",
+      "module": "legacy_documenter.documentation.human_review",
+      "proposed_signature": "() -> str",
+      "runtime_contract_changed": false,
+      "symbol": "response_template"
+    },
+    {
+      "callers_found": "grep-confirmed: no external callers besides this module's own tests",
+      "current_signature": "(functional_decision, technical_decision)",
+      "import_path": "legacy_documenter.documentation.human_review.knowledge_ready",
+      "kind": "function",
+      "module": "legacy_documenter.documentation.human_review",
+      "proposed_signature": "(functional_decision, technical_decision) -> bool",
+      "runtime_contract_changed": false,
+      "symbol": "knowledge_ready"
+    },
+    {
+      "callers_found": "grep-confirmed: positional callers only",
+      "current_signature": "(functional_text, technical_text, metrics)",
+      "import_path": "legacy_documenter.documentation.human_review.build_package",
+      "kind": "function",
+      "module": "legacy_documenter.documentation.human_review",
+      "proposed_signature": "(functional_text, technical_text, metrics) -> str",
+      "runtime_contract_changed": false,
+      "symbol": "build_package"
+    },
+    {
+      "callers_found": "grep-confirmed: no-argument and workspace= keyword callers in __main__ block and tests; default and POSITIONAL_OR_KEYWORD kind unchanged",
+      "current_signature": "(workspace=\".\")",
+      "import_path": "legacy_documenter.documentation.human_review.run",
+      "kind": "function",
+      "module": "legacy_documenter.documentation.human_review",
+      "proposed_signature": "(workspace: str = \".\") -> dict",
+      "runtime_contract_changed": false,
+      "symbol": "run"
+    },
+    {
+      "callers_found": "grep-confirmed: positional callers only",
+      "current_signature": "(prefix, value)",
+      "import_path": "legacy_documenter.analysis.deep_interpretation.hid",
+      "kind": "function",
+      "module": "legacy_documenter.analysis.deep_interpretation",
+      "proposed_signature": "(prefix, value) -> str",
+      "runtime_contract_changed": false,
+      "symbol": "hid"
+    },
+    {
+      "callers_found": "grep-confirmed: positional callers only",
+      "current_signature": "(value)",
+      "import_path": "legacy_documenter.analysis.deep_interpretation.estimate",
+      "kind": "function",
+      "module": "legacy_documenter.analysis.deep_interpretation",
+      "proposed_signature": "(value) -> int",
+      "runtime_contract_changed": false,
+      "symbol": "estimate"
+    },
+    {
+      "callers_found": "grep-confirmed: module-private, called only from targeted_data_lookup",
+      "current_signature": "(root, relative)",
+      "import_path": "legacy_documenter.analysis.targeted_exhaustion._safe_path",
+      "kind": "function",
+      "module": "legacy_documenter.analysis.targeted_exhaustion",
+      "proposed_signature": "(root, relative) -> Path",
+      "runtime_contract_changed": false,
+      "symbol": "_safe_path"
+    },
+    {
+      "callers_found": "grep-confirmed: positional callers only",
+      "current_signature": "(definition, existing_checked, lookup, remaining)",
+      "import_path": "legacy_documenter.analysis.targeted_exhaustion.exhaustion_status",
+      "kind": "function",
+      "module": "legacy_documenter.analysis.targeted_exhaustion",
+      "proposed_signature": "(definition, existing_checked, lookup, remaining) -> tuple[str, bool]",
+      "runtime_contract_changed": false,
+      "symbol": "exhaustion_status"
+    }
+  ],
+  "readiness": "READY",
+  "round": "V4.1-R2",
+  "serialization_equivalence": "PASS",
+  "td_005": {
+    "original_affected_files": [
+      "legacy_documenter/documentation/*.py",
+      "legacy_documenter/analysis/*.py",
+      "legacy_documenter/extractors/*.py"
+    ],
+    "original_description": "Ambiguous nested historical JSON shapes were not annotated with misleading object/Any types.",
+    "original_source": "output/v3_r10_1/TECHNICAL_DEBT_REMAINING.json (carried into output/v4_1_r0/V4_1_MAINTAINABILITY_INVENTORY.json known_debt)",
+    "remaining_work": "R2 added narrow, safe return-type annotations (and one small type alias, EvidenceKeyMap) to functions in 11 of the 16 R0 type_safety_candidates files whose pure/simple functions had an unambiguous, stable return shape. It did NOT annotate function parameters that carry ambiguous, heterogeneous, historically open nested JSON dict/list shapes (e.g. `document`, `assessment`, `package`, `payload`, `catalog`, `pool`, `plan` throughout legacy_documenter/documentation/*.py and legacy_documenter/analysis/*.py) because no stable, non-misleading TypedDict/dataclass shape could be proven for them without a structural characterization pass -- exactly the risk TD-005's own original description warns against. legacy_documenter/analysis/deep_source.py was skipped entirely (R0 characterization-sensitive, Step 5). legacy_documenter/documentation/generator.py, consistency_run.py, hierarchical.py, and the orchestration-level run()/execute() functions elsewhere were left untyped because their return shape differs by branch (early-return error paths carry a different key set than the success path), so a single return annotation would misrepresent the contract. legacy_documenter/extractors/*.py had no entries in R0's type_safety_candidates (their typed_functions_percent was already at or above the repository average), so none were touched. Full resolution would require a dedicated characterization round introducing per-boundary TypedDicts only where a stable shape can first be proven -- exactly R0's own recommended_action.",
+    "status": "PARTIALLY_RESOLVED"
+  },
+  "tests": {
+    "baseline_total": 1424,
+    "final_fail": 0,
+    "final_pass": 1441,
+    "final_skip": 1,
+    "final_total": 1442,
+    "new_test_count": 18,
+    "new_test_module": "tests/test_v4_1_r2_models_types_and_public_contracts.py",
+    "skip_reason": "EquivalenceArtifactTests.test_artifact_present_and_valid_json skips only if this artifact file has not yet been generated; it is generated by this same round.",
+    "updated_test_module": "tests/test_v4_1_r0_maintainability_inventory.py (extended, not weakened -- authorizes the exact R2 diff set instead of skipping the section)"
+  },
+  "typing_diagnostics_after": {
+    "legacy_documenter/analysis/deep_interpretation.py": {
+      "function_count": 10,
+      "typed_functions_percent": 0.0
+    },
+    "legacy_documenter/analysis/targeted_exhaustion.py": {
+      "function_count": 6,
+      "typed_functions_percent": 0.0
+    },
+    "legacy_documenter/documentation/aggregation.py": {
+      "function_count": 4,
+      "typed_functions_percent": 0.0
+    },
+    "legacy_documenter/documentation/consistency.py": {
+      "function_count": 14,
+      "typed_functions_percent": 7.14
+    },
+    "legacy_documenter/documentation/contracts.py": {
+      "function_count": 6,
+      "typed_functions_percent": 83.33
+    },
+    "legacy_documenter/documentation/coverage.py": {
+      "function_count": 9,
+      "typed_functions_percent": 11.11
+    },
+    "legacy_documenter/documentation/envelope.py": {
+      "function_count": 5,
+      "typed_functions_percent": 0.0
+    },
+    "legacy_documenter/documentation/evidence_catalog.py": {
+      "function_count": 8,
+      "typed_functions_percent": 0.0
+    },
+    "legacy_documenter/documentation/human_review.py": {
+      "function_count": 9,
+      "typed_functions_percent": 22.22
+    },
+    "legacy_documenter/documentation/interpretation.py": {
+      "function_count": 8,
+      "typed_functions_percent": 50.0
+    },
+    "legacy_documenter/documentation/renderer.py": {
+      "function_count": 1,
+      "typed_functions_percent": 0.0
+    },
+    "note": "typed_functions_percent (from tools/v4_1_r0's AST diagnostic) only counts a function as 'typed' when every non-self parameter AND its return are annotated. Several files above show 0.0% both before and after despite gaining return-type annotations, because their parameters (carrying the ambiguous nested JSON this round deliberately left untyped) remain unannotated by design. This is expected and consistent with DO_NOT_TYPE_FOR_METRICS: these are supporting diagnostic numbers, not an optimization target.",
+    "type_safety_candidates_list_effect": "5 files (contracts.py, interpretation.py, consistency.py, coverage.py, human_review.py) moved off the relative-below-average-typed candidate list; 5 previously-just-above-average files (synthesis.py, llm/copilot_pilot.py, systematic.py, resume.py, second_review.py) mechanically became below-average as the repository-wide average shifted. This is a side effect of a relative-threshold diagnostic, not a behavior change; see tests/test_v4_1_r0_maintainability_inventory.py's updated test_on_disk_inventory_matches_fresh_build_if_present."
+  },
+  "typing_diagnostics_before": {
+    "legacy_documenter/analysis/deep_interpretation.py": {
+      "function_count": 10,
+      "typed_functions_percent": 0.0
+    },
+    "legacy_documenter/analysis/targeted_exhaustion.py": {
+      "function_count": 6,
+      "typed_functions_percent": 0.0
+    },
+    "legacy_documenter/documentation/aggregation.py": {
+      "function_count": 4,
+      "typed_functions_percent": 0.0
+    },
+    "legacy_documenter/documentation/consistency.py": {
+      "function_count": 14,
+      "typed_functions_percent": 0.0
+    },
+    "legacy_documenter/documentation/contracts.py": {
+      "function_count": 6,
+      "typed_functions_percent": 0.0
+    },
+    "legacy_documenter/documentation/coverage.py": {
+      "function_count": 9,
+      "typed_functions_percent": 0.0
+    },
+    "legacy_documenter/documentation/envelope.py": {
+      "function_count": 5,
+      "typed_functions_percent": 0.0
+    },
+    "legacy_documenter/documentation/evidence_catalog.py": {
+      "function_count": 8,
+      "typed_functions_percent": 0.0
+    },
+    "legacy_documenter/documentation/human_review.py": {
+      "function_count": 9,
+      "typed_functions_percent": 0.0
+    },
+    "legacy_documenter/documentation/interpretation.py": {
+      "function_count": 8,
+      "typed_functions_percent": 0.0
+    },
+    "legacy_documenter/documentation/renderer.py": {
+      "function_count": 1,
+      "typed_functions_percent": 0.0
+    }
+  }
+}

@@ -6,7 +6,7 @@ import hashlib,json,math
 DIMENSIONS=("PROJECTS","SOLUTIONS","WEBFORMS","FUNCTIONAL_FLOWS","DATA_ACCESS","STORED_PROCEDURES","UNRESOLVED_BOUNDARIES")
 def _chunks(values,count):
  values=list(values); size=max(1,math.ceil(len(values)/count)); return [values[i:i+size] for i in range(0,len(values),size)]
-def _uid(category,index,value): return "COV-%s-%02d-%s"%(category,index,hashlib.sha256(json.dumps(value,sort_keys=True,ensure_ascii=False,default=str).encode()).hexdigest()[:10])
+def _uid(category,index,value)->str: return "COV-%s-%02d-%s"%(category,index,hashlib.sha256(json.dumps(value,sort_keys=True,ensure_ascii=False,default=str).encode()).hexdigest()[:10])
 
 class CoveragePlanner:
  """Provides the cohesive CoveragePlanner responsibility for this module."""
@@ -16,7 +16,7 @@ class CoveragePlanner:
   self.data=self._load(self.index/"data_access.json"); self.procedures=self._load(self.index/"stored_procedures.json"); self.unresolved=self._load(self.index/"flow_unresolved.json")
  def _load(self,path): return json.loads(path.read_text(encoding="utf-8"))
  @property
- def snapshot(self): return self.system["metadata"]["source_snapshot_sha256"]
+ def snapshot(self)->str: return self.system["metadata"]["source_snapshot_sha256"]
  def _project_states(self):
   data_projects={x.get("project") for x in self.data}; flow_projects={p for f in self.flows.get("flows",[]) for p in f.get("projects",[]) if p}; web_paths=[x.get("path","").lower() for x in self.system.get("web",{}).get("webforms",[])]
   result=[]

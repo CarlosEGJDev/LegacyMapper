@@ -25,7 +25,7 @@ def recover_definitions(functional_text,technical_text,r82_items):
   result.append({"target_id":target,"original_id":target,"document_profile":profile,"description":item.get("question") if item else None,"reason":item.get("reason") if item else None,"blocking_status":item.get("blocking_level") if item else None,"family":item.get("family") if item else None,"original_claim_context":claims,"original_evidence_references":evidence,"human_disposition":"NEEDS_ANALYSIS","previous_analysis_status":previous.get(target,{}).get("candidate_status"),"definition_status":"RECOVERED" if item else "TARGET_DEFINITION_MISSING"})
  return result
 
-def _safe_path(root,relative):
+def _safe_path(root,relative)->Path:
  root=Path(root).resolve(); path=(root/relative).resolve()
  try:path.relative_to(root)
  except ValueError: raise ValueError("LOOKUP_OUTSIDE_SOURCE_ROOT")
@@ -45,7 +45,7 @@ def targeted_data_lookup(source_root,operations,max_files=12):
    if len(selected)>=max_files:return selected
  return selected
 
-def exhaustion_status(definition,existing_checked,lookup,remaining):
+def exhaustion_status(definition,existing_checked,lookup,remaining)->tuple[str,bool]:
  """Performs exhaustion status while preserving this module's deterministic contract."""
  if definition.get("definition_status")!="RECOVERED":return "TARGET_DEFINITION_MISSING",False
  applicable=lookup.get("applicable",False); performed=lookup.get("performed",False)

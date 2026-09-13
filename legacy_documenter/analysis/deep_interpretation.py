@@ -10,8 +10,8 @@ GROUPS=(("FMI-001","FMI-007"),("FMI-008","TMI-001","TMI-006","TMI-011"),("TMI-00
 NEXT={"RESOLVED_WITH_INTERPRETATION","PARTIALLY_RESOLVED_WITH_INTERPRETATION","STILL_UNRESOLVED","REQUIRES_HUMAN_KNOWLEDGE","REQUIRES_EXTERNAL_INFORMATION"}
 CLAIM={"CONFIRMED","INTERPRETED","UNRESOLVED"}
 
-def hid(prefix,value): return prefix+"-"+hashlib.sha256(json.dumps(value,sort_keys=True,separators=(",",":"),ensure_ascii=False).encode()).hexdigest()
-def estimate(value): return len(json.dumps(value,ensure_ascii=False,separators=(",",":")))//4
+def hid(prefix,value)->str: return prefix+"-"+hashlib.sha256(json.dumps(value,sort_keys=True,separators=(",",":"),ensure_ascii=False).encode()).hexdigest()
+def estimate(value)->int: return len(json.dumps(value,ensure_ascii=False,separators=(",",":")))//4
 
 def evidence_pool(root):
  """Performs evidence pool while preserving this module's deterministic contract."""

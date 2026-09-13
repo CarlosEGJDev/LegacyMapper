@@ -8,7 +8,7 @@ STATUSES={"DRAFT","GENERATED","VALIDATED","NEEDS_CHANGES","APPROVED","REJECTED",
 FACT_STATUSES={"CONFIRMED","INTERPRETED","UNRESOLVED"}
 SOURCE_TYPES={"DETERMINISTIC_CODE_FACT","APPROVED_FUNCTIONAL_DOCUMENT","APPROVED_TECHNICAL_DOCUMENT","APPROVED_EXTERNAL_INFORMATION","AI_INTERPRETATION","UNRESOLVED"}
 
-def stable_id(prefix,*parts):
+def stable_id(prefix,*parts)->str:
     """Performs stable id while preserving this module's deterministic contract."""
     raw=json.dumps(parts,ensure_ascii=False,separators=(",",":"))
     return f"{prefix}-{hashlib.sha256(raw.encode()).hexdigest()}"
@@ -41,7 +41,7 @@ class ArchitecturePatternAssessment:
 class DocumentationContract:
     """Provides the cohesive DocumentationContract responsibility for this module."""
     metadata:DocumentMetadata; claims:list[DocumentClaim]=field(default_factory=list); modules:list[FunctionalModule]=field(default_factory=list); patterns:list[ArchitecturePatternAssessment]=field(default_factory=list); missing_information:list[MissingInformation]=field(default_factory=list)
-    def validate(self):
+    def validate(self)->bool:
         """Performs validate while preserving this module's deterministic contract."""
         m=self.metadata
         if m.document_type not in DOCUMENT_TYPES or m.status not in STATUSES or not m.source_snapshot: raise ValueError("invalid metadata")
@@ -53,15 +53,15 @@ class DocumentationContract:
             if c.status=="CONFIRMED" and not any(x.authoritative for x in c.source_refs): raise ValueError("confirmed claim requires authoritative evidence")
         if m.approval_status=="APPROVED" and m.validation_status!="VALIDATED": raise ValueError("approval requires validation")
         return True
-    def canonical_json(self): return json.dumps(asdict(self),ensure_ascii=False,sort_keys=True,separators=(",",":"))
+    def canonical_json(self)->str: return json.dumps(asdict(self),ensure_ascii=False,sort_keys=True,separators=(",",":"))
 
-def approval_gate(functional:DocumentationContract, technical:DocumentationContract):
+def approval_gate(functional:DocumentationContract, technical:DocumentationContract)->bool:
     """Performs approval gate while preserving this module's deterministic contract."""
     return functional.metadata.approval_status=="APPROVED" and technical.metadata.approval_status=="APPROVED"
 
-def functional_markdown_template():
+def functional_markdown_template()->str:
     """Performs functional markdown template while preserving this module's deterministic contract."""
     return "# LEVANTAMIENTO FUNCIONAL\n\n## Metadata\n## Application Purpose\n## Scope\n## Functional Modules\n## Flows\n## Rules\n## Unresolved Areas\n## Traceability\n## Review and Approval\n"
-def technical_markdown_template():
+def technical_markdown_template()->str:
     """Performs technical markdown template while preserving this module's deterministic contract."""
     return "# LEVANTAMIENTO TECNICO\n\n## Metadata\n## Technical Overview\n## Scope\n## Solutions and Projects\n## Components\n## Patterns\n## Data Access\n## Configuration\n## Risks\n## Traceability\n## Review and Approval\n"
