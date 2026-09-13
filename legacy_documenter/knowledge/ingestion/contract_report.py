@@ -3,10 +3,9 @@
 Projects the code-level ingestion contract for human/tool consumption. Not
 canonical Knowledge Source content and carries no approval semantics.
 """
-import json
-
 from legacy_documenter.knowledge.domain.enums import SourceType
 from legacy_documenter.knowledge.ingestion.service import HUMAN_SUPPLIED_SOURCE_TYPES
+from legacy_documenter.utils.json_rendering import render_deterministic_json
 
 SCHEMA_VERSION = "V4-R4"
 
@@ -77,4 +76,4 @@ def build_ingestion_contract() -> dict:
 
 def render_ingestion_contract_json() -> str:
     """Renders the report as canonical, deterministic JSON text (stable key order, no whitespace drift)."""
-    return json.dumps(build_ingestion_contract(), ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+    return render_deterministic_json(build_ingestion_contract())

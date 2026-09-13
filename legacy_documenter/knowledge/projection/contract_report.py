@@ -5,11 +5,10 @@ sorted-key, whitespace-free JSON renderer. This is R11's own contract projection
 how canonical knowledge is projected into Markdown; it is not itself canonical knowledge and
 not an R12 Plugin-facing payload.
 """
-import json
-
 from legacy_documenter.knowledge.domain.enums import KnowledgeNature, KnowledgeStatus, SourceType, TemporalState
 from legacy_documenter.knowledge.projection.markdown_renderer import EMPTY_DOCUMENT_MARKER
 from legacy_documenter.knowledge.projection.rules import ALL_TARGETS, PROJECTION_CATEGORIES
+from legacy_documenter.utils.json_rendering import render_deterministic_json
 
 SCHEMA_VERSION = "V4-R11"
 
@@ -164,4 +163,4 @@ def build_projection_contract() -> dict:
 
 def render_projection_contract_json() -> str:
     """Renders the report as canonical, deterministic JSON text (stable key order, no whitespace drift)."""
-    return json.dumps(build_projection_contract(), ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+    return render_deterministic_json(build_projection_contract())

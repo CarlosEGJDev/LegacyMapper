@@ -5,10 +5,9 @@ Produces the machine-readable description of every registered
 contract for human/tool consumption; it is not canonical Knowledge Source
 content and carries no approval semantics of its own.
 """
-import json
-
 from legacy_documenter.knowledge.domain.enums import SourceType
 from legacy_documenter.knowledge.input.catalog import SourceContractCatalog
+from legacy_documenter.utils.json_rendering import render_deterministic_json
 
 SCHEMA_VERSION = "V4-R2"
 
@@ -82,4 +81,4 @@ def build_source_contract_report() -> dict:
 
 def render_source_contract_report_json() -> str:
     """Renders the report as canonical, deterministic JSON text (stable key order, no whitespace drift)."""
-    return json.dumps(build_source_contract_report(), ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+    return render_deterministic_json(build_source_contract_report())

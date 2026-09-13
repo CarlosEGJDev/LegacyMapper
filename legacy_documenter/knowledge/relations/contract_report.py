@@ -4,9 +4,8 @@ Projects the code-level explicit-relation contract for human/tool
 consumption. Not canonical Knowledge Source content and carries no approval,
 canonical, or resolution semantics.
 """
-import json
-
 from legacy_documenter.knowledge.relations.enums import RelationKind
+from legacy_documenter.utils.json_rendering import render_deterministic_json
 
 SCHEMA_VERSION = "V4-R7"
 
@@ -108,4 +107,4 @@ def build_relation_contract() -> dict:
 
 def render_relation_contract_json() -> str:
     """Renders the report as canonical, deterministic JSON text (stable key order, no whitespace drift)."""
-    return json.dumps(build_relation_contract(), ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+    return render_deterministic_json(build_relation_contract())

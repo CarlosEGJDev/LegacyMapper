@@ -4,9 +4,8 @@ Projects the code-level explicit-proposal contract for human/tool
 consumption. Not canonical Knowledge Source content and carries no approval,
 authority, or canonical-knowledge semantics.
 """
-import json
-
 from legacy_documenter.knowledge.proposals.enums import ProposalKind, ProposalMethod, ProposalStatus
+from legacy_documenter.utils.json_rendering import render_deterministic_json
 
 SCHEMA_VERSION = "V4-R8"
 
@@ -146,4 +145,4 @@ def build_proposal_contract() -> dict:
 
 def render_proposal_contract_json() -> str:
     """Renders the report as canonical, deterministic JSON text (stable key order, no whitespace drift)."""
-    return json.dumps(build_proposal_contract(), ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+    return render_deterministic_json(build_proposal_contract())

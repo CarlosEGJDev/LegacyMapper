@@ -78,10 +78,20 @@ class EntryGateTests(unittest.TestCase):
         # goes stale by design (see V4-R13 regression finding REG-001). The durable
         # invariant this test protects is "R11 or later is approved", not an exact
         # snapshot value.
+        #
+        # Round labels also legitimately change major phase (e.g. "V4-R13" ->
+        # "V4.1-R0" once all of V4 is approved and V4.1 begins), so the regex
+        # must accept an optional "." minor-phase segment, not just "V4-R<N>"
+        # (see the V4.1-R1 round-ordinal-parsing fix).
         state = json.loads(Path("PROJECT_STATE.json").read_text(encoding="utf-8"))
-        match = re.search(r"V4-R(\d+)", state.get("latest_approved_round", ""))
+        match = re.search(r"V4(?:\.(\d+))?-R(\d+)", state.get("latest_approved_round", ""))
         self.assertIsNotNone(match)
-        self.assertGreaterEqual(int(match.group(1)), 11)
+        phase = int(match.group(1) or 0)
+        round_number = int(match.group(2))
+        # Any V4.<minor> phase round is later than every plain V4-R round,
+        # since V4.1 only begins once all of V4 is approved.
+        ordinal = phase * 1000 + round_number
+        self.assertGreaterEqual(ordinal, 11)
 
     def test_baseline_test_count_marker(self):
         state = json.loads(Path("PROJECT_STATE.json").read_text(encoding="utf-8"))

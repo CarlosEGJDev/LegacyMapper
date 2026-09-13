@@ -5,9 +5,8 @@ consumption. This is the Canonical Knowledge Source's own contract
 projection, not R11 human-readable documentation and not an R12
 Plugin-facing payload.
 """
-import json
-
 from legacy_documenter.knowledge.domain.enums import KnowledgeNature, KnowledgeStatus, SourceType, TemporalState
+from legacy_documenter.utils.json_rendering import render_deterministic_json
 
 SCHEMA_VERSION = "V4-R10"
 
@@ -185,4 +184,4 @@ def build_canonical_contract() -> dict:
 
 def render_canonical_contract_json() -> str:
     """Renders the report as canonical, deterministic JSON text (stable key order, no whitespace drift)."""
-    return json.dumps(build_canonical_contract(), ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+    return render_deterministic_json(build_canonical_contract())

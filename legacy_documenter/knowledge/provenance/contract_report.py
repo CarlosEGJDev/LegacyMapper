@@ -3,14 +3,13 @@
 Projects the code-level provenance contract for human/tool consumption. Not
 canonical Knowledge Source content and carries no approval semantics.
 """
-import json
-
 from legacy_documenter.knowledge.provenance.enums import (
     EdgeRelationship,
     LineageCompleteness,
     NodeKind,
     TransformationType,
 )
+from legacy_documenter.utils.json_rendering import render_deterministic_json
 
 SCHEMA_VERSION = "V4-R3"
 
@@ -68,4 +67,4 @@ def build_provenance_contract() -> dict:
 
 def render_provenance_contract_json() -> str:
     """Renders the report as canonical, deterministic JSON text (stable key order, no whitespace drift)."""
-    return json.dumps(build_provenance_contract(), ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+    return render_deterministic_json(build_provenance_contract())

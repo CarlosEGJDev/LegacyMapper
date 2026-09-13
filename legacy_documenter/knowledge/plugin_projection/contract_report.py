@@ -6,8 +6,6 @@ how R10 canonical knowledge is projected into the Plugin-facing machine-readable
 is not itself canonical knowledge, not the R11 human-readable projection contract, and not a
 Plugin runtime/agent/orchestration specification.
 """
-import json
-
 from legacy_documenter.knowledge.domain.enums import KnowledgeNature, KnowledgeStatus, SourceType, TemporalState
 from legacy_documenter.knowledge.plugin_projection.models import (
     CONTRACT_NAME,
@@ -16,6 +14,7 @@ from legacy_documenter.knowledge.plugin_projection.models import (
     SOURCE_KIND,
     UNSPECIFIED_TEMPORAL_STATE_LABEL,
 )
+from legacy_documenter.utils.json_rendering import render_deterministic_json
 
 SCHEMA_VERSION = "V4-R12"
 
@@ -183,4 +182,4 @@ def build_plugin_contract() -> dict:
 
 def render_plugin_contract_json() -> str:
     """Renders the report as canonical, deterministic JSON text (stable key order, no whitespace drift)."""
-    return json.dumps(build_plugin_contract(), ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+    return render_deterministic_json(build_plugin_contract())

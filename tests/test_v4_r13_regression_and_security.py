@@ -714,8 +714,18 @@ class RepositoryContinuityStateTests(unittest.TestCase):
     }
 
     def _round_ordinal(self, value):
-        match = re.search(r"V4-R(\d+)", value or "")
-        return int(match.group(1)) if match else -1
+        # Accepts both the legacy "V4-R<N>" shape and the newer
+        # "V4.<minor>-R<N>" shape (e.g. "V4.1-R0"), so this comparison does
+        # not go stale the moment a new major phase begins (see the
+        # V4.1-R1 round-ordinal-parsing fix). Any V4.<minor> phase round is
+        # ordered after every plain V4-R round, since V4.1 only begins once
+        # all of V4 is approved.
+        match = re.search(r"V4(?:\.(\d+))?-R(\d+)", value or "")
+        if not match:
+            return -1
+        phase = int(match.group(1) or 0)
+        round_number = int(match.group(2))
+        return phase * 1000 + round_number
 
     def test_project_state_has_required_keys(self):
         state = json.loads((REPO_ROOT / "PROJECT_STATE.json").read_text(encoding="utf-8"))

@@ -15,6 +15,7 @@ uses a round-ordinal "at least" comparison instead of an exact literal.
 """
 from __future__ import annotations
 
+import copy
 import json
 import re
 import unittest
@@ -49,13 +50,20 @@ MANIFEST_PATH = REPO_ROOT / "output" / "v4_r14" / "V4_FINAL_MANIFEST.json"
 
 
 def _round_ordinal(round_label: str) -> int:
-    """Extracts the numeric round ordinal from a label like 'V4-R13' or
-    'V4-R13_APPROVED'. Used so tests never hardcode a literal round name
-    that a later approval would invalidate (the REG-001 lesson)."""
-    match = re.search(r"V4-R(\d+)", round_label)
+    """Extracts a comparable ordinal from a round label like 'V4-R13',
+    'V4-R13_APPROVED', or the newer 'V4.<minor>-R<N>' shape (e.g.
+    'V4.1-R0'). Used so tests never hardcode a literal round name that a
+    later approval would invalidate (the REG-001 lesson), and never
+    hardcode a literal major-phase prefix that a new phase would invalidate
+    (the V4.1-R1 round-ordinal-parsing fix). Any V4.<minor> phase round is
+    ordered after every plain V4-R round, since V4.1 only begins once all
+    of V4 is approved."""
+    match = re.search(r"V4(?:\.(\d+))?-R(\d+)", round_label)
     if not match:
         raise AssertionError(f"no_round_ordinal_found:{round_label}")
-    return int(match.group(1))
+    phase = int(match.group(1) or 0)
+    round_number = int(match.group(2))
+    return phase * 1000 + round_number
 
 
 def _read_manual(relative_path: str) -> str:
@@ -266,9 +274,67 @@ class DeterminismTests(unittest.TestCase):
         self.assertEqual(first, second)
 
     def test_baseline_matches_on_disk_artifact(self) -> None:
-        rebuilt = render_final_baseline_json(build_final_baseline(REPO_ROOT))
-        on_disk = BASELINE_PATH.read_text(encoding="utf-8")
-        self.assertEqual(rebuilt, on_disk)
+        """Deterministic-builder verification (REG-002-CANDIDATE fix).
+
+        `output/v4_r14/V4_FINAL_BASELINE.json` is a frozen, historical
+        snapshot recorded at the moment R14 itself was approved (with
+        `latest_approved_round="V4-R13"` and the test/module counts as of
+        that moment). `build_final_baseline()` rebuilds from the *current*
+        live `PROJECT_STATE.json` and repository tree, which legitimately
+        keep advancing afterward (more rounds get approved, more tests get
+        added). Asserting live-vs-frozen byte equality on those advancing
+        fields was REG-002-CANDIDATE: it conflated "the builder is
+        deterministic" with "the repository never changes again after R14".
+
+        This test instead asserts byte-for-byte equality on every field
+        EXCEPT the specific fields known to legitimately advance over time,
+        and separately asserts those excluded fields only ever move
+        forward (never backward) relative to the frozen R14 snapshot -- so
+        the test still fails if the builder regresses or goes stale, it
+        just no longer requires a frozen historical artifact to equal an
+        ever-advancing live value.
+
+        `production_python_module_count` is included in this excluded set
+        for the same reason: a later round (e.g. V4.1-R1's DUP-001 shared
+        JSON-rendering helper) may legitimately add a new production
+        module, which is a structural fact about the live repository tree,
+        not a behavioral regression.
+        """
+        rebuilt = json.loads(render_final_baseline_json(build_final_baseline(REPO_ROOT)))
+        on_disk = json.loads(BASELINE_PATH.read_text(encoding="utf-8"))
+
+        # Fields expected to legitimately advance since R14's original
+        # generation time: the live approved-round pointer, and the total
+        # test / production / test-module counts as later rounds add more
+        # tests and, occasionally, small new production modules.
+        normalized_rebuilt = copy.deepcopy(rebuilt)
+        normalized_on_disk = copy.deepcopy(on_disk)
+        normalized_rebuilt.pop("latest_approved_round", None)
+        normalized_on_disk.pop("latest_approved_round", None)
+        normalized_rebuilt.pop("test_count", None)
+        normalized_on_disk.pop("test_count", None)
+        normalized_rebuilt["maintainability_baseline"].pop("test_python_module_count", None)
+        normalized_on_disk["maintainability_baseline"].pop("test_python_module_count", None)
+        normalized_rebuilt["maintainability_baseline"].pop("production_python_module_count", None)
+        normalized_on_disk["maintainability_baseline"].pop("production_python_module_count", None)
+
+        self.assertEqual(normalized_rebuilt, normalized_on_disk)
+
+        # The excluded fields must still have moved forward (or stayed
+        # equal), never backward, relative to the frozen R14 snapshot.
+        self.assertGreaterEqual(
+            _round_ordinal(rebuilt["latest_approved_round"]),
+            _round_ordinal(on_disk["latest_approved_round"]),
+        )
+        self.assertGreaterEqual(rebuilt["test_count"], on_disk["test_count"])
+        self.assertGreaterEqual(
+            rebuilt["maintainability_baseline"]["test_python_module_count"],
+            on_disk["maintainability_baseline"]["test_python_module_count"],
+        )
+        self.assertGreaterEqual(
+            rebuilt["maintainability_baseline"]["production_python_module_count"],
+            on_disk["maintainability_baseline"]["production_python_module_count"],
+        )
 
     def test_manifest_deterministic_across_two_builds(self) -> None:
         first = render_final_manifest_json(build_final_manifest(REPO_ROOT))

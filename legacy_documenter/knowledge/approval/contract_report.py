@@ -4,9 +4,8 @@ Projects the code-level explicit-decision contract for human/tool
 consumption. Not canonical Knowledge Source content and carries no canonical
 Knowledge Source composition semantics of its own.
 """
-import json
-
 from legacy_documenter.knowledge.approval.enums import ApprovalAuthority, ApprovalDecisionType
+from legacy_documenter.utils.json_rendering import render_deterministic_json
 
 SCHEMA_VERSION = "V4-R9"
 
@@ -139,4 +138,4 @@ def build_approval_contract() -> dict:
 
 def render_approval_contract_json() -> str:
     """Renders the report as canonical, deterministic JSON text (stable key order, no whitespace drift)."""
-    return json.dumps(build_approval_contract(), ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+    return render_deterministic_json(build_approval_contract())

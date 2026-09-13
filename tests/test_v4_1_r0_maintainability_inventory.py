@@ -37,10 +37,15 @@ class ProductionFileDiscoveryTests(unittest.TestCase):
     def test_file_count_matches_r14_baseline_observation(self) -> None:
         # The V4-R14 closure baseline recorded 143 production modules under
         # legacy_documenter/ (output/v4_r14/V4_FINAL_BASELINE.json ->
-        # production_python_module_count). R0 analyzes the same tree and
-        # must observe the same count on an unmodified checkout.
+        # production_python_module_count). V4.1-R1 added one new production
+        # module (legacy_documenter/utils/json_rendering.py, the DUP-001
+        # shared deterministic-JSON-rendering helper), so the current
+        # unmodified-checkout count is 144. R0 itself analyzed the
+        # pre-R1 tree and is not being re-run or re-approved here; this
+        # count simply tracks the live repository, the same way
+        # `production_python_module_count` does in the final baseline.
         files = inv.iter_production_files(REPO_ROOT)
-        self.assertEqual(len(files), 143)
+        self.assertEqual(len(files), 144)
 
 
 class FileAnalysisTests(unittest.TestCase):
@@ -194,12 +199,92 @@ class GeneratedArtifactOnDiskTests(unittest.TestCase):
     not stale relative to the tooling that produced it)."""
 
     def test_on_disk_inventory_matches_fresh_build_if_present(self) -> None:
+        """V4.1-R0's inventory is a frozen, historical AST scan of the
+        repository tree as it existed when V4.1-R0 was approved. A later
+        round can legitimately change that live tree in small, explicitly
+        authorized ways -- e.g. V4.1-R1 adding the DUP-001 shared
+        deterministic-JSON-rendering helper module and updating the eleven
+        `contract_report.py` renderers (plus `utils/__init__.py`) to use it
+        -- which changes this AST scan's per-file line counts/imports and
+        aggregate module/risk counts. Asserting live-vs-frozen byte equality
+        on those fields is the same defect class this round's own REG-002 /
+        round-ordinal-parsing fixes address (a generated snapshot compared
+        against a moving-target live value).
+
+        This test still asserts every *other* section (duplication
+        candidates, known debt, naming candidates, exception candidates,
+        documentation candidates, largest classes/functions/modules,
+        characterization needs, baseline) is byte-identical, and narrowly
+        verifies the three sections a DUP-001-shaped change can touch
+        (`production_inventory`, `risk_summary`, `dependency_findings`)
+        moved in exactly the expected direction rather than skipping them
+        outright.
+        """
         path = REPO_ROOT / "output" / "v4_1_r0" / "V4_1_MAINTAINABILITY_INVENTORY.json"
         if not path.exists():
             self.skipTest("V4_1_MAINTAINABILITY_INVENTORY.json not yet generated")
         on_disk = json.loads(path.read_text(encoding="utf-8"))
         fresh = report.build_inventory(REPO_ROOT)
-        self.assertEqual(on_disk, fresh)
+        if on_disk == fresh:
+            return
+
+        # Fields expected to legitimately change due to the authorized
+        # V4.1-R1 DUP-001 shared-renderer extraction.
+        touched_paths = {
+            "legacy_documenter/utils/json_rendering.py",  # new
+            "legacy_documenter/utils/__init__.py",
+            "legacy_documenter/knowledge/approval/contract_report.py",
+            "legacy_documenter/knowledge/canonical/contract_report.py",
+            "legacy_documenter/knowledge/classification/contract_report.py",
+            "legacy_documenter/knowledge/ingestion/contract_report.py",
+            "legacy_documenter/knowledge/input/contract_report.py",
+            "legacy_documenter/knowledge/plugin_projection/contract_report.py",
+            "legacy_documenter/knowledge/projection/contract_report.py",
+            "legacy_documenter/knowledge/proposals/contract_report.py",
+            "legacy_documenter/knowledge/provenance/contract_report.py",
+            "legacy_documenter/knowledge/relations/contract_report.py",
+            "legacy_documenter/knowledge/temporal/contract_report.py",
+        }
+
+        normalized_on_disk = dict(on_disk)
+        normalized_fresh = dict(fresh)
+
+        on_disk_inv = {e["path"]: e for e in on_disk["production_inventory"]}
+        fresh_inv = {e["path"]: e for e in fresh["production_inventory"]}
+        # No path may disappear; the only new path must be the one new
+        # authorized helper module.
+        self.assertEqual(set(on_disk_inv) - set(fresh_inv), set())
+        self.assertEqual(set(fresh_inv) - set(on_disk_inv), {"legacy_documenter/utils/json_rendering.py"})
+        unexpected_entry_diffs = [
+            p for p in (set(on_disk_inv) & set(fresh_inv)) - touched_paths
+            if on_disk_inv[p] != fresh_inv[p]
+        ]
+        self.assertEqual(unexpected_entry_diffs, [], unexpected_entry_diffs)
+        normalized_on_disk.pop("production_inventory", None)
+        normalized_fresh.pop("production_inventory", None)
+
+        # One new LOW-risk production module; all other risk buckets and
+        # the named high/very-high-risk file lists are unaffected.
+        on_disk_risk = on_disk["risk_summary"]
+        fresh_risk = fresh["risk_summary"]
+        self.assertEqual(fresh_risk["high_risk_files"], on_disk_risk["high_risk_files"])
+        self.assertEqual(fresh_risk["very_high_risk_files"], on_disk_risk["very_high_risk_files"])
+        expected_categories = dict(on_disk_risk["files_by_risk_category"])
+        expected_categories["LOW"] = expected_categories.get("LOW", 0) + 1
+        self.assertEqual(fresh_risk["files_by_risk_category"], expected_categories)
+        normalized_on_disk.pop("risk_summary", None)
+        normalized_fresh.pop("risk_summary", None)
+
+        # One new production module; every other dependency-direction
+        # finding is unaffected.
+        on_disk_dep = dict(on_disk["dependency_findings"])
+        fresh_dep = dict(fresh["dependency_findings"])
+        self.assertEqual(fresh_dep.pop("module_count"), on_disk_dep.pop("module_count") + 1)
+        self.assertEqual(fresh_dep, on_disk_dep)
+        normalized_on_disk.pop("dependency_findings", None)
+        normalized_fresh.pop("dependency_findings", None)
+
+        self.assertEqual(normalized_on_disk, normalized_fresh)
 
     def test_on_disk_plan_matches_fresh_build_if_present(self) -> None:
         path = REPO_ROOT / "output" / "v4_1_r0" / "V4_1_REFACTOR_PLAN.json"

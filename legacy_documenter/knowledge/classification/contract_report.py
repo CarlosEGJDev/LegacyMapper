@@ -3,11 +3,10 @@
 Projects the code-level classification contract for human/tool consumption.
 Not canonical Knowledge Source content and carries no approval semantics.
 """
-import json
-
 from legacy_documenter.knowledge.classification.catalog import KnowledgeNatureCatalog
 from legacy_documenter.knowledge.classification.enums import ClassificationMethod, ClassificationStatus
 from legacy_documenter.knowledge.domain.enums import KnowledgeNature
+from legacy_documenter.utils.json_rendering import render_deterministic_json
 
 SCHEMA_VERSION = "V4-R5"
 
@@ -80,4 +79,4 @@ def build_classification_contract() -> dict:
 
 def render_classification_contract_json() -> str:
     """Renders the report as canonical, deterministic JSON text (stable key order, no whitespace drift)."""
-    return json.dumps(build_classification_contract(), ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+    return render_deterministic_json(build_classification_contract())
