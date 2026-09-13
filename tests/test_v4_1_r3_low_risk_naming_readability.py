@@ -44,9 +44,12 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 # V4.1-R4: R0's own refactor plan scoped its internal decomposition
 # (DEBT-002) to that round, which split it behind an unchanged
 # compatibility facade -- see output/v4_1_r4/V4_1_R4_READINESS_EQUIVALENCE.json.
+# legacy_documenter/extractors/database_extractor.py and
+# legacy_documenter/analysis/flow_resolver.py were removed from this list in
+# V4.1-R6, after R5's characterization closed all eight open gaps and R6
+# authorized a narrow, low-risk extraction from each behind unchanged
+# compatibility facades -- see output/v4_1_r6/V4_1_R6_EXTRACTION_EQUIVALENCE.json.
 HIGH_RISK_MODULES = [
-    "legacy_documenter/extractors/database_extractor.py",
-    "legacy_documenter/analysis/flow_resolver.py",
     "legacy_documenter/documentation/resume.py",
     "legacy_documenter/analysis/deep_source.py",
 ]

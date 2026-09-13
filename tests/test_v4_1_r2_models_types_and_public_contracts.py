@@ -233,15 +233,20 @@ class HighRiskModulesUntouchedTests(unittest.TestCase):
     internal decomposition (DEBT-002) to V4.1-R4, and that round split it
     into parsing/evidence-closure/file-I/O helpers behind an unchanged
     compatibility facade -- see
-    output/v4_1_r4/V4_1_R4_READINESS_EQUIVALENCE.json. The remaining four
+    output/v4_1_r4/V4_1_R4_READINESS_EQUIVALENCE.json.
+
+    `legacy_documenter/extractors/database_extractor.py` and
+    `legacy_documenter/analysis/flow_resolver.py` were removed from this
+    frozen set in V4.1-R6: after R5's characterization closed all eight
+    open gaps, R6 authorized a narrow, low-risk extraction from each
+    (logical-line/token/classification helpers out of DatabaseExtractor;
+    key-label/graph-construction/report-composition helpers out of
+    FunctionalFlowResolver) behind unchanged compatibility facades -- see
+    output/v4_1_r6/V4_1_R6_EXTRACTION_EQUIVALENCE.json. The remaining two
     modules are still untouched and still fenced off from every round.
     """
 
     EXPECTED_SHA256 = {
-        "legacy_documenter/extractors/database_extractor.py":
-            "1e0e75ca01dad9dd5b09ef7867e24082e55dd3ab36dab0a261148c9b9b0d2d61",
-        "legacy_documenter/analysis/flow_resolver.py":
-            "e5a0e5e85bee61a7cca41fee869f5c367191cc068f79663dc345543aff7ba781",
         "legacy_documenter/documentation/resume.py":
             "d15f498c3a1442086d37fbcb188e12a7b8b5d9c34ab561e29130aea1da0723b3",
         "legacy_documenter/analysis/deep_source.py":
@@ -258,8 +263,6 @@ class HighRiskModulesUntouchedTests(unittest.TestCase):
         """AST-shape check: same top-level class/function names and same
         argument names, independent of the byte-hash check above."""
         expected_top_level = {
-            "legacy_documenter/extractors/database_extractor.py": {"DatabaseExtractor"},
-            "legacy_documenter/analysis/flow_resolver.py": {"FunctionalFlowResolver"},
             "legacy_documenter/documentation/resume.py": None,  # module-function-shaped; hash check suffices
             "legacy_documenter/analysis/deep_source.py": None,
         }

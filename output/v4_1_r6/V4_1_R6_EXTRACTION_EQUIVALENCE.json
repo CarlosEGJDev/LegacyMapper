@@ -1,0 +1,345 @@
+{
+  "approved_artifact_integrity": {
+    "output/v4_1_r1/V4_1_R1_BEHAVIORAL_EQUIVALENCE.json": "55c99c3b68ac159585c6a0ec7e05f74e8dd64dd871308d067ab27bdda1a1c33b",
+    "output/v4_1_r2/V4_1_R2_TYPE_AND_CONTRACT_EQUIVALENCE.json": "bd3daf04be868ef6465298c5e372aacc1f33bf234417f2bb914b79b22ab5a6f4",
+    "output/v4_1_r3/V4_1_R3_NAMING_COMPATIBILITY.json": "9e922d288b4f07812482baef1a5383276cd71f729e27cc67b47e54c30c5afecf",
+    "output/v4_1_r4/V4_1_R4_READINESS_EQUIVALENCE.json": "eb07e0f35540e0607b90f8ff707c7cac8e1f113419d338e3cc8579fa12f1e617",
+    "output/v4_1_r5/V4_1_R5_ORCHESTRATOR_CHARACTERIZATION.json": "04c82d51b17664630adcafe26dd343d5f0740932904c77dd7a458029d547be32",
+    "output/v4_r14/V4_FINAL_BASELINE.json": "d13e3807a12187b226ea55752ae0e9dccd2ad20c9dbe044360ffa48bca526d1e",
+    "output/v4_r14/V4_FINAL_MANIFEST.json": "be398240a31137e7dea25fcaa7b3cfe6580d2557f990f7da884d5775f5c40551",
+    "status": "PASS"
+  },
+  "database_extractor": {
+    "behavior_equivalence": "PASS",
+    "compatibility": {
+      "note": "extract(self, path, root=None) unchanged; every private helper (_logical_lines, _remove_comment, _strip_string_literals, _split_args, _literal, _sql_kind, _first_sql_keyword, _provider, _direction, _matched_type) remains a callable instance method delegating to the new internal modules -- required because R5's own characterization tests call extractor._provider(...)/._direction(...)/._split_args(...) directly.",
+      "public_imports_preserved": true,
+      "public_signatures_preserved": true
+    },
+    "exception_equivalence": "PASS",
+    "identifier_equivalence": "NOT_APPLICABLE (DatabaseExtractor assigns no ids of its own; id is always None -- unchanged)",
+    "ordering_equivalence": "PASS"
+  },
+  "entry_gate": "PASS",
+  "flow_resolver": {
+    "behavior_equivalence": "PASS",
+    "compatibility": {
+      "note": "FunctionalFlowResolver(max_depth) and .resolve(...) unchanged; every extracted private helper remains a callable instance method delegating to the new internal modules -- required because R5's own characterization tests call resolver._index_calls(...)/._index_data_access(...) directly (indexing itself was ultimately deferred, but the same preservation discipline was applied to every extracted symbol).",
+      "public_imports_preserved": true,
+      "public_signatures_preserved": true
+    },
+    "exception_equivalence": "PASS",
+    "identifier_equivalence": "PASS (_stable_id untouched; pinned exact values from Gap 1 unchanged)",
+    "ordering_equivalence": "PASS",
+    "patch_point_preservation": "PASS (resolver._path_id / resolver._path_identities untouched -- that group was deferred, not extracted; tests/test_v1_unittest.py::test_v2_r4_1_path_ids_use_complete_canonical_identity_and_guard_collisions passes unchanged)",
+    "state_reuse_equivalence": "PASS (STATEFUL_RESET_PER_OPERATION behavior unchanged; tests/test_v4_1_r5_flow_resolver_characterization.py::StateResetAndReuseTests passes unchanged)"
+  },
+  "gate_a": {
+    "database_gaps": {
+      "gap_1_branch_order_interaction": "CLOSED",
+      "gap_2_split_args_edge_cases": "CLOSED",
+      "gap_3_variable_type_state_tracking": "CLOSED",
+      "gap_4_repeated_variable_names_across_classes": "CLOSED"
+    },
+    "flow_gaps": {
+      "gap_1_stable_id_pinned_values": "CLOSED",
+      "gap_2_overlapping_entry_points": "CLOSED",
+      "gap_3_flow_status_precedence": "CLOSED",
+      "gap_4_mixed_data_access_and_calls": "CLOSED"
+    },
+    "readiness_reassessment": {
+      "database_extractor_r6_readiness": "READY_FOR_LIMITED_EXTRACTION",
+      "database_extractor_r6_readiness_rationale": "Gate A evidence reinforced, not reduced, the risk of the core (variable/type-state tracking and operation-detection-and-emission are order-dependent and can silently lose or duplicate information -- see Gap 1 evidence). The three previously-identified LOW candidates (logical-line reassembly, string/token parsing, classification/normalization) remain fully pure and independent; limited extraction of only those three is authorized.",
+      "flow_resolver_r6_readiness": "READY_FOR_LIMITED_EXTRACTION",
+      "flow_resolver_r6_readiness_rationale": "Gate A evidence confirmed indexing/graph-traversal/path-identity remain subtle and state-coupled (Gap 2/3/4). Graph construction, key/label derivation, and report composition remain fully pure and independent; limited extraction of only those three is authorized. Indexing was re-evaluated during Gate B design and found to transitively depend on _call_ref (part of the deferred path-identity group), so it was NOT extracted this round despite R5's preliminary LOW classification -- see gate_b.candidate_groups."
+    },
+    "tests": {
+      "database_extractor_gap_closure_tests": 16,
+      "flow_resolver_gap_closure_tests": 9,
+      "total_gate_a_tests": 25
+    },
+    "total_closed": 8
+  },
+  "gate_b": {
+    "allowed": true,
+    "authorized_groups": 6,
+    "candidate_groups": [
+      {
+        "authorization": "AUTHORIZED",
+        "characterization_coverage": "HIGH",
+        "extraction_risk": "LOW",
+        "monkeypatch_dependency": "none",
+        "ordering_dependency": "self-contained",
+        "public_contract_dependency": "none",
+        "responsibility": "logical_line_reassembly",
+        "side_effect_dependency": "one file read",
+        "state_dependency": "none",
+        "symbols": [
+          "_logical_lines",
+          "_remove_comment"
+        ],
+        "target": "database_extractor"
+      },
+      {
+        "authorization": "AUTHORIZED",
+        "characterization_coverage": "HIGH",
+        "extraction_risk": "LOW",
+        "monkeypatch_dependency": "none",
+        "ordering_dependency": "none",
+        "public_contract_dependency": "none",
+        "responsibility": "string_and_token_parsing",
+        "side_effect_dependency": "none",
+        "state_dependency": "none",
+        "symbols": [
+          "_strip_string_literals",
+          "_literal",
+          "_sql_kind",
+          "_first_sql_keyword",
+          "_split_args"
+        ],
+        "target": "database_extractor"
+      },
+      {
+        "authorization": "AUTHORIZED",
+        "characterization_coverage": "HIGH",
+        "extraction_risk": "LOW",
+        "monkeypatch_dependency": "none (called directly as extractor._provider/._direction in R5 characterization tests -- preserved as instance methods)",
+        "ordering_dependency": "none",
+        "public_contract_dependency": "none",
+        "responsibility": "classification_and_normalization",
+        "side_effect_dependency": "none",
+        "state_dependency": "none",
+        "symbols": [
+          "_provider",
+          "_direction",
+          "_matched_type"
+        ],
+        "target": "database_extractor"
+      },
+      {
+        "authorization": "DEFERRED",
+        "characterization_coverage": "MEDIUM",
+        "extraction_risk": "HIGH",
+        "monkeypatch_dependency": "none",
+        "ordering_dependency": "SEMANTIC (Gap 3 evidence)",
+        "public_contract_dependency": "indirect",
+        "responsibility": "variable_and_type_state_tracking",
+        "side_effect_dependency": "none",
+        "state_dependency": "variables/class_fields threaded through the whole method body",
+        "symbols": [
+          "inline VAR_RE/FIELD_RE/PARAM_RE/NEW_ASSIGN_RE tracking in extract()"
+        ],
+        "target": "database_extractor"
+      },
+      {
+        "authorization": "DEFERRED",
+        "characterization_coverage": "HIGH (Gap 1 proved branch order is load-bearing)",
+        "extraction_risk": "HIGH",
+        "monkeypatch_dependency": "none",
+        "ordering_dependency": "SEMANTIC, information-lossy if reordered",
+        "public_contract_dependency": "direct",
+        "responsibility": "operation_detection_and_emission",
+        "side_effect_dependency": "none",
+        "state_dependency": "variables/commands/adapters",
+        "symbols": [
+          "COMMAND_NEW_RE/.../TRANSACTION_RE branches",
+          "_operation",
+          "_operation_kind",
+          "_command_state",
+          "_empty_state",
+          "_text_state"
+        ],
+        "target": "database_extractor"
+      },
+      {
+        "authorization": "DEFERRED",
+        "characterization_coverage": "MEDIUM (Gap 1 revealed a dual-fire interaction with the operation-detection group)",
+        "extraction_risk": "MEDIUM",
+        "monkeypatch_dependency": "none",
+        "ordering_dependency": "interacts with operation-detection group",
+        "public_contract_dependency": "direct",
+        "responsibility": "parameter_extraction_and_normalization",
+        "side_effect_dependency": "none",
+        "state_dependency": "parameters dict",
+        "symbols": [
+          "PARAM_ADD_RE/ORACLE_PARAM_RE/DIRECTION_RE branches",
+          "_parameter",
+          "_wrapper_parameters",
+          "_explicit_size",
+          "_csv_literal"
+        ],
+        "target": "database_extractor"
+      },
+      {
+        "authorization": "DEFERRED",
+        "characterization_coverage": "HIGH",
+        "extraction_risk": "DO_NOT_EXTRACT_YET",
+        "monkeypatch_dependency": "none",
+        "ordering_dependency": "SEMANTIC",
+        "public_contract_dependency": "IS the public contract",
+        "responsibility": "orchestration",
+        "side_effect_dependency": "one file read",
+        "state_dependency": "all locals",
+        "symbols": [
+          "extract"
+        ],
+        "target": "database_extractor"
+      },
+      {
+        "authorization": "AUTHORIZED",
+        "characterization_coverage": "HIGH",
+        "extraction_risk": "LOW",
+        "monkeypatch_dependency": "none",
+        "ordering_dependency": "none",
+        "public_contract_dependency": "direct but simple",
+        "responsibility": "graph_construction",
+        "side_effect_dependency": "none",
+        "state_dependency": "none",
+        "symbols": [
+          "_add_node",
+          "_add_edge",
+          "_node"
+        ],
+        "target": "flow_resolver"
+      },
+      {
+        "authorization": "AUTHORIZED",
+        "characterization_coverage": "HIGH",
+        "extraction_risk": "LOW",
+        "monkeypatch_dependency": "none",
+        "ordering_dependency": "none",
+        "public_contract_dependency": "direct but simple",
+        "responsibility": "key_and_label_derivation",
+        "side_effect_dependency": "none",
+        "state_dependency": "none",
+        "symbols": [
+          "_method_key",
+          "_method_label",
+          "_class_id",
+          "_entry_method_key",
+          "_resolved_method_key"
+        ],
+        "target": "flow_resolver"
+      },
+      {
+        "authorization": "AUTHORIZED",
+        "characterization_coverage": "HIGH",
+        "extraction_risk": "LOW",
+        "monkeypatch_dependency": "none",
+        "ordering_dependency": "none",
+        "public_contract_dependency": "direct but simple",
+        "responsibility": "report_composition",
+        "side_effect_dependency": "none",
+        "state_dependency": "none",
+        "symbols": [
+          "_project_sequence",
+          "_project_sequence_from_nodes",
+          "_summary"
+        ],
+        "target": "flow_resolver"
+      },
+      {
+        "authorization": "DEFERRED",
+        "characterization_coverage": "HIGH (Gap 2)",
+        "extraction_risk": "MEDIUM (newly discovered: _index_calls transitively depends on _call_ref, part of the deferred path-identity group)",
+        "monkeypatch_dependency": "called directly as resolver._index_calls/._index_data_access in R5 characterization tests",
+        "ordering_dependency": "deterministic sort applied",
+        "public_contract_dependency": "none (internal only)",
+        "responsibility": "indexing",
+        "side_effect_dependency": "none",
+        "state_dependency": "writes self.* once at top of resolve()",
+        "symbols": [
+          "_index_calls",
+          "_index_data_access",
+          "_index_terminals"
+        ],
+        "target": "flow_resolver"
+      },
+      {
+        "authorization": "DEFERRED",
+        "characterization_coverage": "HIGH (Gap 1)",
+        "extraction_risk": "MEDIUM-HIGH",
+        "monkeypatch_dependency": "YES -- tests/test_v1_unittest.py directly reassigns resolver._path_id and resolver._path_identities",
+        "ordering_dependency": "content-order-sensitive by design",
+        "public_contract_dependency": "direct",
+        "responsibility": "path_identity_and_construction",
+        "side_effect_dependency": "raises on collision",
+        "state_dependency": "self._path_identities shared across the whole resolve() call",
+        "symbols": [
+          "_add_path",
+          "_path_id",
+          "_stable_id",
+          "_call_ref"
+        ],
+        "target": "flow_resolver"
+      },
+      {
+        "authorization": "DEFERRED",
+        "characterization_coverage": "HIGH (Gap 3/4)",
+        "extraction_risk": "MEDIUM",
+        "monkeypatch_dependency": "none",
+        "ordering_dependency": "SEMANTIC fixed precedence order",
+        "public_contract_dependency": "direct",
+        "responsibility": "confidence_and_status_derivation",
+        "side_effect_dependency": "none",
+        "state_dependency": "_terminal_nodes reads self.proc_by_operation/self.sql_by_operation",
+        "symbols": [
+          "_flow_status",
+          "_weakest",
+          "_terminal_nodes"
+        ],
+        "target": "flow_resolver"
+      },
+      {
+        "authorization": "DEFERRED",
+        "characterization_coverage": "MEDIUM",
+        "extraction_risk": "HIGH",
+        "monkeypatch_dependency": "none",
+        "ordering_dependency": "SEMANTIC",
+        "public_contract_dependency": "direct",
+        "responsibility": "graph_traversal",
+        "side_effect_dependency": "none",
+        "state_dependency": "reads self.max_depth/self.data_by_method/self.method_calls/self.unresolved_calls; recursive",
+        "symbols": [
+          "_walk"
+        ],
+        "target": "flow_resolver"
+      },
+      {
+        "authorization": "DEFERRED",
+        "characterization_coverage": "HIGH",
+        "extraction_risk": "DO_NOT_EXTRACT_YET",
+        "monkeypatch_dependency": "none",
+        "ordering_dependency": "SEMANTIC",
+        "public_contract_dependency": "IS the public contract",
+        "responsibility": "orchestration",
+        "side_effect_dependency": "none",
+        "state_dependency": "all self.* attributes",
+        "symbols": [
+          "resolve"
+        ],
+        "target": "flow_resolver"
+      }
+    ],
+    "deferred_groups": 9,
+    "extractions_performed": 6
+  },
+  "production_behavior_changed": false,
+  "production_code_changed": true,
+  "production_files_added": [
+    "legacy_documenter/extractors/_database_line_scanner.py",
+    "legacy_documenter/extractors/_database_token_parsing.py",
+    "legacy_documenter/extractors/_database_classification.py",
+    "legacy_documenter/analysis/_flow_key_labels.py",
+    "legacy_documenter/analysis/_flow_graph_construction.py",
+    "legacy_documenter/analysis/_flow_report_composition.py"
+  ],
+  "production_files_modified": [
+    "legacy_documenter/extractors/database_extractor.py",
+    "legacy_documenter/analysis/flow_resolver.py"
+  ],
+  "r0_frozen_inventory_modified": false,
+  "readiness": "READY",
+  "round": "V4.1-R6",
+  "tests": "1561_PASS_0_FAIL_0_SKIP"
+}

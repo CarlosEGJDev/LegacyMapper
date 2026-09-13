@@ -2,6 +2,18 @@ from collections import defaultdict
 import hashlib
 import json
 
+from legacy_documenter.analysis._flow_graph_construction import add_edge as _add_edge_impl
+from legacy_documenter.analysis._flow_graph_construction import add_node as _add_node_impl
+from legacy_documenter.analysis._flow_graph_construction import node as _node_impl
+from legacy_documenter.analysis._flow_key_labels import class_id as _class_id_impl
+from legacy_documenter.analysis._flow_key_labels import entry_method_key as _entry_method_key_impl
+from legacy_documenter.analysis._flow_key_labels import method_key as _method_key_impl
+from legacy_documenter.analysis._flow_key_labels import method_label as _method_label_impl
+from legacy_documenter.analysis._flow_key_labels import resolved_method_key as _resolved_method_key_impl
+from legacy_documenter.analysis._flow_report_composition import project_sequence as _project_sequence_impl
+from legacy_documenter.analysis._flow_report_composition import project_sequence_from_nodes as _project_sequence_from_nodes_impl
+from legacy_documenter.analysis._flow_report_composition import summary as _summary_impl
+
 
 class FunctionalFlowResolver:
     """Provides the cohesive FunctionalFlowResolver responsibility for this module."""
@@ -185,42 +197,36 @@ class FunctionalFlowResolver:
         return result
 
     def _entry_method_key(self, entry: dict) -> tuple | None:
-        handler_method = entry.get("handler_method") or ""
-        if "." not in handler_method:
-            return None
-        class_name, method = handler_method.rsplit(".", 1)
-        return self._method_key(class_name, method, entry.get("project"))
+        """Derives the method key an entry point's handler_method resolves to."""
+        return _entry_method_key_impl(entry)
 
     def _resolved_method_key(self, call: dict) -> tuple | None:
-        target = call.get("resolved_target") or ""
-        parts = target.split(".")
-        if len(parts) < 2:
-            return None
-        return self._method_key(parts[-2], parts[-1], call.get("resolved_project"))
+        """Derives the method key a resolved call target points to."""
+        return _resolved_method_key_impl(call)
 
     def _method_key(self, class_name: str | None, method: str | None, project: str | None) -> tuple | None:
-        if not class_name or not method:
-            return None
-        return (class_name.lower(), method.lower(), project)
+        """Builds the canonical (class, method, project) lookup key, or None if incomplete."""
+        return _method_key_impl(class_name, method, project)
 
     def _method_label(self, key: tuple) -> str:
-        return f"{key[2] or '<unknown>'}::{key[0]}.{key[1]}"
+        """Formats a method key into its display label."""
+        return _method_label_impl(key)
 
     def _class_id(self, key: tuple) -> str:
-        return f"{key[2] or '<unknown>'}::{key[0]}"
+        """Formats a method key's owning class into its display label."""
+        return _class_id_impl(key)
 
     def _node(self, node_type: str, node_id: str | None, label: str | None, project: str | None = None) -> dict:
-        return {"id": node_id or "", "type": node_type, "label": label or node_id or "", "project": project}
+        """Builds a graph node descriptor."""
+        return _node_impl(node_type, node_id, label, project)
 
     def _add_node(self, nodes: dict[str, dict], node: dict) -> None:
-        if node["id"]:
-            nodes.setdefault(node["id"], node)
+        """Registers a node the first time its id is seen; later calls are no-ops."""
+        _add_node_impl(nodes, node)
 
     def _add_edge(self, edges: dict[tuple, dict], source: str | None, target: str | None, edge_type: str, confidence: str | None, evidence_ref: str | None) -> None:
-        if not source or not target:
-            return
-        key = (source, target, edge_type, evidence_ref)
-        edges.setdefault(key, {"source": source, "target": target, "type": edge_type, "confidence": confidence or "confirmed", "evidence_refs": [evidence_ref] if evidence_ref else []})
+        """Registers an edge the first time its (source, target, type, evidence) is seen."""
+        _add_edge_impl(edges, source, target, edge_type, confidence, evidence_ref)
 
     def _add_path(self, paths: dict[tuple, dict], entry: dict, nodes: list[str], relation_types: list[str], terminal_type: str, terminal_target: str, confidence: str, evidence_refs: list[str]) -> None:
         key = (entry.get("id"), tuple(nodes), tuple(relation_types), terminal_type, terminal_target)
@@ -271,47 +277,16 @@ class FunctionalFlowResolver:
         return next(status for status in order if status in statuses)
 
     def _project_sequence(self, paths: list[dict]) -> list[str]:
-        result = []
-        for path in paths:
-            for project in path.get("project_sequence", []):
-                if project not in result:
-                    result.append(project)
-        return result
+        """Collects first-seen project ids across a set of paths' own project sequences."""
+        return _project_sequence_impl(paths)
 
     def _project_sequence_from_nodes(self, nodes: list[str]) -> list[str]:
-        result = []
-        for node in nodes:
-            if "::" not in node:
-                continue
-            project = node.split("::", 1)[0]
-            if project != "<unknown>" and project not in result:
-                result.append(project)
-        return result
+        """Derives the first-seen project sequence implied by a path's node ids."""
+        return _project_sequence_from_nodes_impl(nodes)
 
     def _summary(self, entries: list[dict], flows: list[dict], paths: list[dict], errors: list[dict]) -> dict:
-        terminal_counts = defaultdict(int)
-        for path in paths:
-            terminal_counts[path["terminal_type"]] += 1
-        return {
-            "total_entry_points_considered": len([e for e in entries if e.get("confidence") == "confirmed"]),
-            "entry_points_with_flows": len(flows),
-            "total_flows": len(flows),
-            "total_paths": len(paths),
-            "paths_to_stored_procedure": terminal_counts["stored_procedure"],
-            "paths_to_sql": terminal_counts["sql"],
-            "paths_to_data_operation": terminal_counts["data_operation"],
-            "unresolved_boundaries": terminal_counts["unresolved_boundary"],
-            "external_boundaries": terminal_counts["external_boundary"],
-            "dead_end_paths": terminal_counts["dead_end"],
-            "cycle_paths": terminal_counts["cycle"],
-            "truncated_paths": terminal_counts["truncated_depth"],
-            "unique_terminal_stored_procedures": len({p["terminal_target"] for p in paths if p["terminal_type"] == "stored_procedure"}),
-            "unique_terminal_sql_operations": len({p["terminal_target"] for p in paths if p["terminal_type"] == "sql"}),
-            "cross_project_flows": len([f for f in flows if len(f.get("project_sequence", [])) > 1]),
-            "max_observed_depth": max((p["depth"] for p in paths), default=0),
-            "average_path_depth": round(sum(p["depth"] for p in paths) / len(paths), 3) if paths else 0,
-            "errors": len(errors),
-        }
+        """Builds the aggregate resolve() summary dict."""
+        return _summary_impl(entries, flows, paths, errors)
 
     def _stable_id(self, prefix: str, *parts: object) -> str:
         raw = "|".join("" if part is None else str(part) for part in parts)

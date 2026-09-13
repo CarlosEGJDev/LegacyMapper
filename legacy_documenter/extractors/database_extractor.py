@@ -1,6 +1,16 @@
 import re
 from pathlib import Path
 
+from legacy_documenter.extractors._database_classification import direction as _classify_direction
+from legacy_documenter.extractors._database_classification import matched_type as _classify_matched_type
+from legacy_documenter.extractors._database_classification import provider as _classify_provider
+from legacy_documenter.extractors._database_line_scanner import scan_logical_lines as _scan_logical_lines
+from legacy_documenter.extractors._database_line_scanner import strip_comment as _strip_comment_line
+from legacy_documenter.extractors._database_token_parsing import first_sql_keyword as _first_sql_keyword_text
+from legacy_documenter.extractors._database_token_parsing import literal as _parse_literal
+from legacy_documenter.extractors._database_token_parsing import split_args as _split_args_text
+from legacy_documenter.extractors._database_token_parsing import sql_kind as _parse_sql_kind
+from legacy_documenter.extractors._database_token_parsing import strip_string_literals as _strip_string_literals_text
 from legacy_documenter.utils import sanitize_text
 
 
@@ -25,7 +35,6 @@ DIRECTION_RE = re.compile(r"\b(?P<var>[A-Za-z_]\w*)\.Direction\s*=\s*ParameterDi
 WRAPPER_EXEC_RE = re.compile(r"\b(?P<var>[A-Za-z_]\w*)\.(?P<method>ExecProc|ExecProcDS)\s*\((?P<args>.*)\)", re.IGNORECASE)
 TRANSACTION_RE = re.compile(r"\b(?P<var>[A-Za-z_]\w*)\.(?P<method>BeginTransaction|BeginTrans|Commit|Rollback)\s*\(", re.IGNORECASE)
 CONNECTION_NAME_RE = re.compile(r'ConnectionStrings\s*\(\s*"(?P<name>[^"]+)"\s*\)', re.IGNORECASE)
-SQL_RE = re.compile(r"^\s*(SELECT|INSERT|UPDATE|DELETE|MERGE)\b", re.IGNORECASE)
 
 
 class DatabaseExtractor:
@@ -271,79 +280,20 @@ class DatabaseExtractor:
         return params
 
     def _logical_lines(self, path: Path) -> list[tuple[int, str]]:
-        result = []
-        pending = ""
-        start_line = 0
-        for idx, raw in enumerate(path.read_text(encoding="utf-8", errors="replace").splitlines(), 1):
-            line = self._remove_comment(raw).strip()
-            if not line:
-                continue
-            if line.endswith("_"):
-                if not pending:
-                    start_line = idx
-                pending += line[:-1].rstrip() + " "
-                continue
-            result.append((start_line or idx, pending + line))
-            pending = ""
-            start_line = 0
-        if pending:
-            result.append((start_line, pending))
-        return result
+        """Joins VB `_` line-continuations and strips blank/comment-only lines."""
+        return _scan_logical_lines(path)
 
     def _remove_comment(self, line: str) -> str:
-        in_string = False
-        idx = 0
-        while idx < len(line):
-            if line[idx] == '"':
-                if idx + 1 < len(line) and line[idx + 1] == '"':
-                    idx += 2
-                    continue
-                in_string = not in_string
-            if line[idx] == "'" and not in_string:
-                return line[:idx]
-            idx += 1
-        return line
+        """Removes a trailing `'` comment while respecting quoted string literals."""
+        return _strip_comment_line(line)
 
     def _strip_string_literals(self, line: str) -> str:
-        result = []
-        in_string = False
-        idx = 0
-        while idx < len(line):
-            if line[idx] == '"':
-                in_string = not in_string
-                result.append(" ")
-            elif in_string:
-                result.append(" ")
-            else:
-                result.append(line[idx])
-            idx += 1
-        return "".join(result)
+        """Blanks out quoted string contents so later regexes ignore text inside them."""
+        return _strip_string_literals_text(line)
 
     def _split_args(self, args: str) -> list[str]:
-        parts = []
-        current = []
-        depth = 0
-        in_string = False
-        idx = 0
-        while idx < len(args):
-            char = args[idx]
-            if char == '"':
-                in_string = not in_string
-            elif not in_string:
-                if char == "(":
-                    depth += 1
-                elif char == ")":
-                    depth = max(0, depth - 1)
-                elif char == "," and depth == 0:
-                    parts.append("".join(current).strip())
-                    current = []
-                    idx += 1
-                    continue
-            current.append(char)
-            idx += 1
-        if current or args.strip():
-            parts.append("".join(current).strip())
-        return parts
+        """Splits a call's argument text on top-level commas, respecting quotes/parens."""
+        return _split_args_text(args)
 
     def _method_parameters(self, params: str) -> dict[str, str]:
         variables: dict[str, str] = {}
@@ -352,27 +302,20 @@ class DatabaseExtractor:
         return variables
 
     def _matched_type(self, match) -> str | None:
-        for name in ("type1", "type2", "type3", "type4"):
-            value = match.groupdict().get(name)
-            if value:
-                return value
-        return None
+        """Returns whichever of a multi-alternative regex match's type groups fired."""
+        return _classify_matched_type(match)
 
     def _literal(self, expr: str | None) -> str | None:
-        if not expr:
-            return None
-        match = re.match(r'^\s*"(?P<value>(?:""|[^"])*)"\s*$', expr.strip())
-        return match.group("value").replace('""', '"') if match else None
+        """Extracts a VB string-literal's value, unescaping doubled quotes."""
+        return _parse_literal(expr)
 
     def _sql_kind(self, text: str | None) -> str | None:
-        if not text:
-            return None
-        match = SQL_RE.match(text)
-        return match.group(1).upper() if match else None
+        """Classifies leading SQL keyword text, if any."""
+        return _parse_sql_kind(text)
 
     def _first_sql_keyword(self, expr: str) -> str | None:
-        match = re.search(r'"(?:\s*)(SELECT|INSERT|UPDATE|DELETE|MERGE)\b', expr, re.IGNORECASE)
-        return match.group(1).upper() if match else None
+        """Finds the first quoted SQL keyword in a dynamic-SQL expression."""
+        return _first_sql_keyword_text(expr)
 
     def _first_arg(self, args: str) -> str | None:
         parts = self._split_args(args)
@@ -385,14 +328,8 @@ class DatabaseExtractor:
         return [part.strip() for part in value.split(",")]
 
     def _direction(self, value: str) -> str:
-        normalized = value.strip().lower()
-        if normalized in {"out", "output"}:
-            return "Output"
-        if normalized in {"inout", "inputoutput"}:
-            return "InputOutput"
-        if normalized in {"return", "returnvalue"}:
-            return "ReturnValue"
-        return "Input" if normalized == "in" else value.strip()
+        """Normalizes an ADO.NET parameter direction keyword."""
+        return _classify_direction(value)
 
     def _explicit_size(self, parts: list[str]) -> str | None:
         for part in parts[2:]:
@@ -417,9 +354,5 @@ class DatabaseExtractor:
         return sanitize_text(text).strip()
 
     def _provider(self, type_name: str) -> str:
-        lowered = type_name.lower()
-        if "oracle" in lowered:
-            return "Oracle"
-        if "oledb" in lowered:
-            return "OleDb"
-        return type_name.rsplit(".", 1)[-1]
+        """Classifies a fully/partially qualified ADO.NET type name to its provider."""
+        return _classify_provider(type_name)

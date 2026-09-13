@@ -43,13 +43,19 @@ class ProductionFileDiscoveryTests(unittest.TestCase):
         # (DEBT-002) added three new internal readiness helper modules
         # (legacy_documenter/knowledge/_readiness_io.py, _readiness_parsing.py,
         # _readiness_evidence.py) behind readiness.py's unchanged
-        # compatibility facade, making the current unmodified-checkout
-        # count 147. R0 itself analyzed the pre-R1 tree and is not being
-        # re-run or re-approved here; this count simply tracks the live
-        # repository, the same way `production_python_module_count` does
-        # in the final baseline.
+        # compatibility facade, making 147. V4.1-R6 added three new internal
+        # DatabaseExtractor helper modules (_database_line_scanner.py,
+        # _database_token_parsing.py, _database_classification.py) and three
+        # new internal FunctionalFlowResolver helper modules
+        # (_flow_key_labels.py, _flow_graph_construction.py,
+        # _flow_report_composition.py), both behind unchanged compatibility
+        # facades, making the current unmodified-checkout count 153. R0
+        # itself analyzed the pre-R1 tree and is not being re-run or
+        # re-approved here; this count simply tracks the live repository,
+        # the same way `production_python_module_count` does in the final
+        # baseline.
         files = inv.iter_production_files(REPO_ROOT)
-        self.assertEqual(len(files), 147)
+        self.assertEqual(len(files), 153)
 
 
 class FileAnalysisTests(unittest.TestCase):
@@ -274,6 +280,15 @@ class GeneratedArtifactOnDiskTests(unittest.TestCase):
             # public surface and behavior are unchanged; see
             # output/v4_1_r4/V4_1_R4_READINESS_EQUIVALENCE.json.
             "legacy_documenter/knowledge/readiness.py",
+            # V4.1-R6 authorized a narrow extraction from each risky
+            # orchestrator after all eight R5 characterization gaps closed:
+            # logical-line/token/classification helpers out of
+            # DatabaseExtractor, and key-label/graph-construction/report-
+            # composition helpers out of FunctionalFlowResolver, both behind
+            # unchanged compatibility facades; see
+            # output/v4_1_r6/V4_1_R6_EXTRACTION_EQUIVALENCE.json.
+            "legacy_documenter/extractors/database_extractor.py",
+            "legacy_documenter/analysis/flow_resolver.py",
         }
 
         normalized_on_disk = dict(on_disk)
@@ -291,6 +306,12 @@ class GeneratedArtifactOnDiskTests(unittest.TestCase):
                 "legacy_documenter/knowledge/_readiness_io.py",
                 "legacy_documenter/knowledge/_readiness_parsing.py",
                 "legacy_documenter/knowledge/_readiness_evidence.py",
+                "legacy_documenter/extractors/_database_line_scanner.py",
+                "legacy_documenter/extractors/_database_token_parsing.py",
+                "legacy_documenter/extractors/_database_classification.py",
+                "legacy_documenter/analysis/_flow_key_labels.py",
+                "legacy_documenter/analysis/_flow_graph_construction.py",
+                "legacy_documenter/analysis/_flow_report_composition.py",
             },
         )
         unexpected_entry_diffs = [
@@ -305,46 +326,62 @@ class GeneratedArtifactOnDiskTests(unittest.TestCase):
         # three new LOW-risk readiness helper modules and shrank
         # readiness.py enough that its own risk_category drops from
         # VERY_HIGH to HIGH -- it moves from the very-high-risk list to the
-        # high-risk list. All other risk-bucket membership is unaffected.
+        # high-risk list. V4.1-R6 added three new LOW-risk DatabaseExtractor
+        # helper modules and three new MEDIUM-risk FunctionalFlowResolver
+        # helper modules, and shrank database_extractor.py enough that its
+        # own risk_category drops from HIGH to MEDIUM (added docstrings on
+        # its now-delegating methods raised docstring_coverage_percent);
+        # flow_resolver.py's risk_category is unchanged (still HIGH). All
+        # other risk-bucket membership is unaffected.
         on_disk_risk = on_disk["risk_summary"]
         fresh_risk = fresh["risk_summary"]
         readiness_path = "legacy_documenter/knowledge/readiness.py"
-        expected_high_risk_files = sorted(on_disk_risk["high_risk_files"] + [readiness_path])
+        database_extractor_path = "legacy_documenter/extractors/database_extractor.py"
+        expected_high_risk_files = sorted(
+            [p for p in on_disk_risk["high_risk_files"] if p != database_extractor_path] + [readiness_path]
+        )
         expected_very_high_risk_files = [
             p for p in on_disk_risk["very_high_risk_files"] if p != readiness_path
         ]
         self.assertEqual(sorted(fresh_risk["high_risk_files"]), expected_high_risk_files)
         self.assertEqual(sorted(fresh_risk["very_high_risk_files"]), sorted(expected_very_high_risk_files))
         expected_categories = dict(on_disk_risk["files_by_risk_category"])
-        expected_categories["LOW"] = expected_categories.get("LOW", 0) + 4
-        expected_categories["HIGH"] = expected_categories.get("HIGH", 0) + 1
+        expected_categories["LOW"] = expected_categories.get("LOW", 0) + 4 + 3
+        expected_categories["MEDIUM"] = expected_categories.get("MEDIUM", 0) + 3 + 1
+        expected_categories["HIGH"] = expected_categories.get("HIGH", 0) + 1 - 1
         expected_categories["VERY_HIGH"] = expected_categories.get("VERY_HIGH", 0) - 1
         self.assertEqual(fresh_risk["files_by_risk_category"], expected_categories)
         normalized_on_disk.pop("risk_summary", None)
         normalized_fresh.pop("risk_summary", None)
 
-        # Four new production modules total (one from V4.1-R1, three from
-        # V4.1-R4's readiness split); every other dependency-direction
+        # Ten new production modules total (one from V4.1-R1, three from
+        # V4.1-R4's readiness split, six from V4.1-R6's DatabaseExtractor/
+        # FunctionalFlowResolver splits); every other dependency-direction
         # finding is unaffected.
         on_disk_dep = dict(on_disk["dependency_findings"])
         fresh_dep = dict(fresh["dependency_findings"])
-        self.assertEqual(fresh_dep.pop("module_count"), on_disk_dep.pop("module_count") + 4)
+        self.assertEqual(fresh_dep.pop("module_count"), on_disk_dep.pop("module_count") + 10)
         self.assertEqual(fresh_dep, on_disk_dep)
         normalized_on_disk.pop("dependency_findings", None)
         normalized_fresh.pop("dependency_findings", None)
 
-        # V4.1-R4 shrank readiness.py (292 -> fewer lines); it stays in the
-        # top-20 largest-modules list (same 20 file set) but drops from 4th
-        # place to last. The two extracted file-touching helpers
-        # (_readiness_io.py, _readiness_evidence.py) legitimately inherit
-        # readiness.py's filesystem_access side-effect signal; the pure-
-        # parsing helper (_readiness_parsing.py) does not.
+        # V4.1-R4 shrank readiness.py (292 -> fewer lines); V4.1-R6 shrank
+        # database_extractor.py (425 -> fewer lines). Both stay in the
+        # top-20 largest-modules list (same 20 file set), just at lower
+        # positions. The extracted file-touching helpers
+        # (_readiness_io.py, _readiness_evidence.py, and R6's
+        # _database_line_scanner.py) legitimately inherit their parent's
+        # filesystem_access side-effect signal; the pure-parsing/
+        # classification/graph-construction helpers do not.
         on_disk_largest = {e["path"]: e["line_count"] for e in on_disk["largest_modules"]}
         fresh_largest = {e["path"]: e["line_count"] for e in fresh["largest_modules"]}
         self.assertEqual(set(on_disk_largest), set(fresh_largest))
+        flow_resolver_path = "legacy_documenter/analysis/flow_resolver.py"
         self.assertLess(fresh_largest[readiness_path], on_disk_largest[readiness_path])
+        self.assertLess(fresh_largest[database_extractor_path], on_disk_largest[database_extractor_path])
+        self.assertLess(fresh_largest[flow_resolver_path], on_disk_largest[flow_resolver_path])
         for path, line_count in on_disk_largest.items():
-            if path != readiness_path:
+            if path not in (readiness_path, database_extractor_path, flow_resolver_path):
                 self.assertEqual(fresh_largest[path], line_count)
         normalized_on_disk.pop("largest_modules", None)
         normalized_fresh.pop("largest_modules", None)
@@ -358,9 +395,10 @@ class GeneratedArtifactOnDiskTests(unittest.TestCase):
                 expected_files = sorted(entry["files"] + [
                     "legacy_documenter/knowledge/_readiness_io.py",
                     "legacy_documenter/knowledge/_readiness_evidence.py",
+                    "legacy_documenter/extractors/_database_line_scanner.py",
                 ])
                 self.assertEqual(sorted(fresh_entry["files"]), expected_files)
-                self.assertEqual(fresh_entry["file_count"], entry["file_count"] + 2)
+                self.assertEqual(fresh_entry["file_count"], entry["file_count"] + 3)
             else:
                 self.assertEqual(fresh_entry["files"], entry["files"])
                 self.assertEqual(fresh_entry["file_count"], entry["file_count"])
@@ -397,6 +435,39 @@ class GeneratedArtifactOnDiskTests(unittest.TestCase):
         self.assertEqual(fresh_ts - on_disk_ts, r2_newly_below_average)
         normalized_on_disk.pop("type_safety_candidates", None)
         normalized_fresh.pop("type_safety_candidates", None)
+
+        # V4.1-R6 shrank the DatabaseExtractor and FunctionalFlowResolver
+        # classes themselves (their delegating methods are now one-liners);
+        # method_count and classification are unchanged, only line_count
+        # moves for these two classes.
+        on_disk_classes = {e["path"]: e for e in on_disk["largest_classes"]}
+        fresh_classes = {e["path"]: e for e in fresh["largest_classes"]}
+        self.assertEqual(set(on_disk_classes), set(fresh_classes))
+        for path, entry in on_disk_classes.items():
+            fresh_entry = dict(fresh_classes[path])
+            if path in (database_extractor_path, flow_resolver_path):
+                self.assertLess(fresh_entry["line_count"], entry["line_count"])
+                fresh_entry["line_count"] = entry["line_count"]
+            self.assertEqual(fresh_entry, entry)
+        normalized_on_disk.pop("largest_classes", None)
+        normalized_fresh.pop("largest_classes", None)
+
+        # documentation_candidates is also a relative-threshold diagnostic
+        # (below-average docstring_coverage_percent): the delegating methods
+        # added to database_extractor.py/flow_resolver.py raised their own
+        # docstring coverage enough to drop both off this list, which
+        # mechanically admits two previously-just-below-average files.
+        r6_resolved_doc_candidates = {database_extractor_path, flow_resolver_path}
+        r6_newly_below_average_doc = {
+            "legacy_documenter/context/system_context_builder.py",
+            "legacy_documenter/extractors/vbnet_extractor.py",
+        }
+        on_disk_doc = {e["path"] for e in on_disk["documentation_candidates"]}
+        fresh_doc = {e["path"] for e in fresh["documentation_candidates"]}
+        self.assertEqual(on_disk_doc - fresh_doc, r6_resolved_doc_candidates)
+        self.assertEqual(fresh_doc - on_disk_doc, r6_newly_below_average_doc)
+        normalized_on_disk.pop("documentation_candidates", None)
+        normalized_fresh.pop("documentation_candidates", None)
 
         self.assertEqual(normalized_on_disk, normalized_fresh)
 
