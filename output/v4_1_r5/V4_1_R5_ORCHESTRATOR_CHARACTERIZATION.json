@@ -1,0 +1,908 @@
+{
+  "approved_artifact_integrity": {
+    "output/v4_1_r1/V4_1_R1_BEHAVIORAL_EQUIVALENCE.json": "55c99c3b68ac159585c6a0ec7e05f74e8dd64dd871308d067ab27bdda1a1c33b",
+    "output/v4_1_r2/V4_1_R2_TYPE_AND_CONTRACT_EQUIVALENCE.json": "bd3daf04be868ef6465298c5e372aacc1f33bf234417f2bb914b79b22ab5a6f4",
+    "output/v4_1_r3/V4_1_R3_NAMING_COMPATIBILITY.json": "9e922d288b4f07812482baef1a5383276cd71f729e27cc67b47e54c30c5afecf",
+    "output/v4_1_r4/V4_1_R4_READINESS_EQUIVALENCE.json": "eb07e0f35540e0607b90f8ff707c7cac8e1f113419d338e3cc8579fa12f1e617",
+    "output/v4_r14/V4_FINAL_BASELINE.json": "d13e3807a12187b226ea55752ae0e9dccd2ad20c9dbe044360ffa48bca526d1e",
+    "output/v4_r14/V4_FINAL_MANIFEST.json": "be398240a31137e7dea25fcaa7b3cfe6580d2557f990f7da884d5775f5c40551",
+    "status": "PASS"
+  },
+  "coverage_summary": {
+    "database_extractor_characterization_tests": 24,
+    "existing_tests_reused_as_evidence": [
+      "tests/test_v1_unittest.py (DatabaseExtractor: 10 direct-extract tests; FunctionalFlowResolver: 3 pipeline-level flow tests plus 1 direct _path_id/_add_path collision test)",
+      "tests/test_v3_r8_1.py (DatabaseExtractor pipeline-level tests)"
+    ],
+    "flow_resolver_characterization_tests": 26,
+    "total_new_characterization_tests": 50
+  },
+  "database_extractor": {
+    "behavior_cases": [
+      "direct OracleCommand construction + CommandType + ExecuteNonQuery (3 operation records, one per matched statement)",
+      "OracleDataAdapter construction + Fill",
+      "OraConn ExecProc/ExecProcDS with positional parameter-name/direction/type CSV arguments",
+      "BeginTrans/Commit/Rollback transaction operations for both direct provider and OraConn wrapper access kinds",
+      "dynamic SQL detection via string concatenation heuristic",
+      "ambiguous (variable-named) stored-procedure argument remains unresolved with confidence=unresolved",
+      "comments and string literals are stripped before regex scanning (no false positives from commented-out code or SQL text inside a string that is never executed)",
+      "class-field-declared Command/Adapter variables are recognized across methods within the same class",
+      "multiline VB `_` continuation signatures are joined before parsing",
+      "empty file / no-database-code file yields {'operations': [], 'parameters': []}",
+      "no `End Class`: parser is lenient and does not require balanced block terminators"
+    ],
+    "callers": [
+      {
+        "caller_path": "legacy_documenter/main.py",
+        "patching_or_monkeypatching": false,
+        "positional_or_keyword": "positional",
+        "public_or_internal": "public",
+        "reflection_or_dynamic_access": false,
+        "symbol_used": "DatabaseExtractor().extract(full_path, root)",
+        "test_or_production": "production"
+      },
+      {
+        "caller_path": "tests/test_v1_unittest.py",
+        "patching_or_monkeypatching": false,
+        "positional_or_keyword": "positional",
+        "public_or_internal": "public",
+        "reflection_or_dynamic_access": false,
+        "symbol_used": "DatabaseExtractor().extract(vb, root)",
+        "test_or_production": "test"
+      },
+      {
+        "caller_path": "tests/test_v3_r8_1.py",
+        "patching_or_monkeypatching": false,
+        "positional_or_keyword": "positional",
+        "public_or_internal": "public",
+        "reflection_or_dynamic_access": false,
+        "symbol_used": "DatabaseExtractor()/.extract(...)",
+        "test_or_production": "test"
+      },
+      {
+        "caller_path": "tests/test_v4_1_r2_models_types_and_public_contracts.py",
+        "patching_or_monkeypatching": false,
+        "positional_or_keyword": "n/a",
+        "public_or_internal": "public",
+        "reflection_or_dynamic_access": true,
+        "symbol_used": "DatabaseExtractor (AST class-name check only, no instantiation)",
+        "test_or_production": "test"
+      },
+      {
+        "caller_path": "tests/test_v4_1_r3_low_risk_naming_readability.py",
+        "patching_or_monkeypatching": false,
+        "positional_or_keyword": "n/a",
+        "public_or_internal": "n/a",
+        "reflection_or_dynamic_access": false,
+        "symbol_used": "path string only (high-risk-module hash/diff guard)",
+        "test_or_production": "test"
+      },
+      {
+        "caller_path": "tools/v4_1_r0/report.py",
+        "patching_or_monkeypatching": false,
+        "positional_or_keyword": "n/a",
+        "public_or_internal": "n/a",
+        "reflection_or_dynamic_access": false,
+        "symbol_used": "file path string only (maintainability inventory/plan text)",
+        "test_or_production": "tooling"
+      }
+    ],
+    "exceptions": [
+      {
+        "currently_tested": true,
+        "exception_type": "FileNotFoundError",
+        "input_condition": "path does not exist",
+        "message_or_pattern": "(propagated from Path.read_text)",
+        "newly_characterized": true,
+        "operation": "extract()",
+        "source": "legacy_documenter/extractors/database_extractor.py::_logical_lines (via Path.read_text)"
+      },
+      {
+        "currently_tested": true,
+        "exception_type": "none",
+        "input_condition": "arbitrary malformed/non-VB text",
+        "message_or_pattern": "n/a",
+        "newly_characterized": true,
+        "operation": "extract()",
+        "source": "extract() is a lenient line-oriented regex scanner with no assertion/raise path of its own"
+      },
+      {
+        "currently_tested": false,
+        "exception_type": "Exception (broad catch)",
+        "input_condition": "any exception from database_extractor.extract()",
+        "message_or_pattern": "recorded into errors list, not re-raised",
+        "newly_characterized": false,
+        "operation": "main.py analyze_repository()",
+        "source": "legacy_documenter/main.py (caller-side boundary, not this module)"
+      }
+    ],
+    "extraction_candidates": [
+      {
+        "characterization_coverage": "MEDIUM (covered indirectly by every extraction test; no dedicated multiline/comment-only fixture beyond the multiline continuation test)",
+        "coupling": "LOW",
+        "future_extraction_risk": "LOW",
+        "public_contract_dependency": "none (called only from extract())",
+        "responsibility": "logical_line_reassembly",
+        "side_effect_dependency": "one file read",
+        "state_dependency": "none",
+        "symbols": [
+          "_logical_lines",
+          "_remove_comment"
+        ]
+      },
+      {
+        "characterization_coverage": "MEDIUM (exercised indirectly through representative-input tests; no direct unit tests of _split_args edge cases like nested parens or quoted commas)",
+        "coupling": "LOW",
+        "future_extraction_risk": "LOW",
+        "public_contract_dependency": "none",
+        "responsibility": "string_and_token_parsing",
+        "side_effect_dependency": "none",
+        "state_dependency": "none",
+        "symbols": [
+          "_strip_string_literals",
+          "_literal",
+          "_sql_kind",
+          "_first_sql_keyword",
+          "_split_args"
+        ]
+      },
+      {
+        "characterization_coverage": "LOW (only indirectly exercised; no test isolates variable-type resolution from operation emission)",
+        "coupling": "HIGH",
+        "future_extraction_risk": "HIGH",
+        "public_contract_dependency": "indirect (feeds _is_command/_is_adapter/_is_oraconn used by every operation-detection branch)",
+        "responsibility": "variable_and_type_state_tracking",
+        "side_effect_dependency": "none",
+        "state_dependency": "variables/class_fields threaded through the whole method body",
+        "symbols": [
+          "inline VAR_RE/FIELD_RE/PARAM_RE/NEW_ASSIGN_RE tracking in extract()"
+        ]
+      },
+      {
+        "characterization_coverage": "MEDIUM (24 tests cover the documented operation kinds and several edge cases, but not every branch-order interaction)",
+        "coupling": "HIGH",
+        "future_extraction_risk": "HIGH",
+        "public_contract_dependency": "direct (shapes every field of the public `operations` output)",
+        "responsibility": "operation_detection_and_emission",
+        "side_effect_dependency": "none",
+        "state_dependency": "variables/commands/adapters",
+        "symbols": [
+          "COMMAND_NEW_RE/ADAPTER_NEW_RE/.../TRANSACTION_RE branches",
+          "_operation",
+          "_operation_kind",
+          "_command_state",
+          "_empty_state",
+          "_text_state"
+        ]
+      },
+      {
+        "characterization_coverage": "MEDIUM (direction/CSV/db_type/size cases covered by existing + new tests)",
+        "coupling": "MEDIUM",
+        "future_extraction_risk": "MEDIUM",
+        "public_contract_dependency": "direct (shapes every field of the public `parameters` output)",
+        "responsibility": "parameter_extraction_and_normalization",
+        "side_effect_dependency": "none",
+        "state_dependency": "parameters dict for DIRECTION_RE follow-up",
+        "symbols": [
+          "PARAM_ADD_RE/ORACLE_PARAM_RE/DIRECTION_RE branches",
+          "_parameter",
+          "_wrapper_parameters",
+          "_direction",
+          "_explicit_size",
+          "_csv_literal"
+        ]
+      },
+      {
+        "characterization_coverage": "HIGH (directly unit-tested)",
+        "coupling": "LOW",
+        "future_extraction_risk": "LOW",
+        "public_contract_dependency": "direct but simple (pure string mapping)",
+        "responsibility": "classification_and_normalization",
+        "side_effect_dependency": "none",
+        "state_dependency": "none",
+        "symbols": [
+          "_provider",
+          "_direction",
+          "_matched_type"
+        ]
+      },
+      {
+        "characterization_coverage": "HIGH (this is what almost every characterization test exercises)",
+        "coupling": "HIGH (by definition; it is the orchestrator)",
+        "future_extraction_risk": "DO_NOT_EXTRACT_YET (must remain the facade regardless of internal split)",
+        "public_contract_dependency": "IS the public contract",
+        "responsibility": "orchestration (extract() itself)",
+        "side_effect_dependency": "one file read",
+        "state_dependency": "all locals",
+        "symbols": [
+          "extract"
+        ]
+      }
+    ],
+    "inventory": {
+      "class": "DatabaseExtractor",
+      "constructor_inputs_state": "no __init__ defined; no instance attributes assigned anywhere in the class (confirmed by vars(extractor) == {} before and after extract())",
+      "module_level_regex_constants": 26,
+      "private_methods": [
+        "_operation",
+        "_operation_kind",
+        "_command_state",
+        "_empty_state",
+        "_text_state",
+        "_parameter",
+        "_wrapper_parameters",
+        "_logical_lines",
+        "_remove_comment",
+        "_strip_string_literals",
+        "_split_args",
+        "_method_parameters",
+        "_matched_type",
+        "_literal",
+        "_sql_kind",
+        "_first_sql_keyword",
+        "_first_arg",
+        "_csv_literal",
+        "_direction",
+        "_explicit_size",
+        "_connection_name",
+        "_is_command",
+        "_is_adapter",
+        "_is_oraconn",
+        "_sanitize",
+        "_provider"
+      ],
+      "public_methods": [
+        "extract"
+      ]
+    },
+    "ordering_model": "SEMANTIC for the single-pass line scan and for parameter list order (both reflect source-code order and are relied on for correctness, e.g. a variable's type must be recognized before a later Command/Adapter check on that name); INCIDENTAL for dict-key iteration order within a single line's regex matches.",
+    "r6_readiness": "PARTIALLY_READY",
+    "r6_readiness_missing_characterization": [
+      "Branch-order interaction tests: no test currently proves what happens when two different operation-detection branches could both match the same physical line (e.g. a line matching both COMMAND_TEXT_RE and EXECUTE_RE patterns), which is exactly the kind of interaction a future extraction into separate detector objects could silently change.",
+      "_split_args edge cases (nested parentheses, quoted commas, empty trailing argument) have no direct unit test; _wrapper_parameters and _parameter both depend on it for correctness.",
+      "No test isolates variable/type state tracking from operation emission, so a future extraction of the 'variable scope' responsibility has no unit-level safety net independent of full extract() runs.",
+      "No test for multiple classes in one file re-using the same variable name with different declared types (would validate that class/method-boundary state resets are complete and correctly scoped)."
+    ],
+    "responsibility_map": [
+      {
+        "callee_dependencies": [],
+        "callers": [
+          "extract"
+        ],
+        "compatibility_risk": "LOW",
+        "inputs": "file text",
+        "ordering_dependency": "SEMANTIC (line continuation joining depends on source order)",
+        "outputs": "list[(line_no, joined_line)]",
+        "possible_future_destination": "advisory: legacy_documenter/extractors/_vb_line_scanner.py",
+        "reads_state": "none",
+        "responsibility": "logical_line_reassembly",
+        "safe_extraction_confidence": "HIGH",
+        "shared_internal_state": "none",
+        "side_effects": "one file read (path.read_text)",
+        "symbol": "_logical_lines / _remove_comment",
+        "writes_state": "none"
+      },
+      {
+        "callee_dependencies": [],
+        "callers": [
+          "extract",
+          "_command_state",
+          "_text_state",
+          "_parameter",
+          "_wrapper_parameters"
+        ],
+        "compatibility_risk": "LOW",
+        "inputs": "raw line/expression text",
+        "ordering_dependency": "INCIDENTAL",
+        "outputs": "normalized text/tokens",
+        "possible_future_destination": "advisory: legacy_documenter/extractors/_vb_token_parsing.py",
+        "reads_state": "none",
+        "responsibility": "string_and_token_parsing",
+        "safe_extraction_confidence": "HIGH",
+        "shared_internal_state": "none",
+        "side_effects": "none",
+        "symbol": "_strip_string_literals / _literal / _sql_kind / _first_sql_keyword / _split_args",
+        "writes_state": "none"
+      },
+      {
+        "callee_dependencies": [],
+        "callers": [
+          "extract (inline, not a separate method)"
+        ],
+        "compatibility_risk": "HIGH",
+        "inputs": "current line + running variables/class_fields dicts",
+        "ordering_dependency": "SEMANTIC (a variable's declared type must be known before later Command/Adapter/OraConn detection on that variable name)",
+        "outputs": "mutated variables/class_fields dicts",
+        "possible_future_destination": "advisory: a small VariableScope helper, but only with a full branch-order behavioral proof",
+        "reads_state": "variables, class_fields (locals to extract())",
+        "responsibility": "variable_and_type_state_tracking",
+        "safe_extraction_confidence": "MEDIUM",
+        "shared_internal_state": "variables/class_fields are reset on class/method boundary lines (TYPE_RE, END_TYPE_RE, METHOD_RE, END_METHOD_RE)",
+        "side_effects": "none",
+        "symbol": "extract()'s inline VAR_RE/FIELD_RE/PARAM_RE/NEW_ASSIGN_RE tracking",
+        "writes_state": "variables, class_fields"
+      },
+      {
+        "callee_dependencies": [
+          "_operation",
+          "_command_state",
+          "_text_state",
+          "_empty_state",
+          "_is_command",
+          "_is_adapter",
+          "_is_oraconn",
+          "_provider"
+        ],
+        "callers": [
+          "extract (inline)"
+        ],
+        "compatibility_risk": "HIGH",
+        "inputs": "current line + variables/commands/adapters state",
+        "ordering_dependency": "SEMANTIC (branch order in extract() determines which regex is tried first per line; several branches use `continue` to prevent double-matching one line)",
+        "outputs": "operations list entries",
+        "possible_future_destination": "advisory: an OperationDetector collaborator, only after branch-order is exhaustively pinned",
+        "reads_state": "variables, commands, adapters",
+        "responsibility": "operation_detection_and_emission",
+        "safe_extraction_confidence": "LOW",
+        "shared_internal_state": "commands/adapters dicts reset at class/method boundaries",
+        "side_effects": "none",
+        "symbol": "COMMAND_NEW_RE / ADAPTER_NEW_RE / COMMAND_TEXT_RE / COMMAND_TYPE_RE / EXECUTE_RE / FILL_RE / WRAPPER_EXEC_RE / TRANSACTION_RE branches in extract()",
+        "writes_state": "commands, adapters, operations"
+      },
+      {
+        "callee_dependencies": [
+          "_parameter",
+          "_wrapper_parameters",
+          "_direction",
+          "_explicit_size",
+          "_csv_literal",
+          "_literal"
+        ],
+        "callers": [
+          "extract (inline)"
+        ],
+        "compatibility_risk": "MEDIUM",
+        "inputs": "current line + commands/parameters state",
+        "ordering_dependency": "DETERMINISTIC_BUT_NOT_SEMANTIC (parameter list order follows source order; not required by any downstream consumer to be a specific semantic order beyond source fidelity)",
+        "outputs": "data_parameters list entries",
+        "possible_future_destination": "advisory: a ParameterExtractor collaborator",
+        "reads_state": "variables, parameters",
+        "responsibility": "parameter_extraction_and_normalization",
+        "safe_extraction_confidence": "MEDIUM",
+        "shared_internal_state": "parameters dict reset at class/method boundaries",
+        "side_effects": "none",
+        "symbol": "PARAM_ADD_RE / ORACLE_PARAM_RE / DIRECTION_RE branches + _parameter / _wrapper_parameters / _direction / _explicit_size",
+        "writes_state": "parameters, data_parameters"
+      },
+      {
+        "callee_dependencies": [],
+        "callers": [
+          "extract",
+          "_operation",
+          "_parameter",
+          "_wrapper_parameters"
+        ],
+        "compatibility_risk": "LOW",
+        "inputs": "type/value strings",
+        "ordering_dependency": "INCIDENTAL",
+        "outputs": "normalized category strings",
+        "possible_future_destination": "advisory: legacy_documenter/extractors/_vb_classification.py",
+        "reads_state": "none",
+        "responsibility": "classification_and_normalization",
+        "safe_extraction_confidence": "HIGH",
+        "shared_internal_state": "none",
+        "side_effects": "none",
+        "symbol": "_provider / _direction / _matched_type",
+        "writes_state": "none"
+      },
+      {
+        "callee_dependencies": [
+          "legacy_documenter.utils.sanitize_text"
+        ],
+        "callers": [
+          "_operation",
+          "_parameter"
+        ],
+        "compatibility_risk": "LOW",
+        "inputs": "raw source line",
+        "ordering_dependency": "INCIDENTAL",
+        "outputs": "redacted text",
+        "possible_future_destination": "already externally shared (utils.sanitize_text); no extraction needed",
+        "reads_state": "none",
+        "responsibility": "security_redaction",
+        "safe_extraction_confidence": "HIGH",
+        "shared_internal_state": "none",
+        "side_effects": "none (pure delegate to legacy_documenter.utils.sanitize_text)",
+        "symbol": "_sanitize",
+        "writes_state": "none"
+      },
+      {
+        "callee_dependencies": [
+          "all private methods"
+        ],
+        "callers": [
+          "main.py analyze_repository",
+          "tests"
+        ],
+        "compatibility_risk": "HIGH",
+        "inputs": "path, root",
+        "ordering_dependency": "SEMANTIC (single sequential pass over logical lines; must remain single-pass)",
+        "outputs": "{file, operations, parameters} dict",
+        "possible_future_destination": "remains the public facade regardless of any future internal split",
+        "reads_state": "all of the above",
+        "responsibility": "orchestration",
+        "safe_extraction_confidence": "LOW (as the orchestrator itself; must stay last to be touched)",
+        "shared_internal_state": "all locals reset per class/method boundary as described above",
+        "side_effects": "one file read",
+        "symbol": "extract() top-level orchestration",
+        "writes_state": "all of the above"
+      }
+    ],
+    "side_effects": {
+      "environment_access": false,
+      "filesystem_reads": [
+        "the single .vb file passed to extract() via Path.read_text"
+      ],
+      "filesystem_writes": [],
+      "global_state": false,
+      "mutable_instance_state": false,
+      "network_access": false,
+      "provider_access": false
+    },
+    "state_model": "STATELESS",
+    "state_model_evidence": "No __init__ is defined and no `self.` attribute assignment appears anywhere in the class body; vars(DatabaseExtractor()) == {} before and after calling extract(), and a shared instance reused across multiple files in a loop (as main.py does) produces byte-identical results to fresh instances per file (tests/test_v4_1_r5_database_extractor_characterization.py::RepeatedRunEquivalenceTests)."
+  },
+  "flow_resolver": {
+    "behavior_cases": [
+      "simple linear flow ending in a dead_end when no data access exists",
+      "linear flow to a data-access operation with no resolved terminal (terminal_type=data_operation)",
+      "branching flow: two calls from the same method produce two paths in one flow",
+      "convergent calls to the same target method produce exactly one shared graph node",
+      "duplicate call expressions at different source lines remain distinct edges (evidence_ref differs)",
+      "direct self-cycle and indirect A->B->A cycle both terminate as terminal_type=cycle and are added to `unresolved`",
+      "unresolved call target becomes terminal_type=unresolved_boundary",
+      "entry points without confidence=confirmed or without handler_method are skipped entirely",
+      "empty entry_points list produces empty flows/paths/unresolved and a summary with average_path_depth=0",
+      "isolated handler with no calls or data access is a dead_end path with a single-node path",
+      "max_depth truncates a long call chain as terminal_type=truncated_depth, included in `unresolved`",
+      "calling resolve() twice on the same instance is byte-identical to a fresh instance for the same inputs",
+      "flows are sorted by flow id; paths are sorted by (flow_id, path_id)",
+      "malformed calls (missing containing_method) and malformed data_access (missing class/method) are silently ignored during indexing",
+      "path-id collision (same PATH-id, different canonical identity) raises ValueError"
+    ],
+    "callers": [
+      {
+        "caller_path": "legacy_documenter/main.py",
+        "patching_or_monkeypatching": false,
+        "positional_or_keyword": "positional",
+        "public_or_internal": "public",
+        "reflection_or_dynamic_access": false,
+        "symbol_used": "FunctionalFlowResolver(flow_max_depth).resolve(entry_points, calls, data_access, stored_procedures, sql_operations, functional_dependencies, errors)",
+        "test_or_production": "production"
+      },
+      {
+        "caller_path": "tests/test_v1_unittest.py",
+        "patching_or_monkeypatching": true,
+        "positional_or_keyword": "positional",
+        "public_or_internal": "internal",
+        "reflection_or_dynamic_access": true,
+        "symbol_used": "FunctionalFlowResolver()._path_id / ._add_path / ._path_identities (direct private-method characterization)",
+        "test_or_production": "test"
+      },
+      {
+        "caller_path": "tests/test_v1_unittest.py (analyze_repository call sites)",
+        "patching_or_monkeypatching": false,
+        "positional_or_keyword": "n/a",
+        "public_or_internal": "public",
+        "reflection_or_dynamic_access": false,
+        "symbol_used": "FunctionalFlowResolver via the full pipeline",
+        "test_or_production": "test"
+      },
+      {
+        "caller_path": "tests/test_v4_1_r2_models_types_and_public_contracts.py",
+        "patching_or_monkeypatching": false,
+        "positional_or_keyword": "n/a",
+        "public_or_internal": "public",
+        "reflection_or_dynamic_access": true,
+        "symbol_used": "FunctionalFlowResolver (AST class-name check only)",
+        "test_or_production": "test"
+      },
+      {
+        "caller_path": "tests/test_v4_1_r3_low_risk_naming_readability.py",
+        "patching_or_monkeypatching": false,
+        "positional_or_keyword": "n/a",
+        "public_or_internal": "n/a",
+        "reflection_or_dynamic_access": false,
+        "symbol_used": "path string only (high-risk-module hash/diff guard)",
+        "test_or_production": "test"
+      },
+      {
+        "caller_path": "tools/v4_1_r0/report.py",
+        "patching_or_monkeypatching": false,
+        "positional_or_keyword": "n/a",
+        "public_or_internal": "n/a",
+        "reflection_or_dynamic_access": false,
+        "symbol_used": "file path string only",
+        "test_or_production": "tooling"
+      }
+    ],
+    "exceptions": [
+      {
+        "currently_tested": true,
+        "exception_type": "ValueError",
+        "input_condition": "same path_id computed with a different canonical identity than previously recorded",
+        "message_or_pattern": "Functional path ID collision: {path_id}",
+        "newly_characterized": true,
+        "operation": "_add_path (via _walk or direct characterization tests)",
+        "source": "legacy_documenter/analysis/flow_resolver.py::_add_path"
+      },
+      {
+        "currently_tested": true,
+        "exception_type": "none",
+        "input_condition": "any malformed/empty input list",
+        "message_or_pattern": "n/a",
+        "newly_characterized": true,
+        "operation": "resolve()",
+        "source": "resolve() and its helpers tolerate missing/None fields via .get(...) defaults and length/membership guards rather than raising"
+      },
+      {
+        "currently_tested": false,
+        "exception_type": "not caught around this specific call in main.py (unlike the per-file extractor loop)",
+        "input_condition": "any exception from FunctionalFlowResolver.resolve()",
+        "message_or_pattern": "n/a",
+        "newly_characterized": false,
+        "operation": "main.py analyze_repository()",
+        "source": "legacy_documenter/main.py (caller-side; a resolve() exception would propagate uncaught)"
+      }
+    ],
+    "extraction_candidates": [
+      {
+        "characterization_coverage": "HIGH (directly unit-tested in isolation via MalformedOrIncompleteDataTests, plus exercised by every other test)",
+        "coupling": "LOW",
+        "future_extraction_risk": "LOW",
+        "public_contract_dependency": "none (internal lookup structures only)",
+        "responsibility": "indexing",
+        "side_effect_dependency": "none",
+        "state_dependency": "writes self.* once at the top of resolve(); otherwise pure",
+        "symbols": [
+          "_index_calls",
+          "_index_data_access",
+          "_index_terminals"
+        ]
+      },
+      {
+        "characterization_coverage": "MEDIUM (exercised indirectly by every flow test; no dedicated unit test of _add_edge's setdefault dedup rule in isolation)",
+        "coupling": "LOW",
+        "future_extraction_risk": "LOW",
+        "public_contract_dependency": "direct (shapes the public nodes/edges output shape)",
+        "responsibility": "graph_construction",
+        "side_effect_dependency": "none",
+        "state_dependency": "none (operate on passed-in dicts)",
+        "symbols": [
+          "_add_node",
+          "_add_edge",
+          "_node"
+        ]
+      },
+      {
+        "characterization_coverage": "HIGH (collision behavior directly tested; hashing algorithm itself not pinned to an exact expected string, only equality/inequality)",
+        "coupling": "MEDIUM",
+        "future_extraction_risk": "MEDIUM (an existing test monkeypatches _path_id directly on the instance; extraction must preserve that exact patch point or knowingly update the pre-existing test)",
+        "public_contract_dependency": "direct (path_id/flow_id are part of the public output)",
+        "responsibility": "path_identity_and_construction",
+        "side_effect_dependency": "none (raises on collision)",
+        "state_dependency": "self._path_identities shared across the whole resolve() call",
+        "symbols": [
+          "_add_path",
+          "_path_id",
+          "_stable_id",
+          "_call_ref"
+        ]
+      },
+      {
+        "characterization_coverage": "MEDIUM (exercised indirectly by every test; no dedicated unit test of label formatting edge cases like a None project)",
+        "coupling": "LOW",
+        "future_extraction_risk": "LOW",
+        "public_contract_dependency": "direct (labels appear verbatim in public node/edge output)",
+        "responsibility": "key_and_label_derivation",
+        "side_effect_dependency": "none",
+        "state_dependency": "none",
+        "symbols": [
+          "_method_key",
+          "_method_label",
+          "_class_id",
+          "_entry_method_key",
+          "_resolved_method_key"
+        ]
+      },
+      {
+        "characterization_coverage": "MEDIUM (status precedence exercised for cycle/unresolved_boundary/dead_end/data_operation; truncated_depth precedence-over-cycle not directly isolated)",
+        "coupling": "MEDIUM",
+        "future_extraction_risk": "MEDIUM",
+        "public_contract_dependency": "direct (flow.status and path.confidence are public output fields)",
+        "responsibility": "confidence_and_status_derivation",
+        "side_effect_dependency": "none",
+        "state_dependency": "reads self.proc_by_operation/self.sql_by_operation",
+        "symbols": [
+          "_flow_status",
+          "_weakest",
+          "_terminal_nodes"
+        ]
+      },
+      {
+        "characterization_coverage": "MEDIUM (summary fields exercised indirectly; no dedicated test of cross_project_flows or average_path_depth rounding)",
+        "coupling": "LOW",
+        "future_extraction_risk": "LOW",
+        "public_contract_dependency": "direct (the public summary dict shape)",
+        "responsibility": "report_composition",
+        "side_effect_dependency": "none",
+        "state_dependency": "none",
+        "symbols": [
+          "_project_sequence",
+          "_project_sequence_from_nodes",
+          "_summary"
+        ]
+      },
+      {
+        "characterization_coverage": "MEDIUM (linear/branching/convergence/cycle/depth/unresolved cases covered; multi-entry-point cross-contamination and simultaneous data-access-plus-call-from-one-method interaction not directly isolated)",
+        "coupling": "HIGH",
+        "future_extraction_risk": "HIGH",
+        "public_contract_dependency": "direct (drives every node/edge/path in the output)",
+        "responsibility": "graph_traversal (_walk)",
+        "side_effect_dependency": "none",
+        "state_dependency": "reads self.max_depth/self.data_by_method/self.method_calls/self.unresolved_calls; recursive",
+        "symbols": [
+          "_walk"
+        ]
+      },
+      {
+        "characterization_coverage": "HIGH",
+        "coupling": "HIGH (by definition)",
+        "future_extraction_risk": "DO_NOT_EXTRACT_YET (must remain the facade regardless of internal split)",
+        "public_contract_dependency": "IS the public contract",
+        "responsibility": "orchestration (resolve() itself)",
+        "side_effect_dependency": "none",
+        "state_dependency": "all self.* attributes",
+        "symbols": [
+          "resolve"
+        ]
+      }
+    ],
+    "inventory": {
+      "class": "FunctionalFlowResolver",
+      "constructor_inputs_state": "max_depth: int = 12, stored as self.max_depth",
+      "private_methods": [
+        "_walk",
+        "_index_calls",
+        "_index_data_access",
+        "_index_terminals",
+        "_terminal_nodes",
+        "_entry_method_key",
+        "_resolved_method_key",
+        "_method_key",
+        "_method_label",
+        "_class_id",
+        "_node",
+        "_add_node",
+        "_add_edge",
+        "_add_path",
+        "_path_id",
+        "_call_ref",
+        "_weakest",
+        "_flow_status",
+        "_project_sequence",
+        "_project_sequence_from_nodes",
+        "_summary",
+        "_stable_id"
+      ],
+      "public_methods": [
+        "__init__",
+        "resolve"
+      ]
+    },
+    "monkeypatch_note": "tests/test_v1_unittest.py::test_v2_r4_1_path_ids_use_complete_canonical_identity_and_guard_collisions monkeypatches resolver._path_id (an instance-level function attribute reassignment) and resolver._path_identities directly on a live instance to force a deterministic collision. Any future extraction of _path_id/_add_path into a separate collaborator must preserve this exact patch point or update this pre-existing test deliberately in that later round.",
+    "ordering_model": "SEMANTIC for _flow_status's fixed status precedence and for path/node identity (which encodes the traversal path itself); DETERMINISTIC_BUT_NOT_SEMANTIC for the final flows/paths list ordering (explicitly re-sorted by id after construction) and for project_sequence (first-seen order); INCIDENTAL for graph_nodes/graph_edges dict insertion order during traversal (also re-sorted before being placed into the output flow dict).",
+    "r6_readiness": "PARTIALLY_READY",
+    "r6_readiness_missing_characterization": [
+      "The exact _stable_id hashing algorithm (a simple polynomial rolling hash) is not pinned to a specific expected numeric output anywhere -- only cross-run equality/inequality is characterized. A future extraction that changes _stable_id's implementation (even while keeping its signature) would not be caught unless output IDs are also pinned to specific known values for at least one fixture.",
+      "No test exercises two entry points in the same resolve() call that share an overlapping call graph, to confirm graph_nodes/graph_edges/paths dicts (created fresh per entry point inside the for-loop) never leak state between entry points within a single call.",
+      "_flow_status's full precedence order (truncated_depth > cycle > unresolved_boundary > data_endpoint > dead_end) is only partially exercised in isolation; no single fixture produces both a cycle and a truncated_depth path in the same flow to directly confirm truncated_depth wins.",
+      "No characterization of a method that both has direct data_access operations AND calls another method in the same _walk invocation, to confirm both branches execute and both contribute paths (the two loops in _walk are independent but untested together at the unit level)."
+    ],
+    "responsibility_map": [
+      {
+        "callee_dependencies": [
+          "_method_key",
+          "_call_ref"
+        ],
+        "callers": [
+          "resolve"
+        ],
+        "compatibility_risk": "LOW",
+        "inputs": "raw calls/data_access/dependencies/stored_procedures/sql_operations lists",
+        "ordering_dependency": "DETERMINISTIC_BUT_NOT_SEMANTIC (each bucket is explicitly sorted before being stored)",
+        "outputs": "dict-keyed lookup tables",
+        "possible_future_destination": "advisory: a GraphIndexBuilder collaborator",
+        "reads_state": "none (pure functions of their arguments)",
+        "responsibility": "indexing",
+        "safe_extraction_confidence": "HIGH",
+        "shared_internal_state": "written once per resolve() call, read throughout _walk",
+        "side_effects": "none",
+        "symbol": "_index_calls / _index_data_access / _index_terminals",
+        "writes_state": "self.method_calls / self.unresolved_calls / self.data_by_method / self.proc_by_operation / self.sql_by_operation (assigned once at the top of resolve())"
+      },
+      {
+        "callee_dependencies": [
+          "_terminal_nodes",
+          "_add_node",
+          "_add_edge",
+          "_add_path",
+          "_node",
+          "_method_label",
+          "_class_id",
+          "_resolved_method_key",
+          "_call_ref",
+          "_weakest"
+        ],
+        "callers": [
+          "resolve",
+          "_walk (recursive)"
+        ],
+        "compatibility_risk": "HIGH",
+        "inputs": "entry, method_key, node_path, relation_types, edge_refs, graph_nodes, graph_edges, paths (mutated in place)",
+        "ordering_dependency": "SEMANTIC (recursion order determines node/edge insertion order into dicts, but final output is separately sorted; depth-first order also determines which node_path entries make a call a 'cycle' vs a fresh branch)",
+        "outputs": "none (mutates graph_nodes/graph_edges/paths)",
+        "possible_future_destination": "advisory: a GraphWalker collaborator, only with exhaustive branch-order proof (cycle vs truncated_depth vs dead_end precedence)",
+        "reads_state": "self.max_depth, self.data_by_method, self.method_calls, self.unresolved_calls",
+        "responsibility": "graph_traversal",
+        "safe_extraction_confidence": "MEDIUM",
+        "shared_internal_state": "graph_nodes/graph_edges/paths are per-entry-point-call local dicts created fresh in resolve()'s for-loop, not shared across entry points within one resolve() call",
+        "side_effects": "none",
+        "symbol": "_walk",
+        "writes_state": "graph_nodes, graph_edges, paths (via helper mutators)"
+      },
+      {
+        "callee_dependencies": [],
+        "callers": [
+          "resolve",
+          "_walk"
+        ],
+        "compatibility_risk": "LOW",
+        "inputs": "node/edge descriptors",
+        "ordering_dependency": "INCIDENTAL (dict insertion order does not matter; output is separately sorted by key)",
+        "outputs": "mutated nodes/edges dicts",
+        "possible_future_destination": "advisory: could move alongside GraphWalker",
+        "reads_state": "none",
+        "responsibility": "graph_construction",
+        "safe_extraction_confidence": "HIGH",
+        "shared_internal_state": "none beyond the passed-in dict",
+        "side_effects": "none",
+        "symbol": "_add_node / _add_edge / _node",
+        "writes_state": "the passed-in nodes/edges dict (first-write-wins via setdefault)"
+      },
+      {
+        "callee_dependencies": [],
+        "callers": [
+          "_walk",
+          "resolve"
+        ],
+        "compatibility_risk": "MEDIUM (a monkeypatch of _path_id already exists in tests/test_v1_unittest.py)",
+        "inputs": "entry/node_path/relation_types/terminal_type/terminal_target/confidence/evidence_refs",
+        "ordering_dependency": "INCIDENTAL for hashing itself; the *content* hashed (node_path/relation_types) is order-sensitive by design (that is the point of path identity)",
+        "outputs": "mutated paths dict; deterministic PATH-/CALL-/UNRES-/FLOW- ids",
+        "possible_future_destination": "advisory: a PathIdentity collaborator, but must preserve the exact patch point tests/test_v1_unittest.py relies on",
+        "reads_state": "self._path_identities (collision registry, reset at the top of resolve())",
+        "responsibility": "path_identity_and_construction",
+        "safe_extraction_confidence": "MEDIUM",
+        "shared_internal_state": "self._path_identities is shared across the whole resolve() call, across all entry points",
+        "side_effects": "raises ValueError on a genuine hash collision with a different canonical identity",
+        "symbol": "_add_path / _path_id / _stable_id / _call_ref",
+        "writes_state": "self._path_identities, the passed-in paths dict"
+      },
+      {
+        "callee_dependencies": [],
+        "callers": [
+          "resolve",
+          "_walk",
+          "_index_calls",
+          "_index_data_access"
+        ],
+        "compatibility_risk": "LOW",
+        "inputs": "class/method/project strings, entry/call dicts",
+        "ordering_dependency": "INCIDENTAL",
+        "outputs": "tuple keys and display labels",
+        "possible_future_destination": "advisory: could be a free-function module",
+        "reads_state": "none",
+        "responsibility": "key_and_label_derivation",
+        "safe_extraction_confidence": "HIGH",
+        "shared_internal_state": "none",
+        "side_effects": "none",
+        "symbol": "_method_key / _method_label / _class_id / _entry_method_key / _resolved_method_key",
+        "writes_state": "none"
+      },
+      {
+        "callee_dependencies": [],
+        "callers": [
+          "resolve",
+          "_walk"
+        ],
+        "compatibility_risk": "MEDIUM (precedence order is a subtle behavioral rule)",
+        "inputs": "paths list / operation dict / confidence values",
+        "ordering_dependency": "SEMANTIC for _flow_status (fixed precedence order: truncated_depth > cycle > unresolved_boundary > data_endpoint > dead_end)",
+        "outputs": "status/confidence strings, terminal-node tuples",
+        "possible_future_destination": "advisory: could move alongside key_and_label_derivation",
+        "reads_state": "self.proc_by_operation, self.sql_by_operation (for _terminal_nodes)",
+        "responsibility": "confidence_and_status_derivation",
+        "safe_extraction_confidence": "MEDIUM",
+        "shared_internal_state": "none beyond read access to proc_by_operation/sql_by_operation",
+        "side_effects": "none",
+        "symbol": "_flow_status / _weakest / _terminal_nodes",
+        "writes_state": "none"
+      },
+      {
+        "callee_dependencies": [],
+        "callers": [
+          "resolve"
+        ],
+        "compatibility_risk": "LOW",
+        "inputs": "flows/paths/entries/errors",
+        "ordering_dependency": "DETERMINISTIC_BUT_NOT_SEMANTIC (project_sequence preserves first-seen order)",
+        "outputs": "flow.project_sequence, the summary dict",
+        "possible_future_destination": "advisory: a FlowSummaryComposer collaborator",
+        "reads_state": "none",
+        "responsibility": "report_composition",
+        "safe_extraction_confidence": "HIGH",
+        "shared_internal_state": "none",
+        "side_effects": "none",
+        "symbol": "_project_sequence / _project_sequence_from_nodes / _summary",
+        "writes_state": "none"
+      },
+      {
+        "callee_dependencies": [
+          "all private methods"
+        ],
+        "callers": [
+          "main.py analyze_repository",
+          "tests"
+        ],
+        "compatibility_risk": "HIGH",
+        "inputs": "entry_points, calls, data_access, stored_procedures, sql_operations, dependencies, errors",
+        "ordering_dependency": "SEMANTIC (entry-point iteration order determines flow_id assignment inputs, though final flows/paths lists are separately sorted)",
+        "outputs": "(flows, path_list, summary, unresolved) tuple",
+        "possible_future_destination": "remains the public facade regardless of any future internal split",
+        "reads_state": "all of the above",
+        "responsibility": "orchestration",
+        "safe_extraction_confidence": "LOW (as the orchestrator itself; must stay last to be touched)",
+        "shared_internal_state": "fully reset at the start of every resolve() call (STATEFUL_RESET_PER_OPERATION)",
+        "side_effects": "none",
+        "symbol": "resolve() top-level orchestration",
+        "writes_state": "self._path_identities, self.method_calls, self.unresolved_calls, self.data_by_method, self.proc_by_operation, self.sql_by_operation (all reassigned fresh at the top of every call)"
+      }
+    ],
+    "side_effects": {
+      "environment_access": false,
+      "filesystem_reads": [],
+      "filesystem_writes": [],
+      "global_state": false,
+      "mutable_instance_state": "self._path_identities, self.method_calls, self.unresolved_calls, self.data_by_method, self.proc_by_operation, self.sql_by_operation -- all reset per resolve() call",
+      "network_access": false,
+      "provider_access": false
+    },
+    "state_model": "STATEFUL_RESET_PER_OPERATION",
+    "state_model_evidence": "self._path_identities, self.method_calls, self.unresolved_calls, self.data_by_method, self.proc_by_operation, and self.sql_by_operation are all reassigned at the very top of resolve(), before any use; calling resolve() twice on the same instance with the same inputs produces output identical to a fresh instance (tests/test_v4_1_r5_flow_resolver_characterization.py::RepeatedTraversalAndOrderingTests / StateResetAndReuseTests). main.py never actually reuses one instance for multiple resolve() calls, but the reset guarantees it would be safe if it did."
+  },
+  "non_target_high_risk_modules_preserved": {
+    "legacy_documenter/analysis/deep_source.py": "PASS",
+    "legacy_documenter/documentation/resume.py": "PASS",
+    "status": "PASS"
+  },
+  "production_behavior_changed": false,
+  "production_code_changed": false,
+  "readiness": "READY",
+  "round": "V4.1-R5",
+  "targets": [
+    "legacy_documenter/extractors/database_extractor.py",
+    "legacy_documenter/analysis/flow_resolver.py"
+  ],
+  "tests": "1536_PASS_0_FAIL_0_SKIP"
+}
