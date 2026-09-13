@@ -1,0 +1,272 @@
+{
+  "approved_artifact_integrity": {
+    "output/v4_1_r1/V4_1_R1_BEHAVIORAL_EQUIVALENCE.json": "55c99c3b68ac159585c6a0ec7e05f74e8dd64dd871308d067ab27bdda1a1c33b",
+    "output/v4_1_r2/V4_1_R2_TYPE_AND_CONTRACT_EQUIVALENCE.json": "bd3daf04be868ef6465298c5e372aacc1f33bf234417f2bb914b79b22ab5a6f4",
+    "output/v4_1_r3/V4_1_R3_NAMING_COMPATIBILITY.json": "9e922d288b4f07812482baef1a5383276cd71f729e27cc67b47e54c30c5afecf",
+    "output/v4_r14/V4_FINAL_BASELINE.json": "d13e3807a12187b226ea55752ae0e9dccd2ad20c9dbe044360ffa48bca526d1e",
+    "output/v4_r14/V4_FINAL_MANIFEST.json": "be398240a31137e7dea25fcaa7b3cfe6580d2557f990f7da884d5775f5c40551",
+    "status": "PASS"
+  },
+  "behavior_equivalence": {
+    "evidence": "tests/test_v4_1_r4_readiness_characterization.py pins pre-decomposition output hashes, result shape, exception behavior, and CLI invocation; all 18 characterization tests pass unchanged after the split.",
+    "readiness_cli_equivalence": "PASS",
+    "readiness_exception_equivalence": "PASS",
+    "readiness_ordering_equivalence": "PASS",
+    "readiness_result_equivalence": "PASS",
+    "readiness_serialization_equivalence": "PASS"
+  },
+  "cli_equivalence": "PASS",
+  "debt_002": {
+    "original_description": "legacy_documenter/knowledge/readiness.py (the historical V3-R9 gate) mixes document parsing, evidence-closure computation, and file I/O in one large module. Unmodified V3 code; left as-is.",
+    "recommended_action": "Decompose into parsing / evidence-closure computation / file I/O modules behind a compatibility wrapper that preserves `python -m legacy_documenter.knowledge.readiness` and the `run()` entry point exactly.",
+    "risk": "HIGH",
+    "source": "docs/V4/V4_R13_REGRESSION_AND_SECURITY_RESULT.md"
+  },
+  "decomposition_decision": "SAFE_FOR_CONTROLLED_EXTRACTION",
+  "exception_equivalence": "PASS",
+  "monkeypatch_compatibility": {
+    "note": "COMPATIBILITY_FORWARDING_REQUIRED symbols are re-exported into readiness.py via explicit named imports (no wildcard/__getattr__ magic), so patching legacy_documenter.knowledge.readiness.<name> still works; only the symbol's *definition* module moved.",
+    "patch_points_classified": [
+      {
+        "classification": "PATCH_LOCATION_PRESERVED",
+        "symbol": "run"
+      },
+      {
+        "classification": "PATCH_LOCATION_PRESERVED",
+        "symbol": "KnowledgeReadinessService"
+      },
+      {
+        "classification": "COMPATIBILITY_FORWARDING_REQUIRED",
+        "symbol": "parse_human_record"
+      },
+      {
+        "classification": "COMPATIBILITY_FORWARDING_REQUIRED",
+        "symbol": "_hash"
+      },
+      {
+        "classification": "PATCH_LOCATION_PRESERVED",
+        "symbol": "_safe"
+      },
+      {
+        "classification": "COMPATIBILITY_FORWARDING_REQUIRED",
+        "symbol": "_read"
+      },
+      {
+        "classification": "COMPATIBILITY_FORWARDING_REQUIRED",
+        "symbol": "_field"
+      },
+      {
+        "classification": "COMPATIBILITY_FORWARDING_REQUIRED",
+        "symbol": "_details"
+      },
+      {
+        "classification": "COMPATIBILITY_FORWARDING_REQUIRED",
+        "symbol": "_csv"
+      },
+      {
+        "classification": "COMPATIBILITY_FORWARDING_REQUIRED",
+        "symbol": "_canonical_catalog"
+      },
+      {
+        "classification": "COMPATIBILITY_FORWARDING_REQUIRED",
+        "symbol": "evidence_closed"
+      },
+      {
+        "classification": "COMPATIBILITY_FORWARDING_REQUIRED",
+        "symbol": "evidence_closure_diagnostics"
+      },
+      {
+        "classification": "PATCH_LOCATION_PRESERVED",
+        "symbol": "validate_preconditions"
+      },
+      {
+        "classification": "PATCH_LOCATION_PRESERVED",
+        "symbol": "validate_claims"
+      },
+      {
+        "classification": "PATCH_LOCATION_PRESERVED",
+        "symbol": "architecture_valid"
+      },
+      {
+        "classification": "PATCH_LOCATION_PRESERVED",
+        "symbol": "quantitative_valid"
+      },
+      {
+        "classification": "PATCH_LOCATION_PRESERVED",
+        "symbol": "build_projection"
+      },
+      {
+        "classification": "PATCH_LOCATION_PRESERVED",
+        "symbol": "build_boundary"
+      },
+      {
+        "classification": "PATCH_LOCATION_PRESERVED",
+        "symbol": "_execute"
+      }
+    ]
+  },
+  "ordering_equivalence": "PASS",
+  "phase_a": {
+    "characterization_test_file": "tests/test_v4_1_r4_readiness_characterization.py",
+    "characterization_tests_added": 18,
+    "monkeypatch_scan_result": "No test in the repository monkeypatches or directly assigns to any legacy_documenter.knowledge.readiness module attribute; tests/test_v3_r9.py uses `from legacy_documenter.knowledge.readiness import *` plus an explicit `from ... import _hash, _safe`, which requires every previously-resolvable module attribute (including private-named ones) to keep resolving from this exact module, but does not require any particular internal file layout."
+  },
+  "production_behavior_changed": false,
+  "production_code_changed": true,
+  "production_files_after": [
+    "legacy_documenter/knowledge/readiness.py",
+    "legacy_documenter/knowledge/_readiness_io.py",
+    "legacy_documenter/knowledge/_readiness_parsing.py",
+    "legacy_documenter/knowledge/_readiness_evidence.py"
+  ],
+  "production_files_before": [
+    "legacy_documenter/knowledge/readiness.py"
+  ],
+  "public_signatures": {
+    "KnowledgeReadinessService": "(workspace: str | pathlib.Path = '.') -> None",
+    "run": "(workspace: str | pathlib.Path = '.') -> dict[str, object]",
+    "unchanged": true
+  },
+  "public_symbols": {
+    "compatibility_wrapper": "legacy_documenter/knowledge/readiness.py remains the sole public entry point; validation, projection, security, and orchestration logic were not moved.",
+    "readiness_module_path_unchanged": true
+  },
+  "r0_frozen_inventory_modified": false,
+  "readiness": "READY",
+  "responsibility_map": [
+    {
+      "moved_to": "legacy_documenter/knowledge/_readiness_io.py",
+      "responsibility": "file_io",
+      "safe_to_extract": true,
+      "symbol": "_read"
+    },
+    {
+      "moved_to": "legacy_documenter/knowledge/_readiness_io.py",
+      "responsibility": "file_io",
+      "safe_to_extract": true,
+      "symbol": "_hash"
+    },
+    {
+      "moved_to": "legacy_documenter/knowledge/_readiness_parsing.py",
+      "responsibility": "parsing",
+      "safe_to_extract": true,
+      "symbol": "parse_human_record"
+    },
+    {
+      "moved_to": "legacy_documenter/knowledge/_readiness_parsing.py",
+      "responsibility": "parsing",
+      "safe_to_extract": true,
+      "symbol": "_field"
+    },
+    {
+      "moved_to": "legacy_documenter/knowledge/_readiness_parsing.py",
+      "responsibility": "parsing",
+      "safe_to_extract": true,
+      "symbol": "_details"
+    },
+    {
+      "moved_to": "legacy_documenter/knowledge/_readiness_parsing.py",
+      "responsibility": "parsing",
+      "safe_to_extract": true,
+      "symbol": "_csv"
+    },
+    {
+      "moved_to": "legacy_documenter/knowledge/_readiness_parsing.py",
+      "responsibility": "parsing",
+      "safe_to_extract": true,
+      "symbol": "HUMAN_CONFIRMED"
+    },
+    {
+      "moved_to": "legacy_documenter/knowledge/_readiness_parsing.py",
+      "responsibility": "parsing",
+      "safe_to_extract": true,
+      "symbol": "EXPECTED"
+    },
+    {
+      "moved_to": "legacy_documenter/knowledge/_readiness_evidence.py",
+      "responsibility": "evidence_closure_computation",
+      "safe_to_extract": true,
+      "symbol": "_canonical_catalog"
+    },
+    {
+      "moved_to": "legacy_documenter/knowledge/_readiness_evidence.py",
+      "responsibility": "evidence_closure_computation",
+      "safe_to_extract": true,
+      "symbol": "evidence_closed"
+    },
+    {
+      "moved_to": "legacy_documenter/knowledge/_readiness_evidence.py",
+      "responsibility": "evidence_closure_computation",
+      "safe_to_extract": true,
+      "symbol": "evidence_closure_diagnostics"
+    },
+    {
+      "moved_to": "legacy_documenter/knowledge/readiness.py (unchanged)",
+      "responsibility": "validation",
+      "safe_to_extract": false,
+      "symbol": "validate_preconditions"
+    },
+    {
+      "moved_to": "legacy_documenter/knowledge/readiness.py (unchanged)",
+      "responsibility": "validation",
+      "safe_to_extract": false,
+      "symbol": "validate_claims"
+    },
+    {
+      "moved_to": "legacy_documenter/knowledge/readiness.py (unchanged)",
+      "responsibility": "validation",
+      "safe_to_extract": false,
+      "symbol": "architecture_valid"
+    },
+    {
+      "moved_to": "legacy_documenter/knowledge/readiness.py (unchanged)",
+      "responsibility": "validation",
+      "safe_to_extract": false,
+      "symbol": "quantitative_valid"
+    },
+    {
+      "moved_to": "legacy_documenter/knowledge/readiness.py (unchanged)",
+      "responsibility": "projection",
+      "safe_to_extract": false,
+      "symbol": "build_projection"
+    },
+    {
+      "moved_to": "legacy_documenter/knowledge/readiness.py (unchanged)",
+      "responsibility": "projection",
+      "safe_to_extract": false,
+      "symbol": "build_boundary"
+    },
+    {
+      "moved_to": "legacy_documenter/knowledge/readiness.py (unchanged)",
+      "responsibility": "security",
+      "safe_to_extract": false,
+      "symbol": "_safe"
+    },
+    {
+      "moved_to": "legacy_documenter/knowledge/readiness.py (unchanged)",
+      "responsibility": "orchestration",
+      "safe_to_extract": false,
+      "symbol": "_execute"
+    },
+    {
+      "moved_to": "legacy_documenter/knowledge/readiness.py (unchanged)",
+      "responsibility": "orchestration",
+      "safe_to_extract": false,
+      "symbol": "KnowledgeReadinessService"
+    },
+    {
+      "moved_to": "legacy_documenter/knowledge/readiness.py (unchanged)",
+      "responsibility": "orchestration",
+      "safe_to_extract": false,
+      "symbol": "run"
+    }
+  ],
+  "round": "V4.1-R4",
+  "serialization_equivalence": "PASS",
+  "side_effect_boundaries": {
+    "io_isolated_to": "legacy_documenter/knowledge/_readiness_io.py and _readiness_evidence.py (file reads only, same paths as before)",
+    "new_caching": false,
+    "new_global_mutable_state": false
+  },
+  "tests": "1486_PASS_0_FAIL_0_SKIP"
+}

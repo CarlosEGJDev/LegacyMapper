@@ -299,6 +299,15 @@ class DeterminismTests(unittest.TestCase):
         JSON-rendering helper) may legitimately add a new production
         module, which is a structural fact about the live repository tree,
         not a behavioral regression.
+
+        `knowledge_package_python_module_count` and
+        `largest_knowledge_modules_by_line_count` are excluded for the same
+        reason: V4.1-R4 (DEBT-002) legitimately split
+        `legacy_documenter/knowledge/readiness.py` into three new internal
+        `legacy_documenter/knowledge/_readiness_*.py` modules behind an
+        unchanged compatibility facade, which both raises the live
+        knowledge-package module count and shrinks `readiness.py` enough
+        to drop off the frozen top-10-largest-modules list.
         """
         rebuilt = json.loads(render_final_baseline_json(build_final_baseline(REPO_ROOT)))
         on_disk = json.loads(BASELINE_PATH.read_text(encoding="utf-8"))
@@ -317,6 +326,10 @@ class DeterminismTests(unittest.TestCase):
         normalized_on_disk["maintainability_baseline"].pop("test_python_module_count", None)
         normalized_rebuilt["maintainability_baseline"].pop("production_python_module_count", None)
         normalized_on_disk["maintainability_baseline"].pop("production_python_module_count", None)
+        normalized_rebuilt["maintainability_baseline"].pop("knowledge_package_python_module_count", None)
+        normalized_on_disk["maintainability_baseline"].pop("knowledge_package_python_module_count", None)
+        normalized_rebuilt["maintainability_baseline"].pop("largest_knowledge_modules_by_line_count", None)
+        normalized_on_disk["maintainability_baseline"].pop("largest_knowledge_modules_by_line_count", None)
 
         self.assertEqual(normalized_rebuilt, normalized_on_disk)
 
@@ -334,6 +347,10 @@ class DeterminismTests(unittest.TestCase):
         self.assertGreaterEqual(
             rebuilt["maintainability_baseline"]["production_python_module_count"],
             on_disk["maintainability_baseline"]["production_python_module_count"],
+        )
+        self.assertGreaterEqual(
+            rebuilt["maintainability_baseline"]["knowledge_package_python_module_count"],
+            on_disk["maintainability_baseline"]["knowledge_package_python_module_count"],
         )
 
     def test_manifest_deterministic_across_two_builds(self) -> None:

@@ -39,13 +39,17 @@ class ProductionFileDiscoveryTests(unittest.TestCase):
         # legacy_documenter/ (output/v4_r14/V4_FINAL_BASELINE.json ->
         # production_python_module_count). V4.1-R1 added one new production
         # module (legacy_documenter/utils/json_rendering.py, the DUP-001
-        # shared deterministic-JSON-rendering helper), so the current
-        # unmodified-checkout count is 144. R0 itself analyzed the
-        # pre-R1 tree and is not being re-run or re-approved here; this
-        # count simply tracks the live repository, the same way
-        # `production_python_module_count` does in the final baseline.
+        # shared deterministic-JSON-rendering helper), making 144. V4.1-R4
+        # (DEBT-002) added three new internal readiness helper modules
+        # (legacy_documenter/knowledge/_readiness_io.py, _readiness_parsing.py,
+        # _readiness_evidence.py) behind readiness.py's unchanged
+        # compatibility facade, making the current unmodified-checkout
+        # count 147. R0 itself analyzed the pre-R1 tree and is not being
+        # re-run or re-approved here; this count simply tracks the live
+        # repository, the same way `production_python_module_count` does
+        # in the final baseline.
         files = inv.iter_production_files(REPO_ROOT)
-        self.assertEqual(len(files), 144)
+        self.assertEqual(len(files), 147)
 
 
 class FileAnalysisTests(unittest.TestCase):
@@ -262,6 +266,14 @@ class GeneratedArtifactOnDiskTests(unittest.TestCase):
             # to this file only. No behavior change; this AST scan's line
             # count/function count for this one file moves.
             "legacy_documenter/quality/maintainability_audit.py",
+            # V4.1-R4 (DEBT-002) split readiness.py's parsing, evidence-
+            # closure, and file-I/O helpers into three new internal
+            # `legacy_documenter/knowledge/_readiness_*.py` modules behind
+            # an unchanged compatibility facade. readiness.py itself is
+            # smaller (fewer lines/functions/imports moved out) but its
+            # public surface and behavior are unchanged; see
+            # output/v4_1_r4/V4_1_R4_READINESS_EQUIVALENCE.json.
+            "legacy_documenter/knowledge/readiness.py",
         }
 
         normalized_on_disk = dict(on_disk)
@@ -269,10 +281,18 @@ class GeneratedArtifactOnDiskTests(unittest.TestCase):
 
         on_disk_inv = {e["path"]: e for e in on_disk["production_inventory"]}
         fresh_inv = {e["path"]: e for e in fresh["production_inventory"]}
-        # No path may disappear; the only new path must be the one new
-        # authorized helper module.
+        # No path may disappear; the only new paths are the one authorized
+        # V4.1-R1 helper module and the three V4.1-R4 readiness helpers.
         self.assertEqual(set(on_disk_inv) - set(fresh_inv), set())
-        self.assertEqual(set(fresh_inv) - set(on_disk_inv), {"legacy_documenter/utils/json_rendering.py"})
+        self.assertEqual(
+            set(fresh_inv) - set(on_disk_inv),
+            {
+                "legacy_documenter/utils/json_rendering.py",
+                "legacy_documenter/knowledge/_readiness_io.py",
+                "legacy_documenter/knowledge/_readiness_parsing.py",
+                "legacy_documenter/knowledge/_readiness_evidence.py",
+            },
+        )
         unexpected_entry_diffs = [
             p for p in (set(on_disk_inv) & set(fresh_inv)) - touched_paths
             if on_disk_inv[p] != fresh_inv[p]
@@ -281,26 +301,71 @@ class GeneratedArtifactOnDiskTests(unittest.TestCase):
         normalized_on_disk.pop("production_inventory", None)
         normalized_fresh.pop("production_inventory", None)
 
-        # One new LOW-risk production module; all other risk buckets and
-        # the named high/very-high-risk file lists are unaffected.
+        # V4.1-R1 added one new LOW-risk production module. V4.1-R4 added
+        # three new LOW-risk readiness helper modules and shrank
+        # readiness.py enough that its own risk_category drops from
+        # VERY_HIGH to HIGH -- it moves from the very-high-risk list to the
+        # high-risk list. All other risk-bucket membership is unaffected.
         on_disk_risk = on_disk["risk_summary"]
         fresh_risk = fresh["risk_summary"]
-        self.assertEqual(fresh_risk["high_risk_files"], on_disk_risk["high_risk_files"])
-        self.assertEqual(fresh_risk["very_high_risk_files"], on_disk_risk["very_high_risk_files"])
+        readiness_path = "legacy_documenter/knowledge/readiness.py"
+        expected_high_risk_files = sorted(on_disk_risk["high_risk_files"] + [readiness_path])
+        expected_very_high_risk_files = [
+            p for p in on_disk_risk["very_high_risk_files"] if p != readiness_path
+        ]
+        self.assertEqual(sorted(fresh_risk["high_risk_files"]), expected_high_risk_files)
+        self.assertEqual(sorted(fresh_risk["very_high_risk_files"]), sorted(expected_very_high_risk_files))
         expected_categories = dict(on_disk_risk["files_by_risk_category"])
-        expected_categories["LOW"] = expected_categories.get("LOW", 0) + 1
+        expected_categories["LOW"] = expected_categories.get("LOW", 0) + 4
+        expected_categories["HIGH"] = expected_categories.get("HIGH", 0) + 1
+        expected_categories["VERY_HIGH"] = expected_categories.get("VERY_HIGH", 0) - 1
         self.assertEqual(fresh_risk["files_by_risk_category"], expected_categories)
         normalized_on_disk.pop("risk_summary", None)
         normalized_fresh.pop("risk_summary", None)
 
-        # One new production module; every other dependency-direction
+        # Four new production modules total (one from V4.1-R1, three from
+        # V4.1-R4's readiness split); every other dependency-direction
         # finding is unaffected.
         on_disk_dep = dict(on_disk["dependency_findings"])
         fresh_dep = dict(fresh["dependency_findings"])
-        self.assertEqual(fresh_dep.pop("module_count"), on_disk_dep.pop("module_count") + 1)
+        self.assertEqual(fresh_dep.pop("module_count"), on_disk_dep.pop("module_count") + 4)
         self.assertEqual(fresh_dep, on_disk_dep)
         normalized_on_disk.pop("dependency_findings", None)
         normalized_fresh.pop("dependency_findings", None)
+
+        # V4.1-R4 shrank readiness.py (292 -> fewer lines); it stays in the
+        # top-20 largest-modules list (same 20 file set) but drops from 4th
+        # place to last. The two extracted file-touching helpers
+        # (_readiness_io.py, _readiness_evidence.py) legitimately inherit
+        # readiness.py's filesystem_access side-effect signal; the pure-
+        # parsing helper (_readiness_parsing.py) does not.
+        on_disk_largest = {e["path"]: e["line_count"] for e in on_disk["largest_modules"]}
+        fresh_largest = {e["path"]: e["line_count"] for e in fresh["largest_modules"]}
+        self.assertEqual(set(on_disk_largest), set(fresh_largest))
+        self.assertLess(fresh_largest[readiness_path], on_disk_largest[readiness_path])
+        for path, line_count in on_disk_largest.items():
+            if path != readiness_path:
+                self.assertEqual(fresh_largest[path], line_count)
+        normalized_on_disk.pop("largest_modules", None)
+        normalized_fresh.pop("largest_modules", None)
+
+        on_disk_side_effects = {e["kind"]: e for e in on_disk["side_effect_candidates"]}
+        fresh_side_effects = {e["kind"]: e for e in fresh["side_effect_candidates"]}
+        self.assertEqual(set(on_disk_side_effects), set(fresh_side_effects))
+        for kind, entry in on_disk_side_effects.items():
+            fresh_entry = fresh_side_effects[kind]
+            if kind == "filesystem_access":
+                expected_files = sorted(entry["files"] + [
+                    "legacy_documenter/knowledge/_readiness_io.py",
+                    "legacy_documenter/knowledge/_readiness_evidence.py",
+                ])
+                self.assertEqual(sorted(fresh_entry["files"]), expected_files)
+                self.assertEqual(fresh_entry["file_count"], entry["file_count"] + 2)
+            else:
+                self.assertEqual(fresh_entry["files"], entry["files"])
+                self.assertEqual(fresh_entry["file_count"], entry["file_count"])
+        normalized_on_disk.pop("side_effect_candidates", None)
+        normalized_fresh.pop("side_effect_candidates", None)
 
         # V4.1-R2 raised typed_functions_percent for a handful of
         # below-average files (see touched_paths above). type_safety_
