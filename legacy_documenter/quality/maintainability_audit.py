@@ -95,6 +95,16 @@ def audit(workspace: str | Path = ".") -> dict[str, object]:
     }
 
 
+def build_maintainability_inventory(workspace: str | Path = ".") -> dict[str, object]:
+    """Clearer-named alias for :func:`audit`; identical behavior, same return value.
+
+    ``audit`` is kept as the original, still-supported public name (see
+    V4.1-R0 naming_candidates / DEBT-003 disposition); this alias exists only
+    to give future readers a more descriptive entry point.
+    """
+    return audit(workspace)
+
+
 def write_audit(destination: str | Path, workspace: str | Path = ".") -> dict[str, object]:
     """Writes one reproducible audit JSON and returns the serialized payload."""
     payload = audit(workspace)

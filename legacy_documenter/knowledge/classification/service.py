@@ -167,14 +167,14 @@ class KnowledgeClassificationService:
             raise ClassificationRejectedError(str(exc)) from exc
         return record
 
-    def classify_batch(self, requests: list[ClassificationRequest]) -> ClassificationBatchResult:
+    def classify_batch(self, classification_requests: list[ClassificationRequest]) -> ClassificationBatchResult:
         """Classifies each request independently, isolating failures.
 
         One invalid request never removes a valid result from `accepted`;
         both lists preserve the original input order.
         """
         result = ClassificationBatchResult()
-        for index, request in enumerate(requests):
+        for index, request in enumerate(classification_requests):
             try:
                 record = self.classify(request)
             except ClassificationRejectedError as exc:

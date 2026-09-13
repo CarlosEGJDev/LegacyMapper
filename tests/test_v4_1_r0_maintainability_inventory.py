@@ -256,6 +256,12 @@ class GeneratedArtifactOnDiskTests(unittest.TestCase):
             "legacy_documenter/documentation/coverage.py",
             "legacy_documenter/documentation/human_review.py",
             "legacy_documenter/documentation/evidence_catalog.py",
+            # V4.1-R3 added the `build_maintainability_inventory` alias
+            # (delegates to `audit`; see DEBT-003/naming_candidates
+            # disposition in output/v4_1_r3/V4_1_R3_NAMING_COMPATIBILITY.json)
+            # to this file only. No behavior change; this AST scan's line
+            # count/function count for this one file moves.
+            "legacy_documenter/quality/maintainability_audit.py",
         }
 
         normalized_on_disk = dict(on_disk)

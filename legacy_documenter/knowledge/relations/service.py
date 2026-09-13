@@ -116,7 +116,7 @@ class RelationService:
             raise RelationRejectedError(str(exc)) from exc
         return relation
 
-    def create_relation_batch(self, requests: list[RelationRequest]) -> RelationBatchResult:
+    def create_relation_batch(self, relation_requests: list[RelationRequest]) -> RelationBatchResult:
         """Creates each relation independently, isolating failures.
 
         Duplicate policy: a repeated identical relation (same `relation_id`
@@ -127,7 +127,7 @@ class RelationService:
         """
         result = RelationBatchResult()
         seen: dict[str, KnowledgeRelation] = {}
-        for index, request in enumerate(requests):
+        for index, request in enumerate(relation_requests):
             try:
                 relation = self.create_relation(request)
             except RelationRejectedError as exc:

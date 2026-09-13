@@ -127,7 +127,7 @@ class ProposalService:
             raise ProposalRejectedError(str(exc)) from exc
         return proposal
 
-    def create_proposal_batch(self, requests: list[ProposalRequest]) -> ProposalBatchResult:
+    def create_proposal_batch(self, proposal_requests: list[ProposalRequest]) -> ProposalBatchResult:
         """Creates each proposal independently, isolating failures.
 
         Duplicate policy: a repeated identical proposal (same `proposal_id`
@@ -139,7 +139,7 @@ class ProposalService:
         """
         result = ProposalBatchResult()
         seen: dict[str, Proposal] = {}
-        for index, request in enumerate(requests):
+        for index, request in enumerate(proposal_requests):
             try:
                 proposal = self.create_proposal(request)
             except ProposalRejectedError as exc:

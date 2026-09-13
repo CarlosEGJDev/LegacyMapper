@@ -1,0 +1,245 @@
+{
+  "approved_artifact_integrity": {
+    "hashes_checked": {
+      "output/v4_1_r1/V4_1_R1_BEHAVIORAL_EQUIVALENCE.json": "55c99c3b68ac159585c6a0ec7e05f74e8dd64dd871308d067ab27bdda1a1c33b",
+      "output/v4_1_r2/V4_1_R2_TYPE_AND_CONTRACT_EQUIVALENCE.json": "bd3daf04be868ef6465298c5e372aacc1f33bf234417f2bb914b79b22ab5a6f4",
+      "output/v4_r14/V4_FINAL_BASELINE.json": "d13e3807a12187b226ea55752ae0e9dccd2ad20c9dbe044360ffa48bca526d1e",
+      "output/v4_r14/V4_FINAL_MANIFEST.json": "be398240a31137e7dea25fcaa7b3cfe6580d2557f990f7da884d5775f5c40551"
+    },
+    "result": "PASS"
+  },
+  "behavior_equivalence": "PASS",
+  "candidates_changed": [
+    "legacy_documenter/knowledge/classification/service.py:classify_batch (requests -> classification_requests)",
+    "legacy_documenter/knowledge/proposals/service.py:create_proposal_batch (requests -> proposal_requests)",
+    "legacy_documenter/knowledge/relations/service.py:create_relation_batch (requests -> relation_requests)",
+    "legacy_documenter/quality/maintainability_audit.py (audit retained; build_maintainability_inventory alias added)"
+  ],
+  "candidates_considered": [
+    {
+      "callers_found": 4,
+      "compatibility_strategy": "DIRECT_RENAME_SAFE",
+      "current_name": "requests",
+      "disposition": "CHANGED",
+      "keyword_callers_found": 0,
+      "path": "legacy_documenter/knowledge/classification/service.py:classify_batch",
+      "proposed_name": "classification_requests",
+      "public_or_private": "public_method_parameter",
+      "reflection_or_signature_usage": false,
+      "risk": "LOW",
+      "scope": "parameter",
+      "serialization_impact": "NONE (parameter names are not part of any JSON contract)",
+      "symbol": "requests (parameter)"
+    },
+    {
+      "callers_found": 5,
+      "compatibility_strategy": "DIRECT_RENAME_SAFE",
+      "current_name": "requests",
+      "disposition": "CHANGED",
+      "keyword_callers_found": 0,
+      "path": "legacy_documenter/knowledge/proposals/service.py:create_proposal_batch",
+      "proposed_name": "proposal_requests",
+      "public_or_private": "public_method_parameter",
+      "reflection_or_signature_usage": false,
+      "risk": "LOW",
+      "scope": "parameter",
+      "serialization_impact": "NONE (parameter names are not part of any JSON contract)",
+      "symbol": "requests (parameter)"
+    },
+    {
+      "callers_found": 6,
+      "compatibility_strategy": "DIRECT_RENAME_SAFE",
+      "current_name": "requests",
+      "disposition": "CHANGED",
+      "keyword_callers_found": 0,
+      "path": "legacy_documenter/knowledge/relations/service.py:create_relation_batch",
+      "proposed_name": "relation_requests",
+      "public_or_private": "public_method_parameter",
+      "reflection_or_signature_usage": false,
+      "risk": "LOW",
+      "scope": "parameter",
+      "serialization_impact": "NONE (parameter names are not part of any JSON contract)",
+      "symbol": "requests (parameter)"
+    },
+    {
+      "callers_found": 3,
+      "compatibility_strategy": "NEW_CLEAR_NAME_PLUS_LEGACY_COMPATIBILITY_ALIAS",
+      "current_name": "audit",
+      "disposition": "CHANGED",
+      "keyword_callers_found": 0,
+      "path": "legacy_documenter/quality/maintainability_audit.py",
+      "proposed_name": "build_maintainability_inventory (additional alias; `audit` retained)",
+      "public_or_private": "public_but_no_cross_package_importer",
+      "reflection_or_signature_usage": false,
+      "risk": "LOW",
+      "scope": "module_function",
+      "serialization_impact": "NONE (return value/shape unchanged; alias delegates to `audit`)",
+      "symbol": "audit"
+    },
+    {
+      "callers_found": null,
+      "compatibility_strategy": "DEFER_RENAME",
+      "current_name": "copilot_pilot.py",
+      "disposition": "DEFERRED: R0's own refactor_plan.json scopes V4.1-R3's primary_files to only the three batch-service files and maintainability_audit.py; the copilot_pilot.py module rename is not part of R3's approved plan entry. Renaming a module file (not just a parameter) also requires a REEXPORT wrapper and touches TD-002's provider-boundary file, which is outside this round's narrow scope. Left untouched; remains available for a future dedicated round.",
+      "keyword_callers_found": null,
+      "path": "legacy_documenter/llm/copilot_pilot.py",
+      "proposed_name": "copilot_session.py",
+      "public_or_private": "internal_to_legacy_documenter.llm",
+      "reflection_or_signature_usage": false,
+      "risk": "MEDIUM",
+      "scope": "module_file",
+      "serialization_impact": "UNKNOWN -- not verified this round",
+      "symbol": "copilot_pilot.py (module) / CopilotPilot-shaped helpers"
+    },
+    {
+      "callers_found": null,
+      "compatibility_strategy": "DEFER_RENAME",
+      "current_name": "four similarly named *_builder/composer/resolver modules",
+      "disposition": "DEFERRED: R0 itself marked this DO_NOT_MOVE until a characterization pass exists for this package, and proposed no concrete rename. Not part of R3's approved plan entry (R0's refactor_plan.json V4.1-R3 primary_files list does not include legacy_documenter/context/). Left untouched.",
+      "keyword_callers_found": null,
+      "path": "legacy_documenter/context/",
+      "proposed_name": "No rename proposed yet (per R0)",
+      "public_or_private": "unknown_until_characterized",
+      "reflection_or_signature_usage": false,
+      "risk": "MEDIUM",
+      "scope": "package",
+      "serialization_impact": "UNKNOWN -- characterization required",
+      "symbol": "composer.py / resolver.py / context_builder.py / system_context_builder.py"
+    }
+  ],
+  "candidates_deferred": [
+    {
+      "candidate": "legacy_documenter/llm/copilot_pilot.py module rename to copilot_session.py",
+      "reason": "Not in R0's approved V4.1-R3 primary_files scope; a module-file rename needs a REEXPORT wrapper and touches a TD-002 provider-boundary file. Deferred to a future dedicated round rather than expanding R3's scope.",
+      "risk": "MEDIUM"
+    },
+    {
+      "candidate": "legacy_documenter/context/ package (composer.py/resolver.py/context_builder.py/system_context_builder.py)",
+      "reason": "R0 explicitly marked this DO_NOT_MOVE pending characterization; no concrete rename was even proposed. Not in R0's approved V4.1-R3 primary_files scope.",
+      "risk": "MEDIUM"
+    }
+  ],
+  "compatibility": [
+    {
+      "keyword_call_compatibility": "N/A (no old keyword usage existed to preserve)",
+      "positional_call_compatibility": "PASS",
+      "proof": "0 keyword callers found repository-wide; all 4 known call sites are positional.",
+      "symbol": "classify_batch(requests) -> classify_batch(classification_requests)"
+    },
+    {
+      "keyword_call_compatibility": "N/A (no old keyword usage existed to preserve)",
+      "positional_call_compatibility": "PASS",
+      "proof": "0 keyword callers found repository-wide; all 5 known call sites are positional.",
+      "symbol": "create_proposal_batch(requests) -> create_proposal_batch(proposal_requests)"
+    },
+    {
+      "keyword_call_compatibility": "N/A (no old keyword usage existed to preserve)",
+      "positional_call_compatibility": "PASS",
+      "proof": "0 keyword callers found repository-wide; all 6 known call sites are positional.",
+      "symbol": "create_relation_batch(requests) -> create_relation_batch(relation_requests)"
+    },
+    {
+      "keyword_call_compatibility": "PASS (audit(workspace=...) and build_maintainability_inventory(workspace=...) both work)",
+      "positional_call_compatibility": "PASS",
+      "proof": "`audit` and `write_audit` are byte-identical to before; the new alias delegates to `audit` and returns an identical value.",
+      "symbol": "maintainability_audit.audit + build_maintainability_inventory alias"
+    }
+  ],
+  "debt_003": {
+    "details": "All three R0-identified generic `requests` batch-service parameters were renamed to request-kind-specific names. Repository-wide grep (production code and tests) found zero keyword-argument call sites using the old `requests=` name for any of the three methods, so DIRECT_RENAME_SAFE was used with no compatibility shim. Every known caller (positional in all cases) continues to work unchanged.",
+    "original_scope": [
+      "legacy_documenter/knowledge/classification/service.py:classify_batch",
+      "legacy_documenter/knowledge/proposals/service.py:create_proposal_batch",
+      "legacy_documenter/knowledge/relations/service.py:create_relation_batch"
+    ],
+    "status": "RESOLVED"
+  },
+  "high_risk_modules": {
+    "modules": [
+      "legacy_documenter/extractors/database_extractor.py",
+      "legacy_documenter/analysis/flow_resolver.py",
+      "legacy_documenter/knowledge/readiness.py",
+      "legacy_documenter/documentation/resume.py",
+      "legacy_documenter/analysis/deep_source.py"
+    ],
+    "policy": "NOT_STRUCTURALLY_MODIFIED",
+    "result": "PASS"
+  },
+  "keyword_call_compatibility": {
+    "classify_batch": "no old keyword usage existed; not applicable",
+    "create_proposal_batch": "no old keyword usage existed; not applicable",
+    "create_relation_batch": "no old keyword usage existed; not applicable",
+    "maintainability_audit.audit": "unchanged; still accepts workspace positionally or by keyword"
+  },
+  "production_behavior_changed": false,
+  "public_imports": {
+    "legacy_documenter.knowledge.classification.service.KnowledgeClassificationService": "VALID",
+    "legacy_documenter.knowledge.proposals.service.ProposalService": "VALID",
+    "legacy_documenter.knowledge.relations.service.RelationService": "VALID",
+    "legacy_documenter.quality.maintainability_audit.audit": "VALID (unchanged)",
+    "legacy_documenter.quality.maintainability_audit.build_maintainability_inventory": "VALID (new)",
+    "legacy_documenter.quality.maintainability_audit.write_audit": "VALID (unchanged)"
+  },
+  "readiness": {
+    "ai_knowledge_allowed": true,
+    "ai_knowledge_generated": false,
+    "provider_calls": 0,
+    "readiness": "READY",
+    "real_llm_calls": 0
+  },
+  "renames": [
+    {
+      "compatibility_strategy": "DIRECT_RENAME_SAFE",
+      "new_name": "classification_requests",
+      "old_name": "requests",
+      "path": "legacy_documenter/knowledge/classification/service.py",
+      "public_or_private": "public_method_parameter",
+      "scope": "parameter",
+      "symbol": "KnowledgeClassificationService.classify_batch",
+      "verification": "Repository-wide grep of `classify_batch` found only positional call sites (legacy_documenter/knowledge/classification/contract_report.py docstring reference; tests/test_v4_r5_knowledge_classification.py:258,268,278,303; tools/v4_1_r0/report.py documentation strings only). Zero `requests=` keyword call sites. No inspect.signature/**kwargs usage depends on this parameter's name."
+    },
+    {
+      "compatibility_strategy": "DIRECT_RENAME_SAFE",
+      "new_name": "proposal_requests",
+      "old_name": "requests",
+      "path": "legacy_documenter/knowledge/proposals/service.py",
+      "public_or_private": "public_method_parameter",
+      "scope": "parameter",
+      "symbol": "ProposalService.create_proposal_batch",
+      "verification": "Repository-wide grep of `create_proposal_batch` found only positional call sites (tests/test_v4_r8_proposal_lifecycle.py:414,419,679,689,696). Zero `requests=` keyword call sites. No inspect.signature/**kwargs usage depends on this parameter's name."
+    },
+    {
+      "compatibility_strategy": "DIRECT_RENAME_SAFE",
+      "new_name": "relation_requests",
+      "old_name": "requests",
+      "path": "legacy_documenter/knowledge/relations/service.py",
+      "public_or_private": "public_method_parameter",
+      "scope": "parameter",
+      "symbol": "RelationService.create_relation_batch",
+      "verification": "Repository-wide grep of `create_relation_batch` found only positional call sites (tests/test_v4_r7_gap_and_conflict_representation.py:214,219,227,234,331,341). Zero `requests=` keyword call sites. No inspect.signature/**kwargs usage depends on this parameter's name."
+    },
+    {
+      "compatibility_strategy": "NEW_CLEAR_NAME_PLUS_LEGACY_COMPATIBILITY_ALIAS",
+      "new_name": "build_maintainability_inventory",
+      "old_name": null,
+      "path": "legacy_documenter/quality/maintainability_audit.py",
+      "public_or_private": "public_new_alias",
+      "scope": "module_function_alias",
+      "symbol": "build_maintainability_inventory",
+      "verification": "`audit()` and `write_audit()` are unchanged and still importable under their original names; `build_maintainability_inventory(workspace)` is purely additive and delegates to `audit(workspace)`, returning an identical value. Grep confirmed `audit`/`write_audit` have no cross-package importers outside this module's own __main__ block and tests/test_v3_r10.py, tests/test_v3_r10_1.py (both unchanged, both still pass)."
+    }
+  ],
+  "round": "V4.1-R3",
+  "scope_source": "output/v4_1_r0/V4_1_MAINTAINABILITY_INVENTORY.json (naming_candidates, known_debt DEBT-003) and output/v4_1_r0/V4_1_REFACTOR_PLAN.json (round_id V4.1-R3 primary_files)",
+  "task": "V4_1_R3_LOW_RISK_NAMING_READABILITY",
+  "td_005": {
+    "note": "Unchanged from V4.1-R2; R3 does not continue typing work (out of scope for this round).",
+    "status": "PARTIALLY_RESOLVED"
+  },
+  "tests": {
+    "final_suite_fail_count": 0,
+    "final_suite_pass_count": 1468,
+    "final_suite_skip_count": 0,
+    "new_test_file": "tests/test_v4_1_r3_low_risk_naming_readability.py"
+  }
+}
