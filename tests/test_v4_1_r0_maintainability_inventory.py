@@ -289,6 +289,19 @@ class GeneratedArtifactOnDiskTests(unittest.TestCase):
             # output/v4_1_r6/V4_1_R6_EXTRACTION_EQUIVALENCE.json.
             "legacy_documenter/extractors/database_extractor.py",
             "legacy_documenter/analysis/flow_resolver.py",
+            # V4.1-R7 consolidated three duplicated try/except Exception
+            # blocks in `analyze_repository` (CallExtractor,
+            # WebEventExtractor, DatabaseExtractor -- identical shape,
+            # only the extractor/label/sink differed) into one internal
+            # `_extract_into` helper. This is a SAFE_LOCAL_CLEANUP: same
+            # caught exception type, same error record shape, same
+            # per-file call order and partial-result behavior; see
+            # output/v4_1_r7/V4_1_R7_EXCEPTION_BOUNDARY_EQUIVALENCE.json.
+            # The mechanical AST scan's line/function counts for this one
+            # file move, and its `except_exception` count legitimately
+            # drops from 4 to 2 (three redundant handlers collapsed into
+            # one shared handler).
+            "legacy_documenter/main.py",
         }
 
         normalized_on_disk = dict(on_disk)
@@ -372,16 +385,21 @@ class GeneratedArtifactOnDiskTests(unittest.TestCase):
         # (_readiness_io.py, _readiness_evidence.py, and R6's
         # _database_line_scanner.py) legitimately inherit their parent's
         # filesystem_access side-effect signal; the pure-parsing/
-        # classification/graph-construction helpers do not.
+        # classification/graph-construction helpers do not. V4.1-R7's
+        # `_extract_into` consolidation grew main.py slightly (228 -> more
+        # lines: one new named helper function plus its docstring replaces
+        # three inlined try/except blocks; no new module was added).
         on_disk_largest = {e["path"]: e["line_count"] for e in on_disk["largest_modules"]}
         fresh_largest = {e["path"]: e["line_count"] for e in fresh["largest_modules"]}
         self.assertEqual(set(on_disk_largest), set(fresh_largest))
         flow_resolver_path = "legacy_documenter/analysis/flow_resolver.py"
+        main_path = "legacy_documenter/main.py"
         self.assertLess(fresh_largest[readiness_path], on_disk_largest[readiness_path])
         self.assertLess(fresh_largest[database_extractor_path], on_disk_largest[database_extractor_path])
         self.assertLess(fresh_largest[flow_resolver_path], on_disk_largest[flow_resolver_path])
+        self.assertGreater(fresh_largest[main_path], on_disk_largest[main_path])
         for path, line_count in on_disk_largest.items():
-            if path not in (readiness_path, database_extractor_path, flow_resolver_path):
+            if path not in (readiness_path, database_extractor_path, flow_resolver_path, main_path):
                 self.assertEqual(fresh_largest[path], line_count)
         normalized_on_disk.pop("largest_modules", None)
         normalized_fresh.pop("largest_modules", None)
@@ -452,6 +470,22 @@ class GeneratedArtifactOnDiskTests(unittest.TestCase):
         normalized_on_disk.pop("largest_classes", None)
         normalized_fresh.pop("largest_classes", None)
 
+        # V4.1-R7 shrank `analyze_repository` itself by moving the three
+        # duplicated try/except blocks into the new `_extract_into` helper;
+        # only this one function's line_count moves.
+        main_path = "legacy_documenter/main.py"
+        on_disk_funcs = {(e["path"], e["qualified_name"]): e for e in on_disk["largest_functions"]}
+        fresh_funcs = {(e["path"], e["qualified_name"]): e for e in fresh["largest_functions"]}
+        self.assertEqual(set(on_disk_funcs), set(fresh_funcs))
+        for key, entry in on_disk_funcs.items():
+            fresh_entry = dict(fresh_funcs[key])
+            if key == (main_path, "analyze_repository"):
+                self.assertLess(fresh_entry["line_count"], entry["line_count"])
+                fresh_entry["line_count"] = entry["line_count"]
+            self.assertEqual(fresh_entry, entry)
+        normalized_on_disk.pop("largest_functions", None)
+        normalized_fresh.pop("largest_functions", None)
+
         # documentation_candidates is also a relative-threshold diagnostic
         # (below-average docstring_coverage_percent): the delegating methods
         # added to database_extractor.py/flow_resolver.py raised their own
@@ -468,6 +502,22 @@ class GeneratedArtifactOnDiskTests(unittest.TestCase):
         self.assertEqual(fresh_doc - on_disk_doc, r6_newly_below_average_doc)
         normalized_on_disk.pop("documentation_candidates", None)
         normalized_fresh.pop("documentation_candidates", None)
+
+        # exception_candidates: V4.1-R7's `_extract_into` consolidation
+        # legitimately drops main.py's except_exception_count from 4 to 2
+        # (three redundant `except Exception` blocks collapsed into one
+        # shared handler); classification/note/bare_except_count unchanged.
+        on_disk_exc = {e["path"]: e for e in on_disk["exception_candidates"]}
+        fresh_exc = {e["path"]: e for e in fresh["exception_candidates"]}
+        self.assertEqual(set(on_disk_exc), set(fresh_exc))
+        for path, entry in on_disk_exc.items():
+            fresh_entry = dict(fresh_exc[path])
+            if path == main_path:
+                self.assertLess(fresh_entry["except_exception_count"], entry["except_exception_count"])
+                fresh_entry["except_exception_count"] = entry["except_exception_count"]
+            self.assertEqual(fresh_entry, entry)
+        normalized_on_disk.pop("exception_candidates", None)
+        normalized_fresh.pop("exception_candidates", None)
 
         self.assertEqual(normalized_on_disk, normalized_fresh)
 

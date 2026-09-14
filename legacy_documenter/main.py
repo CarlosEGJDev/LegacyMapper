@@ -13,6 +13,7 @@ from legacy_documenter.context.system_context_builder import SystemContextBuilde
 from legacy_documenter.exporters.json_exporter import JSONExporter
 from legacy_documenter.exporters.markdown_exporter import MarkdownExporter
 from legacy_documenter.extractors.solution_extractor import SolutionExtractor
+from legacy_documenter.models import SourceFile
 from legacy_documenter.extractors.call_extractor import CallExtractor
 from legacy_documenter.extractors.database_extractor import DatabaseExtractor
 from legacy_documenter.extractors.web_event_extractor import WebEventExtractor
@@ -82,18 +83,9 @@ def analyze_repository(repo_root: str | Path, output_dir: str | Path, excludes: 
         if source.file_type != "vb_source":
             continue
         full_path = root / source.relative_path
-        try:
-            calls.append(call_extractor.extract(full_path, root))
-        except Exception as exc:
-            errors.append({"file": source.relative_path, "extractor": "CallExtractor", "error": str(exc)})
-        try:
-            web_events.append(web_event_extractor.extract(full_path, root))
-        except Exception as exc:
-            errors.append({"file": source.relative_path, "extractor": "WebEventExtractor", "error": str(exc)})
-        try:
-            data_access_indexes.append(database_extractor.extract(full_path, root))
-        except Exception as exc:
-            errors.append({"file": source.relative_path, "extractor": "DatabaseExtractor", "error": str(exc)})
+        _extract_into(call_extractor, "CallExtractor", source, full_path, root, calls, errors)
+        _extract_into(web_event_extractor, "WebEventExtractor", source, full_path, root, web_events, errors)
+        _extract_into(database_extractor, "DatabaseExtractor", source, full_path, root, data_access_indexes, errors)
 
     apply_project_namespaces(symbols, projects)
     logical_symbols = consolidate_partial_symbols(symbols, webforms)
@@ -141,6 +133,28 @@ def analyze_repository(repo_root: str | Path, output_dir: str | Path, excludes: 
     MarkdownExporter().export(output, indexes)
     LOG.info("Analysis finished: %s files, %s errors", len(files), len(errors))
     return indexes
+
+
+def _extract_into(
+    extractor: CallExtractor | WebEventExtractor | DatabaseExtractor,
+    label: str,
+    source: SourceFile,
+    full_path: Path,
+    root: Path,
+    sink: list,
+    errors: list[dict],
+) -> None:
+    """Runs one per-file extractor, appending its result to ``sink`` or a structured error to ``errors``.
+
+    Consolidates three previously duplicated try/except blocks in ``analyze_repository``
+    (CallExtractor, WebEventExtractor, DatabaseExtractor) that shared identical
+    exception handling shape; behavior is unchanged (same caught type, same error
+    record shape, same per-file call order).
+    """
+    try:
+        sink.append(extractor.extract(full_path, root))
+    except Exception as exc:
+        errors.append({"file": source.relative_path, "extractor": label, "error": str(exc)})
 
 
 def apply_project_namespaces(symbols: list[dict], projects: list[dict]) -> None:

@@ -1,0 +1,278 @@
+{
+  "approved_artifact_integrity": "PASS",
+  "authorized_cleanups": [
+    {
+      "classification": "SAFE_LOCAL_CLEANUP",
+      "path": "legacy_documenter/main.py",
+      "shape": "replace duplicated tiny local patterns with one internal helper",
+      "symbol": "analyze_repository"
+    }
+  ],
+  "candidates": {
+    "in_scope": [
+      {
+        "path": "legacy_documenter/main.py",
+        "r7_scope_classification": "IN_SCOPE",
+        "symbol": "analyze_repository (CallExtractor/WebEventExtractor/DatabaseExtractor blocks)"
+      }
+    ],
+    "needs_characterization": [],
+    "out_of_scope_high_risk": [
+      {
+        "path": "legacy_documenter/documentation/resume.py",
+        "reason": "Named in this round's High-Risk Fence (default DEFER). Live inspection: all 6 handlers sit inside a try block that also calls provider.structured_generate and store.persist; the R0 REFACTOR_CANDIDATE note's 'checkpoint/resume I/O' framing understates the provider entanglement. No tiny isolated handler independent of the provider call sequence was found, so no exception-scope narrowing is authorized this round."
+      }
+    ],
+    "out_of_scope_provider": [
+      {
+        "path": "legacy_documenter/documentation/generator.py",
+        "reason": "Sole except Exception directly wraps asyncio.run(discover_model()); R0's per-file HISTORICAL_COMPATIBILITY label described overall file style, not this catch site's live provider dependency."
+      },
+      {
+        "path": "legacy_documenter/documentation/hierarchical.py",
+        "reason": "Same discover_model() provider-discovery catch as generator.py; the module's other two handlers (except ValueError / except RuntimeError) unwind a try block that also calls provider.structured_generate, so they are provider-entangled control flow, not a standalone local adapter."
+      },
+      {
+        "path": "legacy_documenter/documentation/systematic.py",
+        "reason": "Same discover_model() provider-discovery catch as generator.py."
+      },
+      {
+        "path": "legacy_documenter/llm/copilot_pilot.py",
+        "reason": "R0 JUSTIFIED_BOUNDARY; wraps asyncio.run(discover_model()) itself, classifying real Copilot auth/access failures. Explicitly excluded from renaming/restructuring by this round's Scope Fence."
+      },
+      {
+        "path": "legacy_documenter/llm/providers/copilot.py",
+        "reason": "R0 JUSTIFIED_BOUNDARY; converts external Copilot Chat/subprocess failures into a domain ProviderError (TD-002's own stated plan)."
+      },
+      {
+        "path": "legacy_documenter/llm/providers/gemini.py",
+        "reason": "R0 JUSTIFIED_BOUNDARY; converts external HTTP/urllib failures into a domain ProviderError."
+      }
+    ]
+  },
+  "characterization": {
+    "behavior_contracts": "For each IN_SCOPE handler, exact exception type (Exception), exact success/failure outputs, error-record shape, and per-file call order were pinned by tests/test_v4_1_r7_exception_boundaries_characterization.py before the main.py cleanup; the same tests were re-run unchanged after the cleanup and still pass.",
+    "exception_map": [
+      {
+        "caller_visible": true,
+        "cleanup_candidate": true,
+        "converted_to": "{\"file\": source.relative_path, \"extractor\": \"CallExtractor\", \"error\": str(exc)}",
+        "exception_type": "Exception",
+        "existing_test": false,
+        "input_condition": "extractor raises any Exception subclass",
+        "message_or_pattern": "str(exc)",
+        "new_characterization_test": "tests/test_v4_1_r7_exception_boundaries_characterization.py::test_call_extractor_failure_is_recorded_as_structured_error_and_others_still_run",
+        "operation": "CallExtractor.extract(full_path, root)",
+        "partial_result_preserved": true,
+        "path": "legacy_documenter/main.py",
+        "propagates": false,
+        "side_effects": "none in the handler itself",
+        "symbol": "analyze_repository"
+      },
+      {
+        "caller_visible": true,
+        "cleanup_candidate": true,
+        "converted_to": "{\"file\": source.relative_path, \"extractor\": \"WebEventExtractor\", \"error\": str(exc)}",
+        "exception_type": "Exception",
+        "existing_test": false,
+        "input_condition": "extractor raises any Exception subclass",
+        "message_or_pattern": "str(exc)",
+        "new_characterization_test": "tests/test_v4_1_r7_exception_boundaries_characterization.py::test_web_event_extractor_failure_is_recorded_as_structured_error",
+        "operation": "WebEventExtractor.extract(full_path, root)",
+        "partial_result_preserved": true,
+        "path": "legacy_documenter/main.py",
+        "propagates": false,
+        "side_effects": "none in the handler itself",
+        "symbol": "analyze_repository"
+      },
+      {
+        "caller_visible": true,
+        "cleanup_candidate": true,
+        "converted_to": "{\"file\": source.relative_path, \"extractor\": \"DatabaseExtractor\", \"error\": str(exc)}",
+        "exception_type": "Exception",
+        "existing_test": false,
+        "input_condition": "extractor raises any Exception subclass",
+        "message_or_pattern": "str(exc)",
+        "new_characterization_test": "tests/test_v4_1_r7_exception_boundaries_characterization.py::test_database_extractor_failure_is_recorded_as_structured_error",
+        "operation": "DatabaseExtractor.extract(full_path, root)",
+        "partial_result_preserved": true,
+        "path": "legacy_documenter/main.py",
+        "propagates": false,
+        "side_effects": "none in the handler itself",
+        "symbol": "analyze_repository"
+      },
+      {
+        "caller_visible": true,
+        "cleanup_candidate": false,
+        "converted_to": "{\"file\": source.relative_path, \"extractor\": extractor.__class__.__name__, \"error\": str(exc)}",
+        "exception_type": "Exception",
+        "existing_test": false,
+        "input_condition": "extractor raises any Exception subclass",
+        "message_or_pattern": "str(exc)",
+        "new_characterization_test": null,
+        "operation": "extractor.extract(full_path, root) for solution/vb_project/vb_source/webform/web_config file types",
+        "partial_result_preserved": true,
+        "path": "legacy_documenter/main.py",
+        "propagates": false,
+        "side_effects": "none in the handler itself",
+        "symbol": "analyze_repository"
+      },
+      {
+        "caller_visible": true,
+        "cleanup_candidate": false,
+        "converted_to": "{\"status\": \"V3-R7_BLOCKED_PROVIDER\", \"calls\": 0}",
+        "exception_type": "Exception",
+        "existing_test": true,
+        "input_condition": "provider model discovery fails",
+        "message_or_pattern": null,
+        "new_characterization_test": null,
+        "operation": "asyncio.run(discover_model())",
+        "partial_result_preserved": false,
+        "path": "legacy_documenter/documentation/generator.py",
+        "propagates": false,
+        "side_effects": "none",
+        "symbol": "run"
+      },
+      {
+        "caller_visible": true,
+        "cleanup_candidate": false,
+        "converted_to": "{\"status\": \"V3-R7_2_BLOCKED_PROVIDER\", \"calls\": 0}",
+        "exception_type": "Exception",
+        "existing_test": true,
+        "input_condition": "provider model discovery fails",
+        "message_or_pattern": null,
+        "new_characterization_test": null,
+        "operation": "asyncio.run(discover_model())",
+        "partial_result_preserved": false,
+        "path": "legacy_documenter/documentation/hierarchical.py",
+        "propagates": false,
+        "side_effects": "none",
+        "symbol": "run"
+      },
+      {
+        "caller_visible": true,
+        "cleanup_candidate": false,
+        "converted_to": "{\"status\": \"V3-R7_2_1_BLOCKED_PROVIDER\", \"calls\": 0}",
+        "exception_type": "Exception",
+        "existing_test": true,
+        "input_condition": "provider model discovery fails",
+        "message_or_pattern": null,
+        "new_characterization_test": null,
+        "operation": "asyncio.run(discover_model())",
+        "partial_result_preserved": false,
+        "path": "legacy_documenter/documentation/systematic.py",
+        "propagates": false,
+        "side_effects": "none",
+        "symbol": "run"
+      }
+    ],
+    "tests_added": [
+      "tests/test_v4_1_r7_exception_boundaries_characterization.py"
+    ]
+  },
+  "cleanup_gate": "OPEN",
+  "cleanups_performed": 1,
+  "compatibility": {
+    "exception_messages": "PASS",
+    "exception_types": "PASS",
+    "failure_results": "PASS",
+    "ordering": "PASS",
+    "partial_results": "PASS",
+    "public_imports": "PASS",
+    "public_signatures": "PASS",
+    "side_effects": "PASS",
+    "success_results": "PASS"
+  },
+  "deferred_cleanups": [
+    {
+      "classification": "CHARACTERIZED_BUT_DEFER",
+      "path": "legacy_documenter/documentation/resume.py",
+      "reason": "High-risk fence; all handlers entangled with provider call sequence."
+    }
+  ],
+  "entry_gate": {
+    "baseline_tests": "1561_PASS_0_FAIL_0_SKIP",
+    "git_status_clean_except_prompt": true,
+    "provider_calls": 0,
+    "readiness": "READY",
+    "real_llm_calls": 0,
+    "result": "PASS",
+    "v4_1_r0_through_r6_approved": true,
+    "v4_formally_closed": true
+  },
+  "inventory": {
+    "adapters": [
+      {
+        "note": "Three near-identical try/except Exception blocks converting a per-file extractor failure into a structured error record (CallExtractor, WebEventExtractor, DatabaseExtractor); a fourth, differently-shaped block in the same function (solution/vb_project/vb_source/webform/web_config extraction) was left unchanged (DIFFERENT, not SEMANTICALLY_IDENTICAL to the other three).",
+        "path": "legacy_documenter/main.py",
+        "symbol": "analyze_repository"
+      }
+    ],
+    "exception_boundaries": [
+      {
+        "handler_count": 1,
+        "path": "legacy_documenter/documentation/generator.py",
+        "r0_classification": "HISTORICAL_COMPATIBILITY"
+      },
+      {
+        "handler_count": 3,
+        "path": "legacy_documenter/documentation/hierarchical.py",
+        "r0_classification": "HISTORICAL_COMPATIBILITY"
+      },
+      {
+        "handler_count": 6,
+        "path": "legacy_documenter/documentation/resume.py",
+        "r0_classification": "REFACTOR_CANDIDATE"
+      },
+      {
+        "handler_count": 1,
+        "path": "legacy_documenter/documentation/systematic.py",
+        "r0_classification": "HISTORICAL_COMPATIBILITY"
+      },
+      {
+        "handler_count": 1,
+        "path": "legacy_documenter/llm/copilot_pilot.py",
+        "r0_classification": "JUSTIFIED_BOUNDARY"
+      },
+      {
+        "handler_count": 4,
+        "path": "legacy_documenter/llm/providers/copilot.py",
+        "r0_classification": "JUSTIFIED_BOUNDARY"
+      },
+      {
+        "handler_count": 2,
+        "path": "legacy_documenter/llm/providers/gemini.py",
+        "r0_classification": "JUSTIFIED_BOUNDARY"
+      },
+      {
+        "handler_count": 4,
+        "path": "legacy_documenter/main.py",
+        "r0_classification": "JUSTIFIED_BOUNDARY"
+      }
+    ],
+    "high_risk_boundaries": [
+      "legacy_documenter/documentation/resume.py",
+      "legacy_documenter/extractors/database_extractor.py",
+      "legacy_documenter/analysis/flow_resolver.py",
+      "legacy_documenter/analysis/deep_source.py"
+    ],
+    "provider_boundaries": [
+      "legacy_documenter/documentation/generator.py",
+      "legacy_documenter/documentation/hierarchical.py",
+      "legacy_documenter/documentation/systematic.py",
+      "legacy_documenter/llm/copilot_pilot.py",
+      "legacy_documenter/llm/providers/copilot.py",
+      "legacy_documenter/llm/providers/gemini.py"
+    ]
+  },
+  "production_files_added": [],
+  "production_files_modified": [
+    "legacy_documenter/main.py"
+  ],
+  "provider_boundary_changes": 0,
+  "r0_frozen_inventory_modified": false,
+  "r6_deferred_groups_preserved": "PASS",
+  "readiness": "READY",
+  "round": "V4.1-R7",
+  "tests": "1566_PASS_0_FAIL_0_SKIP"
+}
