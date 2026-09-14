@@ -8,7 +8,9 @@ MODE=DOCUMENTATION_APPROVAL_AND_VERSIONING_ONLY
 
 ## STATUS
 
-STATUS=POST_V4_1_DOCUMENTATION_FORMALLY_VERSIONED
+STATUS=POST_V4_1_DOCUMENTATION_COMMITTED_PUSH_PENDING
+
+Documentation approval is registered and the versioning commits exist locally on `main`; the push to `origin/main` failed due to a credential/permission issue (see GIT_PUSH below) and has not yet completed. This document will need a follow-up push once an authorized credential is available; the task's original expectation of `POST_V4_1_DOCUMENTATION_FORMALLY_VERSIONED` is not yet fully reached because the repository is not yet synchronized with the remote.
 
 ---
 
@@ -166,13 +168,22 @@ Verified via `git rev-parse HEAD` / `git log -1 --format="%H"` after the commit 
 
 ## GIT_PUSH
 
-GIT_PUSH=PASS
+GIT_PUSH=FAIL
+
+`git push origin main` was attempted and rejected by GitHub with a 403:
+
+```
+remote: Permission to CarlosEGJDev/LegacyMapper.git denied to CarlosEGJDevSecond.
+fatal: unable to access 'https://github.com/CarlosEGJDev/LegacyMapper.git/': The requested URL returned error: 403
+```
+
+The credentials configured in this environment authenticate as `CarlosEGJDevSecond`, which does not have push permission on `CarlosEGJDev/LegacyMapper`. This is a repository-permission/credential issue outside the scope of this task's code or documentation changes; no destructive or forced push was attempted. Both commits (`251e36f...` and `aceafbc...`, see GIT_COMMIT_HASH) remain committed locally on `main`, ahead of `origin/main`, pending a push from an authorized account or credential.
 
 ## GIT_STATUS_AFTER
 
-GIT_STATUS_AFTER=CLEAN
+GIT_STATUS_AFTER=CLEAN (working tree clean; local `main` is 2 commits ahead of `origin/main`, not yet pushed)
 
-`git status --short` empty after push.
+`git status --short` is empty (no uncommitted changes), but the branch is not yet synchronized with the remote due to GIT_PUSH=FAIL above.
 
 ---
 
@@ -198,8 +209,10 @@ No file under `docs/V4/*`, no `docs/V4_1/V4_1_*` historical round/closure docume
 
 ## DECISION
 
-DECISION=POST_V4_1_DOCUMENTATION_APPROVED_AND_VERSIONED
+DECISION=POST_V4_1_DOCUMENTATION_APPROVED_AND_COMMITTED_PUSH_PENDING
 
 ## NEXT
 
-NEXT=V5_DESIGN_PENDING
+NEXT=PUSH_TO_ORIGIN_WITH_AUTHORIZED_CREDENTIAL_THEN_V5_DESIGN_PENDING
+
+The Technical Lead (or repository owner) needs to push commits `251e36f38cb7087a442f33506d9974485775aaeb` and `aceafbc...` (local `main`, currently 2 commits ahead of `origin/main`) to `origin/main` using a credential/account with write access to `CarlosEGJDev/LegacyMapper`, since the currently configured credential (`CarlosEGJDevSecond`) was rejected with a 403. After that push succeeds, `V5_DESIGN_PENDING` remains the correct next step per the original task expectation.
