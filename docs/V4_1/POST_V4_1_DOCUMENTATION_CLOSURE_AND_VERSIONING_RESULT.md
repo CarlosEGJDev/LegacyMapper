@@ -160,9 +160,9 @@ Commit message: `Add LegacyMapper V4.1 user and developer documentation`
 
 ## GIT_COMMIT_HASH
 
-GIT_COMMIT_HASH=<RECORDED_BELOW_AFTER_COMMIT>
+GIT_COMMIT_HASH=251e36f38cb7087a442f33506d9974485775aaeb
 
-(Populated in the follow-up "Record real commit hash" step, per repository convention for this task family.)
+Verified via `git rev-parse HEAD` / `git log -1 --format="%H"` after the commit above.
 
 ## GIT_PUSH
 
