@@ -1,0 +1,439 @@
+{
+  "approval_chain": [
+    {
+      "round": "V4.1-R0",
+      "status": "APPROVED",
+      "tests_at_closure": 1380
+    },
+    {
+      "round": "V4.1-R1",
+      "status": "APPROVED",
+      "tests_at_closure": 1424
+    },
+    {
+      "round": "V4.1-R2",
+      "status": "APPROVED",
+      "tests_at_closure": 1442
+    },
+    {
+      "round": "V4.1-R3",
+      "status": "APPROVED",
+      "tests_at_closure": 1468
+    },
+    {
+      "round": "V4.1-R4",
+      "status": "APPROVED",
+      "tests_at_closure": 1486
+    },
+    {
+      "round": "V4.1-R5",
+      "status": "APPROVED",
+      "tests_at_closure": 1536
+    },
+    {
+      "round": "V4.1-R6",
+      "status": "APPROVED",
+      "tests_at_closure": 1561
+    },
+    {
+      "round": "V4.1-R7",
+      "status": "APPROVED",
+      "tests_at_closure": 1566
+    },
+    {
+      "round": "V4.1-R8",
+      "status": "APPROVED",
+      "tests_at_closure": 1566
+    }
+  ],
+  "canonical_knowledge": {
+    "ai_interpretation_not_self_approving": "PASS",
+    "as_is_to_be_historical_semantics_preserved": "PASS",
+    "one_canonical_knowledge_source": "PASS",
+    "provenance_preserved": "PASS",
+    "source_code_optional": "PASS",
+    "technical_lead_final_approval_authority": "PASS",
+    "uncertainty_preserved": "PASS"
+  },
+  "contract_verification_matrix": [
+    {
+      "contract": "public import paths",
+      "evidence": "R1-R8 closures each recorded PUBLIC_IMPORT(S)_PRESERVED=PASS; full regression green",
+      "rounds_affecting": "R1,R3,R4,R6,R7,R8",
+      "status": "PASS",
+      "verification": "re-ran full suite + targeted characterization/security tests"
+    },
+    {
+      "contract": "public callable signatures",
+      "evidence": "R1-R8 closures each recorded PUBLIC_SIGNATURE_COMPATIBILITY=PASS",
+      "rounds_affecting": "R1,R3,R4,R6,R7,R8",
+      "status": "PASS",
+      "verification": "re-ran full suite"
+    },
+    {
+      "contract": "positional-call compatibility",
+      "evidence": "R3 POSITIONAL_CALL_COMPATIBILITY=PASS",
+      "rounds_affecting": "R3",
+      "status": "PASS",
+      "verification": "re-ran full suite"
+    },
+    {
+      "contract": "keyword-call compatibility",
+      "evidence": "R3 KEYWORD_CALL_COMPATIBILITY=PASS",
+      "rounds_affecting": "R3",
+      "status": "PASS",
+      "verification": "re-ran full suite"
+    },
+    {
+      "contract": "deterministic identifiers",
+      "evidence": "R6 FLOW_IDENTIFIER_EQUIVALENCE=PASS; test_no_projection_invents_a_kno_id passes",
+      "rounds_affecting": "R6",
+      "status": "PASS",
+      "verification": "re-ran tests.test_v4_r13_regression_and_security"
+    },
+    {
+      "contract": "deterministic ordering",
+      "evidence": "R6 DATABASE/FLOW_ORDERING_EQUIVALENCE=PASS; R7 ORDERING_EQUIVALENCE=PASS",
+      "rounds_affecting": "R6,R7",
+      "status": "PASS",
+      "verification": "re-ran tests.test_v4_1_r6_*, tests.test_v4_1_r7_*"
+    },
+    {
+      "contract": "serialized output structures",
+      "evidence": "R1 CONTRACT_JSON_BYTE_EQUIVALENCE=PASS; R2/R4/R7/R8 SERIALIZED_OUTPUT_EQUIVALENCE=PASS",
+      "rounds_affecting": "R1,R2,R4,R7,R8",
+      "status": "PASS",
+      "verification": "re-ran full suite + readiness gate twice"
+    },
+    {
+      "contract": "exception behavior",
+      "evidence": "R3 EXCEPTION_BEHAVIOR_EQUIVALENCE=PASS; R4 READINESS_EXCEPTION_EQUIVALENCE=PASS; R6 DATABASE/FLOW_EXCEPTION_EQUIVALENCE=PASS; R7 EXCEPTION_TYPE/MESSAGE_EQUIVALENCE=PASS",
+      "rounds_affecting": "R3,R4,R6,R7",
+      "status": "PASS",
+      "verification": "re-ran characterization tests"
+    },
+    {
+      "contract": "partial-result behavior",
+      "evidence": "R6 characterization; R7 PARTIAL_RESULT_EQUIVALENCE=PASS",
+      "rounds_affecting": "R6,R7",
+      "status": "PASS",
+      "verification": "re-ran tests.test_v4_1_r7_exception_boundaries_characterization"
+    },
+    {
+      "contract": "state reuse/reset semantics",
+      "evidence": "R6 FLOW_STATE_REUSE_EQUIVALENCE=PASS",
+      "rounds_affecting": "R6",
+      "status": "PASS",
+      "verification": "re-ran tests.test_v4_1_r6_flow_resolver_gap_closure"
+    },
+    {
+      "contract": "readiness behavior",
+      "evidence": "R4 READINESS_RESULT_EQUIVALENCE=PASS",
+      "rounds_affecting": "R4",
+      "status": "PASS",
+      "verification": "re-ran python -m legacy_documenter.knowledge.readiness twice, identical output"
+    },
+    {
+      "contract": "canonical knowledge behavior",
+      "evidence": "status/temporal preservation tests pass unchanged",
+      "rounds_affecting": "none (V4 contract, untouched by V4.1)",
+      "status": "PASS",
+      "verification": "re-ran tests.test_v4_r13_regression_and_security"
+    },
+    {
+      "contract": "R11 human projection boundary",
+      "evidence": "R11 ids subset of canonical ids; human projection never imports plugin_projection",
+      "rounds_affecting": "none (V4 contract, untouched)",
+      "status": "PASS",
+      "verification": "re-ran SiblingProjectionTests"
+    },
+    {
+      "contract": "R12 Plugin projection boundary",
+      "evidence": "R12 ids equal canonical ids; plugin projection never imports human projection; no Plugin runtime class/function defined",
+      "rounds_affecting": "none (V4 contract, untouched)",
+      "status": "PASS",
+      "verification": "re-ran SiblingProjectionTests, ProviderAndRuntimeBoundaryTests"
+    },
+    {
+      "contract": "security invariants",
+      "evidence": "no eval/exec/compile, no risky primitive calls, path-traversal rejection, prompt-injection inertness",
+      "rounds_affecting": "none (V4 contract, untouched)",
+      "status": "PASS",
+      "verification": "re-ran NoDynamicExecutionTests, PathSafetyTests, PromptInjectionInertnessTests"
+    },
+    {
+      "contract": "source-code optionality",
+      "evidence": "common models have no forbidden required fields; human-information-only material valid without code locator",
+      "rounds_affecting": "none (V4 contract, untouched)",
+      "status": "PASS",
+      "verification": "re-ran SourceCodeOptionalityTests"
+    },
+    {
+      "contract": "Technical Lead approval authority",
+      "evidence": "every R1-R8 closure doc recorded APPROVAL_AUTHORITY=TECHNICAL_LEAD; no self-approval by the development agent occurred at any round",
+      "rounds_affecting": "R1,R2,R3,R4,R5,R6,R7,R8",
+      "status": "PASS",
+      "verification": "read all 8 closure documents"
+    }
+  ],
+  "cumulative_change_inventory": [
+    {
+      "approved": true,
+      "behavior_change_claim": false,
+      "characterization_only": false,
+      "documentation_only_change": false,
+      "equivalence_artifact": "output/v4_1_r1/V4_1_R1_BEHAVIORAL_EQUIVALENCE.json",
+      "production_files_added": [
+        "legacy_documenter/utils/json_rendering.py"
+      ],
+      "production_files_modified": [
+        "legacy_documenter/utils/__init__.py",
+        "legacy_documenter/knowledge/approval/contract_report.py",
+        "legacy_documenter/knowledge/canonical/contract_report.py",
+        "legacy_documenter/knowledge/classification/contract_report.py",
+        "legacy_documenter/knowledge/ingestion/contract_report.py",
+        "legacy_documenter/knowledge/input/contract_report.py",
+        "legacy_documenter/knowledge/plugin_projection/contract_report.py",
+        "legacy_documenter/knowledge/projection/contract_report.py",
+        "legacy_documenter/knowledge/proposals/contract_report.py",
+        "legacy_documenter/knowledge/provenance/contract_report.py",
+        "legacy_documenter/knowledge/relations/contract_report.py",
+        "legacy_documenter/knowledge/temporal/contract_report.py"
+      ],
+      "public_surface_changed": false,
+      "round": "V4.1-R1",
+      "structural_change": true,
+      "typing_change": false
+    },
+    {
+      "approved": true,
+      "behavior_change_claim": false,
+      "characterization_only": false,
+      "documentation_only_change": false,
+      "equivalence_artifact": "output/v4_1_r2/V4_1_R2_TYPE_AND_CONTRACT_EQUIVALENCE.json",
+      "production_files_added": [],
+      "production_files_modified": [
+        "legacy_documenter/analysis/deep_interpretation.py",
+        "legacy_documenter/analysis/targeted_exhaustion.py",
+        "legacy_documenter/documentation/aggregation.py",
+        "legacy_documenter/documentation/consistency.py",
+        "legacy_documenter/documentation/contracts.py",
+        "legacy_documenter/documentation/coverage.py",
+        "legacy_documenter/documentation/envelope.py",
+        "legacy_documenter/documentation/evidence_catalog.py",
+        "legacy_documenter/documentation/human_review.py",
+        "legacy_documenter/documentation/interpretation.py",
+        "legacy_documenter/documentation/renderer.py"
+      ],
+      "public_surface_changed": true,
+      "round": "V4.1-R2",
+      "structural_change": false,
+      "typing_change": true
+    },
+    {
+      "approved": true,
+      "behavior_change_claim": false,
+      "characterization_only": false,
+      "documentation_only_change": false,
+      "equivalence_artifact": "output/v4_1_r3/V4_1_R3_NAMING_COMPATIBILITY.json",
+      "production_files_added": [],
+      "production_files_modified": [
+        "legacy_documenter/knowledge/classification/service.py",
+        "legacy_documenter/knowledge/proposals/service.py",
+        "legacy_documenter/knowledge/relations/service.py",
+        "legacy_documenter/quality/maintainability_audit.py"
+      ],
+      "public_surface_changed": true,
+      "round": "V4.1-R3",
+      "structural_change": false,
+      "typing_change": false
+    },
+    {
+      "approved": true,
+      "behavior_change_claim": false,
+      "characterization_only": false,
+      "documentation_only_change": false,
+      "equivalence_artifact": "output/v4_1_r4/V4_1_R4_READINESS_EQUIVALENCE.json",
+      "production_files_added": [
+        "legacy_documenter/knowledge/_readiness_io.py",
+        "legacy_documenter/knowledge/_readiness_parsing.py",
+        "legacy_documenter/knowledge/_readiness_evidence.py"
+      ],
+      "production_files_modified": [
+        "legacy_documenter/knowledge/readiness.py"
+      ],
+      "public_surface_changed": false,
+      "round": "V4.1-R4",
+      "structural_change": true,
+      "typing_change": false
+    },
+    {
+      "approved": true,
+      "behavior_change_claim": false,
+      "characterization_only": true,
+      "documentation_only_change": false,
+      "equivalence_artifact": "output/v4_1_r5/V4_1_R5_ORCHESTRATOR_CHARACTERIZATION.json",
+      "production_files_added": [],
+      "production_files_modified": [],
+      "public_surface_changed": false,
+      "round": "V4.1-R5",
+      "structural_change": false,
+      "typing_change": false
+    },
+    {
+      "approved": true,
+      "behavior_change_claim": false,
+      "characterization_only": false,
+      "documentation_only_change": false,
+      "equivalence_artifact": "output/v4_1_r6/V4_1_R6_EXTRACTION_EQUIVALENCE.json",
+      "production_files_added": [
+        "legacy_documenter/extractors/_database_line_scanner.py",
+        "legacy_documenter/extractors/_database_token_parsing.py",
+        "legacy_documenter/extractors/_database_classification.py",
+        "legacy_documenter/analysis/_flow_graph_construction.py",
+        "legacy_documenter/analysis/_flow_key_labels.py",
+        "legacy_documenter/analysis/_flow_report_composition.py"
+      ],
+      "production_files_modified": [
+        "legacy_documenter/extractors/database_extractor.py",
+        "legacy_documenter/analysis/flow_resolver.py"
+      ],
+      "public_surface_changed": false,
+      "round": "V4.1-R6",
+      "structural_change": true,
+      "typing_change": false
+    },
+    {
+      "approved": true,
+      "behavior_change_claim": false,
+      "characterization_only": false,
+      "documentation_only_change": false,
+      "equivalence_artifact": "output/v4_1_r7/V4_1_R7_EXCEPTION_BOUNDARY_EQUIVALENCE.json",
+      "production_files_added": [],
+      "production_files_modified": [
+        "legacy_documenter/main.py"
+      ],
+      "public_surface_changed": false,
+      "round": "V4.1-R7",
+      "structural_change": true,
+      "typing_change": false
+    },
+    {
+      "approved": true,
+      "behavior_change_claim": false,
+      "characterization_only": false,
+      "documentation_only_change": true,
+      "equivalence_artifact": "output/v4_1_r8/V4_1_R8_NAMING_DOCUMENTATION_EQUIVALENCE.json",
+      "production_files_added": [],
+      "production_files_modified": [
+        "legacy_documenter/context/__init__.py",
+        "legacy_documenter/context/composer.py",
+        "legacy_documenter/context/context_builder.py",
+        "legacy_documenter/extractors/_database_classification.py"
+      ],
+      "public_surface_changed": false,
+      "round": "V4.1-R8",
+      "structural_change": false,
+      "typing_change": true
+    }
+  ],
+  "database_extractor": {
+    "behavior_equivalence": "PASS",
+    "evidence": "tests.test_v4_1_r5_database_extractor_characterization and tests.test_v4_1_r6_database_extractor_gap_closure re-run and pass; git diff --stat against database_extractor.py is empty since R6",
+    "exception_equivalence": "PASS",
+    "ordering_equivalence": "PASS",
+    "r6_deferred_groups_preserved": "PASS"
+  },
+  "debt_state": {
+    "DEBT_001": "RESOLVED",
+    "DEBT_002": "RESOLVED",
+    "DEBT_003": "RESOLVED",
+    "DUP_001": "RESOLVED",
+    "DUP_002": "PRESERVED_DISTINCT",
+    "DUP_003": "UNTOUCHED",
+    "DUP_004": "UNTOUCHED",
+    "REG_002_CANDIDATE": "RESOLVED (R1, test-only fix)",
+    "TD_001": "OPEN (recommended_round V4.1-R8 in the original R0 plan; the R8 actually executed used a different, narrower scope and did not address it; not silently marked resolved)",
+    "TD_002": "DEFERRED (provider boundary kept unchanged by design; R7 explicitly out of scope per Provider Boundary Fence)",
+    "TD_003": "PRESERVED_DISTINCT (same as DUP-002)",
+    "TD_004": "PARTIALLY_RESOLVED (6 of 15 R5-identified groups extracted in R6; 9 remain deferred)",
+    "TD_005": "PARTIALLY_RESOLVED",
+    "status": "PASS"
+  },
+  "determinism": {
+    "inventory_build_deterministic_test_passing": true,
+    "r7_equivalence_artifact_determinism_previously_proven": true,
+    "r8_equivalence_artifact_determinism_previously_proven": true,
+    "readiness_rerun_twice_identical": true,
+    "status": "PASS"
+  },
+  "entry_gate": {
+    "baseline_tests": "1566_PASS_0_FAIL_0_SKIP",
+    "git_status_clean_except_prompt": true,
+    "provider_calls": 0,
+    "readiness": "READY",
+    "real_llm_calls": 0,
+    "result": "PASS",
+    "v4_1_r0_through_r8_approved": true,
+    "v4_formally_closed": true
+  },
+  "flow_resolver": {
+    "behavior_equivalence": "PASS",
+    "evidence": "tests.test_v4_1_r5_flow_resolver_characterization and tests.test_v4_1_r6_flow_resolver_gap_closure re-run and pass; _path_id/_path_identities/_add_path/_call_ref/_stable_id untouched; git diff --stat against flow_resolver.py is empty since R6",
+    "exception_equivalence": "PASS",
+    "identifier_equivalence": "PASS",
+    "ordering_equivalence": "PASS",
+    "r6_deferred_groups_preserved": "PASS",
+    "state_reuse_equivalence": "PASS"
+  },
+  "historical_artifact_integrity": {
+    "r1": "PASS",
+    "r2": "PASS",
+    "r3": "PASS",
+    "r4": "PASS",
+    "r5": "PASS",
+    "r6": "PASS",
+    "r7": "PASS",
+    "r8": "PASS"
+  },
+  "production_behavior_changed": false,
+  "production_code_changed": false,
+  "r0_frozen_inventory_modified": false,
+  "r11_boundary": "PASS",
+  "r12_boundary": "PASS",
+  "r7_exception_boundaries": {
+    "evidence": "tests.test_v4_1_r7_exception_boundaries_characterization re-run and pass; git diff --stat against main.py is empty since R7",
+    "preserved": "PASS",
+    "provider_boundary_production_changes": 0
+  },
+  "r8_readability": {
+    "context_package_structure_unchanged": "PASS",
+    "copilot_pilot_rename": "DEFERRED",
+    "td_005_status": "PARTIALLY_RESOLVED"
+  },
+  "readiness": "READY",
+  "round": "V4.1-R9",
+  "security": {
+    "no_hidden_external_network_requirement_introduced": true,
+    "no_provider_calls": true,
+    "no_real_llm_calls": true,
+    "no_secret_values_introduced": true,
+    "no_source_tree_mutation": true,
+    "no_unsafe_path_traversal_regression": true,
+    "status": "PASS"
+  },
+  "tests": "1566_PASS_0_FAIL_0_SKIP",
+  "v4_baseline_integrity": "PASS",
+  "v4_manifest_integrity": "PASS",
+  "v5_boundary": {
+    "ai_model_agnostic": false,
+    "ai_provider_agnostic": false,
+    "architecture_pattern_agnostic": false,
+    "database_agnostic": false,
+    "framework_agnostic": false,
+    "implemented": false,
+    "language_agnostic": false,
+    "note": "V4.1 was a maintainability refactor of the existing VB.NET/Oracle/Copilot-specific implementation; it did not and was not required to introduce runtime/domain agnosticism. V5 remains responsible for language, framework, project-layout, architecture-pattern, database/persistence-technology, AI-provider, and AI-model agnosticism. No provider abstraction, Copilot-specific rename, or extraction-architecture change for agnosticism was made in R1-R9.",
+    "project_layout_agnostic": false
+  }
+}
