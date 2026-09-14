@@ -1,3 +1,4 @@
+"""Applies a token/record budget to a ContextResolver package (read-stage composition)."""
 import json,math,hashlib
 
 PROFILES={"TINY":(20,4000),"SMALL":(80,16000),"MEDIUM":(250,50000),"LARGE":(800,160000),"FULL":(10**9,10**9)}

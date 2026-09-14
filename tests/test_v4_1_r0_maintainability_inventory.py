@@ -302,6 +302,16 @@ class GeneratedArtifactOnDiskTests(unittest.TestCase):
             # drops from 4 to 2 (three redundant handlers collapsed into
             # one shared handler).
             "legacy_documenter/main.py",
+            # V4.1-R8 added a package-level docstring to context/__init__.py
+            # (explaining how the four context/ modules relate, per R0's
+            # naming_candidates note that the entry point is hard to guess)
+            # and module-level docstrings to composer.py/context_builder.py
+            # (previously missing). No rename, no restructuring; only
+            # line_count and module_docstring_present move for these three
+            # files; see output/v4_1_r8/V4_1_R8_NAMING_DOCUMENTATION_EQUIVALENCE.json.
+            "legacy_documenter/context/__init__.py",
+            "legacy_documenter/context/composer.py",
+            "legacy_documenter/context/context_builder.py",
         }
 
         normalized_on_disk = dict(on_disk)

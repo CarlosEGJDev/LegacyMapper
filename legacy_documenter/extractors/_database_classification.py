@@ -1,7 +1,8 @@
 """Provider/direction/type classification and normalization helpers (V4.1-R6)."""
+import re
 
 
-def matched_type(match) -> str | None:
+def matched_type(match: re.Match[str]) -> str | None:
     """Returns whichever of a multi-alternative regex match's type groups fired."""
     for name in ("type1", "type2", "type3", "type4"):
         value = match.groupdict().get(name)

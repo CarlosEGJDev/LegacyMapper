@@ -1,3 +1,4 @@
+"""Writes the per-project technology/dependency summary (write-stage, output/context/projects.json)."""
 from pathlib import Path
 import json
 
