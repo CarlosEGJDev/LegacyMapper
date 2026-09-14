@@ -1,0 +1,158 @@
+{
+  "immutable_artifacts": [
+    {
+      "path": "output/v4_1_r0/V4_1_MAINTAINABILITY_INVENTORY.json",
+      "role": "R0 frozen maintainability inventory (historical AST scan)",
+      "sha256": "b3308ba13e5fbc8cf9f9d381f3cd9d83a53f9b2ad3fad94e9b361c64ae2f398f"
+    },
+    {
+      "path": "output/v4_1_r0/V4_1_REFACTOR_PLAN.json",
+      "role": "R0 frozen refactor plan",
+      "sha256": "205b933293291c15394f667ffef6ee450d5aef43b0453cdda94865c6036b3954"
+    },
+    {
+      "path": "output/v4_1_r1/V4_1_R1_BEHAVIORAL_EQUIVALENCE.json",
+      "role": "R1 approved behavioral-equivalence evidence",
+      "sha256": "55c99c3b68ac159585c6a0ec7e05f74e8dd64dd871308d067ab27bdda1a1c33b"
+    },
+    {
+      "path": "output/v4_1_r2/V4_1_R2_TYPE_AND_CONTRACT_EQUIVALENCE.json",
+      "role": "R2 approved type/contract equivalence evidence",
+      "sha256": "bd3daf04be868ef6465298c5e372aacc1f33bf234417f2bb914b79b22ab5a6f4"
+    },
+    {
+      "path": "output/v4_1_r3/V4_1_R3_NAMING_COMPATIBILITY.json",
+      "role": "R3 approved naming compatibility evidence",
+      "sha256": "9e922d288b4f07812482baef1a5383276cd71f729e27cc67b47e54c30c5afecf"
+    },
+    {
+      "path": "output/v4_1_r4/V4_1_R4_READINESS_EQUIVALENCE.json",
+      "role": "R4 approved readiness decomposition equivalence evidence",
+      "sha256": "eb07e0f35540e0607b90f8ff707c7cac8e1f113419d338e3cc8579fa12f1e617"
+    },
+    {
+      "path": "output/v4_1_r5/V4_1_R5_ORCHESTRATOR_CHARACTERIZATION.json",
+      "role": "R5 approved orchestrator characterization evidence",
+      "sha256": "04c82d51b17664630adcafe26dd343d5f0740932904c77dd7a458029d547be32"
+    },
+    {
+      "path": "output/v4_1_r6/V4_1_R6_EXTRACTION_EQUIVALENCE.json",
+      "role": "R6 approved controlled extraction equivalence evidence",
+      "sha256": "bb60f1bd1b527003b2cbfdfcd98f13d77ca3cff246dc9b23c820da5378861ab1"
+    },
+    {
+      "path": "output/v4_1_r7/V4_1_R7_EXCEPTION_BOUNDARY_EQUIVALENCE.json",
+      "role": "R7 approved exception boundary equivalence evidence",
+      "sha256": "ccb21db6b051b15b19c617dc387f28d7910386e634036f777b2a7eff374a5d4d"
+    },
+    {
+      "path": "output/v4_1_r8/V4_1_R8_NAMING_DOCUMENTATION_EQUIVALENCE.json",
+      "role": "R8 approved naming/documentation equivalence evidence",
+      "sha256": "1d1ffccbaf037b39442cc19dcd16ff4e00fd16cfb23d88e34ffccb98b9a51023"
+    },
+    {
+      "path": "output/v4_1_r9/V4_1_R9_COMPREHENSIVE_EQUIVALENCE.json",
+      "role": "R9 approved comprehensive regression/behavioral equivalence evidence",
+      "sha256": "87f49a41712ac83f948378da4e56c0df54b8c3f1a02741013b1f4d1b87568f04"
+    },
+    {
+      "path": "output/v4_r14/V4_FINAL_BASELINE.json",
+      "role": "V4 final approved baseline (unchanged by V4.1)",
+      "sha256": "d13e3807a12187b226ea55752ae0e9dccd2ad20c9dbe044360ffa48bca526d1e"
+    },
+    {
+      "path": "output/v4_r14/V4_FINAL_MANIFEST.json",
+      "role": "V4 final approved manifest (unchanged by V4.1)",
+      "sha256": "be398240a31137e7dea25fcaa7b3cfe6580d2557f990f7da884d5775f5c40551"
+    },
+    {
+      "path": "docs/V4_1/V4_1_R0_MAINTAINABILITY_INVENTORY_AND_REFACTOR_PLAN_RESULT.md",
+      "role": "R0 implementation result document",
+      "sha256": "8e8d2969adef1b57bf76afde80f96a999fcaf13c267e67669cf20aafe920dc5b"
+    },
+    {
+      "path": "docs/V4_1/V4_1_R0_CLOSURE_AND_VERSIONING_RESULT.md",
+      "role": "R0 closure and versioning result (Technical Lead approved)",
+      "sha256": "e6c780b6101b8c39a33575dfb59ba14dda6193880caacbba60d48da4aa0bf5d8"
+    },
+    {
+      "path": "docs/V4_1/V4_1_R1_CLOSURE_AND_VERSIONING_RESULT.md",
+      "role": "R1 closure and versioning result (Technical Lead approved)",
+      "sha256": "1b23afb59da069220adfdb304135d7cc8d8be364173479b8df549fded18a1870"
+    },
+    {
+      "path": "docs/V4_1/V4_1_R2_CLOSURE_AND_VERSIONING_RESULT.md",
+      "role": "R2 closure and versioning result (Technical Lead approved)",
+      "sha256": "1fa71ef191c9e9cc3c514af5ea30e520d4f8f53ca74f337fd20b6cc7db72a19a"
+    },
+    {
+      "path": "docs/V4_1/V4_1_R3_CLOSURE_AND_VERSIONING_RESULT.md",
+      "role": "R3 closure and versioning result (Technical Lead approved)",
+      "sha256": "8db9f45d0ddeeb0919d45a4de72877ead75611d1ee18b200b59799c8dd3ad538"
+    },
+    {
+      "path": "docs/V4_1/V4_1_R4_CLOSURE_AND_VERSIONING_RESULT.md",
+      "role": "R4 closure and versioning result (Technical Lead approved)",
+      "sha256": "ef4358efa074e7878e36a5ba020962ea2b2b57e720675fafd0cedd2cebd982a1"
+    },
+    {
+      "path": "docs/V4_1/V4_1_R5_CLOSURE_AND_VERSIONING_RESULT.md",
+      "role": "R5 closure and versioning result (Technical Lead approved)",
+      "sha256": "59a22eba99a62eec8c7cb01e87354851422acd320883dfe1089bf643d71b47a3"
+    },
+    {
+      "path": "docs/V4_1/V4_1_R6_CLOSURE_AND_VERSIONING_RESULT.md",
+      "role": "R6 closure and versioning result (Technical Lead approved)",
+      "sha256": "9cbfc0fcd413c156289b1bed4a68fbec929fee7b4568f83e3fe747d6f4e67e37"
+    },
+    {
+      "path": "docs/V4_1/V4_1_R7_CLOSURE_AND_VERSIONING_RESULT.md",
+      "role": "R7 closure and versioning result (Technical Lead approved)",
+      "sha256": "ac5e021c62435fa8f687344eac99d8c1327d1dbde58d8fe71a59c99a8e44d21c"
+    },
+    {
+      "path": "docs/V4_1/V4_1_R8_CLOSURE_AND_VERSIONING_RESULT.md",
+      "role": "R8 closure and versioning result (Technical Lead approved)",
+      "sha256": "1a8b50d1cdf756eed265acf3afc430502dbf91b2460eba1865f46aa1706e2066"
+    },
+    {
+      "path": "docs/V4_1/V4_1_R9_CLOSURE_AND_VERSIONING_RESULT.md",
+      "role": "R9 closure and versioning result (Technical Lead approved)",
+      "sha256": "58cabbb8f94fef9d91dfe6355794eca726904d45df4d4e13e7cb346e5191e3f2"
+    },
+    {
+      "path": "docs/V4/V4_FINAL_CLOSURE_RESULT.md",
+      "role": "V4 final closure result (unchanged by V4.1)",
+      "sha256": "f8516c091542dd0ace9b4958f58ce148d0705ac88dd997d61c6ab1024efd7f72"
+    },
+    {
+      "path": "output/v4_1_r10/V4_1_FINAL_BASELINE.json",
+      "role": "R10 final V4.1 baseline (this closure round's own output)",
+      "sha256": "4de19f5f364c523326502209ad589740ec70479da6fab28a010066d043241905"
+    }
+  ],
+  "mutable_current_state_documents": [
+    {
+      "path": "PROJECT_STATE.json",
+      "role": "mutable current-state pointer (latest_completed_round/latest_approved_round/round_status/next); not immutable evidence",
+      "sha256": "d8c02915d3d56fd6c36b2cae041796c7f9f2c4c18cb85f1a41fdef34e877e6ac"
+    },
+    {
+      "path": "docs/PROJECT_RECOVERY.md",
+      "role": "mutable authoritative recovery/orientation document for a fresh session; not immutable evidence",
+      "sha256": "14c9687f9489ff5b6ff18df518602976b7f5c8c1934ede134a23e58a5b990c16"
+    },
+    {
+      "path": "docs/GENERATED_ARTIFACT_POLICY.md",
+      "role": "mutable policy document governing generated-artifact handling; not immutable evidence",
+      "sha256": "bc7bcd7be3f8f86acf25c573bde315f4eea6e596cb9b3f5c410cb3ce145712e7"
+    },
+    {
+      "path": "docs/V4/V4_REPOSITORY_CONTINUITY_CONTRACT.md",
+      "role": "mutable repository-continuity contract document; not immutable evidence",
+      "sha256": "498934038a3b5b91cb7b5a2c3c32232199d592f853bd15ce60cefb049e6b4716"
+    }
+  ],
+  "note": "immutable_artifacts are approved historical evidence and must never be regenerated or edited; mutable_current_state_documents intentionally change as the project advances and their hashes here are a point-in-time snapshot, not an integrity requirement.",
+  "version": "V4.1"
+}

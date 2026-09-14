@@ -1,0 +1,91 @@
+{
+  "approved_rounds": {
+    "r0": "APPROVED",
+    "r1": "APPROVED",
+    "r2": "APPROVED",
+    "r3": "APPROVED",
+    "r4": "APPROVED",
+    "r5": "APPROVED",
+    "r6": "APPROVED",
+    "r7": "APPROVED",
+    "r8": "APPROVED",
+    "r9": "APPROVED"
+  },
+  "behavior": {
+    "behavior_change_forbidden": true,
+    "production_behavior_changed": false,
+    "refactor_goal": "READABILITY_AND_MAINTAINABILITY"
+  },
+  "canonical_knowledge": {
+    "ai_interpretation_self_approval": "NOT_SELF_APPROVING",
+    "one_canonical_source": "PASS",
+    "provenance": "PASS",
+    "source_code_optional": "PASS",
+    "technical_lead_authority": "PASS",
+    "temporal_semantics": "PASS",
+    "uncertainty": "PASS"
+  },
+  "compatibility": {
+    "deterministic_identifiers": "PASS",
+    "deterministic_ordering": "PASS",
+    "exception_behavior": "PASS",
+    "keyword_calls": "PASS",
+    "partial_results": "PASS",
+    "positional_calls": "PASS",
+    "public_imports": "PASS",
+    "public_signatures": "PASS",
+    "serialized_outputs": "PASS",
+    "state_reuse": "PASS"
+  },
+  "debt": {
+    "DEBT_001": "RESOLVED",
+    "DEBT_002": "RESOLVED",
+    "DEBT_003": "RESOLVED",
+    "DUP_001": "RESOLVED",
+    "DUP_002": "PRESERVED_DISTINCT",
+    "DUP_003": "UNTOUCHED",
+    "DUP_004": "UNTOUCHED",
+    "REG_002_CANDIDATE": "RESOLVED",
+    "TD_001": "OPEN",
+    "TD_002": "DEFERRED",
+    "TD_003": "PRESERVED_DISTINCT",
+    "TD_004": "PARTIALLY_RESOLVED",
+    "TD_005": "PARTIALLY_RESOLVED"
+  },
+  "plugin_contract": {
+    "name": "LegacyMapperPluginKnowledge",
+    "runtime_implemented": false,
+    "version": "1.0"
+  },
+  "provider_calls": 0,
+  "r11": "PASS",
+  "r12": "PASS",
+  "readiness": "READY",
+  "real_llm_calls": 0,
+  "security": {
+    "no_hidden_external_network_requirement_introduced": true,
+    "no_provider_calls": true,
+    "no_real_llm_calls": true,
+    "no_secret_values_introduced": true,
+    "no_source_tree_mutation": true,
+    "no_unsafe_path_traversal_regression": true,
+    "status": "PASS"
+  },
+  "status": "READY_FOR_TECHNICAL_LEAD_FINAL_APPROVAL",
+  "tests": "1566_PASS_0_FAIL_0_SKIP",
+  "v4_status": "FORMALLY_CLOSED",
+  "v5_boundary": {
+    "implemented": false,
+    "note": "V4.1 is a maintainability refactor of the existing VB.NET/Oracle/Copilot-specific implementation; it did not implement any of these transformations. No provider abstraction was introduced, no extractor was redesigned for agnosticism, and no Copilot-specific module was renamed.",
+    "scope": [
+      "programming_language_agnostic",
+      "framework_agnostic",
+      "project_layout_agnostic",
+      "architecture_pattern_agnostic",
+      "database_persistence_technology_agnostic",
+      "ai_provider_agnostic",
+      "ai_model_agnostic"
+    ]
+  },
+  "version": "V4.1"
+}
