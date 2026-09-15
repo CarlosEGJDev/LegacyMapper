@@ -147,6 +147,16 @@ Use the centralized sanitizer for exported evidence.
 
 If an upstream LegacyMapper defect is discovered while implementing a later phase, report it instead of silently changing an approved upstream semantic contract.
 
+### Manual AI-Path Verification (added V4.2-R5.1)
+
+Whenever the active round declares `REAL_AI_RUNTIME_CALL_ALLOWED=false`, manual verification of the AI-enabled path (`--allow-ai-interpretation`) MUST NOT invoke `python main.py full ... --allow-ai-interpretation` directly. That command always resolves a real provider via `ProviderRegistry`/`_resolve_provider` whenever no provider is injected -- exactly as it must for actual authorized production use -- so an unguarded manual run can reach a real, locally available AI client (this happened during V4.2-R5; see `docs/V4_2/V4_2_R5_1_EXIT_CODE_CONTRACT_AND_REAL_PROVIDER_GUARD_RESULT.md`).
+
+Instead, use one of:
+
+* `python -m tools.manual_verify_full_pipeline <repository> --output <dir> --allow-ai-interpretation` (always injects `FakeLLMProvider`, can never reach a real provider);
+* `legacy_documenter.cli.full_pipeline.run_full_pipeline(..., ai_provider=<FakeLLMProvider>)` called directly from a Python shell/script;
+* the existing automated test suite (`python -m unittest discover -s tests`), which additionally fails loudly (via `tests/__init__.py`'s real-provider guard) if any test path unexpectedly reaches real provider resolution.
+
 ## Working Style
 
 Proceed autonomously until:

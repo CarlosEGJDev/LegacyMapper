@@ -1,241 +1,107 @@
-import argparse
 import logging
 from pathlib import Path
 from time import perf_counter
 
-from legacy_documenter.analysis.dependency_resolver import DependencyResolver
-from legacy_documenter.analysis.call_resolver import CallResolver
-from legacy_documenter.analysis.database_resolver import DatabaseResolver
-from legacy_documenter.analysis.web_entry_resolver import WebEntryResolver
-from legacy_documenter.analysis.flow_resolver import FunctionalFlowResolver
-from legacy_documenter.context.context_builder import ContextBuilder
-from legacy_documenter.context.system_context_builder import SystemContextBuilder
-from legacy_documenter.exporters.json_exporter import JSONExporter
-from legacy_documenter.exporters.markdown_exporter import MarkdownExporter
-from legacy_documenter.extractors.solution_extractor import SolutionExtractor
-from legacy_documenter.models import SourceFile
-from legacy_documenter.extractors.call_extractor import CallExtractor
-from legacy_documenter.extractors.database_extractor import DatabaseExtractor
-from legacy_documenter.extractors.web_event_extractor import WebEventExtractor
-from legacy_documenter.extractors.vbnet_extractor import VBNetExtractor
-from legacy_documenter.extractors.vbproj_extractor import VBProjExtractor
-from legacy_documenter.extractors.webconfig_extractor import WebConfigExtractor
-from legacy_documenter.extractors.webforms_extractor import WebFormsExtractor
-from legacy_documenter.scanner.file_classifier import FileClassifier
-from legacy_documenter.scanner.repository_scanner import RepositoryScanner
+from legacy_documenter.cli.parser import build_parser, normalize_argv
+from legacy_documenter.cli.router import route
+from legacy_documenter.cli import pipeline_stages as stages
+from legacy_documenter.cli.run_summary_presenter import render_console_summary
 
 
 LOG = logging.getLogger("legacy_documenter")
 
 
 def analyze_repository(repo_root: str | Path, output_dir: str | Path, excludes: list[str] | None = None, flow_max_depth: int = 12) -> dict:
-    """Performs analyze repository while preserving this module's deterministic contract."""
+    """Runs the deterministic analysis pipeline end to end (the `analyze` compatibility orchestration).
+
+    Calls the same stage functions `full` uses (`legacy_documenter.cli.pipeline_stages`
+    and `legacy_documenter.cli.full_pipeline`), but with no stage-level exception
+    handling of its own: an unresolved error in any resolver/export stage still
+    aborts the whole run uncaught, exactly as before V4.2-R2. This is what keeps
+    `analyze`'s observable behavior byte-for-byte equivalent to the pre-R2 CLI.
+    """
     start = perf_counter()
-    root = Path(repo_root).resolve()
+    scan = stages.scan_repository(repo_root, excludes)
     output = Path(output_dir).resolve()
-    scanner = RepositoryScanner(excludes)
-    files = scanner.scan(root)
-    classifier = FileClassifier()
-    errors: list[dict] = []
-    solutions: list[dict] = []
-    projects: list[dict] = []
-    symbols: list[dict] = []
-    webforms: list[dict] = []
-    configuration: list[dict] = []
-    calls: list[dict] = []
-    web_events: list[dict] = []
-    data_access_indexes: list[dict] = []
 
-    extractors = {
-        "solution": SolutionExtractor(),
-        "vb_project": VBProjExtractor(),
-        "vb_source": VBNetExtractor(),
-        "aspx": WebFormsExtractor(),
-        "ascx": WebFormsExtractor(),
-        "master": WebFormsExtractor(),
-        "web_config": WebConfigExtractor(),
-    }
-
-    for source in files:
-        extractor = extractors.get(source.file_type)
-        if not extractor:
-            continue
-        full_path = root / source.relative_path
-        try:
-            extracted = extractor.extract(full_path, root)
-            if source.file_type == "solution":
-                solutions.append(extracted)
-            elif source.file_type == "vb_project":
-                projects.append(extracted.to_dict())
-            elif source.file_type == "vb_source":
-                symbols.extend(item.to_dict() for item in extracted)
-            elif source.file_type in {"aspx", "ascx", "master"}:
-                webforms.append(extracted.to_dict())
-            elif source.file_type == "web_config":
-                configuration.append(extracted)
-        except Exception as exc:
-            errors.append({"file": source.relative_path, "extractor": extractor.__class__.__name__, "error": str(exc)})
-
-    call_extractor = CallExtractor()
-    web_event_extractor = WebEventExtractor()
-    database_extractor = DatabaseExtractor()
-    for source in files:
-        if source.file_type != "vb_source":
-            continue
-        full_path = root / source.relative_path
-        _extract_into(call_extractor, "CallExtractor", source, full_path, root, calls, errors)
-        _extract_into(web_event_extractor, "WebEventExtractor", source, full_path, root, web_events, errors)
-        _extract_into(database_extractor, "DatabaseExtractor", source, full_path, root, data_access_indexes, errors)
-
-    apply_project_namespaces(symbols, projects)
-    logical_symbols = consolidate_partial_symbols(symbols, webforms)
-    calls, functional_dependencies = CallResolver().resolve(calls, symbols)
-    entry_points, event_bindings, web_functional_dependencies = WebEntryResolver().resolve(webforms, symbols, web_events, calls)
-    functional_dependencies = functional_dependencies + web_functional_dependencies
-    data_access, stored_procedures, sql_operations, data_parameters, data_dependencies = DatabaseResolver().resolve(data_access_indexes, projects)
-    functional_dependencies = functional_dependencies + data_dependencies
-    functional_flows, functional_paths, flow_summary, flow_unresolved = FunctionalFlowResolver(flow_max_depth).resolve(
-        entry_points, calls, data_access, stored_procedures, sql_operations, functional_dependencies, errors
+    extraction = stages.extract_repository(scan.files, scan.root)
+    call_resolution = stages.resolve_calls(extraction.calls, extraction.symbols)
+    web_entry_resolution = stages.resolve_web_entries(
+        extraction.webforms, extraction.symbols, extraction.web_events, call_resolution.calls
     )
-    dependencies = [dep.to_dict() for dep in DependencyResolver().resolve(solutions, projects, symbols, webforms)]
+    functional_dependencies = call_resolution.functional_dependencies + web_entry_resolution.functional_dependencies
+    database_resolution = stages.resolve_database(extraction.data_access_indexes, extraction.projects)
+    functional_dependencies = functional_dependencies + database_resolution.functional_dependencies
+    flow_resolution = stages.resolve_flows(
+        web_entry_resolution.entry_points, call_resolution.calls, database_resolution.data_access,
+        database_resolution.stored_procedures, database_resolution.sql_operations,
+        functional_dependencies, extraction.errors, flow_max_depth,
+    )
+    dependencies = stages.resolve_dependencies(extraction.solutions, extraction.projects, extraction.symbols, extraction.webforms)
+
     indexes = {
         "repository": {
-            "root": str(root),
-            "stats": classifier.stats([item.to_dict() for item in files]),
-            "ignored": scanner.ignored,
+            "root": str(scan.root),
+            "stats": scan.classifier.stats([item.to_dict() for item in scan.files]),
+            "ignored": scan.scanner.ignored,
             "duration_seconds": round(perf_counter() - start, 3),
         },
-        "files": [item.to_dict() for item in files],
-        "solutions": solutions,
-        "projects": projects,
-        "symbols": symbols,
-        "logical_symbols": logical_symbols,
-        "calls": calls,
-        "entry_points": entry_points,
-        "event_bindings": event_bindings,
-        "data_access": data_access,
-        "stored_procedures": stored_procedures,
-        "sql_operations": sql_operations,
-        "data_parameters": data_parameters,
+        "files": [item.to_dict() for item in scan.files],
+        "solutions": extraction.solutions,
+        "projects": extraction.projects,
+        "symbols": extraction.symbols,
+        "logical_symbols": extraction.logical_symbols,
+        "calls": call_resolution.calls,
+        "entry_points": web_entry_resolution.entry_points,
+        "event_bindings": web_entry_resolution.event_bindings,
+        "data_access": database_resolution.data_access,
+        "stored_procedures": database_resolution.stored_procedures,
+        "sql_operations": database_resolution.sql_operations,
+        "data_parameters": database_resolution.data_parameters,
         "functional_dependencies": functional_dependencies,
-        "functional_flows": functional_flows,
-        "functional_paths": functional_paths,
-        "flow_summary": flow_summary,
-        "flow_unresolved": flow_unresolved,
-        "webforms": webforms,
-        "configuration": configuration,
+        "functional_flows": flow_resolution.functional_flows,
+        "functional_paths": flow_resolution.functional_paths,
+        "flow_summary": flow_resolution.flow_summary,
+        "flow_unresolved": flow_resolution.flow_unresolved,
+        "webforms": extraction.webforms,
+        "configuration": extraction.configuration,
         "dependencies": dependencies,
-        "errors": errors,
+        "errors": extraction.errors,
     }
-    JSONExporter().export(output, indexes)
-    ContextBuilder().build_project_contexts(output, indexes)
-    SystemContextBuilder().build(output, indexes)
-    MarkdownExporter().export(output, indexes)
-    LOG.info("Analysis finished: %s files, %s errors", len(files), len(errors))
+    stages.export_artifacts(output, indexes)
+    stages.build_context_artifacts(output, indexes)
+    LOG.info("Analysis finished: %s files, %s errors", len(scan.files), len(extraction.errors))
     return indexes
 
 
-def _extract_into(
-    extractor: CallExtractor | WebEventExtractor | DatabaseExtractor,
-    label: str,
-    source: SourceFile,
-    full_path: Path,
-    root: Path,
-    sink: list,
-    errors: list[dict],
-) -> None:
-    """Runs one per-file extractor, appending its result to ``sink`` or a structured error to ``errors``.
-
-    Consolidates three previously duplicated try/except blocks in ``analyze_repository``
-    (CallExtractor, WebEventExtractor, DatabaseExtractor) that shared identical
-    exception handling shape; behavior is unchanged (same caught type, same error
-    record shape, same per-file call order).
-    """
-    try:
-        sink.append(extractor.extract(full_path, root))
-    except Exception as exc:
-        errors.append({"file": source.relative_path, "extractor": label, "error": str(exc)})
-
-
-def apply_project_namespaces(symbols: list[dict], projects: list[dict]) -> None:
-    """Performs apply project namespaces while preserving this module's deterministic contract."""
-    by_file: dict[str, list[dict]] = {}
-    for project in projects:
-        project_dir = Path(project["path"]).parent
-        for item in project.get("compile_items", []):
-            normalized = _norm_path(str(project_dir / item))
-            by_file.setdefault(normalized, []).append(project)
-    for symbol in symbols:
-        matches = by_file.get(_norm_path(symbol["file"]), [])
-        if len(matches) != 1:
-            if not symbol.get("declared_namespace"):
-                symbol["effective_namespace"] = None
-            symbol["namespace_confidence"] = "unresolved"
-            continue
-        project = matches[0]
-        root_namespace = project.get("root_namespace") or None
-        declared = symbol.get("declared_namespace")
-        symbol["project_path"] = project.get("path")
-        symbol["root_namespace"] = root_namespace
-        if root_namespace and declared:
-            symbol["effective_namespace"] = f"{root_namespace}.{declared}"
-        elif root_namespace:
-            symbol["effective_namespace"] = root_namespace
-        else:
-            symbol["effective_namespace"] = declared
-        symbol["namespace_confidence"] = "confirmed"
-
-
-def consolidate_partial_symbols(symbols: list[dict], webforms: list[dict]) -> list[dict]:
-    """Performs consolidate partial symbols while preserving this module's deterministic contract."""
-    codebehind_files = {_norm_path(form.get("codebehind", "")) for form in webforms if form.get("codebehind")}
-    codebehind_files.update({_norm_path(form.get("codefile", "")) for form in webforms if form.get("codefile")})
-    groups: dict[tuple, list[dict]] = {}
-    for symbol in symbols:
-        if symbol.get("kind") != "class" or "Partial" not in symbol.get("modifiers", []):
-            continue
-        key = (symbol.get("project_path"), symbol.get("effective_namespace"), symbol.get("name"))
-        groups.setdefault(key, []).append(symbol)
-    logical = []
-    for (project_path, namespace, name), parts in groups.items():
-        files = sorted({part["file"] for part in parts})
-        if len(files) < 2:
-            continue
-        evidence = "Partial declarations"
-        normalized_files = {_norm_path(file) for file in files}
-        if normalized_files & codebehind_files:
-            evidence += "; WebForm code-behind association"
-        logical.append(
-            {
-                "name": name,
-                "kind": "class",
-                "partial": True,
-                "namespace": namespace,
-                "project_path": project_path,
-                "parts": files,
-                "evidence": evidence,
-                "confidence": "confirmed" if project_path and namespace else "unresolved",
-            }
-        )
-    return logical
-
-
-def _norm_path(value: str) -> str:
-    return value.replace("\\", "/").strip("./").lower()
-
-
 def main(argv: list[str] | None = None) -> int:
-    """Performs main while preserving this module's deterministic contract."""
-    parser = argparse.ArgumentParser(description="Legacy .NET Documentation Analyzer V1")
-    parser.add_argument("repository", help="Repository path to analyze")
-    parser.add_argument("--output", default="output", help="Output directory")
-    parser.add_argument("--exclude", action="append", default=[], help="Additional folder name to exclude")
-    parser.add_argument("--verbose", action="store_true", help="Enable info logging")
-    parser.add_argument("--flow-max-depth", type=int, default=12, help="Maximum confirmed method-call depth for R4 flows")
-    args = parser.parse_args(argv)
-    logging.basicConfig(level=logging.INFO if args.verbose else logging.WARNING, format="%(levelname)s: %(message)s")
-    analyze_repository(args.repository, args.output, args.exclude, args.flow_max_depth)
-    return 0
+    """Parses CLI arguments and routes to analyze/full/readiness.
+
+    The legacy bare-positional invocation (`python main.py <repository> ...`)
+    is preserved unchanged: `normalize_argv` rewrites it into an explicit
+    `analyze` invocation before parsing (see `legacy_documenter/cli/parser.py`).
+    """
+    args = build_parser().parse_args(normalize_argv(argv))
+    logging.basicConfig(
+        level=logging.INFO if getattr(args, "verbose", False) else logging.WARNING,
+        format="%(levelname)s: %(message)s",
+    )
+    if args.command == "full" and getattr(args, "allow_ai_interpretation", False):
+        # V4.2-R5 section 10: make the opt-in explicit at the point of use too,
+        # not only in --help -- this run may call the configured AI provider.
+        print("AI interpretation requested: this run may call the configured AI provider.")
+    exit_code, result = route(args, analyze_repository)
+    if result.command == "readiness" and result.message is not None:
+        print(result.message)
+    elif result.command == "full":
+        summary = render_console_summary(
+            result, args.repository, Path(args.output).resolve(), verbose=getattr(args, "verbose", False)
+        )
+        if result.status.value == "FAILED":
+            LOG.error(summary)
+        else:
+            print(summary)
+    return exit_code
 
 
 if __name__ == "__main__":

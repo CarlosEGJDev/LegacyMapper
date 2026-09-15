@@ -1,0 +1,1 @@
+<Project><PropertyGroup><RootNamespace>Company.Web</RootNamespace></PropertyGroup><ItemGroup><Compile Include="Default.aspx.vb" /><Compile Include="Repo.vb" /></ItemGroup></Project>
