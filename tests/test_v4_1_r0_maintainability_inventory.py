@@ -69,12 +69,17 @@ class ProductionFileDiscoveryTests(unittest.TestCase):
         # the console/Markdown presentation layer: next-action derivation,
         # output-location discovery, console summary rendering -- extracted
         # so `full_pipeline.py` did not have to grow to hold R5's UX logic),
-        # making the current unmodified-checkout count 166. R0 itself
-        # analyzed the pre-R1 tree and is not being re-run or re-approved
-        # here; this count simply tracks the live repository, the same way
+        # making 166. V4.2-R6 added two new production modules:
+        # legacy_documenter/utils/atomic_write.py (the temp-sibling +
+        # os.replace crash-safe write helper, section 7) and
+        # legacy_documenter/cli/artifact_lifecycle.py (the narrowly-scoped
+        # stale-proposal reset used for rerun safety, section 4/5), making
+        # the current unmodified-checkout count 168. R0 itself analyzed the
+        # pre-R1 tree and is not being re-run or re-approved here; this
+        # count simply tracks the live repository, the same way
         # `production_python_module_count` does in the final baseline.
         files = inv.iter_production_files(REPO_ROOT)
-        self.assertEqual(len(files), 166)
+        self.assertEqual(len(files), 168)
 
 
 class FileAnalysisTests(unittest.TestCase):
@@ -262,6 +267,10 @@ class GeneratedArtifactOnDiskTests(unittest.TestCase):
         touched_paths = {
             "legacy_documenter/utils/json_rendering.py",  # new
             "legacy_documenter/utils/__init__.py",
+            # V4.2-R6: writes atomically now instead of via plain
+            # `write_text` (see
+            # docs/V4_2/V4_2_R6_ROBUSTNESS_RECOVERY_SECURITY_AND_APPROVAL_SURFACE_RESULT.md).
+            "legacy_documenter/exporters/json_exporter.py",
             "legacy_documenter/knowledge/approval/contract_report.py",
             "legacy_documenter/knowledge/canonical/contract_report.py",
             "legacy_documenter/knowledge/classification/contract_report.py",
@@ -394,6 +403,12 @@ class GeneratedArtifactOnDiskTests(unittest.TestCase):
                 # R5's UX logic (see
                 # docs/V4_2/V4_2_R5_UNIFIED_CLI_AND_OPERATIONAL_UX_RESULT.md).
                 "legacy_documenter/cli/run_summary_presenter.py",
+                # V4.2-R6: the crash-safe write helper (temp sibling +
+                # os.replace) and the narrowly-scoped stale-proposal reset
+                # used for rerun safety (see
+                # docs/V4_2/V4_2_R6_ROBUSTNESS_RECOVERY_SECURITY_AND_APPROVAL_SURFACE_RESULT.md).
+                "legacy_documenter/utils/atomic_write.py",
+                "legacy_documenter/cli/artifact_lifecycle.py",
             },
         )
         unexpected_entry_diffs = [
@@ -442,9 +457,11 @@ class GeneratedArtifactOnDiskTests(unittest.TestCase):
         # of two unrelated single-file moves cancelling out, not because
         # nothing changed.
         r3_full_pipeline_path = "legacy_documenter/cli/full_pipeline.py"
+        # V4.2-R6: run_summary_presenter.py (185 -> 234 lines) leaves LOW and enters HIGH.
+        r6_presenter_path = "legacy_documenter/cli/run_summary_presenter.py"
         expected_high_risk_files = sorted(
             [p for p in on_disk_risk["high_risk_files"] if p not in (database_extractor_path, r2_main_path)]
-            + [readiness_path, r2_pipeline_stages_path]
+            + [readiness_path, r2_pipeline_stages_path, r6_presenter_path]
         )
         expected_very_high_risk_files = sorted(
             [p for p in on_disk_risk["very_high_risk_files"] if p != readiness_path] + [r3_full_pipeline_path]
@@ -473,32 +490,46 @@ class GeneratedArtifactOnDiskTests(unittest.TestCase):
         # `main.py`/`parser.py`/`execution_model.py`/`full_pipeline.py`
         # without moving any of them across a risk-category boundary (see
         # docs/V4_2/V4_2_R5_UNIFIED_CLI_AND_OPERATIONAL_UX_RESULT.md).
+        # V4.2-R6 added one new LOW-risk module
+        # (`legacy_documenter/cli/artifact_lifecycle.py`, 60 lines) and one
+        # new MEDIUM-risk module (`legacy_documenter/utils/atomic_write.py`,
+        # 44 lines -- a small helper, but its own exception-handling/cleanup
+        # branching is enough to place it in MEDIUM rather than LOW).
+        # `run_summary_presenter.py` grew from 185 to 234 lines (the new
+        # `finalize_and_write_run_summary` responsibility, moved out of
+        # `full_pipeline.py` per section 15) and crosses from LOW into HIGH
+        # risk -- the deliberate trade-off that kept `full_pipeline.py`
+        # itself flat (488 -> 490 lines, unchanged VERY_HIGH bucket) despite
+        # R6 touching its failure/recovery/summary orchestration; see
+        # docs/V4_2/V4_2_R6_ROBUSTNESS_RECOVERY_SECURITY_AND_APPROVAL_SURFACE_RESULT.md.
         expected_categories = dict(on_disk_risk["files_by_risk_category"])
-        expected_categories["LOW"] = expected_categories.get("LOW", 0) + 4 + 3 + 5 + 2 + 1
-        expected_categories["MEDIUM"] = expected_categories.get("MEDIUM", 0) + 3 + 1 + 1 + 1 + 1 + 1 - 1 + 1
-        expected_categories["HIGH"] = expected_categories.get("HIGH", 0) + 1 - 1 + 1 - 1 + 1 - 1
+        expected_categories["LOW"] = expected_categories.get("LOW", 0) + 4 + 3 + 5 + 2 + 1 + 1 - 1
+        expected_categories["MEDIUM"] = expected_categories.get("MEDIUM", 0) + 3 + 1 + 1 + 1 + 1 + 1 - 1 + 1 + 1
+        expected_categories["HIGH"] = expected_categories.get("HIGH", 0) + 1 - 1 + 1 - 1 + 1 - 1 + 1
         expected_categories["VERY_HIGH"] = expected_categories.get("VERY_HIGH", 0) - 1 + 1
         self.assertEqual(fresh_risk["files_by_risk_category"], expected_categories)
         normalized_on_disk.pop("risk_summary", None)
         normalized_fresh.pop("risk_summary", None)
 
-        # Twenty-three new production modules total (one from V4.1-R1, three
+        # Twenty-five new production modules total (one from V4.1-R1, three
         # from V4.1-R4's readiness split, six from V4.1-R6's DatabaseExtractor/
         # FunctionalFlowResolver splits, six from V4.2-R1's new
         # `legacy_documenter/cli/` package, two from V4.2-R2's
         # pipeline_stages.py/full_pipeline.py, one from V4.2-R3's
         # technical_documentation_renderer.py, three from V4.2-R4's new
         # `legacy_documenter/orchestration/` package, one from V4.2-R5's new
-        # run_summary_presenter.py); every other dependency-direction finding
-        # is unaffected -- the new modules only import from
-        # `legacy_documenter.knowledge.readiness`, `legacy_documenter.knowledge.proposals`,
-        # `legacy_documenter.llm`, `legacy_documenter.context`,
-        # `legacy_documenter.utils`, and the existing analysis/context/
-        # exporters/extractors/scanner packages `main.py` already depended on,
-        # all already-established dependency directions.
+        # run_summary_presenter.py, two from V4.2-R6's new
+        # atomic_write.py/artifact_lifecycle.py); every other dependency-
+        # direction finding is unaffected -- the new modules only import
+        # from `legacy_documenter.knowledge.readiness`,
+        # `legacy_documenter.knowledge.proposals`, `legacy_documenter.llm`,
+        # `legacy_documenter.context`, `legacy_documenter.utils`, and the
+        # existing analysis/context/exporters/extractors/scanner packages
+        # `main.py` already depended on, all already-established dependency
+        # directions.
         on_disk_dep = dict(on_disk["dependency_findings"])
         fresh_dep = dict(fresh["dependency_findings"])
-        self.assertEqual(fresh_dep.pop("module_count"), on_disk_dep.pop("module_count") + 23)
+        self.assertEqual(fresh_dep.pop("module_count"), on_disk_dep.pop("module_count") + 25)
         self.assertEqual(fresh_dep, on_disk_dep)
         normalized_on_disk.pop("dependency_findings", None)
         normalized_fresh.pop("dependency_findings", None)
@@ -538,11 +569,17 @@ class GeneratedArtifactOnDiskTests(unittest.TestCase):
         flow_resolver_path = "legacy_documenter/analysis/flow_resolver.py"
         main_path = "legacy_documenter/main.py"
         r3_projection_rules_path = "legacy_documenter/knowledge/projection/rules.py"
+        # V4.2-R6: run_summary_presenter.py (234 lines) newly enters the
+        # top-20, pushing `legacy_documenter/knowledge/projection/models.py`
+        # (untouched by R6) below the cutoff -- the same ranking-membership
+        # effect already seen at R2/R3.
+        r6_projection_models_path = "legacy_documenter/knowledge/projection/models.py"
         new_largest_modules = {
             "legacy_documenter/cli/pipeline_stages.py", "legacy_documenter/cli/full_pipeline.py",
             "legacy_documenter/exporters/technical_documentation_renderer.py",
+            "legacy_documenter/cli/run_summary_presenter.py",
         }
-        dropped_largest_modules = {main_path, readiness_path, r3_projection_rules_path}
+        dropped_largest_modules = {main_path, readiness_path, r3_projection_rules_path, r6_projection_models_path}
         self.assertEqual(set(fresh_largest) - set(on_disk_largest), new_largest_modules)
         self.assertEqual(set(on_disk_largest) - set(fresh_largest), dropped_largest_modules)
         self.assertLess(fresh_largest[database_extractor_path], on_disk_largest[database_extractor_path])
@@ -573,7 +610,14 @@ class GeneratedArtifactOnDiskTests(unittest.TestCase):
                 # V4.2-R5 adds one more: `run_summary_presenter.py` checks
                 # `(output_dir / name).exists()` for each well-known result
                 # location (`compute_output_locations`) -- a real, deliberate
-                # filesystem read, not a stray import.
+                # filesystem read, not a stray import. (V4.2-R6 later changed
+                # `compute_output_locations` to a stage-outcome check instead
+                # of a filesystem check, but the module still imports/uses
+                # `Path` throughout `finalize_and_write_run_summary`, so it
+                # remains flagged.) V4.2-R6 adds two more:
+                # `artifact_lifecycle.py` (removes stale proposal files) and
+                # `utils/atomic_write.py` (the temp-sibling + os.replace
+                # helper) -- both real, deliberate filesystem writes.
                 expected_files = sorted(entry["files"] + [
                     "legacy_documenter/knowledge/_readiness_io.py",
                     "legacy_documenter/knowledge/_readiness_evidence.py",
@@ -582,9 +626,11 @@ class GeneratedArtifactOnDiskTests(unittest.TestCase):
                     "legacy_documenter/cli/pipeline_stages.py",
                     "legacy_documenter/orchestration/ai_interpretation.py",
                     "legacy_documenter/cli/run_summary_presenter.py",
+                    "legacy_documenter/cli/artifact_lifecycle.py",
+                    "legacy_documenter/utils/atomic_write.py",
                 ])
                 self.assertEqual(sorted(fresh_entry["files"]), expected_files)
-                self.assertEqual(fresh_entry["file_count"], entry["file_count"] + 7)
+                self.assertEqual(fresh_entry["file_count"], entry["file_count"] + 9)
             else:
                 self.assertEqual(fresh_entry["files"], entry["files"])
                 self.assertEqual(fresh_entry["file_count"], entry["file_count"])
@@ -720,11 +766,18 @@ class GeneratedArtifactOnDiskTests(unittest.TestCase):
         # try/except, converting a raised exception into a structured
         # `AiInterpretationResult` instead of letting it propagate (V4.2-R4
         # section 14/16's explicit "never a raw traceback" requirement).
+        # V4.2-R6 adds two more: `run_summary_presenter.py`'s
+        # `finalize_and_write_run_summary` wraps the atomic write in
+        # try/except (a summary-write failure becomes a structured
+        # FINAL_SUMMARY FAILED stage, never a crash); `utils/atomic_write.py`
+        # wraps its temp-file cleanup in try/except (a cleanup failure must
+        # never mask the original write error).
         on_disk_exc = {e["path"]: e for e in on_disk["exception_candidates"]}
         fresh_exc = {e["path"]: e for e in fresh["exception_candidates"]}
         r2_new_exception_files = {
             "legacy_documenter/cli/pipeline_stages.py", "legacy_documenter/cli/full_pipeline.py",
             "legacy_documenter/orchestration/ai_interpretation.py",
+            "legacy_documenter/cli/run_summary_presenter.py", "legacy_documenter/utils/atomic_write.py",
         }
         self.assertEqual(set(fresh_exc) - set(on_disk_exc), r2_new_exception_files)
         self.assertEqual(set(on_disk_exc) - set(fresh_exc), {main_path})

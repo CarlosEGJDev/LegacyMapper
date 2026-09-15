@@ -1,4 +1,4 @@
-"""Console and Markdown presentation for `python main.py full` (V4.2-R5).
+"""Console and Markdown presentation for `python main.py full` (V4.2-R5/R6).
 
 R5 is UX/composition only: this module derives no new analysis, AI, or
 approval outcomes -- it only reads the same `RunResult` fields
@@ -11,28 +11,24 @@ human console summary (`render_console_summary`) and the durable
 derives the two other additive fields R5 introduces: `next_action`
 (`derive_next_action`) and `output_locations` (`compute_output_locations`).
 
+V4.2-R6 additionally moved the "does the persisted RUN_SUMMARY represent
+the true final run state" responsibility here
+(`finalize_and_write_run_summary`) -- see that function's docstring for why
+`compute_output_locations` was changed from a filesystem-existence check
+into a stage-outcome check as part of the same fix.
+
 Deliberately standard library only (see V4.2-R5 section 14): no third-party
 CLI/table/color dependency is introduced for this.
 """
 from __future__ import annotations
 
+import dataclasses
 from pathlib import Path
 
-from legacy_documenter.cli.execution_model import RunResult, RunStatus, StageResult, StageStatus
+from legacy_documenter.cli.execution_model import RunResult, RunStatus, StageError, StageResult, StageStatus
+from legacy_documenter.cli.serialization import render_run_result
 from legacy_documenter.cli.stage_identity import StageId
-
-# Well-known result locations a `full` run may produce, in the order they are
-# most useful to a developer who has never seen LegacyMapper's internals:
-# documentation first (what they came for), then evidence, then the AI-review
-# artifact (when it exists), then the two run-summary files themselves.
-_OUTPUT_LOCATIONS_TO_CHECK: tuple[str, ...] = (
-    "documentation",
-    "index",
-    "ai_context",
-    "proposals",
-    "RUN_SUMMARY.json",
-    "RUN_SUMMARY.md",
-)
+from legacy_documenter.utils.atomic_write import atomic_write_text
 
 _DETERMINISTIC_STAGE_IDS: tuple[StageId, ...] = (
     StageId.SCAN, StageId.EXTRACTION, StageId.CALL_RESOLUTION, StageId.WEB_ENTRY_RESOLUTION,
@@ -41,14 +37,29 @@ _DETERMINISTIC_STAGE_IDS: tuple[StageId, ...] = (
 )
 
 
-def compute_output_locations(output_dir: Path) -> list[str]:
-    """Lists, relative to `output_dir`, the well-known result locations that actually exist.
+def compute_output_locations(result: RunResult) -> list[str]:
+    """Lists the well-known result locations THIS run actually produced.
 
-    A location not produced by this run (e.g. `proposals/` when
-    `--allow-ai-interpretation` was never passed) is simply absent -- this is
-    an existence check, not a description of what `full` is supposed to do.
+    V4.2-R6 section 5/6: deliberately NOT a filesystem-existence check
+    (that was R5's original implementation). Existence alone cannot tell
+    "this run produced it" apart from "a stale artifact from an earlier
+    run into the same `--output` directory is still sitting there" -- a
+    real case (`full --allow-ai-interpretation` followed by a plain `full`
+    into the same directory) that made a rerun's own summary list
+    `proposals` as if it were current. Each location is reported only when
+    the stage(s) that produce it succeeded in *this* run, so a rerun's
+    summary can never describe output an earlier, different run made.
     """
-    return [name for name in _OUTPUT_LOCATIONS_TO_CHECK if (output_dir / name).exists()]
+    locations: list[str] = []
+    if _stage_status(result, StageId.EXPORT) is StageStatus.SUCCESS:
+        locations += ["documentation", "index"]
+    if _stage_status(result, StageId.CONTEXT) is StageStatus.SUCCESS:
+        locations.append("ai_context")
+    if result.proposal_review_status is not None:
+        locations.append("proposals")
+    if _stage_status(result, StageId.FINAL_SUMMARY) is StageStatus.SUCCESS:
+        locations += ["RUN_SUMMARY.json", "RUN_SUMMARY.md"]
+    return locations
 
 
 def _stage_status(result: RunResult, stage_id: StageId) -> StageStatus | None:
@@ -183,3 +194,41 @@ def render_markdown_summary(result: RunResult) -> str:
     lines.append(result.next_action or "")
     lines.append("")
     return "\n".join(lines)
+
+
+def finalize_and_write_run_summary(
+    output: Path, result: RunResult, json_filename: str, markdown_filename: str,
+) -> StageResult:
+    """Runs the FINAL_SUMMARY stage: atomically writes `RUN_SUMMARY.json`/`.md` (V4.2-R6).
+
+    `result` is the run's outcome *before* FINAL_SUMMARY itself is known to
+    have succeeded -- a file cannot describe its own write's outcome before
+    that write happens. V4.2-R5 resolved this by simply omitting the
+    FINAL_SUMMARY row from the persisted file, a real, documented gap
+    against section 6's "persisted RUN_SUMMARY represents the final
+    completed run state" invariant. V4.2-R6 closes it without introducing
+    any actual self-reference: it builds the complete, true final state
+    *in memory* first -- `result`'s stages plus one hypothetical
+    `FINAL_SUMMARY: SUCCESS` entry, with `next_action`/`output_locations`
+    recomputed against that complete stage list -- and renders exactly that
+    to disk. This is sound precisely because nothing is persisted unless
+    the write actually succeeds: if the atomic write itself raises, this
+    function returns a FAILED stage result instead, and the "SUCCESS"
+    content that was only ever held in memory is never written -- the
+    previous run's last complete summary (if any) is left exactly as it
+    was, never overwritten with a lie (see `atomic_write_text`).
+    """
+    final_stage = StageResult(stage=StageId.FINAL_SUMMARY, status=StageStatus.SUCCESS)
+    complete = dataclasses.replace(result, stages=result.stages + (final_stage,))
+    complete = dataclasses.replace(
+        complete,
+        next_action=derive_next_action(complete, complete.ai_requested, complete.proposal_count),
+        output_locations=tuple(compute_output_locations(complete)),
+    )
+    try:
+        atomic_write_text(output / json_filename, render_run_result(complete))
+        atomic_write_text(output / markdown_filename, render_markdown_summary(complete))
+    except Exception as exc:
+        error = StageError(stage=StageId.FINAL_SUMMARY, category=exc.__class__.__name__, message=str(exc))
+        return StageResult(stage=StageId.FINAL_SUMMARY, status=StageStatus.FAILED, error=error)
+    return final_stage

@@ -31,16 +31,17 @@ from time import perf_counter
 from typing import Callable, TypeVar
 
 from legacy_documenter.cli import pipeline_stages as stages
+from legacy_documenter.cli.artifact_lifecycle import reset_stale_proposal_artifacts
 from legacy_documenter.cli.execution_model import RunResult, RunStatus, StageError, StageResult, StageStatus
 from legacy_documenter.cli.run_summary_presenter import (
-    compute_output_locations, derive_next_action, render_markdown_summary,
+    compute_output_locations, derive_next_action, finalize_and_write_run_summary,
 )
-from legacy_documenter.cli.serialization import render_run_result
 from legacy_documenter.cli.stage_identity import StageId
 from legacy_documenter.knowledge.proposals.models import Proposal
 from legacy_documenter.llm.core import LLMProvider
 from legacy_documenter.orchestration import ai_interpretation, proposal_adapter
 from legacy_documenter.orchestration.ai_interpretation import AiInterpretationResult
+from legacy_documenter.utils.atomic_write import atomic_write_text
 from legacy_documenter.utils.json_rendering import render_deterministic_json
 
 RUN_SUMMARY_JSON = "RUN_SUMMARY.json"
@@ -68,12 +69,24 @@ def run_full_pipeline(
     letting `orchestration.ai_interpretation` resolve a real provider through
     the existing `ProviderRegistry`.
 
-    Returns the final `RunResult` (also what was written, pre-`FINAL_SUMMARY`,
-    to `RUN_SUMMARY.json`/`.md` under `output_dir`). See `_compute_status` for
-    the exact, non-subjective definition of SUCCESS/PARTIAL/FAILED.
+    Returns the final `RunResult`, including the true FINAL_SUMMARY outcome
+    (V4.2-R6 -- see `run_summary_presenter.finalize_and_write_run_summary`).
+    See `_compute_status` for the exact, non-subjective definition of
+    SUCCESS/PARTIAL/FAILED.
+
+    Rerun safety (V4.2-R6 sections 4/5): a stale `proposals/` pair from an
+    earlier run into this same `output_dir` is removed unconditionally
+    before any stage runs, so a rerun can never appear to have produced or
+    currently require review of a *different* run's proposals -- this run's
+    own AI stage rewrites it fresh later if and only if it actually
+    produces output. No other output location needs the same treatment:
+    every other stage unconditionally overwrites its own fixed files in
+    full whenever it runs, and `output_locations` is derived from which
+    stages succeeded in *this* run, never from filesystem existence.
     """
     start = perf_counter()
     output = Path(output_dir).resolve()
+    reset_stale_proposal_artifacts(output)
     stage_results: list[StageResult] = []
 
     scan_outcome, scan_result = _run_stage(StageId.SCAN, lambda: stages.scan_repository(repo_root, excludes))
@@ -213,40 +226,48 @@ def run_full_pipeline(
 
     proposal_review_status: str | None = None
     if allow_ai_interpretation and ai_result is not None:
-        proposal_review_status = _write_proposal_output(output, ai_result, proposals)
+        try:
+            proposal_review_status = _write_proposal_output(output, ai_result, proposals)
+        except Exception as exc:
+            # Proposal *generation* (above) already succeeded -- this is a
+            # failure to persist it (V4.2-R6 section 8/9: a filesystem
+            # problem here must become a structured failure, never an
+            # uncaught exception out of `run_full_pipeline`, and must never
+            # report proposals as pending review when nothing was actually
+            # written). Downgrades the just-appended PROPOSAL_GENERATION
+            # entry in place rather than reporting a stage that never ran.
+            error = StageError(stage=StageId.PROPOSAL_GENERATION, category=exc.__class__.__name__, message=str(exc))
+            stage_results[-1] = StageResult(stage=StageId.PROPOSAL_GENERATION, status=StageStatus.FAILED, error=error)
+            proposals = []
 
     proposal_count = len(proposals) if allow_ai_interpretation else 0
     has_extraction_errors = bool(extraction_outcome.errors) if extraction_outcome else False
     status = _compute_status(stage_results, has_extraction_errors)
-    preliminary_result = RunResult(
+    pre_summary_result = RunResult(
         command="full", status=status, stages=tuple(stage_results), ai_invoked=ai_invoked,
         ai_requested=allow_ai_interpretation, proposal_count=proposal_count,
         proposal_review_status=proposal_review_status,
     )
-    preliminary_result = dataclasses.replace(
-        preliminary_result,
-        next_action=derive_next_action(preliminary_result, allow_ai_interpretation, proposal_count),
-        output_locations=tuple(compute_output_locations(output)),
-    )
 
-    summary_result = _write_run_summary(output, preliminary_result)
+    summary_result = finalize_and_write_run_summary(output, pre_summary_result, RUN_SUMMARY_JSON, RUN_SUMMARY_MARKDOWN)
     all_stage_results = stage_results + [summary_result]
     final_status = _compute_status(all_stage_results, has_extraction_errors)
-    message = (
-        f"full run {final_status.value}: {len(all_stage_results)} stage(s) reported"
-        + (f", {len(proposals)} proposal(s) pending Technical Lead review" if allow_ai_interpretation else "")
-        + f"; summary written to {output / RUN_SUMMARY_JSON}"
-    )
     final_result = RunResult(
-        command="full", status=final_status, stages=tuple(all_stage_results), message=message, ai_invoked=ai_invoked,
+        command="full", status=final_status, stages=tuple(all_stage_results), ai_invoked=ai_invoked,
         ai_requested=allow_ai_interpretation, proposal_count=proposal_count,
         proposal_review_status=proposal_review_status,
     )
-    return dataclasses.replace(
+    final_result = dataclasses.replace(
         final_result,
         next_action=derive_next_action(final_result, allow_ai_interpretation, proposal_count),
-        output_locations=tuple(compute_output_locations(output)),
+        output_locations=tuple(compute_output_locations(final_result)),
     )
+    message = (
+        f"full run {final_result.status.value}: {len(all_stage_results)} stage(s) reported"
+        + (f", {len(proposals)} proposal(s) pending Technical Lead review" if allow_ai_interpretation else "")
+        + f"; summary written to {output / RUN_SUMMARY_JSON}"
+    )
+    return dataclasses.replace(final_result, message=message)
 
 
 def _run_stage(stage_id: StageId, action: Callable[[], _T]) -> tuple[_T | None, StageResult]:
@@ -345,8 +366,8 @@ def _write_proposal_output(output: Path, ai_result: AiInterpretationResult, prop
         "context_package_id": ai_result.context_package_id,
         "proposals": [_proposal_to_dict(proposal) for proposal in proposals],
     }
-    (proposals_dir / "AI_PROPOSALS.json").write_text(render_deterministic_json(envelope), encoding="utf-8")
-    (proposals_dir / "AI_PROPOSALS_PENDING_REVIEW.md").write_text(_render_proposal_markdown(envelope), encoding="utf-8")
+    atomic_write_text(proposals_dir / "AI_PROPOSALS.json", render_deterministic_json(envelope))
+    atomic_write_text(proposals_dir / "AI_PROPOSALS_PENDING_REVIEW.md", _render_proposal_markdown(envelope))
     return envelope["status"]
 
 
@@ -467,22 +488,3 @@ def _assemble_indexes(
         "dependencies": dependency_outcome if dependency_outcome is not None else [],
         "errors": extraction_outcome.errors,
     }
-
-
-def _write_run_summary(output: Path, result: RunResult) -> StageResult:
-    """Runs the FINAL_SUMMARY stage: writes the deterministic run-summary artifacts.
-
-    `RUN_SUMMARY.json` (authoritative, machine-readable, deterministic -- reuses
-    the same `render_run_result` the R1 execution model already defines) and
-    `RUN_SUMMARY.md` (a small human-readable rendering of the same data, no
-    separate logic). Both are written to `output_dir`, never inside the
-    analyzed repository.
-    """
-    try:
-        output.mkdir(parents=True, exist_ok=True)
-        (output / RUN_SUMMARY_JSON).write_text(render_run_result(result), encoding="utf-8")
-        (output / RUN_SUMMARY_MARKDOWN).write_text(render_markdown_summary(result), encoding="utf-8")
-    except Exception as exc:
-        error = StageError(stage=StageId.FINAL_SUMMARY, category=exc.__class__.__name__, message=str(exc))
-        return StageResult(stage=StageId.FINAL_SUMMARY, status=StageStatus.FAILED, error=error)
-    return StageResult(stage=StageId.FINAL_SUMMARY, status=StageStatus.SUCCESS)

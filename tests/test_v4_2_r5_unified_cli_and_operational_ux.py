@@ -344,12 +344,16 @@ class AnalyzeAndLegacyBehaviorUnchangedTests(unittest.TestCase):
 
 
 class OutputLocationDiscoveryTests(unittest.TestCase):
-    def test_compute_output_locations_only_lists_existing_paths(self) -> None:
-        with tempfile.TemporaryDirectory() as out:
-            output_dir = Path(out)
-            (output_dir / "documentation").mkdir()
-            locations = compute_output_locations(output_dir)
-        self.assertEqual(locations, ["documentation"])
+    def test_compute_output_locations_reflects_this_runs_actual_stage_outcomes(self) -> None:
+        # V4.2-R6 changed `compute_output_locations` from a filesystem-
+        # existence check into a stage-outcome check (see
+        # docs/V4_2/V4_2_R6_ROBUSTNESS_RECOVERY_SECURITY_AND_APPROVAL_SURFACE_RESULT.md);
+        # a full end-to-end exercise of this now lives in
+        # tests/test_v4_2_r6_robustness_recovery_security_and_approval_surface.py.
+        # This test only pins that a run with no successful EXPORT/CONTEXT/
+        # proposal/FINAL_SUMMARY stage reports no locations at all.
+        result = RunResult(command="full", status=RunStatus.FAILED)
+        self.assertEqual(compute_output_locations(result), [])
 
 
 if __name__ == "__main__":
