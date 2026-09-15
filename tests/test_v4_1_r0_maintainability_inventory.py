@@ -74,12 +74,16 @@ class ProductionFileDiscoveryTests(unittest.TestCase):
         # os.replace crash-safe write helper, section 7) and
         # legacy_documenter/cli/artifact_lifecycle.py (the narrowly-scoped
         # stale-proposal reset used for rerun safety, section 4/5), making
-        # the current unmodified-checkout count 168. R0 itself analyzed the
-        # pre-R1 tree and is not being re-run or re-approved here; this
-        # count simply tracks the live repository, the same way
+        # 168. V4.2-R8 added one new production module
+        # (legacy_documenter/exporters/_documentation_partitioning.py --
+        # deterministic, safe partition-filename derivation for the
+        # navigation/detail documentation split), making the current
+        # unmodified-checkout count 169. R0 itself analyzed the pre-R1 tree
+        # and is not being re-run or re-approved here; this count simply
+        # tracks the live repository, the same way
         # `production_python_module_count` does in the final baseline.
         files = inv.iter_production_files(REPO_ROOT)
-        self.assertEqual(len(files), 168)
+        self.assertEqual(len(files), 169)
 
 
 class FileAnalysisTests(unittest.TestCase):
@@ -409,6 +413,9 @@ class GeneratedArtifactOnDiskTests(unittest.TestCase):
                 # docs/V4_2/V4_2_R6_ROBUSTNESS_RECOVERY_SECURITY_AND_APPROVAL_SURFACE_RESULT.md).
                 "legacy_documenter/utils/atomic_write.py",
                 "legacy_documenter/cli/artifact_lifecycle.py",
+                # V4.2-R8: deterministic, safe partition-filename derivation
+                # for the navigation/detail documentation split (section 12).
+                "legacy_documenter/exporters/_documentation_partitioning.py",
             },
         )
         # V4.2-R7.1 corrected four real-pilot presentation/aggregation
@@ -514,8 +521,16 @@ class GeneratedArtifactOnDiskTests(unittest.TestCase):
         # itself flat (488 -> 490 lines, unchanged VERY_HIGH bucket) despite
         # R6 touching its failure/recovery/summary orchestration; see
         # docs/V4_2/V4_2_R6_ROBUSTNESS_RECOVERY_SECURITY_AND_APPROVAL_SURFACE_RESULT.md.
+        # V4.2-R8 added one new LOW-risk module
+        # (`legacy_documenter/exporters/_documentation_partitioning.py`, 65
+        # lines -- deterministic filename derivation only, no branching
+        # complex enough to leave LOW) and grew
+        # `technical_documentation_renderer.py`/`markdown_exporter.py`/
+        # `pipeline_stages.py`/`artifact_lifecycle.py` for the navigation/
+        # detail documentation split without moving any of them across a
+        # risk-category boundary.
         expected_categories = dict(on_disk_risk["files_by_risk_category"])
-        expected_categories["LOW"] = expected_categories.get("LOW", 0) + 4 + 3 + 5 + 2 + 1 + 1 - 1
+        expected_categories["LOW"] = expected_categories.get("LOW", 0) + 4 + 3 + 5 + 2 + 1 + 1 - 1 + 1
         expected_categories["MEDIUM"] = expected_categories.get("MEDIUM", 0) + 3 + 1 + 1 + 1 + 1 + 1 - 1 + 1 + 1
         expected_categories["HIGH"] = expected_categories.get("HIGH", 0) + 1 - 1 + 1 - 1 + 1 - 1 + 1
         expected_categories["VERY_HIGH"] = expected_categories.get("VERY_HIGH", 0) - 1 + 1
@@ -523,7 +538,7 @@ class GeneratedArtifactOnDiskTests(unittest.TestCase):
         normalized_on_disk.pop("risk_summary", None)
         normalized_fresh.pop("risk_summary", None)
 
-        # Twenty-five new production modules total (one from V4.1-R1, three
+        # Twenty-six new production modules total (one from V4.1-R1, three
         # from V4.1-R4's readiness split, six from V4.1-R6's DatabaseExtractor/
         # FunctionalFlowResolver splits, six from V4.2-R1's new
         # `legacy_documenter/cli/` package, two from V4.2-R2's
@@ -531,7 +546,8 @@ class GeneratedArtifactOnDiskTests(unittest.TestCase):
         # technical_documentation_renderer.py, three from V4.2-R4's new
         # `legacy_documenter/orchestration/` package, one from V4.2-R5's new
         # run_summary_presenter.py, two from V4.2-R6's new
-        # atomic_write.py/artifact_lifecycle.py); every other dependency-
+        # atomic_write.py/artifact_lifecycle.py, one from V4.2-R8's new
+        # _documentation_partitioning.py); every other dependency-
         # direction finding is unaffected -- the new modules only import
         # from `legacy_documenter.knowledge.readiness`,
         # `legacy_documenter.knowledge.proposals`, `legacy_documenter.llm`,
@@ -541,7 +557,7 @@ class GeneratedArtifactOnDiskTests(unittest.TestCase):
         # directions.
         on_disk_dep = dict(on_disk["dependency_findings"])
         fresh_dep = dict(fresh["dependency_findings"])
-        self.assertEqual(fresh_dep.pop("module_count"), on_disk_dep.pop("module_count") + 25)
+        self.assertEqual(fresh_dep.pop("module_count"), on_disk_dep.pop("module_count") + 26)
         self.assertEqual(fresh_dep, on_disk_dep)
         normalized_on_disk.pop("dependency_findings", None)
         normalized_fresh.pop("dependency_findings", None)
@@ -734,37 +750,27 @@ class GeneratedArtifactOnDiskTests(unittest.TestCase):
         fresh_funcs = {(e["path"], e["qualified_name"]): e for e in fresh["largest_functions"]}
         r2_new_function = ("legacy_documenter/cli/full_pipeline.py", "run_full_pipeline")
         r2_dropped_function = (main_path, "analyze_repository")
-        r3_new_functions = {
-            ("legacy_documenter/exporters/technical_documentation_renderer.py", "TechnicalDocumentationRenderer.database_access"),
-            ("legacy_documenter/exporters/technical_documentation_renderer.py", "TechnicalDocumentationRenderer.unresolved_findings"),
-        }
-        r3_dropped_functions = {
-            ("legacy_documenter/analysis/database_resolver.py", "DatabaseResolver.resolve"),
-        }
-        # V4.2-R7.1's F-01 production fix (additive `has_confirmed_terminal`/
-        # `has_unresolved_boundary` flow fields) regrows
-        # `FunctionalFlowResolver.resolve` enough that it re-enters this top-N
-        # list -- R3 had dropped it below the cutoff; it is no longer dropped,
-        # only larger, so it moves from r3_dropped_functions to the
-        # line_count-growth comparison below instead.
+        # R3 had grown `TechnicalDocumentationRenderer.database_access`/
+        # `.unresolved_findings`/`.functional_flows` (the last one further at
+        # R7.1) enough to enter this top-N list, temporarily displacing
+        # `DatabaseResolver.resolve`/`FunctionalFlowResolver.resolve`/
+        # `CanonicalCompositionService.compose`/`build_projection_example`
+        # below the cutoff. V4.2-R8 extracted each renderer's per-item
+        # rendering into shared helper functions (`_render_flow_entry_lines`,
+        # `_data_access_table_lines`, `_render_unresolved_category_body`, ...)
+        # reused by both the flat and the new partitioned/navigation methods
+        # -- this shrinks the three top-level flat methods back down enough
+        # that none of them are in this top-N list any more, and the four
+        # temporarily-displaced functions are back, restoring the exact
+        # pre-R3 top-N membership net of R2's own two changes. Only
+        # `FunctionalFlowResolver.resolve` (which R8 did not touch) remains
+        # genuinely grown relative to on-disk, handled below via
+        # `r7_1_regrown_function`.
         r7_1_regrown_function = ("legacy_documenter/analysis/flow_resolver.py", "FunctionalFlowResolver.resolve")
-        # V4.2-R7.1's F-01 documentation correction (section 5) added the
-        # required explanatory note plus the per-flow `has_confirmed_terminal`/
-        # `has_unresolved_boundary` line to `TechnicalDocumentationRenderer.
-        # functional_flows`, growing it enough to enter this top-N list --
-        # displacing two untouched functions below the cutoff (same
-        # ranking-membership effect as R3's renderer additions above).
-        r7_1_new_functions = {
-            ("legacy_documenter/exporters/technical_documentation_renderer.py", "TechnicalDocumentationRenderer.functional_flows"),
-        }
-        r7_1_dropped_functions = {
-            ("legacy_documenter/knowledge/canonical/service.py", "CanonicalCompositionService.compose"),
-            ("legacy_documenter/knowledge/projection/example_report.py", "build_projection_example"),
-        }
-        self.assertEqual(set(fresh_funcs) - set(on_disk_funcs), {r2_new_function, *r3_new_functions, *r7_1_new_functions})
-        self.assertEqual(set(on_disk_funcs) - set(fresh_funcs), {r2_dropped_function, *r3_dropped_functions, *r7_1_dropped_functions})
+        self.assertEqual(set(fresh_funcs) - set(on_disk_funcs), {r2_new_function})
+        self.assertEqual(set(on_disk_funcs) - set(fresh_funcs), {r2_dropped_function})
         for key, entry in on_disk_funcs.items():
-            if key in (r2_dropped_function, *r3_dropped_functions, *r7_1_dropped_functions):
+            if key in (r2_dropped_function,):
                 continue
             fresh_entry = dict(fresh_funcs[key])
             if key == r7_1_regrown_function:

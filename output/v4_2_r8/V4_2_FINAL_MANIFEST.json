@@ -1,0 +1,174 @@
+{
+  "authoritative_artifacts": [
+    {
+      "path": "docs/V4_2/V4_2_R0_FULL_PIPELINE_ARCHITECTURE_AND_INVENTORY_RESULT.md",
+      "role": "R0 result document",
+      "sha256": "f1449fb7290d3521b9f5fff19a183e814d51d4f49cde588345aca6bdd277b026"
+    },
+    {
+      "path": "docs/V4_2/V4_2_R1_CLI_CONTRACT_AND_EXECUTION_MODEL_RESULT.md",
+      "role": "R1 result document",
+      "sha256": "47cc0a638fa24e6a9e4ef37679e4d05964ef21f4e9c6ada6a69f426d97354be9"
+    },
+    {
+      "path": "docs/V4_2/V4_2_R2_DETERMINISTIC_FULL_PIPELINE_ORCHESTRATOR_RESULT.md",
+      "role": "R2 result document",
+      "sha256": "41e803dd87c051a46bd1e713a7c64b4df0bcccc6558345c9aefe5d7aafcb1247"
+    },
+    {
+      "path": "docs/V4_2/V4_2_R3_DETERMINISTIC_TECHNICAL_DOCUMENTATION_RESULT.md",
+      "role": "R3 result document",
+      "sha256": "072971577ab2d0b297d2bde432975a8ca983a1b91310f036fc03c2952f0c3ba4"
+    },
+    {
+      "path": "docs/V4_2/V4_2_R4_AI_INTERPRETATION_AND_PROPOSAL_INTEGRATION_RESULT.md",
+      "role": "R4 result document",
+      "sha256": "712d2f00d201966e187e418542e34951d4708818030625ea38da12e60953d732"
+    },
+    {
+      "path": "docs/V4_2/V4_2_R5_UNIFIED_CLI_AND_OPERATIONAL_UX_RESULT.md",
+      "role": "R5 result document",
+      "sha256": "eb1cc67ae90d53050ce61ffbcbdeb89db08bf872a337fb1970cf71c225804f34"
+    },
+    {
+      "path": "docs/V4_2/V4_2_R5_1_EXIT_CODE_CONTRACT_AND_REAL_PROVIDER_GUARD_RESULT.md",
+      "role": "R5.1 result document",
+      "sha256": "6ea486d7ac57e6bb939c76e17d53ad93946605e0e420e1d58fa9859e2812f705"
+    },
+    {
+      "path": "docs/V4_2/V4_2_R5_R5_1_CLOSURE_AND_VERSIONING_RESULT.md",
+      "role": "R5/R5.1 closure and versioning result (Technical Lead approved)",
+      "sha256": "4ca2650464f6d0090d3cf91fbddc1e18bdaea3ad582f709783febab4bb4bb704"
+    },
+    {
+      "path": "docs/V4_2/V4_2_R6_ROBUSTNESS_RECOVERY_SECURITY_AND_APPROVAL_SURFACE_RESULT.md",
+      "role": "R6 result document",
+      "sha256": "ef7078ffcac74188b1c64e7b2bd9e56d1a5a5e04cb098a1a33a0aebf27b3bc2b"
+    },
+    {
+      "path": "docs/V4_2/V4_2_R6_CLOSURE_AND_VERSIONING_RESULT.md",
+      "role": "R6 closure and versioning result (Technical Lead approved)",
+      "sha256": "43936143cb7687c24b8300054f6a0ab2de7335058b46ab671f58f42f4e9ca9dc"
+    },
+    {
+      "path": "docs/V4_2/V4_2_R7_REAL_IST_PILOT_AND_COMMITTABLE_FIXTURE_RESULT.md",
+      "role": "R7 real pilot result document",
+      "sha256": "9e44d352f18e048d234fc132084696c56e2e556cf18e778f854cd715e7a12dbb"
+    },
+    {
+      "path": "docs/V4_2/V4_2_R7_REAL_IST_DOCUMENTATION_REVIEW.md",
+      "role": "R7 real pilot documentation review",
+      "sha256": "46d1f85a43a804cba03625682cb8df759dd4902778fb386f6f6090dd3ac96712"
+    },
+    {
+      "path": "docs/V4_2/V4_2_R7_SYNTHETIC_FIXTURE_VALIDATION.md",
+      "role": "R7 synthetic fixture validation",
+      "sha256": "116ac7556e2015a5dade0f88b8e1c0db54fa06a319d3f52d52f522f65297534f"
+    },
+    {
+      "path": "docs/V4_2/V4_2_R7_1_REAL_PILOT_FINDINGS_CORRECTION_RESULT.md",
+      "role": "R7.1 findings correction result document",
+      "sha256": "870ecaa6ee360066017adc5f06a3b28906cbcbe70e185003fe14e44e5feec188"
+    },
+    {
+      "path": "docs/V4_2/V4_2_R7_1_FINDINGS_VERIFICATION.md",
+      "role": "R7.1 findings verification",
+      "sha256": "3123edf621416546a5dfc627102eca11fa088c873cf86f88039bfd0b54f389d7"
+    },
+    {
+      "path": "docs/V4_2/V4_2_R7_R7_1_CLOSURE_AND_VERSIONING_RESULT.md",
+      "role": "R7/R7.1 closure and versioning result (Technical Lead approved)",
+      "sha256": "03b125133e55da95b749fd740c5882ce8f6036383f1c45e8d59f902d36c6e03d"
+    },
+    {
+      "path": "docs/V4_2/V4_2_APPROVAL_SURFACE_DESIGN.md",
+      "role": "Approved approval-surface design (APPROVED_DESIGN_ONLY)",
+      "sha256": "fca9e7b47ef729de7b56306e52ed682eb871ce4a121bc7e55cdf722e7f410afe"
+    },
+    {
+      "path": "docs/V4_2/LEGACYMAPPER_USER_MANUAL_V4_2.md",
+      "role": "R8 user manual",
+      "sha256": "4c11209f6fac40617b6a16c6ad796e1c384bb444b0dcf691d3216e2dafd70e71"
+    },
+    {
+      "path": "docs/V4_2/LEGACYMAPPER_TECHNICAL_MANUAL_V4_2.md",
+      "role": "R8 technical manual",
+      "sha256": "d686188a51fdeb550a27b82d9def5ffbc65f9a6cd22554c2e8d3647c540cd833"
+    },
+    {
+      "path": "legacy_documenter/analysis/flow_resolver.py",
+      "role": "F-01 additive flow fields (R7.1)",
+      "sha256": "8a4bcab08473f846fe2804fc65a4a7486d09cf66fe21bae939750a566280465f"
+    },
+    {
+      "path": "legacy_documenter/analysis/_flow_report_composition.py",
+      "role": "F-01 additive flow-summary counters (R7.1)",
+      "sha256": "7104f9028508e4f24b531019e80e0eb6af41f2fdf42e1cdca45346cdda88a848"
+    },
+    {
+      "path": "legacy_documenter/exporters/technical_documentation_renderer.py",
+      "role": "navigation/partition renderers (R8); F-01 doc correction (R7.1); R3 origin",
+      "sha256": "a480e16698629972751a57c18dfc092c3367771af4583f419a320a0806124e68"
+    },
+    {
+      "path": "legacy_documenter/exporters/markdown_exporter.py",
+      "role": "F-02/F-03/F-04 corrections (R7.1)",
+      "sha256": "87ae2bc371dc27762eca5868cbc52faacdd7500a37d4bb09a39cc12eb5f587ff"
+    },
+    {
+      "path": "legacy_documenter/exporters/_documentation_partitioning.py",
+      "role": "safe deterministic partition filenames (R8)",
+      "sha256": "940e99330b3c561bea783bb1012fa7ad3711f19883732507cc173d2e83df71db"
+    },
+    {
+      "path": "legacy_documenter/cli/pipeline_stages.py",
+      "role": "DOCUMENTATION stage orchestration, including R8 partitioned writes",
+      "sha256": "9264847c9737657ef30f22b97363e8d7b392aa244e77634eb0a1fd1a9615a891"
+    },
+    {
+      "path": "legacy_documenter/cli/artifact_lifecycle.py",
+      "role": "rerun/recovery ownership, including R8 partition sync (R6 origin)",
+      "sha256": "e2f33cfd4f5f6c24c8005448a7d2fdefc272787f3cb20ad935e7efb1571a2495"
+    },
+    {
+      "path": "legacy_documenter/cli/full_pipeline.py",
+      "role": "resilient full-pipeline orchestrator (R2 origin)",
+      "sha256": "197d8d72c0b82e138cb0f732c9c7b0ff31e79d91a8b028a916aacb9a6d245a65"
+    },
+    {
+      "path": "tests/test_v4_2_r7_1_real_pilot_findings_correction.py",
+      "role": "R7.1 characterization/correction tests",
+      "sha256": "4ad67eeda857178d2fe1b3c132759c7147fccbf89809547d9256d9d4ddfeda4b"
+    },
+    {
+      "path": "tests/test_v4_2_r7_synthetic_full_fixture.py",
+      "role": "R7 synthetic fixture regression tests",
+      "sha256": "186be51d9456eae30b63b693dc58c2e35f8987f2411828944aaafd66175a8d38"
+    },
+    {
+      "path": "tests/fixtures/v4_2_r7_full_sample/SampleLegacy.sln",
+      "role": "R7 committable synthetic fixture (entry file)",
+      "sha256": "de6a667573acaf2e6f83001e4ec3383b08ec8567aa060bf4fdf01d7f69695bbe"
+    },
+    {
+      "path": "output/v4_2_r8/V4_2_FINAL_BASELINE.json",
+      "role": "R8 final candidate baseline (this closure-preparation round's own output)",
+      "sha256": "4e80b2ac757227204178d46c3eddb0fdebd166ee40c6453bbbae2c45e184d5ed"
+    }
+  ],
+  "candidate_round": "V4.2-R8",
+  "mutable_current_state_documents": [
+    {
+      "path": "PROJECT_STATE.json",
+      "role": "mutable current-state pointer; not immutable evidence",
+      "sha256": "3c682a30ed1f1a99fd8c6601d7049b45071cf6a12fe7fa17784289dfb7d5d4a0"
+    },
+    {
+      "path": "docs/PROJECT_RECOVERY.md",
+      "role": "mutable authoritative recovery/orientation document; not immutable evidence",
+      "sha256": "14c9687f9489ff5b6ff18df518602976b7f5c8c1934ede134a23e58a5b990c16"
+    }
+  ],
+  "note": "authoritative_artifacts are already-produced, already-reviewed evidence for the V4.2 candidate state; they are not modified by this script, only hashed. mutable_current_state_documents intentionally change as the project advances and their hashes here are a point-in-time snapshot, not an integrity requirement. No real-IST generated output (output/v4_2_r7_ist_operacional/) is referenced anywhere in this manifest.",
+  "version": "V4.2"
+}

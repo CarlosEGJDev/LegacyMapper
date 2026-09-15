@@ -251,8 +251,14 @@ class DocumentationFailurePolicyTests(unittest.TestCase):
     prevent the other renderers (or machine analysis) from producing output."""
 
     def test_one_failing_renderer_still_allows_others_to_write(self) -> None:
+        # V4.2-R8: `render_documentation` now calls `functional_flows_navigation`
+        # (not the flat `functional_flows`) to produce FUNCTIONAL_FLOWS.md, since
+        # that document became a navigation/summary index over partitioned
+        # detail -- patching the navigation method reproduces the same "one bad
+        # renderer must not destroy the others" scenario this test has always
+        # covered.
         with tempfile.TemporaryDirectory() as out, \
-             patch.object(TechnicalDocumentationRenderer, "functional_flows", side_effect=RuntimeError("render-boom")):
+             patch.object(TechnicalDocumentationRenderer, "functional_flows_navigation", side_effect=RuntimeError("render-boom")):
             result = run_full_pipeline(RICH_FIXTURE, out, None, 12)
 
             doc = next(s for s in result.stages if s.stage is StageId.DOCUMENTATION)
@@ -268,13 +274,16 @@ class DocumentationFailurePolicyTests(unittest.TestCase):
             self.assertTrue((Path(out) / "index" / "repository.json").exists())
 
     def test_render_documentation_never_raises_for_a_single_renderer_failure(self) -> None:
+        # V4.2-R8: DATABASE_ACCESS.md is produced by `database_access_navigation`
+        # now, not the flat `database_access`.
         with tempfile.TemporaryDirectory() as out, \
-             patch.object(TechnicalDocumentationRenderer, "database_access", side_effect=ValueError("x")):
+             patch.object(TechnicalDocumentationRenderer, "database_access_navigation", side_effect=ValueError("x")):
             outcome = render_documentation(out, _rich_indexes())
         self.assertIsInstance(outcome, DocumentationOutcome)
         self.assertEqual(len(outcome.failures), 1)
         self.assertEqual(outcome.failures[0][0], "DATABASE_ACCESS.md")
-        self.assertEqual(len(outcome.written), 3)
+        # README.md (V4.2-R8 navigation entry point) + the three other documents.
+        self.assertEqual(len(outcome.written), 4)
 
 
 class ExistingDocumentationCompatibilityTests(unittest.TestCase):

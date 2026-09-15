@@ -58,3 +58,43 @@ def reset_stale_proposal_artifacts(output: Path) -> None:
         proposals_dir.rmdir()
     except OSError:
         pass  # not empty -- an unrelated file is present; leave it and the directory alone
+
+
+def sync_generated_partition_directory(directory: Path, partitions: dict[str, str]) -> None:
+    """Writes this run's partitioned-documentation files into `directory`,
+    removing only stale LegacyMapper-owned `.md` files a previous run left
+    behind (V4.2-R8 section 11).
+
+    `documentation/functional_flows/`, `documentation/database_access/`, and
+    `documentation/unresolved_findings/` hold only generated `.md` partition
+    files whose exact filename set is data-derived and can shrink or change
+    between two runs into the same `--output` directory (e.g. a project is
+    removed, or the number of unresolved-finding categories changes) --
+    unlike the fixed top-level `documentation/*.md` filenames, a stale
+    partition file is not simply overwritten by name and must be actively
+    removed so it cannot survive looking like current-run evidence.
+
+    Only files with the `.md` extension are ever considered stale and
+    removed; any other file (e.g. a note a person placed in this directory)
+    is preserved unconditionally, exactly as `reset_stale_proposal_artifacts`
+    preserves anything outside its own known-owned filename set -- this
+    function generalizes that same rule to a known-owned *extension* because
+    partition filenames are themselves deterministic and data-derived rather
+    than a fixed literal list. The directory itself is created only when
+    there is at least one partition to write, and removed again once empty
+    (never when a non-`.md` file remains).
+    """
+    directory = Path(directory)
+    if partitions:
+        directory.mkdir(parents=True, exist_ok=True)
+    if directory.is_dir():
+        for existing in directory.glob("*.md"):
+            if existing.name not in partitions:
+                existing.unlink()
+    for name, content in partitions.items():
+        (directory / name).write_text(content, encoding="utf-8")
+    if directory.is_dir() and not partitions:
+        try:
+            directory.rmdir()
+        except OSError:
+            pass  # not empty -- an unrelated file is present; leave it and the directory alone

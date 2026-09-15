@@ -1,0 +1,114 @@
+{
+  "approval_boundary": {
+    "approval_decision_persistence": "NOT_IMPLEMENTED",
+    "approve_reject_request_correction_commands": "NOT_IMPLEMENTED",
+    "design_status": "APPROVED_DESIGN_ONLY",
+    "implementation_status": "NOT_IMPLEMENTED",
+    "r11_r12_orchestration": "NOT_IMPLEMENTED",
+    "run_id": "NOT_IMPLEMENTED"
+  },
+  "approved_rounds": {
+    "r0": "APPROVED",
+    "r1": "APPROVED",
+    "r2": "APPROVED",
+    "r3": "APPROVED",
+    "r4": "APPROVED",
+    "r5": "APPROVED",
+    "r5_1": "APPROVED",
+    "r6": "APPROVED",
+    "r7": "APPROVED",
+    "r7_1": "APPROVED",
+    "r8": "CANDIDATE"
+  },
+  "authoritative_exit_code_contract": "SUCCESS_0_PARTIAL_1_USAGE_2_FAILED_4",
+  "canonical_knowledge_produced": false,
+  "cli": {
+    "ai_interpretation_default": false,
+    "ai_interpretation_opt_in_available": true,
+    "commands": [
+      "analyze",
+      "full",
+      "readiness"
+    ],
+    "full_deterministic_pipeline_available": true,
+    "legacy_bare_invocation_alias_of": "analyze"
+  },
+  "documentation_navigation": {
+    "fixed_top_level_filenames_preserved": true,
+    "navigation_plus_partitioned_detail": [
+      {
+        "detail_directory": "documentation/functional_flows/",
+        "group_unit": "project",
+        "top_level": "FUNCTIONAL_FLOWS.md"
+      },
+      {
+        "detail_directory": "documentation/database_access/",
+        "group_unit": "project",
+        "top_level": "DATABASE_ACCESS.md"
+      },
+      {
+        "detail_directory": "documentation/unresolved_findings/",
+        "group_unit": "category",
+        "top_level": "UNRESOLVED_FINDINGS.md"
+      }
+    ],
+    "rerun_removes_stale_partitions": true,
+    "top_level_filenames": [
+      "PROJECT_OVERVIEW.md",
+      "SOLUTION_STRUCTURE.md",
+      "PROJECT_DEPENDENCIES.md",
+      "WEBFORMS_MAP.md",
+      "CONFIGURATION_SUMMARY.md",
+      "ANALYSIS_WARNINGS.md",
+      "WEB_ENTRY_POINTS.md",
+      "FUNCTIONAL_FLOWS.md",
+      "DATABASE_ACCESS.md",
+      "UNRESOLVED_FINDINGS.md"
+    ],
+    "top_level_readme": "documentation/README.md",
+    "unknown_user_files_preserved": true
+  },
+  "known_limitations": [
+    "F-05 DEFERRED_BY_DETERMINISM_CONTRACT",
+    "F-06 PRESERVED_OBSERVATION",
+    "F-07 PRESERVED_OBSERVATION",
+    "WEB_ENTRY_POINTS.md and PROJECT_DEPENDENCIES.md remain single documents; a future real pilot could still find them too large at greater scale"
+  ],
+  "latest_completed_round_candidate": "V4.2-R8",
+  "plugin_runtime": "NOT_IMPLEMENTED",
+  "provider_calls": 0,
+  "r7_findings_final_state": {
+    "F-01": "FIXED",
+    "F-02": "FIXED",
+    "F-03": "FIXED",
+    "F-04": "FIXED",
+    "F-05": "DEFERRED_BY_DETERMINISM_CONTRACT",
+    "F-06": "PRESERVED_OBSERVATION",
+    "F-07": "PRESERVED_OBSERVATION"
+  },
+  "r7_real_pilot": {
+    "real_ist_accessed_in_r8": false,
+    "selected_source_note": "AGENTS.md 'Legacy Source Repository' names the single authoritative path (not repeated here to avoid embedding an absolute analyst path in a versioned baseline); it was accessed only during the R7 real pilot itself, never by R7.1 or R8.",
+    "status": "COMPLETED"
+  },
+  "readiness": "READY",
+  "real_llm_calls": 0,
+  "status": "READY_FOR_TECHNICAL_LEAD_FINAL_REVIEW",
+  "technical_lead_approval": false,
+  "tests": "1804_PASS_0_FAIL_0_SKIP",
+  "v4_1_reopened": false,
+  "v4_2_status": "CANDIDATE_PENDING_FINAL_APPROVAL",
+  "v5_boundary": {
+    "implemented": false,
+    "scope": [
+      "programming_language_agnostic",
+      "framework_agnostic",
+      "project_layout_agnostic",
+      "database_persistence_technology_agnostic",
+      "ai_provider_agnostic",
+      "ai_model_agnostic"
+    ]
+  },
+  "v5_implemented": false,
+  "version": "V4.2"
+}

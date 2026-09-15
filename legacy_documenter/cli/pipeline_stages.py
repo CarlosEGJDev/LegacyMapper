@@ -21,6 +21,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from pathlib import Path
 
+from legacy_documenter.cli.artifact_lifecycle import sync_generated_partition_directory
 from legacy_documenter.analysis.call_resolver import CallResolver
 from legacy_documenter.analysis.database_resolver import DatabaseResolver
 from legacy_documenter.analysis.dependency_resolver import DependencyResolver
@@ -348,9 +349,18 @@ def build_context_artifacts(output: str | Path, indexes: dict) -> None:
 # Looking the method up by name on the instance at call time keeps this ordinary.
 _DOCUMENTATION_RENDERERS = (
     ("WEB_ENTRY_POINTS.md", "web_entry_points"),
-    ("FUNCTIONAL_FLOWS.md", "functional_flows"),
-    ("DATABASE_ACCESS.md", "database_access"),
-    ("UNRESOLVED_FINDINGS.md", "unresolved_findings"),
+)
+
+# V4.2-R8: FUNCTIONAL_FLOWS.md/DATABASE_ACCESS.md/UNRESOLVED_FINDINGS.md became
+# navigation/summary documents over partitioned detail (R7 found these too
+# large as single flat documents at real-repository scale -- see
+# docs/V4_2/V4_2_R7_REAL_IST_DOCUMENTATION_REVIEW.md FINDINGS
+# NOISE_OR_SCALE_ISSUES). Each entry is (top-level filename, generated
+# subdirectory name, navigation-renderer method, partitions-renderer method).
+_PARTITIONED_DOCUMENTATION_RENDERERS = (
+    ("FUNCTIONAL_FLOWS.md", "functional_flows", "functional_flows_navigation", "functional_flows_partitions"),
+    ("DATABASE_ACCESS.md", "database_access", "database_access_navigation", "database_access_partitions"),
+    ("UNRESOLVED_FINDINGS.md", "unresolved_findings", "unresolved_findings_navigation", "unresolved_findings_partitions"),
 )
 
 
@@ -381,12 +391,31 @@ def render_documentation(output: str | Path, indexes: dict) -> DocumentationOutc
     renderer = TechnicalDocumentationRenderer()
     outcome = DocumentationOutcome()
     doc_dir = Path(output) / "documentation"
+    doc_dir.mkdir(parents=True, exist_ok=True)
+
+    try:
+        readme_text = renderer.documentation_readme(indexes)
+        (doc_dir / "README.md").write_text(readme_text, encoding="utf-8")
+        outcome.written.append("README.md")
+    except Exception as exc:
+        outcome.failures.append(("README.md", str(exc)))
+
     for filename, method_name in _DOCUMENTATION_RENDERERS:
         try:
             text = getattr(renderer, method_name)(indexes)
-            doc_dir.mkdir(parents=True, exist_ok=True)
             (doc_dir / filename).write_text(text, encoding="utf-8")
             outcome.written.append(filename)
         except Exception as exc:
             outcome.failures.append((filename, str(exc)))
+
+    for filename, subdir_name, nav_method, partitions_method in _PARTITIONED_DOCUMENTATION_RENDERERS:
+        try:
+            nav_text = getattr(renderer, nav_method)(indexes)
+            partitions = getattr(renderer, partitions_method)(indexes)
+            (doc_dir / filename).write_text(nav_text, encoding="utf-8")
+            sync_generated_partition_directory(doc_dir / subdir_name, partitions)
+            outcome.written.append(filename)
+        except Exception as exc:
+            outcome.failures.append((filename, str(exc)))
+
     return outcome
