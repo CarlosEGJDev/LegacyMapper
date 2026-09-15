@@ -167,20 +167,31 @@ false
 
 ## GIT_COMMIT
 
-Pending explicit user confirmation at the time this document was generated, per `AGENTS.md`'s permission boundary ("Ask before actions that: ... Perform Git push, publish, deployment, or other external side effects"). The candidate staged set and commit message are prepared; commit is executed only after the user confirms in this session, and this document is updated with the resulting commit hash once done.
+Executed after explicit user confirmation. Commit `262f9985d16304108d7a96c87b46033d729bc527` on `main`, containing exactly the 7 approved files (`.gitignore`, `docs/GENERATED_ARTIFACT_POLICY.md`, and the 5 audit/cleanup-round prompt/result artifacts), 2309 insertions, 0 deletions. Message: "Post-V4.2 repository cleanup: remove local generated analysis output, protect real-pilot output via .gitignore".
 
 ## GIT_PUSH
 
-Pending explicit user confirmation, same basis as GIT_COMMIT above. Not executed automatically by this round.
+Executed after the same user confirmation, immediately following the commit: `git push origin main` succeeded (`f90045a..262f998 main -> main`).
 
 ## GIT_STATUS
 
-At the time of writing this document (pre-commit): `.gitignore` and `docs/GENERATED_ARTIFACT_POLICY.md` modified; `docs/V4_2/POST_V4_2_GITHUB_REPOSITORY_FILE_INVENTORY.csv`, `docs/V4_2/POST_V4_2_GITHUB_REPOSITORY_INVENTORY_AND_CLEANUP_PLAN_RESULT.md`, `prompts/V4_2/POST_V4_2_GITHUB_REPOSITORY_CLEANUP_AND_VERSIONING.md`, `prompts/V4_2/POST_V4_2_GITHUB_REPOSITORY_INVENTORY_AND_CLEANUP_PLAN.md`, and this result document are untracked/new. No other differences.
+Post-push: `git status --porcelain` returns empty (clean working tree, nothing staged or untracked). `git rev-parse HEAD` and `git rev-parse origin/main` both equal `262f9985d16304108d7a96c87b46033d729bc527` — HEAD == origin/main confirmed.
 
 ## DECISION
 
-POST_V4_2_REPOSITORY_CLEANUP_COMPLETE (cleanup and documentation phase). Commit/push is a separate, explicitly gated final step (see GIT_COMMIT/GIT_PUSH) consistent with this repository's standing permission-boundary policy that Git push requires explicit confirmation.
+POST_V4_2_REPOSITORY_CLEANUP_COMPLETE
+
+STATUS=COMPLETE
+DECISION=POST_V4_2_REPOSITORY_CLEANUP_COMPLETE
+V4_2_CLOSED=true
+V5_IMPLEMENTED=false
+V5_CONTINUITY=READY
+GIT_HISTORY_REWRITTEN=false
+REAL_IST_SOURCE_ACCESSED=false
+REAL_PROVIDER_CALLS=0
+TARGET_UNDER_100_MB=true
+NEXT=POST_V4_2_DOCUMENTATION_UPDATE
 
 ## NEXT
 
-Awaiting explicit user confirmation to stage the approved file set (Section 12 of the authorizing prompt), commit, and push to `origin/main`. After that step succeeds and is verified (`HEAD == origin/main`), per the authorizing prompt: `NEXT=POST_V4_2_DOCUMENTATION_UPDATE`. Do not start V5. Do not start the manual/glossary update until that push is verified.
+`origin/main` now reflects the cleaned-up repository (tracked content ~1.35 MiB, `.git` ~3.84 MiB, working tree ~13.48 MiB — well under both the 100 MB and 200 MB targets). Per the authorizing prompt: `NEXT=POST_V4_2_DOCUMENTATION_UPDATE`. Do not start V5. Do not start the manual/glossary update in this round — that is the next, separate task.
