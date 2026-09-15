@@ -62,6 +62,20 @@ class FunctionalFlowResolver:
             flow_confidence = "unresolved" if any(path["confidence"] != "confirmed" for path in paths) else "confirmed"
             status = self._flow_status(paths)
             terminal_ops = sorted({p["terminal_target"] for p in paths if p["terminal_type"] in {"stored_procedure", "sql", "data_operation"}})
+            # V4.2-R7.1 F-01: `status`/`confidence` above are a worst-case
+            # aggregation across every path in this flow -- a single unrelated
+            # unresolved call downgrades them even when another path in the
+            # same flow reached a real, confirmed database terminal. These two
+            # additive fields preserve both facts independently rather than
+            # replacing (or being derivable by contradiction from) status/confidence,
+            # so an existing consumer reading only status/confidence is unaffected.
+            has_confirmed_terminal = any(
+                path["confidence"] == "confirmed" and path["terminal_type"] in {"stored_procedure", "sql", "data_operation"}
+                for path in paths
+            )
+            has_unresolved_boundary = any(
+                path["terminal_type"] in {"unresolved_boundary", "cycle", "truncated_depth"} for path in paths
+            )
             flow = {
                 "id": flow_id,
                 "entry_point_id": entry.get("id"),
@@ -74,6 +88,8 @@ class FunctionalFlowResolver:
                 "terminal_operations": terminal_ops,
                 "confidence": flow_confidence,
                 "status": status,
+                "has_confirmed_terminal": has_confirmed_terminal,
+                "has_unresolved_boundary": has_unresolved_boundary,
                 "depth": max((path["depth"] for path in paths), default=0),
                 "project_sequence": self._project_sequence(paths),
                 "evidence": [{"entry_point_id": entry.get("id")}],

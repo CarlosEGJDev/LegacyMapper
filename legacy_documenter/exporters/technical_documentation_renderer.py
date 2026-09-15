@@ -89,6 +89,17 @@ class TechnicalDocumentationRenderer:
         unresolved = indexes.get("flow_unresolved", [])
 
         lines = ["# Functional Flows", ""]
+        lines.append(
+            "A flow's top-level `Status`/`Confidence` are a worst-case aggregation across "
+            "every traced execution path: a single unrelated unresolved call anywhere in the "
+            "sequence downgrades them, even when another path in the same flow reached a "
+            "real, `confirmed` database/stored-procedure terminal. Read `Confirmed terminal "
+            "reached` alongside `Status` for the fact `Status` alone can hide: a flow can "
+            "read `status: unresolved_boundary` and still have reached confirmed terminal "
+            "evidence -- both facts are preserved independently, never one at the expense of "
+            "the other."
+        )
+        lines.append("")
         if summary:
             lines.append("## Summary")
             lines.append("")
@@ -114,6 +125,8 @@ class TechnicalDocumentationRenderer:
             lines.append("")
             lines.append(
                 f"- Status: `{flow.get('status')}` | Confidence: `{flow.get('confidence')}` | "
+                f"Confirmed terminal reached: `{'yes' if flow.get('has_confirmed_terminal') else 'no'}` | "
+                f"Unresolved boundary remains: `{'yes' if flow.get('has_unresolved_boundary') else 'no'}` | "
                 f"Depth: `{flow.get('depth')}` | Terminal operation(s): "
                 f"{', '.join(_code(op) for op in sorted(flow.get('terminal_operations', []))) or '_none_'}"
             )

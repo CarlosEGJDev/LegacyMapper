@@ -2,6 +2,20 @@ from pathlib import Path
 from collections import Counter
 
 
+def _repository_display_label(root: object) -> str:
+    """Derives a safe, human-facing repository label from an absolute root path.
+
+    Shows only the trailing folder name (e.g. `operacional`), never the full
+    absolute path -- which on Windows also embeds the analyst's local
+    username (`C:\\Users\\<username>\\...`). Used for human-facing documentation
+    only; `index/repository.json`'s own `root` field keeps the full path
+    unchanged as an established machine contract (V4.2-R7.1 F-04).
+    """
+    text = "" if root is None else str(root)
+    name = Path(text).name if text else ""
+    return name or "(repository root)"
+
+
 class MarkdownExporter:
     """Provides the cohesive MarkdownExporter responsibility for this module."""
     def export(self, output_dir: str | Path, indexes: dict) -> None:
@@ -22,7 +36,13 @@ class MarkdownExporter:
         """Performs project overview while preserving this module's deterministic contract."""
         repo = indexes["repository"]
         counts = repo.get("stats", {})
-        lines = ["# Project Overview", "", f"Root: `{repo.get('root')}`", "", "## File Counts"]
+        # V4.2-R7.1 F-04: this human-facing document shows a safe display
+        # label instead of the analyst's absolute local filesystem path (which
+        # also reveals the local username). `index/repository.json`'s own
+        # `root` field is an established machine contract and is left
+        # untouched -- this correction is scoped to human-facing output only.
+        label = _repository_display_label(repo.get("root"))
+        lines = ["# Project Overview", "", f"Repository: `{label}`", "", "## File Counts"]
         lines += [f"- {key}: {value}" for key, value in counts.items()]
         return "\n".join(lines) + "\n"
 
@@ -30,7 +50,14 @@ class MarkdownExporter:
         """Performs solution structure while preserving this module's deterministic contract."""
         lines = ["# Solution Structure", ""]
         for solution in indexes["solutions"]:
-            lines.append(f"## {solution['name']}")
+            # V4.2-R7.1 F-02: always show the solution's own repository-relative
+            # path alongside its name -- duplicate-named solutions (e.g. a live
+            # copy and a `Backup/` copy) are then distinguishable by path even
+            # though their bare names collide. Solution identity itself is
+            # unchanged; this only affects the rendered header text.
+            path = solution.get("path")
+            header = f"{solution['name']} (`{path}`)" if path else solution["name"]
+            lines.append(f"## {header}")
             for project in solution.get("projects", []):
                 lines.append(f"- {project['name']}: `{project['path']}`")
         return "\n".join(lines) + "\n"
@@ -52,7 +79,18 @@ class MarkdownExporter:
                 if form.get(key):
                     lines.append(f"- {key}: `{form[key]}`")
             for reg in form.get("registers", []):
-                lines.append(f"- register: `{reg}`")
+                # V4.2-R7.1 F-03: render only the register directive's own
+                # source-derived attributes (e.g. TagPrefix/Namespace/Assembly),
+                # sorted for determinism -- `_normalized` is WebFormsExtractor's
+                # internal lowercase-keyed lookup copy of the same attributes
+                # and is never a source-derived field in its own right, so it
+                # is excluded here rather than rendered as raw Python dict repr.
+                fields = {key: value for key, value in reg.items() if key != "_normalized"}
+                if not fields:
+                    continue
+                lines.append("- register:")
+                for key in sorted(fields):
+                    lines.append(f"  - {key}: `{fields[key]}`")
         return "\n".join(lines) + "\n"
 
     def configuration_summary(self, indexes: dict) -> str:

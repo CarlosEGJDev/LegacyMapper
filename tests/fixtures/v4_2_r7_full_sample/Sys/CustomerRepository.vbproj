@@ -1,0 +1,1 @@
+<Project><PropertyGroup><RootNamespace>SampleLegacy.Sys</RootNamespace></PropertyGroup><ItemGroup><Compile Include="CustomerRepository.vb" /></ItemGroup></Project>

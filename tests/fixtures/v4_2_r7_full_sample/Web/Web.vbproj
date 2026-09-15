@@ -1,0 +1,1 @@
+<Project><PropertyGroup><RootNamespace>SampleLegacy.Web</RootNamespace></PropertyGroup><ItemGroup><Compile Include="CustomerPage.aspx.vb" /></ItemGroup></Project>

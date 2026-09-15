@@ -42,6 +42,14 @@ def summary(entries: list[dict], flows: list[dict], paths: list[dict], errors: l
         "dead_end_paths": terminal_counts["dead_end"],
         "cycle_paths": terminal_counts["cycle"],
         "truncated_paths": terminal_counts["truncated_depth"],
+        # V4.2-R7.1 F-01: flow-level counterpart to the path-level
+        # `unresolved_boundaries` count above -- lets a reader see that a
+        # meaningful share of flows with an unresolved boundary path ALSO
+        # independently reached a confirmed database terminal, rather than
+        # reading `unresolved_boundaries` as "these flows resolved nothing."
+        "flows_with_confirmed_terminal": len([f for f in flows if f.get("has_confirmed_terminal")]),
+        "flows_with_unresolved_boundary": len([f for f in flows if f.get("has_unresolved_boundary")]),
+        "flows_with_both": len([f for f in flows if f.get("has_confirmed_terminal") and f.get("has_unresolved_boundary")]),
         "unique_terminal_stored_procedures": len({p["terminal_target"] for p in paths if p["terminal_type"] == "stored_procedure"}),
         "unique_terminal_sql_operations": len({p["terminal_target"] for p in paths if p["terminal_type"] == "sql"}),
         "cross_project_flows": len([f for f in flows if len(f.get("project_sequence", [])) > 1]),

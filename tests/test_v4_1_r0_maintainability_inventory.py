@@ -411,6 +411,18 @@ class GeneratedArtifactOnDiskTests(unittest.TestCase):
                 "legacy_documenter/cli/artifact_lifecycle.py",
             },
         )
+        # V4.2-R7.1 corrected four real-pilot presentation/aggregation
+        # findings (F-01 through F-04; see
+        # docs/V4_2/V4_2_R7_1_FINDINGS_VERIFICATION.md): FunctionalFlowResolver
+        # gained two additive flow-level fields
+        # (`has_confirmed_terminal`/`has_unresolved_boundary`, F-01) without
+        # changing its existing status/confidence enum, and MarkdownExporter's
+        # PROJECT_OVERVIEW.md/SOLUTION_STRUCTURE.md/WEBFORMS_MAP.md renderers
+        # were corrected (F-04/F-02/F-03). `flow_resolver.py` and
+        # `technical_documentation_renderer.py` were already in this set from
+        # earlier rounds; `markdown_exporter.py` is added here for the first
+        # time -- its line_count moves, no rename/restructuring.
+        touched_paths = touched_paths | {"legacy_documenter/exporters/markdown_exporter.py"}
         unexpected_entry_diffs = [
             p for p in (set(on_disk_inv) & set(fresh_inv)) - touched_paths
             if on_disk_inv[p] != fresh_inv[p]
@@ -680,6 +692,11 @@ class GeneratedArtifactOnDiskTests(unittest.TestCase):
         # effect already seen for `largest_modules`.
         r3_renderer_path = "legacy_documenter/exporters/technical_documentation_renderer.py"
         r3_vbnet_extractor_path = "legacy_documenter/extractors/vbnet_extractor.py"
+        # V4.2-R7.1 corrected F-02/F-03/F-04 in `MarkdownExporter` (safe
+        # repository display label, duplicate-solution disambiguation,
+        # register-field rendering); its class grows (new helper logic),
+        # unlike database_extractor.py/flow_resolver.py above, which shrank.
+        markdown_exporter_path = "legacy_documenter/exporters/markdown_exporter.py"
         on_disk_classes = {e["path"]: e for e in on_disk["largest_classes"]}
         fresh_classes = {e["path"]: e for e in fresh["largest_classes"]}
         self.assertEqual(set(fresh_classes) - set(on_disk_classes), {r3_renderer_path})
@@ -690,6 +707,9 @@ class GeneratedArtifactOnDiskTests(unittest.TestCase):
             fresh_entry = dict(fresh_classes[path])
             if path in (database_extractor_path, flow_resolver_path):
                 self.assertLess(fresh_entry["line_count"], entry["line_count"])
+                fresh_entry["line_count"] = entry["line_count"]
+            elif path == markdown_exporter_path:
+                self.assertGreater(fresh_entry["line_count"], entry["line_count"])
                 fresh_entry["line_count"] = entry["line_count"]
             self.assertEqual(fresh_entry, entry)
         normalized_on_disk.pop("largest_classes", None)
@@ -720,14 +740,37 @@ class GeneratedArtifactOnDiskTests(unittest.TestCase):
         }
         r3_dropped_functions = {
             ("legacy_documenter/analysis/database_resolver.py", "DatabaseResolver.resolve"),
-            ("legacy_documenter/analysis/flow_resolver.py", "FunctionalFlowResolver.resolve"),
         }
-        self.assertEqual(set(fresh_funcs) - set(on_disk_funcs), {r2_new_function, *r3_new_functions})
-        self.assertEqual(set(on_disk_funcs) - set(fresh_funcs), {r2_dropped_function, *r3_dropped_functions})
+        # V4.2-R7.1's F-01 production fix (additive `has_confirmed_terminal`/
+        # `has_unresolved_boundary` flow fields) regrows
+        # `FunctionalFlowResolver.resolve` enough that it re-enters this top-N
+        # list -- R3 had dropped it below the cutoff; it is no longer dropped,
+        # only larger, so it moves from r3_dropped_functions to the
+        # line_count-growth comparison below instead.
+        r7_1_regrown_function = ("legacy_documenter/analysis/flow_resolver.py", "FunctionalFlowResolver.resolve")
+        # V4.2-R7.1's F-01 documentation correction (section 5) added the
+        # required explanatory note plus the per-flow `has_confirmed_terminal`/
+        # `has_unresolved_boundary` line to `TechnicalDocumentationRenderer.
+        # functional_flows`, growing it enough to enter this top-N list --
+        # displacing two untouched functions below the cutoff (same
+        # ranking-membership effect as R3's renderer additions above).
+        r7_1_new_functions = {
+            ("legacy_documenter/exporters/technical_documentation_renderer.py", "TechnicalDocumentationRenderer.functional_flows"),
+        }
+        r7_1_dropped_functions = {
+            ("legacy_documenter/knowledge/canonical/service.py", "CanonicalCompositionService.compose"),
+            ("legacy_documenter/knowledge/projection/example_report.py", "build_projection_example"),
+        }
+        self.assertEqual(set(fresh_funcs) - set(on_disk_funcs), {r2_new_function, *r3_new_functions, *r7_1_new_functions})
+        self.assertEqual(set(on_disk_funcs) - set(fresh_funcs), {r2_dropped_function, *r3_dropped_functions, *r7_1_dropped_functions})
         for key, entry in on_disk_funcs.items():
-            if key in (r2_dropped_function, *r3_dropped_functions):
+            if key in (r2_dropped_function, *r3_dropped_functions, *r7_1_dropped_functions):
                 continue
-            self.assertEqual(fresh_funcs[key], entry)
+            fresh_entry = dict(fresh_funcs[key])
+            if key == r7_1_regrown_function:
+                self.assertGreater(fresh_entry["line_count"], entry["line_count"])
+                fresh_entry["line_count"] = entry["line_count"]
+            self.assertEqual(fresh_entry, entry)
         normalized_on_disk.pop("largest_functions", None)
         normalized_fresh.pop("largest_functions", None)
 

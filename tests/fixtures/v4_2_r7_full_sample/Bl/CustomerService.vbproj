@@ -1,0 +1,1 @@
+<Project><PropertyGroup><RootNamespace>SampleLegacy.Bl</RootNamespace></PropertyGroup><ItemGroup><Compile Include="CustomerService.vb" /></ItemGroup></Project>
