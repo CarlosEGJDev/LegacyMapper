@@ -131,6 +131,11 @@ Thumbs.db
 /output/v1_r1_internal/
 /output/v2_r4_1_internal/
 
+# Real-system operational pilot output.
+# Generated analysis of a concrete legacy system must remain local and must
+# never be committed. Distilled findings belong in tracked docs/fixtures.
+/output/v4_2_r7_ist_operacional/
+
 # Any future ad-hoc full-repository run output directory, opt-in naming
 # convention: prefix with "_local_" to keep it out of Git without editing
 # this file again.

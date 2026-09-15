@@ -1,0 +1,705 @@
+path,size_bytes,git_status,classification,category,needed_for_v5,needed_for_history,regenerable,recommendation,reason
+.gitignore,3189,tracked,KEEP,config,yes,yes,no,KEEP,Governance/config file required for continuity.
+AGENTS.md,5992,tracked,KEEP,governance,yes,yes,no,KEEP,Mandatory bootstrap/governance file read by agents per CLAUDE.md.
+CLAUDE.md,502,tracked,KEEP,governance,yes,yes,no,KEEP,Mandatory bootstrap/governance file read by agents per CLAUDE.md.
+PROJECT_STATE.json,3236,tracked,KEEP,governance,yes,yes,no,KEEP,Mandatory bootstrap/governance file read by agents per CLAUDE.md.
+codex/v1/INSTRUCCIONES_CODEX_LEGACY_DOCUMENTATION_ANALYZER.md,19418,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v1/LEGACYMAPPER_V1_R1_CORRECCIONES_CODEX.md,15126,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v1/V1_R1_RESULTADO.md,3385,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v2/LEGACYMAPPER_V2_INSTRUCCIONES_CODEX.md,30017,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v2/R1/V2_R1_1_RESULTADO.md,2095,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v2/R1/V2_R1_1_VALIDACION_REAL.md,18450,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v2/R1/V2_R1_RESULTADO.md,4186,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v2/R1/V2_R1_VALIDACION_REAL.md,19793,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v2/R1/V2_R1_codex_1.md,2282,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v2/R1/V2_R1_codex_2.md,6751,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v2/R1/V2_R1_codex_3.md,3009,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v2/R2/V2_R2_INSTRUCCIONES.md,6329,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v2/R2/V2_R2_RESULTADO.md,2938,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v2/R2/V2_R2_VALIDACION_REAL.md,13271,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v2/R2/V2_R2_codex_1.md,4016,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v2/R3/V2_R3_1_CORRECCIONES.md,12675,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v2/R3/V2_R3_1_RESULTADO.md,4747,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v2/R3/V2_R3_1_VALIDACION_INSTRUCCIONES.md,10591,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v2/R3/V2_R3_1_VALIDACION_REAL.md,11189,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v2/R3/V2_R3_INSTRUCCIONES.md,8809,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v2/R3/V2_R3_RESULTADO.md,2269,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v2/R3/V2_R3_VALIDACION_REAL.md,12373,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v2/R3/V2_R3_codex_1.md,6186,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v2/R4/V2_R4_1_CORRECCIONES.md,7973,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v2/R4/V2_R4_1_REPRODUCIBILIDAD_CALLS.md,10043,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v2/R4/V2_R4_1_REPRODUCIBILIDAD_RESULTADO.md,3398,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v2/R4/V2_R4_1_RESULTADO.md,2754,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v2/R4/V2_R4_1_VALIDACION_INSTRUCCIONES.md,11033,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v2/R4/V2_R4_1_VALIDACION_REAL.md,4097,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v2/R4/V2_R4_INSTRUCCIONES.md,13117,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v2/R4/V2_R4_RESULTADO.md,1979,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v2/R4/V2_R4_VALIDACION_INSTRUCCIONES.md,13336,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v2/R4/V2_R4_VALIDACION_REAL.md,4222,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v2/R5/V2_R5_1_CORRECCIONES.md,15463,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v2/R5/V2_R5_1_RESULTADO.md,2638,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v2/R5/V2_R5_1_VALIDACION_FINAL.md,19930,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v2/R5/V2_R5_1_VALIDACION_FINAL_RESULTADO.md,3220,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v2/R5/V2_R5_INSTRUCCIONES.md,19549,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v2/R5/V2_R5_RESULTADO.md,2171,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v2/R5/V2_R5_VALIDACION_INSTRUCCIONES.md,19986,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v2/R5/V2_R5_VALIDACION_REAL.md,5084,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v3/V3_CIERRE_FINAL.md,4163,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v3/V3_FINAL_CLOSURE_REVIEW.md,7714,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v3/V3_FINAL_CLOSURE_REVIEW_RESULTADO.md,1918,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v3/V3_R10_1_COMPREHENSIVE_MAINTAINABILITY_REFACTOR.md,10292,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v3/V3_R10_1_COMPREHENSIVE_MAINTAINABILITY_REFACTOR_RESULTADO.md,3870,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v3/V3_R10_CODE_QUALITY_MAINTAINABILITY_DOCUMENTATION.md,18215,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v3/V3_R10_CODE_QUALITY_MAINTAINABILITY_DOCUMENTATION_RESULTADO.md,3545,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v3/V3_R1_DOCUMENTATION_CONTRACT.md,17730,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v3/V3_R1_RESULTADO.md,2146,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v3/V3_R2_CONTEXT_RESOLVER.md,14839,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v3/V3_R2_RESULTADO.md,2336,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v3/V3_R3_1_CORRECCION_TESTS.md,11563,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v3/V3_R3_1_RESULTADO.md,2622,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v3/V3_R3_2_CORRECCION_FINAL.md,7422,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v3/V3_R3_2_RESULTADO.md,2057,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v3/V3_R3_CONTEXT_COMPOSITION_BUDGET.md,17263,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v3/V3_R3_RESULTADO.md,2568,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v3/V3_R4_LLM_PROVIDER_ABSTRACTION.md,16020,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v3/V3_R4_RESULTADO.md,2217,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v3/V3_R5_DOCUMENTATION_PROFILES_PROMPT_CONTRACT.md,20207,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v3/V3_R5_RESULTADO.md,2577,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v3/V3_R6_1_COPILOT_REAL_PILOT.md,10874,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v3/V3_R6_1_REAL_PILOT_EXECUTION.md,5997,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v3/V3_R6_1_RESULTADO.md,3471,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v3/V3_R6_REAL_PROVIDER_PILOT.md,12644,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v3/V3_R6_RESULTADO.md,1899,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v3/V3_R7_1_ASSESSMENT_CONTRACT_ENFORCEMENT.md,15196,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v3/V3_R7_1_RESULTADO.md,4668,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v3/V3_R7_2_1_HIERARCHICAL_SYNTHESIS.md,18992,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v3/V3_R7_2_1_RESULTADO.md,4048,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v3/V3_R7_2_2_DETERMINISTIC_ENVELOPE_AND_RESUME.md,19553,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v3/V3_R7_2_2_RESULTADO.md,4687,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v3/V3_R7_2_3_EVIDENCE_CONSTRAINED_RESUME.md,21474,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v3/V3_R7_2_3_RESULTADO.md,6874,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v3/V3_R7_2_4_DOCUMENT_CONSISTENCY_AND_SEMANTIC_DEDUPLICATION.md,18898,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v3/V3_R7_2_4_RESULTADO.md,6626,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v3/V3_R7_2_RESULTADO.md,5011,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v3/V3_R7_2_SYSTEMATIC_COVERAGE.md,20933,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v3/V3_R7_DOCUMENT_GENERATION.md,14051,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v3/V3_R7_RESULTADO.md,3473,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v3/V3_R8_1_DEEP_SOURCE_ANALYSIS_ENGINE.md,18184,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v3/V3_R8_1_DEEP_SOURCE_ANALYSIS_RESULTADO.md,5719,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v3/V3_R8_2_CONTRACT_CORRECTION.md,8884,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v3/V3_R8_2_CONTRACT_CORRECTION_RESULTADO.md,5733,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v3/V3_R8_2_EVIDENCE_CONSTRAINED_DEEP_INTERPRETATION.md,14261,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v3/V3_R8_2_EVIDENCE_CONSTRAINED_INTERPRETATION_RESULTADO.md,4620,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v3/V3_R8_3_TARGETED_EVIDENCE_EXHAUSTION.md,12750,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v3/V3_R8_3_TARGETED_EVIDENCE_EXHAUSTION_RESULTADO.md,4889,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v3/V3_R8_4_PAQUETE_SEGUNDA_REVISION_HUMANA.md,17921,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v3/V3_R8_4_RECORD_SECOND_HUMAN_REVIEW.md,8407,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v3/V3_R8_4_RESPUESTA_REVISION.md,1600,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v3/V3_R8_4_REVISION_HUMANA_APROBADA.md,2880,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v3/V3_R8_4_REVISION_HUMANA_APROBADA_RESULTADO.md,2365,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v3/V3_R8_4_SECOND_HUMAN_REVIEW.md,7812,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v3/V3_R8_4_SECOND_HUMAN_REVIEW_RESULTADO.md,3040,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v3/V3_R8_DESICION_HUMANA.md,5942,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v3/V3_R8_HUMAN_REVIEW.md,14517,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v3/V3_R8_PAQUETE_REVISION_HUMANA.md,21156,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v3/V3_R8_RESPUESTA_REVISION.md,1391,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v3/V3_R8_RESULTADO.md,3699,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v3/V3_R8_REVISION_REGISTRADA.md,2456,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v3/V3_R8_REVISION_REGISTRADA_RESULTADO.md,2099,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v3/V3_R9_KNOWLEDGE_READINESS_GATE.md,12060,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+codex/v3/V3_R9_KNOWLEDGE_READINESS_GATE_RESULTADO.md,3155,tracked,KEEP,history,no,yes,no,KEEP,Historical V1-V3 Codex-led dev-agent execution/result record (preserved name per AGENTS.md).
+context/.gitkeep,0,tracked,KEEP,config,yes,no,no,KEEP,Placeholder preserving runtime working directory structure; contents intentionally not versioned.
+docs/GENERATED_ARTIFACT_POLICY.md,4014,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/LEGACYMAPPER_PYTHON_DEVELOPMENT_STANDARD.md,4569,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/PROJECT_RECOVERY.md,6061,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V3/MANUAL_TECNICO_LEGACYMAPPER_V3.md,9586,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V3/MANUAL_USUARIO_LEGACYMAPPER_V3.md,6858,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4/V4_00_1_ROADMAP_APPROVAL_RESULT.md,4819,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4/V4_00_1_ROADMAP_HUMAN_REVIEW_CORRECTIONS.md,8949,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4/V4_00_BOOTSTRAP_RESULT.md,6627,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4/V4_AI_HANDOVER.md,5259,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4/V4_ARCHITECTURE_AND_CONTRACT_REFERENCE.md,13789,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4/V4_CONTRACT_FOUNDATION.md,8130,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4/V4_DEVELOPER_MANUAL.md,13359,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4/V4_FINAL_CLOSURE_RESULT.md,8195,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4/V4_OPERATIONS_AND_RECOVERY_MANUAL.md,9588,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4/V4_PROPOSED_ROADMAP.md,8808,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4/V4_R10_CANONICAL_KNOWLEDGE_COMPOSITION_RESULT.md,21453,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4/V4_R10_CLOSURE_AND_VERSIONING_RESULT.md,5945,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4/V4_R11_CLOSURE_AND_VERSIONING_RESULT.md,6179,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4/V4_R11_HUMAN_READABLE_DOCUMENT_PROJECTION_RESULT.md,18485,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4/V4_R12_CLOSURE_AND_VERSIONING_RESULT.md,6024,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4/V4_R12_PLUGIN_FACING_MACHINE_READABLE_OUTPUT_CONTRACT_RESULT.md,20315,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4/V4_R13_CLOSURE_AND_VERSIONING_RESULT.md,6404,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4/V4_R13_REGRESSION_AND_SECURITY_RESULT.md,19576,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4/V4_R14_MANUALS_AND_FINAL_BASELINE_RESULT.md,21518,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4/V4_R1_1_REPOSITORY_VERSIONING_RESULT.md,14151,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4/V4_R1_KNOWLEDGE_DOMAIN_MODEL_RESULT.md,8765,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4/V4_R2_CLOSURE_AND_VERSIONING_RESULT.md,5536,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4/V4_R2_INPUT_SOURCE_CONTRACTS_RESULT.md,10650,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4/V4_R3_CLOSURE_AND_VERSIONING_RESULT.md,6984,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4/V4_R3_PROVENANCE_RESULT.md,12737,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4/V4_R4_CLOSURE_AND_VERSIONING_RESULT.md,8404,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4/V4_R4_HUMAN_SUPPLIED_MATERIAL_INGESTION_RESULT.md,14131,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4/V4_R5_CLOSURE_AND_VERSIONING_RESULT.md,7443,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4/V4_R5_KNOWLEDGE_CLASSIFICATION_RESULT.md,12770,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4/V4_R6_AS_IS_TO_BE_SEPARATION_RESULT.md,13899,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4/V4_R6_CLOSURE_AND_VERSIONING_RESULT.md,7400,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4/V4_R7_CLOSURE_AND_VERSIONING_RESULT.md,4758,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4/V4_R7_GAP_AND_CONFLICT_REPRESENTATION_RESULT.md,10706,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4/V4_R8_CLOSURE_AND_VERSIONING_RESULT.md,5168,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4/V4_R8_PROPOSAL_LIFECYCLE_RESULT.md,14351,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4/V4_R9_CLOSURE_AND_VERSIONING_RESULT.md,5681,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4/V4_R9_TECHNICAL_LEAD_APPROVAL_RESULT.md,16572,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4/V4_REPOSITORY_CONTINUITY_CONTRACT.md,5902,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4/V4_USER_MANUAL.md,10134,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4_1/LEGACYMAPPER_GLOSSARY_V4_1.md,16618,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4_1/LEGACYMAPPER_TECHNICAL_MANUAL_V4_1.md,40710,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4_1/LEGACYMAPPER_USER_MANUAL_V4_1.md,20520,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4_1/POST_V4_1_DOCUMENTATION_CLOSURE_AND_VERSIONING_RESULT.md,6924,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4_1/POST_V4_1_USER_TECHNICAL_MANUALS_AND_GLOSSARY_RESULT.md,10649,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4_1/V4_1_FINAL_CLOSURE_AND_VERSIONING_RESULT.md,8926,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4_1/V4_1_R0_CLOSURE_AND_VERSIONING_RESULT.md,7421,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4_1/V4_1_R0_MAINTAINABILITY_INVENTORY_AND_REFACTOR_PLAN_RESULT.md,21469,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4_1/V4_1_R10_FINAL_BASELINE_AND_FORMAL_CLOSURE_RESULT.md,11662,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4_1/V4_1_R1_CLOSURE_AND_VERSIONING_RESULT.md,8818,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4_1/V4_1_R1_REGRESSION_FIX_AND_SHARED_JSON_RENDERER_RESULT.md,19365,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4_1/V4_1_R2_CLOSURE_AND_VERSIONING_RESULT.md,7789,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4_1/V4_1_R2_MODELS_TYPES_AND_PUBLIC_CONTRACTS_READABILITY_RESULT.md,17476,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4_1/V4_1_R3_CLOSURE_AND_VERSIONING_RESULT.md,6467,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4_1/V4_1_R3_LOW_RISK_NAMING_READABILITY_RESULT.md,16742,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4_1/V4_1_R4_CLOSURE_AND_VERSIONING_RESULT.md,7567,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4_1/V4_1_R4_READINESS_MODULE_DECOMPOSITION_RESULT.md,22233,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4_1/V4_1_R5_CLOSURE_AND_VERSIONING_RESULT.md,8877,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4_1/V4_1_R5_RISKY_ORCHESTRATORS_CHARACTERIZATION_RESULT.md,20735,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4_1/V4_1_R6_CLOSURE_AND_VERSIONING_RESULT.md,9488,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4_1/V4_1_R6_GAP_CLOSURE_AND_CONTROLLED_EXTRACTION_RESULT.md,20409,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4_1/V4_1_R7_CLOSURE_AND_VERSIONING_RESULT.md,9232,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4_1/V4_1_R7_EXCEPTION_BOUNDARIES_AND_ADAPTER_CLEANUP_RESULT.md,15023,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4_1/V4_1_R8_CLOSURE_AND_VERSIONING_RESULT.md,8930,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4_1/V4_1_R8_NAMING_AND_DOCUMENTATION_PART_2_RESULT.md,12577,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4_1/V4_1_R9_CLOSURE_AND_VERSIONING_RESULT.md,9857,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4_1/V4_1_R9_COMPREHENSIVE_REGRESSION_AND_BEHAVIORAL_EQUIVALENCE_RESULT.md,17289,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4_2/LEGACYMAPPER_TECHNICAL_MANUAL_V4_2.md,16374,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4_2/LEGACYMAPPER_USER_MANUAL_V4_2.md,12059,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4_2/V4_2_APPROVAL_SURFACE_DESIGN.md,11311,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4_2/V4_2_FINAL_CLOSURE_AND_VERSIONING_RESULT.md,13884,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4_2/V4_2_R0_FULL_PIPELINE_ARCHITECTURE_AND_INVENTORY_RESULT.md,37957,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4_2/V4_2_R1_CLI_CONTRACT_AND_EXECUTION_MODEL_RESULT.md,15341,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4_2/V4_2_R2_DETERMINISTIC_FULL_PIPELINE_ORCHESTRATOR_RESULT.md,25363,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4_2/V4_2_R3_DETERMINISTIC_TECHNICAL_DOCUMENTATION_RESULT.md,22852,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4_2/V4_2_R4_AI_INTERPRETATION_AND_PROPOSAL_INTEGRATION_RESULT.md,27545,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4_2/V4_2_R5_1_EXIT_CODE_CONTRACT_AND_REAL_PROVIDER_GUARD_RESULT.md,12918,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4_2/V4_2_R5_R5_1_CLOSURE_AND_VERSIONING_RESULT.md,4600,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4_2/V4_2_R5_UNIFIED_CLI_AND_OPERATIONAL_UX_RESULT.md,18700,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4_2/V4_2_R6_CLOSURE_AND_VERSIONING_RESULT.md,5253,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4_2/V4_2_R6_ROBUSTNESS_RECOVERY_SECURITY_AND_APPROVAL_SURFACE_RESULT.md,28589,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4_2/V4_2_R7_1_FINDINGS_VERIFICATION.md,10352,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4_2/V4_2_R7_1_REAL_PILOT_FINDINGS_CORRECTION_RESULT.md,8645,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4_2/V4_2_R7_R7_1_CLOSURE_AND_VERSIONING_RESULT.md,7028,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4_2/V4_2_R7_REAL_IST_DOCUMENTATION_REVIEW.md,24693,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4_2/V4_2_R7_REAL_IST_PILOT_AND_COMMITTABLE_FIXTURE_RESULT.md,10038,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4_2/V4_2_R7_SYNTHETIC_FIXTURE_VALIDATION.md,7209,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4_2/V4_2_R8_DOCUMENTATION_AT_SCALE_FINAL_BASELINE_AND_CLOSURE_PREPARATION_RESULT.md,17090,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+docs/V4_2/V4_2_R8_FINAL_DOCUMENTATION_REVIEW.md,10246,tracked,KEEP,documentation,yes,yes,no,KEEP,Versioned technical/user documentation and round closure results.
+legacy_documenter/**/__pycache__/,1430841,ignored,EXCLUDE,cache,no,no,yes,EXCLUDE,"Aggregated directory row (169 files) - Python bytecode cache, already excluded via .gitignore (__pycache__/); fully regenerable."
+legacy_documenter/__init__.py,43,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/analysis/__init__.py,28,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/analysis/_flow_graph_construction.py,1071,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/analysis/_flow_key_labels.py,1368,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/analysis/_flow_report_composition.py,3121,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/analysis/call_resolver.py,8224,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/analysis/database_resolver.py,9166,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/analysis/deep_interpretation.py,13345,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/analysis/deep_source.py,12570,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/analysis/dependency_resolver.py,4913,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/analysis/flow_resolver.py,19594,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/analysis/targeted_exhaustion.py,9129,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/analysis/web_entry_resolver.py,10771,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/cli/__init__.py,482,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/cli/artifact_lifecycle.py,5289,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/cli/execution_model.py,4835,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/cli/full_pipeline.py,25713,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/cli/parser.py,5819,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/cli/pipeline_stages.py,19562,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/cli/router.py,4495,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/cli/run_summary_presenter.py,11143,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/cli/serialization.py,927,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/cli/stage_identity.py,1979,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/config.py,365,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/context/__init__.py,1074,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/context/composer.py,4592,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/context/context_builder.py,1979,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/context/resolver.py,3509,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/context/system_context_builder.py,14099,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/documentation/__init__.py,414,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/documentation/aggregation.py,5305,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/documentation/consistency.py,13539,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/documentation/consistency_run.py,4280,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/documentation/contracts.py,5946,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/documentation/coverage.py,7211,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/documentation/envelope.py,4518,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/documentation/evidence_catalog.py,6431,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/documentation/evidence_resume.py,214,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/documentation/generator.py,13968,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/documentation/hierarchical.py,8225,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/documentation/human_review.py,11533,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/documentation/interpretation.py,6889,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/documentation/renderer.py,4430,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/documentation/resume.py,9856,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/documentation/second_review.py,7305,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/documentation/synthesis.py,8732,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/documentation/systematic.py,10406,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/exporters/__init__.py,48,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/exporters/_documentation_partitioning.py,2707,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/exporters/json_exporter.py,906,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/exporters/markdown_exporter.py,6461,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/exporters/technical_documentation_renderer.py,38170,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/extractors/__init__.py,40,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/extractors/_database_classification.py,1099,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/extractors/_database_line_scanner.py,1305,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/extractors/_database_token_parsing.py,2234,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/extractors/call_extractor.py,9963,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/extractors/database_extractor.py,21917,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/extractors/solution_extractor.py,824,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/extractors/vbnet_extractor.py,4794,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/extractors/vbproj_extractor.py,2805,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/extractors/web_event_extractor.py,4770,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/extractors/webconfig_extractor.py,3143,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/extractors/webforms_extractor.py,3522,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/knowledge/__init__.py,55,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/knowledge/_readiness_evidence.py,3977,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/knowledge/_readiness_io.py,430,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/knowledge/_readiness_parsing.py,2833,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/knowledge/approval/__init__.py,728,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/knowledge/approval/contract_report.py,11823,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/knowledge/approval/enums.py,1783,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/knowledge/approval/example_report.py,11799,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/knowledge/approval/models.py,4480,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/knowledge/approval/service.py,10919,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/knowledge/canonical/__init__.py,1279,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/knowledge/canonical/contract_report.py,16455,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/knowledge/canonical/example_report.py,15794,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/knowledge/canonical/models.py,6490,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/knowledge/canonical/service.py,14332,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/knowledge/classification/__init__.py,625,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/knowledge/classification/catalog.py,7591,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/knowledge/classification/contract_report.py,6277,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/knowledge/classification/enums.py,1558,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/knowledge/classification/models.py,5359,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/knowledge/classification/service.py,7458,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/knowledge/closure/__init__.py,972,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/knowledge/closure/artifact_hashes.py,4489,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/knowledge/closure/baseline_report.py,6132,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/knowledge/closure/maintainability.py,6251,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/knowledge/closure/manifest_report.py,4788,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/knowledge/domain/__init__.py,388,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/knowledge/domain/enums.py,3160,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/knowledge/domain/models.py,10039,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/knowledge/ingestion/__init__.py,617,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/knowledge/ingestion/contract_report.py,6547,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/knowledge/ingestion/models.py,2159,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/knowledge/ingestion/service.py,7642,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/knowledge/input/__init__.py,600,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/knowledge/input/catalog.py,9500,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/knowledge/input/contract_report.py,4271,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/knowledge/input/contracts.py,2579,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/knowledge/input/normalization.py,2982,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/knowledge/input/validator.py,7268,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/knowledge/plugin_projection/__init__.py,533,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/knowledge/plugin_projection/contract_report.py,16310,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/knowledge/plugin_projection/example_report.py,12082,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/knowledge/plugin_projection/models.py,10564,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/knowledge/plugin_projection/serializer.py,6226,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/knowledge/plugin_projection/service.py,4316,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/knowledge/plugin_projection/validator.py,7359,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/knowledge/projection/__init__.py,1238,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/knowledge/projection/contract_report.py,15001,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/knowledge/projection/disk_io.py,1203,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/knowledge/projection/example_report.py,10968,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/knowledge/projection/markdown_renderer.py,4225,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/knowledge/projection/models.py,9372,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/knowledge/projection/rules.py,14566,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/knowledge/projection/service.py,5238,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/knowledge/proposals/__init__.py,439,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/knowledge/proposals/contract_report.py,12377,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/knowledge/proposals/enums.py,2488,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/knowledge/proposals/example_report.py,7200,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/knowledge/proposals/models.py,7584,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/knowledge/proposals/service.py,11537,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/knowledge/provenance/__init__.py,490,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/knowledge/provenance/contract_report.py,4459,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/knowledge/provenance/enums.py,2319,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/knowledge/provenance/graph.py,9724,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/knowledge/provenance/models.py,5631,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/knowledge/readiness.py,12178,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/knowledge/relations/__init__.py,91,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/knowledge/relations/contract_report.py,9602,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/knowledge/relations/enums.py,1666,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/knowledge/relations/example_report.py,3915,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/knowledge/relations/models.py,5205,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/knowledge/relations/service.py,10070,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/knowledge/temporal/__init__.py,718,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/knowledge/temporal/contract_report.py,6395,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/knowledge/temporal/enums.py,790,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/knowledge/temporal/models.py,3137,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/knowledge/temporal/service.py,6005,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/llm/__init__.py,21,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/llm/copilot_pilot.py,6248,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/llm/core.py,6517,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/llm/providers/__init__.py,74,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/llm/providers/copilot.py,5921,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/llm/providers/gemini.py,3494,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/main.py,5392,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/models/__init__.py,515,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/models/call.py,1861,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/models/dependency.py,440,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/models/entry_point.py,1162,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/models/evidence.py,477,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/models/project.py,798,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/models/source_file.py,415,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/models/symbol.py,852,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/models/webform.py,760,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/orchestration/__init__.py,607,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/orchestration/ai_interpretation.py,9299,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/orchestration/proposal_adapter.py,2160,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/quality/__init__.py,67,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/quality/maintainability_audit.py,10832,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/scanner/__init__.py,38,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/scanner/file_classifier.py,1606,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/scanner/repository_scanner.py,1862,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/utils/__init__.py,231,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/utils/atomic_write.py,1835,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/utils/json_rendering.py,1138,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+legacy_documenter/utils/sanitizer.py,1189,tracked,KEEP,source,yes,no,no,KEEP,Application source code (pipeline implementation).
+main.py,103,tracked,KEEP,source,yes,no,no,KEEP,Top-level entrypoint source file.
+output/LEVANTAMIENTO_FUNCIONAL.md,25969,tracked,REVIEW,documentation,no,yes,no,REVIEW,Root-level generated functional-elicitation document (document_status=APPROVED metadata) of unclear current role/referrer; do not exclude solely on doubt, confirm with Technical Lead whether it is V3 round evidence or a stray generated artifact.
+output/LEVANTAMIENTO_TECNICO.md,34114,tracked,REVIEW,documentation,no,yes,no,REVIEW,Root-level generated technical-elicitation document (document_status=APPROVED metadata) of unclear current role/referrer; do not exclude solely on doubt, confirm with Technical Lead whether it is V3 round evidence or a stray generated artifact.
+output/context/,2,ignored,EXCLUDE,generated_smoke_test_output,no,no,yes,EXCLUDE,"Aggregated directory row (1 files) - leftover development/smoke-test run output, already excluded via .gitignore explicit path rule; not canonical, not referenced by any approved baseline."
+output/documentation/,225,ignored,EXCLUDE,generated_smoke_test_output,no,no,yes,EXCLUDE,"Aggregated directory row (6 files) - leftover development/smoke-test run output, already excluded via .gitignore explicit path rule; not canonical, not referenced by any approved baseline."
+output/index/,809,ignored,EXCLUDE,generated_smoke_test_output,no,no,yes,EXCLUDE,"Aggregated directory row (22 files) - leftover development/smoke-test run output, already excluded via .gitignore explicit path rule; not canonical, not referenced by any approved baseline."
+output/v1_r1_full/,30292015,ignored,EXCLUDE,operational_analysis_output,no,no,yes,EXCLUDE,"Aggregated directory row (17 files) - full/reproducibility legacy-repository scan dump, already excluded via .gitignore explicit path rule; regenerable via main.py per docs/PROJECT_RECOVERY.md."
+output/v1_r1_internal/,18379,ignored,EXCLUDE,generated_smoke_test_output,no,no,yes,EXCLUDE,"Aggregated directory row (17 files) - leftover development/smoke-test run output, already excluded via .gitignore explicit path rule; not canonical, not referenced by any approved baseline."
+output/v2_r4_1_full/,998734139,ignored,EXCLUDE,operational_analysis_output,no,no,yes,EXCLUDE,"Aggregated directory row (29 files) - full/reproducibility legacy-repository scan dump, already excluded via .gitignore explicit path rule; regenerable via main.py per docs/PROJECT_RECOVERY.md."
+output/v2_r4_1_internal/,9018,ignored,EXCLUDE,generated_smoke_test_output,no,no,yes,EXCLUDE,"Aggregated directory row (29 files) - leftover development/smoke-test run output, already excluded via .gitignore explicit path rule; not canonical, not referenced by any approved baseline."
+output/v2_r4_1_repro_a/,998734137,ignored,EXCLUDE,operational_analysis_output,no,no,yes,EXCLUDE,"Aggregated directory row (29 files) - full/reproducibility legacy-repository scan dump, already excluded via .gitignore explicit path rule; regenerable via main.py per docs/PROJECT_RECOVERY.md."
+output/v2_r4_1_repro_b/,998734139,ignored,EXCLUDE,operational_analysis_output,no,no,yes,EXCLUDE,"Aggregated directory row (29 files) - full/reproducibility legacy-repository scan dump, already excluded via .gitignore explicit path rule; regenerable via main.py per docs/PROJECT_RECOVERY.md."
+output/v2_r4_full/,955832146,ignored,EXCLUDE,operational_analysis_output,no,no,yes,EXCLUDE,"Aggregated directory row (29 files) - full/reproducibility legacy-repository scan dump, already excluded via .gitignore explicit path rule; regenerable via main.py per docs/PROJECT_RECOVERY.md."
+output/v2_r5_1_full/,1277912605,ignored,EXCLUDE,operational_analysis_output,no,no,yes,EXCLUDE,"Aggregated directory row (34 files) - full/reproducibility legacy-repository scan dump, already excluded via .gitignore explicit path rule; regenerable via main.py per docs/PROJECT_RECOVERY.md."
+output/v2_r5_1_repro/,1277912605,ignored,EXCLUDE,operational_analysis_output,no,no,yes,EXCLUDE,"Aggregated directory row (34 files) - full/reproducibility legacy-repository scan dump, already excluded via .gitignore explicit path rule; regenerable via main.py per docs/PROJECT_RECOVERY.md."
+output/v2_r5_full/,1347864019,ignored,EXCLUDE,operational_analysis_output,no,no,yes,EXCLUDE,"Aggregated directory row (34 files) - full/reproducibility legacy-repository scan dump, already excluded via .gitignore explicit path rule; regenerable via main.py per docs/PROJECT_RECOVERY.md."
+output/v3_final/V3_FINAL_BASELINE.json,3090,tracked,KEEP,baseline,yes,yes,no,KEEP,"V3 final baseline, closure evidence referenced by CLAUDE.md read order."
+output/v3_r10/MAINTAINABILITY_AUDIT_AFTER.json,31004,tracked,KEEP,round_evidence,no,yes,no,KEEP,Small V3 round assessment/interpretation artifact forming part of the historical closure trail.
+output/v3_r10/MAINTAINABILITY_AUDIT_BEFORE.json,30928,tracked,KEEP,round_evidence,no,yes,no,KEEP,Small V3 round assessment/interpretation artifact forming part of the historical closure trail.
+output/v3_r10/REFACTORING_MAP.json,1959,tracked,KEEP,round_evidence,no,yes,no,KEEP,Small V3 round assessment/interpretation artifact forming part of the historical closure trail.
+output/v3_r10_1/MAINTAINABILITY_AUDIT_AFTER.json,40685,tracked,KEEP,round_evidence,no,yes,no,KEEP,Small V3 round assessment/interpretation artifact forming part of the historical closure trail.
+output/v3_r10_1/MAINTAINABILITY_AUDIT_BEFORE.json,31004,tracked,KEEP,round_evidence,no,yes,no,KEEP,Small V3 round assessment/interpretation artifact forming part of the historical closure trail.
+output/v3_r10_1/REFACTORING_MAP.json,12973,tracked,KEEP,round_evidence,no,yes,no,KEEP,Small V3 round assessment/interpretation artifact forming part of the historical closure trail.
+output/v3_r10_1/TECHNICAL_DEBT_REMAINING.json,1461,tracked,KEEP,round_evidence,no,yes,no,KEEP,Small V3 round assessment/interpretation artifact forming part of the historical closure trail.
+output/v3_r7_2/COVERAGE_INDEX.json,2712,tracked,KEEP,round_evidence,no,yes,no,KEEP,Small V3 round assessment/interpretation artifact forming part of the historical closure trail.
+output/v3_r7_2/INTERMEDIATE_ASSESSMENTS.json,103149,tracked,KEEP,round_evidence,no,yes,no,KEEP,Small V3 round assessment/interpretation artifact forming part of the historical closure trail.
+output/v3_r7_2/LOCAL_ASSESSMENTS.json,216337,tracked,KEEP,round_evidence,no,yes,no,KEEP,Small V3 round assessment/interpretation artifact forming part of the historical closure trail.
+output/v3_r8_1/,755252732,ignored,EXCLUDE,operational_analysis_output,no,no,yes,EXCLUDE,"Aggregated directory row (7 files) - full/reproducibility legacy-repository scan dump, already excluded via .gitignore explicit path rule; regenerable via main.py per docs/PROJECT_RECOVERY.md."
+output/v3_r8_2/ARCHITECTURE_INTERPRETATION.json,6616,tracked,KEEP,round_evidence,no,yes,no,KEEP,Small V3 round assessment/interpretation artifact forming part of the historical closure trail.
+output/v3_r8_2/DEEP_ANALYSIS_MERGED_SUMMARY.json,976,tracked,KEEP,round_evidence,no,yes,no,KEEP,Small V3 round assessment/interpretation artifact forming part of the historical closure trail.
+output/v3_r8_2/INTERPRETATION_REQUESTS.json,46334,tracked,KEEP,round_evidence,no,yes,no,KEEP,Small V3 round assessment/interpretation artifact forming part of the historical closure trail.
+output/v3_r8_2/INTERPRETATION_RESULTS.json,12651,tracked,KEEP,round_evidence,no,yes,no,KEEP,Small V3 round assessment/interpretation artifact forming part of the historical closure trail.
+output/v3_r8_2/MISSING_INFORMATION_REEVALUATION.json,143781,tracked,KEEP,round_evidence,no,yes,no,KEEP,Small V3 round assessment/interpretation artifact forming part of the historical closure trail.
+output/v3_r8_3/EVIDENCE_EXHAUSTION_SUMMARY.json,799,tracked,KEEP,round_evidence,no,yes,no,KEEP,Small V3 round assessment/interpretation artifact forming part of the historical closure trail.
+output/v3_r8_3/TARGETED_EVIDENCE.json,8828,tracked,KEEP,round_evidence,no,yes,no,KEEP,Small V3 round assessment/interpretation artifact forming part of the historical closure trail.
+output/v3_r8_3/TARGETED_LOOKUPS.json,3956,tracked,KEEP,round_evidence,no,yes,no,KEEP,Small V3 round assessment/interpretation artifact forming part of the historical closure trail.
+output/v3_r8_3/TARGET_DEFINITIONS.json,5176,tracked,KEEP,round_evidence,no,yes,no,KEEP,Small V3 round assessment/interpretation artifact forming part of the historical closure trail.
+output/v3_r8_3/TARGET_REEVALUATION.json,16862,tracked,KEEP,round_evidence,no,yes,no,KEEP,Small V3 round assessment/interpretation artifact forming part of the historical closure trail.
+output/v3_r9/KNOWLEDGE_BOUNDARY.json,1549,tracked,KEEP,round_evidence,no,yes,no,KEEP,Small V3 round assessment/interpretation artifact forming part of the historical closure trail.
+output/v3_r9/KNOWLEDGE_PROJECTION.json,52271,tracked,KEEP,round_evidence,no,yes,no,KEEP,Small V3 round assessment/interpretation artifact forming part of the historical closure trail.
+output/v3_r9/KNOWLEDGE_READINESS.json,477,tracked,KEEP,round_evidence,no,yes,no,KEEP,Small V3 round assessment/interpretation artifact forming part of the historical closure trail.
+output/v3_r9/READINESS_TRACEABILITY.json,936,tracked,KEEP,round_evidence,no,yes,no,KEEP,Small V3 round assessment/interpretation artifact forming part of the historical closure trail.
+output/v4_1_r0/V4_1_MAINTAINABILITY_INVENTORY.json,190104,tracked,KEEP,contract,yes,yes,no,KEEP,"Small V4/V4.1 round contract/example/result JSON; defines or exemplifies an interface, not a legacy-analysis dump."
+output/v4_1_r0/V4_1_REFACTOR_PLAN.json,18517,tracked,KEEP,contract,yes,yes,no,KEEP,"Small V4/V4.1 round contract/example/result JSON; defines or exemplifies an interface, not a legacy-analysis dump."
+output/v4_1_r1/V4_1_R1_BEHAVIORAL_EQUIVALENCE.json,9097,tracked,KEEP,contract,yes,yes,no,KEEP,"Small V4/V4.1 round contract/example/result JSON; defines or exemplifies an interface, not a legacy-analysis dump."
+output/v4_1_r10/V4_1_FINAL_BASELINE.json,2746,tracked,KEEP,baseline,yes,yes,no,KEEP,Formal version-closure baseline/manifest; authoritative evidence of a closed round/version.
+output/v4_1_r10/V4_1_FINAL_MANIFEST.json,7446,tracked,KEEP,baseline,yes,yes,no,KEEP,Formal version-closure baseline/manifest; authoritative evidence of a closed round/version.
+output/v4_1_r2/V4_1_R2_TYPE_AND_CONTRACT_EQUIVALENCE.json,30873,tracked,KEEP,contract,yes,yes,no,KEEP,"Small V4/V4.1 round contract/example/result JSON; defines or exemplifies an interface, not a legacy-analysis dump."
+output/v4_1_r3/V4_1_R3_NAMING_COMPATIBILITY.json,13711,tracked,KEEP,contract,yes,yes,no,KEEP,"Small V4/V4.1 round contract/example/result JSON; defines or exemplifies an interface, not a legacy-analysis dump."
+output/v4_1_r4/V4_1_R4_READINESS_EQUIVALENCE.json,10445,tracked,KEEP,contract,yes,yes,no,KEEP,"Small V4/V4.1 round contract/example/result JSON; defines or exemplifies an interface, not a legacy-analysis dump."
+output/v4_1_r5/V4_1_R5_ORCHESTRATOR_CHARACTERIZATION.json,45796,tracked,KEEP,contract,yes,yes,no,KEEP,"Small V4/V4.1 round contract/example/result JSON; defines or exemplifies an interface, not a legacy-analysis dump."
+output/v4_1_r6/V4_1_R6_EXTRACTION_EQUIVALENCE.json,15626,tracked,KEEP,contract,yes,yes,no,KEEP,"Small V4/V4.1 round contract/example/result JSON; defines or exemplifies an interface, not a legacy-analysis dump."
+output/v4_1_r7/V4_1_R7_EXCEPTION_BOUNDARY_EQUIVALENCE.json,11963,tracked,KEEP,contract,yes,yes,no,KEEP,"Small V4/V4.1 round contract/example/result JSON; defines or exemplifies an interface, not a legacy-analysis dump."
+output/v4_1_r8/V4_1_R8_NAMING_DOCUMENTATION_EQUIVALENCE.json,9834,tracked,KEEP,contract,yes,yes,no,KEEP,"Small V4/V4.1 round contract/example/result JSON; defines or exemplifies an interface, not a legacy-analysis dump."
+output/v4_1_r9/V4_1_R9_COMPREHENSIVE_EQUIVALENCE.json,17030,tracked,KEEP,contract,yes,yes,no,KEEP,"Small V4/V4.1 round contract/example/result JSON; defines or exemplifies an interface, not a legacy-analysis dump."
+output/v4_2_r7_ist_operacional/RUN_SUMMARY.json,959,untracked_not_ignored,EXCLUDE,operational_analysis_output,no,no,yes,EXCLUDE,Real IST pilot operational output (generated analysis of real legacy system); must not enter Git per policy; currently untracked but NOT covered by .gitignore (gap).
+output/v4_2_r7_ist_operacional/RUN_SUMMARY.md,907,untracked_not_ignored,EXCLUDE,operational_analysis_output,no,no,yes,EXCLUDE,Real IST pilot operational output (generated analysis of real legacy system); must not enter Git per policy; currently untracked but NOT covered by .gitignore (gap).
+output/v4_2_r7_ist_operacional/ai_context/ARCHITECTURE_GRAPH.json,69740057,untracked_not_ignored,EXCLUDE,operational_analysis_output,no,no,yes,EXCLUDE,Real IST pilot operational output (generated analysis of real legacy system); must not enter Git per policy; currently untracked but NOT covered by .gitignore (gap).
+output/v4_2_r7_ist_operacional/ai_context/FUNCTIONAL_FLOWS.json,144008622,untracked_not_ignored,EXCLUDE,operational_analysis_output,no,no,yes,EXCLUDE,Real IST pilot operational output (generated analysis of real legacy system); must not enter Git per policy; currently untracked but NOT covered by .gitignore (gap).
+output/v4_2_r7_ist_operacional/ai_context/SYSTEM_CONTEXT.json,6070127,untracked_not_ignored,EXCLUDE,operational_analysis_output,no,no,yes,EXCLUDE,Real IST pilot operational output (generated analysis of real legacy system); must not enter Git per policy; currently untracked but NOT covered by .gitignore (gap).
+output/v4_2_r7_ist_operacional/ai_context/SYSTEM_CONTEXT.md,871,untracked_not_ignored,EXCLUDE,operational_analysis_output,no,no,yes,EXCLUDE,Real IST pilot operational output (generated analysis of real legacy system); must not enter Git per policy; currently untracked but NOT covered by .gitignore (gap).
+output/v4_2_r7_ist_operacional/ai_context/TRACEABILITY.json,59358789,untracked_not_ignored,EXCLUDE,operational_analysis_output,no,no,yes,EXCLUDE,Real IST pilot operational output (generated analysis of real legacy system); must not enter Git per policy; currently untracked but NOT covered by .gitignore (gap).
+output/v4_2_r7_ist_operacional/context/projects.json,896897,untracked_not_ignored,EXCLUDE,operational_analysis_output,no,no,yes,EXCLUDE,Real IST pilot operational output (generated analysis of real legacy system); must not enter Git per policy; currently untracked but NOT covered by .gitignore (gap).
+output/v4_2_r7_ist_operacional/documentation/ANALYSIS_WARNINGS.md,43,untracked_not_ignored,EXCLUDE,operational_analysis_output,no,no,yes,EXCLUDE,Real IST pilot operational output (generated analysis of real legacy system); must not enter Git per policy; currently untracked but NOT covered by .gitignore (gap).
+output/v4_2_r7_ist_operacional/documentation/CONFIGURATION_SUMMARY.md,6985,untracked_not_ignored,EXCLUDE,operational_analysis_output,no,no,yes,EXCLUDE,Real IST pilot operational output (generated analysis of real legacy system); must not enter Git per policy; currently untracked but NOT covered by .gitignore (gap).
+output/v4_2_r7_ist_operacional/documentation/DATABASE_ACCESS.md,5187550,untracked_not_ignored,EXCLUDE,operational_analysis_output,no,no,yes,EXCLUDE,Real IST pilot operational output (generated analysis of real legacy system); must not enter Git per policy; currently untracked but NOT covered by .gitignore (gap).
+output/v4_2_r7_ist_operacional/documentation/FUNCTIONAL_FLOWS.md,44138737,untracked_not_ignored,EXCLUDE,operational_analysis_output,no,no,yes,EXCLUDE,Real IST pilot operational output (generated analysis of real legacy system); must not enter Git per policy; currently untracked but NOT covered by .gitignore (gap).
+output/v4_2_r7_ist_operacional/documentation/PROJECT_DEPENDENCIES.md,978565,untracked_not_ignored,EXCLUDE,operational_analysis_output,no,no,yes,EXCLUDE,Real IST pilot operational output (generated analysis of real legacy system); must not enter Git per policy; currently untracked but NOT covered by .gitignore (gap).
+output/v4_2_r7_ist_operacional/documentation/PROJECT_OVERVIEW.md,351,untracked_not_ignored,EXCLUDE,operational_analysis_output,no,no,yes,EXCLUDE,Real IST pilot operational output (generated analysis of real legacy system); must not enter Git per policy; currently untracked but NOT covered by .gitignore (gap).
+output/v4_2_r7_ist_operacional/documentation/SOLUTION_STRUCTURE.md,22502,untracked_not_ignored,EXCLUDE,operational_analysis_output,no,no,yes,EXCLUDE,Real IST pilot operational output (generated analysis of real legacy system); must not enter Git per policy; currently untracked but NOT covered by .gitignore (gap).
+output/v4_2_r7_ist_operacional/documentation/UNRESOLVED_FINDINGS.md,12863870,untracked_not_ignored,EXCLUDE,operational_analysis_output,no,no,yes,EXCLUDE,Real IST pilot operational output (generated analysis of real legacy system); must not enter Git per policy; currently untracked but NOT covered by .gitignore (gap).
+output/v4_2_r7_ist_operacional/documentation/WEBFORMS_MAP.md,1372218,untracked_not_ignored,EXCLUDE,operational_analysis_output,no,no,yes,EXCLUDE,Real IST pilot operational output (generated analysis of real legacy system); must not enter Git per policy; currently untracked but NOT covered by .gitignore (gap).
+output/v4_2_r7_ist_operacional/documentation/WEB_ENTRY_POINTS.md,1229080,untracked_not_ignored,EXCLUDE,operational_analysis_output,no,no,yes,EXCLUDE,Real IST pilot operational output (generated analysis of real legacy system); must not enter Git per policy; currently untracked but NOT covered by .gitignore (gap).
+output/v4_2_r7_ist_operacional/index/calls.json,211588538,untracked_not_ignored,EXCLUDE,operational_analysis_output,no,no,yes,EXCLUDE,Real IST pilot operational output (generated analysis of real legacy system); must not enter Git per policy; currently untracked but NOT covered by .gitignore (gap).
+output/v4_2_r7_ist_operacional/index/configuration.json,278682,untracked_not_ignored,EXCLUDE,operational_analysis_output,no,no,yes,EXCLUDE,Real IST pilot operational output (generated analysis of real legacy system); must not enter Git per policy; currently untracked but NOT covered by .gitignore (gap).
+output/v4_2_r7_ist_operacional/index/data_access.json,26610868,untracked_not_ignored,EXCLUDE,operational_analysis_output,no,no,yes,EXCLUDE,Real IST pilot operational output (generated analysis of real legacy system); must not enter Git per policy; currently untracked but NOT covered by .gitignore (gap).
+output/v4_2_r7_ist_operacional/index/data_parameters.json,90890159,untracked_not_ignored,EXCLUDE,operational_analysis_output,no,no,yes,EXCLUDE,Real IST pilot operational output (generated analysis of real legacy system); must not enter Git per policy; currently untracked but NOT covered by .gitignore (gap).
+output/v4_2_r7_ist_operacional/index/dependencies.json,8917658,untracked_not_ignored,EXCLUDE,operational_analysis_output,no,no,yes,EXCLUDE,Real IST pilot operational output (generated analysis of real legacy system); must not enter Git per policy; currently untracked but NOT covered by .gitignore (gap).
+output/v4_2_r7_ist_operacional/index/entry_points.json,30284763,untracked_not_ignored,EXCLUDE,operational_analysis_output,no,no,yes,EXCLUDE,Real IST pilot operational output (generated analysis of real legacy system); must not enter Git per policy; currently untracked but NOT covered by .gitignore (gap).
+output/v4_2_r7_ist_operacional/index/errors.json,2,untracked_not_ignored,EXCLUDE,operational_analysis_output,no,no,yes,EXCLUDE,Real IST pilot operational output (generated analysis of real legacy system); must not enter Git per policy; currently untracked but NOT covered by .gitignore (gap).
+output/v4_2_r7_ist_operacional/index/event_bindings.json,9781396,untracked_not_ignored,EXCLUDE,operational_analysis_output,no,no,yes,EXCLUDE,Real IST pilot operational output (generated analysis of real legacy system); must not enter Git per policy; currently untracked but NOT covered by .gitignore (gap).
+output/v4_2_r7_ist_operacional/index/files.json,3794268,untracked_not_ignored,EXCLUDE,operational_analysis_output,no,no,yes,EXCLUDE,Real IST pilot operational output (generated analysis of real legacy system); must not enter Git per policy; currently untracked but NOT covered by .gitignore (gap).
+output/v4_2_r7_ist_operacional/index/flow_summary.json,559,untracked_not_ignored,EXCLUDE,operational_analysis_output,no,no,yes,EXCLUDE,Real IST pilot operational output (generated analysis of real legacy system); must not enter Git per policy; currently untracked but NOT covered by .gitignore (gap).
+output/v4_2_r7_ist_operacional/index/flow_unresolved.json,118282168,untracked_not_ignored,EXCLUDE,operational_analysis_output,no,no,yes,EXCLUDE,Real IST pilot operational output (generated analysis of real legacy system); must not enter Git per policy; currently untracked but NOT covered by .gitignore (gap).
+output/v4_2_r7_ist_operacional/index/functional_dependencies.json,227153633,untracked_not_ignored,EXCLUDE,operational_analysis_output,no,no,yes,EXCLUDE,Real IST pilot operational output (generated analysis of real legacy system); must not enter Git per policy; currently untracked but NOT covered by .gitignore (gap).
+output/v4_2_r7_ist_operacional/index/functional_flows.json,123233553,untracked_not_ignored,EXCLUDE,operational_analysis_output,no,no,yes,EXCLUDE,Real IST pilot operational output (generated analysis of real legacy system); must not enter Git per policy; currently untracked but NOT covered by .gitignore (gap).
+output/v4_2_r7_ist_operacional/index/functional_paths.json,124174498,untracked_not_ignored,EXCLUDE,operational_analysis_output,no,no,yes,EXCLUDE,Real IST pilot operational output (generated analysis of real legacy system); must not enter Git per policy; currently untracked but NOT covered by .gitignore (gap).
+output/v4_2_r7_ist_operacional/index/logical_symbols.json,332,untracked_not_ignored,EXCLUDE,operational_analysis_output,no,no,yes,EXCLUDE,Real IST pilot operational output (generated analysis of real legacy system); must not enter Git per policy; currently untracked but NOT covered by .gitignore (gap).
+output/v4_2_r7_ist_operacional/index/projects.json,1267216,untracked_not_ignored,EXCLUDE,operational_analysis_output,no,no,yes,EXCLUDE,Real IST pilot operational output (generated analysis of real legacy system); must not enter Git per policy; currently untracked but NOT covered by .gitignore (gap).
+output/v4_2_r7_ist_operacional/index/repository.json,83439,untracked_not_ignored,EXCLUDE,operational_analysis_output,no,no,yes,EXCLUDE,Real IST pilot operational output (generated analysis of real legacy system); must not enter Git per policy; currently untracked but NOT covered by .gitignore (gap).
+output/v4_2_r7_ist_operacional/index/solutions.json,89561,untracked_not_ignored,EXCLUDE,operational_analysis_output,no,no,yes,EXCLUDE,Real IST pilot operational output (generated analysis of real legacy system); must not enter Git per policy; currently untracked but NOT covered by .gitignore (gap).
+output/v4_2_r7_ist_operacional/index/sql_operations.json,2436,untracked_not_ignored,EXCLUDE,operational_analysis_output,no,no,yes,EXCLUDE,Real IST pilot operational output (generated analysis of real legacy system); must not enter Git per policy; currently untracked but NOT covered by .gitignore (gap).
+output/v4_2_r7_ist_operacional/index/stored_procedures.json,6135867,untracked_not_ignored,EXCLUDE,operational_analysis_output,no,no,yes,EXCLUDE,Real IST pilot operational output (generated analysis of real legacy system); must not enter Git per policy; currently untracked but NOT covered by .gitignore (gap).
+output/v4_2_r7_ist_operacional/index/symbols.json,8407472,untracked_not_ignored,EXCLUDE,operational_analysis_output,no,no,yes,EXCLUDE,Real IST pilot operational output (generated analysis of real legacy system); must not enter Git per policy; currently untracked but NOT covered by .gitignore (gap).
+output/v4_2_r7_ist_operacional/index/webforms.json,4479511,untracked_not_ignored,EXCLUDE,operational_analysis_output,no,no,yes,EXCLUDE,Real IST pilot operational output (generated analysis of real legacy system); must not enter Git per policy; currently untracked but NOT covered by .gitignore (gap).
+output/v4_2_r8/V4_2_FINAL_BASELINE.json,3661,tracked,KEEP,baseline,yes,yes,no,KEEP,Formal version-closure baseline/manifest; authoritative evidence of a closed round/version.
+output/v4_2_r8/V4_2_FINAL_MANIFEST.json,7935,tracked,KEEP,baseline,yes,yes,no,KEEP,Formal version-closure baseline/manifest; authoritative evidence of a closed round/version.
+output/v4_bootstrap/V4_GAP_ANALYSIS.json,5470,tracked,KEEP,contract,yes,yes,no,KEEP,"Small V4/V4.1 round contract/example/result JSON; defines or exemplifies an interface, not a legacy-analysis dump."
+output/v4_bootstrap/V4_REUSE_INVENTORY.json,9423,tracked,KEEP,contract,yes,yes,no,KEEP,"Small V4/V4.1 round contract/example/result JSON; defines or exemplifies an interface, not a legacy-analysis dump."
+output/v4_bootstrap/V4_TECHNICAL_DEBT_CLASSIFICATION.json,2105,tracked,KEEP,contract,yes,yes,no,KEEP,"Small V4/V4.1 round contract/example/result JSON; defines or exemplifies an interface, not a legacy-analysis dump."
+output/v4_r1/V4_KNOWLEDGE_DOMAIN_MODEL_CONTRACT.json,4521,tracked,KEEP,contract,yes,yes,no,KEEP,"Small V4/V4.1 round contract/example/result JSON; defines or exemplifies an interface, not a legacy-analysis dump."
+output/v4_r10/V4_CANONICAL_KNOWLEDGE_COMPOSITION_CONTRACT.json,11750,tracked,KEEP,contract,yes,yes,no,KEEP,"Small V4/V4.1 round contract/example/result JSON; defines or exemplifies an interface, not a legacy-analysis dump."
+output/v4_r10/V4_CANONICAL_KNOWLEDGE_COMPOSITION_EXAMPLE.json,2980,tracked,KEEP,contract,yes,yes,no,KEEP,"Small V4/V4.1 round contract/example/result JSON; defines or exemplifies an interface, not a legacy-analysis dump."
+output/v4_r11/V4_HUMAN_READABLE_DOCUMENT_PROJECTION_CONTRACT.json,12956,tracked,KEEP,contract,yes,yes,no,KEEP,"Small V4/V4.1 round contract/example/result JSON; defines or exemplifies an interface, not a legacy-analysis dump."
+output/v4_r11/V4_HUMAN_READABLE_DOCUMENT_PROJECTION_EXAMPLE.json,3468,tracked,KEEP,contract,yes,yes,no,KEEP,"Small V4/V4.1 round contract/example/result JSON; defines or exemplifies an interface, not a legacy-analysis dump."
+output/v4_r11/example_docs/00-el-area/equipo-y-roles.md,373,tracked,KEEP,contract_example,yes,yes,no,KEEP,"Worked example output of the human-readable document projection contract (R11); small, illustrates contract shape."
+output/v4_r11/example_docs/00-el-area/espacios-de-trabajo.md,383,tracked,KEEP,contract_example,yes,yes,no,KEEP,"Worked example output of the human-readable document projection contract (R11); small, illustrates contract shape."
+output/v4_r11/example_docs/00-el-area/funciones.md,373,tracked,KEEP,contract_example,yes,yes,no,KEEP,"Worked example output of the human-readable document projection contract (R11); small, illustrates contract shape."
+output/v4_r11/example_docs/00-el-area/glosario.md,638,tracked,KEEP,contract_example,yes,yes,no,KEEP,"Worked example output of the human-readable document projection contract (R11); small, illustrates contract shape."
+output/v4_r11/example_docs/00-el-area/primer-dia.md,366,tracked,KEEP,contract_example,yes,yes,no,KEEP,"Worked example output of the human-readable document projection contract (R11); small, illustrates contract shape."
+output/v4_r11/example_docs/00-el-area/que-es-el-area.md,375,tracked,KEEP,contract_example,yes,yes,no,KEEP,"Worked example output of the human-readable document projection contract (R11); small, illustrates contract shape."
+output/v4_r11/example_docs/01-gobernanza/fuente-de-verdad.md,399,tracked,KEEP,contract_example,yes,yes,no,KEEP,"Worked example output of the human-readable document projection contract (R11); small, illustrates contract shape."
+output/v4_r11/example_docs/01-gobernanza/gestion-del-tablero.md,385,tracked,KEEP,contract_example,yes,yes,no,KEEP,"Worked example output of the human-readable document projection contract (R11); small, illustrates contract shape."
+output/v4_r11/example_docs/01-gobernanza/imputacion-y-reporte.md,387,tracked,KEEP,contract_example,yes,yes,no,KEEP,"Worked example output of the human-readable document projection contract (R11); small, illustrates contract shape."
+output/v4_r11/example_docs/01-gobernanza/ramas-y-versionamiento.md,659,tracked,KEEP,contract_example,yes,yes,no,KEEP,"Worked example output of the human-readable document projection contract (R11); small, illustrates contract shape."
+output/v4_r11/example_docs/01-gobernanza/seguridad-y-datos.md,662,tracked,KEEP,contract_example,yes,yes,no,KEEP,"Worked example output of the human-readable document projection contract (R11); small, illustrates contract shape."
+output/v4_r11/example_docs/02-flujos/acompanamiento.md,367,tracked,KEEP,contract_example,yes,yes,no,KEEP,"Worked example output of the human-readable document projection contract (R11); small, illustrates contract shape."
+output/v4_r11/example_docs/02-flujos/desarrollo-en-blanco.md,656,tracked,KEEP,contract_example,yes,yes,no,KEEP,"Worked example output of the human-readable document projection contract (R11); small, illustrates contract shape."
+output/v4_r11/example_docs/02-flujos/desarrollo-evolutivo-y-soporte.md,398,tracked,KEEP,contract_example,yes,yes,no,KEEP,"Worked example output of the human-readable document projection contract (R11); small, illustrates contract shape."
+output/v4_r11/example_docs/02-flujos/ingesta-y-actualizacion-de-contexto.md,409,tracked,KEEP,contract_example,yes,yes,no,KEEP,"Worked example output of the human-readable document projection contract (R11); small, illustrates contract shape."
+output/v4_r11/example_docs/02-flujos/propuesta-preventa.md,374,tracked,KEEP,contract_example,yes,yes,no,KEEP,"Worked example output of the human-readable document projection contract (R11); small, illustrates contract shape."
+output/v4_r11/example_docs/02-flujos/soporte-y-capacitacion.md,383,tracked,KEEP,contract_example,yes,yes,no,KEEP,"Worked example output of the human-readable document projection contract (R11); small, illustrates contract shape."
+output/v4_r11/example_docs/03-desarrollo-de-software/anti-patterns.md,396,tracked,KEEP,contract_example,yes,yes,no,KEEP,"Worked example output of the human-readable document projection contract (R11); small, illustrates contract shape."
+output/v4_r11/example_docs/03-desarrollo-de-software/coding-standards.md,408,tracked,KEEP,contract_example,yes,yes,no,KEEP,"Worked example output of the human-readable document projection contract (R11); small, illustrates contract shape."
+output/v4_r11/example_docs/03-desarrollo-de-software/configuration-standards.md,422,tracked,KEEP,contract_example,yes,yes,no,KEEP,"Worked example output of the human-readable document projection contract (R11); small, illustrates contract shape."
+output/v4_r11/example_docs/03-desarrollo-de-software/definition-of-done.md,406,tracked,KEEP,contract_example,yes,yes,no,KEEP,"Worked example output of the human-readable document projection contract (R11); small, illustrates contract shape."
+output/v4_r11/example_docs/03-desarrollo-de-software/deliverables.md,393,tracked,KEEP,contract_example,yes,yes,no,KEEP,"Worked example output of the human-readable document projection contract (R11); small, illustrates contract shape."
+output/v4_r11/example_docs/03-desarrollo-de-software/design-principles.md,408,tracked,KEEP,contract_example,yes,yes,no,KEEP,"Worked example output of the human-readable document projection contract (R11); small, illustrates contract shape."
+output/v4_r11/example_docs/03-desarrollo-de-software/dev-environment-standards.md,431,tracked,KEEP,contract_example,yes,yes,no,KEEP,"Worked example output of the human-readable document projection contract (R11); small, illustrates contract shape."
+output/v4_r11/example_docs/03-desarrollo-de-software/devsecops.md,388,tracked,KEEP,contract_example,yes,yes,no,KEEP,"Worked example output of the human-readable document projection contract (R11); small, illustrates contract shape."
+output/v4_r11/example_docs/03-desarrollo-de-software/environments.md,391,tracked,KEEP,contract_example,yes,yes,no,KEEP,"Worked example output of the human-readable document projection contract (R11); small, illustrates contract shape."
+output/v4_r11/example_docs/03-desarrollo-de-software/methodology.md,393,tracked,KEEP,contract_example,yes,yes,no,KEEP,"Worked example output of the human-readable document projection contract (R11); small, illustrates contract shape."
+output/v4_r11/example_docs/03-desarrollo-de-software/naming-standards.md,413,tracked,KEEP,contract_example,yes,yes,no,KEEP,"Worked example output of the human-readable document projection contract (R11); small, illustrates contract shape."
+output/v4_r11/example_docs/03-desarrollo-de-software/patterns.md,386,tracked,KEEP,contract_example,yes,yes,no,KEEP,"Worked example output of the human-readable document projection contract (R11); small, illustrates contract shape."
+output/v4_r11/example_docs/03-desarrollo-de-software/pipeline.md,386,tracked,KEEP,contract_example,yes,yes,no,KEEP,"Worked example output of the human-readable document projection contract (R11); small, illustrates contract shape."
+output/v4_r11/example_docs/03-desarrollo-de-software/quality.md,1093,tracked,KEEP,contract_example,yes,yes,no,KEEP,"Worked example output of the human-readable document projection contract (R11); small, illustrates contract shape."
+output/v4_r11/example_docs/03-desarrollo-de-software/security.md,669,tracked,KEEP,contract_example,yes,yes,no,KEEP,"Worked example output of the human-readable document projection contract (R11); small, illustrates contract shape."
+output/v4_r11/example_docs/03-desarrollo-de-software/source-control-standards.md,429,tracked,KEEP,contract_example,yes,yes,no,KEEP,"Worked example output of the human-readable document projection contract (R11); small, illustrates contract shape."
+output/v4_r11/example_docs/04-arquitecturas-de-referencia/agentes.md,692,tracked,KEEP,contract_example,yes,yes,no,KEEP,"Worked example output of the human-readable document projection contract (R11); small, illustrates contract shape."
+output/v4_r11/example_docs/04-arquitecturas-de-referencia/capacidades.md,402,tracked,KEEP,contract_example,yes,yes,no,KEEP,"Worked example output of the human-readable document projection contract (R11); small, illustrates contract shape."
+output/v4_r11/example_docs/04-arquitecturas-de-referencia/herramientas.md,404,tracked,KEEP,contract_example,yes,yes,no,KEEP,"Worked example output of the human-readable document projection contract (R11); small, illustrates contract shape."
+output/v4_r11/example_docs/04-arquitecturas-de-referencia/plataforma-agentica.md,419,tracked,KEEP,contract_example,yes,yes,no,KEEP,"Worked example output of the human-readable document projection contract (R11); small, illustrates contract shape."
+output/v4_r11/example_docs/05-plantillas/plantillas.md,370,tracked,KEEP,contract_example,yes,yes,no,KEEP,"Worked example output of the human-readable document projection contract (R11); small, illustrates contract shape."
+output/v4_r11/example_docs/06-catalogo/catalogo.md,657,tracked,KEEP,contract_example,yes,yes,no,KEEP,"Worked example output of the human-readable document projection contract (R11); small, illustrates contract shape."
+output/v4_r11/example_docs/07-proyectos/proyectos.md,364,tracked,KEEP,contract_example,yes,yes,no,KEEP,"Worked example output of the human-readable document projection contract (R11); small, illustrates contract shape."
+output/v4_r11/example_docs/08-historial/historial.md,695,tracked,KEEP,contract_example,yes,yes,no,KEEP,"Worked example output of the human-readable document projection contract (R11); small, illustrates contract shape."
+output/v4_r11/example_docs/09-capacitacion/capacitacion.md,378,tracked,KEEP,contract_example,yes,yes,no,KEEP,"Worked example output of the human-readable document projection contract (R11); small, illustrates contract shape."
+output/v4_r12/V4_PLUGIN_FACING_OUTPUT_CONTRACT.json,11867,tracked,KEEP,contract,yes,yes,no,KEEP,"Small V4/V4.1 round contract/example/result JSON; defines or exemplifies an interface, not a legacy-analysis dump."
+output/v4_r12/V4_PLUGIN_FACING_OUTPUT_EXAMPLE.json,14383,tracked,KEEP,contract,yes,yes,no,KEEP,"Small V4/V4.1 round contract/example/result JSON; defines or exemplifies an interface, not a legacy-analysis dump."
+output/v4_r13/V4_REGRESSION_SECURITY_REPORT.json,10692,tracked,KEEP,contract,yes,yes,no,KEEP,"Small V4/V4.1 round contract/example/result JSON; defines or exemplifies an interface, not a legacy-analysis dump."
+output/v4_r13/V4_SECURITY_INVARIANTS.json,7022,tracked,KEEP,contract,yes,yes,no,KEEP,"Small V4/V4.1 round contract/example/result JSON; defines or exemplifies an interface, not a legacy-analysis dump."
+output/v4_r14/V4_FINAL_BASELINE.json,5183,tracked,KEEP,baseline,yes,yes,no,KEEP,Formal version-closure baseline/manifest; authoritative evidence of a closed round/version.
+output/v4_r14/V4_FINAL_MANIFEST.json,3384,tracked,KEEP,baseline,yes,yes,no,KEEP,Formal version-closure baseline/manifest; authoritative evidence of a closed round/version.
+output/v4_r1_1/V4_GITHUB_SUITABILITY.json,1817,tracked,KEEP,contract,yes,yes,no,KEEP,"Small V4/V4.1 round contract/example/result JSON; defines or exemplifies an interface, not a legacy-analysis dump."
+output/v4_r1_1/V4_LARGE_ARTIFACT_ANALYSIS.json,25326,tracked,KEEP,contract,yes,yes,no,KEEP,"Small V4/V4.1 round contract/example/result JSON; defines or exemplifies an interface, not a legacy-analysis dump."
+output/v4_r1_1/V4_REPOSITORY_INVENTORY.json,140548,tracked,KEEP,contract,yes,yes,no,KEEP,"Small V4/V4.1 round contract/example/result JSON; defines or exemplifies an interface, not a legacy-analysis dump."
+output/v4_r2/V4_INPUT_SOURCE_CONTRACTS.json,16810,tracked,KEEP,contract,yes,yes,no,KEEP,"Small V4/V4.1 round contract/example/result JSON; defines or exemplifies an interface, not a legacy-analysis dump."
+output/v4_r3/V4_PROVENANCE_CONTRACT.json,3242,tracked,KEEP,contract,yes,yes,no,KEEP,"Small V4/V4.1 round contract/example/result JSON; defines or exemplifies an interface, not a legacy-analysis dump."
+output/v4_r3/V4_PROVENANCE_EXAMPLE.json,4140,tracked,KEEP,contract,yes,yes,no,KEEP,"Small V4/V4.1 round contract/example/result JSON; defines or exemplifies an interface, not a legacy-analysis dump."
+output/v4_r4/V4_HUMAN_MATERIAL_INGESTION_CONTRACT.json,4724,tracked,KEEP,contract,yes,yes,no,KEEP,"Small V4/V4.1 round contract/example/result JSON; defines or exemplifies an interface, not a legacy-analysis dump."
+output/v4_r4/V4_HUMAN_MATERIAL_INGESTION_EXAMPLE.json,3235,tracked,KEEP,contract,yes,yes,no,KEEP,"Small V4/V4.1 round contract/example/result JSON; defines or exemplifies an interface, not a legacy-analysis dump."
+output/v4_r5/V4_KNOWLEDGE_CLASSIFICATION_CONTRACT.json,8936,tracked,KEEP,contract,yes,yes,no,KEEP,"Small V4/V4.1 round contract/example/result JSON; defines or exemplifies an interface, not a legacy-analysis dump."
+output/v4_r5/V4_KNOWLEDGE_CLASSIFICATION_EXAMPLE.json,3030,tracked,KEEP,contract,yes,yes,no,KEEP,"Small V4/V4.1 round contract/example/result JSON; defines or exemplifies an interface, not a legacy-analysis dump."
+output/v4_r6/V4_TEMPORAL_SEPARATION_CONTRACT.json,4584,tracked,KEEP,contract,yes,yes,no,KEEP,"Small V4/V4.1 round contract/example/result JSON; defines or exemplifies an interface, not a legacy-analysis dump."
+output/v4_r6/V4_TEMPORAL_SEPARATION_EXAMPLE.json,3776,tracked,KEEP,contract,yes,yes,no,KEEP,"Small V4/V4.1 round contract/example/result JSON; defines or exemplifies an interface, not a legacy-analysis dump."
+output/v4_r7/V4_GAP_CONFLICT_RELATION_CONTRACT.json,6785,tracked,KEEP,contract,yes,yes,no,KEEP,"Small V4/V4.1 round contract/example/result JSON; defines or exemplifies an interface, not a legacy-analysis dump."
+output/v4_r7/V4_GAP_CONFLICT_RELATION_EXAMPLE.json,1747,tracked,KEEP,contract,yes,yes,no,KEEP,"Small V4/V4.1 round contract/example/result JSON; defines or exemplifies an interface, not a legacy-analysis dump."
+output/v4_r8/V4_PROPOSAL_LIFECYCLE_CONTRACT.json,8629,tracked,KEEP,contract,yes,yes,no,KEEP,"Small V4/V4.1 round contract/example/result JSON; defines or exemplifies an interface, not a legacy-analysis dump."
+output/v4_r8/V4_PROPOSAL_LIFECYCLE_EXAMPLE.json,2362,tracked,KEEP,contract,yes,yes,no,KEEP,"Small V4/V4.1 round contract/example/result JSON; defines or exemplifies an interface, not a legacy-analysis dump."
+output/v4_r9/V4_TECHNICAL_LEAD_APPROVAL_CONTRACT.json,7927,tracked,KEEP,contract,yes,yes,no,KEEP,"Small V4/V4.1 round contract/example/result JSON; defines or exemplifies an interface, not a legacy-analysis dump."
+output/v4_r9/V4_TECHNICAL_LEAD_APPROVAL_EXAMPLE.json,2807,tracked,KEEP,contract,yes,yes,no,KEEP,"Small V4/V4.1 round contract/example/result JSON; defines or exemplifies an interface, not a legacy-analysis dump."
+prompts/V4/V4_00_BOOTSTRAP_AND_BASELINE.md,5589,tracked,KEEP,prompt,yes,yes,no,KEEP,Round prompt driving reproducible agent execution; needed for audit trail.
+prompts/V4/V4_R10_APPROVAL_AND_VERSIONING.md,11058,tracked,KEEP,prompt,yes,yes,no,KEEP,Round prompt driving reproducible agent execution; needed for audit trail.
+prompts/V4/V4_R10_CANONICAL_KNOWLEDGE_COMPOSITION.md,24069,tracked,KEEP,prompt,yes,yes,no,KEEP,Round prompt driving reproducible agent execution; needed for audit trail.
+prompts/V4/V4_R11_APPROVAL_AND_VERSIONING.md,11697,tracked,KEEP,prompt,yes,yes,no,KEEP,Round prompt driving reproducible agent execution; needed for audit trail.
+prompts/V4/V4_R11_HUMAN_READABLE_DOCUMENT_PROJECTION.md,23960,tracked,KEEP,prompt,yes,yes,no,KEEP,Round prompt driving reproducible agent execution; needed for audit trail.
+prompts/V4/V4_R12_APPROVAL_AND_VERSIONING.md,12470,tracked,KEEP,prompt,yes,yes,no,KEEP,Round prompt driving reproducible agent execution; needed for audit trail.
+prompts/V4/V4_R12_PLUGIN_FACING_MACHINE_READABLE_OUTPUT_CONTRACT.md,26657,tracked,KEEP,prompt,yes,yes,no,KEEP,Round prompt driving reproducible agent execution; needed for audit trail.
+prompts/V4/V4_R13_APPROVAL_AND_VERSIONING.md,11829,tracked,KEEP,prompt,yes,yes,no,KEEP,Round prompt driving reproducible agent execution; needed for audit trail.
+prompts/V4/V4_R13_REGRESSION_AND_SECURITY.md,29155,tracked,KEEP,prompt,yes,yes,no,KEEP,Round prompt driving reproducible agent execution; needed for audit trail.
+prompts/V4/V4_R14_APPROVAL_AND_V4_FINAL_CLOSURE.md,14153,tracked,KEEP,prompt,yes,yes,no,KEEP,Round prompt driving reproducible agent execution; needed for audit trail.
+prompts/V4/V4_R14_MANUALS_AND_FINAL_BASELINE.md,23845,tracked,KEEP,prompt,yes,yes,no,KEEP,Round prompt driving reproducible agent execution; needed for audit trail.
+prompts/V4/V4_R1_1_REPOSITORY_VERSIONING_AND_RECOVERY.md,17874,tracked,KEEP,prompt,yes,yes,no,KEEP,Round prompt driving reproducible agent execution; needed for audit trail.
+prompts/V4/V4_R1_KNOWLEDGE_DOMAIN_MODEL.md,16230,tracked,KEEP,prompt,yes,yes,no,KEEP,Round prompt driving reproducible agent execution; needed for audit trail.
+prompts/V4/V4_R2_APPROVAL_AND_VERSIONING.md,8525,tracked,KEEP,prompt,yes,yes,no,KEEP,Round prompt driving reproducible agent execution; needed for audit trail.
+prompts/V4/V4_R2_INPUT_SOURCE_CONTRACTS.md,25269,tracked,KEEP,prompt,yes,yes,no,KEEP,Round prompt driving reproducible agent execution; needed for audit trail.
+prompts/V4/V4_R3_APPROVAL_AND_VERSIONING.md,13562,tracked,KEEP,prompt,yes,yes,no,KEEP,Round prompt driving reproducible agent execution; needed for audit trail.
+prompts/V4/V4_R3_PROVENANCE.md,26458,tracked,KEEP,prompt,yes,yes,no,KEEP,Round prompt driving reproducible agent execution; needed for audit trail.
+prompts/V4/V4_R4_APPROVAL_AND_VERSIONING.md,14703,tracked,KEEP,prompt,yes,yes,no,KEEP,Round prompt driving reproducible agent execution; needed for audit trail.
+prompts/V4/V4_R4_HUMAN_SUPPLIED_MATERIAL_INGESTION.md,26824,tracked,KEEP,prompt,yes,yes,no,KEEP,Round prompt driving reproducible agent execution; needed for audit trail.
+prompts/V4/V4_R5_APPROVAL_AND_VERSIONING.md,12996,tracked,KEEP,prompt,yes,yes,no,KEEP,Round prompt driving reproducible agent execution; needed for audit trail.
+prompts/V4/V4_R5_KNOWLEDGE_CLASSIFICATION.md,31358,tracked,KEEP,prompt,yes,yes,no,KEEP,Round prompt driving reproducible agent execution; needed for audit trail.
+prompts/V4/V4_R6_APPROVAL_AND_VERSIONING.md,13130,tracked,KEEP,prompt,yes,yes,no,KEEP,Round prompt driving reproducible agent execution; needed for audit trail.
+prompts/V4/V4_R6_AS_IS_TO_BE_SEPARATION.md,26691,tracked,KEEP,prompt,yes,yes,no,KEEP,Round prompt driving reproducible agent execution; needed for audit trail.
+prompts/V4/V4_R7_APPROVAL_AND_VERSIONING.md,10428,tracked,KEEP,prompt,yes,yes,no,KEEP,Round prompt driving reproducible agent execution; needed for audit trail.
+prompts/V4/V4_R7_GAP_AND_CONFLICT_REPRESENTATION.md,35508,tracked,KEEP,prompt,yes,yes,no,KEEP,Round prompt driving reproducible agent execution; needed for audit trail.
+prompts/V4/V4_R8_APPROVAL_AND_VERSIONING.md,9596,tracked,KEEP,prompt,yes,yes,no,KEEP,Round prompt driving reproducible agent execution; needed for audit trail.
+prompts/V4/V4_R8_PROPOSAL_LIFECYCLE.md,38013,tracked,KEEP,prompt,yes,yes,no,KEEP,Round prompt driving reproducible agent execution; needed for audit trail.
+prompts/V4/V4_R9_APPROVAL_AND_VERSIONING.md,7880,tracked,KEEP,prompt,yes,yes,no,KEEP,Round prompt driving reproducible agent execution; needed for audit trail.
+prompts/V4/V4_R9_CLOSURE_DOCUMENTATION_CORRECTION.md,5677,tracked,KEEP,prompt,yes,yes,no,KEEP,Round prompt driving reproducible agent execution; needed for audit trail.
+prompts/V4/V4_R9_TECHNICAL_LEAD_APPROVAL.md,26648,tracked,KEEP,prompt,yes,yes,no,KEEP,Round prompt driving reproducible agent execution; needed for audit trail.
+prompts/V4_1/POST_V4_1_DOCUMENTATION_APPROVAL_AND_VERSIONING.md,4047,tracked,KEEP,prompt,yes,yes,no,KEEP,Round prompt driving reproducible agent execution; needed for audit trail.
+prompts/V4_1/POST_V4_1_USER_TECHNICAL_MANUALS_AND_GLOSSARY.md,24399,tracked,KEEP,prompt,yes,yes,no,KEEP,Round prompt driving reproducible agent execution; needed for audit trail.
+prompts/V4_1/V4_1_FINAL_APPROVAL_AND_VERSIONING.md,7468,tracked,KEEP,prompt,yes,yes,no,KEEP,Round prompt driving reproducible agent execution; needed for audit trail.
+prompts/V4_1/V4_1_R0_APPROVAL_AND_VERSIONING.md,9883,tracked,KEEP,prompt,yes,yes,no,KEEP,Round prompt driving reproducible agent execution; needed for audit trail.
+prompts/V4_1/V4_1_R0_MAINTAINABILITY_INVENTORY_AND_REFACTOR_PLAN.md,17818,tracked,KEEP,prompt,yes,yes,no,KEEP,Round prompt driving reproducible agent execution; needed for audit trail.
+prompts/V4_1/V4_1_R10_FINAL_BASELINE_AND_FORMAL_CLOSURE.md,14043,tracked,KEEP,prompt,yes,yes,no,KEEP,Round prompt driving reproducible agent execution; needed for audit trail.
+prompts/V4_1/V4_1_R1_APPROVAL_AND_VERSIONING.md,10708,tracked,KEEP,prompt,yes,yes,no,KEEP,Round prompt driving reproducible agent execution; needed for audit trail.
+prompts/V4_1/V4_1_R1_REGRESSION_FIX_AND_SHARED_JSON_RENDERER.md,13175,tracked,KEEP,prompt,yes,yes,no,KEEP,Round prompt driving reproducible agent execution; needed for audit trail.
+prompts/V4_1/V4_1_R2_APPROVAL_AND_VERSIONING.md,11617,tracked,KEEP,prompt,yes,yes,no,KEEP,Round prompt driving reproducible agent execution; needed for audit trail.
+prompts/V4_1/V4_1_R2_MODELS_TYPES_AND_PUBLIC_CONTRACTS_READABILITY.md,15705,tracked,KEEP,prompt,yes,yes,no,KEEP,Round prompt driving reproducible agent execution; needed for audit trail.
+prompts/V4_1/V4_1_R3_APPROVAL_AND_VERSIONING.md,10428,tracked,KEEP,prompt,yes,yes,no,KEEP,Round prompt driving reproducible agent execution; needed for audit trail.
+prompts/V4_1/V4_1_R3_LOW_RISK_NAMING_READABILITY.md,12618,tracked,KEEP,prompt,yes,yes,no,KEEP,Round prompt driving reproducible agent execution; needed for audit trail.
+prompts/V4_1/V4_1_R4_APPROVAL_AND_VERSIONING.md,11903,tracked,KEEP,prompt,yes,yes,no,KEEP,Round prompt driving reproducible agent execution; needed for audit trail.
+prompts/V4_1/V4_1_R4_READINESS_MODULE_DECOMPOSITION.md,16524,tracked,KEEP,prompt,yes,yes,no,KEEP,Round prompt driving reproducible agent execution; needed for audit trail.
+prompts/V4_1/V4_1_R5_APPROVAL_AND_VERSIONING.md,13673,tracked,KEEP,prompt,yes,yes,no,KEEP,Round prompt driving reproducible agent execution; needed for audit trail.
+prompts/V4_1/V4_1_R5_RISKY_ORCHESTRATORS_CHARACTERIZATION.md,17526,tracked,KEEP,prompt,yes,yes,no,KEEP,Round prompt driving reproducible agent execution; needed for audit trail.
+prompts/V4_1/V4_1_R6_APPROVAL_AND_VERSIONING.md,14470,tracked,KEEP,prompt,yes,yes,no,KEEP,Round prompt driving reproducible agent execution; needed for audit trail.
+prompts/V4_1/V4_1_R6_GAP_CLOSURE_AND_CONTROLLED_EXTRACTION.md,20104,tracked,KEEP,prompt,yes,yes,no,KEEP,Round prompt driving reproducible agent execution; needed for audit trail.
+prompts/V4_1/V4_1_R7_APPROVAL_AND_VERSIONING.md,14139,tracked,KEEP,prompt,yes,yes,no,KEEP,Round prompt driving reproducible agent execution; needed for audit trail.
+prompts/V4_1/V4_1_R7_EXCEPTION_BOUNDARIES_AND_ADAPTER_CLEANUP.md,19940,tracked,KEEP,prompt,yes,yes,no,KEEP,Round prompt driving reproducible agent execution; needed for audit trail.
+prompts/V4_1/V4_1_R8_APPROVAL_AND_VERSIONING.md,13302,tracked,KEEP,prompt,yes,yes,no,KEEP,Round prompt driving reproducible agent execution; needed for audit trail.
+prompts/V4_1/V4_1_R8_NAMING_AND_DOCUMENTATION_PART_2.md,17236,tracked,KEEP,prompt,yes,yes,no,KEEP,Round prompt driving reproducible agent execution; needed for audit trail.
+prompts/V4_1/V4_1_R9_APPROVAL_AND_VERSIONING.md,14203,tracked,KEEP,prompt,yes,yes,no,KEEP,Round prompt driving reproducible agent execution; needed for audit trail.
+prompts/V4_1/V4_1_R9_COMPREHENSIVE_REGRESSION_AND_BEHAVIORAL_EQUIVALENCE.md,18468,tracked,KEEP,prompt,yes,yes,no,KEEP,Round prompt driving reproducible agent execution; needed for audit trail.
+prompts/V4_2/V4_2_FINAL_APPROVAL_VERSIONING_AND_FORMAL_CLOSURE.md,10281,tracked,KEEP,prompt,yes,yes,no,KEEP,Round prompt driving reproducible agent execution; needed for audit trail.
+prompts/V4_2/V4_2_R0_FULL_PIPELINE_ARCHITECTURE_AND_INVENTORY.md,12110,tracked,KEEP,prompt,yes,yes,no,KEEP,Round prompt driving reproducible agent execution; needed for audit trail.
+prompts/V4_2/V4_2_R1_CLI_CONTRACT_AND_EXECUTION_MODEL.md,9807,tracked,KEEP,prompt,yes,yes,no,KEEP,Round prompt driving reproducible agent execution; needed for audit trail.
+prompts/V4_2/V4_2_R2_DETERMINISTIC_FULL_PIPELINE_ORCHESTRATOR.md,13007,tracked,KEEP,prompt,yes,yes,no,KEEP,Round prompt driving reproducible agent execution; needed for audit trail.
+prompts/V4_2/V4_2_R3_DETERMINISTIC_TECHNICAL_DOCUMENTATION.md,13471,tracked,KEEP,prompt,yes,yes,no,KEEP,Round prompt driving reproducible agent execution; needed for audit trail.
+prompts/V4_2/V4_2_R4_AI_INTERPRETATION_AND_PROPOSAL_INTEGRATION.md,14762,tracked,KEEP,prompt,yes,yes,no,KEEP,Round prompt driving reproducible agent execution; needed for audit trail.
+prompts/V4_2/V4_2_R5_1_EXIT_CODE_CONTRACT_AND_REAL_PROVIDER_GUARD.md,6109,tracked,KEEP,prompt,yes,yes,no,KEEP,Round prompt driving reproducible agent execution; needed for audit trail.
+prompts/V4_2/V4_2_R5_R5_1_APPROVAL_AND_VERSIONING.md,4232,tracked,KEEP,prompt,yes,yes,no,KEEP,Round prompt driving reproducible agent execution; needed for audit trail.
+prompts/V4_2/V4_2_R5_UNIFIED_CLI_AND_OPERATIONAL_UX.md,13019,tracked,KEEP,prompt,yes,yes,no,KEEP,Round prompt driving reproducible agent execution; needed for audit trail.
+prompts/V4_2/V4_2_R6_APPROVAL_AND_VERSIONING.md,4460,tracked,KEEP,prompt,yes,yes,no,KEEP,Round prompt driving reproducible agent execution; needed for audit trail.
+prompts/V4_2/V4_2_R6_ROBUSTNESS_RECOVERY_SECURITY_AND_APPROVAL_SURFACE.md,14021,tracked,KEEP,prompt,yes,yes,no,KEEP,Round prompt driving reproducible agent execution; needed for audit trail.
+prompts/V4_2/V4_2_R7_1_REAL_PILOT_FINDINGS_CORRECTION.md,13865,tracked,KEEP,prompt,yes,yes,no,KEEP,Round prompt driving reproducible agent execution; needed for audit trail.
+prompts/V4_2/V4_2_R7_R7_1_APPROVAL_AND_VERSIONING.md,7060,tracked,KEEP,prompt,yes,yes,no,KEEP,Round prompt driving reproducible agent execution; needed for audit trail.
+prompts/V4_2/V4_2_R7_REAL_IST_PILOT_AND_COMMITTABLE_FIXTURE.md,15754,tracked,KEEP,prompt,yes,yes,no,KEEP,Round prompt driving reproducible agent execution; needed for audit trail.
+prompts/V4_2/V4_2_R8_DOCUMENTATION_AT_SCALE_FINAL_BASELINE_AND_CLOSURE_PREPARATION.md,17636,tracked,KEEP,prompt,yes,yes,no,KEEP,Round prompt driving reproducible agent execution; needed for audit trail.
+result_codex/V1_ANALYSIS_REPORT.md,2076,tracked,KEEP,history,no,yes,no,KEEP,Historical V1 analysis report record.
+tests/__init__.py,2924,tracked,KEEP,test,yes,no,no,KEEP,Automated test suite (contributes to 1809-test baseline).
+tests/__pycache__/,1614406,ignored,EXCLUDE,cache,no,no,yes,EXCLUDE,"Aggregated directory row (61 files) - Python bytecode cache, already excluded via .gitignore (__pycache__/); fully regenerable."
+tests/conftest.py,150,tracked,KEEP,test,yes,no,no,KEEP,Automated test suite (contributes to 1809-test baseline).
+tests/fixtures/v2_r1_sample/App.vbproj,218,tracked,KEEP,test,yes,no,no,KEEP,Automated test suite (contributes to 1809-test baseline).
+tests/fixtures/v2_r1_sample/Page.vb,251,tracked,KEEP,test,yes,no,no,KEEP,Automated test suite (contributes to 1809-test baseline).
+tests/fixtures/v2_r1_sample/Servicio.vb,129,tracked,KEEP,test,yes,no,no,KEEP,Automated test suite (contributes to 1809-test baseline).
+tests/fixtures/v4_2_r3_sample/Web/Default.aspx,170,tracked,KEEP,test,yes,no,no,KEEP,Automated test suite (contributes to 1809-test baseline).
+tests/fixtures/v4_2_r3_sample/Web/Default.aspx.vb,198,tracked,KEEP,test,yes,no,no,KEEP,Automated test suite (contributes to 1809-test baseline).
+tests/fixtures/v4_2_r3_sample/Web/Repo.vb,244,tracked,KEEP,test,yes,no,no,KEEP,Automated test suite (contributes to 1809-test baseline).
+tests/fixtures/v4_2_r3_sample/Web/Web.vbproj,182,tracked,KEEP,test,yes,no,no,KEEP,Automated test suite (contributes to 1809-test baseline).
+tests/fixtures/v4_2_r7_full_sample/Bl/CustomerService.vb,138,tracked,KEEP,test,yes,no,no,KEEP,Automated test suite (contributes to 1809-test baseline).
+tests/fixtures/v4_2_r7_full_sample/Bl/CustomerService.vbproj,160,tracked,KEEP,test,yes,no,no,KEEP,Automated test suite (contributes to 1809-test baseline).
+tests/fixtures/v4_2_r7_full_sample/SampleLegacy.sln,628,tracked,KEEP,test,yes,no,no,KEEP,Automated test suite (contributes to 1809-test baseline).
+tests/fixtures/v4_2_r7_full_sample/Sys/CustomerRepository.vb,276,tracked,KEEP,test,yes,no,no,KEEP,Automated test suite (contributes to 1809-test baseline).
+tests/fixtures/v4_2_r7_full_sample/Sys/CustomerRepository.vbproj,164,tracked,KEEP,test,yes,no,no,KEEP,Automated test suite (contributes to 1809-test baseline).
+tests/fixtures/v4_2_r7_full_sample/Web/CustomerPage.aspx,265,tracked,KEEP,test,yes,no,no,KEEP,Automated test suite (contributes to 1809-test baseline).
+tests/fixtures/v4_2_r7_full_sample/Web/CustomerPage.aspx.vb,489,tracked,KEEP,test,yes,no,no,KEEP,Automated test suite (contributes to 1809-test baseline).
+tests/fixtures/v4_2_r7_full_sample/Web/Web.vbproj,163,tracked,KEEP,test,yes,no,no,KEEP,Automated test suite (contributes to 1809-test baseline).
+tests/test_v1.py,7421,tracked,KEEP,test,yes,no,no,KEEP,Automated test suite (contributes to 1809-test baseline).
+tests/test_v1_unittest.py,50282,tracked,KEEP,test,yes,no,no,KEEP,Automated test suite (contributes to 1809-test baseline).
+tests/test_v3_r1.py,1596,tracked,KEEP,test,yes,no,no,KEEP,Automated test suite (contributes to 1809-test baseline).
+tests/test_v3_r10.py,2084,tracked,KEEP,test,yes,no,no,KEEP,Automated test suite (contributes to 1809-test baseline).
+tests/test_v3_r10_1.py,2651,tracked,KEEP,test,yes,no,no,KEEP,Automated test suite (contributes to 1809-test baseline).
+tests/test_v3_r2_r3.py,6424,tracked,KEEP,test,yes,no,no,KEEP,Automated test suite (contributes to 1809-test baseline).
+tests/test_v3_r4.py,1638,tracked,KEEP,test,yes,no,no,KEEP,Automated test suite (contributes to 1809-test baseline).
+tests/test_v3_r5.py,1990,tracked,KEEP,test,yes,no,no,KEEP,Automated test suite (contributes to 1809-test baseline).
+tests/test_v3_r6.py,1636,tracked,KEEP,test,yes,no,no,KEEP,Automated test suite (contributes to 1809-test baseline).
+tests/test_v3_r6_1.py,4035,tracked,KEEP,test,yes,no,no,KEEP,Automated test suite (contributes to 1809-test baseline).
+tests/test_v3_r7.py,4488,tracked,KEEP,test,yes,no,no,KEEP,Automated test suite (contributes to 1809-test baseline).
+tests/test_v3_r7_1.py,5900,tracked,KEEP,test,yes,no,no,KEEP,Automated test suite (contributes to 1809-test baseline).
+tests/test_v3_r7_2.py,6723,tracked,KEEP,test,yes,no,no,KEEP,Automated test suite (contributes to 1809-test baseline).
+tests/test_v3_r7_2_1.py,8491,tracked,KEEP,test,yes,no,no,KEEP,Automated test suite (contributes to 1809-test baseline).
+tests/test_v3_r7_2_2.py,8336,tracked,KEEP,test,yes,no,no,KEEP,Automated test suite (contributes to 1809-test baseline).
+tests/test_v3_r7_2_3.py,9240,tracked,KEEP,test,yes,no,no,KEEP,Automated test suite (contributes to 1809-test baseline).
+tests/test_v3_r7_2_4.py,12475,tracked,KEEP,test,yes,no,no,KEEP,Automated test suite (contributes to 1809-test baseline).
+tests/test_v3_r8.py,6550,tracked,KEEP,test,yes,no,no,KEEP,Automated test suite (contributes to 1809-test baseline).
+tests/test_v3_r8_1.py,7203,tracked,KEEP,test,yes,no,no,KEEP,Automated test suite (contributes to 1809-test baseline).
+tests/test_v3_r8_2.py,6125,tracked,KEEP,test,yes,no,no,KEEP,Automated test suite (contributes to 1809-test baseline).
+tests/test_v3_r8_2_correction.py,4204,tracked,KEEP,test,yes,no,no,KEEP,Automated test suite (contributes to 1809-test baseline).
+tests/test_v3_r8_3.py,4026,tracked,KEEP,test,yes,no,no,KEEP,Automated test suite (contributes to 1809-test baseline).
+tests/test_v3_r8_4.py,2911,tracked,KEEP,test,yes,no,no,KEEP,Automated test suite (contributes to 1809-test baseline).
+tests/test_v3_r8_4_approval.py,3155,tracked,KEEP,test,yes,no,no,KEEP,Automated test suite (contributes to 1809-test baseline).
+tests/test_v3_r8_decision.py,2070,tracked,KEEP,test,yes,no,no,KEEP,Automated test suite (contributes to 1809-test baseline).
+tests/test_v3_r9.py,6696,tracked,KEEP,test,yes,no,no,KEEP,Automated test suite (contributes to 1809-test baseline).
+tests/test_v4_1_r0_maintainability_inventory.py,52291,tracked,KEEP,test,yes,no,no,KEEP,Automated test suite (contributes to 1809-test baseline).
+tests/test_v4_1_r1_regression_and_json_renderer.py,15710,tracked,KEEP,test,yes,no,no,KEEP,Automated test suite (contributes to 1809-test baseline).
+tests/test_v4_1_r2_models_types_and_public_contracts.py,19204,tracked,KEEP,test,yes,no,no,KEEP,Automated test suite (contributes to 1809-test baseline).
+tests/test_v4_1_r3_low_risk_naming_readability.py,14647,tracked,KEEP,test,yes,no,no,KEEP,Automated test suite (contributes to 1809-test baseline).
+tests/test_v4_1_r4_readiness_characterization.py,9399,tracked,KEEP,test,yes,no,no,KEEP,Automated test suite (contributes to 1809-test baseline).
+tests/test_v4_1_r5_database_extractor_characterization.py,15608,tracked,KEEP,test,yes,no,no,KEEP,Automated test suite (contributes to 1809-test baseline).
+tests/test_v4_1_r5_flow_resolver_characterization.py,16207,tracked,KEEP,test,yes,no,no,KEEP,Automated test suite (contributes to 1809-test baseline).
+tests/test_v4_1_r6_database_extractor_gap_closure.py,10813,tracked,KEEP,test,yes,no,no,KEEP,Automated test suite (contributes to 1809-test baseline).
+tests/test_v4_1_r6_flow_resolver_gap_closure.py,8333,tracked,KEEP,test,yes,no,no,KEEP,Automated test suite (contributes to 1809-test baseline).
+tests/test_v4_1_r7_exception_boundaries_characterization.py,4283,tracked,KEEP,test,yes,no,no,KEEP,Automated test suite (contributes to 1809-test baseline).
+tests/test_v4_2_r1_cli_contract_and_execution_model.py,17598,tracked,KEEP,test,yes,no,no,KEEP,Automated test suite (contributes to 1809-test baseline).
+tests/test_v4_2_r2_deterministic_full_pipeline_orchestrator.py,18518,tracked,KEEP,test,yes,no,no,KEEP,Automated test suite (contributes to 1809-test baseline).
+tests/test_v4_2_r3_deterministic_technical_documentation.py,20569,tracked,KEEP,test,yes,no,no,KEEP,Automated test suite (contributes to 1809-test baseline).
+tests/test_v4_2_r4_ai_interpretation_and_proposal_integration.py,21503,tracked,KEEP,test,yes,no,no,KEEP,Automated test suite (contributes to 1809-test baseline).
+tests/test_v4_2_r5_1_exit_code_contract_and_real_provider_guard.py,7694,tracked,KEEP,test,yes,no,no,KEEP,Automated test suite (contributes to 1809-test baseline).
+tests/test_v4_2_r5_unified_cli_and_operational_ux.py,18291,tracked,KEEP,test,yes,no,no,KEEP,Automated test suite (contributes to 1809-test baseline).
+tests/test_v4_2_r6_robustness_recovery_security_and_approval_surface.py,21201,tracked,KEEP,test,yes,no,no,KEEP,Automated test suite (contributes to 1809-test baseline).
+tests/test_v4_2_r7_1_real_pilot_findings_correction.py,14033,tracked,KEEP,test,yes,no,no,KEEP,Automated test suite (contributes to 1809-test baseline).
+tests/test_v4_2_r7_synthetic_full_fixture.py,14658,tracked,KEEP,test,yes,no,no,KEEP,Automated test suite (contributes to 1809-test baseline).
+tests/test_v4_2_r8_documentation_at_scale.py,22565,tracked,KEEP,test,yes,no,no,KEEP,Automated test suite (contributes to 1809-test baseline).
+tests/test_v4_r10_canonical_knowledge_composition.py,32433,tracked,KEEP,test,yes,no,no,KEEP,Automated test suite (contributes to 1809-test baseline).
+tests/test_v4_r11_human_readable_document_projection.py,26272,tracked,KEEP,test,yes,no,no,KEEP,Automated test suite (contributes to 1809-test baseline).
+tests/test_v4_r12_plugin_facing_machine_readable_output_contract.py,39232,tracked,KEEP,test,yes,no,no,KEEP,Automated test suite (contributes to 1809-test baseline).
+tests/test_v4_r13_regression_and_security.py,41740,tracked,KEEP,test,yes,no,no,KEEP,Automated test suite (contributes to 1809-test baseline).
+tests/test_v4_r14_manuals_and_final_baseline.py,23107,tracked,KEEP,test,yes,no,no,KEEP,Automated test suite (contributes to 1809-test baseline).
+tests/test_v4_r1_knowledge_domain_model.py,11823,tracked,KEEP,test,yes,no,no,KEEP,Automated test suite (contributes to 1809-test baseline).
+tests/test_v4_r2_input_source_contracts.py,15099,tracked,KEEP,test,yes,no,no,KEEP,Automated test suite (contributes to 1809-test baseline).
+tests/test_v4_r3_provenance.py,18879,tracked,KEEP,test,yes,no,no,KEEP,Automated test suite (contributes to 1809-test baseline).
+tests/test_v4_r4_human_material_ingestion.py,15785,tracked,KEEP,test,yes,no,no,KEEP,Automated test suite (contributes to 1809-test baseline).
+tests/test_v4_r5_knowledge_classification.py,18972,tracked,KEEP,test,yes,no,no,KEEP,Automated test suite (contributes to 1809-test baseline).
+tests/test_v4_r6_as_is_to_be_separation.py,15900,tracked,KEEP,test,yes,no,no,KEEP,Automated test suite (contributes to 1809-test baseline).
+tests/test_v4_r7_gap_and_conflict_representation.py,22079,tracked,KEEP,test,yes,no,no,KEEP,Automated test suite (contributes to 1809-test baseline).
+tests/test_v4_r8_proposal_lifecycle.py,39897,tracked,KEEP,test,yes,no,no,KEEP,Automated test suite (contributes to 1809-test baseline).
+tests/test_v4_r9_technical_lead_approval.py,34466,tracked,KEEP,test,yes,no,no,KEEP,Automated test suite (contributes to 1809-test baseline).
+tools/**/__pycache__/,102002,ignored,EXCLUDE,cache,no,no,yes,EXCLUDE,"Aggregated directory row (7 files) - Python bytecode cache, already excluded via .gitignore (__pycache__/); fully regenerable."
+tools/__init__.py,358,tracked,KEEP,tooling,yes,no,no,KEEP,Build/report/inventory tooling used to produce round artifacts.
+tools/manual_verify_full_pipeline.py,3203,tracked,KEEP,tooling,yes,no,no,KEEP,Build/report/inventory tooling used to produce round artifacts.
+tools/v4_1_r0/__init__.py,361,tracked,KEEP,tooling,yes,no,no,KEEP,Build/report/inventory tooling used to produce round artifacts.
+tools/v4_1_r0/generate.py,2252,tracked,KEEP,tooling,yes,no,no,KEEP,Build/report/inventory tooling used to produce round artifacts.
+tools/v4_1_r0/inventory.py,14689,tracked,KEEP,tooling,yes,no,no,KEEP,Build/report/inventory tooling used to produce round artifacts.
+tools/v4_1_r0/report.py,59612,tracked,KEEP,tooling,yes,no,no,KEEP,Build/report/inventory tooling used to produce round artifacts.
+tools/v4_1_r10_build_artifacts.py,9752,tracked,KEEP,tooling,yes,no,no,KEEP,Build/report/inventory tooling used to produce round artifacts.
+tools/v4_1_r7_build_artifact.py,15961,tracked,KEEP,tooling,yes,no,no,KEEP,Build/report/inventory tooling used to produce round artifacts.
+tools/v4_1_r8_build_artifact.py,13021,tracked,KEEP,tooling,yes,no,no,KEEP,Build/report/inventory tooling used to produce round artifacts.
+tools/v4_1_r9_build_artifact.py,19880,tracked,KEEP,tooling,yes,no,no,KEEP,Build/report/inventory tooling used to produce round artifacts.
+tools/v4_2_r8_build_final_artifacts.py,11110,tracked,KEEP,tooling,yes,no,no,KEEP,Build/report/inventory tooling used to produce round artifacts.
