@@ -1,70 +1,137 @@
-# LegacyMapper — Generated Artifact Policy
+# LegacyMapper — Política de artefactos generados
 
-## Purpose
+## Propósito
 
-Defines how generated output is classified for Git versioning purposes. Complements `docs/V4/V4_REPOSITORY_CONTINUITY_CONTRACT.md` (what must stay versioned) and `.gitignore` (the mechanical enforcement). Full per-path classification: `output/v4_r1_1/V4_REPOSITORY_INVENTORY.json` and `output/v4_r1_1/V4_LARGE_ARTIFACT_ANALYSIS.json`.
+Define cómo se clasifica la salida generada a efectos de versionado en Git. Complementa
+`docs/V4/V4_REPOSITORY_CONTINUITY_CONTRACT.md` (qué debe permanecer versionado) y `.gitignore` (la
+aplicación mecánica). Clasificación completa por ruta:
+`output/v4_r1_1/V4_REPOSITORY_INVENTORY.json` y `output/v4_r1_1/V4_LARGE_ARTIFACT_ANALYSIS.json`.
 
-Meaning and recoverability decide disposition, not file size alone.
+El significado y la recuperabilidad deciden la disposición, no el tamaño del archivo por sí solo.
 
-## Canonical Small Artifacts — Versioned
+## Artefactos pequeños canónicos — versionados
 
-Small, meaningful, non-reproducible-by-chance evidence that a round happened and what it concluded. Examples present in this repository:
+Evidencia pequeña, significativa, no reproducible por azar, de que una ronda ocurrió y qué concluyó.
+Ejemplos presentes en este repositorio:
 
-* `output/v3_final/V3_FINAL_BASELINE.json` — the V3 baseline.
-* `output/v3_r9/*` — knowledge readiness gate outputs, referenced by hash from the baseline.
-* `output/v3_r10_1/TECHNICAL_DEBT_REMAINING.json` — referenced by hash from the baseline.
-* `output/v3_r10/`, `output/v3_r7_2/`, `output/v3_r8_2/`, `output/v3_r8_3/` — small evidence artifacts (each well under 1 MiB) backing the V3 closure narrative.
-* `output/v4_bootstrap/`, `output/v4_r1/`, `output/v4_r1_1/` — V4 round results.
-* `output/LEVANTAMIENTO_FUNCIONAL.md`, `output/LEVANTAMIENTO_TECNICO.md` — APPROVED documentation.
+* `output/v3_final/V3_FINAL_BASELINE.json` — la baseline de V3.
+* `output/v3_r9/*` — salidas de la puerta de preparación de conocimiento, referenciadas por hash desde la
+  baseline.
+* `output/v3_r10_1/TECHNICAL_DEBT_REMAINING.json` — referenciado por hash desde la baseline.
+* `output/v3_r10/`, `output/v3_r7_2/`, `output/v3_r8_2/`, `output/v3_r8_3/` — artefactos de evidencia
+  pequeños (cada uno muy por debajo de 1 MiB) que respaldan la narrativa de cierre de V3.
+* `output/v4_bootstrap/`, `output/v4_r1/`, `output/v4_r1_1/` — resultados de ronda de V4.
+* `output/LEVANTAMIENTO_FUNCIONAL.md`, `output/LEVANTAMIENTO_TECNICO.md` — documentación APROBADA.
 
-Rule: if a document elsewhere in the repository (a baseline, a closure record, a round result) points to the artifact by path or hash, it is canonical and versioned regardless of being generated.
+Regla: si un documento en cualquier otro lugar del repositorio (una baseline, un registro de cierre, un
+resultado de ronda) apunta al artefacto por ruta o hash, este es canónico y se versiona sin importar que
+haya sido generado.
 
-## Heavy Regenerable Artifacts — Not Versioned
+## Artefactos pesados regenerables — no versionados
 
-Deterministic output of scanning the legacy source repository, reproducible on demand and not referenced by any canonical baseline or closure record:
+Salida determinista de escanear el repositorio fuente legado, reproducible a demanda y no referenciada por
+ninguna baseline canónica ni registro de cierre:
 
-* `output/v1_r1_full/`, `output/v2_r4_full/`, `output/v2_r4_1_full/`, `output/v2_r4_1_repro_a/`, `output/v2_r4_1_repro_b/`, `output/v2_r5_full/`, `output/v2_r5_1_full/`, `output/v2_r5_1_repro/`, `output/v3_r8_1/` — full-repository and reproducibility-verification scan dumps, together ~8.2 GiB.
+* `output/v1_r1_full/`, `output/v2_r4_full/`, `output/v2_r4_1_full/`, `output/v2_r4_1_repro_a/`,
+  `output/v2_r4_1_repro_b/`, `output/v2_r5_full/`, `output/v2_r5_1_full/`, `output/v2_r5_1_repro/`,
+  `output/v3_r8_1/` — volcados de escaneo de repositorio completo y de verificación de reproducibilidad,
+  en conjunto ~8.2 GiB.
 
-Regeneration procedure (requires read access to the legacy source, per `AGENTS.md`):
+Procedimiento de regeneración (requiere acceso de lectura a la fuente legada, según `AGENTS.md`):
 
 ```text
-python main.py "C:\Users\cgalianj\source\IST_40\operacional" --output "<target-directory>" --verbose
+python main.py "C:\Users\cgalianj\source\IST_40\operacional" --output "<directorio-destino>" --verbose
 ```
 
-Each such artifact must have, when it exists on disk: documented origin (which round produced it), a regeneration command, and — only where a downstream document depends on its exact content — an expected hash. None of the nine directories above is depended on by hash from any retained document, so no hash is recorded for them.
+Cada uno de estos artefactos debe tener, cuando existe en disco: origen documentado (qué ronda lo produjo),
+un comando de regeneración, y — solo donde un documento posterior dependa de su contenido exacto — un hash
+esperado. Ninguno de los nueve directorios anteriores tiene una dependencia por hash desde ningún documento
+retenido, por lo que no se registra ningún hash para ellos.
 
-**Narrow tracked exception — `output/v3_r8_1/ARCHITECTURE_EVIDENCE.json`.** Despite `output/v3_r8_1/` being classified above as a heavy regenerable dump, this single ~1.8 KiB file inside it is deliberately tracked (a `.gitignore` carve-out: `/output/v3_r8_1/*` plus `!/output/v3_r8_1/ARCHITECTURE_EVIDENCE.json`), because `legacy_documenter/knowledge/readiness.py`'s `architecture_integrity` check hard-requires it and, without it, `python main.py readiness` cannot succeed on a fresh clone. It holds only four aggregate `DETERMINISTIC_INDICATORS` structural counts and a fixed architecture conclusion — no source code, source paths, credentials, or PII — reproduced verbatim from the already-tracked, human-approved `codex/v3/V3_R8_1_DEEP_SOURCE_ANALYSIS_RESULTADO.md`. It is **not** independently regenerable from this repository alone (its original values depended on a real legacy-repository scan) and it is **not** a precedent for tracking any other file under `output/v3_r8_1/` or any other historical full-scan dump (`output/v2_r5_1_full/` included) — the rest of each such directory remains fully excluded. See `docs/V4_2/POST_V4_2_FRESH_CLONE_REPRODUCIBILITY_CORRECTION_RESULT.md` for the full rationale.
+**Excepción estrecha y rastreada — `output/v3_r8_1/ARCHITECTURE_EVIDENCE.json`.** A pesar de que
+`output/v3_r8_1/` se clasifica arriba como un volcado pesado regenerable, este único archivo de ~1.8 KiB
+dentro de él está deliberadamente rastreado (una excepción en `.gitignore`: `/output/v3_r8_1/*` más
+`!/output/v3_r8_1/ARCHITECTURE_EVIDENCE.json`), porque la verificación `architecture_integrity` de
+`legacy_documenter/knowledge/readiness.py`'s lo requiere de forma estricta y, sin él, `python main.py
+readiness` no puede tener éxito en un clon nuevo. Contiene solo cuatro conteos agregados estructurales de
+`DETERMINISTIC_INDICATORS` y una conclusión de arquitectura fija — sin código fuente, rutas fuente,
+credenciales, ni PII — reproducido textualmente del ya rastreado y aprobado por humanos
+`codex/v3/V3_R8_1_DEEP_SOURCE_ANALYSIS_RESULTADO.md`. **No** es independientemente regenerable a partir de
+este repositorio solo (sus valores originales dependieron de un escaneo real del repositorio legado) y
+**no** es un precedente para rastrear ningún otro archivo bajo `output/v3_r8_1/` ni ningún otro volcado de
+escaneo completo histórico (`output/v2_r5_1_full/` incluido) — el resto de cada uno de esos directorios
+permanece completamente excluido. Ver
+`docs/V4_2/POST_V4_2_FRESH_CLONE_REPRODUCIBILITY_CORRECTION_RESULT.md` para la justificación completa.
 
-Also in this category: small leftover smoke-test run outputs not tied to any round result — `output/context/`, `output/documentation/`, `output/index/`, `output/v1_r1_internal/`, `output/v2_r4_1_internal/`. These are regenerable by rerunning the tool against any sample source and carry no unique information.
+También en esta categoría: pequeñas salidas sobrantes de smoke-test run no vinculadas a ningún resultado de
+ronda — `output/context/`, `output/documentation/`, `output/index/`, `output/v1_r1_internal/`,
+`output/v2_r4_1_internal/`. Estas son regenerables reejecutando la herramienta contra cualquier fuente de
+muestra y no llevan información única.
 
-## Real-System Operational Output
+## Salida operacional de sistema real
 
-Results generated by running LegacyMapper against a concrete, real legacy system (a pilot, an ad-hoc analysis, a client engagement) are operational output, not project source. They must remain local and must never be committed, regardless of size:
+Los resultados generados al ejecutar LegacyMapper contra un sistema legado real concreto (un piloto, un
+análisis ad-hoc, un compromiso con un cliente) son salida operacional, no fuente del proyecto. Deben
+permanecer locales y nunca deben confirmarse (commit), sin importar el tamaño:
 
-* `output/v4_2_r7_ist_operacional/` — the V4.2-R7 real IST pilot run. Excluded via an explicit `.gitignore` path rule. Its distilled findings (what mattered for project history) are captured in tracked result documents and in the synthetic fixture `tests/test_v4_2_r7_synthetic_full_fixture.py`, not in the raw operational output itself.
+* `output/v4_2_r7_ist_operacional/` — la ejecución del piloto real de IST de V4.2-R7. Excluida mediante una
+  regla de ruta explícita en `.gitignore`. Sus hallazgos destilados (lo que importó para la historia del
+  proyecto) están capturados en documentos de resultado rastreados y en el fixture sintético
+  `tests/test_v4_2_r7_synthetic_full_fixture.py`, no en la salida operacional cruda misma.
 
-Convention for future real-system runs:
+Convención para futuras ejecuciones de sistema real:
 
-* prefer the existing local-output naming convention, `output/_local_<descriptive-name>/`, already covered by the generic `/output/_local_*/` `.gitignore` rule — no `.gitignore` edit needed;
-* if a formally named directory is required instead (as with the R7 pilot above), add the matching explicit `.gitignore` path rule in the same change that creates the directory;
-* never solve this by globally ignoring `output/` — this directory also holds tracked contracts, baselines, and manifests (see "Canonical Small Artifacts" above);
-* whatever from a real-system run is needed for project history must be distilled into small tracked documentation, tests, or synthetic fixtures before the raw operational output is discarded.
+* preferir la convención de nomenclatura de salida local existente, `output/_local_<nombre-descriptivo>/`,
+  ya cubierta por la regla genérica de `.gitignore` `/output/_local_*/` — no se necesita editar
+  `.gitignore`;
+* si en su lugar se requiere un directorio con nombre formal, añadir la regla de ruta explícita
+  correspondiente en `.gitignore` en el mismo cambio que crea el directorio;
+* nunca resolver esto ignorando globalmente `output/` — este directorio también contiene contratos,
+  baselines y manifiestos rastreados (ver "Artefactos pequeños canónicos" arriba);
+* todo lo que de una ejecución de sistema real importe para la historia del proyecto debe destilarse en
+  documentación pequeña rastreada, tests o fixtures sintéticos antes de descartar la salida operacional
+  cruda.
 
-## Heavy Non-Regenerable Artifacts
+## Artefactos pesados no regenerables
 
-None currently exist in this repository. If a future round produces heavy data that cannot be regenerated deterministically (e.g., a one-time human-supplied corpus, an external system export), it must be classified here before being excluded from Git, and one of the following must be chosen and documented:
+Actualmente ninguno existe en este repositorio. Si una ronda futura produce datos pesados que no puedan
+regenerarse deterministamente (por ejemplo, un corpus suministrado por un humano una sola vez, una
+exportación de un sistema externo), debe clasificarse aquí antes de excluirse de Git, y debe elegirse y
+documentarse uno de los siguientes mecanismos:
 
-* external archive (a location outside Git, referenced by path/URL in the relevant round's result document);
-* GitHub Release asset;
+* archivo externo (una ubicación fuera de Git, referenciada por ruta/URL en el documento de resultado de la
+  ronda correspondiente);
+* activo de GitHub Release;
 * Git LFS;
-* secure storage, if the content is sensitive.
+* almacenamiento seguro, si el contenido es sensible.
 
-This round does not upload anything externally and does not configure Git LFS. If this category is ever non-empty, repository versioning must not proceed to `DECISION=REPOSITORY_READY_FOR_GIT_VERSIONING` until the Technical Lead selects a mechanism.
+Esta ronda no sube nada externamente y no configura Git LFS. Si esta categoría alguna vez deja de estar
+vacía, el versionado del repositorio no debe avanzar hacia `DECISION=REPOSITORY_READY_FOR_GIT_VERSIONING`
+hasta que el Líder Técnico elija un mecanismo.
 
-## Python / Tooling Caches
+## Cachés de Python / herramientas
 
-`__pycache__/`, `.pytest_cache/`, `.mypy_cache/`, `.ruff_cache/`, `*.pyc` — always regenerated by the interpreter/tooling on next run. Never versioned, never archived.
+`__pycache__/`, `.pytest_cache/`, `.mypy_cache/`, `.ruff_cache/`, `*.pyc` — siempre regenerados por el
+intérprete/las herramientas en la siguiente ejecución. Nunca versionados, nunca archivados.
 
-## Runtime-Expected Empty Directories
+## Directorios vacíos esperados en tiempo de ejecución
 
-`context/` is created and populated at runtime by `context/context_builder.py` and is empty in a clean checkout. It is kept present via `context/.gitkeep`; its generated contents are never versioned.
+`context/` es creado y poblado en tiempo de ejecución por `context/context_builder.py` y está vacío en un
+checkout limpio. Se mantiene presente mediante `context/.gitkeep`; su contenido generado nunca se versiona.
+
+## Idioma de la documentación para humanos
+
+A partir de la ronda `POST_V4_2_HUMAN_DOCUMENTATION_SPANISH_STANDARDIZATION`, toda la documentación nueva o
+mantenida destinada principalmente a lectores humanos debe redactarse en español. Esto incluye, como
+mínimo, manuales de usuario, manuales técnicos, glosarios, documentos de arquitectura y de roadmap
+destinados a revisión humana, guías operativas, guías de recuperación, documentos de resultado/revisión de
+cara al humano, y documentos de gobernanza/capacitación.
+
+Los identificadores técnicos, el código, los comandos, los estados legibles por máquina, los nombres de
+contrato, las rutas, los nombres de protocolo y los nombres oficiales de tecnología/producto permanecen en
+su forma original — nunca se traducen. El texto explicativo que los rodea debe estar en español.
+
+`PROJECT_STATE.json`, `AGENTS.md` y `CLAUDE.md` no están sujetos automáticamente a esta regla; su idioma se
+decide caso por caso según su propia naturaleza (contrato legible por máquina, o gobernanza neutral al
+agente que ya funciona correctamente en inglés). Los documentos históricos de cierre/resultado no se
+traducen retroactivamente — permanecen como evidencia histórica en el idioma en que fueron aprobados.

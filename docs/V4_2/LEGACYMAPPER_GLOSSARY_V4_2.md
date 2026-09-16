@@ -1,189 +1,218 @@
-# LegacyMapper — Glossary (V4.2)
+# LegacyMapper — Glosario (V4.2)
 
-Definitions reflect actual LegacyMapper semantics as implemented in the current source
-(`legacy_documenter/`), not generic dictionary definitions. Cross-reference: User Manual, Technical Manual.
+Las definiciones reflejan la semántica real de LegacyMapper tal como está implementada en la fuente actual
+(`legacy_documenter/`), no definiciones de diccionario genéricas. Referencia cruzada: Manual de Usuario,
+Manual Técnico.
 
-**LegacyMapper** — This project: a tool that deterministically analyzes a legacy .NET Framework/VB.NET/
-ASP.NET Web Forms/Oracle repository and produces technical documentation, with an optional, explicit,
-restricted AI interpretation pass. See User Manual §4.1.
+**LegacyMapper** — Este proyecto: una herramienta que analiza deterministamente un repositorio legado .NET
+Framework/VB.NET/ASP.NET Web Forms/Oracle y produce documentación técnica, con un paso opcional, explícito y
+restringido de interpretación por IA. Ver Manual de Usuario §4.1.
 
-**Deterministic discovery** — Analysis performed entirely by Python code (scanning, parsing, resolving)
-that never calls an AI/LLM provider and always produces the same output for the same input. Everything
-under `legacy_documenter/scanner/`, `extractors/`, `analysis/` is deterministic discovery.
+**Descubrimiento determinista** — Análisis realizado enteramente por código Python (escaneo, parseo,
+resolución) que nunca invoca a un proveedor de IA/LLM y siempre produce la misma salida para la misma
+entrada. Todo bajo `legacy_documenter/scanner/`, `extractors/`, `analysis/` es descubrimiento determinista.
 
-**AI interpretation** — The opt-in (`--allow-ai-interpretation`) pass in which a provider is asked to
-restate or explain deterministic evidence the current run already discovered. Never allowed to invent a
-relationship or fact; every finding must cite evidence-ref ids already present in the current run's own
-context package (`legacy_documenter/orchestration/ai_interpretation.py`).
+**Interpretación por IA** — El paso opcional (`--allow-ai-interpretation`) en el que se le pide a un
+proveedor que reformule o explique evidencia determinista que la ejecución actual ya descubrió. Nunca se le
+permite inventar una relación o un hecho; cada hallazgo debe citar ids de referencia de evidencia ya
+presentes en el propio paquete de contexto de la ejecución actual
+(`legacy_documenter/orchestration/ai_interpretation.py`).
 
-**Evidence** — A discrete, traceable fact discovered deterministically (a symbol, a call, a data-access
-record, a resolved entry point). Modeled by `legacy_documenter/models/evidence.py` and referenced by id
-(`EvidenceRef`, `legacy_documenter/knowledge/domain/models.py`) throughout the knowledge layer.
+**Evidencia** — Un hecho discreto y trazable descubierto deterministamente (un símbolo, una llamada, un
+registro de acceso a datos, un punto de entrada resuelto). Modelado por
+`legacy_documenter/models/evidence.py` y referenciado por id (`EvidenceRef`,
+`legacy_documenter/knowledge/domain/models.py`) en toda la capa de conocimiento.
 
-**Context** — A composed, budget-limited package of evidence records built for a specific purpose
-(`legacy_documenter/context/resolver.py::ContextResolver`, `composer.py::ContextComposer`). Distinct from
-the top-level runtime directory `context/`, which is where `ContextBuilder` writes its output at runtime —
-same name, two different things (see Technical Manual §6).
+**Contexto** — Un paquete compuesto y limitado por presupuesto de registros de evidencia construido para un
+propósito específico (`legacy_documenter/context/resolver.py::ContextResolver`,
+`composer.py::ContextComposer`). Distinto del directorio de nivel superior en tiempo de ejecución
+`context/`, que es donde `ContextBuilder` escribe su salida en tiempo de ejecución — mismo nombre, dos cosas
+distintas (ver Manual Técnico §6).
 
-**Source** — In the V4 knowledge model, a `SourceType` value (`legacy_documenter/knowledge/domain/
-enums.py`) classifying where a piece of material originated (e.g. code, human-authored document). In CLI
-usage, "source repository"/"repository" refers to the target codebase being analyzed.
+**Fuente (Source)** — En el modelo de conocimiento de V4, un valor de `SourceType`
+(`legacy_documenter/knowledge/domain/enums.py`) que clasifica de dónde se originó una pieza de material
+(por ejemplo, código, documento redactado por un humano). En el uso de la CLI, "repositorio fuente"/
+"repositorio" se refiere a la base de código objetivo que se está analizando.
 
-**Provenance** — An explicit, acyclic record of where a piece of material/evidence/statement came from
-(`legacy_documenter/knowledge/provenance/`: `ProvenanceGraph`, `ProvenanceNode`). Answers "where did this
-come from," never "is this true."
+**Procedencia (Provenance)** — Un registro explícito y acíclico de de dónde vino una pieza de
+material/evidencia/afirmación (`legacy_documenter/knowledge/provenance/`: `ProvenanceGraph`,
+`ProvenanceNode`). Responde "de dónde vino esto", nunca "es esto verdadero".
 
-**Proposal** — A pre-approval record stating "given this material/evidence/relation/context, this is a
-proposed action or conclusion" (`legacy_documenter/knowledge/proposals/models.py::Proposal`). Every proposal
-LegacyMapper produces is `status = READY_FOR_REVIEW` (written as `PENDING_TECHNICAL_LEAD_REVIEW` in the
-`full` pipeline's output envelope) — never approved automatically, never canonical.
+**Propuesta (Proposal)** — Un registro de pre-aprobación que afirma "dado este material/evidencia/relación/
+contexto, esta es una acción o conclusión propuesta" (`legacy_documenter/knowledge/proposals/models.py::Proposal`).
+Toda propuesta que LegacyMapper produce tiene `status = READY_FOR_REVIEW` (escrita como
+`PENDING_TECHNICAL_LEAD_REVIEW` en el sobre de salida del pipeline `full`) — nunca aprobada automáticamente,
+nunca canónica.
 
-**Technical Lead** — The human role with sole authority to approve, reject, or request correction of a
-proposal (`legacy_documenter/knowledge/approval/models.py::ApprovalDecision`). No CLI command exists in
-V4.2 through which a Technical Lead exercises this role — the design exists
-(`docs/V4_2/V4_2_APPROVAL_SURFACE_DESIGN.md`), the implementation does not
+**Líder Técnico (Technical Lead)** — El rol humano con la única autoridad para aprobar, rechazar o solicitar
+corrección de una propuesta (`legacy_documenter/knowledge/approval/models.py::ApprovalDecision`). No existe
+ningún comando de CLI en V4.2 a través del cual un Líder Técnico ejerza este rol — el diseño existe
+(`docs/V4_2/V4_2_APPROVAL_SURFACE_DESIGN.md`), la implementación no
 (`IMPLEMENTATION_STATUS=NOT_IMPLEMENTED`).
 
-**Approval** — An explicit `ApprovalDecision` (`APPROVED` / `REJECTED` / `CORRECTION_REQUESTED`) that a
-Technical Lead makes about one specific `Proposal`. Not implemented as a runnable CLI command in V4.2.
+**Aprobación (Approval)** — Una `ApprovalDecision` explícita (`APPROVED` / `REJECTED` /
+`CORRECTION_REQUESTED`) que un Líder Técnico toma sobre una `Proposal` específica. No implementada como un
+comando de CLI ejecutable en V4.2.
 
-**Canonical knowledge** — The single, immutable, source-neutral collection of approved knowledge entries
-(the "Canonical Knowledge Source"). Composed only from an approved `Proposal` + `ApprovalDecision(APPROVED)`
-pair (`legacy_documenter/knowledge/canonical/service.py`). `RunResult.canonical_knowledge_produced` is
-`false` in every V4.2 run, without exception — no run ever produces canonical knowledge today.
+**Conocimiento canónico (Canonical knowledge)** — La colección única, inmutable y neutral a la fuente de
+entradas de conocimiento aprobadas (la "Fuente de Conocimiento Canónico"). Compuesta solo a partir de un par
+`Proposal` aprobada + `ApprovalDecision(APPROVED)` (`legacy_documenter/knowledge/canonical/service.py`).
+`RunResult.canonical_knowledge_produced` es `false` en toda ejecución de V4.2, sin excepción — ninguna
+ejecución produce conocimiento canónico hoy.
 
-**CanonicalKnowledgeEntry** — The immutable dataclass representing one canonical knowledge entry
-(`legacy_documenter/knowledge/canonical/models.py`). Requires a permanent `proposal_id` and
-`approval_decision_id`; reuses `KnowledgeStatement.validate()`'s structural/evidence rules rather than
-re-implementing them.
+**CanonicalKnowledgeEntry** — La dataclass inmutable que representa una entrada de conocimiento canónico
+(`legacy_documenter/knowledge/canonical/models.py`). Requiere un `proposal_id` y un `approval_decision_id`
+permanentes; reutiliza las reglas estructurales/de evidencia de `KnowledgeStatement.validate()` en lugar de
+reimplementarlas.
 
-**KNO / `knowledge_id`** — The deterministic identifier of a `CanonicalKnowledgeEntry`
-(`knowledge_id` field). Derived only from immutable semantic content — never from wall-clock time,
-randomness, a UUID, or object identity. "KNO identifier" in project shorthand refers to this same field;
-there is no separate "KNO-" prefixed identity scheme in the current source.
+**KNO / `knowledge_id`** — El identificador determinista de una `CanonicalKnowledgeEntry` (campo
+`knowledge_id`). Derivado únicamente de contenido semántico inmutable — nunca de tiempo de reloj de pared,
+aleatoriedad, un UUID, o identidad de objeto. "Identificador KNO" en la jerga abreviada del proyecto se
+refiere a este mismo campo; no existe un esquema de identidad separado con prefijo "KNO-" en la fuente
+actual.
 
-**R11** — The V4-R10-onward round that produced the human-readable projection layer
-(`legacy_documenter/knowledge/projection/`): renders a `CanonicalKnowledgeCollection` into deterministic
-Markdown (`DocumentProjection`, `ProjectionManifest`). Projection-layer only; never mutates canonical data.
+**R11** — La ronda, a partir de V4-R10, que produjo la capa de proyección legible por humanos
+(`legacy_documenter/knowledge/projection/`): renderiza una `CanonicalKnowledgeCollection` a Markdown
+determinista (`DocumentProjection`, `ProjectionManifest`). Solo capa de proyección; nunca muta los datos
+canónicos.
 
-**R12 / `LegacyMapperPluginKnowledge`** — The versioned, machine-readable projection contract for an
-external Plugin consumer (`legacy_documenter/knowledge/plugin_projection/models.py`):
-`CONTRACT_NAME = "LegacyMapperPluginKnowledge"`, `CONTRACT_VERSION = "1.0"`. A `PluginKnowledgeEntry`'s
-`knowledge_id` always equals its source `CanonicalKnowledgeEntry.knowledge_id` — no second identity is
-minted.
+**R12 / `LegacyMapperPluginKnowledge`** — El contrato de proyección versionado y legible por máquina para un
+consumidor de Plugin externo (`legacy_documenter/knowledge/plugin_projection/models.py`):
+`CONTRACT_NAME = "LegacyMapperPluginKnowledge"`, `CONTRACT_VERSION = "1.0"`. El `knowledge_id` de un
+`PluginKnowledgeEntry` siempre es igual al `knowledge_id` de su `CanonicalKnowledgeEntry` fuente — no se
+acuña una segunda identidad.
 
-**Plugin runtime** — A hypothetical external system that would consume a `LegacyMapperPluginKnowledge`
-payload at runtime. Does **not exist** in V4.2 (`PROJECT_STATE.json: plugin_runtime = NOT_IMPLEMENTED`).
-The R12 package produces the payload *shape* only; nothing consumes it.
+**Runtime de Plugin (Plugin runtime)** — Un sistema externo hipotético que consumiría una carga útil
+`LegacyMapperPluginKnowledge` en tiempo de ejecución. **No existe** en V4.2
+(`PROJECT_STATE.json: plugin_runtime = NOT_IMPLEMENTED`). El paquete R12 produce solo la *forma* de la
+carga útil; nada la consume.
 
-**RunResult** — The outcome of one CLI command invocation (`legacy_documenter/cli/execution_model.py`):
-command name, overall `RunStatus`, an ordered tuple of `StageResult`s, and the approval-boundary/UX fields
-(`ai_invoked`, `canonical_knowledge_produced`, `technical_lead_approval`, `ai_requested`, `proposal_count`,
-`proposal_review_status`, `next_action`, `output_locations`).
+**RunResult** — El resultado de una invocación de comando de la CLI
+(`legacy_documenter/cli/execution_model.py`): nombre del comando, `RunStatus` global, una tupla ordenada de
+`StageResult`s, y los campos de límite de aprobación/UX (`ai_invoked`, `canonical_knowledge_produced`,
+`technical_lead_approval`, `ai_requested`, `proposal_count`, `proposal_review_status`, `next_action`,
+`output_locations`).
 
-**StageResult** — The outcome of one named stage within a run: a `StageId`, a `StageStatus`, and an
-optional `StageError` (`legacy_documenter/cli/execution_model.py`).
+**StageResult** — El resultado de una etapa con nombre dentro de una ejecución: un `StageId`, un
+`StageStatus`, y un `StageError` opcional (`legacy_documenter/cli/execution_model.py`).
 
-**RunStatus** — Overall run outcome: `SUCCESS`, `PARTIAL`, or `FAILED`. Computed non-subjectively by
-`legacy_documenter/cli/full_pipeline.py::_compute_status` — see **SUCCESS**/**PARTIAL**/**FAILED** below.
+**RunStatus** — Resultado general de la ejecución: `SUCCESS`, `PARTIAL`, o `FAILED`. Calculado de forma no
+subjetiva por `legacy_documenter/cli/full_pipeline.py::_compute_status` — ver **SUCCESS**/**PARTIAL**/
+**FAILED** abajo.
 
-**StageStatus** — Per-stage outcome: `SUCCESS`, `FAILED`, `SKIPPED_DUE_TO_UPSTREAM_FAILURE`, or `NOT_RUN`
-(the last reserved for a stage that was never requested, e.g. `AI_INTERPRETATION` without
+**StageStatus** — Resultado por etapa: `SUCCESS`, `FAILED`, `SKIPPED_DUE_TO_UPSTREAM_FAILURE`, o `NOT_RUN`
+(este último reservado para una etapa que nunca fue solicitada, por ejemplo `AI_INTERPRETATION` sin
 `--allow-ai-interpretation`).
 
-**SUCCESS** (exit code `0`) — `analyze` always exits `0`. For `full`/`readiness`, every applicable stage
-succeeded with no per-file extraction error.
+**SUCCESS** (código de salida `0`) — `analyze` siempre sale con `0`. Para `full`/`readiness`, toda etapa
+aplicable tuvo éxito sin ningún error de extracción por archivo.
 
-**PARTIAL** (exit code `1`) — `full`/`readiness` completed with at least a minimally useful result
-(`EXTRACTION` and `EXPORT` both succeeded, for `full`) but some stage failed, was skipped due to an
-upstream failure, or a per-file extraction error was recorded.
+**PARTIAL** (código de salida `1`) — `full`/`readiness` se completó con al menos un resultado mínimamente
+útil (`EXTRACTION` y `EXPORT` tuvieron éxito ambos, para `full`) pero alguna etapa falló, se omitió debido a
+un fallo ascendente, o se registró un error de extracción por archivo.
 
-**FAILED** (exit code `4`) — `full` did not produce even a minimally useful deterministic analysis package
-(`EXTRACTION` or `EXPORT` did not succeed).
+**FAILED** (código de salida `4`) — `full` no produjo ni siquiera un paquete de análisis determinista
+mínimamente útil (`EXTRACTION` o `EXPORT` no tuvo éxito).
 
-**USAGE** (exit code `2`) — An argparse-level usage error (unknown command, missing required argument),
-never assigned by application code.
+**USAGE** (código de salida `2`) — Un error de uso a nivel de argparse (comando desconocido, argumento
+requerido faltante), nunca asignado por código de aplicación.
 
-**READY** — The outcome of `python main.py readiness` (or `readiness.py::run()`) when every one of its
-eight internal checks (`preconditions`, `claim_integrity`, `evidence_closure`, `quantitative_integrity`,
-`architecture_integrity`, `knowledge_projection`, `knowledge_boundary`, `security`) passes. The opposite is
-`BLOCKED`. This is a self-check of LegacyMapper's own V3-era approved documentation/evidence, not a
-per-target-repository readiness signal.
+**READY** — El resultado de `python main.py readiness` (o `readiness.py::run()`) cuando cada una de sus
+ocho verificaciones internas (`preconditions`, `claim_integrity`, `evidence_closure`,
+`quantitative_integrity`, `architecture_integrity`, `knowledge_projection`, `knowledge_boundary`,
+`security`) pasa. Lo opuesto es `BLOCKED`. Esta es una autoverificación de la propia documentación/evidencia
+aprobada de la era V3 de LegacyMapper, no una señal de preparación por repositorio objetivo.
 
-**`ARCHITECTURE_EVIDENCE.json`** (`output/v3_r8_1/ARCHITECTURE_EVIDENCE.json`) — A small (~1.8 KiB), narrowly
-tracked `.gitignore` exception consumed by `readiness.py::architecture_valid()` as part of the
-`architecture_integrity` check. Holds only four aggregate `DETERMINISTIC_INDICATORS` structural counts (no
-source code, source paths, credentials, or PII), sourced verbatim from the already-tracked, human-approved
-`codex/v3/V3_R8_1_DEEP_SOURCE_ANALYSIS_RESULTADO.md`. It is **contract evidence**, not a restored raw scan
-dump — the rest of `output/v3_r8_1/` remains excluded — and it cannot be regenerated from the repository
-alone, since its original values depended on a real legacy-repository scan.
+**`ARCHITECTURE_EVIDENCE.json`** (`output/v3_r8_1/ARCHITECTURE_EVIDENCE.json`) — Una excepción de
+`.gitignore` pequeña (~1.8 KiB) y estrechamente rastreada, consumida por
+`readiness.py::architecture_valid()` como parte de la verificación `architecture_integrity`. Contiene solo
+cuatro conteos agregados estructurales de `DETERMINISTIC_INDICATORS` (sin código fuente, rutas de archivo
+fuente, credenciales, ni datos personalmente identificables), provenientes textualmente del ya rastreado y
+aprobado por humanos `codex/v3/V3_R8_1_DEEP_SOURCE_ANALYSIS_RESULTADO.md`. Es **evidencia de contrato**, no
+un volcado de escaneo crudo restaurado — el resto de `output/v3_r8_1/` permanece excluido — y no puede
+regenerarse solo a partir del repositorio, ya que sus valores originales dependieron de un escaneo real de
+un repositorio legado.
 
-**Historical closure artifact vs. mutable current-state document** — A distinction the V4.2 manifest
-(`output/v4_2_r8/V4_2_FINAL_MANIFEST.json`) makes explicitly via two separate collections:
-`authoritative_artifacts` (already-produced, already-reviewed evidence for the V4.2 candidate/closure state;
-its recorded hashes are integrity requirements, verified against each file's last-*committed* content) and
-`mutable_current_state_documents` (documents the manifest's own note says "intentionally change as the
-project advances"; their recorded hashes are a point-in-time snapshot only, not an integrity requirement). A
-file referenced as an authoritative artifact may still receive legitimate new edits after closure — the
-historical manifest hash describes what was true at closure time, not a promise that the live path can never
-be touched again.
+**Artefacto histórico de cierre frente a documento mutable de estado actual** — Una distinción que el
+manifiesto de V4.2 (`output/v4_2_r8/V4_2_FINAL_MANIFEST.json`) hace explícitamente mediante dos colecciones
+separadas: `authoritative_artifacts` (evidencia ya producida y ya revisada para el estado candidato/de
+cierre de V4.2; sus hashes registrados son requisitos de integridad) y `mutable_current_state_documents`
+(documentos sobre los cuales la propia nota del manifiesto dice que "cambian intencionalmente a medida que
+el proyecto avanza"; sus hashes registrados son solo una instantánea en el tiempo, no un requisito de
+integridad). Los hashes de `authoritative_artifacts` se verifican contra el contenido de esos archivos tal
+como existía en el **commit histórico fijo de cierre de V4.2**
+(`af7e2099039e791c5a14ff94bf5ad348e8dbb4db`, registrado en
+`docs/V4_2/V4_2_FINAL_CLOSURE_AND_VERSIONING_RESULT.md`) — nunca contra HEAD ni contra el último commit
+actual del archivo, y nunca contra el árbol de trabajo. Un archivo referenciado como artefacto autoritativo
+aún puede recibir ediciones nuevas legítimas después del cierre, incluso confirmadas (commit) — el hash del
+manifiesto histórico describe lo que era cierto en ese commit de cierre fijo, no una promesa de que la ruta
+en vivo nunca pueda volver a tocarse ni un reflejo de lo que HEAD contenga en cualquier momento posterior.
 
-**CODE_ONLY / CODE_AND_HUMAN_INFORMATION / HUMAN_INFORMATION_ONLY / PARTIAL_INFORMATION** — Source-type/
-information-composition categories used in the V3-era knowledge-readiness and documentation layers
-(`legacy_documenter/documentation/`, `knowledge/readiness.py`) to describe whether a claim rests on
-deterministic code evidence alone, on human-supplied information alone, on a combination, or on an
-incomplete mixture. Distinct from, and predating, the V4 `SourceType`/`KnowledgeNature` enums.
+**CODE_ONLY / CODE_AND_HUMAN_INFORMATION / HUMAN_INFORMATION_ONLY / PARTIAL_INFORMATION** — Categorías de
+tipo de fuente/composición de información usadas en las capas de preparación de conocimiento y
+documentación de la era V3 (`legacy_documenter/documentation/`, `knowledge/readiness.py`) para describir si
+una afirmación se apoya únicamente en evidencia de código determinista, únicamente en información
+suministrada por humanos, en una combinación, o en una mezcla incompleta. Distintas de, y anteriores a, los
+enums `SourceType`/`KnowledgeNature` de V4.
 
-**AS_IS / TO_BE / HISTORICAL / GAP** — The four temporal buckets of `legacy_documenter/knowledge/temporal/`
-(V4-R6): `AS_IS` (current confirmed state), `TO_BE` (a stated future/target state), `HISTORICAL` (a past
-state no longer current), `GAP` (an identified difference/absence between buckets). Assigned to already-
-ingested material; never inferred beyond what the material states.
+**AS_IS / TO_BE / HISTORICAL / GAP** — Los cuatro bloques temporales de `legacy_documenter/knowledge/temporal/`
+(V4-R6): `AS_IS` (estado actual confirmado), `TO_BE` (un estado futuro/objetivo declarado), `HISTORICAL` (un
+estado pasado ya no vigente), `GAP` (una diferencia/ausencia identificada entre bloques). Asignados a
+material ya ingerido; nunca inferidos más allá de lo que el material declara.
 
-**Unresolved boundary** — A point in analysis where deterministic evidence does not close to a confirmed
-conclusion (e.g. a call that cannot be resolved to a declared symbol, a flow that cannot reach a confirmed
-terminal). Always preserved explicitly, never silently dropped or upgraded to `confirmed`
-(`UNRESOLVED_FINDINGS.md`; `flow_unresolved` records; `AGENTS.md` "Project Rules").
+**Límite no resuelto (Unresolved boundary)** — Un punto en el análisis donde la evidencia determinista no
+cierra hacia una conclusión confirmada (por ejemplo, una llamada que no puede resolverse a un símbolo
+declarado, un flujo que no puede alcanzar un terminal confirmado). Siempre preservado explícitamente, nunca
+descartado en silencio ni promovido a `confirmed` (`UNRESOLVED_FINDINGS.md`; registros `flow_unresolved`;
+`AGENTS.md` "Project Rules").
 
-**Confirmed terminal** — In functional-flow resolution (`legacy_documenter/analysis/flow_resolver.py`), a
-traced execution path that reaches a database/stored-procedure operation with `confirmed` evidence. A flow
-can have a confirmed terminal on one path while its overall `Status` still reads `unresolved_boundary`
-because of a different, unrelated unresolved path — both facts are recorded independently (User Manual
-§4.8).
+**Terminal confirmado (Confirmed terminal)** — En la resolución de flujo funcional
+(`legacy_documenter/analysis/flow_resolver.py`), una ruta de ejecución trazada que alcanza una operación de
+base de datos/procedimiento almacenado con evidencia `confirmed`. Un flujo puede tener un terminal
+confirmado en una ruta mientras su `Status` general todavía se lee como `unresolved_boundary` debido a una
+ruta distinta y no relacionada que quedó sin resolver — ambos hechos se registran de forma independiente
+(Manual de Usuario §4.8).
 
-**Operational output** — The generated result of running LegacyMapper against a concrete, real legacy
-system (a pilot, a client engagement). Must remain local, never committed, regardless of size
-(`docs/GENERATED_ARTIFACT_POLICY.md`, "Real-System Operational Output").
+**Salida operacional (Operational output)** — El resultado generado por ejecutar LegacyMapper contra un
+sistema legado real concreto (un piloto, un compromiso con un cliente). Debe permanecer local, nunca
+confirmarse (commit), sin importar el tamaño (`docs/GENERATED_ARTIFACT_POLICY.md`, "Real-System Operational
+Output").
 
-**Tracked artifact** — A small, meaningful, generated file that a baseline/closure/round-result document
-references by path or hash, and which therefore stays versioned in Git despite being generated (e.g.
-`output/v4_2_r8/V4_2_FINAL_BASELINE.json`).
+**Artefacto rastreado (Tracked artifact)** — Un archivo generado, pequeño y significativo, que un documento
+de baseline/cierre/resultado de ronda referencia por ruta o hash, y que por lo tanto permanece versionado en
+Git a pesar de ser generado (por ejemplo, `output/v4_2_r8/V4_2_FINAL_BASELINE.json`).
 
-**Synthetic fixture** — A committable, hand-constructed (or pilot-derived-but-anonymized) sample repository
-or dataset used by tests to reproduce a real-world finding deterministically without any real/sensitive
-data (`tests/fixtures/v4_2_r7_full_sample/`, reproducing V4.2-R7 pilot findings F-01/F-07).
+**Fixture sintético (Synthetic fixture)** — Un repositorio o conjunto de datos de muestra confirmable
+(commit), construido a mano (o derivado de un piloto pero anonimizado) usado por los tests para reproducir
+un hallazgo del mundo real de forma determinista sin ningún dato real/sensible
+(`tests/fixtures/v4_2_r7_full_sample/`, reproduciendo los hallazgos F-01/F-07 del piloto de V4.2-R7).
 
-**Baseline** — A frozen, point-in-time snapshot of repository state (test counts, hashes, capability list)
-recorded at a closure milestone (e.g. `output/v4_2_r8/V4_2_FINAL_BASELINE.json`). Not expected to match a
-later live run byte-for-byte once the repository has legitimately moved on — see the Technical Manual §16
-for a concrete case where a fresh-clone run and the recorded baseline diverge.
+**Baseline (línea base)** — Una instantánea congelada, en un punto en el tiempo, del estado del repositorio
+(conteos de tests, hashes, lista de capacidades) registrada en un hito de cierre (por ejemplo,
+`output/v4_2_r8/V4_2_FINAL_BASELINE.json`). No se espera que coincida byte a byte con una ejecución en vivo
+posterior una vez que el repositorio ha avanzado legítimamente — ver el Manual Técnico §16 para un caso
+concreto donde una ejecución sobre un clon nuevo y la baseline registrada divergen.
 
-**Manifest** — A companion file to a baseline recording file paths and content hashes, used to verify the
-baseline's referenced artifacts are byte-identical to what closure recorded
-(`output/v4_2_r8/V4_2_FINAL_MANIFEST.json`).
+**Manifiesto (Manifest)** — Un archivo complementario a una baseline que registra rutas de archivo y hashes
+de contenido, usado para verificar que los artefactos referenciados por la baseline sean idénticos byte a
+byte a lo que el cierre registró (`output/v4_2_r8/V4_2_FINAL_MANIFEST.json`).
 
-**Agent-neutral continuity** — The property that `AGENTS.md`/`CLAUDE.md`/`PROJECT_STATE.json` are written
-so that any capable AI development agent (not only one specific product) can pick up the project correctly
-by reading the repository itself, never a specific agent's session memory (`AGENTS.md`: "the active
-development agent," "any capable development agent").
+**Continuidad neutral al agente (Agent-neutral continuity)** — La propiedad de que `AGENTS.md`/`CLAUDE.md`/
+`PROJECT_STATE.json` están escritos de modo que cualquier agente de desarrollo de IA capaz (no solo un
+producto específico) pueda retomar el proyecto correctamente leyendo el propio repositorio, nunca la
+memoria de sesión de un agente específico (`AGENTS.md`: "the active development agent," "any capable
+development agent").
 
-**Provider (LLM provider)** — A concrete implementation of `legacy_documenter/llm/core.py::LLMProvider`
-(e.g. `FakeLLMProvider`, `CopilotProvider`). `ProviderRegistry.create` currently wires only `"FAKE"` and
-`"COPILOT"` — see Technical Manual §13, discrepancy AI-01.
+**Proveedor (proveedor de IA / LLM provider)** — Una implementación concreta de
+`legacy_documenter/llm/core.py::LLMProvider` (por ejemplo, `FakeLLMProvider`, `CopilotProvider`).
+`ProviderRegistry.create` actualmente solo conecta `"FAKE"` y `"COPILOT"` — ver Manual Técnico §13,
+discrepancia AI-01.
 
-**FakeLLMProvider** — A deterministic, in-memory, capability-aware `LLMProvider` implementation used
-throughout the test suite and by `tools/manual_verify_full_pipeline.py` so no test or manual verification
-ever reaches a real network/provider call.
+**FakeLLMProvider** — Una implementación determinista, en memoria, consciente de sus capacidades, de
+`LLMProvider`, usada en toda la suite de tests y por `tools/manual_verify_full_pipeline.py` para que ningún
+test ni verificación manual alcance jamás una llamada real de red/proveedor.
 
-**Findings** — The list of statements an AI interpretation pass returns, each with a `confidence`
-(`CONFIRMED`/`UNCERTAIN`) and `evidence_refs`. Untrusted, unapproved, non-canonical until (and unless) a
-Technical Lead later approves a `Proposal` built from them.
+**Hallazgos (Findings)** — La lista de afirmaciones que un paso de interpretación por IA devuelve, cada una
+con una `confidence` (`CONFIRMED`/`UNCERTAIN`) y `evidence_refs`. No confiables, no aprobados, no canónicos
+a menos que (y hasta que) un Líder Técnico apruebe posteriormente una `Proposal` construida a partir de
+ellos.
