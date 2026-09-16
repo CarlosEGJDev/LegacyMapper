@@ -193,31 +193,65 @@ artifacts remained ignored and untracked, not staged.
 
 ## GIT_COMMIT
 
-<recorded after commit — see below>
+`2cadd15ad63749c81fb9c350504f56abd4c36e4d` — "Post-V4.2 maintenance:
+documentation and reproducibility hardening". 25 files changed
+(7023 insertions, 302 deletions). Parent: `61a852dcfe10817a1364611ad056f35373a9b476`.
+Historical V4.2 closure commit `af7e2099039e791c5a14ff94bf5ad348e8dbb4db`
+not amended, not rewritten.
 
 ## GIT_PUSH
 
-<recorded after push — see below>
+PASS. Pushed to `origin/main` (`https://github.com/CarlosEGJDev/LegacyMapper.git`):
+`61a852d..2cadd15  main -> main`. Technical Lead confirmed the push
+explicitly before it was performed, per this repository's `AGENTS.md`
+permission boundary on Git push/external side effects.
 
 ## POST_COMMIT_FULL_SUITE
 
-<recorded after commit — see below>
+Run at HEAD `2cadd15...` (after the real commit, manuals/tests now
+committed):
+
+```
+python -m unittest discover -s tests
+```
+
+`Ran 1810 tests in 89.190s` — `OK (skipped=132)`.
+DISCOVERED=1810, FAILURES=0, ERRORS=0, ALL_SKIPS_EXPLAINED=true.
 
 ## POST_COMMIT_READINESS
 
-<recorded after commit — see below>
+```
+python main.py readiness
+```
+
+`readiness=READY`, exit code `0`, `provider_calls=0`, `real_llm_calls=0`.
 
 ## POST_COMMIT_HISTORICAL_MANIFEST_VERIFICATION
 
-<recorded after commit — see below>
+Run specifically at HEAD `2cadd15...` (HEAD != the V4.2 closure commit
+`af7e209...`, Post-V4.2 manuals now committed):
+
+```
+python -m unittest tests.test_v4_2_r8_documentation_at_scale.FinalBaselineAndManifestIntegrityTests
+```
+
+`Ran 6 tests in 7.746s` — `OK`, including
+`test_manifest_hashes_match_referenced_files` and
+`test_historical_manifest_integrity_survives_a_later_commit`.
+POST_COMMIT_STABILITY=PASS.
 
 ## GIT_STATUS_FINAL
 
-<recorded after push — see below>
+`git status --short` clean (no output). `git rev-parse HEAD` ==
+`git rev-parse origin/main` == `2cadd15ad63749c81fb9c350504f56abd4c36e4d`.
+No staging leftovers, no untracked prompt/result files from this block
+(all now committed). Local runtime artifacts produced by test/readiness
+execution (e.g. `output/v3_r9/`) remain gitignored and do not appear in
+git status.
 
 ## DECISION
 
-<recorded after all gates pass — see below>
+POST_V4_2_MAINTENANCE_AND_DOCUMENTATION_FORMALLY_CLOSED
 
 ## NEXT
 
