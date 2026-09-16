@@ -121,7 +121,18 @@ Thumbs.db
 /output/v2_r5_full/
 /output/v2_r5_1_full/
 /output/v2_r5_1_repro/
-/output/v3_r8_1/
+#
+# /output/v3_r8_1/ is the raw V3-R8.1 deep-source-analysis scan dump against the
+# real legacy repository and remains untracked/regenerable for that reason (see
+# docs/PROJECT_RECOVERY.md). ARCHITECTURE_EVIDENCE.json is the single narrow
+# exception: it is a small (<1 KiB), non-sensitive, historically authentic
+# extract of that round's DETERMINISTIC_INDICATORS (transcribed from the tracked,
+# human-approved codex/v3/V3_R8_1_DEEP_SOURCE_ANALYSIS_RESULTADO.md), tracked so
+# that legacy_documenter/knowledge/readiness.py's architecture_integrity check
+# does not require re-running a real-repository scan on a fresh clone. See
+# docs/V4_2/POST_V4_2_FRESH_CLONE_REPRODUCIBILITY_CORRECTION_RESULT.md.
+/output/v3_r8_1/*
+!/output/v3_r8_1/ARCHITECTURE_EVIDENCE.json
 
 # Leftover development/smoke-test run outputs (not canonical, not referenced
 # by V3_FINAL_BASELINE.json or any approved V3/V4 result)

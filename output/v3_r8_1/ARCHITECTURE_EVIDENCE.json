@@ -1,0 +1,35 @@
+{
+  "CONTRADICTING_EVIDENCE": [],
+  "DETERMINISTIC_INDICATORS": [
+    {
+      "count": 3346,
+      "indicator": "WEBFORMS_USAGE",
+      "status": "SUPPORTED"
+    },
+    {
+      "count": 167,
+      "indicator": "PROJECT_REFERENCE_DIRECTION",
+      "status": "SUPPORTED"
+    },
+    {
+      "count": 20082,
+      "indicator": "DATA_ACCESS_OPERATIONS",
+      "status": "SUPPORTED"
+    },
+    {
+      "count": 0,
+      "indicator": "MVC_FRAMEWORK_REFERENCE",
+      "status": "INSUFFICIENT_EVIDENCE"
+    }
+  ],
+  "LLM_INTERPRETATION": {
+    "candidate_conclusion": "INSUFFICIENT_EVIDENCE",
+    "status": "NOT_EXECUTED"
+  },
+  "UNRESOLVED_EVIDENCE": [
+    "Formal architecture cannot be confirmed from structural indicators alone."
+  ],
+  "_provenance_note": "POST_V4_2_FRESH_CLONE_REPRODUCIBILITY_CORRECTION: this small tracked fixture transcribes the DETERMINISTIC_INDICATORS aggregate counts and architecture conclusion actually published for the real V3-R8.1 deep-source-analysis round in the tracked, human-approved codex/v3/V3_R8_1_DEEP_SOURCE_ANALYSIS_RESULTADO.md (line 71). It is not a re-run of the real legacy source scan (the full output/v3_r8_1/ raw dump -- DEEP_ANALYSIS_SUMMARY.json, PROJECT_DEPENDENCIES.json, EXTERNAL_DEPENDENCIES.json, etc. -- remains untracked, regenerable only from the real legacy repository, and is intentionally NOT reconstructed here). This file exists solely so legacy_documenter/knowledge/readiness.py's architecture_integrity check has the small evidence slice it requires on a fresh clone, without any real IST access or fabricated per-item evidence. See docs/V4_2/POST_V4_2_FRESH_CLONE_REPRODUCIBILITY_CORRECTION_RESULT.md.",
+  "pattern_confirmed": false,
+  "source_snapshot": "HISTORICAL_V3_R8_1_INDICATORS_ONLY_RECONSTRUCTED_POST_CLEANUP_NOT_A_LIVE_TREE_HASH"
+}

@@ -6,6 +6,16 @@ from legacy_documenter.analysis.deep_interpretation import *
 
 ROOT=Path(__file__).parents[1]
 
+# output/v3_r8_1/ is the full V3-R8.1 deep-source-analysis dump against the real
+# legacy repository. Only ARCHITECTURE_EVIDENCE.json (a small, historically
+# authentic indicator extract) is tracked -- see .gitignore and
+# docs/V4_2/POST_V4_2_FRESH_CLONE_REPRODUCIBILITY_CORRECTION_RESULT.md.
+# DEEP_ANALYSIS_SUMMARY.json/PROJECT_DEPENDENCIES.json/EXTERNAL_DEPENDENCIES.json
+# remain untracked and can only be regenerated from the real legacy source repository,
+# which this test suite must not do. Skip rather than error or fabricate them.
+_V3_R8_1_FULL = ROOT/"output"/"v3_r8_1"/"DEEP_ANALYSIS_SUMMARY.json"
+
+
 class FakeProvider:
  def __init__(self,bad=False): self.calls=0; self.bad=bad
  def structured_generate(self,request,schema):
@@ -14,6 +24,9 @@ class FakeProvider:
    values.append({"target_id":target,"interpretation_status":"VALID","semantic_summary":"Interpretación cautelosa basada solo en evidencia.","claim_candidates":[{"statement":"La evidencia permite una interpretación parcial.","status":"INTERPRETED","evidence_aliases":[aliases[0]]}],"evidence_aliases":[aliases[0]],"unresolved_aspects":["Requiere revisión humana."],"recommended_next_status":"PARTIALLY_RESOLVED_WITH_INTERPRETATION"})
   return SimpleNamespace(parsed_output={"interpretations":values},validation_errors=[],provider_id="FAKE",model_id="fake-model")
 
+@unittest.skipUnless(_V3_R8_1_FULL.exists(),
+    "requires local output/v3_r8_1/ real-repository deep-source-analysis dump (untracked, "
+    "regenerable only from the real legacy source repository; see docs/PROJECT_RECOVERY.md)")
 class R82Tests(unittest.TestCase):
  @classmethod
  def setUpClass(cls): cls.plans=plan_requests(ROOT/"output/v3_r8_1")

@@ -50,6 +50,8 @@ None of these directories were deleted from disk by this round; they are exclude
 
 If the legacy source repository itself is unavailable, these specific historical outputs cannot be regenerated, but nothing about current (V4) development depends on that.
 
+**Exception inside `output/v3_r8_1/`**: one file, `ARCHITECTURE_EVIDENCE.json` (~1.8 KiB), is deliberately tracked despite the row above — `legacy_documenter/knowledge/readiness.py` requires it for the `architecture_integrity` check, and without it `python main.py readiness` cannot succeed on a fresh clone. It contains only small aggregate structural-indicator evidence reproduced verbatim from the already-tracked `codex/v3/V3_R8_1_DEEP_SOURCE_ANALYSIS_RESULTADO.md` — not a restored raw dump, and not itself regenerable from this repository alone. The rest of `output/v3_r8_1/` remains excluded per the table above; this is not a precedent for tracking any other file in that directory or in `output/v2_r5_1_full/`. See `docs/V4_2/POST_V4_2_FRESH_CLONE_REPRODUCIBILITY_CORRECTION_RESULT.md`.
+
 ## Verification
 
 After cloning, run, in order:

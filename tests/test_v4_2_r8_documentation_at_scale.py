@@ -13,6 +13,8 @@ from __future__ import annotations
 import hashlib
 import importlib
 import json
+import re
+import subprocess
 import sys
 import unittest
 from pathlib import Path
@@ -364,6 +366,63 @@ class RelativeLinkResolutionTests(unittest.TestCase):
                 self.assertTrue((doc_dir / "functional_flows" / link).is_file())
 
 
+# ----------------------------------------------------------------------
+# Historical-manifest integrity helpers (Post-V4.2 correction).
+#
+# The V4.2-R8 manifest's `authoritative_artifacts` hashes were computed by
+# tools/v4_2_r8_build_final_artifacts.py::sha256_of() from *working-tree
+# disk bytes* at the time the V4.2 candidate was built -- see that
+# function's plain `Path.read_bytes()`. Those exact working-tree bytes
+# were then committed, as one commit, together with the rest of the V4.2
+# closure changes (docs/V4_2/V4_2_FINAL_CLOSURE_AND_VERSIONING_RESULT.md,
+# section FILES_CHANGED_FOR_CLOSURE). That same closure document's own
+# `## GIT_COMMIT` section records the resulting commit hash explicitly, in
+# already-tracked, already-reviewed repository evidence -- so it is a
+# deterministic, git-independent-of-HEAD historical reference point: the
+# V4.2 closure commit. It is read from that document at test time (never
+# hardcoded here) so it stays traceable to its recorded source.
+#
+# `core.autocrlf=true` means some tracked text files were smudged to CRLF
+# on checkout while others (e.g. docs authored directly with LF-only
+# tooling) were not; the manifest's disk-byte hashes reflect whichever
+# representation actually sat on disk for each file at build time. A
+# historical verification must therefore accept either the raw historical
+# git-blob bytes (LF, as stored) or that same content with its line
+# endings converted the way `core.autocrlf=true` would smudge/unsmudge a
+# text file on checkout -- without ever consulting current HEAD or the
+# current working tree's dirty/clean state.
+# ----------------------------------------------------------------------
+
+
+def _git_show_bytes(repo_root: Path, commit: str, rel_path: str) -> bytes:
+    """Exact bytes of `rel_path` as stored in git at `commit` (never HEAD)."""
+    result = subprocess.run(
+        ["git", "show", f"{commit}:{rel_path}"],
+        cwd=repo_root,
+        capture_output=True,
+        check=True,
+    )
+    return result.stdout
+
+
+def _historical_hash_candidates(blob: bytes) -> set[bytes]:
+    """The historical blob bytes plus its CRLF<->LF counterpart, since the
+    original manifest hashed whatever line-ending representation actually
+    sat on disk (autocrlf-smudged or not) for that particular file.
+    """
+    candidates = {blob}
+    if b"\r\n" in blob:
+        candidates.add(blob.replace(b"\r\n", b"\n"))
+    else:
+        candidates.add(blob.replace(b"\n", b"\r\n"))
+    return candidates
+
+
+def _matches_historical_hash(repo_root: Path, commit: str, rel_path: str, expected_sha256: str) -> bool:
+    blob = _git_show_bytes(repo_root, commit, rel_path)
+    return any(hashlib.sha256(candidate).hexdigest() == expected_sha256 for candidate in _historical_hash_candidates(blob))
+
+
 class FinalBaselineAndManifestIntegrityTests(unittest.TestCase):
     """Section 23: the R8 final candidate baseline/manifest are deterministic,
     reference only existing files, and never leak an absolute analyst path,
@@ -373,6 +432,7 @@ class FinalBaselineAndManifestIntegrityTests(unittest.TestCase):
     ROOT = Path(__file__).parents[1]
     BASELINE_PATH = ROOT / "output" / "v4_2_r8" / "V4_2_FINAL_BASELINE.json"
     MANIFEST_PATH = ROOT / "output" / "v4_2_r8" / "V4_2_FINAL_MANIFEST.json"
+    CLOSURE_RESULT_DOC = ROOT / "docs" / "V4_2" / "V4_2_FINAL_CLOSURE_AND_VERSIONING_RESULT.md"
 
     def test_artifacts_exist(self) -> None:
         self.assertTrue(self.BASELINE_PATH.is_file())
@@ -392,12 +452,135 @@ class FinalBaselineAndManifestIntegrityTests(unittest.TestCase):
         self.assertEqual(json.loads(baseline_text), on_disk)
 
     def test_manifest_hashes_match_referenced_files(self) -> None:
+        """Verify the manifest's own two-collection contract (see its "note"
+        field and tools/v4_2_r8_build_final_artifacts.py): `authoritative_artifacts`
+        are "already-produced, already-reviewed evidence for the V4.2 candidate
+        state" -- i.e. the reviewed content as it existed at V4.2 closure,
+        not necessarily whatever the current repository (working tree OR
+        HEAD) happens to contain right now. A path referenced there (e.g. a
+        manual under docs/V4_2/) may legitimately continue to receive new,
+        committed Post-V4.2 edits without that being historical-evidence
+        corruption, so long as the content recorded at the V4.2 closure
+        commit still matches the pinned hash.
+
+        This is checked against a fixed historical git reference -- the
+        V4.2 closure commit recorded in
+        docs/V4_2/V4_2_FINAL_CLOSURE_AND_VERSIONING_RESULT.md's own
+        `## GIT_COMMIT` section -- never against current HEAD and never
+        gated on whether the working tree is dirty or clean (both of those
+        were the flaw in the previous, HEAD-diff-based version of this
+        test: it only "worked" while the pending Post-V4.2 edits stayed
+        uncommitted). See `_matches_historical_hash` for the autocrlf
+        line-ending handling.
+
+        `mutable_current_state_documents` are explicitly documented in the
+        manifest's own "note" as "not an integrity requirement" -- their
+        hashes are a point-in-time snapshot only, so only existence is
+        checked for them.
+        """
         manifest = json.loads(self.MANIFEST_PATH.read_text(encoding="utf-8"))
-        for entry in manifest["authoritative_artifacts"] + manifest["mutable_current_state_documents"]:
+        closure_commit = self._v4_2_closure_commit()
+        for entry in manifest["authoritative_artifacts"]:
             path = self.ROOT / entry["path"]
             self.assertTrue(path.is_file(), entry["path"])
-            actual = hashlib.sha256(path.read_bytes()).hexdigest()
-            self.assertEqual(actual, entry["sha256"], entry["path"])
+            self.assertTrue(
+                _matches_historical_hash(self.ROOT, closure_commit, entry["path"], entry["sha256"]),
+                entry["path"],
+            )
+        for entry in manifest["mutable_current_state_documents"]:
+            path = self.ROOT / entry["path"]
+            self.assertTrue(path.is_file(), entry["path"])
+
+    def _v4_2_closure_commit(self) -> str:
+        """The V4.2 closure commit hash, as recorded in tracked, already-
+        reviewed closure documentation (never assumed, never HEAD, never a
+        branch-relative offset like HEAD~N).
+        """
+        text = self.CLOSURE_RESULT_DOC.read_text(encoding="utf-8")
+        match = re.search(r"## GIT_COMMIT\s*\n+`([0-9a-f]{40})`", text)
+        self.assertIsNotNone(
+            match,
+            "V4.2 closure commit hash not found in "
+            f"{self.CLOSURE_RESULT_DOC.name}'s ## GIT_COMMIT section",
+        )
+        commit = match.group(1)
+        verify = subprocess.run(
+            ["git", "cat-file", "-e", f"{commit}^{{commit}}"],
+            cwd=self.ROOT,
+            capture_output=True,
+        )
+        self.assertEqual(
+            verify.returncode,
+            0,
+            f"recorded V4.2 closure commit {commit} is not reachable in local git history "
+            "(shallow clone? corrupted checkout?) -- cannot verify historical manifest integrity",
+        )
+        return commit
+
+    def test_historical_manifest_integrity_survives_a_later_commit(self) -> None:
+        """Post-commit-stability regression: prove the verification logic
+        used above does NOT depend on current HEAD containing the
+        historical content, and does NOT depend on working-tree
+        dirty/clean state -- using an isolated, throwaway temp git repo
+        (never the real LegacyMapper repository, never a real commit here).
+
+        Scenario: an "authoritative artifact" has HISTORICAL content at an
+        early commit (standing in for the V4.2 closure commit); it is then
+        legitimately edited and a NEW commit is made (standing in for a
+        real Post-V4.2 documentation commit) so that HEAD now holds
+        different content at the same path. Historical verification,
+        pinned to the early commit, must still validate the OLD content
+        against the OLD recorded hash -- both while the working tree is
+        clean (freshly checked out) and while it is dirty (uncommitted
+        edits on top of the new commit) -- and must NOT accidentally
+        validate against HEAD's new content.
+        """
+        with TemporaryDirectory() as tmp:
+            repo = Path(tmp)
+            artifact = repo / "manual.md"
+
+            def run(*args: str) -> None:
+                subprocess.run(["git", *args], cwd=repo, capture_output=True, check=True)
+
+            run("init", "-q")
+            run("config", "user.email", "test@example.invalid")
+            run("config", "user.name", "Test")
+            run("config", "core.autocrlf", "false")
+
+            historical_content = b"V4.2 CLOSURE CONTENT\n"
+            artifact.write_bytes(historical_content)
+            run("add", "manual.md")
+            run("commit", "-q", "-m", "historical closure commit")
+            historical_commit = subprocess.run(
+                ["git", "rev-parse", "HEAD"], cwd=repo, capture_output=True, check=True
+            ).stdout.decode().strip()
+            historical_sha256 = hashlib.sha256(historical_content).hexdigest()
+
+            # Legitimate later edit + commit: HEAD now differs from the
+            # historical snapshot at the very same path.
+            new_content = b"POST-V4.2 EDITED CONTENT\n"
+            artifact.write_bytes(new_content)
+            run("add", "manual.md")
+            run("commit", "-q", "-m", "later legitimate Post-V4.2 edit")
+            self.assertNotEqual(hashlib.sha256(new_content).hexdigest(), historical_sha256)
+
+            # Clean working tree: HEAD holds the new content, disk matches HEAD.
+            self.assertTrue(
+                _matches_historical_hash(repo, historical_commit, "manual.md", historical_sha256),
+                "historical verification must still pass on a clean tree whose HEAD has moved on",
+            )
+            # And it must NOT be satisfied by treating HEAD as the historical authority.
+            head_bytes = subprocess.run(
+                ["git", "show", "HEAD:manual.md"], cwd=repo, capture_output=True, check=True
+            ).stdout
+            self.assertNotEqual(hashlib.sha256(head_bytes).hexdigest(), historical_sha256)
+
+            # Dirty working tree on top of the new commit: must still pass.
+            artifact.write_bytes(b"UNCOMMITTED SCRATCH EDIT\n")
+            self.assertTrue(
+                _matches_historical_hash(repo, historical_commit, "manual.md", historical_sha256),
+                "historical verification must be unaffected by a dirty working tree",
+            )
 
     def test_no_absolute_analyst_path_or_secret_or_real_ist_output_reference(self) -> None:
         for path in (self.BASELINE_PATH, self.MANIFEST_PATH):

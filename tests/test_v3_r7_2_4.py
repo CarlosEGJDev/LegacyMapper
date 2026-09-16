@@ -12,6 +12,10 @@ from legacy_documenter.documentation.synthesis import expand_document
 
 ROOT = Path(__file__).parents[1]
 
+# See tests/test_v3_r7_2.py: _inputs(ROOT) drives legacy_documenter.documentation.coverage.
+# CoveragePlanner over output/v2_r5_1_full/, the untracked real-repository scan dump.
+_V2_R5_1_FULL = ROOT / "output" / "v2_r5_1_full" / "ai_context" / "SYSTEM_CONTEXT.json"
+
 
 def fact(value=1, scope=SYSTEM_TOTAL, name="total_projects", refs=("COV-SYSTEM-METRICS",)):
     return MetricFact(name, value, scope, "PROJECTS", "unique_projects", refs, "SNAP")
@@ -26,6 +30,9 @@ def missing(ref="A:R", question="¿Qué patrón arquitectónico aplica?", sectio
             "source_snapshots": list(snapshots)}
 
 
+@unittest.skipUnless(_V2_R5_1_FULL.exists(),
+    "requires local output/v2_r5_1_full/ real-repository scan dump (untracked, "
+    "regenerable only from the real legacy source repository; see docs/PROJECT_RECOVERY.md)")
 class TestV3R724(unittest.TestCase):
     @classmethod
     def setUpClass(cls):

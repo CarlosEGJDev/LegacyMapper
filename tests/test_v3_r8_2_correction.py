@@ -6,6 +6,11 @@ from legacy_documenter.analysis.deep_interpretation import *
 
 ROOT=Path(__file__).parents[1]
 
+# See tests/test_v3_r8_2.py: plan_requests()/run_deep_interpretation() need the full
+# untracked output/v3_r8_1/ real-repository deep-source-analysis dump.
+_V3_R8_1_FULL = ROOT/"output"/"v3_r8_1"/"DEEP_ANALYSIS_SUMMARY.json"
+
+
 class InvalidConfirmedProvider:
  def structured_generate(self,request,schema):
   aliases=[x["alias"] for x in request.context["records"]]; alias=aliases[0]
@@ -16,6 +21,9 @@ class InvalidConfirmedProvider:
   for target in request.metadata["target_ids"]: values.append({"target_id":target,"interpretation_status":"VALID","semantic_summary":"x","claim_candidates":[{"statement":"x","status":"CONFIRMED","evidence_aliases":[nonauth]}],"evidence_aliases":[nonauth],"unresolved_aspects":[],"recommended_next_status":"PARTIALLY_RESOLVED_WITH_INTERPRETATION"})
   return SimpleNamespace(parsed_output={"interpretations":values},validation_errors=[],provider_id="P",model_id="M",request_id=request.request_id)
 
+@unittest.skipUnless(_V3_R8_1_FULL.exists(),
+    "requires local output/v3_r8_1/ real-repository deep-source-analysis dump (untracked, "
+    "regenerable only from the real legacy source repository; see docs/PROJECT_RECOVERY.md)")
 class CorrectionTests(unittest.TestCase):
  @classmethod
  def setUpClass(cls): cls.plans=plan_requests(ROOT/"output/v3_r8_1")
