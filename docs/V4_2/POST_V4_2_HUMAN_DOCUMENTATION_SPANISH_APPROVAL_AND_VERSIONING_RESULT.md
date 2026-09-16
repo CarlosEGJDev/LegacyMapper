@@ -125,15 +125,23 @@ false
 
 ## GIT_COMMIT
 
-<registrado tras el commit — ver abajo>
+`35c18dc863a3b98da52e3c05abf6298836a7b3c8` — "Post-V4.2: estandarizar documentación humana en español".
+12 archivos modificados (3392 inserciones, 1197 eliminaciones). Padre:
+`7cf4978e8a470c7a14977bbd70014efe94b49859`. El commit histórico fijo de cierre de V4.2
+(`af7e2099039e791c5a14ff94bf5ad348e8dbb4db`) no fue enmendado ni reescrito.
 
 ## GIT_PUSH
 
-<registrado tras el push — ver abajo>
+PASS. Empujado a `origin/main` (`https://github.com/CarlosEGJDev/LegacyMapper.git`):
+`7cf4978..35c18dc  main -> main`. El Líder Técnico confirmó explícitamente el push antes de realizarse,
+según el límite de permisos de `AGENTS.md` sobre push de Git/efectos secundarios externos.
 
 ## GIT_STATUS_FINAL
 
-<registrado tras el push — ver abajo>
+`git rev-parse HEAD` == `git rev-parse origin/main` == `35c18dc863a3b98da52e3c05abf6298836a7b3c8`.
+`git status --short` limpio tras el commit, tras el push, y tras la verificación post-commit de
+`readiness` (los artefactos locales generados por `readiness`, como `output/v3_r9/`, permanecen
+ignorados por `.gitignore` y no aparecen en `git status`). Sin residuos de staging.
 
 ## ESTADO_V4_2
 
@@ -145,7 +153,7 @@ No implementada. Esta ronda no inició V5.
 
 ## DECISION
 
-<registrada tras completar todos los pasos — ver abajo>
+DOCUMENTACION_HUMANA_EN_ESPAÑOL_FORMALMENTE_VERSIONADA
 
 ## SIGUIENTE
 
