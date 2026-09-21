@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass,field,asdict
 from abc import ABC,abstractmethod
-import hashlib,json
+import hashlib,json,math
 
 PURPOSES={"FUNCTIONAL_DOCUMENTATION","TECHNICAL_DOCUMENTATION","ARCHITECTURE_INTERPRETATION","FUNCTIONAL_INTERPRETATION","MISSING_INFORMATION_ANALYSIS","KNOWLEDGE_GENERATION","TEST"}
 STATUSES={"SUCCESS","INVALID_REQUEST","CONTEXT_TOO_LARGE","UNSUPPORTED_CAPABILITY","INVALID_STRUCTURED_OUTPUT","PROVIDER_ERROR","TIMEOUT","RATE_LIMITED","CANCELLED"}
@@ -26,6 +26,36 @@ class LLMRequest:
  def __post_init__(self) -> None:
   if self.purpose not in PURPOSES: raise ValueError("purpose")
   if not self.request_id: self.request_id=sid("REQ",{k:v for k,v in asdict(self).items() if k!="request_id"})
+def render_request_payload(r: LLMRequest,schema: dict|None=None) -> str:
+ """Renders the final, serialized payload an `LLMRequest` actually becomes when sent.
+
+ This is the single, provider-neutral definition of "what really travels to
+ the provider" (V4.3-R5). It is the construction
+ `legacy_documenter.llm.providers.copilot.CopilotProvider._prompt` performed
+ inline before R5 -- the only real implementation that existed -- moved here
+ verbatim so it can be *measured* before a call is made, and so the provider
+ now delegates to it instead of keeping a second copy that could drift.
+
+ The V4.3-R0 defect `D-01`/`EEE-02` is precisely that nothing measured this
+ string: `FakeLLMProvider._status` only ever compared
+ `context["statistics"]["estimated_tokens"]` (the context package's own
+ estimate) against the context window, which can be far smaller than this
+ wrapped payload once the instructions, the policies and the output schema
+ are added around it.
+ """
+ parts=["<system_instruction>",r.system_instruction,"</system_instruction>","<task_instruction>",r.user_instruction,"</task_instruction>","<evidence_policy>",json.dumps(r.metadata.get("evidence_policy",{}),sort_keys=True),"</evidence_policy>","<claim_policy>",json.dumps(r.metadata.get("claim_policy",r.metadata.get("evidence_policy",{})),sort_keys=True),"</claim_policy>","<missing_information_policy>",json.dumps(r.metadata.get("missing_information_policy",{}),sort_keys=True),"</missing_information_policy>","<context>",json.dumps(r.context,sort_keys=True,separators=(",",":"),ensure_ascii=False),"</context>"]
+ if schema is not None: parts += ["<output_contract>","Return exactly one strict JSON object only. No Markdown fences, comments, explanation, prefix, suffix, or chain-of-thought. Obey every const, enum, required, and additionalProperties constraint. Claims must cite only record ref values present in context.",json.dumps(schema,sort_keys=True,ensure_ascii=False),"</output_contract>"]
+ return "\n".join(parts)
+def measure_request_payload(r: LLMRequest,schema: dict|None=None,chars_per_token: int=4) -> dict:
+ """Measures the payload `render_request_payload` produces: bytes, characters, estimated tokens.
+
+ Same estimation method (`ceil(chars/chars_per_token)`) and the same reported
+ shape as `legacy_documenter.context.composer`/`ai_projection`'s own
+ `statistics`, so a caller comparing an internal package estimate against this
+ payload estimate is comparing like with like. Pure: it never sends anything.
+ """
+ text=render_request_payload(r,schema)
+ return {"payload_bytes":len(text.encode()),"payload_characters":len(text),"payload_estimated_tokens":math.ceil(len(text)/chars_per_token),"chars_per_token":chars_per_token,"estimation_method":"approximation: ceil(chars/chars_per_token)","schema_included":schema is not None}
 @dataclass
 class Usage:
  """Provides the cohesive Usage responsibility for this module."""

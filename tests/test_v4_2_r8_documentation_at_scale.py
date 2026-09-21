@@ -161,8 +161,9 @@ class FunctionalFlowsPartitioningTests(unittest.TestCase):
         indexes = _large_functional_flows_indexes(project_count=1, flows_per_project=4)
         partitions = TechnicalDocumentationRenderer().functional_flows_partitions(indexes)
         text = next(iter(partitions.values()))
-        self.assertIn("Confirmed terminal reached:", text)
-        self.assertIn("Unresolved boundary remains:", text)
+        # V4.3-R7 BLOQUEO 2: functional_flows_partitions is Spanish by default.
+        self.assertIn("Terminal confirmado alcanzado:", text)
+        self.assertIn("Límite no resuelto pendiente:", text)
 
     def test_partition_ordering_is_deterministic(self) -> None:
         indexes = _large_functional_flows_indexes(project_count=4, flows_per_project=6)
@@ -193,7 +194,10 @@ class FunctionalFlowsPartitioningTests(unittest.TestCase):
     def test_no_flows_produces_no_partitions(self) -> None:
         indexes = {"functional_flows": [], "functional_paths": [], "flow_summary": {}, "flow_unresolved": []}
         self.assertEqual(TechnicalDocumentationRenderer().functional_flows_partitions(indexes), {})
-        self.assertIn("No functional flows were discovered.", TechnicalDocumentationRenderer().functional_flows_navigation(indexes))
+        # V4.3-R7 BLOQUEO 2: functional_flows_navigation is Spanish by default.
+        self.assertIn(
+            "No se descubrieron flujos funcionales.", TechnicalDocumentationRenderer().functional_flows_navigation(indexes)
+        )
 
 
 class DatabaseAccessPartitioningTests(unittest.TestCase):
@@ -209,7 +213,8 @@ class DatabaseAccessPartitioningTests(unittest.TestCase):
         nav = renderer.database_access_navigation(indexes)
         partitions = renderer.database_access_partitions(indexes)
         self.assertEqual(len(partitions), 3)
-        self.assertIn("## Classification", nav)
+        # V4.3-R7 BLOQUEO 2: database_access_navigation is Spanish by default.
+        self.assertIn("## Clasificación", nav)
         for filename in partitions:
             self.assertIn(f"database_access/{filename}", nav)
 
@@ -228,7 +233,10 @@ class DatabaseAccessPartitioningTests(unittest.TestCase):
     def test_no_database_access_produces_no_partitions(self) -> None:
         indexes = {"data_access": [], "stored_procedures": [], "sql_operations": [], "data_parameters": []}
         self.assertEqual(TechnicalDocumentationRenderer().database_access_partitions(indexes), {})
-        self.assertIn("No database access was discovered.", TechnicalDocumentationRenderer().database_access_navigation(indexes))
+        # V4.3-R7 BLOQUEO 2: database_access_navigation is Spanish by default.
+        self.assertIn(
+            "No se descubrió acceso a base de datos.", TechnicalDocumentationRenderer().database_access_navigation(indexes)
+        )
 
 
 class UnresolvedFindingsPartitioningAndF06Tests(unittest.TestCase):
@@ -256,8 +264,9 @@ class UnresolvedFindingsPartitioningAndF06Tests(unittest.TestCase):
         indexes = {"errors": [], "flow_unresolved": flow_unresolved, "entry_points": [], "data_access": []}
         partitions = TechnicalDocumentationRenderer().unresolved_findings_partitions(indexes)
         text = next(iter(partitions.values()))
-        self.assertIn("Framework/Designer-Generated Boilerplate", text)
-        self.assertIn("Other Unresolved Boundaries", text)
+        # V4.3-R7 BLOQUEO 2: unresolved_findings_partitions is Spanish by default.
+        self.assertIn("Código repetitivo generado por el framework/diseñador", text)
+        self.assertIn("Otros límites no resueltos", text)
         # Every row is still present -- nothing discarded, only regrouped.
         self.assertEqual(text.count("| FLOW-1 |"), 3)
 
@@ -267,12 +276,16 @@ class UnresolvedFindingsPartitioningAndF06Tests(unittest.TestCase):
         ]
         indexes = {"errors": [], "flow_unresolved": flow_unresolved, "entry_points": [], "data_access": []}
         nav = TechnicalDocumentationRenderer().unresolved_findings_navigation(indexes)
-        self.assertIn("| Unresolved flow boundaries | 1 |", nav)
+        # V4.3-R7 BLOQUEO 2: unresolved_findings_navigation is Spanish by default.
+        self.assertIn("| Límites de flujo no resueltos | 1 |", nav)
 
     def test_no_findings_produces_no_partitions(self) -> None:
         indexes = {"errors": [], "flow_unresolved": [], "entry_points": [], "data_access": []}
         self.assertEqual(TechnicalDocumentationRenderer().unresolved_findings_partitions(indexes), {})
-        self.assertIn("No unresolved findings were recorded for this run.", TechnicalDocumentationRenderer().unresolved_findings_navigation(indexes))
+        self.assertIn(
+            "No se registraron hallazgos no resueltos para esta corrida.",
+            TechnicalDocumentationRenderer().unresolved_findings_navigation(indexes),
+        )
 
 
 class DocumentationReadmeTests(unittest.TestCase):

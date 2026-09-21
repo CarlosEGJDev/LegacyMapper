@@ -231,14 +231,15 @@ class GeneratedDocumentationTests(unittest.TestCase):
             # V4.2-R8: DATABASE_ACCESS.md is now a navigation/summary index;
             # the actual stored-procedure evidence lives in its partitioned
             # detail document under documentation/database_access/.
+            # V4.3-R7 BLOQUEO 2: this navigation document is Spanish by default.
             db_doc = (doc_dir / "DATABASE_ACCESS.md").read_text(encoding="utf-8")
-            self.assertIn("## Access Groups", db_doc)
+            self.assertIn("## Grupos de acceso", db_doc)
             self.assertIn("database_access/", db_doc)
             partition_files = list((doc_dir / "database_access").glob("*.md"))
             self.assertEqual(len(partition_files), 1)
             self.assertIn("PKG_CUSTOMER.SAVE_CUSTOMER", partition_files[0].read_text(encoding="utf-8"))
             unresolved_doc = (doc_dir / "UNRESOLVED_FINDINGS.md").read_text(encoding="utf-8")
-            self.assertIn("Unresolved flow boundaries", unresolved_doc)
+            self.assertIn("Límites de flujo no resueltos", unresolved_doc)
             self.assertIn("README.md", [p.name for p in doc_dir.glob("*.md")])
 
 

@@ -77,13 +77,38 @@ class ProductionFileDiscoveryTests(unittest.TestCase):
         # 168. V4.2-R8 added one new production module
         # (legacy_documenter/exporters/_documentation_partitioning.py --
         # deterministic, safe partition-filename derivation for the
-        # navigation/detail documentation split), making the current
-        # unmodified-checkout count 169. R0 itself analyzed the pre-R1 tree
-        # and is not being re-run or re-approved here; this count simply
-        # tracks the live repository, the same way
+        # navigation/detail documentation split), making 169. V4.3-R2 added one
+        # new production module (legacy_documenter/context/hydration.py --
+        # the deterministic FLOW/PATH/DAO/SP evidence selection and
+        # hydration service implementing the V4.3-R1 `AI_HYDRATED_PROJECTION`
+        # contract; see
+        # docs/V4_3/V4_3_R2_EVIDENCE_HYDRATION_AND_SELECTION_RESULT.md),
+        # making 170. V4.3-R3 added one new production module
+        # (legacy_documenter/documentation/human_flow_documentation.py --
+        # the deterministic Spanish `HUMAN_DOCUMENTATION_PROJECTION 1.0`
+        # renderer for hydrated FLOW records; see
+        # docs/V4_3/V4_3_R3_HUMAN_DOCUMENTATION_RESULT.md), making 171. V4.3-R4
+        # added one new production module
+        # (legacy_documenter/documentation/human_documentation_scaling.py --
+        # the deterministic system-scale navigation/partition aggregation
+        # layer over many `render_flow_document` calls, implementing the
+        # `human_documentation` surface at system scale R3 left out of
+        # scope; see docs/V4_3/V4_3_R4_SCALING_AND_PARTITIONING_RESULT.md),
+        # making 173. V4.3-R5 added two new production modules
+        # (legacy_documenter/context/ai_projection.py -- the budgeted
+        # `AI_HYDRATED_PROJECTION 1.0` package builder over hydrated FLOW
+        # records; and legacy_documenter/orchestration/_run_evidence_io.py --
+        # the small internal index/snapshot loader kept out of
+        # ai_interpretation.py so that module retains a single
+        # responsibility, the same `_readiness_io.py`/`_database_*.py`
+        # pattern earlier rounds already used; see
+        # docs/V4_3/V4_3_R5_AI_CONTEXT_BUDGETING_RESULT.md), making the
+        # current unmodified-checkout count 174. R0 itself
+        # analyzed the pre-R1 tree and is not being re-run or re-approved
+        # here; this count simply tracks the live repository, the same way
         # `production_python_module_count` does in the final baseline.
         files = inv.iter_production_files(REPO_ROOT)
-        self.assertEqual(len(files), 169)
+        self.assertEqual(len(files), 176)
 
 
 class FileAnalysisTests(unittest.TestCase):
@@ -416,6 +441,36 @@ class GeneratedArtifactOnDiskTests(unittest.TestCase):
                 # V4.2-R8: deterministic, safe partition-filename derivation
                 # for the navigation/detail documentation split (section 12).
                 "legacy_documenter/exporters/_documentation_partitioning.py",
+                # V4.3-R2: deterministic FLOW/PATH/DAO/SP evidence selection
+                # and hydration (see
+                # docs/V4_3/V4_3_R2_EVIDENCE_HYDRATION_AND_SELECTION_RESULT.md).
+                "legacy_documenter/context/hydration.py",
+                # V4.3-R3: deterministic Spanish `HUMAN_DOCUMENTATION_PROJECTION`
+                # renderer for hydrated FLOW records (see
+                # docs/V4_3/V4_3_R3_HUMAN_DOCUMENTATION_RESULT.md).
+                "legacy_documenter/documentation/human_flow_documentation.py",
+                # V4.3-R4: deterministic system-scale navigation/partition
+                # aggregation over many hydrated FLOW records, reusing
+                # `render_flow_document` per flow and the V4.2-R8
+                # `sanitize_label`/`build_partition_filenames` helpers (see
+                # docs/V4_3/V4_3_R4_SCALING_AND_PARTITIONING_RESULT.md).
+                "legacy_documenter/documentation/human_documentation_scaling.py",
+                # V4.3-R5: the budgeted `AI_HYDRATED_PROJECTION 1.0` package
+                # builder (mandatory ceiling, `FULL` rejected) and the small
+                # internal index/snapshot loader extracted out of
+                # `ai_interpretation.py` (see
+                # docs/V4_3/V4_3_R5_AI_CONTEXT_BUDGETING_RESULT.md).
+                "legacy_documenter/context/ai_projection.py",
+                "legacy_documenter/orchestration/_run_evidence_io.py",
+                # V4.3-R6: the complete, unbudgeted `LegacyMapperConsumerProjection
+                # 1.0` package builder -- independent of `ai_projection`/
+                # `human_documentation`, no `SILENT_ENTRY_OMISSION` (see
+                # docs/V4_3/V4_3_R6_AI_AND_CONSUMER_PROJECTION_RESULT.md).
+                "legacy_documenter/context/consumer_projection.py",
+                # V4.3-R7: the deterministic per-run output-tree manifest
+                # builder for external pilot handoff (see
+                # docs/V4_3/V4_3_R7_INTERNAL_ACCEPTANCE_RESULT.md).
+                "legacy_documenter/cli/output_manifest.py",
             },
         )
         # V4.2-R7.1 corrected four real-pilot presentation/aggregation
@@ -430,6 +485,31 @@ class GeneratedArtifactOnDiskTests(unittest.TestCase):
         # earlier rounds; `markdown_exporter.py` is added here for the first
         # time -- its line_count moves, no rename/restructuring.
         touched_paths = touched_paths | {"legacy_documenter/exporters/markdown_exporter.py"}
+        # V4.3-R5 deduplicated the final-request-payload wrapper: the
+        # construction that only existed inside `CopilotProvider._prompt`
+        # moved verbatim to `legacy_documenter/llm/core.py` as
+        # `render_request_payload`/`measure_request_payload` (so the size a
+        # caller measures is the size actually sent), and `copilot.py`'s
+        # `_prompt` now delegates to it. Both files' line counts/imports move;
+        # neither is renamed, restructured, or changes behavior. See
+        # docs/V4_3/V4_3_R5_AI_CONTEXT_BUDGETING_RESULT.md.
+        touched_paths = touched_paths | {
+            "legacy_documenter/llm/core.py", "legacy_documenter/llm/providers/copilot.py",
+        }
+        # V4.3-R7 acceptance-blocker correction (BLOQUEO 1/2): `router.py`
+        # gained the new `output-manifest` subcommand route (BLOQUEO 1) and
+        # `parser.py` gained its subparser; `main.py` gained the extra
+        # `output-manifest` branch in its result-printing condition.
+        # `markdown_exporter.py`/`technical_documentation_renderer.py` grew
+        # their Spanish-by-default navigation/partition rendering (BLOQUEO 2)
+        # further beyond the V4.2-R7.1/V4.3-R4 state already accounted for
+        # above. None of these are renamed or restructured; only their
+        # line counts/imports move.
+        touched_paths = touched_paths | {
+            "legacy_documenter/cli/router.py",
+            "legacy_documenter/cli/parser.py",
+            "legacy_documenter/exporters/technical_documentation_renderer.py",
+        }
         unexpected_entry_diffs = [
             p for p in (set(on_disk_inv) & set(fresh_inv)) - touched_paths
             if on_disk_inv[p] != fresh_inv[p]
@@ -478,12 +558,122 @@ class GeneratedArtifactOnDiskTests(unittest.TestCase):
         r3_full_pipeline_path = "legacy_documenter/cli/full_pipeline.py"
         # V4.2-R6: run_summary_presenter.py (185 -> 234 lines) leaves LOW and enters HIGH.
         r6_presenter_path = "legacy_documenter/cli/run_summary_presenter.py"
+        # V4.3-R3 added one new HIGH-risk module
+        # (`legacy_documenter/documentation/human_flow_documentation.py`, 335
+        # lines after the round's own transaction/data-operation evidence
+        # correction -- over the 200-line threshold, module-level rendering
+        # functions well above two (`responsibility_count` > 2), and under
+        # `legacy_documenter/documentation/`, one of the paths this tool's
+        # heuristic always treats as historical; the combination reaches the
+        # HIGH threshold even though the module has no branching complex
+        # enough for VERY_HIGH and is a pure function with no I/O).
+        r3_human_flow_documentation_path = "legacy_documenter/documentation/human_flow_documentation.py"
+        # V4.3-R4 added one new HIGH-risk module
+        # (`legacy_documenter/documentation/human_documentation_scaling.py`,
+        # 239 lines -- over the 200-line threshold, and under
+        # `legacy_documenter/documentation/`, the same historical-path
+        # heuristic that already places `human_flow_documentation.py` in
+        # HIGH rather than MEDIUM).
+        r4_human_documentation_scaling_path = "legacy_documenter/documentation/human_documentation_scaling.py"
+        # V4.3-R5 added one new HIGH-risk module
+        # (`legacy_documenter/context/ai_projection.py`, 304 lines -- over the
+        # 200-line threshold plus the historical-package +1 this tool's
+        # heuristic applies to everything under `legacy_documenter/context/`,
+        # the same combination that already places `hydration.py` above LOW).
+        #
+        # `legacy_documenter/orchestration/ai_interpretation.py` moved twice
+        # within this same round, before R6 started: R5's initial projection/
+        # gate/retry policy grew it from 190 to 348 lines (crossing MEDIUM ->
+        # HIGH), and R5's own follow-up correction -- reserving output
+        # capacity out of a declared `context_window` instead of handing the
+        # whole window to the input payload, plus the `OutputReservationGateTests`
+        # coverage that correction required (see
+        # docs/V4_3/V4_3_R5_AI_CONTEXT_BUDGETING_RESULT.md section 3.2) -- grew
+        # it further to 402 lines, crossing HIGH -> VERY_HIGH. The net result
+        # is a single MEDIUM -> VERY_HIGH move for this one file, not a HIGH
+        # entry: it belongs in `expected_very_high_risk_files` below, not in
+        # `expected_high_risk_files`. It does not become an eighth
+        # `responsibility_signals` category or gain a fifth responsibility
+        # signal -- the index/snapshot loading responsibility remains
+        # extracted into `_run_evidence_io.py` (see the new-path set above);
+        # the VERY_HIGH classification here comes from line count and
+        # `except_exception` handler count crossing this tool's thresholds,
+        # not from a new responsibility.
+        r5_ai_projection_path = "legacy_documenter/context/ai_projection.py"
+        r5_ai_interpretation_path = "legacy_documenter/orchestration/ai_interpretation.py"
+        # V4.3-R6 wired the new `legacy_documenter/context/consumer_projection.py`
+        # (see the new-path set above) into the existing CONTEXT stage
+        # (`pipeline_stages.build_context_artifacts`), which both `analyze` and
+        # `full` already called: `consumer_projection` is deterministic and
+        # never opt-in, so it is materialized unconditionally, alongside
+        # `context/*.json` and `ai_context/*`, rather than as a new pipeline
+        # stage identity (avoiding a ripple through `StageId`/`RunResult`/every
+        # existing stage-list assertion for a file-write that shares CONTEXT's
+        # exact failure boundary). That one new call plus its three new
+        # imports (`ConsumerProjectionBuilder`, `atomic_write_text`,
+        # `render_deterministic_json`, `sanitize_data`) grew
+        # `pipeline_stages.py` from 421 to 454 lines and added a fourth
+        # `responsibility_signals` category (this tool's own
+        # `provider_or_network` name-hint heuristic fires on the word "LLM" in
+        # this function's own docstring, explaining that `consumer_projection`
+        # -- unlike `AI_INTERPRETATION` -- reaches no AI/LLM service; the
+        # heuristic has no notion of negation, so it flags the mention rather
+        # than real provider/network access, the same class of false positive
+        # already accepted for other modules' docstrings in earlier rounds
+        # rather than rewritten around). Four responsibility signals crosses
+        # this tool's threshold from HIGH to VERY_HIGH.
+        #
+        # V4.3-R6's own follow-up correction (still before R7 started) --
+        # partitioning `consumer_projection` deterministically instead of one
+        # unbounded file, see
+        # docs/V4_3/V4_3_R6_AI_AND_CONSUMER_PROJECTION_RESULT.md -- grew
+        # `consumer_projection.py` from 142 to 283 lines (the manifest/
+        # partition split, the losslessness guards, the deterministic
+        # filename helpers) and `pipeline_stages.py` further, from 454 to 473
+        # lines (serializing and syncing a dict of partitions instead of one
+        # package). `consumer_projection.py` crosses from MEDIUM to HIGH
+        # (`filesystem`/`validation` join the pre-existing
+        # `provider_or_network`/`serialization` signals -- `filesystem` from
+        # its own docstring mentioning `write_text`/`read_text` while
+        # explaining that the module itself never calls them, another
+        # instance of the same name-hint false positive; `validation` from
+        # the module's own `raise ValueError`/`ConsumerProjectionError` fail-
+        # closed guards, which are real). `pipeline_stages.py` stays
+        # VERY_HIGH (it already crossed into that bucket at the step above;
+        # this correction does not move it a second time).
+        r6_consumer_projection_path = "legacy_documenter/context/consumer_projection.py"
+        # V4.3-R7 BLOQUEO 1: the new `output-manifest` subcommand route added
+        # a fourth top-level command branch plus its own manifest-building
+        # helper function to `router.py`'s existing conditional-branching
+        # dispatch, crossing it from MEDIUM (the pre-existing three-command
+        # dispatch cited above) to HIGH.
+        r7_router_path = "legacy_documenter/cli/router.py"
+        # V4.3-R8 correction of external pilot findings P-02/P-03
+        # (`docs/V4_3/V4_3_R8_EXTERNAL_PILOT_CORRECTIONS_RESULT.md`) restructured
+        # `human_flow_documentation.py` to be summary-first (new sections 3/4,
+        # a presentation-only technical/infrastructure name list, and a split
+        # "qué queda no resuelto" section), growing it from 335 to 549 lines
+        # and to four `responsibility_signals` categories (the same
+        # docstring-name-hint false positive already accepted for other
+        # modules in earlier rounds -- this module still never touches the
+        # filesystem/network/a real serializer; `validation`/`filesystem`/
+        # `provider_or_network` all fire on words used only to *explain*, in
+        # prose, what this module does *not* do). Four signals crosses this
+        # tool's threshold from HIGH to VERY_HIGH -- the same move R3's own
+        # `ai_interpretation.py`/R6's `consumer_projection.py` growth already
+        # made for the same reason; no restructuring/rename, no behavior
+        # change to the underlying deterministic rendering logic.
+        r8_human_flow_documentation_path = "legacy_documenter/documentation/human_flow_documentation.py"
         expected_high_risk_files = sorted(
             [p for p in on_disk_risk["high_risk_files"] if p not in (database_extractor_path, r2_main_path)]
-            + [readiness_path, r2_pipeline_stages_path, r6_presenter_path]
+            + [readiness_path, r6_presenter_path,
+               r4_human_documentation_scaling_path, r5_ai_projection_path, r6_consumer_projection_path,
+               r7_router_path]
         )
         expected_very_high_risk_files = sorted(
-            [p for p in on_disk_risk["very_high_risk_files"] if p != readiness_path] + [r3_full_pipeline_path]
+            [p for p in on_disk_risk["very_high_risk_files"] if p != readiness_path]
+            + [r3_full_pipeline_path, r5_ai_interpretation_path, r2_pipeline_stages_path,
+               r8_human_flow_documentation_path]
         )
         self.assertEqual(sorted(fresh_risk["high_risk_files"]), expected_high_risk_files)
         self.assertEqual(sorted(fresh_risk["very_high_risk_files"]), expected_very_high_risk_files)
@@ -529,16 +719,82 @@ class GeneratedArtifactOnDiskTests(unittest.TestCase):
         # `pipeline_stages.py`/`artifact_lifecycle.py` for the navigation/
         # detail documentation split without moving any of them across a
         # risk-category boundary.
+        # V4.3-R2 added one new MEDIUM-risk module
+        # (`legacy_documenter/context/hydration.py`, 204 lines -- over the
+        # 200-line MEDIUM threshold and under the historical-package +1
+        # this tool's heuristic applies to everything under
+        # `legacy_documenter/context/`; no branching complex enough to
+        # reach HIGH). V4.3-R3 added one new HIGH-risk module (see
+        # r3_human_flow_documentation_path above) and, in its own
+        # transaction/data-operation evidence correction, grew
+        # `hydration.py` to 290 lines -- still MEDIUM (`responsibility_count`
+        # stays low; no new branching complex enough for HIGH); MEDIUM's net
+        # change from R3 is zero (no MEDIUM-bucket module added or removed),
+        # HIGH grows by one.
+        # V4.3-R4's Spanish-by-default correction (see
+        # docs/V4_3/V4_3_R4_SCALING_AND_PARTITIONING_RESULT.md section 13)
+        # translated `project_dependencies_navigation`/
+        # `project_dependencies_partitions`'s human-facing prose/headers into
+        # Spanish, growing their docstrings/text enough that
+        # `markdown_exporter.py` crosses from 112 to 204 lines -- over the
+        # same 200-line MEDIUM threshold `hydration.py` already crossed at
+        # R2 (no branching complex enough for HIGH) -- so it leaves LOW and
+        # enters MEDIUM. This is the file's only category move from this
+        # correction; `technical_documentation_renderer.py`'s own Spanish
+        # translation (`web_entry_points_navigation`/`_partitions`) does not
+        # cross a boundary (it was already well past any line-count
+        # threshold and stays MEDIUM, per the V4.2-R3 comment above).
+        # V4.3-R6's `consumer_projection.py` lands directly on HIGH (see the
+        # comment above `expected_high_risk_files`) as a new path -- it never
+        # touches MEDIUM at all (its post-partitioning line count/
+        # responsibility signals already cross HIGH), so the MEDIUM
+        # expression below carries no term for it.
+        # V4.3-R7 adds one more new LOW-risk module: `cli/output_manifest.py`
+        # (62 lines, pure filesystem enumeration/hashing, no branching).
         expected_categories = dict(on_disk_risk["files_by_risk_category"])
-        expected_categories["LOW"] = expected_categories.get("LOW", 0) + 4 + 3 + 5 + 2 + 1 + 1 - 1 + 1
-        expected_categories["MEDIUM"] = expected_categories.get("MEDIUM", 0) + 3 + 1 + 1 + 1 + 1 + 1 - 1 + 1 + 1
-        expected_categories["HIGH"] = expected_categories.get("HIGH", 0) + 1 - 1 + 1 - 1 + 1 - 1 + 1
-        expected_categories["VERY_HIGH"] = expected_categories.get("VERY_HIGH", 0) - 1 + 1
+        expected_categories["LOW"] = expected_categories.get("LOW", 0) + 4 + 3 + 5 + 2 + 1 + 1 - 1 + 1 - 1 + 1
+        expected_categories["MEDIUM"] = (
+            expected_categories.get("MEDIUM", 0) + 3 + 1 + 1 + 1 + 1 + 1 - 1 + 1 + 1 + 1 + 1 - 1
+        )
+        # V4.3-R4's one new HIGH-risk module adds one more to this count.
+        # V4.3-R5 adds one more: the new `context/ai_projection.py` (HIGH).
+        # `orchestration/ai_interpretation.py` does NOT add to HIGH here --
+        # see the comment above `r5_ai_interpretation_path`: across R5's
+        # initial change and its own follow-up output-reservation correction
+        # it crosses all the way from MEDIUM to VERY_HIGH, passing through
+        # HIGH only transiently. MEDIUM's net change from R5 is zero:
+        # `ai_interpretation.py` leaves it and the new
+        # `orchestration/_run_evidence_io.py` enters it, so the MEDIUM
+        # expression above is unchanged.
+        # V4.3-R6's `pipeline_stages.py` HIGH -> VERY_HIGH move (see the
+        # comment above `expected_high_risk_files`) removes one more from HIGH
+        # -- it was counted as an R2 HIGH entrant in this expression (one of
+        # the trailing `+ 1` terms) and no longer belongs there. The new
+        # `consumer_projection.py` (same round's own follow-up correction)
+        # adds one back: a new HIGH-risk path, net zero against the removal.
+        # V4.3-R7's `router.py` MEDIUM -> HIGH move (see the comment above
+        # `expected_high_risk_files`) adds one more; MEDIUM's own net change
+        # for this same move is folded into the MEDIUM expression above via
+        # its trailing `- 1`.
+        # V4.3-R8's `human_flow_documentation.py` HIGH -> VERY_HIGH move (see
+        # `r8_human_flow_documentation_path` above) removes one more from
+        # HIGH -- it was counted as an R3 HIGH entrant in this expression
+        # (one of the leading `+ 1` terms) and no longer belongs there.
+        expected_categories["HIGH"] = (
+            expected_categories.get("HIGH", 0) + 1 - 1 + 1 - 1 + 1 - 1 + 1 + 1 + 1 + 1 + 1 - 1
+        )
+        # `ai_interpretation.py`'s MEDIUM -> VERY_HIGH move (see above) is one
+        # `+ 1` here, on top of the pre-existing readiness.py/full_pipeline.py
+        # swap (`- 1 + 1`, net zero); `pipeline_stages.py`'s HIGH -> VERY_HIGH
+        # move (this same round) is another; V4.3-R8's
+        # `human_flow_documentation.py` HIGH -> VERY_HIGH move (see above) is
+        # the last `+ 1`.
+        expected_categories["VERY_HIGH"] = expected_categories.get("VERY_HIGH", 0) - 1 + 1 + 1 + 1 + 1
         self.assertEqual(fresh_risk["files_by_risk_category"], expected_categories)
         normalized_on_disk.pop("risk_summary", None)
         normalized_fresh.pop("risk_summary", None)
 
-        # Twenty-six new production modules total (one from V4.1-R1, three
+        # Twenty-nine new production modules total (one from V4.1-R1, three
         # from V4.1-R4's readiness split, six from V4.1-R6's DatabaseExtractor/
         # FunctionalFlowResolver splits, six from V4.2-R1's new
         # `legacy_documenter/cli/` package, two from V4.2-R2's
@@ -547,17 +803,59 @@ class GeneratedArtifactOnDiskTests(unittest.TestCase):
         # `legacy_documenter/orchestration/` package, one from V4.2-R5's new
         # run_summary_presenter.py, two from V4.2-R6's new
         # atomic_write.py/artifact_lifecycle.py, one from V4.2-R8's new
-        # _documentation_partitioning.py); every other dependency-
-        # direction finding is unaffected -- the new modules only import
-        # from `legacy_documenter.knowledge.readiness`,
+        # _documentation_partitioning.py, one from V4.3-R2's new
+        # hydration.py, one from V4.3-R3's new human_flow_documentation.py,
+        # one from V4.3-R4's new human_documentation_scaling.py); every
+        # other dependency-direction finding is unaffected -- the new
+        # modules only import from `legacy_documenter.knowledge.readiness`,
         # `legacy_documenter.knowledge.proposals`, `legacy_documenter.llm`,
         # `legacy_documenter.context`, `legacy_documenter.utils`, and the
         # existing analysis/context/exporters/extractors/scanner packages
         # `main.py` already depended on, all already-established dependency
-        # directions.
+        # directions. `hydration.py` itself imports only the stdlib
+        # `collections` module, `human_flow_documentation.py` imports
+        # nothing beyond its own module, and `human_documentation_scaling.py`
+        # imports only its own sibling module
+        # (`.human_flow_documentation`) and
+        # `legacy_documenter.exporters._documentation_partitioning` -- an
+        # already-established dependency direction
+        # (`legacy_documenter/exporters/technical_documentation_renderer.py`
+        # already imports the same module) -- so none of these is a new
+        # internal dependency direction.
         on_disk_dep = dict(on_disk["dependency_findings"])
         fresh_dep = dict(fresh["dependency_findings"])
-        self.assertEqual(fresh_dep.pop("module_count"), on_disk_dep.pop("module_count") + 26)
+        # V4.3-R5 adds two more (ai_projection.py, _run_evidence_io.py): 31.
+        # `ai_projection.py` imports only its own siblings
+        # (`.composer`, `.hydration`) and the stdlib; `_run_evidence_io.py`
+        # imports only the stdlib; `ai_interpretation.py` now additionally
+        # imports `legacy_documenter.context.ai_projection` -- the same
+        # already-established `orchestration -> context` direction it already
+        # had via `context.composer`/`context.resolver`.
+        # V4.3-R6 adds one more (consumer_projection.py): 32.
+        # `consumer_projection.py` imports only its own sibling `.hydration`
+        # -- the same already-established `context -> context` sibling
+        # direction `ai_projection.py` already uses; `pipeline_stages.py` now
+        # additionally imports `legacy_documenter.context.consumer_projection`
+        # (already-established `cli -> context`, same as its existing
+        # `context_builder`/`system_context_builder` imports) and
+        # `legacy_documenter.utils.atomic_write`/`.json_rendering`/
+        # `.sanitizer` (already-established `cli -> utils`, the same
+        # direction `full_pipeline.py` already uses for the first two) -- so
+        # none of these is a new internal dependency direction either.
+        # V4.3-R7 adds one more (`cli/output_manifest.py`, stdlib-only, no
+        # internal imports at all): 33. `pipeline_stages.py` also gains
+        # `legacy_documenter.context.hydration` (already-established
+        # `cli -> context`) and, for the first time, `legacy_documenter
+        # .documentation.human_documentation_scaling` -- a genuinely new
+        # `cli -> documentation` direction (the R3/R4 human-documentation
+        # renderers were pure library capabilities with no `cli` caller
+        # until this round's wiring decision). `find_cycles`/the acyclic
+        # `knowledge_domain_direction` check are both unaffected: this is an
+        # acyclic, one-way, human-facing-only addition (`documentation` still
+        # never imports anything under `cli`), so it does not appear in
+        # `cycles_detected` and does not change `dependency_findings` beyond
+        # `module_count`.
+        self.assertEqual(fresh_dep.pop("module_count"), on_disk_dep.pop("module_count") + 33)
         self.assertEqual(fresh_dep, on_disk_dep)
         normalized_on_disk.pop("dependency_findings", None)
         normalized_fresh.pop("dependency_findings", None)
@@ -602,12 +900,57 @@ class GeneratedArtifactOnDiskTests(unittest.TestCase):
         # (untouched by R6) below the cutoff -- the same ranking-membership
         # effect already seen at R2/R3.
         r6_projection_models_path = "legacy_documenter/knowledge/projection/models.py"
+        # V4.3-R3: `legacy_documenter/documentation/human_flow_documentation.py`
+        # (335 lines, after the same round's later transaction/data-operation
+        # evidence correction) newly enters the top-20, pushing
+        # `legacy_documenter/knowledge/provenance/graph.py` (untouched by R3)
+        # below the cutoff -- the same ranking-membership effect already
+        # seen at R2/R3/R6. That same correction also grew
+        # `legacy_documenter/context/hydration.py` (204 -> 290 lines: the new
+        # `_transaction_evidence`/`_transactions`/`_data_operations` methods,
+        # see docs/V4_3/V4_3_R3_HUMAN_DOCUMENTATION_RESULT.md) enough to enter
+        # the top-20 too, pushing
+        # `legacy_documenter/knowledge/projection/example_report.py`
+        # (untouched by R3) below the cutoff.
+        r3_provenance_graph_path = "legacy_documenter/knowledge/provenance/graph.py"
+        r3_example_report_path = "legacy_documenter/knowledge/projection/example_report.py"
+        # V4.3-R4: `human_documentation_scaling.py` (239 lines) newly enters
+        # the top-20, pushing `legacy_documenter/knowledge/plugin_projection/
+        # models.py` (untouched by R4) below the cutoff -- the same
+        # ranking-membership effect already seen at R2/R3/R6.
+        r4_human_documentation_scaling_path = "legacy_documenter/documentation/human_documentation_scaling.py"
+        r4_plugin_projection_models_path = "legacy_documenter/knowledge/plugin_projection/models.py"
         new_largest_modules = {
             "legacy_documenter/cli/pipeline_stages.py", "legacy_documenter/cli/full_pipeline.py",
             "legacy_documenter/exporters/technical_documentation_renderer.py",
             "legacy_documenter/cli/run_summary_presenter.py",
+            "legacy_documenter/documentation/human_flow_documentation.py",
+            "legacy_documenter/context/hydration.py",
+            r4_human_documentation_scaling_path,
+            # V4.3-R5: `ai_projection.py` (304 lines) and the grown
+            # `ai_interpretation.py` (402 lines after R5's own follow-up
+            # output-reservation correction; see the comment above
+            # `r5_ai_interpretation_path`) newly enter the top-20,
+            # pushing `legacy_documenter/analysis/web_entry_resolver.py` and
+            # `legacy_documenter/knowledge/approval/service.py` (neither
+            # touched by R5) below the cutoff -- the same ranking-membership
+            # effect already seen at R2/R3/R6/R4.
+            r5_ai_projection_path,
+            r5_ai_interpretation_path,
+            # V4.3-R6's own follow-up correction (partitioning): the grown
+            # `consumer_projection.py` (283 lines, see the comment above
+            # `r6_consumer_projection_path`) also newly enters the top-20,
+            # pushing one more untouched file below the cutoff.
+            "legacy_documenter/context/consumer_projection.py",
         }
-        dropped_largest_modules = {main_path, readiness_path, r3_projection_rules_path, r6_projection_models_path}
+        r5_web_entry_resolver_path = "legacy_documenter/analysis/web_entry_resolver.py"
+        r5_approval_service_path = "legacy_documenter/knowledge/approval/service.py"
+        r6_relations_service_path = "legacy_documenter/knowledge/relations/service.py"
+        dropped_largest_modules = {
+            main_path, readiness_path, r3_projection_rules_path, r6_projection_models_path,
+            r3_provenance_graph_path, r3_example_report_path, r4_plugin_projection_models_path,
+            r5_web_entry_resolver_path, r5_approval_service_path, r6_relations_service_path,
+        }
         self.assertEqual(set(fresh_largest) - set(on_disk_largest), new_largest_modules)
         self.assertEqual(set(on_disk_largest) - set(fresh_largest), dropped_largest_modules)
         self.assertLess(fresh_largest[database_extractor_path], on_disk_largest[database_extractor_path])
@@ -656,9 +999,25 @@ class GeneratedArtifactOnDiskTests(unittest.TestCase):
                     "legacy_documenter/cli/run_summary_presenter.py",
                     "legacy_documenter/cli/artifact_lifecycle.py",
                     "legacy_documenter/utils/atomic_write.py",
+                    # V4.3-R5: the internal index/snapshot loader that reads
+                    # this run's own `index/*.json` and
+                    # `ai_context/SYSTEM_CONTEXT.json` -- a real, deliberate
+                    # filesystem read, extracted out of `ai_interpretation.py`
+                    # (which remains flagged for its own `os` import).
+                    "legacy_documenter/orchestration/_run_evidence_io.py",
+                    # V4.3-R7: the deterministic per-run output-tree manifest
+                    # builder -- reads and hashes every file already under
+                    # `--output`, a real, deliberate filesystem read.
+                    "legacy_documenter/cli/output_manifest.py",
+                    # V4.3-R7 acceptance-blocker correction (BLOQUEO 1): the
+                    # new `output-manifest` route (`_route_output_manifest`)
+                    # imports `Path` and calls `atomic_write_text` directly
+                    # to write `OUTPUT_MANIFEST.json` -- a real, deliberate
+                    # filesystem write, not a stray import.
+                    "legacy_documenter/cli/router.py",
                 ])
                 self.assertEqual(sorted(fresh_entry["files"]), expected_files)
-                self.assertEqual(fresh_entry["file_count"], entry["file_count"] + 9)
+                self.assertEqual(fresh_entry["file_count"], entry["file_count"] + 12)
             else:
                 self.assertEqual(fresh_entry["files"], entry["files"])
                 self.assertEqual(fresh_entry["file_count"], entry["file_count"])
@@ -712,13 +1071,36 @@ class GeneratedArtifactOnDiskTests(unittest.TestCase):
         # repository display label, duplicate-solution disambiguation,
         # register-field rendering); its class grows (new helper logic),
         # unlike database_extractor.py/flow_resolver.py above, which shrank.
+        # V4.3-R4's correction (section 12) adds
+        # `project_dependencies_navigation`/`project_dependencies_partitions`
+        # to the same class (PROJECT_DEPENDENCIES.md reopened for
+        # partitioning): two more methods (8 -> 10) and enough more lines
+        # that `MarkdownExporter` crosses this tool's method-count threshold
+        # for its own classification, moving from `OK` to `REVIEW` -- a
+        # class-shape observation this heuristic already makes for other
+        # sizeable classes, not evidence of a defect.
         markdown_exporter_path = "legacy_documenter/exporters/markdown_exporter.py"
+        # V4.3-R2's new `EvidenceHydrator` class (204-line module; the whole
+        # deterministic selection/hydration/resolution surface lives on one
+        # class) enters this top-N list too, displacing
+        # `WebEventExtractor` (`legacy_documenter/extractors/web_event_extractor.py`,
+        # untouched by R2) below the cutoff -- the same ranking-membership
+        # effect as `r3_renderer_path`/`r3_vbnet_extractor_path` above.
+        r2_hydrator_path = "legacy_documenter/context/hydration.py"
+        r2_web_event_extractor_path = "legacy_documenter/extractors/web_event_extractor.py"
+        # V4.3-R5: `CopilotProvider._prompt`'s inline payload construction moved
+        # verbatim to the shared `legacy_documenter.llm.core.render_request_payload`
+        # and the method now delegates to it with a docstring explaining why --
+        # net +5 lines on the class, same method_count, same classification, no
+        # behavior change (a dedicated test asserts `_prompt` returns exactly
+        # `render_request_payload`'s output).
+        r5_copilot_provider_path = "legacy_documenter/llm/providers/copilot.py"
         on_disk_classes = {e["path"]: e for e in on_disk["largest_classes"]}
         fresh_classes = {e["path"]: e for e in fresh["largest_classes"]}
-        self.assertEqual(set(fresh_classes) - set(on_disk_classes), {r3_renderer_path})
-        self.assertEqual(set(on_disk_classes) - set(fresh_classes), {r3_vbnet_extractor_path})
+        self.assertEqual(set(fresh_classes) - set(on_disk_classes), {r3_renderer_path, r2_hydrator_path})
+        self.assertEqual(set(on_disk_classes) - set(fresh_classes), {r3_vbnet_extractor_path, r2_web_event_extractor_path})
         for path, entry in on_disk_classes.items():
-            if path == r3_vbnet_extractor_path:
+            if path in (r3_vbnet_extractor_path, r2_web_event_extractor_path):
                 continue
             fresh_entry = dict(fresh_classes[path])
             if path in (database_extractor_path, flow_resolver_path):
@@ -726,6 +1108,13 @@ class GeneratedArtifactOnDiskTests(unittest.TestCase):
                 fresh_entry["line_count"] = entry["line_count"]
             elif path == markdown_exporter_path:
                 self.assertGreater(fresh_entry["line_count"], entry["line_count"])
+                self.assertGreater(fresh_entry["method_count"], entry["method_count"])
+                fresh_entry["line_count"] = entry["line_count"]
+                fresh_entry["method_count"] = entry["method_count"]
+                fresh_entry["classification"] = entry["classification"]
+            elif path == r5_copilot_provider_path:
+                self.assertGreater(fresh_entry["line_count"], entry["line_count"])
+                self.assertEqual(fresh_entry["method_count"], entry["method_count"])
                 fresh_entry["line_count"] = entry["line_count"]
             self.assertEqual(fresh_entry, entry)
         normalized_on_disk.pop("largest_classes", None)
@@ -767,10 +1156,25 @@ class GeneratedArtifactOnDiskTests(unittest.TestCase):
         # genuinely grown relative to on-disk, handled below via
         # `r7_1_regrown_function`.
         r7_1_regrown_function = ("legacy_documenter/analysis/flow_resolver.py", "FunctionalFlowResolver.resolve")
-        self.assertEqual(set(fresh_funcs) - set(on_disk_funcs), {r2_new_function})
-        self.assertEqual(set(on_disk_funcs) - set(fresh_funcs), {r2_dropped_function})
+        # V4.3-R5: two functions newly enter this top-N list --
+        # `AiProjectionBuilder.package` (the budget application: ordering,
+        # exact character accounting, statistics, truncation) and the grown
+        # `run_ai_interpretation` (projection + payload gate + validation).
+        # They displace `DatabaseResolver.resolve` and
+        # `CanonicalCompositionService.compose` (neither touched by R5) below
+        # the cutoff -- the same ranking-membership effect as `largest_modules`.
+        r5_new_functions = {
+            ("legacy_documenter/context/ai_projection.py", "AiProjectionBuilder.package"),
+            ("legacy_documenter/orchestration/ai_interpretation.py", "run_ai_interpretation"),
+        }
+        r5_dropped_functions = {
+            ("legacy_documenter/analysis/database_resolver.py", "DatabaseResolver.resolve"),
+            ("legacy_documenter/knowledge/canonical/service.py", "CanonicalCompositionService.compose"),
+        }
+        self.assertEqual(set(fresh_funcs) - set(on_disk_funcs), {r2_new_function} | r5_new_functions)
+        self.assertEqual(set(on_disk_funcs) - set(fresh_funcs), {r2_dropped_function} | r5_dropped_functions)
         for key, entry in on_disk_funcs.items():
-            if key in (r2_dropped_function,):
+            if key in (r2_dropped_function, *r5_dropped_functions):
                 continue
             fresh_entry = dict(fresh_funcs[key])
             if key == r7_1_regrown_function:
@@ -785,10 +1189,21 @@ class GeneratedArtifactOnDiskTests(unittest.TestCase):
         # added to database_extractor.py/flow_resolver.py raised their own
         # docstring coverage enough to drop both off this list, which
         # mechanically admits two previously-just-below-average files.
-        r6_resolved_doc_candidates = {database_extractor_path, flow_resolver_path}
+        # V4.3-R7 acceptance-blocker correction (BLOQUEO 1/2): `copilot.py`'s
+        # own docstring coverage rose (V4.3-R5's `_prompt` now documents its
+        # delegation to the shared `render_request_payload`), dropping it off
+        # this list too; `technical_documentation_renderer.py` newly admits
+        # itself, its own docstring coverage diluted by the many new
+        # `*_es`-suffixed Spanish-rendering helper functions this correction
+        # added (each already documented, but the file's function count grew
+        # faster than its docstring count).
+        r6_resolved_doc_candidates = {
+            database_extractor_path, flow_resolver_path, "legacy_documenter/llm/providers/copilot.py",
+        }
         r6_newly_below_average_doc = {
             "legacy_documenter/context/system_context_builder.py",
             "legacy_documenter/extractors/vbnet_extractor.py",
+            "legacy_documenter/exporters/technical_documentation_renderer.py",
         }
         on_disk_doc = {e["path"] for e in on_disk["documentation_candidates"]}
         fresh_doc = {e["path"] for e in fresh["documentation_candidates"]}

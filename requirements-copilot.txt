@@ -1,0 +1,15 @@
+# Optional runtime dependency for the COPILOT provider only
+# (legacy_documenter/llm/providers/copilot.py).
+#
+# LegacyMapper's core runtime has zero required third-party dependencies
+# (see docs/PROJECT_RECOVERY.md, docs/V4/V4_REPOSITORY_CONTINUITY_CONTRACT.md).
+# This file is not required to run deterministic analysis, the FAKE provider,
+# or the test suite. Install it only in an environment that will call the
+# real GitHub Copilot SDK provider (--allow-ai-interpretation with COPILOT
+# configured):
+#
+#   pip install -r requirements-copilot.txt
+#
+# Authentication (e.g. `gh auth login`) remains the responsibility of that
+# external environment; it is not implemented by LegacyMapper.
+github-copilot-sdk>=1.0.14

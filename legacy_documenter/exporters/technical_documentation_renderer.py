@@ -22,10 +22,28 @@ tests/test_v4_2_r3_deterministic_technical_documentation.py and by callers
 that want one complete document); both code paths share the same per-item
 rendering helpers below so the partitioned and flat renderings can never
 drift apart.
+
+V4.3-R4 (a narrowly-scoped post-implementation correction to that round's own
+result, see docs/V4_3/V4_3_R4_SCALING_AND_PARTITIONING_RESULT.md section 12)
+extends this same navigation/detail split to `WEB_ENTRY_POINTS.md`:
+`web_entry_points_navigation()`/`web_entry_points_partitions()`, grouped by
+each entry point's WebForm-owning folder (`_web_entry_point_group_key`,
+delegating to the shared
+`legacy_documenter.exporters._documentation_partitioning.webform_owner_group_key`).
+`PROJECT_DEPENDENCIES.md` was reopened at the same time, but it lives in
+`legacy_documenter.exporters.markdown_exporter.MarkdownExporter` instead
+(a different class/write path); `WEBFORMS_MAP.md` was evaluated and
+deliberately left unpartitioned (see that result's section 12 for the
+evidence and reasoning behind each of these three decisions). The flat
+`web_entry_points()` method is unchanged and still available, same as the
+other three documents.
 """
 from __future__ import annotations
 
-from legacy_documenter.exporters._documentation_partitioning import build_partition_filenames
+from legacy_documenter.exporters._documentation_partitioning import (
+    build_partition_filenames,
+    webform_owner_group_key,
+)
 from legacy_documenter.exporters.markdown_exporter import _repository_display_label
 
 
@@ -99,6 +117,140 @@ class TechnicalDocumentationRenderer:
 
         return "\n".join(lines) + "\n"
 
+    def web_entry_points_navigation(self, indexes: dict) -> str:
+        """Renders the WEB_ENTRY_POINTS.md navigation/summary document (V4.3-R4
+        correction section 12): the same discovery summary as `web_entry_points()`,
+        plus a link per WebForm-owner group into `web_entry_points/<safe-name>.md`
+        instead of the full per-WebForm detail. Reopened for partitioning by the
+        same empirical scale evidence already cited for FUNCTIONAL_FLOWS.md/etc.
+        (V4.2-R7: ~25,595 lines / 1.2MB at real-repository scale).
+
+        Grouping reuses the exact same three-tier rule
+        `legacy_documenter.documentation.human_documentation_scaling.flow_group_key`
+        applies to hydrated FLOW records, via the shared
+        `webform_owner_group_key` helper -- never a locally reinvented rule.
+
+        V4.3-R4 correction (human-documentation-in-Spanish-by-default gate):
+        this navigation document is human-facing prose over `human_documentation`-
+        adjacent output introduced by R4, so it renders in Spanish, like every
+        other R4-authored human-facing document (`human_documentation_scaling.py`).
+        This does not extend to `web_entry_points()` (the pre-existing flat
+        renderer, unchanged, still English) -- see the module docstring/R3 section
+        8 for why that renderer's language is a separate, not-yet-made decision.
+        WebForm paths, control ids, handler names and confidence values are never
+        translated; only the surrounding prose/headers are.
+        """
+        entry_points = indexes.get("entry_points", [])
+        event_bindings = indexes.get("event_bindings", [])
+        confirmed = [e for e in entry_points if e.get("confidence") == "confirmed"]
+        unresolved = [e for e in entry_points if e.get("confidence") != "confirmed"]
+
+        lines = ["# Puntos de entrada web", ""]
+        lines.append(
+            f"Se descubrieron {len(entry_points)} punto(s) de entrada en "
+            f"{len({e.get('webform') for e in entry_points})} WebForm(s) "
+            f"({len(confirmed)} confirmado(s), {len(unresolved)} no resuelto(s)), "
+            f"a partir de {len(event_bindings)} evento(s) de UI en bruto."
+        )
+        lines.append("")
+
+        if not entry_points:
+            lines.append("No se descubrieron puntos de entrada web.")
+            lines.append("")
+            return "\n".join(lines) + "\n"
+
+        groups = _group_by(entry_points, _web_entry_point_group_key)
+        filenames = build_partition_filenames(sorted(groups))
+        lines.append("## Grupos de puntos de entrada")
+        lines.append("")
+        lines.append(
+            "El detalle completo por WebForm (tablas de Control/Evento/Tipo/Manejador/Confianza, "
+            "y cualquier punto de entrada no resuelto) está particionado por grupo propietario "
+            "del WebForm abajo."
+        )
+        lines.append("")
+        lines.append("| Grupo | WebForms | Puntos de entrada | Confirmados | No resueltos | Detalle |")
+        lines.append("|---|---|---|---|---|---|")
+        for key in sorted(groups):
+            group_entries = groups[key]
+            webform_count = len({e.get("webform") for e in group_entries})
+            confirmed_n = len([e for e in group_entries if e.get("confidence") == "confirmed"])
+            unresolved_n = len(group_entries) - confirmed_n
+            filename = filenames[key]
+            link = f"web_entry_points/{filename}"
+            lines.append(
+                f"| {_cell(key)} | {webform_count} | {len(group_entries)} | {confirmed_n} | {unresolved_n} "
+                f"| [{filename}]({link}) |"
+            )
+        lines.append("")
+        return "\n".join(lines) + "\n"
+
+    def web_entry_points_partitions(self, indexes: dict) -> dict[str, str]:
+        """Renders one `web_entry_points/<safe-name>.md` document per WebForm-owner
+        group, each with the same "Por WebForm"/"Puntos de entrada no resueltos"
+        tables `web_entry_points()` already renders for its group's own entries
+        only -- every entry point from `web_entry_points()` appears in exactly one
+        partition, never duplicated or dropped.
+
+        V4.3-R4 correction: rendered in Spanish (see `web_entry_points_navigation`
+        docstring). WebForm paths, control ids, handler names and confidence
+        values are preserved verbatim -- never translated.
+        """
+        entry_points = indexes.get("entry_points", [])
+        if not entry_points:
+            return {}
+        groups = _group_by(entry_points, _web_entry_point_group_key)
+        filenames = build_partition_filenames(sorted(groups))
+
+        result: dict[str, str] = {}
+        for key, group_entries in groups.items():
+            lines = [
+                f"# Puntos de entrada web — {key}", "",
+                f"{len(group_entries)} punto(s) de entrada en este grupo.", "",
+            ]
+            by_webform: dict[str, list[dict]] = {}
+            for entry in group_entries:
+                by_webform.setdefault(entry.get("webform") or "(WebForm desconocido)", []).append(entry)
+
+            lines.append("## Por WebForm")
+            lines.append("")
+            for webform in sorted(by_webform):
+                lines.append(f"### {_code(webform)}")
+                lines.append("")
+                lines.append("| Control | Evento | Tipo | Manejador | Confianza |")
+                lines.append("|---|---|---|---|---|")
+                rows = sorted(
+                    by_webform[webform],
+                    key=lambda e: (e.get("control") or "", e.get("event") or "", e.get("id") or ""),
+                )
+                for entry in rows:
+                    control = entry.get("control") or "_(página)_"
+                    lines.append(
+                        f"| {_cell(control)} | {_cell(entry.get('event'))} | {_cell(entry.get('type'))} "
+                        f"| {_cell(entry.get('handler'))} | {_cell(entry.get('confidence'))} |"
+                    )
+                lines.append("")
+
+            group_unresolved = [e for e in group_entries if e.get("confidence") != "confirmed"]
+            if group_unresolved:
+                lines.append("## Puntos de entrada no resueltos")
+                lines.append("")
+                lines.append(
+                    "Estos puntos de entrada no pudieron resolverse a exactamente una clase/manejador "
+                    "con evidencia confirmada; se listan aquí por visibilidad, sin inferir más."
+                )
+                lines.append("")
+                lines.append("| WebForm | Control | Evento | Manejador |")
+                lines.append("|---|---|---|---|")
+                for entry in sorted(group_unresolved, key=lambda e: (e.get("webform") or "", e.get("id") or "")):
+                    lines.append(
+                        f"| {_cell(entry.get('webform'))} | {_cell(entry.get('control') or '_(página)_')} "
+                        f"| {_cell(entry.get('event'))} | {_cell(entry.get('handler'))} |"
+                    )
+                lines.append("")
+            result[filenames[key]] = "\n".join(lines) + "\n"
+        return result
+
     # ------------------------------------------------------------------
     # Functional Flows
     # ------------------------------------------------------------------
@@ -160,32 +312,38 @@ class TechnicalDocumentationRenderer:
         return "\n".join(lines) + "\n"
 
     def functional_flows_navigation(self, indexes: dict) -> str:
-        """Renders the FUNCTIONAL_FLOWS.md navigation/summary document (V4.2-R8):
-        the same intro/summary as `functional_flows()`, plus a link per project
-        group into `functional_flows/<safe-name>.md` instead of the full detail.
+        """Renders the FUNCTIONAL_FLOWS.md navigation/summary document (V4.2-R8), in
+        Spanish since V4.3-R7 BLOQUEO 2 (human-readable/product-facing documentation
+        is Spanish by default): the same intro/summary as `functional_flows()`, plus
+        a link per project group into `functional_flows/<safe-name>.md` instead of
+        the full detail. Field/status/identifier values are never translated -- only
+        the surrounding prose/headers are. The flat `functional_flows()` renderer is
+        unchanged and stays English (kept for existing English-language test/API
+        callers that want one complete document, not part of `full`/`analyze`
+        output -- see the module docstring).
         """
         flows = indexes.get("functional_flows", [])
         summary = indexes.get("flow_summary") or {}
 
-        lines = ["# Functional Flows", "", self._FUNCTIONAL_FLOWS_INTRO, ""]
+        lines = ["# Flujos funcionales", "", _FUNCTIONAL_FLOWS_INTRO_ES, ""]
         if summary:
-            lines += _summary_table_lines(summary)
+            lines += _summary_table_lines_es(summary)
 
         if not flows:
-            lines.append("No functional flows were discovered.")
+            lines.append("No se descubrieron flujos funcionales.")
             lines.append("")
             return "\n".join(lines) + "\n"
 
         groups = _group_by(flows, _flow_group_key)
         filenames = build_partition_filenames(sorted(groups))
-        lines.append("## Flow Groups")
+        lines.append("## Grupos de flujos")
         lines.append("")
         lines.append(
-            "Full per-flow detail (path chains, F-01's `Confirmed terminal reached`/"
-            "`Unresolved boundary remains` facts) is partitioned by project below."
+            "El detalle completo por flujo (cadenas de ruta, los hechos `Confirmed terminal "
+            "reached`/`Unresolved boundary remains` de F-01) está particionado por proyecto abajo."
         )
         lines.append("")
-        lines.append("| Group | Flows | Confirmed terminal | Unresolved boundary | Detail |")
+        lines.append("| Grupo | Flujos | Terminal confirmado | Límite no resuelto | Detalle |")
         lines.append("|---|---|---|---|---|")
         for key in sorted(groups):
             group_flows = groups[key]
@@ -201,7 +359,10 @@ class TechnicalDocumentationRenderer:
         return "\n".join(lines) + "\n"
 
     def functional_flows_partitions(self, indexes: dict) -> dict[str, str]:
-        """Renders one `functional_flows/<safe-name>.md` document per project group."""
+        """Renders one `functional_flows/<safe-name>.md` document per project group,
+        in Spanish (V4.3-R7 BLOQUEO 2). Identifiers/paths/status values are preserved
+        verbatim.
+        """
         flows = indexes.get("functional_flows", [])
         if not flows:
             return {}
@@ -213,19 +374,19 @@ class TechnicalDocumentationRenderer:
 
         result: dict[str, str] = {}
         for key, group_flows in groups.items():
-            lines = [f"# Functional Flows — {key}", "", f"{len(group_flows)} flow(s) in this group.", ""]
+            lines = [f"# Flujos funcionales — {key}", "", f"{len(group_flows)} flujo(s) en este grupo.", ""]
             ordered = sorted(
                 group_flows, key=lambda f: (f.get("webform") or "", f.get("handler") or "", f.get("id") or "")
             )
             for flow in ordered:
-                lines.extend(_render_flow_entry_lines(flow, paths_by_flow))
+                lines.extend(_render_flow_entry_lines_es(flow, paths_by_flow))
 
             group_flow_ids = {f.get("id") for f in group_flows}
             group_unresolved = [p for p in unresolved if p.get("flow_id") in group_flow_ids]
             if group_unresolved:
-                lines.append("## Unresolved Boundaries")
+                lines.append("## Límites no resueltos")
                 lines.append("")
-                lines.extend(_unresolved_boundary_table_lines(group_unresolved, flow_by_id))
+                lines.extend(_unresolved_boundary_table_lines_es(group_unresolved, flow_by_id))
                 lines.append("")
             result[filenames[key]] = "\n".join(lines) + "\n"
         return result
@@ -287,37 +448,55 @@ class TechnicalDocumentationRenderer:
 
         return "\n".join(lines) + "\n"
 
+    _DATABASE_ACCESS_CLASSIFICATION_ES = (
+        "- `stored_procedure`: se invoca un paquete/procedimiento con nombre en Oracle (el nombre "
+        "exacto se conoce por evidencia de origen).\n"
+        "- `sql_operation`: se ejecuta una sentencia SQL en bruto/dinámica (sin procedimiento con "
+        "nombre).\n"
+        "- `transaction`: una secuencia `BeginTrans`/`Commit`/`Rollback` simple, sin procedimiento "
+        "ni texto SQL capturado.\n"
+        "- `confidence`: `confirmed` (respaldado por evidencia de origen exacta) o `unresolved` "
+        "(la llamada existe pero su objetivo exacto no pudo establecerse de forma determinista -- "
+        "nunca se adivina)."
+    )
+
     def database_access_navigation(self, indexes: dict) -> str:
-        """Renders the DATABASE_ACCESS.md navigation/summary document (V4.2-R8):
-        summary, classification explanation, and a link per project group into
-        `database_access/<safe-name>.md`. `## Parameters` is small and already
-        grouped by caller, so it stays here rather than being partitioned.
+        """Renders the DATABASE_ACCESS.md navigation/summary document (V4.2-R8), in
+        Spanish since V4.3-R7 BLOQUEO 2: summary, classification explanation, and a
+        link per project group into `database_access/<safe-name>.md`. `## Parámetros`
+        is small and already grouped by caller, so it stays here rather than being
+        partitioned. Identifiers/status values are preserved verbatim.
         """
         data_access = indexes.get("data_access", [])
         stored_procedures = indexes.get("stored_procedures", [])
         sql_operations = indexes.get("sql_operations", [])
         data_parameters = indexes.get("data_parameters", [])
 
-        lines = ["# Database Access", ""]
-        lines.append(_database_access_summary_sentence(data_access, stored_procedures, sql_operations, data_parameters))
+        lines = ["# Acceso a base de datos", ""]
+        lines.append(
+            _database_access_summary_sentence_es(data_access, stored_procedures, sql_operations, data_parameters)
+        )
         lines.append("")
-        lines.append("## Classification")
+        lines.append("## Clasificación")
         lines.append("")
-        lines.append(self._DATABASE_ACCESS_CLASSIFICATION)
+        lines.append(self._DATABASE_ACCESS_CLASSIFICATION_ES)
         lines.append("")
 
         if not any((data_access, stored_procedures, sql_operations)):
-            lines.append("No database access was discovered.")
+            lines.append("No se descubrió acceso a base de datos.")
             lines.append("")
             return "\n".join(lines) + "\n"
 
         groups = _group_database_access(data_access, stored_procedures, sql_operations)
         filenames = build_partition_filenames(sorted(groups))
-        lines.append("## Access Groups")
+        lines.append("## Grupos de acceso")
         lines.append("")
-        lines.append("Full evidence (access points, stored procedures, SQL operations) is partitioned by project below.")
+        lines.append(
+            "La evidencia completa (puntos de acceso, procedimientos almacenados, operaciones SQL) "
+            "está particionada por proyecto abajo."
+        )
         lines.append("")
-        lines.append("| Group | Access Points | Stored Procedures | SQL Operations | Detail |")
+        lines.append("| Grupo | Puntos de acceso | Procedimientos almacenados | Operaciones SQL | Detalle |")
         lines.append("|---|---|---|---|---|")
         for key in sorted(groups):
             group = groups[key]
@@ -330,15 +509,17 @@ class TechnicalDocumentationRenderer:
         lines.append("")
 
         if data_parameters:
-            lines.append("## Parameters")
+            lines.append("## Parámetros")
             lines.append("")
-            lines.extend(_parameter_table_lines(data_parameters))
+            lines.extend(_parameter_table_lines_es(data_parameters))
             lines.append("")
 
         return "\n".join(lines) + "\n"
 
     def database_access_partitions(self, indexes: dict) -> dict[str, str]:
-        """Renders one `database_access/<safe-name>.md` document per project group."""
+        """Renders one `database_access/<safe-name>.md` document per project group,
+        in Spanish (V4.3-R7 BLOQUEO 2).
+        """
         data_access = indexes.get("data_access", [])
         stored_procedures = indexes.get("stored_procedures", [])
         sql_operations = indexes.get("sql_operations", [])
@@ -349,21 +530,21 @@ class TechnicalDocumentationRenderer:
 
         result: dict[str, str] = {}
         for key, group in groups.items():
-            lines = [f"# Database Access — {key}", ""]
+            lines = [f"# Acceso a base de datos — {key}", ""]
             if group["data_access"]:
-                lines.append("## Access Points")
+                lines.append("## Puntos de acceso")
                 lines.append("")
-                lines.extend(_data_access_table_lines(group["data_access"]))
+                lines.extend(_data_access_table_lines_es(group["data_access"]))
                 lines.append("")
             if group["stored_procedures"]:
-                lines.append("## Stored Procedures")
+                lines.append("## Procedimientos almacenados")
                 lines.append("")
-                lines.extend(_stored_procedure_table_lines(group["stored_procedures"]))
+                lines.extend(_stored_procedure_table_lines_es(group["stored_procedures"]))
                 lines.append("")
             if group["sql_operations"]:
-                lines.append("## SQL Operations")
+                lines.append("## Operaciones SQL")
                 lines.append("")
-                lines.extend(_sql_operation_table_lines(group["sql_operations"]))
+                lines.extend(_sql_operation_table_lines_es(group["sql_operations"]))
                 lines.append("")
             result[filenames[key]] = "\n".join(lines) + "\n"
         return result
@@ -401,93 +582,109 @@ class TechnicalDocumentationRenderer:
         return "\n".join(lines) + "\n"
 
     def unresolved_findings_navigation(self, indexes: dict) -> str:
-        """Renders the UNRESOLVED_FINDINGS.md navigation/summary document (V4.2-R8):
-        the same category-count table, with a link per nonempty category into
-        `unresolved_findings/<category>.md`.
+        """Renders the UNRESOLVED_FINDINGS.md navigation/summary document (V4.2-R8),
+        in Spanish since V4.3-R7 BLOQUEO 2: the same category-count table, with a
+        link per nonempty category into `unresolved_findings/<category>.md`.
         """
         categories = _unresolved_categories(indexes)
-        lines = ["# Unresolved Findings", "", self._UNRESOLVED_FINDINGS_INTRO, ""]
+        lines = ["# Hallazgos no resueltos", "", _UNRESOLVED_FINDINGS_INTRO_ES, ""]
 
         if not any(items for _, _, _, items in categories):
-            lines.extend(_unresolved_category_count_table_lines(categories))
+            lines.extend(_unresolved_category_count_table_lines_es(categories))
             lines.append("")
-            lines.append("No unresolved findings were recorded for this run.")
+            lines.append("No se registraron hallazgos no resueltos para esta corrida.")
             lines.append("")
             return "\n".join(lines) + "\n"
 
         keys = [key for key, _, _, items in categories if items]
         filenames = build_partition_filenames(keys)
-        lines.append("| Category | Count | Detail |")
+        lines.append("| Categoría | Cantidad | Detalle |")
         lines.append("|---|---|---|")
-        for key, count_label, _heading, items in categories:
+        for key, _count_label, _heading, items in categories:
+            label_es, _heading_es = _UNRESOLVED_CATEGORY_LABELS_ES[key]
             if items:
                 filename = filenames[key]
                 link = f"unresolved_findings/{filename}"
-                lines.append(f"| {count_label} | {len(items)} | [{filename}]({link}) |")
+                lines.append(f"| {label_es} | {len(items)} | [{filename}]({link}) |")
             else:
-                lines.append(f"| {count_label} | 0 | _none_ |")
+                lines.append(f"| {label_es} | 0 | _ninguno_ |")
         lines.append("")
         return "\n".join(lines) + "\n"
 
     def unresolved_findings_partitions(self, indexes: dict) -> dict[str, str]:
-        """Renders one `unresolved_findings/<category>.md` document per nonempty category."""
+        """Renders one `unresolved_findings/<category>.md` document per nonempty
+        category, in Spanish (V4.3-R7 BLOQUEO 2).
+        """
         categories = _unresolved_categories(indexes)
         keys = [key for key, _, _, items in categories if items]
         if not keys:
             return {}
         filenames = build_partition_filenames(keys)
         result: dict[str, str] = {}
-        for key, _count_label, heading, items in categories:
+        for key, _count_label, _heading, items in categories:
             if not items:
                 continue
-            lines = [f"# Unresolved Findings — {heading}", "", f"{len(items)} item(s) in this category.", ""]
-            lines.extend(_render_unresolved_category_body(key, items))
+            _label_es, heading_es = _UNRESOLVED_CATEGORY_LABELS_ES[key]
+            lines = [
+                f"# Hallazgos no resueltos — {heading_es}", "",
+                f"{len(items)} elemento(s) en esta categoría.", "",
+            ]
+            lines.extend(_render_unresolved_category_body_es(key, items))
             lines.append("")
             result[filenames[key]] = "\n".join(lines) + "\n"
         return result
 
     def documentation_readme(self, indexes: dict) -> str:
-        """Renders `documentation/README.md` (V4.2-R8 section 6): the single
-        top-level navigation document telling a developer what was analyzed,
-        where each area is documented, what confirmed/unresolved mean, and how
-        to reach machine-readable evidence for more detail. Never embeds an
-        absolute analyst path or credential.
+        """Renders `documentation/README.md` (V4.2-R8 section 6), in Spanish since
+        V4.3-R7 BLOQUEO 2: the single top-level navigation document telling a
+        developer what was analyzed, where each area is documented, what
+        confirmed/unresolved mean, and how to reach machine-readable evidence for
+        more detail. Never embeds an absolute analyst path or credential.
         """
         repo = indexes.get("repository") or {}
         label = _repository_display_label(repo.get("root"))
         lines = [
-            "# LegacyMapper Documentation",
+            "# Documentación de LegacyMapper",
             "",
-            f"This package documents the deterministic analysis of `{label}`. "
-            "Start here, then follow the links below to the area you need.",
+            f"Este paquete documenta el análisis determinista de `{label}`. "
+            "Empiece aquí y luego siga los enlaces de abajo hacia el área que necesite.",
             "",
-            "| Document | Covers |",
+            "| Documento | Cubre |",
             "|---|---|",
-            "| [PROJECT_OVERVIEW.md](PROJECT_OVERVIEW.md) | Repository scale by file type. |",
-            "| [SOLUTION_STRUCTURE.md](SOLUTION_STRUCTURE.md) | Solutions and their member projects. |",
-            "| [PROJECT_DEPENDENCIES.md](PROJECT_DEPENDENCIES.md) | Project/DLL dependency edges. |",
-            "| [WEBFORMS_MAP.md](WEBFORMS_MAP.md) | WebForm markup metadata (code-behind, registers, master pages). |",
-            "| [WEB_ENTRY_POINTS.md](WEB_ENTRY_POINTS.md) | Every discovered UI control/event/handler entry point. |",
-            "| [FUNCTIONAL_FLOWS.md](FUNCTIONAL_FLOWS.md) | UI → BL → database execution flows (index; full detail under `functional_flows/`). |",
-            "| [DATABASE_ACCESS.md](DATABASE_ACCESS.md) | Stored procedure/SQL/transaction evidence (index; full detail under `database_access/`). |",
-            "| [UNRESOLVED_FINDINGS.md](UNRESOLVED_FINDINGS.md) | Everything LegacyMapper could not establish deterministically (index; full detail under `unresolved_findings/`). |",
-            "| [CONFIGURATION_SUMMARY.md](CONFIGURATION_SUMMARY.md) | `Web.config` counts only — never secret values. |",
-            "| [ANALYSIS_WARNINGS.md](ANALYSIS_WARNINGS.md) | Extraction errors captured during this run. |",
+            "| [PROJECT_OVERVIEW.md](PROJECT_OVERVIEW.md) | Escala del repositorio por tipo de archivo. |",
+            "| [SOLUTION_STRUCTURE.md](SOLUTION_STRUCTURE.md) | Soluciones y sus proyectos miembro. |",
+            "| [PROJECT_DEPENDENCIES.md](PROJECT_DEPENDENCIES.md) | Aristas de dependencia de proyecto/DLL "
+            "(índice; detalle completo bajo `project_dependencies/`). |",
+            "| [WEBFORMS_MAP.md](WEBFORMS_MAP.md) | Metadatos de markup de WebForms (code-behind, "
+            "registers, master pages). |",
+            "| [WEB_ENTRY_POINTS.md](WEB_ENTRY_POINTS.md) | Cada punto de entrada de control/evento/"
+            "manejador de UI descubierto (índice; detalle completo bajo `web_entry_points/`). |",
+            "| [FUNCTIONAL_FLOWS.md](FUNCTIONAL_FLOWS.md) | Flujos de ejecución UI → BL → base de datos "
+            "(índice; detalle completo bajo `functional_flows/`). |",
+            "| [DATABASE_ACCESS.md](DATABASE_ACCESS.md) | Evidencia de procedimientos almacenados/SQL/"
+            "transacciones (índice; detalle completo bajo `database_access/`). |",
+            "| [UNRESOLVED_FINDINGS.md](UNRESOLVED_FINDINGS.md) | Todo lo que LegacyMapper no pudo "
+            "establecer de forma determinista (índice; detalle completo bajo `unresolved_findings/`). |",
+            "| [CONFIGURATION_SUMMARY.md](CONFIGURATION_SUMMARY.md) | Conteos de `Web.config` únicamente "
+            "— nunca valores secretos. |",
+            "| [ANALYSIS_WARNINGS.md](ANALYSIS_WARNINGS.md) | Errores de extracción capturados durante "
+            "esta corrida. |",
+            "| [HUMAN_DOCUMENTATION.md](HUMAN_DOCUMENTATION.md) | Documentación humana en español por "
+            "flujo (índice; detalle completo bajo `flujos_humanos/`). |",
             "",
-            "## \"Confirmed\" vs \"Unresolved\"",
+            "## \"Confirmado\" vs \"No resuelto\"",
             "",
-            "`confirmed` means a relationship or value is backed by exact, cited source "
-            "evidence (a file and line). `unresolved` means LegacyMapper found the "
-            "call/reference but could not deterministically establish its target or "
-            "value -- this is preserved explicitly, never guessed or fabricated. See "
-            "FUNCTIONAL_FLOWS.md for how a single flow can carry both a confirmed and "
-            "an unresolved fact at the same time.",
+            "`confirmed` significa que una relación o un valor está respaldado por evidencia de origen "
+            "exacta y citada (un archivo y una línea). `unresolved` significa que LegacyMapper encontró "
+            "la llamada/referencia pero no pudo establecer de forma determinista su objetivo o valor -- "
+            "esto se preserva explícitamente, nunca se adivina ni se fabrica. Vea FUNCTIONAL_FLOWS.md "
+            "para ver cómo un mismo flujo puede llevar a la vez un hecho confirmado y uno no resuelto.",
             "",
-            "## Machine-readable evidence",
+            "## Evidencia machine-readable",
             "",
-            "Every document above is a human projection of `index/*.json` (and "
-            "`ai_context/*.json`), which remain the authoritative evidence — consult "
-            "them directly for anything this projection does not show.",
+            "Cada documento de arriba es una proyección humana de `index/*.json` (y `ai_context/*.json`), "
+            "que siguen siendo la evidencia autoritativa — consúltelos directamente para cualquier "
+            "detalle que esta proyección no muestre.",
             "",
         ]
         return "\n".join(lines) + "\n"
@@ -506,9 +703,232 @@ def _summary_table_lines(summary: dict) -> list[str]:
     return lines
 
 
+# ----------------------------------------------------------------------
+# Spanish-language counterparts (V4.3-R7 BLOQUEO 2): used only by the
+# `*_navigation`/`*_partitions` methods, which are the ones `full`/`analyze`
+# actually write to `documentation/`. The flat `functional_flows()`/
+# `database_access()`/`unresolved_findings()` methods above are unchanged
+# and stay English -- they are not part of `full`/`analyze` output (see the
+# module docstring), only kept for existing English-language test/API
+# callers that want one complete, unpartitioned document. Every function
+# below mirrors its English counterpart's structure/data exactly; only
+# prose/headers are translated -- identifiers, paths, JSON field names and
+# status values (`confirmed`/`unresolved`/etc.) are always passed through
+# unchanged via the same `_cell`/`_code` helpers.
+# ----------------------------------------------------------------------
+
+_FUNCTIONAL_FLOWS_INTRO_ES = (
+    "El `Status`/`Confidence` de nivel superior de un flujo son una agregación de peor caso entre "
+    "cada ruta de ejecución rastreada: una única llamada no resuelta y no relacionada en cualquier "
+    "punto de la secuencia los degrada, incluso cuando otra ruta del mismo flujo alcanzó un terminal "
+    "real y `confirmed` de base de datos/procedimiento almacenado. Lea `Confirmed terminal reached` "
+    "junto con `Status` para el hecho que `Status` por sí solo puede ocultar: un flujo puede tener "
+    "`status: unresolved_boundary` y aun así haber alcanzado evidencia de terminal confirmada — ambos "
+    "hechos se preservan de forma independiente, nunca uno a costa del otro."
+)
+
+
+def _summary_table_lines_es(summary: dict) -> list[str]:
+    lines = ["## Resumen", "", "| Métrica | Valor |", "|---|---|"]
+    for key in sorted(summary):
+        lines.append(f"| {_cell(key)} | {_cell(summary[key])} |")
+    lines.append("")
+    return lines
+
+
+def _render_flow_entry_lines_es(flow: dict, paths_by_flow: dict[str, list[dict]]) -> list[str]:
+    node_labels = _flow_node_labels(flow)
+    lines = [f"### {_code(flow.get('webform'))} → `{flow.get('event')}` → {_code(flow.get('handler'))}", ""]
+    lines.append(
+        f"- Estado: `{flow.get('status')}` | Confianza: `{flow.get('confidence')}` | "
+        f"Terminal confirmado alcanzado: `{'sí' if flow.get('has_confirmed_terminal') else 'no'}` | "
+        f"Límite no resuelto pendiente: `{'sí' if flow.get('has_unresolved_boundary') else 'no'}` | "
+        f"Profundidad: `{flow.get('depth')}` | Operación(es) terminal(es): "
+        f"{', '.join(_code(op) for op in sorted(flow.get('terminal_operations', []))) or '_ninguna_'}"
+    )
+    lines.append("")
+    flow_paths = paths_by_flow.get(flow.get("id"), [])
+    if not flow_paths:
+        lines.append("_No se descubrió ninguna ruta de ejecución para este flujo._")
+        lines.append("")
+        return lines
+    for path in sorted(flow_paths, key=lambda p: p.get("path_id") or ""):
+        lines.append(f"- {_render_path_chain(node_labels, path)}")
+    lines.append("")
+    return lines
+
+
+def _unresolved_boundary_table_lines_es(paths: list[dict], flow_by_id: dict[str, dict]) -> list[str]:
+    lines = ["| Flujo | Tipo de terminal | Objetivo del terminal | Confianza |", "|---|---|---|---|"]
+    for path in sorted(paths, key=lambda p: (p.get("flow_id") or "", p.get("path_id") or "")):
+        flow = flow_by_id.get(path.get("flow_id"), {})
+        flow_label = f"{flow.get('webform', '?')} / {flow.get('handler', '?')}"
+        lines.append(
+            f"| {_cell(flow_label)} | {_cell(path.get('terminal_type'))} "
+            f"| {_cell(path.get('terminal_target'))} | {_cell(path.get('confidence'))} |"
+        )
+    return lines
+
+
+def _database_access_summary_sentence_es(
+    data_access: list, stored_procedures: list, sql_operations: list, data_parameters: list
+) -> str:
+    return (
+        f"Se descubrieron {len(data_access)} operación(es) de acceso a base de datos, "
+        f"{len(stored_procedures)} referencia(s) a procedimiento(s) almacenado(s), "
+        f"{len(sql_operations)} operación(es) SQL, y {len(data_parameters)} parámetro(s)."
+    )
+
+
+def _data_access_table_lines_es(data_access: list[dict]) -> list[str]:
+    lines = [
+        "| Clase.Método | Proyecto | Tipo de operación | Objetivo | Confianza | Origen |",
+        "|---|---|---|---|---|---|",
+    ]
+    for entry in sorted(data_access, key=lambda e: (e.get("class") or "", e.get("method") or "", e.get("id") or "")):
+        target = entry.get("stored_procedure") or entry.get("sql_operation") or entry.get("command_text") or ""
+        caller = f"{entry.get('class', '?')}.{entry.get('method', '?')}"
+        lines.append(
+            f"| {_cell(caller)} | {_cell(entry.get('project'))} | {_cell(entry.get('operation_kind'))} "
+            f"| {_cell(target)} | {_cell(entry.get('confidence'))} | {_cell(_first_evidence(entry))} |"
+        )
+    return lines
+
+
+def _stored_procedure_table_lines_es(stored_procedures: list[dict]) -> list[str]:
+    lines = ["| Nombre | Paquete | Procedimiento | Confianza | Origen |", "|---|---|---|---|---|"]
+    for proc in sorted(stored_procedures, key=lambda p: (p.get("name") or "", p.get("id") or "")):
+        lines.append(
+            f"| {_cell(proc.get('name'))} | {_cell(proc.get('package'))} | {_cell(proc.get('procedure'))} "
+            f"| {_cell(proc.get('confidence'))} | {_cell(_first_evidence(proc))} |"
+        )
+    return lines
+
+
+def _sql_operation_table_lines_es(sql_operations: list[dict]) -> list[str]:
+    lines = ["| Operación | Texto del comando | SQL dinámico | Confianza | Origen |", "|---|---|---|---|---|"]
+    for op in sorted(sql_operations, key=lambda o: (o.get("operation") or "", o.get("id") or "")):
+        lines.append(
+            f"| {_cell(op.get('operation'))} | {_cell(_truncate(op.get('command_text')))} "
+            f"| {_cell(op.get('dynamic_sql'))} | {_cell(op.get('confidence'))} | {_cell(_first_evidence(op))} |"
+        )
+    return lines
+
+
+def _parameter_table_lines_es(data_parameters: list[dict]) -> list[str]:
+    lines = [
+        "Agrupado por quien invoca; el detalle completo (dirección, tipo, tamaño) está disponible en "
+        "`index/data_parameters.json`.",
+        "",
+    ]
+    by_caller: dict[str, list[str]] = {}
+    for param in data_parameters:
+        caller = f"{param.get('class', '?')}.{param.get('method', '?')}"
+        by_caller.setdefault(caller, []).append(param.get("name") or "(sin nombre)")
+    lines.append("| Clase.Método | Parámetros |")
+    lines.append("|---|---|")
+    for caller in sorted(by_caller):
+        names = ", ".join(_code(n) for n in sorted(set(by_caller[caller])))
+        lines.append(f"| {_cell(caller)} | {names} |")
+    return lines
+
+
+_UNRESOLVED_FINDINGS_INTRO_ES = (
+    "Lo que LegacyMapper no pudo establecer de forma determinista. Nada en este documento es un "
+    "hecho inferido -- cada fila aquí es una brecha explícita en la evidencia, preservada como no "
+    "resuelta en lugar de adivinada."
+)
+
+# Spanish (count_label, heading) per category key, keyed identically to
+# `_unresolved_categories`'s own `key` -- item derivation itself is purely
+# structural and stays shared with the English flat renderer via that
+# function; only the human-facing label/heading text is duplicated here.
+_UNRESOLVED_CATEGORY_LABELS_ES = {
+    "extraction_errors": ("Errores de extracción", "Errores de extracción"),
+    "unresolved_flow_boundaries": ("Límites de flujo no resueltos", "Límites de flujo no resueltos"),
+    "unresolved_entry_points": ("Puntos de entrada no resueltos", "Puntos de entrada no resueltos"),
+    "unresolved_database_access": ("Acceso a base de datos no resuelto", "Acceso a base de datos no resuelto"),
+}
+
+
+def _unresolved_category_count_table_lines_es(categories: list[tuple[str, str, str, list[dict]]]) -> list[str]:
+    lines = ["| Categoría | Cantidad |", "|---|---|"]
+    for key, _count_label, _heading, items in categories:
+        label_es, _heading_es = _UNRESOLVED_CATEGORY_LABELS_ES[key]
+        lines.append(f"| {label_es} | {len(items)} |")
+    return lines
+
+
+def _render_unresolved_category_body_es(key: str, items: list[dict]) -> list[str]:
+    if key == "extraction_errors":
+        lines = ["| Archivo | Extractor | Error |", "|---|---|---|"]
+        for error in sorted(items, key=lambda e: (e.get("file") or "", e.get("extractor") or "")):
+            lines.append(
+                f"| {_cell(error.get('file'))} | {_cell(error.get('extractor'))} | {_cell(error.get('error'))} |"
+            )
+        return lines
+
+    if key == "unresolved_flow_boundaries":
+        boilerplate = [p for p in items if p.get("terminal_target") in _BOILERPLATE_TERMINAL_TARGETS]
+        other = [p for p in items if p.get("terminal_target") not in _BOILERPLATE_TERMINAL_TARGETS]
+        lines: list[str] = ["Ver `FUNCTIONAL_FLOWS.md` para el detalle completo por flujo; resumido aquí:", ""]
+        if other:
+            lines.append("### Otros límites no resueltos")
+            lines.append("")
+            lines.extend(_flow_boundary_table_lines_es(other))
+            lines.append("")
+        if boilerplate:
+            lines.append("### Código repetitivo generado por el framework/diseñador")
+            lines.append("")
+            lines.append(
+                "Llamadas rutinarias generadas por el diseñador (p. ej. `InitializeComponent()`), "
+                "agrupadas por separado por legibilidad -- se preservan igualmente como evidencia no "
+                "resuelta, nunca se descartan (F-06, PRESERVED_OBSERVATION)."
+            )
+            lines.append("")
+            lines.extend(_flow_boundary_table_lines_es(boilerplate))
+        if lines and not lines[-1]:
+            lines.pop()
+        return lines
+
+    if key == "unresolved_entry_points":
+        return [
+            "Ver `WEB_ENTRY_POINTS.md` para el detalle completo; resumido aquí:",
+            "",
+            f"{len(items)} punto(s) de entrada no pudieron resolverse a un único manejador confirmado.",
+        ]
+
+    # unresolved_database_access
+    lines = ["| Clase.Método | Proyecto |", "|---|---|"]
+    for entry in sorted(items, key=lambda e: (e.get("class") or "", e.get("method") or "")):
+        caller = f"{entry.get('class', '?')}.{entry.get('method', '?')}"
+        lines.append(f"| {_cell(caller)} | {_cell(entry.get('project'))} |")
+    return lines
+
+
+def _flow_boundary_table_lines_es(paths: list[dict]) -> list[str]:
+    lines = ["| ID de flujo | Tipo de terminal | Objetivo del terminal |", "|---|---|---|"]
+    for path in sorted(paths, key=lambda p: (p.get("flow_id") or "", p.get("path_id") or "")):
+        lines.append(
+            f"| {_cell(path.get('flow_id'))} | {_cell(path.get('terminal_type'))} "
+            f"| {_cell(path.get('terminal_target'))} |"
+        )
+    return lines
+
+
 def _flow_group_key(flow: dict) -> str:
     sequence = flow.get("project_sequence") or []
     return sequence[0] if sequence else "unassigned"
+
+
+def _web_entry_point_group_key(entry: dict) -> str:
+    """WEB_ENTRY_POINTS.md's group key (V4.3-R4 correction section 12): the
+    entry point's own WebForm-owning folder, via the shared
+    `webform_owner_group_key` -- the same rule
+    `human_documentation_scaling.flow_group_key` applies to hydrated FLOW
+    records, reused here rather than reinvented.
+    """
+    return webform_owner_group_key(entry.get("webform"))
 
 
 def _group_by(items: list[dict], key_fn) -> dict[str, list[dict]]:

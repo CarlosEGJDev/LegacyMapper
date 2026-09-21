@@ -21,14 +21,23 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from pathlib import Path
 
-from legacy_documenter.cli.artifact_lifecycle import sync_generated_partition_directory
+from legacy_documenter.cli.artifact_lifecycle import (
+    sync_generated_json_partition_directory,
+    sync_generated_partition_directory,
+)
 from legacy_documenter.analysis.call_resolver import CallResolver
 from legacy_documenter.analysis.database_resolver import DatabaseResolver
 from legacy_documenter.analysis.dependency_resolver import DependencyResolver
 from legacy_documenter.analysis.flow_resolver import FunctionalFlowResolver
 from legacy_documenter.analysis.web_entry_resolver import WebEntryResolver
+from legacy_documenter.context.consumer_projection import ConsumerProjectionBuilder
 from legacy_documenter.context.context_builder import ContextBuilder
+from legacy_documenter.context.hydration import EvidenceHydrator
 from legacy_documenter.context.system_context_builder import SystemContextBuilder
+from legacy_documenter.documentation.human_documentation_scaling import (
+    render_human_documentation_index,
+    render_human_documentation_partitions,
+)
 from legacy_documenter.exporters.json_exporter import JSONExporter
 from legacy_documenter.exporters.markdown_exporter import MarkdownExporter
 from legacy_documenter.exporters.technical_documentation_renderer import TechnicalDocumentationRenderer
@@ -43,6 +52,9 @@ from legacy_documenter.extractors.webforms_extractor import WebFormsExtractor
 from legacy_documenter.models import SourceFile
 from legacy_documenter.scanner.file_classifier import FileClassifier
 from legacy_documenter.scanner.repository_scanner import RepositoryScanner
+from legacy_documenter.utils.atomic_write import atomic_write_text
+from legacy_documenter.utils.json_rendering import render_deterministic_json
+from legacy_documenter.utils.sanitizer import sanitize_data
 
 
 @dataclass
@@ -337,9 +349,50 @@ def export_artifacts(output: str | Path, indexes: dict) -> None:
 
 
 def build_context_artifacts(output: str | Path, indexes: dict) -> None:
-    """Runs the CONTEXT stage: writes `output/context/*.json` and `output/ai_context/*`."""
+    """Runs the CONTEXT stage: writes `output/context/*.json`, `output/ai_context/*`,
+    and `output/consumer_projection/` (V4.3-R6, partitioned per its
+    post-implementation correction -- see `_write_consumer_projection`).
+
+    All three writers run under the same CONTEXT failure boundary (see
+    `StageId.CONTEXT`'s docstring: `EXPORT` already covers two writers the same
+    way). `consumer_projection` is deterministic and always materialized here --
+    unlike `AI_INTERPRETATION`, it is never opt-in and reaches no AI/LLM service --
+    so both `analyze` and `full` (which both call this same function) produce it.
+    """
     ContextBuilder().build_project_contexts(output, indexes)
-    SystemContextBuilder().build(output, indexes)
+    system_context_artifacts = SystemContextBuilder().build(output, indexes)
+    source_snapshot = system_context_artifacts["SYSTEM_CONTEXT.json"]["metadata"]["source_snapshot_sha256"]
+    _write_consumer_projection(output, indexes, source_snapshot)
+
+
+def _write_consumer_projection(output: str | Path, indexes: dict, source_snapshot: str) -> None:
+    """Materializes the partitioned `LegacyMapperConsumerProjection 1.0` package (V4.3-R6).
+
+    Projects every flow `indexes` contains (`SILENT_ENTRY_OMISSION=FORBIDDEN`,
+    see `legacy_documenter.context.consumer_projection`) into one small
+    manifest (`consumer_projection/CONSUMER_PROJECTION.json`) plus a
+    deterministic set of self-contained partition files
+    (`consumer_projection/parts/part-NNNNNN.json`) -- never one unbounded
+    file, so a real repository's full evidence set never forces a single
+    monolithic JSON. Both the manifest and every partition are sanitized the
+    same way every other exported evidence artifact is (`AGENTS.md` "Use the
+    centralized sanitizer for exported evidence"), and written atomically
+    like the rest of LegacyMapper's authoritative machine artifacts.
+    A rerun into the same `--output` directory with fewer flows (and
+    therefore fewer partitions) removes the now-stale extra partition files
+    via `sync_generated_json_partition_directory`, the same rerun-safety
+    mechanism V4.2-R8 already established for partitioned Markdown
+    documentation, generalized here to JSON (V4.2-R6 section 5's rerun-safety
+    principle applied to this new surface).
+    """
+    manifest, partitions = ConsumerProjectionBuilder().build(indexes, source_snapshot=source_snapshot)
+    target = Path(output) / "consumer_projection"
+    target.mkdir(parents=True, exist_ok=True)
+    atomic_write_text(target / "CONSUMER_PROJECTION.json", render_deterministic_json(sanitize_data(manifest)))
+    serialized_partitions = {
+        Path(path).name: render_deterministic_json(sanitize_data(body)) for path, body in partitions.items()
+    }
+    sync_generated_json_partition_directory(target / "parts", serialized_partitions)
 
 
 # Method names, not bound/unbound method objects: a captured function reference
@@ -347,9 +400,7 @@ def build_context_artifacts(output: str | Path, indexes: dict) -> None:
 # surprising for future maintenance and untestable via `unittest.mock.patch.object`
 # (which replaces the *class attribute*, not any reference captured earlier).
 # Looking the method up by name on the instance at call time keeps this ordinary.
-_DOCUMENTATION_RENDERERS = (
-    ("WEB_ENTRY_POINTS.md", "web_entry_points"),
-)
+_DOCUMENTATION_RENDERERS = ()
 
 # V4.2-R8: FUNCTIONAL_FLOWS.md/DATABASE_ACCESS.md/UNRESOLVED_FINDINGS.md became
 # navigation/summary documents over partitioned detail (R7 found these too
@@ -357,10 +408,16 @@ _DOCUMENTATION_RENDERERS = (
 # docs/V4_2/V4_2_R7_REAL_IST_DOCUMENTATION_REVIEW.md FINDINGS
 # NOISE_OR_SCALE_ISSUES). Each entry is (top-level filename, generated
 # subdirectory name, navigation-renderer method, partitions-renderer method).
+# V4.3-R4 (post-implementation correction, see
+# docs/V4_3/V4_3_R4_SCALING_AND_PARTITIONING_RESULT.md section 12) moves
+# WEB_ENTRY_POINTS.md into this same list, using the exact same transition
+# V4.2-R8 already applied to the other three -- it is no longer in
+# `_DOCUMENTATION_RENDERERS` above.
 _PARTITIONED_DOCUMENTATION_RENDERERS = (
     ("FUNCTIONAL_FLOWS.md", "functional_flows", "functional_flows_navigation", "functional_flows_partitions"),
     ("DATABASE_ACCESS.md", "database_access", "database_access_navigation", "database_access_partitions"),
     ("UNRESOLVED_FINDINGS.md", "unresolved_findings", "unresolved_findings_navigation", "unresolved_findings_partitions"),
+    ("WEB_ENTRY_POINTS.md", "web_entry_points", "web_entry_points_navigation", "web_entry_points_partitions"),
 )
 
 
@@ -381,8 +438,10 @@ def render_documentation(output: str | Path, indexes: dict) -> DocumentationOutc
     from disk. This is `full`-only; `analyze` never calls this function, so its
     output tree is unchanged from before R3.
 
-    Each of the four renderers (WEB_ENTRY_POINTS, FUNCTIONAL_FLOWS, DATABASE_ACCESS,
-    UNRESOLVED_FINDINGS) runs independently, wrapped in its own try/except: one
+    Each renderer (WEB_ENTRY_POINTS, FUNCTIONAL_FLOWS, DATABASE_ACCESS,
+    UNRESOLVED_FINDINGS, and -- since V4.3-R7 -- HUMAN_DOCUMENTATION, the
+    Spanish per-flow narrative documentation designed at V4.3-R3/R4 and
+    wired here) runs independently, wrapped in its own try/except: one
     renderer's failure is recorded in `DocumentationOutcome.failures` and does not
     prevent the remaining renderers from producing their document, per the R3
     partial-failure policy ("a failure in one new renderer should not necessarily
@@ -417,5 +476,29 @@ def render_documentation(output: str | Path, indexes: dict) -> DocumentationOutc
             outcome.written.append(filename)
         except Exception as exc:
             outcome.failures.append((filename, str(exc)))
+
+    try:
+        # V4.3-R7 wiring decision (deliberately deferred by both R3 and R4 --
+        # see "Fuera de alcance" in docs/V4_3/V4_3_R4_SCALING_AND_PARTITIONING_RESULT.md
+        # section 9): top-level filename `HUMAN_DOCUMENTATION.md`, generated
+        # dedicated flow-list, not to skip omission (unlike `ai_projection`/
+        # `consumer_projection`, this call is unbudgeted -- it hydrates every
+        # flow, the same as `consumer_projection` does, since human
+        # documentation at system scale has no LLM payload to bound either).
+        # `interpretations_by_flow` is omitted: this stage is purely
+        # deterministic, exactly like every other DOCUMENTATION renderer --
+        # no AI content is generated or required here.
+        hydrator = EvidenceHydrator()
+        hydrated_flows = [
+            hydrator.hydrate_flow(flow["id"], indexes)
+            for flow in indexes.get("functional_flows", []) if flow.get("id")
+        ]
+        human_index_text = render_human_documentation_index(hydrated_flows)
+        human_partitions = render_human_documentation_partitions(hydrated_flows)
+        (doc_dir / "HUMAN_DOCUMENTATION.md").write_text(human_index_text, encoding="utf-8")
+        sync_generated_partition_directory(doc_dir / "flujos_humanos", human_partitions)
+        outcome.written.append("HUMAN_DOCUMENTATION.md")
+    except Exception as exc:
+        outcome.failures.append(("HUMAN_DOCUMENTATION.md", str(exc)))
 
     return outcome

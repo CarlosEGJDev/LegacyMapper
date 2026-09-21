@@ -11,11 +11,15 @@ from __future__ import annotations
 
 import json
 from argparse import Namespace
+from pathlib import Path
 from typing import Protocol
 
 from legacy_documenter.cli.execution_model import RunResult, RunStatus
 from legacy_documenter.cli.full_pipeline import run_full_pipeline
+from legacy_documenter.cli.output_manifest import MANIFEST_FILENAME, build_output_manifest
 from legacy_documenter.knowledge.readiness import run as run_readiness
+from legacy_documenter.utils.atomic_write import atomic_write_text
+from legacy_documenter.utils.json_rendering import render_deterministic_json
 
 # Exit-code contract, established V4.2-R2 and explicitly reaffirmed as
 # authoritative by the Technical Lead at V4.2-R5.1 (scripts must be able to
@@ -60,6 +64,8 @@ def route(args: Namespace, analyze_repository: AnalyzeRepository) -> tuple[int, 
         return _route_full(args)
     if args.command == "readiness":
         return _route_readiness()
+    if args.command == "output-manifest":
+        return _route_output_manifest(args)
     raise ValueError(f"Unknown command: {args.command!r}")
 
 
@@ -93,3 +99,24 @@ def _route_readiness() -> tuple[int, RunResult]:
     status = RunStatus.SUCCESS if payload.get("readiness") == "READY" else RunStatus.PARTIAL
     exit_code = EXIT_SUCCESS if status is RunStatus.SUCCESS else EXIT_PARTIAL
     return exit_code, RunResult(command="readiness", status=status, message=rendered)
+
+
+def _route_output_manifest(args: Namespace) -> tuple[int, RunResult]:
+    """Builds and writes `<output_dir>/OUTPUT_MANIFEST.json` (V4.3-R7 BLOQUEO 1).
+
+    Thin route to `legacy_documenter.cli.output_manifest.build_output_manifest`,
+    the same deterministic manifest builder `tools/v4_3_r7_build_output_manifest.py`
+    already wrapped for development-repository use -- this route is its runtime
+    equivalent, part of the `legacy_documenter` package itself, so it travels with
+    a clean, development-repository-independent distribution
+    (`tools/v4_3_r7_build_pilot_distribution.py`; see
+    docs/V4_3/V4_3_REAL_PILOT_INSTRUCTIONS.md). `FileNotFoundError` (missing/
+    non-directory `output_dir`) is CLI usage error territory, not a pipeline
+    failure -- it propagates uncaught, the same way argparse's own usage errors
+    do, rather than being mapped to `RunStatus.FAILED`.
+    """
+    manifest = build_output_manifest(args.output_dir)
+    target = Path(args.output_dir) / MANIFEST_FILENAME
+    atomic_write_text(target, render_deterministic_json(manifest))
+    message = f"Wrote {target}: {manifest['file_count']} file(s), {manifest['total_bytes']} byte(s) total."
+    return EXIT_SUCCESS, RunResult(command="output-manifest", status=RunStatus.SUCCESS, message=message)

@@ -91,7 +91,7 @@ def main(argv: list[str] | None = None) -> int:
         # not only in --help -- this run may call the configured AI provider.
         print("AI interpretation requested: this run may call the configured AI provider.")
     exit_code, result = route(args, analyze_repository)
-    if result.command == "readiness" and result.message is not None:
+    if result.command in ("readiness", "output-manifest") and result.message is not None:
         print(result.message)
     elif result.command == "full":
         summary = render_console_summary(

@@ -27,6 +27,8 @@ from __future__ import annotations
 
 from pathlib import Path
 
+from legacy_documenter.utils.atomic_write import atomic_write_text
+
 # The exact, fixed set of filenames `full_pipeline._write_proposal_output`
 # ever writes under `proposals/` -- never anything else. Keeping this list
 # next to the reset function (rather than re-deriving it from source) keeps
@@ -93,6 +95,44 @@ def sync_generated_partition_directory(directory: Path, partitions: dict[str, st
                 existing.unlink()
     for name, content in partitions.items():
         (directory / name).write_text(content, encoding="utf-8")
+    if directory.is_dir() and not partitions:
+        try:
+            directory.rmdir()
+        except OSError:
+            pass  # not empty -- an unrelated file is present; leave it and the directory alone
+
+
+def sync_generated_json_partition_directory(directory: Path, partitions: dict[str, str]) -> None:
+    """Same stale-file safety as `sync_generated_partition_directory`, for JSON
+    partitions written atomically (V4.3-R6).
+
+    `consumer_projection/parts/` holds only generated `.json` partition files
+    whose exact filename set is data-derived (`len(flow_ids) / partition_size`
+    partitions) and shrinks or grows between two runs into the same
+    `--output` directory exactly like `documentation/<doc>/` already does for
+    Markdown partitions -- a rerun with fewer flows must not leave a stale
+    `part-000009.json` looking like current-run evidence. This sibling
+    function exists, rather than generalizing `sync_generated_partition_directory`
+    itself, because these partitions are LegacyMapper's own authoritative
+    machine artifacts (like `RUN_SUMMARY.json`/`index/*.json`, V4.2-R6) and so
+    are written with `atomic_write_text` rather than a plain `write_text` --
+    changing the existing function's write primitive would also change
+    behavior for its unrelated, pre-existing Markdown callers.
+
+    Only files with the `.json` extension are ever considered stale and
+    removed; any other file is preserved unconditionally. The directory
+    itself is created only when there is at least one partition to write, and
+    removed again once empty (never when a non-`.json` file remains).
+    """
+    directory = Path(directory)
+    if partitions:
+        directory.mkdir(parents=True, exist_ok=True)
+    if directory.is_dir():
+        for existing in directory.glob("*.json"):
+            if existing.name not in partitions:
+                existing.unlink()
+    for name, content in partitions.items():
+        atomic_write_text(directory / name, content)
     if directory.is_dir() and not partitions:
         try:
             directory.rmdir()

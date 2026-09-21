@@ -12,7 +12,7 @@ from __future__ import annotations
 import argparse
 import sys
 
-COMMANDS = ("analyze", "full", "readiness")
+COMMANDS = ("analyze", "full", "readiness", "output-manifest")
 
 
 def normalize_argv(argv: list[str] | None) -> list[str]:
@@ -79,6 +79,13 @@ Which command should I use?
   python main.py readiness
       Checks LegacyMapper's own knowledge/readiness prerequisites -- it does
       not analyze a repository at all.
+
+  python main.py output-manifest <output-dir>
+      Writes <output-dir>/OUTPUT_MANIFEST.json: the path/size/SHA-256 of every
+      file already under <output-dir> from a completed `full`/`analyze` run.
+      Verification only -- never re-runs analysis. Available from a clean,
+      runtime-only distribution (main.py + legacy_documenter/ alone), with no
+      dependency on this development repository's docs/tests/tools/.
 """
 
 
@@ -121,5 +128,16 @@ def build_parser() -> argparse.ArgumentParser:
         "(thin route to legacy_documenter.knowledge.readiness.run) -- does not analyze a repository."
     )
     subparsers.add_parser("readiness", help=readiness_help, description=readiness_help)
+
+    output_manifest_help = (
+        "Writes <output-dir>/OUTPUT_MANIFEST.json: path/size/SHA-256 of every file already under "
+        "<output-dir> from a completed run. Verification only -- never re-runs analysis. Part of the "
+        "runtime package (legacy_documenter.cli.output_manifest), so it travels with a clean, "
+        "development-repository-independent distribution."
+    )
+    output_manifest_parser = subparsers.add_parser(
+        "output-manifest", help=output_manifest_help, description=output_manifest_help
+    )
+    output_manifest_parser.add_argument("output_dir", help="The --output directory of a completed run")
 
     return parser

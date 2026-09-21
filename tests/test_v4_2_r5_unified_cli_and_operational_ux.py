@@ -246,13 +246,20 @@ class ApprovalDisplayTests(unittest.TestCase):
 
 class RunSummaryMarkdownReadabilityTests(unittest.TestCase):
     def test_run_summary_md_is_human_readable_and_does_not_duplicate_documentation(self) -> None:
+        # V4.3-R7 BLOQUEO 2 follow-up correction: RUN_SUMMARY.md is
+        # human-readable/product-facing and is Spanish by default -- its
+        # headers/labels/next-action sentence are Spanish, distinct from
+        # `result.next_action` itself (the RUN_SUMMARY.json/console-summary
+        # field, which stays English -- see RunSummaryJsonContractTests and
+        # `_derive_next_action_es`'s own docstring).
         with tempfile.TemporaryDirectory() as out:
             result = run_full_pipeline(FIXTURE, out, None, 12)
             markdown = (Path(out) / "RUN_SUMMARY.md").read_text(encoding="utf-8")
             doc_text = (Path(out) / "documentation" / "PROJECT_OVERVIEW.md").read_text(encoding="utf-8")
-        self.assertIn("# LegacyMapper Run Summary", markdown)
-        self.assertIn("## Next Action", markdown)
-        self.assertIn(result.next_action, markdown)
+        self.assertIn("# Resumen de ejecución de LegacyMapper", markdown)
+        self.assertIn("## Próxima acción", markdown)
+        self.assertEqual(result.next_action, "Technical documentation generated successfully.")
+        self.assertIn("Documentación técnica generada correctamente.", markdown)
         self.assertNotIn(doc_text.strip(), markdown)
 
 
