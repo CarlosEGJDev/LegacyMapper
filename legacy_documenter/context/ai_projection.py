@@ -359,25 +359,67 @@ class AiProjectionBuilder:
         # per candidate record: a canonical JSON list of n items costs
         # `2 + sum(len(item_i)) + (n - 1)` characters, so the envelope's own
         # cost (measured with `records: []`) plus those terms is the exact
-        # length of the final canonical body.
+        # length of the final canonical body. This total is order-independent
+        # (only the *set* and *count* of chosen records matter, never the
+        # sequence they are accepted in), which is what makes the two-pass
+        # reservation below safe: reserving a record out of its natural
+        # `capped` position never changes the final character total.
         envelope_chars = len(_canonical(self._body(profile, budget, source_snapshot, [])))
         costs = [len(_canonical(record)) for record in capped]
-        chosen: list[dict] = []
+
+        accepted = [False] * len(capped)
         used = 0
-        for record, cost in zip(capped, costs):
-            extra = cost + (1 if chosen else 0)
+        count = 0
+
+        def _try_accept(index: int) -> bool:
+            nonlocal used, count
+            extra = costs[index] + (1 if count else 0)
             if envelope_chars + used + extra > max_chars:
-                # Skip this one candidate and keep trying later ones in `capped`
-                # -- never abort the whole pass here (V4.3 final AI pilot R2:
-                # `break` on the first oversized candidate let one large,
-                # richness-prioritized record block every smaller candidate
-                # after it, turning a real repository's mix of a few large
-                # flows and many small ones into a spurious BUDGET_INSUFFICIENT
-                # at both SMALL and TINY even though plenty of individually
-                # small candidates would have fit).
-                continue
-            chosen.append(record)
+                return False
+            accepted[index] = True
             used += extra
+            count += 1
+            return True
+
+        # Reservation pass (V4.3-R3A-R1, layer-2 fix): `_bucketed_order`'s own
+        # round-robin/confidence/flow_id order still decides evaluation order,
+        # but a strict first-fit-greedy single pass over that order lets small
+        # bucket-2/3 (trivial) records -- which appear early in every
+        # round-robin cycle -- exhaust the budget before the packer ever
+        # reaches a bucket-0/1 (rich) candidate of reasonable size, even when
+        # that rich candidate individually fits the complete budget (the
+        # demonstrated real case: 5 of 40 rich candidates fit individually,
+        # 0 survived). Guarantee, before any other acceptance happens, the
+        # first bucket-0 candidate that individually fits and then the first
+        # bucket-1 candidate that individually fits (in the same
+        # confidence/flow_id order `_bucketed_order` already established for
+        # each bucket) -- never more than one per bucket, so this cannot
+        # revert to rich records monopolizing the sample (diversity
+        # invariant). If no candidate in a bucket fits at all (layer-1
+        # outliers), nothing is reserved for it and the backfill pass below
+        # behaves exactly as before.
+        for bucket_wanted in (0, 1):
+            for index, record in enumerate(capped):
+                if accepted[index] or _record_richness_bucket(record) != bucket_wanted:
+                    continue
+                if _try_accept(index):
+                    break
+
+        # Backfill pass: the same first-fit-greedy as before V4.3-R3A-R1,
+        # over whatever budget the reservation pass above left, in the exact
+        # same `capped` order -- never `break` on the first oversized
+        # candidate (V4.3 final AI pilot R2: that let one large,
+        # richness-prioritized record block every smaller candidate after it).
+        for index in range(len(capped)):
+            if accepted[index]:
+                continue
+            _try_accept(index)
+
+        # The final `records` list keeps `capped`'s own bucket/confidence/
+        # flow_id order regardless of which pass accepted each item, so a
+        # reserved rich record appears at its natural position rather than
+        # being pulled to the front.
+        chosen = [record for index, record in enumerate(capped) if accepted[index]]
 
         excluded = len(ordered) - len(chosen)
         minimum_chars = envelope_chars + (min(costs) if costs else 0)
