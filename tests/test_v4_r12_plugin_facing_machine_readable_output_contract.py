@@ -84,10 +84,11 @@ class EntryGateTests(unittest.TestCase):
         # must accept an optional "." minor-phase segment, not just "V4-R<N>"
         # (see the V4.1-R1 round-ordinal-parsing fix).
         state = json.loads(Path("PROJECT_STATE.json").read_text(encoding="utf-8"))
-        match = re.search(r"V4(?:\.(\d+))?-R(\d+)", state.get("latest_approved_round", ""))
+        # V5.2-R4.3: also accepts V5.<minor>-R<N> (any V5 round is ordered after V4).
+        match = re.search(r"V([45])(?:\.(\d+))?-R(\d+)", state.get("latest_approved_round", ""))
         self.assertIsNotNone(match)
-        phase = int(match.group(1) or 0)
-        round_number = int(match.group(2))
+        phase = (int(match.group(1)) - 4) * 100 + int(match.group(2) or 0)
+        round_number = int(match.group(3))
         # Any V4.<minor> phase round is later than every plain V4-R round,
         # since V4.1 only begins once all of V4 is approved.
         ordinal = phase * 1000 + round_number

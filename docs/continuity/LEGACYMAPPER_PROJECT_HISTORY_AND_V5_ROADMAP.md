@@ -1,5 +1,8 @@
 # LegacyMapper — Historia del proyecto, estado actual y roadmap V5
 
+> **Actualización de continuidad — 29-09-2026:** V5.0 y V5.1 están cerradas; V5.2 tiene implementación y revisión de R3.4.1 realizadas, pero **NO está cerrada formalmente**. Falta la aprobación explícita del Technical Lead y ejecutar/documentar R4 de cierre. Los estados antiguos `V5_0_READY_TO_START` que figuran más abajo son una fotografía histórica, no el estado vigente. El siguiente paso no es V5.3 ni activar IA en V5.2.
+
+
 ## 1. Propósito de este documento
 
 Este documento existe para poder retomar LegacyMapper en una conversación futura, incluso para una eventual V6, sin reconstruir nuevamente toda la historia del proyecto.
@@ -1017,3 +1020,97 @@ Antes de iniciar V6:
 6. confirmar rutas actuales;
 7. ejecutar suite baseline;
 8. medir el estado real antes de diseñar V6.
+
+---
+
+# 36. Actualización de continuidad V5.0–V5.2 (29-09-2026)
+
+Esta sección actualiza el punto de partida histórico de §34 sin borrar el registro V1–V4.3.
+
+## Estado confirmado y autoridad
+
+```text
+V4_3_CLOSED
+V5.0 — cerrada (Architecture & Contracts)
+V5.1 — CERRADA; cierre formal: docs/V5/V5_1_R4_CIERRE_FINAL.md
+V5.2 — R3.4.1 READY_FOR_HUMAN_REVIEW; R4 NO ejecutada ni aprobada
+V5.3 — NO iniciada
+```
+
+**No declarar `V5_2_CLOSED`, `READY_FOR_R4` ni iniciar V5.3 por inferencia.** La revisión conversacional consideró satisfactorias las correcciones R3.4.1, pero el usuario seleccionó revisar un aspecto adicional antes del cierre y después consultó por la distinción entre documentación determinista e interpretación IA. No consta todavía una autorización explícita de R4. Al reanudar: confirmar con el usuario si aprueba humanamente R3.4.1 y autoriza preparar el prompt R4; no generarlo antes de esa autorización.
+
+## Entregables y secuencia V5.2
+
+| Ronda | Resultado | Estado práctico |
+| --- | --- | --- |
+| R0 | `docs/V5/V5_2_R0_DOCUMENTATION_BASELINE.md` | Baseline documental realizado. |
+| R1 | `docs/V5/V5_2_R1_DOCUMENTATION_CONTRACT_DESIGN.md` | Contrato de perfiles/templates. |
+| R2 | `docs/V5/V5_2_R2_DOCUMENTATION_ENGINE_IMPLEMENTATION.md` | Motor inicial implementado. |
+| R3 | `docs/V5/V5_2_R3_TECHNICAL_AND_HUMAN_VALIDATION.md` | Validación técnica; aprobación humana retenida por errores semánticos. |
+| R3.1 | `docs/V5/V5_2_R3_1_HUMAN_SEMANTIC_CORRECTIONS.md` | Propiedad de pantallas, flujos y acceso real a datos corregidos. |
+| R3.2 | `docs/V5/V5_2_R3_2_PROJECT_IDENTITY_AND_HUMAN_CLARITY.md` | Identidad real de proyectos y dirección de dependencias. |
+| R3.3 | `docs/V5/V5_2_R3_3_COMPONENT_NAVIGATION.md` | Navegación Solution→Project→Archivo→Componente→métodos. |
+| R3.4 | `docs/V5/V5_2_R3_4_METHOD_TRACEABILITY.md` | Relaciones técnicas individuales por método, con límites de atribución declarados. |
+| R3.4.1 | `docs/V5/V5_2_R3_4_1_METHOD_DETAIL_QUALITY.md` | Calidad del detalle y filtro de documentos de bajo valor; `READY_FOR_HUMAN_REVIEW`. |
+| R4 | No existe cierre aportado en este handover | Pendiente de aprobación y ejecución; NO se ha generado prompt R4. |
+
+Los prompts nuevos deben guardarse bajo `prompts/V5/`; un único resultado de ronda bajo `docs/V5/`. Claude puede tener referencias antiguas a `prompts/V5_0/`: comprobar la ruta real antes de ejecutar, no asumir que son idénticas.
+
+## Decisiones funcionales de V5.2
+
+- Modelo: `Evidence Core → Audience Transformation → Output Profile → Template → Markdown Renderer`. El template define cómo presentar; el perfil qué incluir; el renderer escribe Markdown. No trasladar clasificación de evidencia al renderer ni alterar Evidence Core por una mejora visual.
+- Dos perfiles humanos implementados: **General Overview** (breve) y **Developer Technical** (navegación progresiva). La documentación `documentation_v52/` se genera **completa**; los ZIP `human_review_sample` enviados al asistente son solo selecciones de revisión, no el producto íntegro. `documentation/` legacy se conserva durante la transición.
+- Jerarquía real: `.sln` es Solution; `.vbproj`/`.csproj` es Project; clase/formulario es Component; archivo físico es SourceArtifact. `BLInterfazSAP.vbproj` sí existe como Project dentro de `SlnInterfazSAP`; `BLInterfazSAP.vb` es su archivo de código homónimo. No inferir entidades por prefijos `BL`/`Web`/`sys` ni nombres de carpeta.
+- Vistas de método: nombre/tipo/visibilidad y enlaces individuales solo donde hay relaciones verificables; llamadas salientes/entrantes, expresiones originales no resueltas y acceso real a datos separado de control transaccional. Cuando solo hay ruido técnico, un método puede permanecer en el índice sin página propia. El enlace de detalle es **documentación ya generada**, no un llamado a IA en tiempo de consulta.
+- No atribuir a un método dependencias que solo se conocen a nivel de Project, ni límites de flujos no resueltos que carecen de pertenencia inequívoca al método. Sin identidad canónica por firma/sobrecarga no asignar relaciones individuales a homónimos ambiguos.
+- Pertenencia ambigua: `img\aceptar.gif` aparece declarado por 5 proyectos; se muestra como compartido/ambiguo, sin atribuir propiedad exclusiva ni crear proyecto ficticio.
+- Mantener métricas semánticas correctas de IST: 12.642 recorridos observados; 672 (5,3 %) alcanzan operación **real** de datos; otros 1.698 llegan exclusivamente a control transaccional. No confundir ambos grupos.
+
+## Última evidencia de validación R3.4.1 (informe de Claude, pendiente aprobación formal humana)
+
+- Corrida IST completa `SUCCESS`, IA opcional `NOT_RUN`, `MANIFEST.json` sin advertencias, documentación legacy preservada (876 archivos).
+- `python -m unittest discover -s tests`: **2.441 pruebas, 0 fallas, 0 errores, 132 omisiones esperadas**.
+- 33.610 filas de métodos identificados; documentos individuales R3.4 **22.215** → R3.4.1 **21.407** (−808). Documentos Markdown totales R3.4 **47.375** → R3.4.1 **46.567**. El criterio conserva llamadas no resueltas con expresión útil; no forzar reducción numérica perdiendo trazabilidad.
+- Se verificaron **5.514 enlaces** dentro de una muestra de 3.000 documentos de la salida completa, 0 rotos **en esa muestra**; no equivale a revisión exhaustiva de todos los enlaces.
+- La muestra humana R3.4.1 contiene 21 archivos y marca 103 enlaces que apuntan a contenido externo a esa selección. Esto no implica enlaces rotos del producto completo.
+- Resultado completo: `C:\PruebasLegacyMapper\Resultados\v5_2_r3_4_1_validation\ist_full_run\documentation_v52\`.
+- Muestra: `C:\PruebasLegacyMapper\Resultados\v5_2_r3_4_1_validation\human_review_sample\README.md`.
+
+## Qué NO está terminado: interpretación IA en documentación V5.2
+
+V5.2 genera documentación humana **determinista** y evidencia técnica bajo demanda (enlaces a información recopilada previamente). No genera explicaciones funcionales de IA integradas en esos documentos y abrir un enlace no ejecuta una IA. La corrida R3.4.1 confirma `AI_INTERPRETATION` y `PROPOSAL_GENERATION` en `NOT_RUN`. La capacidad IA de V4.3 (contexto y propuestas grounded) es precedente, **no** prueba de una capa interpretativa ya integrada en `documentation_v52/`. La evolución prevista pasa por V5.5 (provider genérico/contexto), V5.6 (segmentación) y V5.7 (aprobación humana/conocimiento canónico). Separar explícitamente hecho verificado, propuesta IA y conocimiento aprobado; nunca canonizar automáticamente.
+
+## Pendientes/deudas relevantes
+
+- `gap.method_dependencies_not_available`: dependencias declaradas solo a nivel de proyecto.
+- `gap.method_unresolved_not_attributable`: límites de flujo no resueltos no atribuibles inequívocamente a método con el consumo actual.
+- `gap.method_identity_no_signatures` y ambigüedad de sobrecargas/homónimos.
+- Relación directa `.aspx/.ascx`→clase code-behind pendiente cuando haya evidencia; otros GAP anteriores siguen documentados en informes de ronda y no se reabren automáticamente.
+- **Punto de continuación**: confirmar aprobación humana de R3.4.1 → solamente entonces preparar R4 de cierre documental, con revisión de compatibilidad y registros finales → tras cierre explícito, iniciar V5.3 (incremental/cache). No introducir interpretación IA anticipadamente en R4.
+
+## Forma de trabajo al retomar
+
+El usuario maneja git personalmente. No ordenar a Claude `commit`/`push` ni editar roadmap/`PROJECT_STATE.json` sin autorización. Una responsabilidad por ronda; un prompt con nombre/ruta precisos; un único documento de resultado en `docs/V5/`; revisar resultado y muestra antes de redactar prompt posterior. Al emitir prompt, especificar ruta del prompt y ruta exacta de resultado esperado. Antes de nuevas suites largas, comprobar procesos/logs existentes, evitar espera pasiva infinita en monitores y no ejecutar suites concurrentes repetitivas. Para un nuevo chat, estos tres documentos y los últimos informes R3.4/R3.4.1 permiten recuperar el estado sin reconstruir la conversación.
+
+---
+
+# 37. Cierre formal de V5.2 (R4.3)
+
+**Estado:** V5.2 cerrada formalmente (`V5_2_CLOSED_PENDING_GIT_APPROVAL`; pendiente solo el versionado Git). Informe: `docs/V5/V5_2_R4_3_CIERRE_FORMAL.md`. `PROJECT_STATE.json` actualizado (V5.0, V5.1 y V5.2 cerradas; `next = V5.3`).
+
+**Secuencia de cierre:** R4 (revisión documental) → R4.1 (diagnóstico de pendientes, solo lectura) → R4.2 (correcciones pre-cierre) → R4.3 (cierre formal).
+
+**Decisiones principales:**
+
+- Baseline oficial de V5.2: `C:\Users\cgalianj\source\IST_40\Operacional`. La otra ruta IST no es equivalente (repositorios Git en ramas y commits distintos; 281 archivos comunes con contenido distinto).
+- Política: evitar deuda técnica corregible dentro de la fase; lo que requiere nueva arquitectura o extracción se documenta como fase futura, no como defecto de V5.2.
+- Prompts nuevos desde V5.3 en `prompts/V5/`; los históricos permanecen en `prompts/V5_0/`.
+- Git por versión: commit de cierre + tag + push, semi-automático (el agente prepara y valida; el push exige aprobación humana explícita).
+
+**Correcciones registradas (R4 contenía dos afirmaciones inexactas):** el origen de `atomic_write.py` **sí** estaba documentado (`docs/V5/PRE_V5_1_RERUN_INTERMITTENCY_INVESTIGATION_RESULT.md`) y el cambio de `run_summary_presenter.py` **sí** estaba documentado (R3/R3.1) y probado. R4 no se modificó retroactivamente.
+
+**Deuda corregida en R4.2:** pruebas directas de `_replace_with_retry` y aclaración del texto «archivos de código» frente a la tabla de archivos (solo i18n).
+
+**Limitaciones futuras por contrato (no son defectos de V5.2):** dependencias a nivel de método; identidad de sobrecargas y firmas; atribución de ciertos `unresolved`; enlace `.aspx/.ascx` → code-behind; flujo → `archivo:línea`; clasificación más rica de tipos de proyecto; validación en otro repositorio; agrupación funcional; refactor de módulos grandes en ronda propia.
+
+**Siguiente paso:** V5.3 — Incremental Engine & Cache (`READY_TO_START`, no iniciada), tras el versionado Git.

@@ -13,12 +13,45 @@ reducing the odds of a torn write.
 Applied narrowly to `RUN_SUMMARY.json`/`.md`, the AI proposal JSON/Markdown
 pair, and `index/*.json` (V4.2-R6 section 7's explicit minimum) -- this is
 one small standard-library primitive, not a transactional-write framework.
+
+`_replace_with_retry` (PRE-V5.1 rerun-intermittency investigation fix):
+on Windows, `os.replace` onto an existing destination can intermittently
+raise `PermissionError` ("[WinError 5] Access is denied") when another
+process (most commonly real-time antivirus scanning, or the search
+indexer) transiently holds a read handle open on the destination file
+right after it was rewritten by a previous run into the same `--output`
+directory -- observed here specifically on rerun-into-same-output
+scenarios, never on a first write to a fresh path. This is an
+external, transient lock, not a logic error: the destination content is
+never corrupted by it (the failed attempt still leaves the previous
+complete content in place, exactly as any other unattempted replace
+would), so a small bounded retry with a short backoff is a safe,
+minimal, standard mitigation -- it changes only how long a genuinely
+transient lock is tolerated before the same `PermissionError` is
+re-raised, never what gets written or how atomicity is achieved.
 """
 from __future__ import annotations
 
 import os
 import tempfile
+import time
 from pathlib import Path
+
+_REPLACE_RETRY_ATTEMPTS = 5
+_REPLACE_RETRY_INITIAL_DELAY_S = 0.05
+
+
+def _replace_with_retry(tmp_name: str, path: Path) -> None:
+    delay = _REPLACE_RETRY_INITIAL_DELAY_S
+    for attempt in range(1, _REPLACE_RETRY_ATTEMPTS + 1):
+        try:
+            os.replace(tmp_name, path)
+            return
+        except PermissionError:
+            if attempt == _REPLACE_RETRY_ATTEMPTS:
+                raise
+            time.sleep(delay)
+            delay *= 2
 
 
 def atomic_write_text(path: str | Path, content: str, encoding: str = "utf-8") -> None:
@@ -35,7 +68,7 @@ def atomic_write_text(path: str | Path, content: str, encoding: str = "utf-8") -
             handle.write(content)
             handle.flush()
             os.fsync(handle.fileno())
-        os.replace(tmp_name, path)
+        _replace_with_retry(tmp_name, path)
     except Exception:
         try:
             os.unlink(tmp_name)

@@ -283,8 +283,9 @@ class DocumentationFailurePolicyTests(unittest.TestCase):
         self.assertEqual(len(outcome.failures), 1)
         self.assertEqual(outcome.failures[0][0], "DATABASE_ACCESS.md")
         # README.md (V4.2-R8 navigation entry point) + the three other technical
-        # documents + HUMAN_DOCUMENTATION.md (V4.3-R7 wiring).
-        self.assertEqual(len(outcome.written), 5)
+        # documents + HUMAN_DOCUMENTATION.md (V4.3-R7 wiring) + the additive
+        # documentation_v52/README.md entry (V5.2 R2).
+        self.assertEqual(len(outcome.written), 6)
 
 
 class ExistingDocumentationCompatibilityTests(unittest.TestCase):

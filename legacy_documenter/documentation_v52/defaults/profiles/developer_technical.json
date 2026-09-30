@@ -1,0 +1,16 @@
+{
+  "id": "developer_technical",
+  "contract_version": "1",
+  "audience": "developer",
+  "max_detail_level": 4,
+  "visible_categories": ["KEEP_SIMPLE", "KEEP_TECHNICAL"],
+  "detail_on_demand": "documents",
+  "language": "es",
+  "noise_policy": "default",
+  "noise_visibility_overrides": {"transaction_control": "summarize", "exception_handling": "summarize"},
+  "unresolved_behavior": "summary_with_link",
+  "body_row_limit": 15,
+  "output_dir": "developer",
+  "templates": ["dev.index", "dev.module", "dev.solution", "dev.file", "dev.component", "dev.component_detail", "dev.method", "dev.flow_summary", "dev.data_access_summary", "dev.dependency_summary", "dev.unresolved_summary", "dev.technical_detail", "dev.configuration"],
+  "partition": {"max_items_per_part": 300, "max_bytes_per_part": 65536}
+}

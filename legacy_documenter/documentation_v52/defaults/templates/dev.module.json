@@ -1,0 +1,198 @@
+{
+  "id": "dev.module",
+  "contract_version": "1",
+  "profile_compat": [
+    "developer_technical"
+  ],
+  "scope": "module",
+  "file": "modules/{slug}.md",
+  "order": 10,
+  "title_key": "dev.module.title",
+  "blocks": [
+    {
+      "type": "link",
+      "text_key": "nav.index",
+      "target": "template:dev.index"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "dev.module.summary"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "dev.module.summary_text",
+      "params": {
+        "path": "module.path",
+        "output_type": "module.output_type"
+      },
+      "when": "empty_value:module.solutions&&value:module.path"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "dev.module.summary_text_sol",
+      "params": {
+        "path": "module.path",
+        "solutions": "module.solutions",
+        "output_type": "module.output_type"
+      },
+      "when": "value:module.solutions&&value:module.path"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "dev.module.summary_nopath",
+      "params": {
+        "flows": "module.flows",
+        "events": "module.events"
+      },
+      "when": "empty_value:module.path"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "dev.module.project_type_text",
+      "params": {
+        "project_type": "module.project_type"
+      },
+      "when": "value:module.project_type"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "dev.module.project_type_unknown",
+      "when": "empty_value:module.project_type&&value:module.path"
+    },
+    {
+      "type": "note",
+      "text_key": "dev.module.copy_note",
+      "params": {
+        "marker": "module.copy_marker"
+      },
+      "when": "value:module.copy_marker"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "text_key": "dev.module.solutions_heading",
+      "when": "nonempty:module.slots.solution_links"
+    },
+    {
+      "type": "table",
+      "source": "module.slots.solution_links",
+      "columns": [
+        {
+          "field": "name",
+          "header_key": "col.solution",
+          "link": "solution",
+          "code": true
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text_key": "dev.module.responsibility_none",
+      "when": "value:module.path"
+    },
+    {
+      "type": "link",
+      "text_key": "dev.module.detail_link",
+      "target": "template:dev.technical_detail"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "dev.module.own",
+      "when": "value:module.path"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "dev.module.own_text",
+      "params": {
+        "source_files": "module.source_files",
+        "screens": "module.screens",
+        "events": "module.events"
+      },
+      "when": "value:module.path"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "dev.module.entry_points",
+      "when": "value:module.path"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "dev.module.entry_points_unowned",
+      "when": "empty_value:module.path"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "dev.module.entry_points_none",
+      "when": "empty_total:module.slots.entry_points&&value:module.path"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "dev.module.entry_points_text",
+      "when": "nonempty:module.slots.entry_points&&value:module.path"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "dev.module.entry_points_unowned_text",
+      "when": "nonempty:module.slots.entry_points&&empty_value:module.path"
+    },
+    {
+      "type": "table",
+      "source": "module.slots.entry_points",
+      "limit": "profile.body_row_limit",
+      "overflow": "detail",
+      "columns": [
+        {
+          "field": "webform",
+          "header_key": "col.webform",
+          "code": true
+        },
+        {
+          "field": "events",
+          "header_key": "col.events"
+        },
+        {
+          "field": "real_flows",
+          "header_key": "col.real_flows"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "dev.module.files_heading"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "dev.module.files_none",
+      "when": "empty_total:module.slots.files"
+    },
+    {
+      "type": "partitioned_table",
+      "name": "files",
+      "title_key": "dev.module.files_title",
+      "source": "module.slots.files",
+      "when": "nonempty_total:module.slots.files",
+      "columns": [
+        {
+          "field": "name",
+          "header_key": "col.file",
+          "link": "file",
+          "code": true
+        },
+        {
+          "field": "kind",
+          "header_key": "col.kind",
+          "translate": "filekind"
+        },
+        {
+          "field": "component_count",
+          "header_key": "col.component_count"
+        }
+      ]
+    }
+  ]
+}

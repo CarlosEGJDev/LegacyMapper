@@ -18,8 +18,11 @@ or exit codes.
 """
 from __future__ import annotations
 
+import json
+import logging
 from dataclasses import dataclass, field
 from pathlib import Path
+from time import perf_counter
 
 from legacy_documenter.cli.artifact_lifecycle import (
     sync_generated_json_partition_directory,
@@ -38,6 +41,10 @@ from legacy_documenter.documentation.human_documentation_scaling import (
     render_human_documentation_index,
     render_human_documentation_partitions,
 )
+from legacy_documenter.documentation_v52.engine import generate_documentation_v52, source_from_indexes
+from legacy_documenter.evidence.builder import NormalizedEvidenceBuilder
+from legacy_documenter.evidence.invariants import validate_evidence
+from legacy_documenter.evidence.persistence import EVIDENCE_MANIFEST_FILENAME, write_evidence
 from legacy_documenter.exporters.json_exporter import JSONExporter
 from legacy_documenter.exporters.markdown_exporter import MarkdownExporter
 from legacy_documenter.exporters.technical_documentation_renderer import TechnicalDocumentationRenderer
@@ -55,6 +62,8 @@ from legacy_documenter.scanner.repository_scanner import RepositoryScanner
 from legacy_documenter.utils.atomic_write import atomic_write_text
 from legacy_documenter.utils.json_rendering import render_deterministic_json
 from legacy_documenter.utils.sanitizer import sanitize_data
+
+LOG = logging.getLogger("legacy_documenter")
 
 
 @dataclass
@@ -343,9 +352,46 @@ def export_artifacts(output: str | Path, indexes: dict) -> None:
     together as one deterministic output step over the same `indexes`, with
     no independent failure boundary between them (see V4.2-R1 `StageId.EXPORT`
     docstring).
+
+    Also builds and persists `output/evidence/` (V5.1 R2.1-01: the
+    Normalized Evidence Core is part of the real `analyze`/`full` product
+    flow) -- see `build_evidence_artifacts`: its failure fails this stage.
     """
     JSONExporter().export(output, indexes)
     MarkdownExporter().export(output, indexes)
+    build_evidence_artifacts(output, indexes)
+
+
+def build_evidence_artifacts(output: str | Path, indexes: dict) -> None:
+    """Builds, validates and persists the Normalized Evidence Core under
+    `output/evidence/` from this run's own `indexes` (no re-scan).
+
+    Mandatory (V5.1 R3.1 D-3): any build/validation/persistence failure
+    propagates, so `full` records EXPORT as FAILED (run FAILED, error in
+    `RUN_SUMMARY.json`) and `analyze` aborts, exactly like any other EXPORT
+    writer. `index/`/`documentation/` already written above are kept for
+    diagnosis; the run is just not a valid V5 run. A previous run's
+    `EVIDENCE_MANIFEST.json` is removed first, so a stale manifest can never
+    vouch for evidence this run failed to produce -- the manifest is written
+    last, only after every partition.
+
+    `SourceArtifact.sha256` is always computed (D-2) from the files under
+    `indexes["repository"]["root"]`. `validate_evidence` also enforces I-4/
+    I-5 (V5.1 R3.2 D-4): every entity's `provenance` is non-empty and
+    resolves against this run's own evidence, before anything is persisted.
+    """
+    stale_manifest = Path(output) / "evidence" / EVIDENCE_MANIFEST_FILENAME
+    stale_manifest.unlink(missing_ok=True)
+    started = perf_counter()
+    evidence = NormalizedEvidenceBuilder(repo_root=indexes.get("repository", {}).get("root")).build(indexes)
+    built = perf_counter()
+    validate_evidence(evidence)
+    validated = perf_counter()
+    write_evidence(evidence, output)
+    LOG.info(
+        "Evidence Core: build %.1fs, validate %.1fs, persist %.1fs (%s source artifacts)",
+        built - started, validated - built, perf_counter() - validated, len(evidence.source_artifacts),
+    )
 
 
 def build_context_artifacts(output: str | Path, indexes: dict) -> None:
@@ -501,4 +547,29 @@ def render_documentation(output: str | Path, indexes: dict) -> DocumentationOutc
     except Exception as exc:
         outcome.failures.append(("HUMAN_DOCUMENTATION.md", str(exc)))
 
+    _render_documentation_v52(output, indexes, outcome)
     return outcome
+
+
+def _render_documentation_v52(output: str | Path, indexes: dict, outcome: DocumentationOutcome) -> None:
+    """V5.2-R2: additive human documentation under `documentation_v52/`
+    (Profiles/Templates/Markdown Renderer). Coexists with the legacy
+    `documentation/` tree, which it never reads or writes (D-52-05). A
+    failure is recorded like any other renderer failure -- visible in the
+    DOCUMENTATION stage, never swallowed."""
+    try:
+        result = generate_documentation_v52(source_from_indexes(indexes, _load_external_dependencies(output)), output)
+        for warning in result.warnings:
+            LOG.warning("documentation_v52: %s", warning)
+        outcome.written.append("documentation_v52/README.md")
+    except Exception as exc:
+        outcome.failures.append(("documentation_v52", f"{exc.__class__.__name__}: {exc}"))
+
+
+def _load_external_dependencies(output: str | Path) -> list:
+    """Evidence Core `ExternalDependency` records persisted by the EXPORT stage
+    (`output/evidence/external_dependencies.json`); empty when absent."""
+    path = Path(output) / "evidence" / "external_dependencies.json"
+    if not path.is_file():
+        return []
+    return json.loads(path.read_text(encoding="utf-8"))

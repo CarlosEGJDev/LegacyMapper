@@ -801,3 +801,57 @@ Antes de implementar una feature grande:
 - [ ] ¿Puede hacerlo Python?
 - [ ] ¿Hay rollback claro?
 - [ ] ¿La deuda nueva está clasificada?
+
+
+---
+
+# 36. Lecciones añadidas tras V5.1 y V5.2 (29-09-2026)
+
+Estas lecciones se añaden a las anteriores sin alterar los hechos históricos de V4.3. V5.1 está cerrada; V5.2 R3.4.1 está lista para **revisión y aprobación humana**, pero V5.2 no tiene cierre formal R4 todavía.
+
+## 36.1 Identidad no es semejanza de nombres
+
+Un `.sln` es Solution; un `.vbproj`/`.csproj` es Project; una clase/formulario es Component; un archivo es SourceArtifact. `BLInterfazSAP.vbproj` es un proyecto real y `BLInterfazSAP.vb` su archivo homónimo, no otro proyecto. Nunca inferir entidad ni ownership a partir de `BL`/`Web`/`sys`, una carpeta o el mero uso durante un flujo. Un recurso como `img\aceptar.gif` puede ser declarado por varios proyectos: informar pertenencia compartida/ambigua, no seleccionar un dueño arbitrario.
+
+## 36.2 Documentación humana = salida completa; muestra humana = instrumento de QA
+
+`documentation_v52/` contiene las proyecciones completas General Overview y Developer Technical. Los ZIP `human_review_sample` son subconjuntos para revisión. La muestra debe contener los destinos necesarios para recorridos elegidos e identificar enlaces a archivos fuera de la selección; no debe presentarse como el resultado íntegro.
+
+## 36.3 Verificar semántica, no solo enlaces ni tests
+
+Las primeras vistas humanas confundían flujos que llegan a una operación real de datos con flujos puramente transaccionales, propiedad de pantallas con flujos entrantes, y direcciones de dependencias. En IST: 12.642 recorridos; 672 llegan a operación de datos real, otros 1.698 solo a control transaccional. Mantener acceso directo e indirecto separados. Una suite verde no reemplaza leer físicamente la documentación generada.
+
+## 36.4 Navegación progresiva y profundidad honesta
+
+Solution→Project→Archivo→Component→Método→Detalle permite una vista principal pequeña con enlaces a información ya recopilada. «Bajo demanda» significa abrir archivos de detalle ya generados, **no** volver a ejecutar extracción ni llamar a IA al hacer clic. Si una relación solo existe a nivel proyecto, no adjudicarla a un método. Sin firma/identidad canónica de sobrecarga no distinguir falsamente dos métodos homónimos.
+
+## 36.5 Las llamadas no resueltas deben conservar la expresión original
+
+Mostrar únicamente `(no resuelto)` desperdicia `call.expression` disponible. La expresión, estado y `archivo:línea` ayudan a investigar; no convertir la expresión en destino confirmado. Ruido conocido de framework/UI se controla en el perfil/política de presentación, nunca borrando evidence/provenance.
+
+## 36.6 Transacciones no equivalen a acceso real a datos
+
+Una operación de control transaccional (Begin/Commit/Rollback) no demuestra por sí sola consulta SQL/SP. Separar visualmente ambos apartados y conservar la misma semántica en índices, tests, medidas y documentación.
+
+## 36.7 Escala: medir antes/después sin fijar reducciones arbitrarias
+
+R3.4 generó 47.375 Markdown, con 22.215 páginas individuales de método. R3.4.1 generó 46.567, con 21.407 páginas de método; los 33.610 métodos permanecen en sus índices. El filtro eliminó 808 páginas de bajo valor, no cientos de relaciones útiles. No perseguir un porcentaje de reducción si elimina evidencia válida. Especificar el denominador y cuándo una métrica es solapada o proviene de muestreo; 0 links rotos en 5.514 enlaces revisados de 3.000 documentos **no es prueba exhaustiva** de los 46.567.
+
+## 36.8 IA interpretativa y verdad son capas distintas
+
+Una documentación determinista navegable no es una explicación funcional generada por IA. V5.2 no integra dicha interpretación ni ejecuta IA al abrir una página de detalle; la corrida real tuvo etapas IA `NOT_RUN`. V5.5–V5.7 prevén provider/contexto, segmentación y revisión/canonicalización. Mantener `Evidence → AI Proposal → Human Review → Canonical Knowledge`; jamás confundir el piloto IA grounded de V4.3 con integración ya entregada por V5.2.
+
+## 36.9 No cerrar una fase por inferencia
+
+`READY_FOR_HUMAN_REVIEW` y pruebas correctas no equivalen a `CLOSED`. Si el usuario quiere revisar otro aspecto, mantener R4 pendiente hasta aprobación expresa. No fabricar prompt siguiente antes de revisar el resultado y obtener autorización. Un resultado de ronda único bajo `docs/V5/`, prompt bajo `prompts/V5/`, rutas exactas y sin commits/push salvo autorización del usuario.
+
+## 36.10 Procesos largos y monitores
+
+En las corridas R3.3/R3.4 se observaron esperas repetidas por monitores de procesos en segundo plano. Comprobar proceso, log y exit code directamente; no declarar éxito de un test sin resumen final; evitar lanzar suites completas concurrentes o repetir extracción IST cuando ya existe evidencia persistida válida. Analizar una vez y regenerar proyecciones tantas veces como se necesite; ejecutar el pipeline real nuevamente cuando haga falta validar integración.
+
+## 36.11 Cierre V5.2: lecciones generales
+
+- **Baseline histórico frente a otra copia del mismo sistema:** dos rutas con el mismo nombre no son el mismo input. Comparar rama, `HEAD` y hashes de archivos relevantes antes de equiparlas; declarar por escrito cuál es el baseline oficial.
+- **No cerrar una versión con el estado oficial desactualizado:** `PROJECT_STATE.json` debe actualizarse en la ronda de cierre. Al hacerlo, comprobar los tests históricos que parsean sus campos (los de rondas V4 exigían una etiqueta `V4…-R<N>`; se generalizaron para aceptar `V5.x-R<N>`).
+- **Cubrir con tests las correcciones de robustez:** un reintento de escritura (`_replace_with_retry`) documentado pero sin prueba directa era una deuda evitable; se cubrió en R4.2 simulando `os.replace` y `time.sleep`.
+- **Versionar antes de una nueva fase importante:** cerrar con commit + tag + push (con aprobación humana del push) para no arrastrar semanas de trabajo sin historial.

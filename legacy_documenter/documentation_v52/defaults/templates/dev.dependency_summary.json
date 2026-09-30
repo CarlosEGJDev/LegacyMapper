@@ -1,0 +1,102 @@
+{
+  "id": "dev.dependency_summary",
+  "contract_version": "1",
+  "profile_compat": [
+    "developer_technical"
+  ],
+  "scope": "module",
+  "file": "modules/{slug}.md",
+  "order": 40,
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "dev.deps.title"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "dev.deps.none",
+      "when": "empty_total:module.slots.project_refs_out|module.slots.project_refs_in|module.slots.libraries"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "text_key": "dev.deps.projects_out",
+      "when": "nonempty:module.slots.project_refs_out"
+    },
+    {
+      "type": "table",
+      "source": "module.slots.project_refs_out",
+      "limit": "profile.body_row_limit",
+      "overflow": "detail",
+      "columns": [
+        {
+          "field": "name",
+          "header_key": "col.module",
+          "code": true
+        },
+        {
+          "field": "path",
+          "header_key": "col.path",
+          "code": true
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "text_key": "dev.deps.projects_in",
+      "when": "nonempty:module.slots.project_refs_in"
+    },
+    {
+      "type": "table",
+      "source": "module.slots.project_refs_in",
+      "limit": "profile.body_row_limit",
+      "overflow": "detail",
+      "columns": [
+        {
+          "field": "name",
+          "header_key": "col.module",
+          "code": true
+        },
+        {
+          "field": "path",
+          "header_key": "col.path",
+          "code": true
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "text_key": "dev.deps.libraries",
+      "when": "nonempty:module.slots.libraries"
+    },
+    {
+      "type": "table",
+      "source": "module.slots.libraries",
+      "limit": "profile.body_row_limit",
+      "overflow": "detail",
+      "columns": [
+        {
+          "field": "name",
+          "header_key": "col.name",
+          "code": true
+        },
+        {
+          "field": "class",
+          "header_key": "col.depclass",
+          "translate": "depclass"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text_key": "dev.noise.count",
+      "params": {
+        "count": "noise_count:module.slots.libraries"
+      },
+      "when": "has_noise:module.slots.libraries"
+    }
+  ]
+}

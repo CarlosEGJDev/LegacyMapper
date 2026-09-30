@@ -1,0 +1,50 @@
+{
+  "id": "dev.component_detail",
+  "contract_version": "1",
+  "profile_compat": [
+    "developer_technical"
+  ],
+  "scope": "component",
+  "file": "modules/{slug}/detail.md",
+  "order": 20,
+  "title_key": "dev.component_detail.title",
+  "detail": true,
+  "when": "nonempty_total:component.slots.methods",
+  "blocks": [
+    {
+      "type": "link",
+      "text_key": "dev.detail.back_component",
+      "target": "template:dev.component"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "dev.component_detail.intro"
+    },
+    {
+      "type": "partitioned_table",
+      "name": "methods",
+      "title_key": "dev.component_detail.methods",
+      "source": "component.slots.methods",
+      "columns": [
+        {
+          "field": "name",
+          "header_key": "col.method_name",
+          "code": true
+        },
+        {
+          "field": "kind",
+          "header_key": "col.method_kind",
+          "translate": "methodkind"
+        },
+        {
+          "field": "accessibility",
+          "header_key": "col.accessibility"
+        },
+        {
+          "field": "shared",
+          "header_key": "col.shared"
+        }
+      ]
+    }
+  ]
+}

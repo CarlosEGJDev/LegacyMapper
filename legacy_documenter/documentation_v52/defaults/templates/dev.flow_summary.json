@@ -1,0 +1,97 @@
+{
+  "id": "dev.flow_summary",
+  "contract_version": "1",
+  "profile_compat": [
+    "developer_technical"
+  ],
+  "scope": "module",
+  "file": "modules/{slug}.md",
+  "order": 20,
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "dev.flows.title"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "dev.flows.none",
+      "when": "zero:module.flows"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "dev.flows.text",
+      "params": {
+        "total": "module.flows",
+        "real": "module.real_flows",
+        "infra": "module.tx_flows"
+      },
+      "when": "positive:module.flows"
+    },
+    {
+      "type": "table",
+      "source": "module.slots.flows",
+      "limit": "profile.body_row_limit",
+      "overflow": "detail",
+      "columns": [
+        {
+          "field": "webform",
+          "header_key": "col.webform",
+          "code": true
+        },
+        {
+          "field": "event",
+          "header_key": "col.event"
+        },
+        {
+          "field": "handler",
+          "header_key": "col.handler",
+          "code": true
+        },
+        {
+          "field": "terminal",
+          "header_key": "col.terminal",
+          "code": true,
+          "max_chars": 100
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "dev.incoming.title",
+      "when": "positive:module.incoming_flows"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "dev.incoming.text",
+      "params": {
+        "flows": "module.incoming_flows",
+        "screens": "module.incoming_screens"
+      },
+      "when": "positive:module.incoming_flows"
+    },
+    {
+      "type": "table",
+      "source": "module.slots.incoming_summary",
+      "limit": "profile.body_row_limit",
+      "overflow": "detail",
+      "columns": [
+        {
+          "field": "origin",
+          "header_key": "col.origin_project",
+          "code": true
+        },
+        {
+          "field": "webform",
+          "header_key": "col.webform",
+          "code": true
+        },
+        {
+          "field": "flows",
+          "header_key": "col.flows"
+        }
+      ]
+    }
+  ]
+}

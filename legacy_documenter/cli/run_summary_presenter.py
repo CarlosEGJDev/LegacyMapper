@@ -59,6 +59,10 @@ def compute_output_locations(result: RunResult) -> list[str]:
         # missed here until this V4.3-R7 acceptance pass caught it: a rerun's
         # summary/console output never told an operator that surface exists.
         locations += ["ai_context", "consumer_projection"]
+    if _stage_status(result, StageId.DOCUMENTATION) is StageStatus.SUCCESS:
+        # V5.2-R3.1: `documentation_v52/` is written by the DOCUMENTATION stage and
+        # its failure is reported by that same stage, so it is listed only on success.
+        locations.append("documentation_v52")
     if result.proposal_review_status is not None:
         locations.append("proposals")
     if _stage_status(result, StageId.FINAL_SUMMARY) is StageStatus.SUCCESS:

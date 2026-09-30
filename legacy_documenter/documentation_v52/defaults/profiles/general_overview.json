@@ -1,0 +1,16 @@
+{
+  "id": "general_overview",
+  "contract_version": "1",
+  "audience": "general",
+  "max_detail_level": 2,
+  "visible_categories": ["KEEP_SIMPLE"],
+  "detail_on_demand": "none",
+  "language": "es",
+  "noise_policy": "default",
+  "noise_visibility_overrides": {},
+  "unresolved_behavior": "summary_only",
+  "body_row_limit": 12,
+  "output_dir": "general",
+  "templates": ["overview.system", "overview.modules", "overview.external_systems", "overview.data", "overview.limitations"],
+  "partition": {"max_items_per_part": 300, "max_bytes_per_part": 65536}
+}

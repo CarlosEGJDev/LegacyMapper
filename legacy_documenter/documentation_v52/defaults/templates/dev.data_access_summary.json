@@ -1,0 +1,114 @@
+{
+  "id": "dev.data_access_summary",
+  "contract_version": "1",
+  "profile_compat": [
+    "developer_technical"
+  ],
+  "scope": "module",
+  "file": "modules/{slug}.md",
+  "order": 30,
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "dev.data.title"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "dev.data.none",
+      "when": "empty_total:module.slots.data_targets"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "dev.data.none_visible",
+      "when": "empty:module.slots.data_targets&&nonempty_total:module.slots.data_targets"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "dev.data.text",
+      "when": "nonempty:module.slots.data_targets"
+    },
+    {
+      "type": "table",
+      "source": "module.slots.data_targets",
+      "limit": "profile.body_row_limit",
+      "overflow": "detail",
+      "columns": [
+        {
+          "field": "target",
+          "header_key": "col.target",
+          "code": true
+        },
+        {
+          "field": "kind",
+          "header_key": "col.kind",
+          "translate": "kind"
+        },
+        {
+          "field": "count",
+          "header_key": "col.count"
+        },
+        {
+          "field": "origin",
+          "header_key": "col.origin",
+          "code": true
+        },
+        {
+          "field": "confidence",
+          "header_key": "col.confidence",
+          "translate": "state"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text_key": "dev.noise.count",
+      "params": {
+        "count": "noise_count:module.slots.data_targets"
+      },
+      "when": "has_noise:module.slots.data_targets"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "dev.noise.named",
+      "params": {
+        "summary": "noise:module.slots.data_targets"
+      },
+      "when": "has_noise_text:module.slots.data_targets"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "dev.indirect.title",
+      "when": "nonempty:module.slots.indirect_targets"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "dev.indirect.text",
+      "when": "nonempty:module.slots.indirect_targets"
+    },
+    {
+      "type": "table",
+      "source": "module.slots.indirect_targets",
+      "limit": "profile.body_row_limit",
+      "overflow": "detail",
+      "columns": [
+        {
+          "field": "target",
+          "header_key": "col.target",
+          "code": true,
+          "max_chars": 100
+        },
+        {
+          "field": "kind",
+          "header_key": "col.kind",
+          "translate": "kind"
+        },
+        {
+          "field": "flows",
+          "header_key": "col.flows"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,145 @@
+{
+  "id": "overview.external_systems",
+  "contract_version": "1",
+  "profile_compat": [
+    "general_overview"
+  ],
+  "scope": "system",
+  "file": "external-systems.md",
+  "order": 10,
+  "title_key": "overview.external.title",
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text_key": "overview.external.intro"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "overview.external.internal"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "overview.external.none",
+      "when": "empty:slots.internal_libraries"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "overview.external.internal_text",
+      "params": {
+        "total": "total:slots.internal_libraries"
+      },
+      "when": "nonempty:slots.internal_libraries"
+    },
+    {
+      "type": "table",
+      "source": "slots.internal_libraries",
+      "limit": 15,
+      "columns": [
+        {
+          "field": "name",
+          "header_key": "col.name",
+          "code": true
+        },
+        {
+          "field": "projects_using",
+          "header_key": "col.projects_using"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "overview.external.unclassified"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "overview.external.none",
+      "when": "empty:slots.unclassified_libraries"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "overview.external.unclassified_text",
+      "params": {
+        "total": "total:slots.unclassified_libraries"
+      },
+      "when": "nonempty:slots.unclassified_libraries"
+    },
+    {
+      "type": "table",
+      "source": "slots.unclassified_libraries",
+      "limit": 15,
+      "columns": [
+        {
+          "field": "name",
+          "header_key": "col.name",
+          "code": true
+        },
+        {
+          "field": "projects_using",
+          "header_key": "col.projects_using"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "overview.external.platform"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "overview.external.platform_text",
+      "params": {
+        "total": "total:slots.platform_libraries"
+      }
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "overview.external.databases"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "overview.external.connections_text",
+      "params": {
+        "connections": "system.connections"
+      }
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "text_key": "overview.external.providers",
+      "when": "nonempty:slots.data_providers"
+    },
+    {
+      "type": "table",
+      "source": "slots.data_providers",
+      "limit": 10,
+      "columns": [
+        {
+          "field": "name",
+          "header_key": "col.name",
+          "code": true
+        },
+        {
+          "field": "count",
+          "header_key": "col.data_ops"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "overview.external.services"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "overview.external.services_text"
+    },
+    {
+      "type": "link",
+      "text_key": "nav.index",
+      "target": "template:overview.system"
+    }
+  ]
+}

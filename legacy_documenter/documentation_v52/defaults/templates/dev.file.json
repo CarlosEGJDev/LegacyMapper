@@ -1,0 +1,74 @@
+{
+  "id": "dev.file",
+  "contract_version": "1",
+  "profile_compat": [
+    "developer_technical"
+  ],
+  "scope": "file",
+  "file": "modules/{slug}.md",
+  "order": 20,
+  "title_key": "dev.file.title",
+  "blocks": [
+    {
+      "type": "link",
+      "text_key": "dev.file.back_module",
+      "target": "template:dev.module"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "dev.file.summary_text",
+      "params": {
+        "path": "file.path",
+        "module_name": "file.module_name"
+      },
+      "when": "empty_value:file.ownership_note"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "dev.file.summary_text_shared",
+      "params": {
+        "path": "file.path"
+      },
+      "when": "value:file.ownership_note"
+    },
+    {
+      "type": "note",
+      "text_key": "dev.file.ownership_note",
+      "params": {
+        "note": "file.ownership_note"
+      },
+      "when": "value:file.ownership_note"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "dev.file.components_heading"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "dev.file.components_none",
+      "when": "empty:file.slots.components"
+    },
+    {
+      "type": "table",
+      "source": "file.slots.components",
+      "columns": [
+        {
+          "field": "name",
+          "header_key": "col.component_name",
+          "link": "component",
+          "code": true
+        },
+        {
+          "field": "kind",
+          "header_key": "col.kind",
+          "translate": "compkind"
+        },
+        {
+          "field": "member_count",
+          "header_key": "col.member_count"
+        }
+      ]
+    }
+  ]
+}

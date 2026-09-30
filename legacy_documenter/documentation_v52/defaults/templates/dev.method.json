@@ -1,0 +1,228 @@
+{
+  "id": "dev.method",
+  "contract_version": "1",
+  "profile_compat": [
+    "developer_technical"
+  ],
+  "scope": "method",
+  "file": "modules/{slug}.md",
+  "order": 20,
+  "title_key": "dev.method.title",
+  "blocks": [
+    {
+      "type": "link",
+      "text_key": "dev.method.back_component",
+      "target": "template:dev.component"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "dev.method.summary_text",
+      "params": {
+        "component_name": "method.component_name",
+        "module_name": "method.module_name",
+        "file_name": "method.file_name",
+        "kind": "method.kind",
+        "accessibility": "method.accessibility",
+        "shared": "method.shared"
+      }
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "dev.method.calls_out_heading"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "dev.method.calls_out_none",
+      "when": "empty_total:method.slots.calls_out_resolved|method.slots.calls_out_unresolved"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "text_key": "dev.method.calls_out_resolved_heading",
+      "when": "nonempty:method.slots.calls_out_resolved"
+    },
+    {
+      "type": "table",
+      "source": "method.slots.calls_out_resolved",
+      "when": "nonempty:method.slots.calls_out_resolved",
+      "columns": [
+        {
+          "field": "target",
+          "header_key": "col.call_target",
+          "code": true
+        },
+        {
+          "field": "confidence",
+          "header_key": "col.call_confidence",
+          "translate": "state"
+        },
+        {
+          "field": "origin",
+          "header_key": "col.call_origin",
+          "code": true
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "text_key": "dev.method.calls_out_unresolved_heading",
+      "when": "nonempty:method.slots.calls_out_unresolved"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "dev.method.calls_out_unresolved_hint",
+      "when": "nonempty:method.slots.calls_out_unresolved"
+    },
+    {
+      "type": "table",
+      "source": "method.slots.calls_out_unresolved",
+      "when": "nonempty:method.slots.calls_out_unresolved",
+      "columns": [
+        {
+          "field": "target",
+          "header_key": "col.call_expression",
+          "code": true
+        },
+        {
+          "field": "confidence",
+          "header_key": "col.call_confidence",
+          "translate": "state"
+        },
+        {
+          "field": "origin",
+          "header_key": "col.call_origin",
+          "code": true
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text_key": "dev.noise.count",
+      "params": {
+        "count": "noise_count:method.slots.calls_out_unresolved"
+      },
+      "when": "has_noise:method.slots.calls_out_unresolved"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "dev.noise.named",
+      "params": {
+        "summary": "noise:method.slots.calls_out_unresolved"
+      },
+      "when": "has_noise_text:method.slots.calls_out_unresolved"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "dev.method.calls_in_heading"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "dev.method.calls_in_none",
+      "when": "empty:method.slots.calls_in"
+    },
+    {
+      "type": "table",
+      "source": "method.slots.calls_in",
+      "columns": [
+        {
+          "field": "caller",
+          "header_key": "col.caller",
+          "code": true
+        },
+        {
+          "field": "origin",
+          "header_key": "col.call_origin",
+          "code": true
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "dev.method.data_access_heading"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "dev.method.data_access_none",
+      "when": "empty_total:method.slots.data_access|method.slots.data_access_transactional"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "text_key": "dev.method.data_access_real_heading",
+      "when": "nonempty:method.slots.data_access"
+    },
+    {
+      "type": "table",
+      "source": "method.slots.data_access",
+      "when": "nonempty:method.slots.data_access",
+      "columns": [
+        {
+          "field": "kind",
+          "header_key": "col.data_kind",
+          "translate": "kind"
+        },
+        {
+          "field": "target",
+          "header_key": "col.data_target",
+          "code": true
+        },
+        {
+          "field": "confidence",
+          "header_key": "col.call_confidence",
+          "translate": "state"
+        },
+        {
+          "field": "origin",
+          "header_key": "col.call_origin",
+          "code": true
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "text_key": "dev.method.data_access_tx_heading",
+      "when": "nonempty:method.slots.data_access_transactional"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "dev.method.data_access_tx_hint",
+      "when": "nonempty:method.slots.data_access_transactional"
+    },
+    {
+      "type": "table",
+      "source": "method.slots.data_access_transactional",
+      "when": "nonempty:method.slots.data_access_transactional",
+      "columns": [
+        {
+          "field": "kind",
+          "header_key": "col.data_kind",
+          "translate": "kind"
+        },
+        {
+          "field": "target",
+          "header_key": "col.data_target",
+          "code": true
+        },
+        {
+          "field": "confidence",
+          "header_key": "col.call_confidence",
+          "translate": "state"
+        },
+        {
+          "field": "origin",
+          "header_key": "col.call_origin",
+          "code": true
+        }
+      ]
+    },
+    {
+      "type": "note",
+      "text_key": "dev.method.unresolved_note"
+    }
+  ]
+}

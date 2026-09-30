@@ -1,5 +1,8 @@
 # LegacyMapper V5 — Roadmap oficial de trabajo
 
+> **Actualización de cierre — V5.2 CLOSED (R4.3):** V5.0, V5.1 y V5.2 están cerradas formalmente (`docs/V5/V5_2_R4_3_CIERRE_FORMAL.md`, estado `V5_2_CLOSED_PENDING_GIT_APPROVAL`: solo falta el versionado Git autorizado por el usuario). **V5.3 — Incremental Engine & Cache: `READY_TO_START`, NO iniciada.** Baseline IST oficial de V5.2: `C:\Users\cgalianj\source\IST_40\Operacional`. Última suite completa: **2.449 pruebas**, 0 fallas, 0 errores, 132 skips. R4.2 = corrección pre-cierre; R4.3 = cierre formal. Prompts nuevos desde V5.3 bajo `prompts/V5/` (los históricos permanecen en `prompts/V5_0/`). Los estados antiguos `V5_0_READY_TO_START` y la nota del 29-09-2026 más abajo son fotografías históricas.
+
+
 ## Estado inicial
 
 ```text
@@ -190,3 +193,59 @@ Validar IST + segunda tecnología + normalized core + templates + cache + provid
 10. Templates no alteran verdad.
 11. Python hace lo determinista.
 12. IA interpreta.
+
+
+---
+
+# Actualización de avance y siguiente hito (29-09-2026)
+
+> El estado inicial `V5_0_READY_TO_START` de la cabecera es HISTÓRICO. La secuencia oficial V5.0→V5.9 anterior permanece intacta; esta sección refleja la ejecución real posterior.
+
+| Subfase | Estado a fecha de actualización | Próximo control |
+| --- | --- | --- |
+| V5.0 Architecture & Contracts | Cerrada | Preservar contrato. |
+| V5.1 Normalized Evidence Core | Cerrada formalmente: `docs/V5/V5_1_R4_CIERRE_FINAL.md` | No modificar para solucionar presentación. |
+| V5.2 Template-Driven Documentation & Output Profiles | **CLOSED** (R3.4.1 aprobada; R4, R4.1, R4.2 pre-cierre y R4.3 cierre formal). Estado histórico previo: R3.4.1 `READY_FOR_HUMAN_REVIEW`. | Solo versionado Git (commit + tag `v5.2` + push, con aprobación humana). |
+| V5.3 Incremental Engine & Cache | **READY_TO_START** (no iniciada) | Empezar por baseline/contrato con el patrón de rondas; prompts bajo `prompts/V5/`. |
+| V5.4–V5.9 y V5 Closure | Pendientes | Mantener orden oficial y scopes independientes. |
+
+## Contrato logrado en V5.2
+
+```text
+Evidence Core (V5.1, solo lectura)
+  → Audience Transformation
+  → Output Profile [General Overview / Developer Technical]
+  → Template declarativo
+  → Markdown Renderer
+  → documentation_v52/ (salida completa)
+      general/
+      developer/ [Solution → Project → Archivo → Component → Método → Detalle]
+```
+
+- `human_review_sample` es muestra de revisión, **no** la documentación completa. Markdown de detalle bajo demanda = consulta de evidencia preprocesada, **no** una llamada de IA al abrir el enlace.
+- Las llamadas no resueltas muestran su expresión original si existe, con estado no resuelto y referencia de origen; acceso real a datos y control transaccional tienen apartados diferentes. Se filtra ruido en presentación sin borrar la evidencia.
+- Proyecto identificable únicamente mediante `.vbproj`/`.csproj`; clase o archivo homónimo no es Project. No se inventan relaciones ni dueños exclusivos de archivos compartidos.
+- La interpretación funcional mediante IA **no está integrada aún en la documentación V5.2**: V5.5 provider/contexto genérico, V5.6 segmentación y V5.7 aprobación/conocimiento canónico son hitos posteriores. La vía IA ya existente en V4.3 no equivale a esta integración.
+
+## Baseline de cierre pendiente de V5.2
+
+Informe: `docs/V5/V5_2_R3_4_1_METHOD_DETAIL_QUALITY.md`, estado `V5_2_R3_4_1_READY_FOR_HUMAN_REVIEW`.
+
+- Suite reportada: **2.441 tests, 0 fallas, 0 errores, 132 skips**.
+- Corrida IST real `SUCCESS`, IA `NOT_RUN`, manifest sin advertencias.
+- **46.567 documentos Markdown** en salida completa, incluidos **21.407** documentos individuales de métodos; 33.610 métodos en índices. R3.4→R3.4.1: 808 páginas de bajo valor omitidas, con método preservado en el índice.
+- **0 enlaces rotos en la muestra inspeccionada** de 5.514 enlaces sobre 3.000 documentos; no afirmarlo como barrido exhaustivo.
+- Salida: `C:\PruebasLegacyMapper\Resultados\v5_2_r3_4_1_validation\ist_full_run\documentation_v52\`.
+
+## Puerta de continuación
+
+1. Confirmar con el Technical Lead su **aprobación humana** de R3.4.1. La pregunta adicional sobre la capa de interpretación IA fue respondida: es trabajo futuro, no una funcionalidad actual de V5.2.
+2. Solo con autorización expresa, preparar el prompt de **V5.2 R4 — cierre documental**, indicando ruta de prompt bajo `prompts/V5/` y único resultado bajo `docs/V5/`. No crear R4 por anticipado ni asumir un cierre a partir de una suite verde.
+3. Tras cierre R4 explícito, continuar **V5.3 — Incremental Engine & Cache**, empezando por baseline/contrato según el patrón de rondas. Reutilizar mediciones y salida real IST como regresión.
+
+## Cierre formal de V5.2 (R4.3)
+
+- Estado: `V5_2_CLOSED_PENDING_GIT_APPROVAL`. Resultado: `docs/V5/V5_2_R4_3_CIERRE_FORMAL.md`.
+- Baseline oficial: `C:\Users\cgalianj\source\IST_40\Operacional`. La ruta `C:\inetpub\wwwroot\2010\IST\Operacional` **no es equivalente** (rama y `HEAD` distintos; 281 archivos comunes con contenido distinto y 1.376 archivos relevantes solo en ella; R4.1).
+- Suite final: 2.449 pruebas, 0 fallas, 0 errores, 132 skips (R4.2). Documentación: 46.567 archivos Markdown.
+- Orden V5.3–V5.9 sin cambios. La deuda de fase futura por contrato está en el informe de cierre.

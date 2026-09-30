@@ -1,0 +1,46 @@
+{
+  "id": "dev.configuration",
+  "contract_version": "1",
+  "profile_compat": [
+    "developer_technical"
+  ],
+  "scope": "system",
+  "file": "configuration.md",
+  "order": 10,
+  "title_key": "dev.config.title",
+  "blocks": [
+    {
+      "type": "link",
+      "text_key": "nav.index",
+      "target": "template:dev.index"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "dev.config.intro"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "gap.config_ambiguity",
+      "when": "gap:gap.config_ambiguity"
+    },
+    {
+      "type": "partitioned_table",
+      "name": "files",
+      "file_stem": "configuration-files",
+      "title_key": "dev.config.title",
+      "source": "slots.configs",
+      "columns": [
+        {
+          "field": "path",
+          "header_key": "col.path",
+          "code": true
+        },
+        {
+          "field": "marker",
+          "header_key": "col.note",
+          "format_key": "dev.config.marker"
+        }
+      ]
+    }
+  ]
+}

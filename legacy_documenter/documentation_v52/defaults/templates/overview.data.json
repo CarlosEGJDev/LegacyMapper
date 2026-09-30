@@ -1,0 +1,47 @@
+{
+  "id": "overview.data",
+  "contract_version": "1",
+  "profile_compat": [
+    "general_overview"
+  ],
+  "scope": "system",
+  "file": "data.md",
+  "order": 10,
+  "title_key": "overview.data.title",
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text_key": "overview.data.intro",
+      "params": {
+        "objects": "system.objects",
+        "sql": "system.sql"
+      }
+    },
+    {
+      "type": "paragraph",
+      "text_key": "overview.data.none",
+      "when": "empty:slots.data_packages"
+    },
+    {
+      "type": "table",
+      "source": "slots.data_packages",
+      "limit": "profile.body_row_limit",
+      "columns": [
+        {
+          "field": "package",
+          "header_key": "col.package",
+          "code": true
+        },
+        {
+          "field": "objects",
+          "header_key": "col.objects"
+        }
+      ]
+    },
+    {
+      "type": "link",
+      "text_key": "nav.index",
+      "target": "template:overview.system"
+    }
+  ]
+}

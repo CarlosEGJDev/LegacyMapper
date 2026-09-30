@@ -720,11 +720,12 @@ class RepositoryContinuityStateTests(unittest.TestCase):
         # V4.1-R1 round-ordinal-parsing fix). Any V4.<minor> phase round is
         # ordered after every plain V4-R round, since V4.1 only begins once
         # all of V4 is approved.
-        match = re.search(r"V4(?:\.(\d+))?-R(\d+)", value or "")
+        # V5.2-R4.3: also accepts V5.<minor>-R<N> (any V5 round is ordered after V4).
+        match = re.search(r"V([45])(?:\.(\d+))?-R(\d+)", value or "")
         if not match:
             return -1
-        phase = int(match.group(1) or 0)
-        round_number = int(match.group(2))
+        phase = (int(match.group(1)) - 4) * 100 + int(match.group(2) or 0)
+        round_number = int(match.group(3))
         return phase * 1000 + round_number
 
     def test_project_state_has_required_keys(self):
@@ -736,9 +737,18 @@ class RepositoryContinuityStateTests(unittest.TestCase):
         self.assertGreaterEqual(self._round_ordinal(state.get("latest_approved_round")), 12)
 
     def test_project_state_no_ai_or_provider_calls_recorded(self):
+        # `PROJECT_STATE.json` is accumulated project history, not a
+        # frozen per-phase snapshot: it legitimately advances across
+        # rounds (V5.0 R2/R2A/R3 test-baseline decision, Option A).
+        # `provider_calls`/`real_llm_calls` moved to 1/1 in commit
+        # `44e2a94` once the V4.3 real-AI pilot was authorized and run,
+        # so this test no longer asserts they equal 0 against the live
+        # state. The historical invariant "V4 recorded 0 real
+        # provider/LLM calls" still holds and remains covered against
+        # the frozen V4-R14 baseline artifact by
+        # `NoProviderOrLlmCallsTests.test_provider_and_llm_calls_zero`
+        # in `tests/test_v4_r14_manuals_and_final_baseline.py`.
         state = json.loads((REPO_ROOT / "PROJECT_STATE.json").read_text(encoding="utf-8"))
-        self.assertEqual(state.get("provider_calls"), 0)
-        self.assertEqual(state.get("real_llm_calls"), 0)
         self.assertFalse(state.get("ai_knowledge_generated"))
 
 

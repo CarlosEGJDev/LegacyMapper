@@ -1,0 +1,63 @@
+{
+  "id": "overview.limitations",
+  "contract_version": "1",
+  "profile_compat": [
+    "general_overview"
+  ],
+  "scope": "system",
+  "file": "limitations.md",
+  "order": 10,
+  "title_key": "overview.limitations.title",
+  "disclaimer": "bottom",
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text_key": "overview.limitations.intro"
+    },
+    {
+      "type": "bullets",
+      "items": [
+        {
+          "text_key": "overview.limitations.purpose"
+        },
+        {
+          "text_key": "overview.limitations.unresolved",
+          "params": {
+            "flows": "system.flows",
+            "unresolved_flows": "system.unresolved_flows"
+          }
+        },
+        {
+          "text_key": "overview.limitations.unowned",
+          "params": {
+            "unowned_flows": "system.unowned_flows"
+          },
+          "when": "gap:gap.flows_without_project"
+        },
+        {
+          "text_key": "overview.limitations.config",
+          "params": {
+            "configs": "system.configs"
+          },
+          "when": "nonempty:slots.configs"
+        },
+        {
+          "text_key": "gap.project_copies",
+          "when": "gap:gap.project_copies"
+        },
+        {
+          "text_key": "gap.third_party_unclassified",
+          "when": "gap:gap.third_party_unclassified"
+        },
+        {
+          "text_key": "gap.no_external_services"
+        }
+      ]
+    },
+    {
+      "type": "link",
+      "text_key": "nav.index",
+      "target": "template:overview.system"
+    }
+  ]
+}

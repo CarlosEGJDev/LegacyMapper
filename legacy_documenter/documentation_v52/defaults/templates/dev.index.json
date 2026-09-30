@@ -1,0 +1,155 @@
+{
+  "id": "dev.index",
+  "contract_version": "1",
+  "profile_compat": [
+    "developer_technical"
+  ],
+  "scope": "system",
+  "file": "README.md",
+  "order": 10,
+  "title_key": "dev.index.title",
+  "disclaimer": "top",
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text_key": "dev.index.intro"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "dev.index.reading"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "dev.index.summary",
+      "params": {
+        "projects": "system.projects",
+        "solutions": "system.solutions",
+        "screens": "system.screens",
+        "flows": "system.flows",
+        "real_flows": "system.real_flows",
+        "infra_flows": "system.infra_flows",
+        "data_ops": "system.data_ops"
+      }
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "dev.index.solutions"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "dev.index.solutions_text"
+    },
+    {
+      "type": "partitioned_table",
+      "name": "solutions",
+      "file_stem": "solutions-index",
+      "title_key": "dev.index.solutions_all",
+      "source": "slots.solutions_all",
+      "columns": [
+        {
+          "field": "name",
+          "header_key": "col.solution",
+          "link": "solution",
+          "code": true
+        },
+        {
+          "field": "path",
+          "header_key": "col.path",
+          "code": true
+        },
+        {
+          "field": "projects",
+          "header_key": "col.projects"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "dev.index.top"
+    },
+    {
+      "type": "table",
+      "source": "slots.modules_all",
+      "limit": "profile.body_row_limit",
+      "columns": [
+        {
+          "field": "name",
+          "header_key": "col.module",
+          "link": "module"
+        },
+        {
+          "field": "flows",
+          "header_key": "col.flows_origin"
+        },
+        {
+          "field": "incoming_flows",
+          "header_key": "col.flows_incoming_dev"
+        },
+        {
+          "field": "real_flows",
+          "header_key": "col.real_flows"
+        },
+        {
+          "field": "data_ops",
+          "header_key": "col.data_ops"
+        }
+      ]
+    },
+    {
+      "type": "partitioned_table",
+      "name": "modules",
+      "file_stem": "modules-index",
+      "title_key": "dev.index.all",
+      "source": "slots.modules_all",
+      "when": "more_than_limit:slots.modules_all",
+      "separate": true,
+      "columns": [
+        {
+          "field": "name",
+          "header_key": "col.module",
+          "link": "module"
+        },
+        {
+          "field": "solutions",
+          "header_key": "col.solution"
+        },
+        {
+          "field": "screens",
+          "header_key": "col.screens"
+        },
+        {
+          "field": "flows",
+          "header_key": "col.flows_origin"
+        },
+        {
+          "field": "incoming_flows",
+          "header_key": "col.flows_incoming_dev"
+        },
+        {
+          "field": "real_flows",
+          "header_key": "col.real_flows"
+        },
+        {
+          "field": "data_ops",
+          "header_key": "col.data_ops"
+        },
+        {
+          "field": "unresolved_total",
+          "header_key": "col.unresolved"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "dev.index.config"
+    },
+    {
+      "type": "link",
+      "text_key": "dev.index.config_link",
+      "target": "template:dev.configuration"
+    }
+  ]
+}

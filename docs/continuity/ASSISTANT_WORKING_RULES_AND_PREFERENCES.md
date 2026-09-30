@@ -482,3 +482,13 @@ Contexto general del usuario:
 - prefiere determinismo para ahorrar tokens.
 
 Estas preferencias no deben convertirse en restricciones absolutas para LegacyMapper salvo que el usuario las reafirme para una fase concreta.
+
+---
+
+# 27. Versionado Git al cerrar cada versión (aprobado en V5.2 R4.3)
+
+- Cada versión termina con un punto de versionado: commit de cierre + tag (por ejemplo `v5.2`) + push a la rama correspondiente.
+- El agente puede verificar el estado (`git status`, `git diff --stat`), comprobar que el tag no exista, proponer el mensaje de commit y preparar los comandos exactos.
+- El agente **no** hace commit, tag ni push por iniciativa propia. El push requiere aprobación humana explícita; el usuario mantiene la autoridad final.
+- No ejecutar el commit automáticamente si hay archivos ajenos o dudosos en `git status`.
+- Prompts nuevos desde V5.3 bajo `prompts/V5/`; los históricos permanecen en `prompts/V5_0/`.

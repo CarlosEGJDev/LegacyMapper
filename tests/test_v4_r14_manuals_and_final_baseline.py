@@ -58,11 +58,13 @@ def _round_ordinal(round_label: str) -> int:
     (the V4.1-R1 round-ordinal-parsing fix). Any V4.<minor> phase round is
     ordered after every plain V4-R round, since V4.1 only begins once all
     of V4 is approved."""
-    match = re.search(r"V4(?:\.(\d+))?-R(\d+)", round_label)
+    # V5.2-R4.3: also accepts the V5.<minor>-R<N> shape; any V5 round is
+    # ordered after every V4 round (V5 only begins once V4 is closed).
+    match = re.search(r"V([45])(?:\.(\d+))?-R(\d+)", round_label)
     if not match:
         raise AssertionError(f"no_round_ordinal_found:{round_label}")
-    phase = int(match.group(1) or 0)
-    round_number = int(match.group(2))
+    phase = (int(match.group(1)) - 4) * 100 + int(match.group(2) or 0)
+    round_number = int(match.group(3))
     return phase * 1000 + round_number
 
 
@@ -82,12 +84,19 @@ class EntryGateAndContinuityTests(unittest.TestCase):
         self.assertGreaterEqual(_round_ordinal(state["latest_approved_round"]), 13)
 
     def test_project_state_readiness_ready(self) -> None:
+        # `provider_calls`/`real_llm_calls` are no longer asserted to be
+        # 0 here: `PROJECT_STATE.json` is accumulated project history
+        # and legitimately advanced to 1/1 once the V4.3 real-AI pilot
+        # was authorized and run (commit `44e2a94`; V5.0 R2/R2A/R3
+        # test-baseline decision, Option A). The historical "V4 = 0
+        # calls" invariant remains covered against the frozen V4-R14
+        # baseline by
+        # `NoProviderOrLlmCallsTests.test_provider_and_llm_calls_zero`
+        # below.
         state = _project_state()
         self.assertEqual(state["readiness"], "READY")
         self.assertTrue(state["ai_knowledge_allowed"])
         self.assertFalse(state["ai_knowledge_generated"])
-        self.assertEqual(state["provider_calls"], 0)
-        self.assertEqual(state["real_llm_calls"], 0)
 
     def test_project_state_not_marked_r14_approved(self) -> None:
         """R14 must remain pending review; this round never approves itself."""
@@ -308,6 +317,16 @@ class DeterminismTests(unittest.TestCase):
         unchanged compatibility facade, which both raises the live
         knowledge-package module count and shrinks `readiness.py` enough
         to drop off the frozen top-10-largest-modules list.
+
+        `provider_calls` and `real_llm_calls` are excluded for the same
+        REG-002 reason (V5.0 R2/R2A/R3 test-baseline decision, Option A):
+        the builder reads these from the live `PROJECT_STATE.json`, which
+        legitimately advanced from 0/0 (as frozen at R14) to 1/1 once the
+        V4.3 real-AI pilot was authorized and run (commit `44e2a94`). The
+        historical "V4 = 0 calls" invariant is not weakened by this
+        exclusion: it lives on the frozen artifact itself and is verified
+        directly by
+        `BaselineJsonValidityTests.test_provider_and_llm_calls_zero`.
         """
         rebuilt = json.loads(render_final_baseline_json(build_final_baseline(REPO_ROOT)))
         on_disk = json.loads(BASELINE_PATH.read_text(encoding="utf-8"))
@@ -322,6 +341,10 @@ class DeterminismTests(unittest.TestCase):
         normalized_on_disk.pop("latest_approved_round", None)
         normalized_rebuilt.pop("test_count", None)
         normalized_on_disk.pop("test_count", None)
+        normalized_rebuilt.pop("provider_calls", None)
+        normalized_on_disk.pop("provider_calls", None)
+        normalized_rebuilt.pop("real_llm_calls", None)
+        normalized_on_disk.pop("real_llm_calls", None)
         normalized_rebuilt["maintainability_baseline"].pop("test_python_module_count", None)
         normalized_on_disk["maintainability_baseline"].pop("test_python_module_count", None)
         normalized_rebuilt["maintainability_baseline"].pop("production_python_module_count", None)
@@ -352,6 +375,8 @@ class DeterminismTests(unittest.TestCase):
             rebuilt["maintainability_baseline"]["knowledge_package_python_module_count"],
             on_disk["maintainability_baseline"]["knowledge_package_python_module_count"],
         )
+        self.assertGreaterEqual(rebuilt["provider_calls"], on_disk["provider_calls"])
+        self.assertGreaterEqual(rebuilt["real_llm_calls"], on_disk["real_llm_calls"])
 
     def test_manifest_deterministic_across_two_builds(self) -> None:
         first = render_final_manifest_json(build_final_manifest(REPO_ROOT))
@@ -506,9 +531,22 @@ class NoProviderOrLlmCallsTests(unittest.TestCase):
                     self.assertNotIn(forbidden, text)
 
     def test_project_state_confirms_zero_calls(self) -> None:
-        state = _project_state()
-        self.assertEqual(state["provider_calls"], 0)
-        self.assertEqual(state["real_llm_calls"], 0)
+        # No longer asserted against the live `PROJECT_STATE.json`:
+        # it is accumulated project history and legitimately advanced
+        # to `provider_calls`/`real_llm_calls` = 1/1 once the V4.3
+        # real-AI pilot was authorized and run (commit `44e2a94`;
+        # V5.0 R2/R2A/R3 test-baseline decision, Option A). The
+        # invariant this test name still promises -- "R14 itself
+        # introduced/recorded 0 real provider or LLM calls" -- is
+        # what's actually checked here and remains true: R14 recorded
+        # 0 calls at the time it was closed, which is exactly what the
+        # frozen `output/v4_r14/V4_FINAL_BASELINE.json` snapshot
+        # preserves and what
+        # `BaselineJsonValidityTests.test_provider_and_llm_calls_zero`
+        # verifies.
+        baseline = json.loads(BASELINE_PATH.read_text(encoding="utf-8"))
+        self.assertEqual(baseline["provider_calls"], 0)
+        self.assertEqual(baseline["real_llm_calls"], 0)
 
 
 class AgentNeutralContinuityTests(unittest.TestCase):

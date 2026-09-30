@@ -1,0 +1,70 @@
+{
+  "id": "dev.unresolved_summary",
+  "contract_version": "1",
+  "profile_compat": [
+    "developer_technical"
+  ],
+  "scope": "module",
+  "file": "modules/{slug}.md",
+  "order": 50,
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "dev.unresolved.title"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "dev.unresolved.none",
+      "when": "zero:module.unresolved_total"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "dev.unresolved.summary",
+      "params": {
+        "total": "module.unresolved_total",
+        "flows": "module.unresolved_flows"
+      },
+      "when": "positive:module.unresolved_total"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "dev.unresolved.relevant",
+      "when": "nonempty:module.slots.unresolved"
+    },
+    {
+      "type": "table",
+      "source": "module.slots.unresolved",
+      "limit": 10,
+      "overflow": "detail",
+      "columns": [
+        {
+          "field": "target",
+          "header_key": "col.target",
+          "code": true,
+          "max_chars": 100
+        },
+        {
+          "field": "count",
+          "header_key": "col.count"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text_key": "dev.noise.count",
+      "params": {
+        "count": "noise_count:module.slots.unresolved"
+      },
+      "when": "has_noise:module.slots.unresolved"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "dev.noise.named",
+      "params": {
+        "summary": "noise:module.slots.unresolved"
+      },
+      "when": "has_noise_text:module.slots.unresolved"
+    }
+  ]
+}

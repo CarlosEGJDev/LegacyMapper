@@ -1,0 +1,136 @@
+{
+  "id": "dev.component",
+  "contract_version": "1",
+  "profile_compat": [
+    "developer_technical"
+  ],
+  "scope": "component",
+  "file": "modules/{slug}.md",
+  "order": 20,
+  "title_key": "dev.component.title",
+  "blocks": [
+    {
+      "type": "link",
+      "text_key": "dev.component.back_file",
+      "target": "template:dev.file"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "dev.component.summary_text",
+      "params": {
+        "kind": "component.kind",
+        "module_name": "component.module_name",
+        "file_name": "component.file_name"
+      }
+    },
+    {
+      "type": "paragraph",
+      "text_key": "dev.component.namespace_text",
+      "params": {
+        "namespace": "component.namespace"
+      },
+      "when": "value:component.namespace"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "dev.component.inherits_text",
+      "params": {
+        "inherits": "component.inherits"
+      },
+      "when": "value:component.inherits"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "dev.component.implements_text",
+      "params": {
+        "implements": "component.implements"
+      },
+      "when": "value:component.implements"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "dev.component.codebehind_text",
+      "params": {
+        "codebehind": "component.codebehind"
+      },
+      "when": "value:component.codebehind"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "dev.component.master_page_text",
+      "params": {
+        "master_page": "component.master_page"
+      },
+      "when": "value:component.master_page"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "dev.component.methods_heading"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "dev.component.methods_none",
+      "when": "empty:component.slots.methods"
+    },
+    {
+      "type": "table",
+      "source": "component.slots.methods",
+      "limit": "profile.body_row_limit",
+      "overflow": "detail",
+      "detail_template": "dev.component_detail",
+      "columns": [
+        {
+          "field": "name",
+          "header_key": "col.method_name",
+          "code": true,
+          "link": "method"
+        },
+        {
+          "field": "kind",
+          "header_key": "col.method_kind",
+          "translate": "methodkind"
+        },
+        {
+          "field": "accessibility",
+          "header_key": "col.accessibility"
+        },
+        {
+          "field": "shared",
+          "header_key": "col.shared"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text_key": "dev.component.methods_link_hint",
+      "when": "nonempty:component.slots.methods"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "dev.component.ambiguous_heading",
+      "when": "nonempty:component.slots.ambiguous_methods"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "dev.component.ambiguous_text",
+      "when": "nonempty:component.slots.ambiguous_methods"
+    },
+    {
+      "type": "table",
+      "source": "component.slots.ambiguous_methods",
+      "columns": [
+        {
+          "field": "name",
+          "header_key": "col.overload_name",
+          "code": true
+        },
+        {
+          "field": "overload_count",
+          "header_key": "col.overload_count"
+        }
+      ]
+    }
+  ]
+}

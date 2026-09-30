@@ -1,0 +1,30 @@
+{
+  "id": "default",
+  "contract_version": "1",
+  "description": "Set inicial para el adapter actual (VB.NET/WebForms). El contrato es agnostico: solo categorias, patrones y visibilidad.",
+  "categories": {
+    "lifecycle_boilerplate": {"body_visibility": "hide", "detail_availability": true},
+    "transaction_control": {"body_visibility": "hide", "detail_availability": true, "counts_as_data_access": false},
+    "resource_cleanup": {"body_visibility": "hide", "detail_availability": true},
+    "exception_handling": {"body_visibility": "hide", "detail_availability": true},
+    "ui_messaging": {"body_visibility": "summarize", "detail_availability": true},
+    "ui_control_calls": {"body_visibility": "hide", "detail_availability": true},
+    "string_utility": {"body_visibility": "hide", "detail_availability": true},
+    "platform_library": {"body_visibility": "hide", "detail_availability": true, "dependency_class": "platform"}
+  },
+  "patterns": [
+    {"category": "lifecycle_boilerplate", "on": "name", "match": "exact", "values": ["InitializeComponent", "Dispose", "InitializeCulture"]},
+    {"category": "transaction_control", "on": "kind", "match": "exact", "values": ["transaction"]},
+    {"category": "transaction_control", "on": "name", "match": "exact", "values": ["BeginTrans", "BeginTransaction", "Commit", "Rollback"]},
+    {"category": "resource_cleanup", "on": "name", "match": "exact", "values": ["Close", "Open"]},
+    {"category": "exception_handling", "on": "name", "match": "exact", "values": ["DesplegarError", "SondaExceptionError"]},
+    {"category": "ui_messaging", "on": "name", "match": "exact", "values": ["MsgBox", "Alert"]},
+    {"category": "ui_control_calls", "on": "name", "match": "exact", "values": ["DataBind", "GetColumnByDataField"]},
+    {"category": "ui_control_calls", "on": "label", "match": "prefix", "values": ["System.Web.UI.WebControls.Unit(", "Unit.Parse(", "Response.Write(", "Me.Response.Write("]},
+    {"category": "string_utility", "on": "name", "match": "exact", "values": ["Left", "Right", "Trim", "CStr", "CInt", "CDbl", "IsDBNull", "IsNothing", "values", "parametrosURL", "Chr"]},
+    {"category": "string_utility", "on": "label", "match": "regex", "values": ["^Not \\("]},
+    {"category": "platform_library", "on": "name", "match": "prefix", "values": ["System.", "System,", "Microsoft.", "mscorlib"]},
+    {"category": "platform_library", "on": "name", "match": "exact", "values": ["System", "System.Data", "System.Web", "System.Xml", "System.Drawing", "System.Configuration"]}
+  ],
+  "path_markers": ["Backup", "copia de seguridad", "_back"]
+}

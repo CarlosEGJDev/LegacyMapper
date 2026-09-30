@@ -1,0 +1,148 @@
+{
+  "id": "overview.system",
+  "contract_version": "1",
+  "profile_compat": [
+    "general_overview"
+  ],
+  "scope": "system",
+  "file": "README.md",
+  "order": 10,
+  "title_key": "overview.system.title",
+  "disclaimer": "top",
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "overview.system.analyzed"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "overview.system.facts",
+      "params": {
+        "name": "system.name",
+        "solutions": "system.solutions",
+        "projects": "system.projects",
+        "source_files": "system.source_files",
+        "screens": "system.screens"
+      }
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "overview.system.structure"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "overview.system.structure_text"
+    },
+    {
+      "type": "link",
+      "text_key": "overview.system.structure_link",
+      "target": "template:overview.modules"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "overview.system.communication"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "overview.system.communication_text",
+      "params": {
+        "edges": "system.edges"
+      }
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "overview.system.processes"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "overview.system.processes_text",
+      "params": {
+        "flows": "system.flows",
+        "real_flows": "system.real_flows",
+        "percent": "system.percent",
+        "infra_flows": "system.infra_flows"
+      }
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "overview.system.data"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "overview.system.data_text",
+      "params": {
+        "objects": "system.objects",
+        "sql": "system.sql",
+        "data_ops": "system.data_ops"
+      }
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "overview.system.dependencies"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "overview.system.dependencies_text",
+      "params": {
+        "internal": "total:slots.internal_libraries",
+        "platform": "total:slots.platform_libraries",
+        "unclassified": "total:slots.unclassified_libraries"
+      }
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "overview.system.purpose"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "purpose_missing",
+      "when": "no_interpreted:system"
+    },
+    {
+      "type": "interpreted",
+      "target": "system",
+      "when": "interpreted:system"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "overview.system.limits"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "overview.system.limits_hint"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "overview.system.nav"
+    },
+    {
+      "type": "link",
+      "text_key": "overview.modules.title",
+      "target": "template:overview.modules"
+    },
+    {
+      "type": "link",
+      "text_key": "overview.external.title",
+      "target": "template:overview.external_systems"
+    },
+    {
+      "type": "link",
+      "text_key": "overview.data.title",
+      "target": "template:overview.data"
+    },
+    {
+      "type": "link",
+      "text_key": "overview.limitations.title",
+      "target": "template:overview.limitations"
+    }
+  ]
+}

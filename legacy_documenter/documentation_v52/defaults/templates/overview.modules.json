@@ -1,0 +1,110 @@
+{
+  "id": "overview.modules",
+  "contract_version": "1",
+  "profile_compat": [
+    "general_overview"
+  ],
+  "scope": "system",
+  "file": "modules.md",
+  "order": 10,
+  "title_key": "overview.modules.title",
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "overview.modules.solutions"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "overview.modules.solutions_intro",
+      "params": {
+        "limit": "shown:slots.solutions_top",
+        "total": "system.solutions"
+      }
+    },
+    {
+      "type": "table",
+      "source": "slots.solutions_top",
+      "limit": "profile.body_row_limit",
+      "columns": [
+        {
+          "field": "name",
+          "header_key": "col.solution",
+          "code": true
+        },
+        {
+          "field": "projects",
+          "header_key": "col.projects"
+        },
+        {
+          "field": "path",
+          "header_key": "col.path",
+          "code": true
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "overview.modules.projects"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "overview.modules.intro",
+      "params": {
+        "limit": "shown:slots.modules_top",
+        "total": "system.projects"
+      }
+    },
+    {
+      "type": "table",
+      "source": "slots.modules_top",
+      "limit": "profile.body_row_limit",
+      "columns": [
+        {
+          "field": "name",
+          "header_key": "col.module",
+          "code": true
+        },
+        {
+          "field": "solutions",
+          "header_key": "col.solution"
+        },
+        {
+          "field": "screens",
+          "header_key": "col.screens"
+        },
+        {
+          "field": "flows",
+          "header_key": "col.flows_started"
+        },
+        {
+          "field": "incoming_flows",
+          "header_key": "col.flows_incoming"
+        },
+        {
+          "field": "data_ops",
+          "header_key": "col.data_ops"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "overview.modules.relations"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "overview.modules.relations_text",
+      "params": {
+        "edges": "system.edges",
+        "solution_links": "system.solution_links"
+      }
+    },
+    {
+      "type": "link",
+      "text_key": "nav.index",
+      "target": "template:overview.system"
+    }
+  ]
+}

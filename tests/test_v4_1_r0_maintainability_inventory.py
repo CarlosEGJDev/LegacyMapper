@@ -107,8 +107,19 @@ class ProductionFileDiscoveryTests(unittest.TestCase):
         # analyzed the pre-R1 tree and is not being re-run or re-approved
         # here; this count simply tracks the live repository, the same way
         # `production_python_module_count` does in the final baseline.
+        # V5.1 R2 added the new `legacy_documenter/evidence/` package
+        # implementing the Normalized Evidence Core defined by
+        # docs/V5/V5_1_R1_NORMALIZED_EVIDENCE_CONTRACT.md (__init__.py,
+        # identity.py, reference.py, entities.py, builder.py, persistence.py,
+        # projection.py, invariants.py -- eight new production modules),
+        # making 184. V5.2 R2 then added the new
+        # `legacy_documenter/documentation_v52/` package (Profiles/Templates/
+        # Markdown Renderer, docs/V5/V5_2_R1_DOCUMENTATION_CONTRACT_DESIGN.md:
+        # __init__.py, categories.py, config.py, engine.py, noise.py,
+        # renderer.py, structure.py, template.py, transform.py -- nine new
+        # production modules), making 193.
         files = inv.iter_production_files(REPO_ROOT)
-        self.assertEqual(len(files), 176)
+        self.assertEqual(len(files), 193)
 
 
 class FileAnalysisTests(unittest.TestCase):
@@ -471,6 +482,34 @@ class GeneratedArtifactOnDiskTests(unittest.TestCase):
                 # builder for external pilot handoff (see
                 # docs/V4_3/V4_3_R7_INTERNAL_ACCEPTANCE_RESULT.md).
                 "legacy_documenter/cli/output_manifest.py",
+                # V5.1 R2: the Normalized Evidence Core package wrapping the
+                # existing extractors/resolvers into the technology-neutral
+                # entity model defined by
+                # docs/V5/V5_1_R1_NORMALIZED_EVIDENCE_CONTRACT.md -- no
+                # existing module renamed or restructured, only new modules
+                # added (see docs/V5/V5_1_R2_NORMALIZED_EVIDENCE_IMPLEMENTATION.md).
+                "legacy_documenter/evidence/__init__.py",
+                "legacy_documenter/evidence/identity.py",
+                "legacy_documenter/evidence/reference.py",
+                "legacy_documenter/evidence/entities.py",
+                "legacy_documenter/evidence/builder.py",
+                "legacy_documenter/evidence/persistence.py",
+                "legacy_documenter/evidence/projection.py",
+                "legacy_documenter/evidence/invariants.py",
+                # V5.2 R2: the human-documentation engine (Audience
+                # Transformation -> Output Profile -> Template -> Markdown
+                # Renderer), see docs/V5/V5_2_R2_DOCUMENTATION_ENGINE_IMPLEMENTATION.md
+                # -- only new modules; the legacy `documentation/` generators
+                # are untouched.
+                "legacy_documenter/documentation_v52/__init__.py",
+                "legacy_documenter/documentation_v52/categories.py",
+                "legacy_documenter/documentation_v52/config.py",
+                "legacy_documenter/documentation_v52/engine.py",
+                "legacy_documenter/documentation_v52/noise.py",
+                "legacy_documenter/documentation_v52/renderer.py",
+                "legacy_documenter/documentation_v52/structure.py",
+                "legacy_documenter/documentation_v52/template.py",
+                "legacy_documenter/documentation_v52/transform.py",
             },
         )
         # V4.2-R7.1 corrected four real-pilot presentation/aggregation
@@ -664,16 +703,44 @@ class GeneratedArtifactOnDiskTests(unittest.TestCase):
         # made for the same reason; no restructuring/rename, no behavior
         # change to the underlying deterministic rendering logic.
         r8_human_flow_documentation_path = "legacy_documenter/documentation/human_flow_documentation.py"
+        # V5.1 R3.1 (D-1/D-2 corrections): `evidence/builder.py` now hashes
+        # every SourceArtifact unconditionally and fails closed (`raise
+        # ValueError` when no repository root is available), adding a real
+        # `validation` responsibility signal on top of `filesystem`/
+        # `domain_modeling`, and grew past 400 lines (XDP duplicate ordinal)
+        # -- crossing MEDIUM -> HIGH.
+        r3_1_evidence_builder_path = "legacy_documenter/evidence/builder.py"
+        # V5.2 R2: three of the nine new `documentation_v52/` modules are HIGH
+        # by this tool's size/branching thresholds: `config.py` (declarative
+        # profile/template/catalog validation is inherently branch-heavy),
+        # `engine.py` (orchestration + tree writing) and `renderer.py`
+        # (Markdown formatting + partitioning). Each keeps one cohesive
+        # responsibility; no restructuring was warranted this round.
+        r2_v52_high_risk_paths = [
+            "legacy_documenter/documentation_v52/engine.py",
+            "legacy_documenter/documentation_v52/renderer.py",
+            # V5.2 R3.1: `transform.py` grew (ownership vs participation, real-vs-
+            # infrastructure data access, dependency classes) MEDIUM -> HIGH.
+            "legacy_documenter/documentation_v52/transform.py",
+        ]
+        # V5.2 R3.4: `config.py` gained a fourth navigable scope ("method",
+        # alongside module/solution/file/component -- new slot/value field
+        # whitelists and one more branch in every scope-dispatch helper) and
+        # crossed this tool's threshold from HIGH to VERY_HIGH, the same kind
+        # of legitimate growth R8's `human_flow_documentation.py` already
+        # crossed for an unrelated reason. No restructuring/rename, no
+        # behavior change to the declarative validation logic itself.
+        r3_4_config_very_high_path = "legacy_documenter/documentation_v52/config.py"
         expected_high_risk_files = sorted(
             [p for p in on_disk_risk["high_risk_files"] if p not in (database_extractor_path, r2_main_path)]
             + [readiness_path, r6_presenter_path,
                r4_human_documentation_scaling_path, r5_ai_projection_path, r6_consumer_projection_path,
-               r7_router_path]
+               r7_router_path, r3_1_evidence_builder_path] + r2_v52_high_risk_paths
         )
         expected_very_high_risk_files = sorted(
             [p for p in on_disk_risk["very_high_risk_files"] if p != readiness_path]
             + [r3_full_pipeline_path, r5_ai_interpretation_path, r2_pipeline_stages_path,
-               r8_human_flow_documentation_path]
+               r8_human_flow_documentation_path, r3_4_config_very_high_path]
         )
         self.assertEqual(sorted(fresh_risk["high_risk_files"]), expected_high_risk_files)
         self.assertEqual(sorted(fresh_risk["very_high_risk_files"]), expected_very_high_risk_files)
@@ -754,7 +821,7 @@ class GeneratedArtifactOnDiskTests(unittest.TestCase):
         expected_categories = dict(on_disk_risk["files_by_risk_category"])
         expected_categories["LOW"] = expected_categories.get("LOW", 0) + 4 + 3 + 5 + 2 + 1 + 1 - 1 + 1 - 1 + 1
         expected_categories["MEDIUM"] = (
-            expected_categories.get("MEDIUM", 0) + 3 + 1 + 1 + 1 + 1 + 1 - 1 + 1 + 1 + 1 + 1 - 1
+            expected_categories.get("MEDIUM", 0) + 3 + 1 + 1 + 1 + 1 + 1 - 1 + 1 + 1 + 1 + 1 - 1 - 1
         )
         # V4.3-R4's one new HIGH-risk module adds one more to this count.
         # V4.3-R5 adds one more: the new `context/ai_projection.py` (HIGH).
@@ -781,7 +848,7 @@ class GeneratedArtifactOnDiskTests(unittest.TestCase):
         # HIGH -- it was counted as an R3 HIGH entrant in this expression
         # (one of the leading `+ 1` terms) and no longer belongs there.
         expected_categories["HIGH"] = (
-            expected_categories.get("HIGH", 0) + 1 - 1 + 1 - 1 + 1 - 1 + 1 + 1 + 1 + 1 + 1 - 1
+            expected_categories.get("HIGH", 0) + 1 - 1 + 1 - 1 + 1 - 1 + 1 + 1 + 1 + 1 + 1 - 1 + 1
         )
         # `ai_interpretation.py`'s MEDIUM -> VERY_HIGH move (see above) is one
         # `+ 1` here, on top of the pre-existing readiness.py/full_pipeline.py
@@ -790,6 +857,38 @@ class GeneratedArtifactOnDiskTests(unittest.TestCase):
         # `human_flow_documentation.py` HIGH -> VERY_HIGH move (see above) is
         # the last `+ 1`.
         expected_categories["VERY_HIGH"] = expected_categories.get("VERY_HIGH", 0) - 1 + 1 + 1 + 1 + 1
+        # V5.1 R2's new `legacy_documenter/evidence/` package (see the file
+        # count comment above): `identity.py`/`reference.py`/`entities.py`/
+        # `builder.py`/`persistence.py` land MEDIUM (`persistence.py` grew
+        # into MEDIUM once it also persisted the passthrough-preserved
+        # partitions, not just the newly-modeled entities), `projection.py`/
+        # `invariants.py`/`__init__.py` land LOW (measured directly with
+        # `tools.v4_1_r0.inventory.analyze_file` against each new file).
+        expected_categories["LOW"] = expected_categories.get("LOW", 0) + 3
+        expected_categories["MEDIUM"] = expected_categories.get("MEDIUM", 0) + 5
+        # V5.1 R3.1: `builder.py` MEDIUM -> HIGH (see `r3_1_evidence_builder_path`).
+        expected_categories["MEDIUM"] -= 1
+        expected_categories["HIGH"] += 1
+        # V5.1 R3.2 (D-4, `provenance`/`EvidenceReference`): `invariants.py`
+        # gained `build_reference_store`/`provenance_report`/
+        # `validate_provenance` (the I-4/I-5 production gate), crossing it
+        # from LOW (170 lines, 1 signal) to MEDIUM (269 lines, 2 signals:
+        # `serialization`+`validation`) -- measured directly with
+        # `tools.v4_1_r0.inventory.analyze_file`. `builder.py`/`entities.py`/
+        # `reference.py`/`persistence.py` also grew (provenance construction/
+        # serialization) but stayed in their existing category.
+        expected_categories["LOW"] -= 1
+        expected_categories["MEDIUM"] += 1
+        # V5.2 R2's nine new `legacy_documenter/documentation_v52/` modules
+        # (see the file count comment above and `r2_v52_high_risk_paths`),
+        # measured directly with `tools.v4_1_r0.inventory.analyze_file`:
+        # four LOW, two MEDIUM, three HIGH (`config.py`/`engine.py`/`renderer.py`).
+        expected_categories["LOW"] += 4
+        expected_categories["MEDIUM"] += 2
+        expected_categories["HIGH"] += 3
+        # V5.2 R3.4: `config.py` HIGH -> VERY_HIGH (see `r3_4_config_very_high_path`).
+        expected_categories["HIGH"] -= 1
+        expected_categories["VERY_HIGH"] += 1
         self.assertEqual(fresh_risk["files_by_risk_category"], expected_categories)
         normalized_on_disk.pop("risk_summary", None)
         normalized_fresh.pop("risk_summary", None)
@@ -855,7 +954,21 @@ class GeneratedArtifactOnDiskTests(unittest.TestCase):
         # never imports anything under `cli`), so it does not appear in
         # `cycles_detected` and does not change `dependency_findings` beyond
         # `module_count`.
-        self.assertEqual(fresh_dep.pop("module_count"), on_disk_dep.pop("module_count") + 33)
+        # V5.1 R2 adds the 8 new `legacy_documenter/evidence/` modules (see
+        # the file-count comment above): 41. None of them touches
+        # `legacy_documenter.knowledge.*`/`.llm.*`, so `cycles_detected` and
+        # the acyclic `knowledge_domain_direction` re-verification are both
+        # unaffected (`persistence.py` imports only the already-established
+        # `legacy_documenter.utils.atomic_write`; every other new module's
+        # only `legacy_documenter` imports are to its own `evidence/`
+        # siblings).
+        # V5.2 R2 adds the 9 new `legacy_documenter/documentation_v52/` modules
+        # (see the file-count comment above): 50. Its only imports outside its
+        # own package are already-established directions (`utils.atomic_write`,
+        # `utils.sanitizer`, `exporters._documentation_partitioning`), plus the
+        # one new `cli -> documentation_v52` call in `pipeline_stages.py`; no
+        # `knowledge`/`llm` import, no cycle.
+        self.assertEqual(fresh_dep.pop("module_count"), on_disk_dep.pop("module_count") + 50)
         self.assertEqual(fresh_dep, on_disk_dep)
         normalized_on_disk.pop("dependency_findings", None)
         normalized_fresh.pop("dependency_findings", None)
@@ -942,15 +1055,49 @@ class GeneratedArtifactOnDiskTests(unittest.TestCase):
             # `r6_consumer_projection_path`) also newly enters the top-20,
             # pushing one more untouched file below the cutoff.
             "legacy_documenter/context/consumer_projection.py",
+            # V5.1 R2: `builder.py` (325 lines) and `entities.py` (275
+            # lines), the two largest modules of the new
+            # `legacy_documenter/evidence/` package, newly enter the
+            # top-20, pushing two more untouched files below the cutoff.
+            "legacy_documenter/evidence/builder.py",
+            "legacy_documenter/evidence/entities.py",
+            # V5.1 R3.2 (D-4): `invariants.py` grew to 269 lines (the I-4/I-5
+            # production gate: `build_reference_store`/`provenance_report`/
+            # `validate_provenance`), newly entering the top-20 and pushing
+            # one more untouched file below the cutoff (see
+            # `r3_2_plugin_projection_example_report_path` below).
+            "legacy_documenter/evidence/invariants.py",
+            # V5.2 R2: the three largest modules of the new
+            # `legacy_documenter/documentation_v52/` package (`config.py`,
+            # `template.py`, `transform.py`, 300-350 lines each) newly enter
+            # the top-20, pushing three more untouched files below the
+            # cutoff (see `r2_v52_dropped_largest` below).
+            "legacy_documenter/documentation_v52/config.py",
+            "legacy_documenter/documentation_v52/template.py",
+            "legacy_documenter/documentation_v52/transform.py",
+        }
+        r2_v52_dropped_largest = {
+            "legacy_documenter/documentation/consistency.py",
+            "legacy_documenter/knowledge/approval/example_report.py",
+            "legacy_documenter/knowledge/proposals/service.py",
         }
         r5_web_entry_resolver_path = "legacy_documenter/analysis/web_entry_resolver.py"
         r5_approval_service_path = "legacy_documenter/knowledge/approval/service.py"
         r6_relations_service_path = "legacy_documenter/knowledge/relations/service.py"
+        # V5.1 R2's two new top-20 entrants (above) push these two
+        # untouched files below the cutoff.
+        r2_call_extractor_path = "legacy_documenter/extractors/call_extractor.py"
+        r2_domain_models_path = "legacy_documenter/knowledge/domain/models.py"
+        # V5.1 R3.2's one new top-20 entrant (`invariants.py`, above) pushes
+        # this one untouched file (250 lines, the new #21) below the cutoff.
+        r3_2_plugin_projection_example_report_path = "legacy_documenter/knowledge/plugin_projection/example_report.py"
         dropped_largest_modules = {
             main_path, readiness_path, r3_projection_rules_path, r6_projection_models_path,
             r3_provenance_graph_path, r3_example_report_path, r4_plugin_projection_models_path,
             r5_web_entry_resolver_path, r5_approval_service_path, r6_relations_service_path,
-        }
+            r2_call_extractor_path, r2_domain_models_path,
+            r3_2_plugin_projection_example_report_path,
+        } | r2_v52_dropped_largest
         self.assertEqual(set(fresh_largest) - set(on_disk_largest), new_largest_modules)
         self.assertEqual(set(on_disk_largest) - set(fresh_largest), dropped_largest_modules)
         self.assertLess(fresh_largest[database_extractor_path], on_disk_largest[database_extractor_path])
@@ -1015,9 +1162,24 @@ class GeneratedArtifactOnDiskTests(unittest.TestCase):
                     # to write `OUTPUT_MANIFEST.json` -- a real, deliberate
                     # filesystem write, not a stray import.
                     "legacy_documenter/cli/router.py",
+                    # V5.1 R2: `evidence/builder.py` reads real source files
+                    # to compute `SourceArtifact.sha256` (`_hash_file`, a
+                    # real, deliberate, optional filesystem read); `evidence
+                    # /persistence.py` calls `atomic_write_text` to write
+                    # `evidence/*.json` + `EVIDENCE_MANIFEST.json`, a real,
+                    # deliberate filesystem write.
+                    "legacy_documenter/evidence/builder.py",
+                    "legacy_documenter/evidence/persistence.py",
+                    # V5.2 R2: `documentation_v52/engine.py` writes the
+                    # `documentation_v52/` tree (atomic writes, stale-file
+                    # cleanup) and `documentation_v52/config.py` reads its
+                    # declarative profile/template/catalog JSON files -- real,
+                    # deliberate filesystem access, not stray imports.
+                    "legacy_documenter/documentation_v52/config.py",
+                    "legacy_documenter/documentation_v52/engine.py",
                 ])
                 self.assertEqual(sorted(fresh_entry["files"]), expected_files)
-                self.assertEqual(fresh_entry["file_count"], entry["file_count"] + 12)
+                self.assertEqual(fresh_entry["file_count"], entry["file_count"] + 16)
             else:
                 self.assertEqual(fresh_entry["files"], entry["files"])
                 self.assertEqual(fresh_entry["file_count"], entry["file_count"])
@@ -1095,12 +1257,50 @@ class GeneratedArtifactOnDiskTests(unittest.TestCase):
         # behavior change (a dedicated test asserts `_prompt` returns exactly
         # `render_request_payload`'s output).
         r5_copilot_provider_path = "legacy_documenter/llm/providers/copilot.py"
+        # V5.1 R2: `NormalizedEvidenceBuilder` (the whole
+        # extraction-to-evidence wrapping surface lives on one class, per
+        # `builder.py`'s 325 lines) enters this top-N list too, displacing
+        # `legacy_documenter/llm/core.py` (untouched by R2) below the
+        # cutoff -- the same ranking-membership effect seen throughout
+        # this section.
+        r2_evidence_builder_path = "legacy_documenter/evidence/builder.py"
+        r2_llm_core_path = "legacy_documenter/llm/core.py"
+        # V5.1 R3.2 (D-4): `EvidenceReference` (`reference.py`) gained a
+        # sixth method (`source_span`, the classmethod symmetric with
+        # `entity`/`source`/`textual`), tying it into the 6-method tier of
+        # this method-count-ranked list at 59 lines -- ahead of
+        # `RelationCollection` (`relations/service.py`, also 6 methods but
+        # only 33 lines), which the tie-break (`-line_count`) now pushes
+        # just below the top-20 cutoff. `llm/core.py` (6 methods, 27 lines)
+        # was already below the cutoff before this round (R2's
+        # `r2_llm_core_path` drop, above) and stays there.
+        r3_2_evidence_reference_path = "legacy_documenter/evidence/reference.py"
+        r3_2_relations_service_path = "legacy_documenter/knowledge/relations/service.py"
         on_disk_classes = {e["path"]: e for e in on_disk["largest_classes"]}
         fresh_classes = {e["path"]: e for e in fresh["largest_classes"]}
-        self.assertEqual(set(fresh_classes) - set(on_disk_classes), {r3_renderer_path, r2_hydrator_path})
-        self.assertEqual(set(on_disk_classes) - set(fresh_classes), {r3_vbnet_extractor_path, r2_web_event_extractor_path})
+        self.assertEqual(
+            set(fresh_classes) - set(on_disk_classes),
+            {r3_renderer_path, r2_hydrator_path, r2_evidence_builder_path,
+             "legacy_documenter/documentation_v52/template.py", "legacy_documenter/documentation_v52/renderer.py",
+             "legacy_documenter/documentation_v52/transform.py"},
+        )
+        # V5.2 R2's `TemplateEngine` (template.py), `MarkdownRenderer`
+        # (renderer.py) and `AudienceTransformer` (transform.py) enter this method-count-ranked top-N list: they push
+        # out `EvidenceReference` (`reference.py`, which V5.1 R3.2 had just
+        # brought in on a tie-break) and `documentation/coverage.py`
+        # and `knowledge/approval/service.py` (both untouched) below the cutoff -- the same ranking-membership effect
+        # seen throughout this section.
+        r2_v52_dropped_classes = {
+            "legacy_documenter/documentation/coverage.py", "legacy_documenter/knowledge/approval/service.py",
+        }
+        self.assertEqual(
+            set(on_disk_classes) - set(fresh_classes),
+            {r3_vbnet_extractor_path, r2_web_event_extractor_path, r2_llm_core_path, r3_2_relations_service_path}
+            | r2_v52_dropped_classes,
+        )
         for path, entry in on_disk_classes.items():
-            if path in (r3_vbnet_extractor_path, r2_web_event_extractor_path):
+            if path in ({r3_vbnet_extractor_path, r2_web_event_extractor_path, r2_llm_core_path,
+                         r3_2_relations_service_path} | r2_v52_dropped_classes):
                 continue
             fresh_entry = dict(fresh_classes[path])
             if path in (database_extractor_path, flow_resolver_path):
@@ -1171,10 +1371,37 @@ class GeneratedArtifactOnDiskTests(unittest.TestCase):
             ("legacy_documenter/analysis/database_resolver.py", "DatabaseResolver.resolve"),
             ("legacy_documenter/knowledge/canonical/service.py", "CanonicalCompositionService.compose"),
         }
-        self.assertEqual(set(fresh_funcs) - set(on_disk_funcs), {r2_new_function} | r5_new_functions)
-        self.assertEqual(set(on_disk_funcs) - set(fresh_funcs), {r2_dropped_function} | r5_dropped_functions)
+        # V5.2 R3.3: `AudienceTransformer._build_files_and_components` (Project ->
+        # SourceArtifact/Component grouping, ownership resolution, file/component
+        # model assembly) is a genuinely large new function and enters this top-N
+        # list, displacing `build_projection_example` (untouched by this round)
+        # below the cutoff -- the same top-N ranking-membership effect as every
+        # earlier round's equivalent entries above.
+        r3_3_new_function = ("legacy_documenter/documentation_v52/transform.py", "AudienceTransformer._build_files_and_components")
+        r3_3_dropped_function = ("legacy_documenter/knowledge/projection/example_report.py", "build_projection_example")
+        # V5.2 R3.4.1: `_build_methods_for_component` grew to hold the new
+        # resolved/unresolved-with-expression split (section 4), the noise
+        # reclassification of unresolved calls (section 5), the real-vs-
+        # transactional data-access split (section 6) and the revised,
+        # narrower document-generation criterion (section 7) -- all in one
+        # function, per method, for one component. It enters this top-N list
+        # without displacing anything else below the cutoff (the list simply
+        # grew by one), the same membership effect as every earlier round.
+        r3_4_1_new_function = ("legacy_documenter/documentation_v52/transform.py", "AudienceTransformer._build_methods_for_component")
+        # It displaces `CallExtractor.extract` (untouched by this round) below
+        # the cutoff -- the same top-N ranking-membership effect as every
+        # earlier round's equivalent entries above.
+        r3_4_1_dropped_function = ("legacy_documenter/extractors/call_extractor.py", "CallExtractor.extract")
+        self.assertEqual(
+            set(fresh_funcs) - set(on_disk_funcs),
+            {r2_new_function, r3_3_new_function, r3_4_1_new_function} | r5_new_functions,
+        )
+        self.assertEqual(
+            set(on_disk_funcs) - set(fresh_funcs),
+            {r2_dropped_function, r3_3_dropped_function, r3_4_1_dropped_function} | r5_dropped_functions,
+        )
         for key, entry in on_disk_funcs.items():
-            if key in (r2_dropped_function, *r5_dropped_functions):
+            if key in (r2_dropped_function, r3_3_dropped_function, r3_4_1_dropped_function, *r5_dropped_functions):
                 continue
             fresh_entry = dict(fresh_funcs[key])
             if key == r7_1_regrown_function:
@@ -1200,15 +1427,72 @@ class GeneratedArtifactOnDiskTests(unittest.TestCase):
         r6_resolved_doc_candidates = {
             database_extractor_path, flow_resolver_path, "legacy_documenter/llm/providers/copilot.py",
         }
-        r6_newly_below_average_doc = {
-            "legacy_documenter/context/system_context_builder.py",
-            "legacy_documenter/extractors/vbnet_extractor.py",
+        # R6 originally added `system_context_builder.py`/`vbnet_extractor.py`/
+        # `technical_documentation_renderer.py` to this below-average set (see
+        # the R2 note immediately below for why they no longer appear here).
+        # V5.1 R2's new `legacy_documenter/evidence/` package (well-documented
+        # module/class docstrings throughout, per this file's own docstrings)
+        # shifts the repository-wide average docstring coverage enough that
+        # `system_context_builder.py`/`vbnet_extractor.py`/
+        # `technical_documentation_renderer.py` (R6's below-average set,
+        # immediately above) move back *above* the new, slightly lower
+        # average, while three of the new evidence modules themselves
+        # (smaller, function-heavy, with fewer per-function docstrings
+        # relative to their own line count) fall below it -- the same
+        # relative-threshold mechanics this diagnostic already documents at
+        # every earlier round.
+        r2_below_average_doc = {
+            "legacy_documenter/evidence/builder.py",
+            "legacy_documenter/evidence/invariants.py",
+            "legacy_documenter/evidence/reference.py",
+        }
+        # V5.1 R3.2 (D-4): `invariants.py` gained several fully-documented
+        # functions (`build_reference_store`/`provenance_report`/
+        # `validate_provenance`, each with its own docstring), raising its
+        # own docstring coverage back above the (again slightly shifted)
+        # repository-wide average -- it leaves this below-average set.
+        # `technical_documentation_renderer.py` (already the largest module
+        # in the repository, per `largest_modules` above) newly falls below
+        # the new average instead, the same relative-threshold mechanics as
+        # every earlier round: no line of its own code changed this round,
+        # only where the moving average landed.
+        r3_2_tech_renderer = "legacy_documenter/exporters/technical_documentation_renderer.py"
+        r3_2_below_average_doc = (r2_below_average_doc - {"legacy_documenter/evidence/invariants.py"}) | {
             "legacy_documenter/exporters/technical_documentation_renderer.py",
         }
         on_disk_doc = {e["path"] for e in on_disk["documentation_candidates"]}
         fresh_doc = {e["path"] for e in fresh["documentation_candidates"]}
-        self.assertEqual(on_disk_doc - fresh_doc, r6_resolved_doc_candidates)
-        self.assertEqual(fresh_doc - on_disk_doc, r6_newly_below_average_doc)
+        # V5.2 R2's new `documentation_v52/` modules (declarative-config/
+        # template/renderer code with short, mostly self-describing helper
+        # functions) land below the repository-wide average docstring
+        # coverage, which in turn lowers that average enough that five
+        # previously-just-below-average files move back above it -- the same
+        # relative-threshold mechanics documented for every earlier round.
+        r2_v52_below_average_doc = {
+            "legacy_documenter/documentation_v52/structure.py",
+            "legacy_documenter/documentation_v52/template.py", "legacy_documenter/documentation_v52/renderer.py",
+            "legacy_documenter/documentation_v52/config.py",
+        }  # V5.2 R3.1: `noise.py` gained documented methods and rose above the average
+        # V5.2 R3.3: `transform.py` gained many new, individually docstringed
+        # helpers (Solution/File/Component navigation: `_owner_index`,
+        # `_resolve_owner`, `_solution_models`, `_build_files_and_components`,
+        # `_one_component`...), raising its own docstring coverage enough to
+        # rejoin the above-average set -- same relative-threshold mechanics as
+        # every earlier round; it leaves `r2_v52_below_average_doc`.
+        r2_v52_resolved_doc = {
+            "legacy_documenter/documentation/generator.py", "legacy_documenter/llm/providers/gemini.py",
+            "legacy_documenter/extractors/web_event_extractor.py",
+        }
+        # V5.2 R3.1: `transform.py` gained documented helpers, moving the average
+        # slightly; `documentation/consistency_run.py` therefore stays below it
+        # (same relative-threshold mechanics) and is no longer a "resolved" entry.
+        # V5.2 R3.3: `transform.py`'s further growth (see above) shifts the
+        # repository-wide average back down slightly, so
+        # `vbproj_extractor.py` -- previously resolved as of R3.1 -- falls
+        # below the average again and rejoins `on_disk_doc` unresolved; it
+        # therefore leaves `r2_v52_resolved_doc`.
+        self.assertEqual(on_disk_doc - fresh_doc, r6_resolved_doc_candidates | r2_v52_resolved_doc)
+        self.assertEqual(fresh_doc - on_disk_doc, (r3_2_below_average_doc - {r3_2_tech_renderer}) | r2_v52_below_average_doc)
         normalized_on_disk.pop("documentation_candidates", None)
         normalized_fresh.pop("documentation_candidates", None)
 
@@ -1242,6 +1526,9 @@ class GeneratedArtifactOnDiskTests(unittest.TestCase):
             "legacy_documenter/cli/pipeline_stages.py", "legacy_documenter/cli/full_pipeline.py",
             "legacy_documenter/orchestration/ai_interpretation.py",
             "legacy_documenter/cli/run_summary_presenter.py", "legacy_documenter/utils/atomic_write.py",
+            # V5.2 R2: `engine.py`'s crash-safe writer removes its temp file and
+            # re-raises on any failure (same pattern as `utils/atomic_write.py`).
+            "legacy_documenter/documentation_v52/engine.py",
         }
         self.assertEqual(set(fresh_exc) - set(on_disk_exc), r2_new_exception_files)
         self.assertEqual(set(on_disk_exc) - set(fresh_exc), {main_path})

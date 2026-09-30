@@ -1,0 +1,53 @@
+{
+  "id": "dev.solution",
+  "contract_version": "1",
+  "profile_compat": [
+    "developer_technical"
+  ],
+  "scope": "solution",
+  "file": "solutions/{slug}.md",
+  "order": 8,
+  "title_key": "dev.solution.title",
+  "blocks": [
+    {
+      "type": "link",
+      "text_key": "nav.index",
+      "target": "template:dev.index"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "dev.solution.summary_text",
+      "params": {
+        "path": "solution.path",
+        "count": "solution.project_count"
+      }
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "dev.solution.projects_heading"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "dev.solution.projects_none",
+      "when": "empty:solution.slots.projects"
+    },
+    {
+      "type": "table",
+      "source": "solution.slots.projects",
+      "columns": [
+        {
+          "field": "name",
+          "header_key": "col.module",
+          "link": "module",
+          "code": true
+        },
+        {
+          "field": "path",
+          "header_key": "col.path",
+          "code": true
+        }
+      ]
+    }
+  ]
+}

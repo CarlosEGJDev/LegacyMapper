@@ -1,0 +1,246 @@
+{
+  "id": "dev.technical_detail",
+  "contract_version": "1",
+  "profile_compat": [
+    "developer_technical"
+  ],
+  "scope": "module",
+  "file": "modules/{slug}/detail.md",
+  "order": 10,
+  "title_key": "dev.detail.title",
+  "detail": true,
+  "when": "nonempty_total:module.slots.entry_point_events|module.slots.flows|module.slots.incoming_flows|module.slots.data_operations|module.slots.indirect_targets|module.slots.unresolved|module.slots.libraries|module.slots.project_refs_out|module.slots.project_refs_in",
+  "blocks": [
+    {
+      "type": "link",
+      "text_key": "dev.detail.back",
+      "target": "template:dev.module"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "dev.detail.intro"
+    },
+    {
+      "type": "partitioned_table",
+      "name": "entry-points",
+      "title_key": "dev.detail.entry_points",
+      "source": "module.slots.entry_point_events",
+      "columns": [
+        {
+          "field": "webform",
+          "header_key": "col.webform",
+          "code": true
+        },
+        {
+          "field": "event",
+          "header_key": "col.event"
+        },
+        {
+          "field": "handler",
+          "header_key": "col.handler",
+          "code": true
+        },
+        {
+          "field": "kind",
+          "header_key": "col.kind",
+          "translate": "kind"
+        }
+      ]
+    },
+    {
+      "type": "partitioned_table",
+      "name": "flows",
+      "title_key": "dev.detail.flows",
+      "source": "module.slots.flows",
+      "columns": [
+        {
+          "field": "webform",
+          "header_key": "col.webform",
+          "code": true
+        },
+        {
+          "field": "event",
+          "header_key": "col.event"
+        },
+        {
+          "field": "handler",
+          "header_key": "col.handler",
+          "code": true
+        },
+        {
+          "field": "terminal",
+          "header_key": "col.terminal",
+          "code": true
+        },
+        {
+          "field": "state",
+          "header_key": "col.state",
+          "translate": "state"
+        }
+      ]
+    },
+    {
+      "type": "partitioned_table",
+      "name": "incoming",
+      "title_key": "dev.detail.incoming",
+      "source": "module.slots.incoming_flows",
+      "columns": [
+        {
+          "field": "origin",
+          "header_key": "col.origin_project",
+          "code": true
+        },
+        {
+          "field": "webform",
+          "header_key": "col.webform",
+          "code": true
+        },
+        {
+          "field": "event",
+          "header_key": "col.event"
+        },
+        {
+          "field": "handler",
+          "header_key": "col.handler",
+          "code": true
+        },
+        {
+          "field": "state",
+          "header_key": "col.state",
+          "translate": "state"
+        }
+      ]
+    },
+    {
+      "type": "partitioned_table",
+      "name": "data-access",
+      "title_key": "dev.detail.data_access",
+      "source": "module.slots.data_operations",
+      "columns": [
+        {
+          "field": "where",
+          "header_key": "col.name",
+          "code": true
+        },
+        {
+          "field": "kind",
+          "header_key": "col.kind",
+          "translate": "kind"
+        },
+        {
+          "field": "target",
+          "header_key": "col.target",
+          "code": true
+        },
+        {
+          "field": "confidence",
+          "header_key": "col.confidence",
+          "translate": "state"
+        },
+        {
+          "field": "origin",
+          "header_key": "col.origin",
+          "code": true
+        }
+      ]
+    },
+    {
+      "type": "partitioned_table",
+      "name": "indirect",
+      "title_key": "dev.detail.indirect",
+      "source": "module.slots.indirect_targets",
+      "columns": [
+        {
+          "field": "target",
+          "header_key": "col.target",
+          "code": true
+        },
+        {
+          "field": "kind",
+          "header_key": "col.kind",
+          "translate": "kind"
+        },
+        {
+          "field": "flows",
+          "header_key": "col.flows"
+        }
+      ]
+    },
+    {
+      "type": "partitioned_table",
+      "name": "unresolved",
+      "title_key": "dev.detail.unresolved",
+      "source": "module.slots.unresolved",
+      "columns": [
+        {
+          "field": "target",
+          "header_key": "col.target",
+          "code": true
+        },
+        {
+          "field": "count",
+          "header_key": "col.count"
+        },
+        {
+          "field": "category",
+          "header_key": "col.category",
+          "translate": "noise"
+        }
+      ]
+    },
+    {
+      "type": "partitioned_table",
+      "name": "deps-out",
+      "title_key": "dev.detail.deps_out",
+      "source": "module.slots.project_refs_out",
+      "columns": [
+        {
+          "field": "name",
+          "header_key": "col.module",
+          "code": true
+        },
+        {
+          "field": "path",
+          "header_key": "col.path",
+          "code": true
+        }
+      ]
+    },
+    {
+      "type": "partitioned_table",
+      "name": "deps-in",
+      "title_key": "dev.detail.deps_in",
+      "source": "module.slots.project_refs_in",
+      "columns": [
+        {
+          "field": "name",
+          "header_key": "col.module",
+          "code": true
+        },
+        {
+          "field": "path",
+          "header_key": "col.path",
+          "code": true
+        }
+      ]
+    },
+    {
+      "type": "partitioned_table",
+      "name": "libraries",
+      "title_key": "dev.detail.libraries",
+      "source": "module.slots.libraries",
+      "columns": [
+        {
+          "field": "name",
+          "header_key": "col.name",
+          "code": true
+        },
+        {
+          "field": "class",
+          "header_key": "col.depclass",
+          "translate": "depclass"
+        }
+      ]
+    }
+  ]
+}
