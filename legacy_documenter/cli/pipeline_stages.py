@@ -35,7 +35,7 @@ from legacy_documenter.analysis.flow_resolver import FunctionalFlowResolver
 from legacy_documenter.analysis.web_entry_resolver import WebEntryResolver
 from legacy_documenter.context.consumer_projection import ConsumerProjectionBuilder
 from legacy_documenter.context.context_builder import ContextBuilder
-from legacy_documenter.context.hydration import EvidenceHydrator
+from legacy_documenter.context.hydration_view import HydrationView
 from legacy_documenter.context.system_context_builder import SystemContextBuilder
 from legacy_documenter.documentation.human_documentation_scaling import (
     render_human_documentation_index,
@@ -104,7 +104,7 @@ class ExtractionOutcome:
     data_access_indexes: list[dict] = field(default_factory=list)
 
 
-def extract_repository(files: list[SourceFile], root: Path) -> ExtractionOutcome:
+def extract_repository(files: list[SourceFile], root: Path, extraction_cache=None) -> ExtractionOutcome:
     """Runs the EXTRACTION stage.
 
     Per-file extraction stays tolerant of individual file failures exactly as
@@ -116,10 +116,60 @@ def extract_repository(files: list[SourceFile], root: Path) -> ExtractionOutcome
     step from the V4.2-R2 pipeline description; it has no separate `StageId`
     because it only operates on EXTRACTION's own in-memory output and has no
     independent failure boundary worth reporting apart from EXTRACTION itself.
+
+    V5.3-R2.5: each file's extractor output is a self-contained record (`_extract_file`). With an
+    `extraction_cache` (`legacy_documenter.cache.ExtractionCache`), an unchanged file's record comes from the
+    cache and a fresh one is handed to it (serialized immediately) -- always BEFORE the in-place normalization
+    below and any resolver. The records are then assembled in the original two passes (all primary results and
+    errors in scan order, then the per-`.vb` calls/web events/data access), so output order is identical with
+    or without a cache. Normalization always runs over the assembled lists.
     """
     outcome = ExtractionOutcome()
+    extractors = _extractors()
+    started = perf_counter()
+    records: list[tuple[SourceFile, dict]] = []
+    for source in files:
+        if source.file_type not in extractors:
+            continue
+        record = extraction_cache.lookup(source.relative_path) if extraction_cache is not None else None
+        if record is None:
+            record, cacheable = _extract_file(source, root, extractors)
+            if extraction_cache is not None:
+                extraction_cache.store(source.relative_path, record, cacheable)
+        records.append((source, record))
+    if extraction_cache is not None:
+        extraction_cache.record_extraction_seconds(perf_counter() - started)
 
-    extractors = {
+    for source, record in records:
+        if record["error"] is not None:
+            outcome.errors.append(record["error"])
+            continue
+        value = record["value"]
+        if source.file_type == "solution":
+            outcome.solutions.append(value)
+        elif source.file_type == "vb_project":
+            outcome.projects.append(value)
+        elif source.file_type == "vb_source":
+            outcome.symbols.extend(value)
+        elif source.file_type in {"aspx", "ascx", "master"}:
+            outcome.webforms.append(value)
+        elif source.file_type == "web_config":
+            outcome.configuration.append(value)
+    for source, record in records:
+        if source.file_type != "vb_source":
+            continue
+        for slot, sink in (("calls", outcome.calls), ("web_events", outcome.web_events), ("data_access_indexes", outcome.data_access_indexes)):
+            if record[slot] is not None:
+                sink.append(record[slot])
+        outcome.errors.extend(record["secondary_errors"])
+
+    apply_project_namespaces(outcome.symbols, outcome.projects)
+    outcome.logical_symbols = consolidate_partial_symbols(outcome.symbols, outcome.webforms)
+    return outcome
+
+
+def _extractors() -> dict:
+    return {
         "solution": SolutionExtractor(),
         "vb_project": VBProjExtractor(),
         "vb_source": VBNetExtractor(),
@@ -129,56 +179,44 @@ def extract_repository(files: list[SourceFile], root: Path) -> ExtractionOutcome
         "web_config": WebConfigExtractor(),
     }
 
-    for source in files:
-        extractor = extractors.get(source.file_type)
-        if not extractor:
-            continue
-        full_path = root / source.relative_path
-        try:
-            extracted = extractor.extract(full_path, root)
-            if source.file_type == "solution":
-                outcome.solutions.append(extracted)
-            elif source.file_type == "vb_project":
-                outcome.projects.append(extracted.to_dict())
-            elif source.file_type == "vb_source":
-                outcome.symbols.extend(item.to_dict() for item in extracted)
-            elif source.file_type in {"aspx", "ascx", "master"}:
-                outcome.webforms.append(extracted.to_dict())
-            elif source.file_type == "web_config":
-                outcome.configuration.append(extracted)
-        except Exception as exc:
-            outcome.errors.append({"file": source.relative_path, "extractor": extractor.__class__.__name__, "error": str(exc)})
 
-    call_extractor = CallExtractor()
-    web_event_extractor = WebEventExtractor()
-    database_extractor = DatabaseExtractor()
-    for source in files:
-        if source.file_type != "vb_source":
-            continue
-        full_path = root / source.relative_path
-        _extract_into(call_extractor, "CallExtractor", source, full_path, root, outcome.calls, outcome.errors)
-        _extract_into(web_event_extractor, "WebEventExtractor", source, full_path, root, outcome.web_events, outcome.errors)
-        _extract_into(database_extractor, "DatabaseExtractor", source, full_path, root, outcome.data_access_indexes, outcome.errors)
-
-    apply_project_namespaces(outcome.symbols, outcome.projects)
-    outcome.logical_symbols = consolidate_partial_symbols(outcome.symbols, outcome.webforms)
-    return outcome
+def _primary_value(file_type: str, extracted):
+    """The JSON-able form of one extractor result (what `extract_repository` has always appended)."""
+    if file_type == "solution" or file_type == "web_config":
+        return extracted
+    if file_type == "vb_source":
+        return [item.to_dict() for item in extracted]
+    return extracted.to_dict()
 
 
-def _extract_into(
-    extractor: CallExtractor | WebEventExtractor | DatabaseExtractor,
-    label: str,
-    source: SourceFile,
-    full_path: Path,
-    root: Path,
-    sink: list,
-    errors: list[dict],
-) -> None:
-    """Runs one per-file extractor, appending its result to `sink` or a structured error to `errors`."""
+def _extract_file(source: SourceFile, root: Path, extractors: dict) -> tuple[dict, bool]:
+    """Runs every extractor that applies to one file; returns `(record, cacheable)`.
+
+    The record is plain data: `value`/`error` (primary extractor) and, for `.vb` files, `calls`/`web_events`/
+    `data_access_indexes` plus `secondary_errors`. `cacheable` is False when an error came from the OS (it
+    depends on more than the file's bytes).
+    """
+    record = {"value": None, "error": None, "calls": None, "web_events": None, "data_access_indexes": None, "secondary_errors": []}
+    cacheable = True
+    extractor = extractors[source.file_type]
+    full_path = root / source.relative_path
     try:
-        sink.append(extractor.extract(full_path, root))
+        record["value"] = _primary_value(source.file_type, extractor.extract(full_path, root))
     except Exception as exc:
-        errors.append({"file": source.relative_path, "extractor": label, "error": str(exc)})
+        record["error"] = {"file": source.relative_path, "extractor": extractor.__class__.__name__, "error": str(exc)}
+        cacheable = cacheable and not isinstance(exc, OSError)
+    if source.file_type == "vb_source":
+        for slot, label, secondary in (
+            ("calls", "CallExtractor", CallExtractor()),
+            ("web_events", "WebEventExtractor", WebEventExtractor()),
+            ("data_access_indexes", "DatabaseExtractor", DatabaseExtractor()),
+        ):
+            try:
+                record[slot] = secondary.extract(full_path, root)
+            except Exception as exc:
+                record["secondary_errors"].append({"file": source.relative_path, "extractor": label, "error": str(exc)})
+                cacheable = cacheable and not isinstance(exc, OSError)
+    return record, cacheable
 
 
 def apply_project_namespaces(symbols: list[dict], projects: list[dict]) -> None:
@@ -394,7 +432,23 @@ def build_evidence_artifacts(output: str | Path, indexes: dict) -> None:
     )
 
 
-def build_context_artifacts(output: str | Path, indexes: dict) -> None:
+def create_run_flow_source(indexes: dict) -> HydrationView:
+    """Creates the run's single, lazy, memoizing source of hydrated flows (V5.3-R2.1).
+
+    The orchestrator creates it once and passes the same handle to every stage that hydrates
+    flows (`build_context_artifacts` -> `consumer_projection`, `render_documentation` ->
+    `HUMAN_DOCUMENTATION`), so each flow is hydrated at most once per run. Nothing is
+    indexed until a consumer first asks for a flow, inside that consumer's own stage.
+    """
+    return HydrationView(indexes)
+
+
+def log_run_flow_source_stats(source: HydrationView) -> None:
+    """Logs the in-memory hydration counters of the run (how many flows were hydrated vs. served from memo)."""
+    LOG.info("Hydration: %s", source.stats)
+
+
+def build_context_artifacts(output: str | Path, indexes: dict, hydration_view: HydrationView | None = None) -> None:
     """Runs the CONTEXT stage: writes `output/context/*.json`, `output/ai_context/*`,
     and `output/consumer_projection/` (V4.3-R6, partitioned per its
     post-implementation correction -- see `_write_consumer_projection`).
@@ -408,10 +462,12 @@ def build_context_artifacts(output: str | Path, indexes: dict) -> None:
     ContextBuilder().build_project_contexts(output, indexes)
     system_context_artifacts = SystemContextBuilder().build(output, indexes)
     source_snapshot = system_context_artifacts["SYSTEM_CONTEXT.json"]["metadata"]["source_snapshot_sha256"]
-    _write_consumer_projection(output, indexes, source_snapshot)
+    _write_consumer_projection(output, indexes, source_snapshot, hydration_view)
 
 
-def _write_consumer_projection(output: str | Path, indexes: dict, source_snapshot: str) -> None:
+def _write_consumer_projection(
+    output: str | Path, indexes: dict, source_snapshot: str, hydration_view: HydrationView | None = None,
+) -> None:
     """Materializes the partitioned `LegacyMapperConsumerProjection 1.0` package (V4.3-R6).
 
     Projects every flow `indexes` contains (`SILENT_ENTRY_OMISSION=FORBIDDEN`,
@@ -431,7 +487,10 @@ def _write_consumer_projection(output: str | Path, indexes: dict, source_snapsho
     documentation, generalized here to JSON (V4.2-R6 section 5's rerun-safety
     principle applied to this new surface).
     """
-    manifest, partitions = ConsumerProjectionBuilder().build(indexes, source_snapshot=source_snapshot)
+    # V5.3-R2.1: the run's shared `HydrationView` (indexed once, memoized) when the orchestrator
+    # passes one; a default builder still indexes once per call, never per flow.
+    builder = ConsumerProjectionBuilder(hydrator=hydration_view) if hydration_view is not None else ConsumerProjectionBuilder()
+    manifest, partitions = builder.build(indexes, source_snapshot=source_snapshot)
     target = Path(output) / "consumer_projection"
     target.mkdir(parents=True, exist_ok=True)
     atomic_write_text(target / "CONSUMER_PROJECTION.json", render_deterministic_json(sanitize_data(manifest)))
@@ -478,7 +537,9 @@ class DocumentationOutcome:
     failures: list[tuple[str, str]] = field(default_factory=list)
 
 
-def render_documentation(output: str | Path, indexes: dict) -> DocumentationOutcome:
+def render_documentation(
+    output: str | Path, indexes: dict, hydration_view: HydrationView | None = None, long_paths: bool = False,
+) -> DocumentationOutcome:
     """Runs the DOCUMENTATION stage (V4.2-R3): deterministic technical-documentation
     renderers over already-produced in-memory `indexes` data -- no file is re-read
     from disk. This is `full`-only; `analyze` never calls this function, so its
@@ -534,7 +595,10 @@ def render_documentation(output: str | Path, indexes: dict) -> DocumentationOutc
         # `interpretations_by_flow` is omitted: this stage is purely
         # deterministic, exactly like every other DOCUMENTATION renderer --
         # no AI content is generated or required here.
-        hydrator = EvidenceHydrator()
+        # V5.3-R2.1: the run's shared `HydrationView` (a flow already hydrated by
+        # `consumer_projection` is served from its memo, not hydrated again); without
+        # one, a run-local view still indexes once instead of once per flow.
+        hydrator = hydration_view if hydration_view is not None else HydrationView(indexes)
         hydrated_flows = [
             hydrator.hydrate_flow(flow["id"], indexes)
             for flow in indexes.get("functional_flows", []) if flow.get("id")
@@ -547,20 +611,25 @@ def render_documentation(output: str | Path, indexes: dict) -> DocumentationOutc
     except Exception as exc:
         outcome.failures.append(("HUMAN_DOCUMENTATION.md", str(exc)))
 
-    _render_documentation_v52(output, indexes, outcome)
+    _render_documentation_v52(output, indexes, outcome, long_paths)
     return outcome
 
 
-def _render_documentation_v52(output: str | Path, indexes: dict, outcome: DocumentationOutcome) -> None:
+def _render_documentation_v52(
+    output: str | Path, indexes: dict, outcome: DocumentationOutcome, long_paths: bool = False,
+) -> None:
     """V5.2-R2: additive human documentation under `documentation_v52/`
     (Profiles/Templates/Markdown Renderer). Coexists with the legacy
     `documentation/` tree, which it never reads or writes (D-52-05). A
     failure is recorded like any other renderer failure -- visible in the
     DOCUMENTATION stage, never swallowed."""
     try:
-        result = generate_documentation_v52(source_from_indexes(indexes, _load_external_dependencies(output)), output)
+        result = generate_documentation_v52(
+            source_from_indexes(indexes, _load_external_dependencies(output)), output, long_paths=long_paths,
+        )
         for warning in result.warnings:
             LOG.warning("documentation_v52: %s", warning)
+        LOG.info("documentation_v52 write: %s", result.write_stats)
         outcome.written.append("documentation_v52/README.md")
     except Exception as exc:
         outcome.failures.append(("documentation_v52", f"{exc.__class__.__name__}: {exc}"))

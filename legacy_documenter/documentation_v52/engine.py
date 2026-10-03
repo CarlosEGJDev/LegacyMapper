@@ -5,14 +5,13 @@ tree is never read or written here (D-52-05).
 """
 from __future__ import annotations
 
-import hashlib
 import json
 import os
-import tempfile
 from dataclasses import dataclass, field
 from pathlib import Path
+from time import perf_counter
 
-from legacy_documenter.utils.atomic_write import _replace_with_retry
+from legacy_documenter.utils.path_limits import applicable_path_limit, to_extended_path
 
 from .categories import InterpretedSection
 from .config import ConfigError, ConfigRegistry
@@ -20,9 +19,9 @@ from .renderer import MarkdownRenderer, PartitionPolicy
 from .structure import Bullets, Heading, Link, Note, Paragraph, StructuredDocument, Text
 from .template import TemplateEngine
 from .transform import AudienceTransformer
+from .writer import write_tree
 
 OUTPUT_DIRNAME = "documentation_v52"
-MANIFEST_FILENAME = "MANIFEST.json"
 DEFAULT_PROFILES = ("general_overview", "developer_technical")
 EVIDENCE_PARTITIONS = (
     "repository", "solutions", "projects", "entry_points", "functional_flows", "flow_unresolved", "data_access",
@@ -46,6 +45,9 @@ class DocumentationV52Result:
     warnings: list[str] = field(default_factory=list)
     gaps: list[str] = field(default_factory=list)
     profiles: dict = field(default_factory=dict)  # profile id -> {"files": n, "parts": n, "bytes": n, "max_file_bytes": n}
+    # V5.3-R2.2 characterization counters/timings of the write phase. In-memory only: never written to
+    # `MANIFEST.json` or any artifact (the manifest stays exactly the pre-R2.2 contract).
+    write_stats: dict = field(default_factory=dict)
 
 
 def source_from_indexes(indexes: dict, external_dependencies: list | None = None) -> dict:
@@ -129,14 +131,22 @@ def generate_documentation_v52(
     strict_templates: bool = False,
     interpreted: dict[str, InterpretedSection] | None = None,
     partition_override: PartitionPolicy | None = None,
+    long_paths: bool = False,
 ) -> DocumentationV52Result:
     """Generates `<output_dir>/documentation_v52/`.
+
+    V5.3-R2.2: a document already on disk with exactly the bytes about to be written is not
+    rewritten (`write_stats` reports what was skipped), and the path lengths of the whole stage
+    are checked before anything is written (`OutputPathTooLongError`, Windows). `long_paths`
+    (Windows, opt-in) writes through extended-length paths; logical/relative paths, links and
+    names are unchanged.
 
     Custom templates/profiles/noise/catalogs come from `custom_dir` (layout:
     `templates/`, `profiles/`, `noise/`, `i18n/`, one JSON per id). An invalid
     custom item yields a visible warning and falls back to the default; with
     `strict_templates=True` it raises `ConfigError` instead.
     """
+    started = perf_counter()
     registry = ConfigRegistry(custom_dir, strict=strict_templates)
     root = Path(output_dir) / OUTPUT_DIRNAME
     result = DocumentationV52Result(output_dir=root)
@@ -183,7 +193,12 @@ def generate_documentation_v52(
     result.warnings = registry.warnings + result.warnings
     readme = _root_readme(first_catalog, profiles, registry, result)
     all_files["README.md"] = readme
-    _write_tree(root, all_files, result)
+    render_seconds = perf_counter() - started
+    write_tree(
+        to_extended_path(root) if long_paths and os.name == "nt" else root, all_files, result,
+        logical_root=root, output_dir=Path(output_dir), path_limit=applicable_path_limit(long_paths),
+    )
+    result.write_stats["render_seconds"] = round(render_seconds, 3)
     return result
 
 
@@ -205,62 +220,3 @@ def _root_readme(catalog, profiles, registry, result: DocumentationV52Result) ->
         doc.blocks.append(Bullets([Text.of("{g}", {"g": g}) for g in result.gaps]))
     renderer = MarkdownRenderer(PartitionPolicy(10**9, 10**9), {})
     return renderer.render([doc]).files["README.md"]
-
-
-def _atomic_write(path: Path, text: str) -> None:
-    """Crash-safe write of exact UTF-8 bytes with LF newlines on every platform
-    (the manifest hashes these bytes; `atomic_write_text` would translate `\n` on Windows)."""
-    path.parent.mkdir(parents=True, exist_ok=True)
-    fd, tmp_name = tempfile.mkstemp(dir=path.parent, prefix=f".{path.name}.", suffix=".tmp")
-    try:
-        with os.fdopen(fd, "wb") as handle:
-            handle.write(text.encode("utf-8"))
-            handle.flush()
-            os.fsync(handle.fileno())
-        _replace_with_retry(tmp_name, path)
-    except Exception:
-        try:
-            os.unlink(tmp_name)
-        except OSError:
-            pass
-        raise
-
-
-def _write_tree(root: Path, files: dict[str, str], result: DocumentationV52Result) -> None:
-    """Writes files deterministically and removes stale LegacyMapper-owned `.md`
-    files (and the manifest) a previous run left under this tree."""
-    lowered: dict[str, str] = {}
-    for relative in files:
-        clash = lowered.setdefault(relative.lower(), relative)
-        if clash != relative:
-            raise ValueError(f"nombres de archivo que solo difieren en mayúsculas/minúsculas: {clash!r} y {relative!r}")
-    root.mkdir(parents=True, exist_ok=True)
-    wanted = set(files)
-    for existing in sorted(root.rglob("*.md")):
-        if existing.relative_to(root).as_posix() not in wanted:
-            existing.unlink()
-    manifest_files = []
-    for relative in sorted(files):
-        target = root / relative
-        target.parent.mkdir(parents=True, exist_ok=True)
-        data = files[relative]
-        _atomic_write(target, data)
-        raw = data.encode("utf-8")
-        manifest_files.append({"path": relative, "size_bytes": len(raw), "sha256": hashlib.sha256(raw).hexdigest()})
-    result.files = [entry["path"] for entry in manifest_files]
-    manifest = {
-        "schema_version": "1.0",
-        "contract": "LegacyMapperDocumentationV52",
-        "profiles": result.profiles,
-        "file_count": len(manifest_files),
-        "total_bytes": sum(e["size_bytes"] for e in manifest_files),
-        "warnings": result.warnings,
-        "gaps": result.gaps,
-        "files": manifest_files,
-    }
-    _atomic_write(root / MANIFEST_FILENAME, json.dumps(manifest, ensure_ascii=False, indent=2, sort_keys=True) + "\n")
-    for directory in sorted((p for p in root.rglob("*") if p.is_dir()), key=lambda p: len(p.parts), reverse=True):
-        try:
-            directory.rmdir()
-        except OSError:
-            pass

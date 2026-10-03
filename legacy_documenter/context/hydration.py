@@ -87,22 +87,40 @@ class EvidenceHydrator:
 
     MODEL_VERSION = MODEL_VERSION
 
+    def __init__(self) -> None:
+        # Instance-local (never global): the last `ix` this hydrator indexed, see `hydrate_flow`.
+        self._view_slot: tuple | None = None
+
     def hydrate_flow(self, flow_id: str, ix: dict) -> dict:
-        """Builds one hydrated FLOW record for `flow_id`, using only evidence already in `ix`."""
-        flows = {f["id"]: f for f in ix.get("functional_flows", [])}
-        flow = flows.get(flow_id)
+        """Builds one hydrated FLOW record for `flow_id`, using only evidence already in `ix`.
+
+        Returns a fresh record on every call (no memoization). Since V5.3-R2.1 the
+        lookups are indexed once per `ix` *object* and reused across calls on this
+        same instance: before, every call rebuilt five dictionaries and scanned every
+        path and every data parameter (O(flows x entities)). The output is unchanged.
+        For explicit sharing across consumers, with memoization, use
+        `legacy_documenter.context.hydration_view.HydrationView`.
+        """
+        signature = _ix_signature(ix)
+        slot = self._view_slot
+        if slot is None or slot[0] is not ix or slot[1] != signature:
+            slot = (ix, signature, _HydrationLookups(ix))
+            self._view_slot = slot
+        return self._hydrate_indexed(flow_id, slot[2])
+
+    def _hydrate_indexed(self, flow_id: str, lookups: "_HydrationLookups") -> dict:
+        """Hydrates one flow over prebuilt lookups (same algorithm and output as before V5.3-R2.1)."""
+        flow = lookups.flows.get(flow_id)
         if flow is None:
             raise UnknownFlowError(flow_id)
-        entry_points = {e["id"]: e for e in ix.get("entry_points", [])}
-        entry = entry_points.get(flow.get("entry_point_id"), {})
-        data_access = {d["id"]: d for d in ix.get("data_access", []) if d.get("id")}
-        stored_procedures = {p["id"]: p for p in ix.get("stored_procedures", []) if p.get("id")}
-        sql_operations = {s["id"]: s for s in ix.get("sql_operations", []) if s.get("id")}
-        data_parameters = ix.get("data_parameters", [])
+        entry = lookups.entry_points.get(flow.get("entry_point_id"), {})
 
-        raw_paths = [p for p in ix.get("functional_paths", []) if p.get("flow_id") == flow_id]
+        raw_paths = lookups.paths_by_flow.get(flow_id, [])
         groups = self.select_and_deduplicate_paths(raw_paths)
-        hydrated_paths = [self._hydrate_path_group(g, data_access, stored_procedures, sql_operations) for g in groups]
+        hydrated_paths = [
+            self._hydrate_path_group(g, lookups.data_access, lookups.stored_procedures, lookups.sql_operations)
+            for g in groups
+        ]
 
         return {
             "model_version": self.MODEL_VERSION,
@@ -120,7 +138,7 @@ class EvidenceHydrator:
             "terminals": self._terminals(hydrated_paths),
             "transactions": self._transactions(hydrated_paths),
             "data_operations": self._data_operations(hydrated_paths),
-            "parameters": self._parameters(hydrated_paths, data_parameters),
+            "parameters": self._parameters_indexed(hydrated_paths, lookups.parameter_names_by_caller),
             "confidence": flow.get("confidence"),
             "unresolved": [p["path_ids"][0] for p in hydrated_paths if p["terminal_type"] == "unresolved_boundary"],
             "provenance": {
@@ -305,10 +323,50 @@ class EvidenceHydrator:
         }
 
     def _parameters(self, hydrated_paths: list[dict], data_parameters: list[dict]) -> list[dict]:
+        return self._parameters_indexed(hydrated_paths, _parameter_names_by_caller(data_parameters))
+
+    def _parameters_indexed(self, hydrated_paths: list[dict], names_by_caller: dict[str, set]) -> list[dict]:
         callers = sorted({n["caller"] for p in hydrated_paths for n in p["nodes"] if n.get("type") == "data_access" and n.get("caller")})
-        by_caller: dict[str, set] = defaultdict(set)
-        for param in data_parameters:
-            caller = f"{param.get('class')}.{param.get('method')}"
-            if caller in callers:
-                by_caller[caller].add(param.get("name") or "(unnamed)")
-        return [{"caller": caller, "names": sorted(by_caller[caller])} for caller in callers if by_caller[caller]]
+        return [
+            {"caller": caller, "names": sorted(names_by_caller[caller])}
+            for caller in callers if names_by_caller.get(caller)
+        ]
+
+
+def _parameter_names_by_caller(data_parameters: list[dict]) -> dict[str, set]:
+    by_caller: dict[str, set] = defaultdict(set)
+    for param in data_parameters:
+        by_caller[f"{param.get('class')}.{param.get('method')}"].add(param.get("name") or "(unnamed)")
+    return by_caller
+
+
+#: The `ix` keys a hydration reads; used to notice that a hydrator was handed a replaced or resized list.
+_IX_KEYS = (
+    "functional_flows", "entry_points", "data_access", "stored_procedures", "sql_operations",
+    "functional_paths", "data_parameters",
+)
+
+
+def _ix_signature(ix: dict) -> tuple:
+    """Identity + length of every source list: detects a replaced/resized list, not an in-place element edit."""
+    return tuple((id(ix.get(key)), len(ix.get(key) or ())) for key in _IX_KEYS)
+
+
+class _HydrationLookups:
+    """The per-run indexes a hydration reads, built once (plain dict/list structures, deterministic)."""
+
+    __slots__ = (
+        "flows", "entry_points", "data_access", "stored_procedures", "sql_operations",
+        "paths_by_flow", "parameter_names_by_caller",
+    )
+
+    def __init__(self, ix: dict) -> None:
+        self.flows = {f["id"]: f for f in ix.get("functional_flows", [])}
+        self.entry_points = {e["id"]: e for e in ix.get("entry_points", [])}
+        self.data_access = {d["id"]: d for d in ix.get("data_access", []) if d.get("id")}
+        self.stored_procedures = {p["id"]: p for p in ix.get("stored_procedures", []) if p.get("id")}
+        self.sql_operations = {s["id"]: s for s in ix.get("sql_operations", []) if s.get("id")}
+        self.paths_by_flow: dict[object, list[dict]] = defaultdict(list)
+        for path in ix.get("functional_paths", []):
+            self.paths_by_flow[path.get("flow_id")].append(path)
+        self.parameter_names_by_caller = _parameter_names_by_caller(ix.get("data_parameters", []))

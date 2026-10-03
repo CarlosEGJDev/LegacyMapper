@@ -1,6 +1,8 @@
 # LegacyMapper — Historia del proyecto, estado actual y roadmap V5
 
-> **Actualización de continuidad — 29-09-2026:** V5.0 y V5.1 están cerradas; V5.2 tiene implementación y revisión de R3.4.1 realizadas, pero **NO está cerrada formalmente**. Falta la aprobación explícita del Technical Lead y ejecutar/documentar R4 de cierre. Los estados antiguos `V5_0_READY_TO_START` que figuran más abajo son una fotografía histórica, no el estado vigente. El siguiente paso no es V5.3 ni activar IA en V5.2.
+> **Actualización vigente — 03-10-2026 (R2.5.2):** V5.2 está cerrada **y versionada**: commit `6c32c4c9c6fe2642e56e9f33739a95d43d6ae411`, tag `v5.2`, publicada en `origin/main` (`docs/V5/V5_2_GIT_CLOSURE_RESULT.md`); ya no está pendiente de aprobación Git. **V5.3 — Incremental Engine & Cache: EN CURSO (iniciada).** Rondas completadas: R0, R0.1, R1, R2.1, R2.2, R2.2.1, R2.3, R2.4, R2.5 (caché de extracción por archivo **adoptada**) y R2.5.1 (auditoría de higiene); R2.5.2 = continuidad y checkpoint Git local. Estado actual: preparación para R2.6. Última suite conocida: **2.663 tests**, 0 fallas, 0 errores, 132 skips. V5.3 **no está cerrada** y no existe tag V5.3. Pendiente al inicio de R2.6: guardián para los módulos de formato/contrato de la extraction cache. Prompts de V5.3 en `prompts/V5/`.
+
+> *(Histórico)* **Actualización de continuidad — 29-09-2026:** V5.0 y V5.1 están cerradas; V5.2 tiene implementación y revisión de R3.4.1 realizadas, pero **NO está cerrada formalmente**. Falta la aprobación explícita del Technical Lead y ejecutar/documentar R4 de cierre. Los estados antiguos `V5_0_READY_TO_START` que figuran más abajo son una fotografía histórica, no el estado vigente. El siguiente paso no es V5.3 ni activar IA en V5.2.
 
 
 ## 1. Propósito de este documento
@@ -1096,7 +1098,7 @@ El usuario maneja git personalmente. No ordenar a Claude `commit`/`push` ni edit
 
 # 37. Cierre formal de V5.2 (R4.3)
 
-**Estado:** V5.2 cerrada formalmente (`V5_2_CLOSED_PENDING_GIT_APPROVAL`; pendiente solo el versionado Git). Informe: `docs/V5/V5_2_R4_3_CIERRE_FORMAL.md`. `PROJECT_STATE.json` actualizado (V5.0, V5.1 y V5.2 cerradas; `next = V5.3`).
+**Estado (al cierre de R4.3):** V5.2 cerrada formalmente (`V5_2_CLOSED_PENDING_GIT_APPROVAL`; pendiente solo el versionado Git — **resuelto después**: commit `6c32c4c`, tag `v5.2`, push). Informe: `docs/V5/V5_2_R4_3_CIERRE_FORMAL.md`. `PROJECT_STATE.json` actualizado (V5.0, V5.1 y V5.2 cerradas; `next = V5.3`).
 
 **Secuencia de cierre:** R4 (revisión documental) → R4.1 (diagnóstico de pendientes, solo lectura) → R4.2 (correcciones pre-cierre) → R4.3 (cierre formal).
 
@@ -1113,4 +1115,12 @@ El usuario maneja git personalmente. No ordenar a Claude `commit`/`push` ni edit
 
 **Limitaciones futuras por contrato (no son defectos de V5.2):** dependencias a nivel de método; identidad de sobrecargas y firmas; atribución de ciertos `unresolved`; enlace `.aspx/.ascx` → code-behind; flujo → `archivo:línea`; clasificación más rica de tipos de proyecto; validación en otro repositorio; agrupación funcional; refactor de módulos grandes en ronda propia.
 
-**Siguiente paso:** V5.3 — Incremental Engine & Cache (`READY_TO_START`, no iniciada), tras el versionado Git.
+**Siguiente paso (histórico):** V5.3 — Incremental Engine & Cache, tras el versionado Git. *Actualización:* V5.3 está en curso, ver la sección 38.
+
+---
+
+# 38. V5.3 — Incremental Engine & Cache (en curso)
+
+**Estado (03-10-2026):** iniciada, **no cerrada**, sin tag V5.3. Prompts en `prompts/V5/`, resultados en `docs/V5/`. Rondas completadas: R0 (baseline empírico), R0.1 (mediciones), R1 (contrato de caché incremental), R2.1 (HydrationView compartida), R2.2 (write-skip de `documentation_v52` y MAX_PATH), R2.2.1 (writer + validación), R2.3 (versiones y fingerprints; `ANALYZER_VERSION`), R2.4 (Cache Manifest + File State), R2.5 (caché de extracción por archivo, **adoptada**: ≈1,9 s frente a ≈49,5 s en IST; salida idéntica a full), R2.5.1 (auditoría de higiene) y R2.5.2 (continuidad y checkpoint Git local).
+
+**Última suite conocida:** 2.663 tests, 0 fallas, 0 errores, 132 skips. **Siguiente:** R2.6 (nada iniciado). **Deuda a recoger al inicio de R2.6:** guardián propio para los módulos de formato/contrato de la extraction cache; decidir los worktrees de agentes residuales con cambios sin commit (R2.5.2).

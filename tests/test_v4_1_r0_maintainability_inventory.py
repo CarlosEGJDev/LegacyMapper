@@ -117,9 +117,26 @@ class ProductionFileDiscoveryTests(unittest.TestCase):
         # Markdown Renderer, docs/V5/V5_2_R1_DOCUMENTATION_CONTRACT_DESIGN.md:
         # __init__.py, categories.py, config.py, engine.py, noise.py,
         # renderer.py, structure.py, template.py, transform.py -- nine new
-        # production modules), making 193.
+        # production modules), making 193. V5.3 R2.1 then added
+        # `legacy_documenter/context/hydration_view.py` (the run-scoped,
+        # indexed and memoizing `HydrationView`, kept out of `hydration.py`
+        # so that module does not grow -- one new production module),
+        # making 194. V5.3 R2.2 then added `legacy_documenter/utils/
+        # path_limits.py` (the reusable Windows output-path preflight and
+        # extended-length helper, one new production module), making 195.
+        # V5.3 R2.2.1 then extracted the `documentation_v52` write phase from
+        # `engine.py` into `documentation_v52/writer.py` (one new production
+        # module), making 196. V5.3 R2.3 then added `legacy_documenter/versions.py`
+        # and the `legacy_documenter/fingerprints/` package (`__init__`, `_common`,
+        # `code`, `configuration`, `semantic`, `templates`) -- seven new production
+        # modules, making 203. V5.3 R2.4 then added the `legacy_documenter/cache/`
+        # package (`__init__`, `identity`, `file_state`, `diff`, `context`,
+        # `manifest`, `store`, `session`) -- eight new production modules, making 211. V5.3
+        # R2.5 then added `cache/extraction.py`, `cache/extraction_shards.py` and
+        # `cache/extraction_store.py` (the per-file extraction cache, its deterministic sharding and
+        # its disk side), making 214.
         files = inv.iter_production_files(REPO_ROOT)
-        self.assertEqual(len(files), 193)
+        self.assertEqual(len(files), 214)
 
 
 class FileAnalysisTests(unittest.TestCase):
@@ -456,6 +473,40 @@ class GeneratedArtifactOnDiskTests(unittest.TestCase):
                 # and hydration (see
                 # docs/V4_3/V4_3_R2_EVIDENCE_HYDRATION_AND_SELECTION_RESULT.md).
                 "legacy_documenter/context/hydration.py",
+                # V5.3-R2.1: run-scoped, indexed and memoizing `HydrationView`
+                # (kept out of `hydration.py` so that module does not grow; see
+                # docs/V5/V5_3_R2_1_SHARED_HYDRATION_VIEW.md).
+                "legacy_documenter/context/hydration_view.py",
+                # V5.3-R2.2: reusable output-path length preflight for Windows
+                # (see docs/V5/V5_3_R2_2_WRITE_SKIP_AND_MAX_PATH.md).
+                "legacy_documenter/utils/path_limits.py",
+                # V5.3-R2.2.1: the `documentation_v52` write phase extracted verbatim
+                # from `engine.py` (see docs/V5/V5_3_R2_2_1_MAINTAINABILITY_AND_FINAL_VALIDATION.md).
+                "legacy_documenter/documentation_v52/writer.py",
+                # V5.3-R2.3: runtime version constants/registry and the fingerprint package
+                # (see docs/V5/V5_3_R2_3_VERSIONING_AND_FINGERPRINTS.md).
+                "legacy_documenter/versions.py",
+                "legacy_documenter/fingerprints/__init__.py",
+                "legacy_documenter/fingerprints/_common.py",
+                "legacy_documenter/fingerprints/code.py",
+                "legacy_documenter/fingerprints/configuration.py",
+                "legacy_documenter/fingerprints/semantic.py",
+                "legacy_documenter/fingerprints/templates.py",
+                # V5.3-R2.4: Cache Manifest + File State package (see
+                # docs/V5/V5_3_R2_4_CACHE_MANIFEST_AND_FILE_STATE.md).
+                "legacy_documenter/cache/__init__.py",
+                "legacy_documenter/cache/identity.py",
+                "legacy_documenter/cache/file_state.py",
+                "legacy_documenter/cache/diff.py",
+                "legacy_documenter/cache/context.py",
+                "legacy_documenter/cache/manifest.py",
+                "legacy_documenter/cache/store.py",
+                "legacy_documenter/cache/session.py",
+                # V5.3-R2.5: per-file extraction cache + deterministic sharding (see
+                # docs/V5/V5_3_R2_5_EXTRACTION_CACHE.md).
+                "legacy_documenter/cache/extraction.py",
+                "legacy_documenter/cache/extraction_shards.py",
+                "legacy_documenter/cache/extraction_store.py",
                 # V4.3-R3: deterministic Spanish `HUMAN_DOCUMENTATION_PROJECTION`
                 # renderer for hydrated FLOW records (see
                 # docs/V4_3/V4_3_R3_HUMAN_DOCUMENTATION_RESULT.md).
@@ -717,7 +768,6 @@ class GeneratedArtifactOnDiskTests(unittest.TestCase):
         # (Markdown formatting + partitioning). Each keeps one cohesive
         # responsibility; no restructuring was warranted this round.
         r2_v52_high_risk_paths = [
-            "legacy_documenter/documentation_v52/engine.py",
             "legacy_documenter/documentation_v52/renderer.py",
             # V5.2 R3.1: `transform.py` grew (ownership vs participation, real-vs-
             # infrastructure data access, dependency classes) MEDIUM -> HIGH.
@@ -731,11 +781,18 @@ class GeneratedArtifactOnDiskTests(unittest.TestCase):
         # crossed for an unrelated reason. No restructuring/rename, no
         # behavior change to the declarative validation logic itself.
         r3_4_config_very_high_path = "legacy_documenter/documentation_v52/config.py"
+        # V5.3 R2.2 grew `engine.py` HIGH -> VERY_HIGH with the write phase (strict content
+        # verification, write-skip, manifest, cleanup, counters); V5.3 R2.2.1 extracted that
+        # phase verbatim into `documentation_v52/writer.py`. `engine.py` (render orchestration
+        # only) is now MEDIUM -- below its pre-R2.2 HIGH -- and `writer.py` is HIGH: one
+        # cohesive persistence responsibility, not split further (no natural seam; see
+        # docs/V5/V5_3_R2_2_1_MAINTAINABILITY_AND_FINAL_VALIDATION.md).
+        r2_2_1_writer_high_path = "legacy_documenter/documentation_v52/writer.py"
         expected_high_risk_files = sorted(
             [p for p in on_disk_risk["high_risk_files"] if p not in (database_extractor_path, r2_main_path)]
             + [readiness_path, r6_presenter_path,
                r4_human_documentation_scaling_path, r5_ai_projection_path, r6_consumer_projection_path,
-               r7_router_path, r3_1_evidence_builder_path] + r2_v52_high_risk_paths
+               r7_router_path, r3_1_evidence_builder_path, r2_2_1_writer_high_path] + r2_v52_high_risk_paths
         )
         expected_very_high_risk_files = sorted(
             [p for p in on_disk_risk["very_high_risk_files"] if p != readiness_path]
@@ -889,6 +946,30 @@ class GeneratedArtifactOnDiskTests(unittest.TestCase):
         # V5.2 R3.4: `config.py` HIGH -> VERY_HIGH (see `r3_4_config_very_high_path`).
         expected_categories["HIGH"] -= 1
         expected_categories["VERY_HIGH"] += 1
+        # V5.3 R2.1's new `context/hydration_view.py` (112 lines) lands MEDIUM
+        # (measured with `tools.v4_1_r0.inventory.analyze_file`); `hydration.py`
+        # itself stays out of HIGH because the view was kept in its own module.
+        expected_categories["MEDIUM"] += 1
+        # V5.3 R2.2: the new `utils/path_limits.py` (measured with
+        # `tools.v4_1_r0.inventory.analyze_file`) lands LOW. V5.3 R2.2.1: `engine.py`
+        # (R2.2 had taken it to VERY_HIGH) is back to MEDIUM after the write phase moved to
+        # `documentation_v52/writer.py`, which lands HIGH (see `r2_2_1_writer_high_path`).
+        expected_categories["LOW"] += 1
+        expected_categories["MEDIUM"] += 1
+        # V5.3 R2.3: `versions.py` and six `fingerprints/` modules (measured with
+        # `tools.v4_1_r0.inventory.analyze_file`): six land LOW, `fingerprints/code.py` MEDIUM.
+        # The package was split by responsibility after a single module measured VERY_HIGH.
+        expected_categories["LOW"] += 6
+        expected_categories["MEDIUM"] += 1
+        # V5.3 R2.4: the eight `cache/` modules, split by responsibility from the start: four land
+        # LOW (`__init__`, `identity`, `diff`, `context`), four MEDIUM (`file_state`, `manifest`,
+        # `store`, `session`); none HIGH.
+        expected_categories["LOW"] += 4
+        expected_categories["MEDIUM"] += 4
+        # V5.3 R2.5: `extraction_shards`/`extraction_store` land LOW, `extraction` MEDIUM (split in three so
+        # the cache module stays under the HIGH threshold).
+        expected_categories["LOW"] += 2
+        expected_categories["MEDIUM"] += 1
         self.assertEqual(fresh_risk["files_by_risk_category"], expected_categories)
         normalized_on_disk.pop("risk_summary", None)
         normalized_fresh.pop("risk_summary", None)
@@ -968,7 +1049,18 @@ class GeneratedArtifactOnDiskTests(unittest.TestCase):
         # `utils.sanitizer`, `exporters._documentation_partitioning`), plus the
         # one new `cli -> documentation_v52` call in `pipeline_stages.py`; no
         # `knowledge`/`llm` import, no cycle.
-        self.assertEqual(fresh_dep.pop("module_count"), on_disk_dep.pop("module_count") + 50)
+        # V5.3 R2.1 adds the new `context/hydration_view.py` (one module): 51. It
+        # imports only its sibling `hydration` (and `hydration` lazily imports it
+        # back inside one method); both stay inside `context/`, no `knowledge`/
+        # `llm` import. `pipeline_stages.py` gains one `cli -> context` import of
+        # it (the direction `cli -> context` already existed).
+        # V5.3 R2.2 adds the new `utils/path_limits.py` (one module): 52. Standard
+        # library only; `documentation_v52/engine.py` gains one `documentation_v52
+        # -> utils` import of it (the direction `documentation_v52 -> utils`
+        # already existed via `atomic_write`).
+        # V5.3 R2.2.1 adds `documentation_v52/writer.py` (one module): 53. It imports
+        # only `utils` (as `engine.py` did); `engine` imports `writer` -- one direction, no cycle.
+        self.assertEqual(fresh_dep.pop("module_count"), on_disk_dep.pop("module_count") + 71)
         self.assertEqual(fresh_dep, on_disk_dep)
         normalized_on_disk.pop("dependency_findings", None)
         normalized_fresh.pop("dependency_findings", None)
@@ -1075,6 +1167,9 @@ class GeneratedArtifactOnDiskTests(unittest.TestCase):
             "legacy_documenter/documentation_v52/config.py",
             "legacy_documenter/documentation_v52/template.py",
             "legacy_documenter/documentation_v52/transform.py",
+            # V5.3 R2.2.1: `engine.py` (222 lines) and the extracted `writer.py` (~255)
+            # both stay below the top-20 cutoff (`evidence/invariants.py`, 269 lines, keeps
+            # its place), so this round adds nothing here.
         }
         r2_v52_dropped_largest = {
             "legacy_documenter/documentation/consistency.py",
@@ -1177,9 +1272,34 @@ class GeneratedArtifactOnDiskTests(unittest.TestCase):
                     # deliberate filesystem access, not stray imports.
                     "legacy_documenter/documentation_v52/config.py",
                     "legacy_documenter/documentation_v52/engine.py",
+                    # V5.3 R2.2: `utils/path_limits.py` imports `os`/`Path` to measure
+                    # absolute paths and, read-only, queries the Windows `LongPathsEnabled`
+                    # setting -- a real, deliberate OS read (it never changes the OS).
+                    "legacy_documenter/utils/path_limits.py",
+                    # V5.3 R2.2.1: the write phase moved here from `engine.py`; the same
+                    # deliberate filesystem access (verification, atomic writes, cleanup).
+                    "legacy_documenter/documentation_v52/writer.py",
+                    # V5.3 R2.3: the fingerprint modules read analyzer sources, template/profile JSON
+                    # and analyzed files to hash them -- deliberate, read-only filesystem access.
+                    "legacy_documenter/fingerprints/code.py",
+                    "legacy_documenter/fingerprints/configuration.py",
+                    "legacy_documenter/fingerprints/semantic.py",
+                    "legacy_documenter/fingerprints/templates.py",
+                    # V5.3 R2.4: the cache package reads/hashes scanned files, reads the repository's
+                    # `.git/HEAD` (informative metadata) and writes `file_state.json`/`CACHE_MANIFEST.json`
+                    # atomically -- deliberate filesystem access.
+                    "legacy_documenter/cache/identity.py",
+                    "legacy_documenter/cache/file_state.py",
+                    "legacy_documenter/cache/context.py",
+                    "legacy_documenter/cache/manifest.py",
+                    "legacy_documenter/cache/store.py",
+                    "legacy_documenter/cache/session.py",
+                    # V5.3 R2.5: reads/validates/writes the extraction shards.
+                    "legacy_documenter/cache/extraction.py",
+                    "legacy_documenter/cache/extraction_store.py",
                 ])
                 self.assertEqual(sorted(fresh_entry["files"]), expected_files)
-                self.assertEqual(fresh_entry["file_count"], entry["file_count"] + 16)
+                self.assertEqual(fresh_entry["file_count"], entry["file_count"] + 30)
             else:
                 self.assertEqual(fresh_entry["files"], entry["files"])
                 self.assertEqual(fresh_entry["file_count"], entry["file_count"])
@@ -1282,7 +1402,9 @@ class GeneratedArtifactOnDiskTests(unittest.TestCase):
             set(fresh_classes) - set(on_disk_classes),
             {r3_renderer_path, r2_hydrator_path, r2_evidence_builder_path,
              "legacy_documenter/documentation_v52/template.py", "legacy_documenter/documentation_v52/renderer.py",
-             "legacy_documenter/documentation_v52/transform.py"},
+             "legacy_documenter/documentation_v52/transform.py",
+             # V5.3 R2.5: `ExtractionCache` (11 methods) enters the method-count-ranked top-N list.
+             "legacy_documenter/cache/extraction.py"},
         )
         # V5.2 R2's `TemplateEngine` (template.py), `MarkdownRenderer`
         # (renderer.py) and `AudienceTransformer` (transform.py) enter this method-count-ranked top-N list: they push
@@ -1292,6 +1414,8 @@ class GeneratedArtifactOnDiskTests(unittest.TestCase):
         # seen throughout this section.
         r2_v52_dropped_classes = {
             "legacy_documenter/documentation/coverage.py", "legacy_documenter/knowledge/approval/service.py",
+            # V5.3 R2.5: pushed below the cutoff by `ExtractionCache` (untouched).
+            "legacy_documenter/analysis/dependency_resolver.py",
         }
         self.assertEqual(
             set(on_disk_classes) - set(fresh_classes),
@@ -1528,7 +1652,13 @@ class GeneratedArtifactOnDiskTests(unittest.TestCase):
             "legacy_documenter/cli/run_summary_presenter.py", "legacy_documenter/utils/atomic_write.py",
             # V5.2 R2: `engine.py`'s crash-safe writer removes its temp file and
             # re-raises on any failure (same pattern as `utils/atomic_write.py`).
-            "legacy_documenter/documentation_v52/engine.py",
+            # V5.3 R2.2.1: that writer now lives in `documentation_v52/writer.py`.
+            "legacy_documenter/documentation_v52/writer.py",
+            # V5.3 R2.4: `cache/session.py` converts any cache failure into a logged warning and a disabled
+            # cache -- by contract the cache can never fail a run (V5.3 R1 section 18).
+            "legacy_documenter/cache/session.py",
+            # V5.3 R2.5: `cache/extraction.py` never raises into the pipeline (lookup/store/load degrade to a miss/bypass).
+            "legacy_documenter/cache/extraction.py",
         }
         self.assertEqual(set(fresh_exc) - set(on_disk_exc), r2_new_exception_files)
         self.assertEqual(set(on_disk_exc) - set(fresh_exc), {main_path})

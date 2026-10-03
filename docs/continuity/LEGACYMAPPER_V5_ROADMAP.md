@@ -1,6 +1,8 @@
 # LegacyMapper V5 — Roadmap oficial de trabajo
 
-> **Actualización de cierre — V5.2 CLOSED (R4.3):** V5.0, V5.1 y V5.2 están cerradas formalmente (`docs/V5/V5_2_R4_3_CIERRE_FORMAL.md`, estado `V5_2_CLOSED_PENDING_GIT_APPROVAL`: solo falta el versionado Git autorizado por el usuario). **V5.3 — Incremental Engine & Cache: `READY_TO_START`, NO iniciada.** Baseline IST oficial de V5.2: `C:\Users\cgalianj\source\IST_40\Operacional`. Última suite completa: **2.449 pruebas**, 0 fallas, 0 errores, 132 skips. R4.2 = corrección pre-cierre; R4.3 = cierre formal. Prompts nuevos desde V5.3 bajo `prompts/V5/` (los históricos permanecen en `prompts/V5_0/`). Los estados antiguos `V5_0_READY_TO_START` y la nota del 29-09-2026 más abajo son fotografías históricas.
+> **Actualización vigente — 03-10-2026 (R2.5.2):** V5.2 está cerrada **y versionada**: commit `6c32c4c9c6fe2642e56e9f33739a95d43d6ae411`, tag `v5.2`, publicada en `origin/main` (`docs/V5/V5_2_GIT_CLOSURE_RESULT.md`); ya no está pendiente de aprobación Git. **V5.3 — Incremental Engine & Cache: EN CURSO (iniciada).** Rondas completadas: R0, R0.1, R1, R2.1, R2.2, R2.2.1, R2.3, R2.4, R2.5 (caché de extracción por archivo **adoptada**) y R2.5.1 (auditoría de higiene); R2.5.2 = continuidad y checkpoint Git local. Estado actual: preparación para R2.6. Última suite conocida: **2.663 tests**, 0 fallas, 0 errores, 132 skips. V5.3 **no está cerrada** y no existe tag V5.3. Pendiente al inicio de R2.6: guardián para los módulos de formato/contrato de la extraction cache. Prompts de V5.3 en `prompts/V5/`.
+
+> *(Nota histórica, superada por la actualización vigente anterior en lo relativo a Git y a V5.3.)* **Actualización de cierre — V5.2 CLOSED (R4.3):** V5.0, V5.1 y V5.2 están cerradas formalmente (`docs/V5/V5_2_R4_3_CIERRE_FORMAL.md`, estado `V5_2_CLOSED_PENDING_GIT_APPROVAL`: solo falta el versionado Git autorizado por el usuario). **V5.3 — Incremental Engine & Cache: `READY_TO_START`, NO iniciada.** Baseline IST oficial de V5.2: `C:\Users\cgalianj\source\IST_40\Operacional`. Última suite completa: **2.449 pruebas**, 0 fallas, 0 errores, 132 skips. R4.2 = corrección pre-cierre; R4.3 = cierre formal. Prompts nuevos desde V5.3 bajo `prompts/V5/` (los históricos permanecen en `prompts/V5_0/`). Los estados antiguos `V5_0_READY_TO_START` y la nota del 29-09-2026 más abajo son fotografías históricas.
 
 
 ## Estado inicial
@@ -205,8 +207,8 @@ Validar IST + segunda tecnología + normalized core + templates + cache + provid
 | --- | --- | --- |
 | V5.0 Architecture & Contracts | Cerrada | Preservar contrato. |
 | V5.1 Normalized Evidence Core | Cerrada formalmente: `docs/V5/V5_1_R4_CIERRE_FINAL.md` | No modificar para solucionar presentación. |
-| V5.2 Template-Driven Documentation & Output Profiles | **CLOSED** (R3.4.1 aprobada; R4, R4.1, R4.2 pre-cierre y R4.3 cierre formal). Estado histórico previo: R3.4.1 `READY_FOR_HUMAN_REVIEW`. | Solo versionado Git (commit + tag `v5.2` + push, con aprobación humana). |
-| V5.3 Incremental Engine & Cache | **READY_TO_START** (no iniciada) | Empezar por baseline/contrato con el patrón de rondas; prompts bajo `prompts/V5/`. |
+| V5.2 Template-Driven Documentation & Output Profiles | **CLOSED** (R3.4.1 aprobada; R4, R4.1, R4.2 pre-cierre y R4.3 cierre formal). Estado histórico previo: R3.4.1 `READY_FOR_HUMAN_REVIEW`. | Versionada: commit `6c32c4c`, tag `v5.2`, push correcto (`docs/V5/V5_2_GIT_CLOSURE_RESULT.md`). |
+| V5.3 Incremental Engine & Cache | **EN CURSO** (R0 → R2.5.1 completas; siguiente R2.6; sin cierre ni tag V5.3) | Prompts bajo `prompts/V5/`; resultados en `docs/V5/`. |
 | V5.4–V5.9 y V5 Closure | Pendientes | Mantener orden oficial y scopes independientes. |
 
 ## Contrato logrado en V5.2
@@ -245,7 +247,7 @@ Informe: `docs/V5/V5_2_R3_4_1_METHOD_DETAIL_QUALITY.md`, estado `V5_2_R3_4_1_REA
 
 ## Cierre formal de V5.2 (R4.3)
 
-- Estado: `V5_2_CLOSED_PENDING_GIT_APPROVAL`. Resultado: `docs/V5/V5_2_R4_3_CIERRE_FORMAL.md`.
+- Estado al cierre de R4.3 (histórico): `V5_2_CLOSED_PENDING_GIT_APPROVAL`; resuelto después con commit `6c32c4c` y tag `v5.2`. Resultado: `docs/V5/V5_2_R4_3_CIERRE_FORMAL.md`.
 - Baseline oficial: `C:\Users\cgalianj\source\IST_40\Operacional`. La ruta `C:\inetpub\wwwroot\2010\IST\Operacional` **no es equivalente** (rama y `HEAD` distintos; 281 archivos comunes con contenido distinto y 1.376 archivos relevantes solo en ella; R4.1).
 - Suite final: 2.449 pruebas, 0 fallas, 0 errores, 132 skips (R4.2). Documentación: 46.567 archivos Markdown.
 - Orden V5.3–V5.9 sin cambios. La deuda de fase futura por contrato está en el informe de cierre.

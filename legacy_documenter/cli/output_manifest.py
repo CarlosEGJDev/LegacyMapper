@@ -28,6 +28,8 @@ from __future__ import annotations
 import hashlib
 from pathlib import Path
 
+from legacy_documenter.cache import CACHE_DIRNAME
+
 SCHEMA_VERSION = "1.0"
 CONTRACT_NAME = "LegacyMapperOutputManifest"
 MANIFEST_FILENAME = "OUTPUT_MANIFEST.json"
@@ -46,7 +48,7 @@ def build_output_manifest(output_dir: str | Path) -> dict:
     entries: list[dict] = []
     total_bytes = 0
     for path in sorted(
-        (p for p in root.rglob("*") if p.is_file() and p.name != MANIFEST_FILENAME),
+        (p for p in root.rglob("*") if p.is_file() and p.name != MANIFEST_FILENAME and CACHE_DIRNAME not in p.relative_to(root).parts[:1]),
         key=lambda p: p.relative_to(root).as_posix(),
     ):
         size = path.stat().st_size

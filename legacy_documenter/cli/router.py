@@ -88,6 +88,7 @@ def _route_full(args: Namespace) -> tuple[int, RunResult]:
     result = run_full_pipeline(
         args.repository, args.output, args.exclude, args.flow_max_depth,
         allow_ai_interpretation=allow_ai_interpretation,
+        long_paths=getattr(args, "long_paths", False),
     )
     return _EXIT_CODE_BY_STATUS[result.status], result
 

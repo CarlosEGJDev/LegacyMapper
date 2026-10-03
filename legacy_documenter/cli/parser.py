@@ -123,6 +123,18 @@ def build_parser() -> argparse.ArgumentParser:
         ),
     )
 
+    full_parser.add_argument(
+        "--long-paths",
+        action="store_true",
+        help=(
+            "Windows only, opt-in: write documentation_v52 through extended-length paths (\\\\?\\) so an "
+            "--output whose documents exceed the 260-character limit still works. Document names, links and "
+            "manifest paths are unchanged. Other tools (Explorer, editors, antivirus) may not open such paths. "
+            "Without it, a path that would not fit is reported as OUTPUT_PATH_TOO_LONG before anything is written. "
+            "Has no effect on other platforms."
+        ),
+    )
+
     readiness_help = (
         "Validates LegacyMapper's own knowledge/readiness prerequisites "
         "(thin route to legacy_documenter.knowledge.readiness.run) -- does not analyze a repository."

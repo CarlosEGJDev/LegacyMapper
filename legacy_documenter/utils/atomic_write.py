@@ -54,6 +54,29 @@ def _replace_with_retry(tmp_name: str, path: Path) -> None:
             delay *= 2
 
 
+def atomic_write_bytes(path: str | Path, content: bytes) -> None:
+    """Atomically replaces `path` with the exact `content` bytes (V5.3-R2.4).
+
+    Same temp-sibling + `fsync` + `os.replace` mechanism as `atomic_write_text`, but with no newline
+    translation, so a checksum computed over `content` is the checksum of what lands on disk.
+    """
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    fd, tmp_name = tempfile.mkstemp(dir=path.parent, prefix=f".{path.name}.", suffix=".tmp")
+    try:
+        with os.fdopen(fd, "wb") as handle:
+            handle.write(content)
+            handle.flush()
+            os.fsync(handle.fileno())
+        _replace_with_retry(tmp_name, path)
+    except Exception:
+        try:
+            os.unlink(tmp_name)
+        except OSError:
+            pass
+        raise
+
+
 def atomic_write_text(path: str | Path, content: str, encoding: str = "utf-8") -> None:
     """Atomically replaces `path` with `content` (temp sibling + `os.replace`).
 

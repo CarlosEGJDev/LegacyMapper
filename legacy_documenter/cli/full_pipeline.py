@@ -30,6 +30,7 @@ from pathlib import Path
 from time import perf_counter
 from typing import Callable, TypeVar
 
+from legacy_documenter.cache import CacheSession, begin_cache_session
 from legacy_documenter.cli import pipeline_stages as stages
 from legacy_documenter.cli.artifact_lifecycle import reset_stale_proposal_artifacts
 from legacy_documenter.cli.execution_model import RunResult, RunStatus, StageError, StageResult, StageStatus
@@ -57,6 +58,10 @@ def run_full_pipeline(
     flow_max_depth: int,
     allow_ai_interpretation: bool = False,
     ai_provider: LLMProvider | None = None,
+    long_paths: bool = False,
+    cache_mode: str = "auto",
+    cache_dir: str | Path | None = None,
+    extraction_cache: bool | None = None,
 ) -> RunResult:
     """Executes the full pipeline and writes the run summary artifact.
 
@@ -93,10 +98,20 @@ def run_full_pipeline(
     stage_results.append(scan_result)
     scan_ok = scan_result.status is StageStatus.SUCCESS
 
+    # V5.3-R2.4/R2.5: validate the previous cache, build and compare the File State, load the extraction shards
+    # and drop the old manifest. Only EXTRACTION may reuse anything (per unchanged file); every later stage always
+    # recomputes, and the cache can never fail the run (see `legacy_documenter.cache.session`).
+    cache_session = CacheSession()
+    if scan_ok:
+        cache_session = begin_cache_session(
+            scan_outcome.root, output, scan_outcome.files, excludes, flow_max_depth, cache_mode, cache_dir,
+            extraction_cache,
+        )
+
     extraction_outcome = None
     if scan_ok:
         extraction_outcome, extraction_result = _run_stage(
-            StageId.EXTRACTION, lambda: stages.extract_repository(scan_outcome.files, scan_outcome.root)
+            StageId.EXTRACTION, lambda: stages.extract_repository(scan_outcome.files, scan_outcome.root, cache_session.extraction)
         )
     else:
         extraction_result = _skipped(StageId.EXTRACTION, StageId.SCAN)
@@ -183,9 +198,17 @@ def run_full_pipeline(
             scan_outcome, extraction_outcome, call_outcome, web_entry_outcome, database_outcome,
             flow_outcome, dependency_outcome, functional_dependencies, round(perf_counter() - start, 3),
         )
+        # V5.3-R2.1: one run-scoped source of hydrated flows, created and owned by `pipeline_stages`
+        # (this orchestrator only threads the opaque handle): shared by `consumer_projection` (CONTEXT)
+        # and `HUMAN_DOCUMENTATION` (DOCUMENTATION) so a flow is prepared once per run, not once per
+        # consumer. It is lazy: nothing is indexed until the first consumer asks, inside that stage.
+        flow_source = stages.create_run_flow_source(indexes)
         _, export_result = _run_stage(StageId.EXPORT, lambda: stages.export_artifacts(output, indexes))
-        _, context_result = _run_stage(StageId.CONTEXT, lambda: stages.build_context_artifacts(output, indexes))
-        documentation_result = _run_documentation_stage(output, indexes)
+        _, context_result = _run_stage(
+            StageId.CONTEXT, lambda: stages.build_context_artifacts(output, indexes, flow_source),
+        )
+        documentation_result = _run_documentation_stage(output, indexes, flow_source, long_paths)
+        stages.log_run_flow_source_stats(flow_source)
     else:
         export_result = _skipped(StageId.EXPORT, StageId.EXTRACTION)
         context_result = _skipped(StageId.CONTEXT, StageId.EXTRACTION)
@@ -257,6 +280,8 @@ def run_full_pipeline(
         ai_requested=allow_ai_interpretation, proposal_count=proposal_count,
         proposal_review_status=proposal_review_status,
     )
+    if final_status is RunStatus.SUCCESS:
+        cache_session.persist()  # manifest written last; a PARTIAL/FAILED run leaves no valid cache
     final_result = dataclasses.replace(
         final_result,
         next_action=derive_next_action(final_result, allow_ai_interpretation, proposal_count),
@@ -290,7 +315,9 @@ def _skipped(stage_id: StageId, *blocked_by: StageId) -> StageResult:
     return StageResult(stage=stage_id, status=StageStatus.SKIPPED_DUE_TO_UPSTREAM_FAILURE, error=error)
 
 
-def _run_documentation_stage(output: Path, indexes: dict) -> StageResult:
+def _run_documentation_stage(
+    output: Path, indexes: dict, flow_source: object | None = None, long_paths: bool = False,
+) -> StageResult:
     """Runs the DOCUMENTATION stage (V4.2-R3).
 
     `stages.render_documentation` never raises for an individual renderer's
@@ -302,7 +329,7 @@ def _run_documentation_stage(output: Path, indexes: dict) -> StageResult:
     cannot be created at all) is still caught and reported the normal way.
     """
     try:
-        outcome = stages.render_documentation(output, indexes)
+        outcome = stages.render_documentation(output, indexes, flow_source, long_paths)
     except Exception as exc:
         error = StageError(stage=StageId.DOCUMENTATION, category=exc.__class__.__name__, message=str(exc))
         return StageResult(stage=StageId.DOCUMENTATION, status=StageStatus.FAILED, error=error)
