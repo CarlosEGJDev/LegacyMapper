@@ -475,7 +475,7 @@ class PipelineIntegrationTests(_TmpCase):
         result, log = self._logs(out)
         self.assertEqual(result.status, RunStatus.SUCCESS)
         self.assertIn("'mode': 'cold'", log)
-        self.assertEqual(sorted(p.name for p in (out / CACHE_DIRNAME).iterdir()), [MANIFEST_FILENAME, "extraction", FILE_STATE_FILENAME])
+        self.assertEqual(sorted(p.name for p in (out / CACHE_DIRNAME).iterdir()), [MANIFEST_FILENAME, "RUN_METRICS.json", "extraction", FILE_STATE_FILENAME])  # R2.7 adds the metrics file
         self.assertTrue(validate_cache(out / CACHE_DIRNAME, cache_context.build_context(FULL_SAMPLE.resolve(), None, 12)).valid)
 
     def test_second_unchanged_run_validates_the_cache(self):

@@ -44,6 +44,7 @@ from legacy_documenter.orchestration import ai_interpretation, proposal_adapter
 from legacy_documenter.orchestration.ai_interpretation import AiInterpretationResult
 from legacy_documenter.utils.atomic_write import atomic_write_text
 from legacy_documenter.utils.json_rendering import render_deterministic_json
+from legacy_documenter.utils.stage_timings import TIMINGS
 from legacy_documenter.utils.write_if_changed import LEDGER, log_write_ledger
 
 RUN_SUMMARY_JSON = "RUN_SUMMARY.json"
@@ -94,6 +95,7 @@ def run_full_pipeline(
     output = Path(output_dir).resolve()
     reset_stale_proposal_artifacts(output)
     LEDGER.reset()  # V5.3-R2.6: in-memory write-skip counters of this run
+    TIMINGS.reset()  # V5.3-R2.7: in-memory stage timings (run metrics)
     stage_results: list[StageResult] = []
 
     scan_outcome, scan_result = _run_stage(StageId.SCAN, lambda: stages.scan_repository(repo_root, excludes))
@@ -283,8 +285,9 @@ def run_full_pipeline(
         ai_requested=allow_ai_interpretation, proposal_count=proposal_count,
         proposal_review_status=proposal_review_status,
     )
-    if final_status is RunStatus.SUCCESS:
-        cache_session.persist()  # manifest written last; a PARTIAL/FAILED run leaves no valid cache
+    cache_session.finish(
+        final_status.value, round(perf_counter() - start, 3), extraction_outcome, dependency_outcome,
+    )  # persists the cache only after SUCCESS; always writes RUN_METRICS.json (R2.7)
     final_result = dataclasses.replace(
         final_result,
         next_action=derive_next_action(final_result, allow_ai_interpretation, proposal_count),
@@ -300,11 +303,14 @@ def run_full_pipeline(
 
 def _run_stage(stage_id: StageId, action: Callable[[], _T]) -> tuple[_T | None, StageResult]:
     """Runs one stage's action, converting any exception into a `StageError` rather than propagating it."""
+    started = perf_counter()
     try:
         outcome = action()
     except Exception as exc:
         error = StageError(stage=stage_id, category=exc.__class__.__name__, message=str(exc))
         return None, StageResult(stage=stage_id, status=StageStatus.FAILED, error=error)
+    finally:
+        TIMINGS.add(stage_id.value, perf_counter() - started)
     return outcome, StageResult(stage=stage_id, status=StageStatus.SUCCESS)
 
 
@@ -331,8 +337,10 @@ def _run_documentation_stage(
     from `render_documentation` itself (e.g. the `documentation/` directory
     cannot be created at all) is still caught and reported the normal way.
     """
+    started = perf_counter()
     try:
         outcome = stages.render_documentation(output, indexes, flow_source, long_paths)
+        TIMINGS.add(StageId.DOCUMENTATION.value, perf_counter() - started)
     except Exception as exc:
         error = StageError(stage=StageId.DOCUMENTATION, category=exc.__class__.__name__, message=str(exc))
         return StageResult(stage=StageId.DOCUMENTATION, status=StageStatus.FAILED, error=error)

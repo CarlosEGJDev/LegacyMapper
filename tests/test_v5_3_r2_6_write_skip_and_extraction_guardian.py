@@ -388,7 +388,8 @@ class FamilyTests(_Case):
     def test_ledger_is_in_memory_only(self):
         out = self.tmp / "out"
         self._run(out)
-        names = {p.name for p in out.rglob("*")}
+        # R2.7 persists metrics, but only inside the cache directory -- never among the product outputs
+        names = {p.name for p in out.rglob("*") if p.relative_to(out).parts[0] != "_cache_v53"}
         self.assertNotIn("RUN_METRICS.json", names)
         self.assertNotIn("artifacts.json", names)
 

@@ -210,7 +210,7 @@ class WriteSkipTests(unittest.TestCase):
     def test_end_to_end_second_run_skips_all_and_touches_nothing_else(self):
         with tempfile.TemporaryDirectory() as out:
             first = run_full_pipeline(FULL_SAMPLE, Path(out), None, 12)
-            snapshot = {p: b for p, b in _tree(Path(out)).items() if not p.startswith(("documentation_v52/MANIFEST", "index/repository", "_cache_v53/CACHE_MANIFEST"))}  # R2.4 cache manifest has a generated_at
+            snapshot = {p: b for p, b in _tree(Path(out)).items() if not p.startswith(("documentation_v52/MANIFEST", "index/repository", "_cache_v53/CACHE_MANIFEST", "_cache_v53/RUN_METRICS"))}  # R2.4 cache manifest has a generated_at; R2.7 metrics hold timings
             v52_before = {p: b for p, b in _tree(Path(out)).items() if p.startswith("documentation_v52/")}
             with patch.object(pipeline_stages.LOG, "info") as info:
                 second = run_full_pipeline(FULL_SAMPLE, Path(out), None, 12)

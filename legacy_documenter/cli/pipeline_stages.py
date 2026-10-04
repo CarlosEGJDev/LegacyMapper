@@ -59,6 +59,7 @@ from legacy_documenter.extractors.webforms_extractor import WebFormsExtractor
 from legacy_documenter.models import SourceFile
 from legacy_documenter.scanner.file_classifier import FileClassifier
 from legacy_documenter.scanner.repository_scanner import RepositoryScanner
+from legacy_documenter.utils.stage_timings import TIMINGS
 from legacy_documenter.utils.write_if_changed import write_text_if_changed
 from legacy_documenter.utils.json_rendering import render_deterministic_json
 from legacy_documenter.utils.sanitizer import sanitize_data
@@ -446,6 +447,7 @@ def create_run_flow_source(indexes: dict) -> HydrationView:
 def log_run_flow_source_stats(source: HydrationView) -> None:
     """Logs the in-memory hydration counters of the run (how many flows were hydrated vs. served from memo)."""
     LOG.info("Hydration: %s", source.stats)
+    TIMINGS.extras["hydration"] = dict(source.stats)  # V5.3-R2.7: run metrics (observability only)
 
 
 def build_context_artifacts(output: str | Path, indexes: dict, hydration_view: HydrationView | None = None) -> None:

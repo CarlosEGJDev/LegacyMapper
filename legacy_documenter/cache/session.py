@@ -8,14 +8,17 @@ removed as soon as the comparison is done, so an interrupted or unsuccessful run
 from __future__ import annotations
 
 import logging
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from time import perf_counter
+from typing import Any
 
 from .context import CacheContext, build_context
 from .diff import FileStateDiff, diff_file_states
 from .extraction import ExtractionCache
 from .file_state import FileRecord, build_file_state
+from .run_metrics import now_iso
+from .run_report import write_metrics
 from .manifest import (
     CACHE_DIRNAME, MODE_FALLBACK_FULL, MODE_WARM, CacheValidationResult, validate_cache,
 )
@@ -42,6 +45,17 @@ class CacheSession:
     validation: CacheValidationResult | None = None
     diff: FileStateDiff | None = None
     extraction: ExtractionCache | None = None
+    timings: dict = field(default_factory=dict)
+    started_at: str = ""
+
+    def finish(
+        self, final_status: str, total_seconds: float, extraction_outcome: Any = None,
+        dependency_outcome: list[dict] | None = None,
+    ) -> None:
+        """End of run (V5.3-R2.7): persist the cache after a SUCCESS run, then write `RUN_METRICS.json` for any status."""
+        if final_status == "SUCCESS":
+            self.persist()  # manifest written last; a PARTIAL/FAILED run leaves no valid cache
+        write_metrics(self, final_status, total_seconds, extraction_outcome, dependency_outcome)
 
     def persist(self) -> bool:
         """Writes the new cache (call only after a SUCCESS run). Failure is logged, never raised."""
@@ -73,6 +87,7 @@ def begin_cache_session(
     try:
         target = Path(cache_dir) if cache_dir else Path(output_dir) / CACHE_DIRNAME
         timings: dict[str, float] = {}
+        started_iso = now_iso()
         started = perf_counter()
         context = build_context(repo_root, excludes, flow_max_depth)
         swept = sweep_temporary_files(target)
@@ -95,7 +110,9 @@ def begin_cache_session(
             if validation.mode == MODE_WARM:  # cold / fallback_full: nothing to reuse, shards are (re)generated
                 extraction.load(target, validation.manifest)
         invalidate_manifest(target)
-        session = CacheSession(True, validation.mode, validation.reason, target, context, records, validation, diff, extraction)
+        session = CacheSession(
+            True, validation.mode, validation.reason, target, context, records, validation, diff, extraction, timings, started_iso,
+        )
         LOG.info("cache: %s", {
             "mode": session.mode, "reason": session.reason, "files": len(records), "temporaries_removed": swept,
             "diff": diff.counts() if diff else None,
