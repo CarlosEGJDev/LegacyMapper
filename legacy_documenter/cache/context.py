@@ -23,6 +23,7 @@ class CacheContext:
 
     identity: dict
     analyzer_version: int
+    extraction_cache_schema_version: int
     analyzer_code_fingerprint: CodeFingerprint
     evidence_schema_version: str
     renderer_versions: dict
@@ -41,6 +42,7 @@ def build_context(repo_root: str | Path, excludes: list[str] | None, flow_max_de
     return CacheContext(
         identity=repository_identity(repo_root),
         analyzer_version=versions.ANALYZER_VERSION,
+        extraction_cache_schema_version=versions.EXTRACTION_CACHE_SCHEMA_VERSION,
         analyzer_code_fingerprint=analyzer_code_fingerprint(),
         evidence_schema_version=versions.evidence_schema_version(),
         renderer_versions=versions.renderer_versions(),

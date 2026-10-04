@@ -48,7 +48,7 @@ import hashlib
 import json
 from pathlib import Path
 
-from legacy_documenter.utils.atomic_write import atomic_write_text
+from legacy_documenter.utils.write_if_changed import write_text_if_changed
 
 from .builder import NormalizedEvidence
 from .entities import EVIDENCE_SCHEMA_VERSION
@@ -134,7 +134,7 @@ def write_evidence(evidence: NormalizedEvidence, output_dir: str | Path) -> Path
     partition_hashes = {}
     for name, payload in partition_payloads.items():
         rendered = _render(payload)
-        atomic_write_text(target / f"{name}.json", rendered)
+        write_text_if_changed(target / f"{name}.json", rendered, family="evidence")
         entity_counts[name] = len(payload) if isinstance(payload, list) else 1
         partition_hashes[name] = hashlib.sha256(rendered.encode("utf-8")).hexdigest()
 
@@ -144,5 +144,5 @@ def write_evidence(evidence: NormalizedEvidence, output_dir: str | Path) -> Path
         "entity_counts": entity_counts,
         "partition_sha256": partition_hashes,
     }
-    atomic_write_text(target / EVIDENCE_MANIFEST_FILENAME, _render(manifest))
+    write_text_if_changed(target / EVIDENCE_MANIFEST_FILENAME, _render(manifest), family="evidence")
     return target

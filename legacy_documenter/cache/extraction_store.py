@@ -19,6 +19,14 @@ class SectionInvalid(ValueError):
     """The manifest's `extraction` section is not something this version can read."""
 
 
+def schema_incompatibility(manifest: dict, expected: int) -> str | None:
+    """Why the manifest's extraction cache cannot be reused for the current contract version, or `None`."""
+    found = manifest.get("versions", {}).get("extraction_cache_schema_version")
+    if found is None:
+        return "EXTRACTION_CACHE_SCHEMA_MISSING"
+    return None if found == expected else "EXTRACTION_CACHE_SCHEMA_MISMATCH"
+
+
 def load_shard(directory: Path, index: int, expected_sha: str, metrics: dict) -> dict[str, dict] | None:
     """Entries of one shard, or `None` if it is missing, fails its checksum or is malformed."""
     started = perf_counter()

@@ -250,7 +250,7 @@ class CacheManifestTests(_TmpCase):
         self.assertEqual(manifest["state"], STATE_COMPLETE)
         self.assertEqual(set(manifest["versions"]), {
             "analyzer_version", "analyzer_code_fingerprint", "evidence_schema_version", "renderer_versions",
-            "template_profile_fingerprint"})
+            "template_profile_fingerprint", "extraction_cache_schema_version"})
         self.assertEqual(manifest["file_state"]["file_count"], 2)
         self.assertEqual(manifest["file_state"]["sha256"], hashlib.sha256((self.cache / FILE_STATE_FILENAME).read_bytes()).hexdigest())
         self.assertEqual(manifest["file_state"]["path"], FILE_STATE_FILENAME)

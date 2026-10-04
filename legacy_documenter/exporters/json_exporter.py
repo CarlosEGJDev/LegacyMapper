@@ -2,7 +2,7 @@ import json
 from pathlib import Path
 
 from legacy_documenter.utils import sanitize_data
-from legacy_documenter.utils.atomic_write import atomic_write_text
+from legacy_documenter.utils.write_if_changed import write_text_if_changed
 
 
 class JSONExporter:
@@ -12,11 +12,13 @@ class JSONExporter:
 
         Writes atomically (V4.2-R6 section 7): `index/*.json` is a core
         machine-readable artifact, so a process interrupted mid-write must
-        never leave a truncated/corrupted file in its place.
+        never leave a truncated/corrupted file in its place. V5.3-R2.6: a file already holding exactly
+        these bytes is not rewritten.
         """
         index_dir = Path(output_dir) / "index"
         for name, data in indexes.items():
-            atomic_write_text(
+            write_text_if_changed(
                 index_dir / f"{name}.json",
                 json.dumps(sanitize_data(data), indent=2, ensure_ascii=False),
+                family="index",
             )

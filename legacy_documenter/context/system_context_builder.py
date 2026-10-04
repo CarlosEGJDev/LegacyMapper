@@ -5,6 +5,7 @@ from pathlib import Path
 import json
 
 from legacy_documenter.utils import sanitize_data
+from legacy_documenter.utils.write_if_changed import write_text_if_changed
 
 
 class SystemContextBuilder:
@@ -18,9 +19,9 @@ class SystemContextBuilder:
         target.mkdir(parents=True, exist_ok=True)
         for name, data in artifacts.items():
             if name.endswith(".json"):
-                (target / name).write_text(json.dumps(sanitize_data(data), ensure_ascii=False, indent=2), encoding="utf-8")
+                write_text_if_changed(target / name, json.dumps(sanitize_data(data), ensure_ascii=False, indent=2), family="ai_context")
             else:
-                (target / name).write_text(data, encoding="utf-8")
+                write_text_if_changed(target / name, data, family="ai_context")
         return artifacts
 
     def _artifacts(self, ix: dict) -> dict:

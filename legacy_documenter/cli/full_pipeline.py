@@ -44,6 +44,7 @@ from legacy_documenter.orchestration import ai_interpretation, proposal_adapter
 from legacy_documenter.orchestration.ai_interpretation import AiInterpretationResult
 from legacy_documenter.utils.atomic_write import atomic_write_text
 from legacy_documenter.utils.json_rendering import render_deterministic_json
+from legacy_documenter.utils.write_if_changed import LEDGER, log_write_ledger
 
 RUN_SUMMARY_JSON = "RUN_SUMMARY.json"
 RUN_SUMMARY_MARKDOWN = "RUN_SUMMARY.md"
@@ -92,6 +93,7 @@ def run_full_pipeline(
     start = perf_counter()
     output = Path(output_dir).resolve()
     reset_stale_proposal_artifacts(output)
+    LEDGER.reset()  # V5.3-R2.6: in-memory write-skip counters of this run
     stage_results: list[StageResult] = []
 
     scan_outcome, scan_result = _run_stage(StageId.SCAN, lambda: stages.scan_repository(repo_root, excludes))
@@ -272,6 +274,7 @@ def run_full_pipeline(
         proposal_review_status=proposal_review_status,
     )
 
+    log_write_ledger()
     summary_result = finalize_and_write_run_summary(output, pre_summary_result, RUN_SUMMARY_JSON, RUN_SUMMARY_MARKDOWN)
     all_stage_results = stage_results + [summary_result]
     final_status = _compute_status(all_stage_results, has_extraction_errors)

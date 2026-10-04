@@ -50,6 +50,7 @@ def build_manifest(context: CacheContext, file_state_sha256: str, file_count: in
         "state": STATE_COMPLETE,
         "versions": {
             "analyzer_version": context.analyzer_version,
+            "extraction_cache_schema_version": context.extraction_cache_schema_version,
             "analyzer_code_fingerprint": context.analyzer_code_fingerprint.sha256,
             "evidence_schema_version": context.evidence_schema_version,
             "renderer_versions": context.renderer_versions,

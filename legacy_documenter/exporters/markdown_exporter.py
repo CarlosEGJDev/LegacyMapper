@@ -3,6 +3,7 @@ from collections import Counter
 
 from legacy_documenter.cli.artifact_lifecycle import sync_generated_partition_directory
 from legacy_documenter.exporters._documentation_partitioning import build_partition_filenames
+from legacy_documenter.utils.write_if_changed import write_text_if_changed
 
 
 def _repository_display_label(root: object) -> str:
@@ -57,7 +58,7 @@ class MarkdownExporter:
         self._write(doc_dir / "ANALYSIS_WARNINGS.md", self.analysis_warnings(indexes))
 
     def _write(self, path: Path, text: str) -> None:
-        path.write_text(text, encoding="utf-8")
+        write_text_if_changed(path, text, family="documentation")
 
     def project_overview(self, indexes: dict) -> str:
         """Renders PROJECT_OVERVIEW.md in Spanish (V4.3-R7 BLOQUEO 2: human-readable/

@@ -134,9 +134,10 @@ class ProductionFileDiscoveryTests(unittest.TestCase):
         # `manifest`, `store`, `session`) -- eight new production modules, making 211. V5.3
         # R2.5 then added `cache/extraction.py`, `cache/extraction_shards.py` and
         # `cache/extraction_store.py` (the per-file extraction cache, its deterministic sharding and
-        # its disk side), making 214.
+        # its disk side), making 214. V5.3 R2.6 then added `utils/write_if_changed.py` and
+        # `fingerprints/extraction_contract.py` (write-skip helper and the extraction-cache guardian), making 216.
         files = inv.iter_production_files(REPO_ROOT)
-        self.assertEqual(len(files), 214)
+        self.assertEqual(len(files), 216)
 
 
 class FileAnalysisTests(unittest.TestCase):
@@ -507,6 +508,9 @@ class GeneratedArtifactOnDiskTests(unittest.TestCase):
                 "legacy_documenter/cache/extraction.py",
                 "legacy_documenter/cache/extraction_shards.py",
                 "legacy_documenter/cache/extraction_store.py",
+                # V5.3-R2.6: write-if-changed helper and extraction-cache contract guardian.
+                "legacy_documenter/utils/write_if_changed.py",
+                "legacy_documenter/fingerprints/extraction_contract.py",
                 # V4.3-R3: deterministic Spanish `HUMAN_DOCUMENTATION_PROJECTION`
                 # renderer for hydrated FLOW records (see
                 # docs/V4_3/V4_3_R3_HUMAN_DOCUMENTATION_RESULT.md).
@@ -600,6 +604,9 @@ class GeneratedArtifactOnDiskTests(unittest.TestCase):
             "legacy_documenter/cli/parser.py",
             "legacy_documenter/exporters/technical_documentation_renderer.py",
         }
+        # V5.3-R2.6: `system_context_builder.py` now writes through `write_text_if_changed`
+        # (one import, one line); no restructuring.
+        touched_paths = touched_paths | {"legacy_documenter/context/system_context_builder.py"}
         unexpected_entry_diffs = [
             p for p in (set(on_disk_inv) & set(fresh_inv)) - touched_paths
             if on_disk_inv[p] != fresh_inv[p]
@@ -970,6 +977,9 @@ class GeneratedArtifactOnDiskTests(unittest.TestCase):
         # the cache module stays under the HIGH threshold).
         expected_categories["LOW"] += 2
         expected_categories["MEDIUM"] += 1
+        # V5.3 R2.6: `write_if_changed` lands MEDIUM, `extraction_contract` LOW.
+        expected_categories["LOW"] += 1
+        expected_categories["MEDIUM"] += 1
         self.assertEqual(fresh_risk["files_by_risk_category"], expected_categories)
         normalized_on_disk.pop("risk_summary", None)
         normalized_fresh.pop("risk_summary", None)
@@ -1060,7 +1070,7 @@ class GeneratedArtifactOnDiskTests(unittest.TestCase):
         # already existed via `atomic_write`).
         # V5.3 R2.2.1 adds `documentation_v52/writer.py` (one module): 53. It imports
         # only `utils` (as `engine.py` did); `engine` imports `writer` -- one direction, no cycle.
-        self.assertEqual(fresh_dep.pop("module_count"), on_disk_dep.pop("module_count") + 71)
+        self.assertEqual(fresh_dep.pop("module_count"), on_disk_dep.pop("module_count") + 73)
         self.assertEqual(fresh_dep, on_disk_dep)
         normalized_on_disk.pop("dependency_findings", None)
         normalized_fresh.pop("dependency_findings", None)
@@ -1297,9 +1307,12 @@ class GeneratedArtifactOnDiskTests(unittest.TestCase):
                     # V5.3 R2.5: reads/validates/writes the extraction shards.
                     "legacy_documenter/cache/extraction.py",
                     "legacy_documenter/cache/extraction_store.py",
+                    # V5.3 R2.6: reads the destination to compare bytes, writes atomically.
+                    "legacy_documenter/utils/write_if_changed.py",
+                    "legacy_documenter/fingerprints/extraction_contract.py",
                 ])
                 self.assertEqual(sorted(fresh_entry["files"]), expected_files)
-                self.assertEqual(fresh_entry["file_count"], entry["file_count"] + 30)
+                self.assertEqual(fresh_entry["file_count"], entry["file_count"] + 32)
             else:
                 self.assertEqual(fresh_entry["files"], entry["files"])
                 self.assertEqual(fresh_entry["file_count"], entry["file_count"])

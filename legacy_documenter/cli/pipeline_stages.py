@@ -59,7 +59,7 @@ from legacy_documenter.extractors.webforms_extractor import WebFormsExtractor
 from legacy_documenter.models import SourceFile
 from legacy_documenter.scanner.file_classifier import FileClassifier
 from legacy_documenter.scanner.repository_scanner import RepositoryScanner
-from legacy_documenter.utils.atomic_write import atomic_write_text
+from legacy_documenter.utils.write_if_changed import write_text_if_changed
 from legacy_documenter.utils.json_rendering import render_deterministic_json
 from legacy_documenter.utils.sanitizer import sanitize_data
 
@@ -493,7 +493,9 @@ def _write_consumer_projection(
     manifest, partitions = builder.build(indexes, source_snapshot=source_snapshot)
     target = Path(output) / "consumer_projection"
     target.mkdir(parents=True, exist_ok=True)
-    atomic_write_text(target / "CONSUMER_PROJECTION.json", render_deterministic_json(sanitize_data(manifest)))
+    write_text_if_changed(
+        target / "CONSUMER_PROJECTION.json", render_deterministic_json(sanitize_data(manifest)), family="consumer_projection",
+    )
     serialized_partitions = {
         Path(path).name: render_deterministic_json(sanitize_data(body)) for path, body in partitions.items()
     }
@@ -561,7 +563,7 @@ def render_documentation(
 
     try:
         readme_text = renderer.documentation_readme(indexes)
-        (doc_dir / "README.md").write_text(readme_text, encoding="utf-8")
+        write_text_if_changed(doc_dir / "README.md", readme_text, family="documentation")
         outcome.written.append("README.md")
     except Exception as exc:
         outcome.failures.append(("README.md", str(exc)))
@@ -569,7 +571,7 @@ def render_documentation(
     for filename, method_name in _DOCUMENTATION_RENDERERS:
         try:
             text = getattr(renderer, method_name)(indexes)
-            (doc_dir / filename).write_text(text, encoding="utf-8")
+            write_text_if_changed(doc_dir / filename, text, family="documentation")
             outcome.written.append(filename)
         except Exception as exc:
             outcome.failures.append((filename, str(exc)))
@@ -578,7 +580,7 @@ def render_documentation(
         try:
             nav_text = getattr(renderer, nav_method)(indexes)
             partitions = getattr(renderer, partitions_method)(indexes)
-            (doc_dir / filename).write_text(nav_text, encoding="utf-8")
+            write_text_if_changed(doc_dir / filename, nav_text, family="documentation")
             sync_generated_partition_directory(doc_dir / subdir_name, partitions)
             outcome.written.append(filename)
         except Exception as exc:
@@ -605,8 +607,8 @@ def render_documentation(
         ]
         human_index_text = render_human_documentation_index(hydrated_flows)
         human_partitions = render_human_documentation_partitions(hydrated_flows)
-        (doc_dir / "HUMAN_DOCUMENTATION.md").write_text(human_index_text, encoding="utf-8")
-        sync_generated_partition_directory(doc_dir / "flujos_humanos", human_partitions)
+        write_text_if_changed(doc_dir / "HUMAN_DOCUMENTATION.md", human_index_text, family="documentation")
+        sync_generated_partition_directory(doc_dir / "flujos_humanos", human_partitions, family="flujos_humanos")
         outcome.written.append("HUMAN_DOCUMENTATION.md")
     except Exception as exc:
         outcome.failures.append(("HUMAN_DOCUMENTATION.md", str(exc)))

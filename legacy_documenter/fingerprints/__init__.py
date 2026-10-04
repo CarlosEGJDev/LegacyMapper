@@ -14,6 +14,7 @@ from .configuration import (
     AI_ONLY, ANALYSIS_AFFECTING, CLI_OPTION_CLASSES, OUTPUT_LOCATION_ONLY, PROJECTION_AFFECTING, REPOSITORY_IDENTITY,
     RUNTIME_ONLY, V52_PARAMETER_CLASSES, analysis_config_fingerprint, config_fingerprint, projection_config_fingerprint,
 )
+from .extraction_contract import EXTRACTION_CONTRACT_FILES, extraction_contract_fingerprint
 from .semantic import ANALYZED_FILE_TYPES, semantic_content_sha256, semantic_file_sha256
 from .templates import TEMPLATE_KINDS, template_profile_fingerprint
 

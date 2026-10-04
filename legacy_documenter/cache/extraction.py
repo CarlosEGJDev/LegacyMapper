@@ -31,7 +31,7 @@ from legacy_documenter.utils.sanitizer import sanitize_data
 from .context import CacheContext
 from .diff import _comparison_key
 from .extraction_shards import EXTRACTION_DIRNAME, SHARD_COUNT, shard_index
-from .extraction_store import SectionInvalid, load_shards, write_changed_shards
+from .extraction_store import SectionInvalid, load_shards, schema_incompatibility, write_changed_shards
 from .file_state import FileRecord
 
 LOG = logging.getLogger(__name__)
@@ -51,6 +51,7 @@ class ExtractionCache:
     """One run's view of the extraction cache: loaded shards, hit/miss decisions and entries to persist."""
 
     def __init__(self, context: CacheContext, records: list[FileRecord]) -> None:
+        self._schema_version = context.extraction_cache_schema_version
         self._keys: dict[str, dict] = {}
         for record in records:
             comparison = _comparison_key(record)
@@ -75,6 +76,9 @@ class ExtractionCache:
 
     def load(self, cache_dir: str | Path, manifest: dict) -> None:
         """Loads and validates the shards listed by a (validated) manifest. Never raises; on trouble, reuse is off."""
+        reason = schema_incompatibility(manifest, self._schema_version)
+        if reason:  # other/absent contract version: File State stays valid, only extraction is redone
+            return self._reset_reuse(reason)
         try:
             self._load(Path(cache_dir) / EXTRACTION_DIRNAME, manifest.get("extraction"))
         except Exception as exc:
@@ -93,12 +97,10 @@ class ExtractionCache:
         try:
             entries, checksums, invalid = load_shards(directory, section, self.metrics)
         except SectionInvalid as exc:
-            self._reset_reuse(str(exc))
-            return
+            return self._reset_reuse(str(exc))
         self.metrics["shards_invalid"] = len(invalid)
         if len(invalid) > MAX_INVALID_SHARDS:
-            self._reset_reuse("MULTIPLE_SHARDS_INVALID")
-            return
+            return self._reset_reuse("MULTIPLE_SHARDS_INVALID")
         self._old, self._old_sha = entries, checksums
         self._old_count = {index: len(shard) for index, shard in entries.items()}
         self._plan(invalid)

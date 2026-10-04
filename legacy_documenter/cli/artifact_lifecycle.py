@@ -27,7 +27,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from legacy_documenter.utils.atomic_write import atomic_write_text
+from legacy_documenter.utils.write_if_changed import write_text_if_changed
 
 # The exact, fixed set of filenames `full_pipeline._write_proposal_output`
 # ever writes under `proposals/` -- never anything else. Keeping this list
@@ -62,7 +62,7 @@ def reset_stale_proposal_artifacts(output: Path) -> None:
         pass  # not empty -- an unrelated file is present; leave it and the directory alone
 
 
-def sync_generated_partition_directory(directory: Path, partitions: dict[str, str]) -> None:
+def sync_generated_partition_directory(directory: Path, partitions: dict[str, str], family: str = "documentation") -> None:
     """Writes this run's partitioned-documentation files into `directory`,
     removing only stale LegacyMapper-owned `.md` files a previous run left
     behind (V4.2-R8 section 11).
@@ -94,7 +94,7 @@ def sync_generated_partition_directory(directory: Path, partitions: dict[str, st
             if existing.name not in partitions:
                 existing.unlink()
     for name, content in partitions.items():
-        (directory / name).write_text(content, encoding="utf-8")
+        write_text_if_changed(directory / name, content, family=family)
     if directory.is_dir() and not partitions:
         try:
             directory.rmdir()
@@ -102,7 +102,9 @@ def sync_generated_partition_directory(directory: Path, partitions: dict[str, st
             pass  # not empty -- an unrelated file is present; leave it and the directory alone
 
 
-def sync_generated_json_partition_directory(directory: Path, partitions: dict[str, str]) -> None:
+def sync_generated_json_partition_directory(
+    directory: Path, partitions: dict[str, str], family: str = "consumer_projection",
+) -> None:
     """Same stale-file safety as `sync_generated_partition_directory`, for JSON
     partitions written atomically (V4.3-R6).
 
@@ -115,7 +117,7 @@ def sync_generated_json_partition_directory(directory: Path, partitions: dict[st
     function exists, rather than generalizing `sync_generated_partition_directory`
     itself, because these partitions are LegacyMapper's own authoritative
     machine artifacts (like `RUN_SUMMARY.json`/`index/*.json`, V4.2-R6) and so
-    are written with `atomic_write_text` rather than a plain `write_text` --
+    are written atomically (`write_text_if_changed`, V5.3-R2.6) rather than with a plain `write_text` --
     changing the existing function's write primitive would also change
     behavior for its unrelated, pre-existing Markdown callers.
 
@@ -132,7 +134,7 @@ def sync_generated_json_partition_directory(directory: Path, partitions: dict[st
             if existing.name not in partitions:
                 existing.unlink()
     for name, content in partitions.items():
-        atomic_write_text(directory / name, content)
+        write_text_if_changed(directory / name, content, family=family)
     if directory.is_dir() and not partitions:
         try:
             directory.rmdir()

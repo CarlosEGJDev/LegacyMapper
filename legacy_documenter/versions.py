@@ -11,6 +11,14 @@ from __future__ import annotations
 #: when relevant code changed and this number did not (see tests/test_v5_3_r2_3_versioning_and_fingerprints.py).
 ANALYZER_VERSION = 2  # 2: R2.5 extraction refactored into per-file records (`_extract_file`); output unchanged
 
+#: Version of the persisted extraction-cache contract (shard format, entry structure/key, `cache_bypass` rules,
+#: loading/validation/writing; R2.6). Independent of `ANALYZER_VERSION` and of the manifest schema. Bump it whenever
+#: the contract code changes in a way that could make an older cache parse but mean something else: the guard
+#: test `test_extraction_contract_guard` fails when `fingerprints.extraction_contract_fingerprint()` moves while
+#: this number does not. A different value in a manifest makes the extraction cache non-reusable (File State is
+#: unaffected) and a missing value is treated the same way.
+EXTRACTION_CACHE_SCHEMA_VERSION = 1
+
 #: The legacy Markdown exporters (`exporters/` and the technical renderers) have no version constant of
 #: their own; this is the one new constant the registry needs.
 LEGACY_MARKDOWN_RENDERER_VERSION = "1"

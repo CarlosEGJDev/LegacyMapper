@@ -2,6 +2,8 @@
 from pathlib import Path
 import json
 
+from legacy_documenter.utils.write_if_changed import write_text_if_changed
+
 
 class ContextBuilder:
     """Provides the cohesive ContextBuilder responsibility for this module."""
@@ -29,5 +31,5 @@ class ContextBuilder:
             contexts.append(context)
         context_dir = Path(output_dir) / "context"
         context_dir.mkdir(parents=True, exist_ok=True)
-        (context_dir / "projects.json").write_text(json.dumps(contexts, indent=2, ensure_ascii=False), encoding="utf-8")
+        write_text_if_changed(context_dir / "projects.json", json.dumps(contexts, indent=2, ensure_ascii=False), family="context")
         return contexts
