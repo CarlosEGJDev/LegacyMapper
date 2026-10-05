@@ -15,6 +15,7 @@ from typing import Any
 from legacy_documenter.utils.stage_timings import TIMINGS
 from legacy_documenter.utils.write_if_changed import LEDGER
 
+from .manifest import MODE_WARM
 from .run_metrics import build_run_metrics, write_run_metrics
 from .scope import ScopeAnalysisResult, analyze_scope
 
@@ -27,14 +28,15 @@ def _session_mode(session: Any) -> str:
 
 def compute_scope(session: Any, extraction_outcome: Any, dependency_outcome: list[dict] | None) -> ScopeAnalysisResult:
     """The scope analysis of this run (full-mode result when there is no usable previous state)."""
+    diff = session.diff if session.mode == MODE_WARM else None  # a warm cache refused by a control (ratio) is full
     previous = {record.path: record.file_type for record in session.validation.records} if session.validation else {}
     file_types = {**previous, **{record.path: record.file_type for record in session.records}}
     projects = extraction_outcome.projects if extraction_outcome is not None else None
-    reason = session.reason if session.diff is None else None
+    reason = session.reason if diff is None else None
     if projects is None and reason is None:
         reason = "EXTRACTION_UNAVAILABLE"
     return analyze_scope(
-        session.diff, reason, file_types, projects, dependency_outcome,
+        diff, reason, file_types, projects, dependency_outcome,
         extraction_outcome.symbols if extraction_outcome is not None else None,
     )
 
@@ -58,7 +60,7 @@ def write_metrics(
             timings=session.timings, extraction=session.extraction.summary() if session.extraction else None,
             reuse_disabled_reason=session.extraction.reuse_disabled_reason if session.extraction else None,
             stage_snapshot=TIMINGS.snapshot(), write_skip=LEDGER.snapshot(), scope=scope.to_dict(),
-            overhead_seconds={"scope_analysis": round(scope_seconds, 3)},
+            overhead_seconds={"scope_analysis": round(scope_seconds, 3)}, cache_controls=session.controls or None,
         )
         build_seconds = perf_counter() - started
         started = perf_counter()

@@ -3,7 +3,8 @@
 `analysis_config_fingerprint` covers what changes extraction/resolution, `projection_config_fingerprint` what
 changes `documentation_v52` output, `config_fingerprint` is R1's combined `CONFIG_FINGERPRINT`. The extraction
 cache will key on the analysis part alone (projections are always regenerated). `allow_ai_interpretation`,
-`--verbose`, `--long-paths` and output paths never enter any of them.
+`--verbose`, `--long-paths`, the cache controls (`--cache-*`, `--verify-cache`, `--trust-mtime`,
+`--incremental-max-changed-ratio`) and output paths never enter any of them.
 """
 from __future__ import annotations
 
@@ -34,6 +35,12 @@ CLI_OPTION_CLASSES = {
     "verbose": RUNTIME_ONLY,
     "long_paths": RUNTIME_ONLY,
     "allow_ai_interpretation": AI_ONLY,
+    # V5.3-R2.8 cache controls: they change how much of a valid cache is reused, never what the analysis means.
+    "cache_mode": RUNTIME_ONLY,
+    "cache_dir": OUTPUT_LOCATION_ONLY,
+    "verify_cache": RUNTIME_ONLY,
+    "trust_mtime": RUNTIME_ONLY,  # opt-in: lets unchanged (size, mtime_ns) skip hashing in File State
+    "incremental_max_changed_ratio": RUNTIME_ONLY,
 }
 #: `generate_documentation_v52` parameters that are not CLI options (library-level); classified likewise.
 V52_PARAMETER_CLASSES = {

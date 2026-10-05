@@ -27,7 +27,7 @@ METRICS_SCHEMA_VERSION = "1"
 TOP_LEVEL_KEYS = (
     "contract", "schema_version", "mode", "session_mode", "fallback_reason", "started_at", "completed_at",
     "total_seconds", "final_status", "file_state", "extraction_cache", "stage_seconds", "extraction_postprocess_seconds",
-    "write_skip", "hydration", "scope", "versions", "cache_verification", "peak_memory_bytes", "overhead_seconds",
+    "write_skip", "hydration", "scope", "versions", "cache_controls", "cache_verification", "peak_memory_bytes", "overhead_seconds",
 )
 #: R1 vocabulary for `mode`; the internal cold/warm/fallback_full stays in `session_mode`.
 _R1_MODE = {"cold": "full", "fallback_full": "full", "warm": "incremental", "refresh": "refresh", "off": "off"}
@@ -70,6 +70,7 @@ def build_run_metrics(
     *, session_mode: str, fallback_reason: str | None, context: CacheContext, started_at: str, total_seconds: float,
     final_status: str, file_count: int, diff_counts: dict | None, timings: dict, extraction: dict | None,
     reuse_disabled_reason: str | None, stage_snapshot: dict, write_skip: dict, scope: dict, overhead_seconds: dict,
+    cache_controls: dict | None = None,
 ) -> dict:
     """Assembles the metrics document (see `TOP_LEVEL_KEYS`); every section is plain JSON-able data."""
     stage_seconds = dict(stage_snapshot.get("stage_seconds", {}))
@@ -112,6 +113,7 @@ def build_run_metrics(
             "template_profile_fingerprint": context.template_profile_fingerprint,
             "analysis_config_fingerprint": context.analysis_config_fingerprint,
         },
+        "cache_controls": cache_controls,
         "cache_verification": "byte_compare",
         "peak_memory_bytes": peak_memory_bytes(),
         "overhead_seconds": overhead_seconds,

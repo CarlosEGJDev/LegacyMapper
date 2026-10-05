@@ -26,11 +26,13 @@ canonical knowledge, or R11/R12 projection.
 from __future__ import annotations
 
 import dataclasses
+import functools
+import inspect
 from pathlib import Path
 from time import perf_counter
-from typing import Callable, TypeVar
+from typing import Any, Callable, TypeVar
 
-from legacy_documenter.cache import CacheSession, begin_cache_session
+from legacy_documenter.cache import CACHE_MODES, CacheSession, begin_cache_session
 from legacy_documenter.cli import pipeline_stages as stages
 from legacy_documenter.cli.artifact_lifecycle import reset_stale_proposal_artifacts
 from legacy_documenter.cli.execution_model import RunResult, RunStatus, StageError, StageResult, StageStatus
@@ -46,13 +48,33 @@ from legacy_documenter.utils.atomic_write import atomic_write_text
 from legacy_documenter.utils.json_rendering import render_deterministic_json
 from legacy_documenter.utils.stage_timings import TIMINGS
 from legacy_documenter.utils.write_if_changed import LEDGER, log_write_ledger
+from legacy_documenter.utils.write_policy import POLICY
 
 RUN_SUMMARY_JSON = "RUN_SUMMARY.json"
 RUN_SUMMARY_MARKDOWN = "RUN_SUMMARY.md"
 
 _T = TypeVar("_T")
+_R = TypeVar("_R")
 
 
+def _write_policy_for_run(func: Callable[..., _R]) -> Callable[..., _R]:
+    """V5.3-R2.8: `cache_mode="off"` is the V5.2 write path (nothing is compared, everything is rewritten). The policy
+    is set for exactly this run and always restored, so a library caller's later writes are never affected."""
+    signature = inspect.signature(func)
+
+    @functools.wraps(func)
+    def wrapper(*args: Any, **kwargs: Any) -> _R:
+        mode = signature.bind(*args, **kwargs).arguments.get("cache_mode", signature.parameters["cache_mode"].default)
+        POLICY.skip_identical = mode in CACHE_MODES and mode != "off"
+        try:
+            return func(*args, **kwargs)
+        finally:
+            POLICY.reset()
+
+    return wrapper
+
+
+@_write_policy_for_run
 def run_full_pipeline(
     repo_root: str | Path,
     output_dir: str | Path,
@@ -64,6 +86,9 @@ def run_full_pipeline(
     cache_mode: str = "auto",
     cache_dir: str | Path | None = None,
     extraction_cache: bool | None = None,
+    verify_cache: str = "fast",
+    trust_mtime: bool = False,
+    incremental_max_changed_ratio: float | None = None,
 ) -> RunResult:
     """Executes the full pipeline and writes the run summary artifact.
 
@@ -109,7 +134,8 @@ def run_full_pipeline(
     if scan_ok:
         cache_session = begin_cache_session(
             scan_outcome.root, output, scan_outcome.files, excludes, flow_max_depth, cache_mode, cache_dir,
-            extraction_cache,
+            extraction_cache, verify_cache=verify_cache, trust_mtime=trust_mtime,
+            max_changed_ratio=incremental_max_changed_ratio,
         )
 
     extraction_outcome = None

@@ -89,6 +89,11 @@ def _route_full(args: Namespace) -> tuple[int, RunResult]:
         args.repository, args.output, args.exclude, args.flow_max_depth,
         allow_ai_interpretation=allow_ai_interpretation,
         long_paths=getattr(args, "long_paths", False),
+        cache_mode=getattr(args, "cache_mode", "auto"),
+        cache_dir=getattr(args, "cache_dir", None),
+        verify_cache=getattr(args, "verify_cache", "fast"),
+        trust_mtime=getattr(args, "trust_mtime", False),
+        incremental_max_changed_ratio=getattr(args, "incremental_max_changed_ratio", None),
     )
     return _EXIT_CODE_BY_STATUS[result.status], result
 

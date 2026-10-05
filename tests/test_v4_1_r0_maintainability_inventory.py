@@ -137,9 +137,11 @@ class ProductionFileDiscoveryTests(unittest.TestCase):
         # its disk side), making 214. V5.3 R2.6 then added `utils/write_if_changed.py` and
         # `fingerprints/extraction_contract.py` (write-skip helper and the extraction-cache guardian), making 216. V5.3
         # R2.7 then added `cache/scope.py`, `cache/run_metrics.py`, `cache/run_report.py` and
-        # `utils/stage_timings.py` (scope analysis, run metrics, end-of-run report, stage timings), making 220.
+        # `utils/stage_timings.py` (scope analysis, run metrics, end-of-run report, stage timings), making 220. V5.3
+        # R2.8 then added `cache/options.py`, `cache/verify.py` and `utils/write_policy.py` (cache controls, strict
+        # verification, run-wide write policy), making 223.
         files = inv.iter_production_files(REPO_ROOT)
-        self.assertEqual(len(files), 220)
+        self.assertEqual(len(files), 223)
 
 
 class FileAnalysisTests(unittest.TestCase):
@@ -518,6 +520,10 @@ class GeneratedArtifactOnDiskTests(unittest.TestCase):
                 "legacy_documenter/cache/run_metrics.py",
                 "legacy_documenter/cache/run_report.py",
                 "legacy_documenter/utils/stage_timings.py",
+                # V5.3-R2.8: cache controls, strict cache verification and the run-wide write policy.
+                "legacy_documenter/cache/options.py",
+                "legacy_documenter/cache/verify.py",
+                "legacy_documenter/utils/write_policy.py",
                 # V4.3-R3: deterministic Spanish `HUMAN_DOCUMENTATION_PROJECTION`
                 # renderer for hydrated FLOW records (see
                 # docs/V4_3/V4_3_R3_HUMAN_DOCUMENTATION_RESULT.md).
@@ -990,6 +996,9 @@ class GeneratedArtifactOnDiskTests(unittest.TestCase):
         # V5.3 R2.7: `stage_timings` lands LOW; `scope`, `run_metrics`, `run_report` land MEDIUM; none HIGH.
         expected_categories["LOW"] += 1
         expected_categories["MEDIUM"] += 3
+        # V5.3 R2.8: `write_policy` lands LOW; `options` and `verify` land MEDIUM; none HIGH.
+        expected_categories["LOW"] += 1
+        expected_categories["MEDIUM"] += 2
         self.assertEqual(fresh_risk["files_by_risk_category"], expected_categories)
         normalized_on_disk.pop("risk_summary", None)
         normalized_fresh.pop("risk_summary", None)
@@ -1080,7 +1089,7 @@ class GeneratedArtifactOnDiskTests(unittest.TestCase):
         # already existed via `atomic_write`).
         # V5.3 R2.2.1 adds `documentation_v52/writer.py` (one module): 53. It imports
         # only `utils` (as `engine.py` did); `engine` imports `writer` -- one direction, no cycle.
-        self.assertEqual(fresh_dep.pop("module_count"), on_disk_dep.pop("module_count") + 77)
+        self.assertEqual(fresh_dep.pop("module_count"), on_disk_dep.pop("module_count") + 80)
         self.assertEqual(fresh_dep, on_disk_dep)
         normalized_on_disk.pop("dependency_findings", None)
         normalized_fresh.pop("dependency_findings", None)
@@ -1322,9 +1331,12 @@ class GeneratedArtifactOnDiskTests(unittest.TestCase):
                     "legacy_documenter/fingerprints/extraction_contract.py",
                     # V5.3 R2.7: writes RUN_METRICS.json atomically (and reads the process memory counter).
                     "legacy_documenter/cache/run_metrics.py",
+                    # V5.3 R2.8: `options` inspects/resolves the cache directory path; `verify` re-reads the shards.
+                    "legacy_documenter/cache/options.py",
+                    "legacy_documenter/cache/verify.py",
                 ])
                 self.assertEqual(sorted(fresh_entry["files"]), expected_files)
-                self.assertEqual(fresh_entry["file_count"], entry["file_count"] + 33)
+                self.assertEqual(fresh_entry["file_count"], entry["file_count"] + 35)
             else:
                 self.assertEqual(fresh_entry["files"], entry["files"])
                 self.assertEqual(fresh_entry["file_count"], entry["file_count"])

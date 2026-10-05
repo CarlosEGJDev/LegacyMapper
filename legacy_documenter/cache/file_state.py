@@ -51,12 +51,22 @@ def normalize_relative_path(relative_path: str) -> str:
     return str(relative_path).replace("\\", "/")
 
 
-def _record_for(root: Path, relative_path: str, file_type: str) -> FileRecord:
-    """Stats and hashes one file; any OS error yields an unreadable record instead of raising."""
+def _record_for(root: Path, relative_path: str, file_type: str, trusted: dict | None = None) -> FileRecord:
+    """Stats and hashes one file; any OS error yields an unreadable record instead of raising.
+
+    `trusted` (`--trust-mtime`, V5.3-R2.8) maps path -> previous record of a *valid, compatible* cache: when path,
+    type, size and `mtime_ns` all match, that record is returned without reading the file. Anything else is hashed.
+    """
     path = normalize_relative_path(relative_path)
     full = root / relative_path
     try:
         stat = os.stat(full)
+        previous = trusted.get(path) if trusted else None
+        if (
+            previous is not None and previous.readable and previous.mtime_ns is not None
+            and previous.file_type == file_type and previous.size == stat.st_size and previous.mtime_ns == stat.st_mtime_ns
+        ):
+            return previous
         if file_type in ANALYZED_FILE_TYPES:
             data = full.read_bytes()
             return FileRecord(path, len(data), hashlib.sha256(data).hexdigest(),
@@ -68,15 +78,20 @@ def _record_for(root: Path, relative_path: str, file_type: str) -> FileRecord:
         return FileRecord(path, 0, None, None, file_type, None, readable=False)
 
 
-def build_file_state(root: str | Path, files: Iterable, workers: int = HASH_WORKERS) -> list[FileRecord]:
-    """Hashes every scanned file (`files` are scanner `SourceFile`s) and returns records sorted by path."""
+def build_file_state(
+    root: str | Path, files: Iterable, workers: int = HASH_WORKERS, trusted: dict[str, FileRecord] | None = None,
+) -> list[FileRecord]:
+    """Hashes every scanned file (`files` are scanner `SourceFile`s) and returns records sorted by path.
+
+    `trusted` is the opt-in `--trust-mtime` prefilter (see `_record_for`); `None` (the default) hashes everything.
+    """
     base = Path(root)
     items = [(f.relative_path, f.file_type) for f in files]
     if workers <= 1:
-        records = [_record_for(base, rel, kind) for rel, kind in items]
+        records = [_record_for(base, rel, kind, trusted) for rel, kind in items]
     else:
         with ThreadPoolExecutor(max_workers=workers) as pool:
-            records = list(pool.map(lambda item: _record_for(base, item[0], item[1]), items))
+            records = list(pool.map(lambda item: _record_for(base, item[0], item[1], trusted), items))
     return sorted(records, key=lambda record: record.path)
 
 

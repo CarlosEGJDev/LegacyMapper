@@ -18,6 +18,7 @@ from typing import Any
 
 from legacy_documenter.utils.atomic_write import _replace_with_retry
 from legacy_documenter.utils.path_limits import check_output_paths
+from legacy_documenter.utils.write_policy import POLICY
 
 MANIFEST_FILENAME = "MANIFEST.json"
 MANIFEST_CONTRACT = "LegacyMapperDocumentationV52"
@@ -222,7 +223,9 @@ def write_tree(
     orphan_seconds = perf_counter() - started
 
     started = perf_counter()
-    statuses = _verify_existing(root, raw_by_path, verify_workers)
+    statuses = (  # V5.3-R2.8: `--cache-mode off` rewrites everything (V5.2 path), so nothing is verified
+        _verify_existing(root, raw_by_path, verify_workers) if POLICY.skip_identical else {r: "forced" for r in raw_by_path}
+    )
     verify_seconds = perf_counter() - started
 
     started = perf_counter()

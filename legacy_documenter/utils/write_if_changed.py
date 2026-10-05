@@ -20,6 +20,7 @@ from pathlib import Path
 from time import perf_counter
 
 from .atomic_write import atomic_write_bytes
+from .write_policy import POLICY
 
 LOG = logging.getLogger("legacy_documenter")
 
@@ -86,7 +87,7 @@ def write_bytes_if_changed(path: str | Path, content: bytes, family: str = "othe
     stats.generated += 1
     stats.bytes_generated += len(content)
     started = perf_counter()
-    identical = _identical(path, content)
+    identical = POLICY.skip_identical and _identical(path, content)
     stats.compare_seconds += perf_counter() - started
     if identical:
         stats.skipped_identical += 1

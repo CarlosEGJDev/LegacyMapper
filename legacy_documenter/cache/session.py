@@ -19,15 +19,17 @@ from .extraction import ExtractionCache
 from .file_state import FileRecord, build_file_state
 from .run_metrics import now_iso
 from .run_report import write_metrics
-from .manifest import (
-    CACHE_DIRNAME, MODE_FALLBACK_FULL, MODE_WARM, CacheValidationResult, validate_cache,
+from .manifest import MODE_FALLBACK_FULL, MODE_WARM, CacheValidationResult, validate_cache
+from .options import (
+    CACHE_MODES, VERIFY_FAST, VERIFY_HASH, CacheOptionError, CacheOptions, describe_location, resolve_cache_dir,
 )
+from .verify import VERIFY_FAILED, verify_cache_deep
 from .store import invalidate_manifest, sweep_temporary_files, write_cache
 
 LOG = logging.getLogger(__name__)
 
-CACHE_MODES = ("auto", "off", "refresh")
 MODE_OFF = "off"
+CHANGED_RATIO_EXCEEDED = "CHANGED_RATIO_EXCEEDED"
 #: R2.5 gate (docs/V5/V5_3_R2_5_EXTRACTION_CACHE.md): whether the extraction cache is consumed/written by default.
 EXTRACTION_CACHE_DEFAULT_ENABLED = True
 
@@ -47,6 +49,8 @@ class CacheSession:
     extraction: ExtractionCache | None = None
     timings: dict = field(default_factory=dict)
     started_at: str = ""
+    options: CacheOptions | None = None
+    controls: dict = field(default_factory=dict)  # R2.8: what the cache controls did this run (for RUN_METRICS)
 
     def finish(
         self, final_status: str, total_seconds: float, extraction_outcome: Any = None,
@@ -74,36 +78,88 @@ class CacheSession:
         return True
 
 
+def _verified(target: Path, validation: CacheValidationResult, options: CacheOptions, controls: dict, timings: dict) -> CacheValidationResult:
+    """`--verify-cache=hash`: a warm cache with any inconsistency is refused (strict, see `verify`); else unchanged."""
+    controls["verify_cache"] = options.verify
+    if options.verify != VERIFY_HASH or validation.mode != MODE_WARM:
+        return validation
+    started = perf_counter()
+    failure = verify_cache_deep(target, validation.manifest, validation.records)
+    timings["verify_seconds"] = round(perf_counter() - started, 3)
+    controls["verify_seconds"] = timings["verify_seconds"]
+    controls["verify_result"] = "ok" if failure is None else "failed"
+    if failure is None:
+        return validation
+    controls["verify_failure"] = failure
+    return CacheValidationResult(False, MODE_FALLBACK_FULL, VERIFY_FAILED)
+
+
+def _current_file_state(repo_root: str | Path, files: list, validation: CacheValidationResult, options: CacheOptions, controls: dict) -> list[FileRecord]:
+    """The File State of this run; with `--trust-mtime` and a warm cache, unchanged (size, mtime_ns) files are not re-hashed."""
+    trusted = {r.path: r for r in validation.records} if options.trust_mtime and validation.mode == MODE_WARM else None
+    records = build_file_state(Path(repo_root).resolve(), files, trusted=trusted)
+    count = sum(1 for r in records if trusted and trusted.get(r.path) is r)
+    controls["trust_mtime"] = {"enabled": options.trust_mtime, "files_trusted": count, "files_hashed": len(records) - count}
+    return records
+
+
+def _after_diff(validation: CacheValidationResult, diff: FileStateDiff, options: CacheOptions, controls: dict) -> CacheValidationResult:
+    """Records the observed change ratio; above `--incremental-max-changed-ratio` the warm cache is refused (a safe full run)."""
+    controls["incremental_max_changed_ratio"] = options.max_changed_ratio
+    controls["observed_changed_ratio"] = None
+    if not validation.records:  # previous file count 0: the ratio is undefined and never triggers
+        return validation
+    counts = diff.counts()
+    observed = round((counts["modified"] + counts["added"] + counts["deleted"]) / len(validation.records), 6)
+    controls["observed_changed_ratio"] = observed
+    if options.max_changed_ratio is not None and observed > options.max_changed_ratio:
+        return CacheValidationResult(False, MODE_FALLBACK_FULL, CHANGED_RATIO_EXCEEDED)
+    return validation
+
+
 def begin_cache_session(
     repo_root: str | Path, output_dir: str | Path, files: list, excludes: list[str] | None, flow_max_depth: int,
     cache_mode: str = "auto", cache_dir: str | Path | None = None, extraction_cache: bool | None = None,
+    *, verify_cache: str = VERIFY_FAST, trust_mtime: bool = False, max_changed_ratio: float | None = None,
 ) -> CacheSession:
-    """Validates any previous cache, builds the current File State and diffs them. Never raises."""
+    """Validates any previous cache, builds the current File State and diffs them. Never raises.
+
+    The R2.8 controls (see `options.CacheOptions`) only decide how much of a *valid* cache is trusted: `off` touches
+    nothing, `refresh` ignores the old cache, `verify_cache="hash"` refuses a cache with any inconsistency,
+    `trust_mtime` lets unchanged `(size, mtime_ns)` skip hashing, `max_changed_ratio` turns a too-changed warm run into
+    a full one. None of them changes what a full run would produce.
+    """
     if cache_mode == MODE_OFF:
         return CacheSession()
-    if cache_mode not in CACHE_MODES:
-        LOG.warning("cache: modo desconocido %r; caché desactivada para esta corrida", cache_mode)
+    try:
+        options = CacheOptions(cache_mode, cache_dir, verify_cache, trust_mtime, max_changed_ratio).validate()
+        target = resolve_cache_dir(repo_root, output_dir, cache_dir)
+    except CacheOptionError as exc:
+        LOG.warning("cache: %s; caché desactivada para esta corrida", exc)
         return CacheSession()
     try:
-        target = Path(cache_dir) if cache_dir else Path(output_dir) / CACHE_DIRNAME
         timings: dict[str, float] = {}
+        controls: dict = {"requested_mode": options.mode, **describe_location(target, output_dir)}
         started_iso = now_iso()
         started = perf_counter()
         context = build_context(repo_root, excludes, flow_max_depth)
         swept = sweep_temporary_files(target)
         validation = (
-            CacheValidationResult(False, MODE_FALLBACK_FULL, "REFRESH_REQUESTED") if cache_mode == "refresh"
+            CacheValidationResult(False, MODE_FALLBACK_FULL, "REFRESH_REQUESTED") if options.mode == "refresh"
             else validate_cache(target, context)
         )
         timings["validate_seconds"] = round(perf_counter() - started, 3)
+        validation = _verified(target, validation, options, controls, timings)
         started = perf_counter()
-        records = build_file_state(Path(repo_root).resolve(), files)
+        records = _current_file_state(repo_root, files, validation, options, controls)
         timings["file_state_build_seconds"] = round(perf_counter() - started, 3)
         diff = None
+        controls.update({"incremental_max_changed_ratio": options.max_changed_ratio, "observed_changed_ratio": None})
         if validation.mode == MODE_WARM:
             started = perf_counter()
             diff = diff_file_states(validation.records, records)
             timings["diff_seconds"] = round(perf_counter() - started, 3)
+            validation = _after_diff(validation, diff, options, controls)
         extraction = None
         if EXTRACTION_CACHE_DEFAULT_ENABLED if extraction_cache is None else extraction_cache:
             extraction = ExtractionCache(context, records)
@@ -112,6 +168,7 @@ def begin_cache_session(
         invalidate_manifest(target)
         session = CacheSession(
             True, validation.mode, validation.reason, target, context, records, validation, diff, extraction, timings, started_iso,
+            options, controls,
         )
         LOG.info("cache: %s", {
             "mode": session.mode, "reason": session.reason, "files": len(records), "temporaries_removed": swept,
@@ -119,6 +176,7 @@ def begin_cache_session(
             "informational_differences": validation.informational_differences, **timings,
             "extraction_cache": extraction.summary() if extraction else None,
             "extraction_reuse_disabled_reason": extraction.reuse_disabled_reason if extraction else None,
+            "controls": controls,
         })
         return session
     except Exception as exc:

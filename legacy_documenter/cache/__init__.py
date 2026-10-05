@@ -3,7 +3,7 @@
 R2.5 adds the per-file extraction cache (`extraction`, `extraction_shards`); nothing else is reused. Modules, one responsibility each:
 `identity` (repository identity, Git metadata), `file_state` (hashing/records/JSON), `diff` (file classification),
 `context` (current run's comparable values), `manifest` (contract + validation), `store` (safe write order),
-`session` (one run's use of all of the above), plus (R2.7) `scope` (scope analysis), `run_metrics`/`run_report` (RUN_METRICS.json).
+`session` (one run's use of all of the above), (R2.8) `options` (cache controls), `verify` (`--verify-cache=hash`), plus (R2.7) `scope` (scope analysis), `run_metrics`/`run_report` (RUN_METRICS.json).
 """
 from .diff import FileStateDiff, diff_file_states
 from .extraction import ExtractionCache
@@ -16,7 +16,13 @@ from .manifest import (
 )
 from .run_metrics import METRICS_FILENAME, METRICS_SCHEMA_VERSION, read_run_metrics, write_run_metrics
 from .scope import ScopeAnalysisResult, analyze_scope
-from .session import CACHE_MODES, EXTRACTION_CACHE_DEFAULT_ENABLED, CacheSession, begin_cache_session
+from .options import (
+    CACHE_MODES, VERIFY_FAST, VERIFY_HASH, VERIFY_LEVELS, CacheOptionError, CacheOptions, ratio_argument, resolve_cache_dir,
+)
+from .session import (
+    CHANGED_RATIO_EXCEEDED, EXTRACTION_CACHE_DEFAULT_ENABLED, CacheSession, begin_cache_session,
+)
+from .verify import VERIFY_FAILED, verify_cache_deep
 from .store import CacheWriteError, write_cache
 
 __all__ = [name for name in dir() if not name.startswith("_")]
