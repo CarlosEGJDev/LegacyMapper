@@ -1,6 +1,10 @@
 # LegacyMapper — Historia del proyecto, estado actual y roadmap V5
 
-> **Actualización vigente — 06-10-2026 (R2.9):** V5.3 `V5_3_R2_9_READY_FOR_REVIEW`; R2 completo técnicamente, revisión humana pendiente. Defaults auto / ratio None (`CHANGED_RATIO_DEFAULT_DEFERRED`) / verify fast / trust-mtime false. Suite: **2834 tests**, 0 fallas, 0 errores, 132 skips. 21 comparaciones IST equivalentes; fuente oficial escaneada intacta. Siguiente: R3 solo tras revisión e instrucción explícita; no iniciada. V5.3 no cerrada, sin tag. Autoridad: PROJECT_STATE.json; [resultado R2.9](../V5/V5_3_R2_9_INCREMENTAL_CALIBRATION.md).
+> **Estado vigente — cierre R4 (06-10-2026):** V5.3 `V5_3_CLOSED`; R3 aprobado humanamente según prompt R4. Defaults auto / fast / false / None; ratio diferido. Baseline completa R3: 2838 tests, 0 fallas/errores, 132 skips; R4 dirigidos: 23 PASS, 0 skips. Cierre documental/contractual preparado para un único commit y push normal autorizado; resultado Git definitivo en resumen post-commit. Sin tag. V5.4 `V5_4_READY_TO_START`, siguiente V5.4-R1, no iniciada. Autoridad: PROJECT_STATE.json; [cierre R4](../V5/V5_3_R4_CLOSURE.md).
+
+> *(Histórico al terminar R3.)* **Estado vigente — R3 verificada (06-10-2026):** `V5_3_R3_READY_FOR_HUMAN_REVIEW`; R2.9/R2.9.1 aprobados. Baseline `aa7db0d`; defaults auto / fast / false / None; ratio diferido. Suite 2838 tests, 0 fallas/errores, 132 skips; regresión IST canónica equivalente y junction real PASS. R4 pendiente de revisión/instrucción explícita; V5.3 abierta. Autoridad: PROJECT_STATE.json; [resultado R3](../V5/V5_3_R3_VERIFICATION_REAL_REGRESSION.md).
+
+> *(Histórico al terminar R2.9.)* **Actualización — 06-10-2026 (R2.9):** V5.3 `V5_3_R2_9_READY_FOR_REVIEW`; R2 completo técnicamente, revisión humana pendiente. Defaults auto / ratio None (`CHANGED_RATIO_DEFAULT_DEFERRED`) / verify fast / trust-mtime false. Suite: **2834 tests**, 0 fallas, 0 errores, 132 skips. 21 comparaciones IST equivalentes; fuente oficial escaneada intacta. Siguiente: R3 solo tras revisión e instrucción explícita; no iniciada. V5.3 no cerrada, sin tag. Autoridad: PROJECT_STATE.json; [resultado R2.9](../V5/V5_3_R2_9_INCREMENTAL_CALIBRATION.md).
 
 > *(Histórico, superado por la actualización R2.9.)* **Actualización — 03-10-2026 (R2.5.2):** V5.2 está cerrada **y versionada**: commit `6c32c4c9c6fe2642e56e9f33739a95d43d6ae411`, tag `v5.2`, publicada en `origin/main` (`docs/V5/V5_2_GIT_CLOSURE_RESULT.md`); ya no está pendiente de aprobación Git. **V5.3 — Incremental Engine & Cache: EN CURSO (iniciada).** Rondas completadas: R0, R0.1, R1, R2.1, R2.2, R2.2.1, R2.3, R2.4, R2.5 (caché de extracción por archivo **adoptada**) y R2.5.1 (auditoría de higiene); R2.5.2 = continuidad y checkpoint Git local. Estado actual: preparación para R2.6. Última suite conocida: **2.663 tests**, 0 fallas, 0 errores, 132 skips. V5.3 **no está cerrada** y no existe tag V5.3. Pendiente al inicio de R2.6: guardián para los módulos de formato/contrato de la extraction cache. Prompts de V5.3 en `prompts/V5/`.
 
@@ -1140,3 +1144,26 @@ El usuario maneja git personalmente. No ordenar a Claude `commit`/`push` ni edit
 | R2.9 | Comparador, 21 equivalencias, ratios/verify medidos, auto validado técnicamente, ratio None diferido, suite verde; revisión pendiente. |
 
 Extraction cache ADOPTED. No partial resolvers, projection cache ni stage skipping; artifacts.json diferido por contrato. Fuente vigente: `C:\Users\cgalianj\source\IST_40\operacional` (readonly). Las rutas/estados anteriores son históricos. R3/R4 pendientes; no cierre V5.3 ni autorización implícita de la siguiente ronda.
+
+
+## Continuidad R2.9.1 / R3 (histórica al terminar R3)
+
+| Ronda | Estado vigente |
+| --- | --- |
+| R2.9.1 | Aprobada según prompt R3; commit local aa7db0d, reporte pendiente de versionar. |
+| R3 | Verificación completa, revisión humana pendiente; recuperación, equivalencia, determinismo, cache externa y junction real PASS. |
+
+No R4 ejecutada, sin cierre/tag V5.3; informes previos preservan sus estados históricos.
+
+
+## Cierre vigente V5.3 — R4 / transición V5.4
+
+| Ronda | Resultado consolidado |
+| --- | --- |
+| R2.9.1 | Checkpoint aa7db0d aprobado; informe incluido en el cierre. |
+| R3 | Aprobado según prompt R4; equivalencia, recuperación, determinismo, cache externa y junction real PASS. |
+| R4 | Cierre documental/contractual COMPLETED; V5.3 CLOSED; commit único y push normal autorizados, recibo Git definitivo en resumen post-commit. |
+
+Sin tag V5.3. Deuda FUTURE_PHASE: partial resolver recomputation, stage skipping, flow/projection cache, artifacts.json, refactor full_pipeline.py y unificación de atomic writers. OBSERVATION: repository.json no determinista, trust-mtime inseguro opt-in, ratio default diferido y scope conservador. No bloquean cierre; no se implementan en R4.
+
+V5.4 autorizada como siguiente versión, `V5_4_READY_TO_START`; **no iniciada**. Modelo: R1 Integrated Delivery; R2 Targeted Corrections solo si es necesaria; R3 Final Verification & Closure. Máximo objetivo tres rondas por versión, un objetivo coherente por ronda, sin micro-rondas innecesarias. Inicio requiere instrucción explícita.
