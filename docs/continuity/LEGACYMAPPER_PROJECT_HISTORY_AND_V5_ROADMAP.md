@@ -1,6 +1,8 @@
 # LegacyMapper — Historia del proyecto, estado actual y roadmap V5
 
-> **Actualización vigente — 03-10-2026 (R2.5.2):** V5.2 está cerrada **y versionada**: commit `6c32c4c9c6fe2642e56e9f33739a95d43d6ae411`, tag `v5.2`, publicada en `origin/main` (`docs/V5/V5_2_GIT_CLOSURE_RESULT.md`); ya no está pendiente de aprobación Git. **V5.3 — Incremental Engine & Cache: EN CURSO (iniciada).** Rondas completadas: R0, R0.1, R1, R2.1, R2.2, R2.2.1, R2.3, R2.4, R2.5 (caché de extracción por archivo **adoptada**) y R2.5.1 (auditoría de higiene); R2.5.2 = continuidad y checkpoint Git local. Estado actual: preparación para R2.6. Última suite conocida: **2.663 tests**, 0 fallas, 0 errores, 132 skips. V5.3 **no está cerrada** y no existe tag V5.3. Pendiente al inicio de R2.6: guardián para los módulos de formato/contrato de la extraction cache. Prompts de V5.3 en `prompts/V5/`.
+> **Actualización vigente — 06-10-2026 (R2.9):** V5.3 `V5_3_R2_9_READY_FOR_REVIEW`; R2 completo técnicamente, revisión humana pendiente. Defaults auto / ratio None (`CHANGED_RATIO_DEFAULT_DEFERRED`) / verify fast / trust-mtime false. Suite: **2834 tests**, 0 fallas, 0 errores, 132 skips. 21 comparaciones IST equivalentes; fuente oficial escaneada intacta. Siguiente: R3 solo tras revisión e instrucción explícita; no iniciada. V5.3 no cerrada, sin tag. Autoridad: PROJECT_STATE.json; [resultado R2.9](../V5/V5_3_R2_9_INCREMENTAL_CALIBRATION.md).
+
+> *(Histórico, superado por la actualización R2.9.)* **Actualización — 03-10-2026 (R2.5.2):** V5.2 está cerrada **y versionada**: commit `6c32c4c9c6fe2642e56e9f33739a95d43d6ae411`, tag `v5.2`, publicada en `origin/main` (`docs/V5/V5_2_GIT_CLOSURE_RESULT.md`); ya no está pendiente de aprobación Git. **V5.3 — Incremental Engine & Cache: EN CURSO (iniciada).** Rondas completadas: R0, R0.1, R1, R2.1, R2.2, R2.2.1, R2.3, R2.4, R2.5 (caché de extracción por archivo **adoptada**) y R2.5.1 (auditoría de higiene); R2.5.2 = continuidad y checkpoint Git local. Estado actual: preparación para R2.6. Última suite conocida: **2.663 tests**, 0 fallas, 0 errores, 132 skips. V5.3 **no está cerrada** y no existe tag V5.3. Pendiente al inicio de R2.6: guardián para los módulos de formato/contrato de la extraction cache. Prompts de V5.3 en `prompts/V5/`.
 
 > *(Histórico)* **Actualización de continuidad — 29-09-2026:** V5.0 y V5.1 están cerradas; V5.2 tiene implementación y revisión de R3.4.1 realizadas, pero **NO está cerrada formalmente**. Falta la aprobación explícita del Technical Lead y ejecutar/documentar R4 de cierre. Los estados antiguos `V5_0_READY_TO_START` que figuran más abajo son una fotografía histórica, no el estado vigente. El siguiente paso no es V5.3 ni activar IA en V5.2.
 
@@ -1124,3 +1126,17 @@ El usuario maneja git personalmente. No ordenar a Claude `commit`/`push` ni edit
 **Estado (03-10-2026):** iniciada, **no cerrada**, sin tag V5.3. Prompts en `prompts/V5/`, resultados en `docs/V5/`. Rondas completadas: R0 (baseline empírico), R0.1 (mediciones), R1 (contrato de caché incremental), R2.1 (HydrationView compartida), R2.2 (write-skip de `documentation_v52` y MAX_PATH), R2.2.1 (writer + validación), R2.3 (versiones y fingerprints; `ANALYZER_VERSION`), R2.4 (Cache Manifest + File State), R2.5 (caché de extracción por archivo, **adoptada**: ≈1,9 s frente a ≈49,5 s en IST; salida idéntica a full), R2.5.1 (auditoría de higiene) y R2.5.2 (continuidad y checkpoint Git local).
 
 **Última suite conocida:** 2.663 tests, 0 fallas, 0 errores, 132 skips. **Siguiente:** R2.6 (nada iniciado). **Deuda a recoger al inicio de R2.6:** guardián propio para los módulos de formato/contrato de la extraction cache; decidir los worktrees de agentes residuales con cambios sin commit (R2.5.2).
+
+
+## Continuidad vigente V5.3 — R2.6 a R2.9 (06-10-2026)
+
+| Ronda | Resultado registrado |
+| --- | --- |
+| R2.6 / R2.6.1 | Write-skip ampliado, guardián de cache y checkpoint. |
+| R2.7 / R2.7.1 | Scope conservador observacional, RUN_METRICS persistido y checkpoint. |
+| R2.8 | Controles CLI auto/off/refresh, cache externa, verify, trust-mtime opt-in, ratio; checkpoint funcional c5f7014. |
+| R2.8.1 | Bare --verify-cache = hash independiente de posición; defaults fast intactos. |
+| R2.8.2 | Checkpoint Git validado; reporte todavía untracked. |
+| R2.9 | Comparador, 21 equivalencias, ratios/verify medidos, auto validado técnicamente, ratio None diferido, suite verde; revisión pendiente. |
+
+Extraction cache ADOPTED. No partial resolvers, projection cache ni stage skipping; artifacts.json diferido por contrato. Fuente vigente: `C:\Users\cgalianj\source\IST_40\operacional` (readonly). Las rutas/estados anteriores son históricos. R3/R4 pendientes; no cierre V5.3 ni autorización implícita de la siguiente ronda.

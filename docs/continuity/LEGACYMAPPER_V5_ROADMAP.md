@@ -1,6 +1,8 @@
 # LegacyMapper V5 — Roadmap oficial de trabajo
 
-> **Actualización vigente — 03-10-2026 (R2.5.2):** V5.2 está cerrada **y versionada**: commit `6c32c4c9c6fe2642e56e9f33739a95d43d6ae411`, tag `v5.2`, publicada en `origin/main` (`docs/V5/V5_2_GIT_CLOSURE_RESULT.md`); ya no está pendiente de aprobación Git. **V5.3 — Incremental Engine & Cache: EN CURSO (iniciada).** Rondas completadas: R0, R0.1, R1, R2.1, R2.2, R2.2.1, R2.3, R2.4, R2.5 (caché de extracción por archivo **adoptada**) y R2.5.1 (auditoría de higiene); R2.5.2 = continuidad y checkpoint Git local. Estado actual: preparación para R2.6. Última suite conocida: **2.663 tests**, 0 fallas, 0 errores, 132 skips. V5.3 **no está cerrada** y no existe tag V5.3. Pendiente al inicio de R2.6: guardián para los módulos de formato/contrato de la extraction cache. Prompts de V5.3 en `prompts/V5/`.
+> **Actualización vigente — 06-10-2026 (R2.9):** V5.3 `V5_3_R2_9_READY_FOR_REVIEW`; R2 completo técnicamente, revisión humana pendiente. Defaults auto / ratio None (`CHANGED_RATIO_DEFAULT_DEFERRED`) / verify fast / trust-mtime false. Suite: **2834 tests**, 0 fallas, 0 errores, 132 skips. 21 comparaciones IST equivalentes; fuente oficial escaneada intacta. Siguiente: R3 solo tras revisión e instrucción explícita; no iniciada. V5.3 no cerrada, sin tag. Autoridad: PROJECT_STATE.json; [resultado R2.9](../V5/V5_3_R2_9_INCREMENTAL_CALIBRATION.md).
+
+> *(Histórico, superado por la actualización R2.9.)* **Actualización — 03-10-2026 (R2.5.2):** V5.2 está cerrada **y versionada**: commit `6c32c4c9c6fe2642e56e9f33739a95d43d6ae411`, tag `v5.2`, publicada en `origin/main` (`docs/V5/V5_2_GIT_CLOSURE_RESULT.md`); ya no está pendiente de aprobación Git. **V5.3 — Incremental Engine & Cache: EN CURSO (iniciada).** Rondas completadas: R0, R0.1, R1, R2.1, R2.2, R2.2.1, R2.3, R2.4, R2.5 (caché de extracción por archivo **adoptada**) y R2.5.1 (auditoría de higiene); R2.5.2 = continuidad y checkpoint Git local. Estado actual: preparación para R2.6. Última suite conocida: **2.663 tests**, 0 fallas, 0 errores, 132 skips. V5.3 **no está cerrada** y no existe tag V5.3. Pendiente al inicio de R2.6: guardián para los módulos de formato/contrato de la extraction cache. Prompts de V5.3 en `prompts/V5/`.
 
 > *(Nota histórica, superada por la actualización vigente anterior en lo relativo a Git y a V5.3.)* **Actualización de cierre — V5.2 CLOSED (R4.3):** V5.0, V5.1 y V5.2 están cerradas formalmente (`docs/V5/V5_2_R4_3_CIERRE_FORMAL.md`, estado `V5_2_CLOSED_PENDING_GIT_APPROVAL`: solo falta el versionado Git autorizado por el usuario). **V5.3 — Incremental Engine & Cache: `READY_TO_START`, NO iniciada.** Baseline IST oficial de V5.2: `C:\Users\cgalianj\source\IST_40\Operacional`. Última suite completa: **2.449 pruebas**, 0 fallas, 0 errores, 132 skips. R4.2 = corrección pre-cierre; R4.3 = cierre formal. Prompts nuevos desde V5.3 bajo `prompts/V5/` (los históricos permanecen en `prompts/V5_0/`). Los estados antiguos `V5_0_READY_TO_START` y la nota del 29-09-2026 más abajo son fotografías históricas.
 
@@ -251,3 +253,17 @@ Informe: `docs/V5/V5_2_R3_4_1_METHOD_DETAIL_QUALITY.md`, estado `V5_2_R3_4_1_REA
 - Baseline oficial: `C:\Users\cgalianj\source\IST_40\Operacional`. La ruta `C:\inetpub\wwwroot\2010\IST\Operacional` **no es equivalente** (rama y `HEAD` distintos; 281 archivos comunes con contenido distinto y 1.376 archivos relevantes solo en ella; R4.1).
 - Suite final: 2.449 pruebas, 0 fallas, 0 errores, 132 skips (R4.2). Documentación: 46.567 archivos Markdown.
 - Orden V5.3–V5.9 sin cambios. La deuda de fase futura por contrato está en el informe de cierre.
+
+
+## Continuidad vigente V5.3 — R2.6 a R2.9 (06-10-2026)
+
+| Ronda | Resultado registrado |
+| --- | --- |
+| R2.6 / R2.6.1 | Write-skip ampliado, guardián de cache y checkpoint. |
+| R2.7 / R2.7.1 | Scope conservador observacional, RUN_METRICS persistido y checkpoint. |
+| R2.8 | Controles CLI auto/off/refresh, cache externa, verify, trust-mtime opt-in, ratio; checkpoint funcional c5f7014. |
+| R2.8.1 | Bare --verify-cache = hash independiente de posición; defaults fast intactos. |
+| R2.8.2 | Checkpoint Git validado; reporte todavía untracked. |
+| R2.9 | Comparador, 21 equivalencias, ratios/verify medidos, auto validado técnicamente, ratio None diferido, suite verde; revisión pendiente. |
+
+Extraction cache ADOPTED. No partial resolvers, projection cache ni stage skipping; artifacts.json diferido por contrato. Fuente vigente: `C:\Users\cgalianj\source\IST_40\operacional` (readonly). Las rutas/estados anteriores son históricos. R3/R4 pendientes; no cierre V5.3 ni autorización implícita de la siguiente ronda.

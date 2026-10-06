@@ -151,3 +151,6 @@ Thumbs.db
 # convention: prefix with "_local_" to keep it out of Git without editing
 # this file again.
 /output/_local_*/
+
+# V5.3 R2.9: controlled IST copy, full products and calibration telemetry.
+/output/v53r29/

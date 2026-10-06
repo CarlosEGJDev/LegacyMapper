@@ -1,0 +1,2178 @@
+{
+  "adaptive_grid": {
+    "allow_additional_points_and_repeats_near_observed_crossing": true,
+    "decision": "ADAPT_GRID_AFTER_FIRST_BATCH",
+    "first_batch": [
+      0,
+      0.001,
+      0.005
+    ],
+    "first_batch_comparison_seconds": 283.88415599999996,
+    "first_batch_measured_seconds_excluding_preparation": 1687.218156,
+    "first_batch_pipeline_wall_seconds": 1403.334,
+    "next_batch": [
+      0.1,
+      0.5,
+      1.0
+    ],
+    "omitted_initial_levels": [
+      0.01,
+      0.02,
+      0.05,
+      0.25
+    ],
+    "projected_ten_level_seconds_excluding_preparation": 5624.060519999999,
+    "reason": "Measured IST cost: retain incremental, transition and full extraction zones; reserve repeated paired runs for noisy crossing"
+  },
+  "analyzed_files": 8106,
+  "cold_equivalence_proof_run": "A_cold_proof",
+  "comparisons": {
+    "G_below_candidate": {
+      "added": [],
+      "changed": [],
+      "contract": "LegacyMapperFullIncrementalComparison",
+      "duration_seconds": 146.125108,
+      "equal": true,
+      "excluded": {
+        "candidate": [
+          "RUN_SUMMARY.json",
+          "RUN_SUMMARY.md",
+          "_cache_v53/",
+          "index/repository.json"
+        ],
+        "directories": [
+          "_cache_v53"
+        ],
+        "files": [
+          "RUN_SUMMARY.json",
+          "RUN_SUMMARY.md",
+          "index/repository.json"
+        ],
+        "reference": [
+          "RUN_SUMMARY.json",
+          "RUN_SUMMARY.md",
+          "_cache_v53/",
+          "index/repository.json"
+        ]
+      },
+      "file_counts": {
+        "candidate": 47523,
+        "reference": 47523
+      },
+      "files_compared": 47523,
+      "matched": 47523,
+      "removed": [],
+      "schema_version": "1",
+      "total_bytes": {
+        "candidate": 2827992844,
+        "reference": 2827992844
+      }
+    },
+    "H_above_candidate": {
+      "added": [],
+      "changed": [],
+      "contract": "LegacyMapperFullIncrementalComparison",
+      "duration_seconds": 109.933574,
+      "equal": true,
+      "excluded": {
+        "candidate": [
+          "RUN_SUMMARY.json",
+          "RUN_SUMMARY.md",
+          "_cache_v53/",
+          "index/repository.json"
+        ],
+        "directories": [
+          "_cache_v53"
+        ],
+        "files": [
+          "RUN_SUMMARY.json",
+          "RUN_SUMMARY.md",
+          "index/repository.json"
+        ],
+        "reference": [
+          "RUN_SUMMARY.json",
+          "RUN_SUMMARY.md",
+          "_cache_v53/",
+          "index/repository.json"
+        ]
+      },
+      "file_counts": {
+        "candidate": 47524,
+        "reference": 47524
+      },
+      "files_compared": 47524,
+      "matched": 47524,
+      "removed": [],
+      "schema_version": "1",
+      "total_bytes": {
+        "candidate": 2827997275,
+        "reference": 2827997275
+      }
+    },
+    "baseline_auto_off": {
+      "added": [],
+      "changed": [],
+      "contract": "LegacyMapperFullIncrementalComparison",
+      "duration_seconds": 656.954049,
+      "equal": true,
+      "excluded": {
+        "candidate": [
+          "RUN_SUMMARY.json",
+          "RUN_SUMMARY.md",
+          "_cache_v53/",
+          "index/repository.json"
+        ],
+        "directories": [
+          "_cache_v53"
+        ],
+        "files": [
+          "RUN_SUMMARY.json",
+          "RUN_SUMMARY.md",
+          "index/repository.json"
+        ],
+        "reference": [
+          "RUN_SUMMARY.json",
+          "RUN_SUMMARY.md",
+          "index/repository.json"
+        ]
+      },
+      "file_counts": {
+        "candidate": 47523,
+        "reference": 47523
+      },
+      "files_compared": 47523,
+      "matched": 47523,
+      "removed": [],
+      "schema_version": "1",
+      "total_bytes": {
+        "candidate": 2827992237,
+        "reference": 2827992237
+      }
+    },
+    "baseline_cold_off": {
+      "added": [],
+      "changed": [],
+      "contract": "LegacyMapperFullIncrementalComparison",
+      "duration_seconds": 110.441725,
+      "equal": true,
+      "excluded": {
+        "candidate": [
+          "RUN_SUMMARY.json",
+          "RUN_SUMMARY.md",
+          "_cache_v53/",
+          "index/repository.json"
+        ],
+        "directories": [
+          "_cache_v53"
+        ],
+        "files": [
+          "RUN_SUMMARY.json",
+          "RUN_SUMMARY.md",
+          "index/repository.json"
+        ],
+        "reference": [
+          "RUN_SUMMARY.json",
+          "RUN_SUMMARY.md",
+          "index/repository.json"
+        ]
+      },
+      "file_counts": {
+        "candidate": 47523,
+        "reference": 47523
+      },
+      "files_compared": 47523,
+      "matched": 47523,
+      "removed": [],
+      "schema_version": "1",
+      "total_bytes": {
+        "candidate": 2827992237,
+        "reference": 2827992237
+      }
+    },
+    "baseline_refresh_off": {
+      "added": [],
+      "changed": [],
+      "contract": "LegacyMapperFullIncrementalComparison",
+      "duration_seconds": 121.299338,
+      "equal": true,
+      "excluded": {
+        "candidate": [
+          "RUN_SUMMARY.json",
+          "RUN_SUMMARY.md",
+          "_cache_v53/",
+          "index/repository.json"
+        ],
+        "directories": [
+          "_cache_v53"
+        ],
+        "files": [
+          "RUN_SUMMARY.json",
+          "RUN_SUMMARY.md",
+          "index/repository.json"
+        ],
+        "reference": [
+          "RUN_SUMMARY.json",
+          "RUN_SUMMARY.md",
+          "index/repository.json"
+        ]
+      },
+      "file_counts": {
+        "candidate": 47523,
+        "reference": 47523
+      },
+      "files_compared": 47523,
+      "matched": 47523,
+      "removed": [],
+      "schema_version": "1",
+      "total_bytes": {
+        "candidate": 2827992237,
+        "reference": 2827992237
+      }
+    },
+    "external_cold_off": {
+      "added": [],
+      "changed": [],
+      "contract": "LegacyMapperFullIncrementalComparison",
+      "duration_seconds": 82.906835,
+      "equal": true,
+      "excluded": {
+        "candidate": [
+          "RUN_SUMMARY.json",
+          "RUN_SUMMARY.md",
+          "_cache_v53/",
+          "index/repository.json"
+        ],
+        "directories": [
+          "_cache_v53"
+        ],
+        "files": [
+          "RUN_SUMMARY.json",
+          "RUN_SUMMARY.md",
+          "index/repository.json"
+        ],
+        "reference": [
+          "RUN_SUMMARY.json",
+          "RUN_SUMMARY.md",
+          "_cache_v53/",
+          "index/repository.json"
+        ]
+      },
+      "file_counts": {
+        "candidate": 47523,
+        "reference": 47523
+      },
+      "files_compared": 47523,
+      "matched": 47523,
+      "removed": [],
+      "schema_version": "1",
+      "total_bytes": {
+        "candidate": 2827992848,
+        "reference": 2827992848
+      }
+    },
+    "external_off": {
+      "added": [],
+      "changed": [],
+      "contract": "LegacyMapperFullIncrementalComparison",
+      "duration_seconds": 81.486111,
+      "equal": true,
+      "excluded": {
+        "candidate": [
+          "RUN_SUMMARY.json",
+          "RUN_SUMMARY.md",
+          "_cache_v53/",
+          "index/repository.json"
+        ],
+        "directories": [
+          "_cache_v53"
+        ],
+        "files": [
+          "RUN_SUMMARY.json",
+          "RUN_SUMMARY.md",
+          "index/repository.json"
+        ],
+        "reference": [
+          "RUN_SUMMARY.json",
+          "RUN_SUMMARY.md",
+          "_cache_v53/",
+          "index/repository.json"
+        ]
+      },
+      "file_counts": {
+        "candidate": 47523,
+        "reference": 47523
+      },
+      "files_compared": 47523,
+      "matched": 47523,
+      "removed": [],
+      "schema_version": "1",
+      "total_bytes": {
+        "candidate": 2827992848,
+        "reference": 2827992848
+      }
+    },
+    "ratio_0_0": {
+      "added": [],
+      "changed": [],
+      "contract": "LegacyMapperFullIncrementalComparison",
+      "duration_seconds": 91.28509,
+      "equal": true,
+      "excluded": {
+        "candidate": [
+          "RUN_SUMMARY.json",
+          "RUN_SUMMARY.md",
+          "_cache_v53/",
+          "index/repository.json"
+        ],
+        "directories": [
+          "_cache_v53"
+        ],
+        "files": [
+          "RUN_SUMMARY.json",
+          "RUN_SUMMARY.md",
+          "index/repository.json"
+        ],
+        "reference": [
+          "RUN_SUMMARY.json",
+          "RUN_SUMMARY.md",
+          "_cache_v53/",
+          "index/repository.json"
+        ]
+      },
+      "file_counts": {
+        "candidate": 47523,
+        "reference": 47523
+      },
+      "files_compared": 47523,
+      "matched": 47523,
+      "removed": [],
+      "schema_version": "1",
+      "total_bytes": {
+        "candidate": 2827992237,
+        "reference": 2827992237
+      }
+    },
+    "ratio_0_001": {
+      "added": [],
+      "changed": [],
+      "contract": "LegacyMapperFullIncrementalComparison",
+      "duration_seconds": 95.297742,
+      "equal": true,
+      "excluded": {
+        "candidate": [
+          "RUN_SUMMARY.json",
+          "RUN_SUMMARY.md",
+          "_cache_v53/",
+          "index/repository.json"
+        ],
+        "directories": [
+          "_cache_v53"
+        ],
+        "files": [
+          "RUN_SUMMARY.json",
+          "RUN_SUMMARY.md",
+          "index/repository.json"
+        ],
+        "reference": [
+          "RUN_SUMMARY.json",
+          "RUN_SUMMARY.md",
+          "_cache_v53/",
+          "index/repository.json"
+        ]
+      },
+      "file_counts": {
+        "candidate": 47523,
+        "reference": 47523
+      },
+      "files_compared": 47523,
+      "matched": 47523,
+      "removed": [],
+      "schema_version": "1",
+      "total_bytes": {
+        "candidate": 2827992844,
+        "reference": 2827992844
+      }
+    },
+    "ratio_0_005": {
+      "added": [],
+      "changed": [],
+      "contract": "LegacyMapperFullIncrementalComparison",
+      "duration_seconds": 97.301324,
+      "equal": true,
+      "excluded": {
+        "candidate": [
+          "RUN_SUMMARY.json",
+          "RUN_SUMMARY.md",
+          "_cache_v53/",
+          "index/repository.json"
+        ],
+        "directories": [
+          "_cache_v53"
+        ],
+        "files": [
+          "RUN_SUMMARY.json",
+          "RUN_SUMMARY.md",
+          "index/repository.json"
+        ],
+        "reference": [
+          "RUN_SUMMARY.json",
+          "RUN_SUMMARY.md",
+          "_cache_v53/",
+          "index/repository.json"
+        ]
+      },
+      "file_counts": {
+        "candidate": 47523,
+        "reference": 47523
+      },
+      "files_compared": 47523,
+      "matched": 47523,
+      "removed": [],
+      "schema_version": "1",
+      "total_bytes": {
+        "candidate": 2827992848,
+        "reference": 2827992848
+      }
+    },
+    "ratio_0_1": {
+      "added": [],
+      "changed": [],
+      "contract": "LegacyMapperFullIncrementalComparison",
+      "duration_seconds": 108.892376,
+      "equal": true,
+      "excluded": {
+        "candidate": [
+          "RUN_SUMMARY.json",
+          "RUN_SUMMARY.md",
+          "_cache_v53/",
+          "index/repository.json"
+        ],
+        "directories": [
+          "_cache_v53"
+        ],
+        "files": [
+          "RUN_SUMMARY.json",
+          "RUN_SUMMARY.md",
+          "index/repository.json"
+        ],
+        "reference": [
+          "RUN_SUMMARY.json",
+          "RUN_SUMMARY.md",
+          "_cache_v53/",
+          "index/repository.json"
+        ]
+      },
+      "file_counts": {
+        "candidate": 47585,
+        "reference": 47585
+      },
+      "files_compared": 47585,
+      "matched": 47585,
+      "removed": [],
+      "schema_version": "1",
+      "total_bytes": {
+        "candidate": 2828452536,
+        "reference": 2828452536
+      }
+    },
+    "ratio_0_5": {
+      "added": [],
+      "changed": [],
+      "contract": "LegacyMapperFullIncrementalComparison",
+      "duration_seconds": 123.95111,
+      "equal": true,
+      "excluded": {
+        "candidate": [
+          "RUN_SUMMARY.json",
+          "RUN_SUMMARY.md",
+          "_cache_v53/",
+          "index/repository.json"
+        ],
+        "directories": [
+          "_cache_v53"
+        ],
+        "files": [
+          "RUN_SUMMARY.json",
+          "RUN_SUMMARY.md",
+          "index/repository.json"
+        ],
+        "reference": [
+          "RUN_SUMMARY.json",
+          "RUN_SUMMARY.md",
+          "_cache_v53/",
+          "index/repository.json"
+        ]
+      },
+      "file_counts": {
+        "candidate": 47855,
+        "reference": 47855
+      },
+      "files_compared": 47855,
+      "matched": 47855,
+      "removed": [],
+      "schema_version": "1",
+      "total_bytes": {
+        "candidate": 2838753350,
+        "reference": 2838753350
+      }
+    },
+    "ratio_1_0": {
+      "added": [],
+      "changed": [],
+      "contract": "LegacyMapperFullIncrementalComparison",
+      "duration_seconds": 139.974227,
+      "equal": true,
+      "excluded": {
+        "candidate": [
+          "RUN_SUMMARY.json",
+          "RUN_SUMMARY.md",
+          "_cache_v53/",
+          "index/repository.json"
+        ],
+        "directories": [
+          "_cache_v53"
+        ],
+        "files": [
+          "RUN_SUMMARY.json",
+          "RUN_SUMMARY.md",
+          "index/repository.json"
+        ],
+        "reference": [
+          "RUN_SUMMARY.json",
+          "RUN_SUMMARY.md",
+          "_cache_v53/",
+          "index/repository.json"
+        ]
+      },
+      "file_counts": {
+        "candidate": 47855,
+        "reference": 47855
+      },
+      "files_compared": 47855,
+      "matched": 47855,
+      "removed": [],
+      "schema_version": "1",
+      "total_bytes": {
+        "candidate": 2838753587,
+        "reference": 2838753587
+      }
+    },
+    "repeat_1.0_1": {
+      "added": [],
+      "changed": [],
+      "contract": "LegacyMapperFullIncrementalComparison",
+      "duration_seconds": 101.194727,
+      "equal": true,
+      "excluded": {
+        "candidate": [
+          "RUN_SUMMARY.json",
+          "RUN_SUMMARY.md",
+          "_cache_v53/",
+          "index/repository.json"
+        ],
+        "directories": [
+          "_cache_v53"
+        ],
+        "files": [
+          "RUN_SUMMARY.json",
+          "RUN_SUMMARY.md",
+          "index/repository.json"
+        ],
+        "reference": [
+          "RUN_SUMMARY.json",
+          "RUN_SUMMARY.md",
+          "_cache_v53/",
+          "index/repository.json"
+        ]
+      },
+      "file_counts": {
+        "candidate": 47855,
+        "reference": 47855
+      },
+      "files_compared": 47855,
+      "matched": 47855,
+      "removed": [],
+      "schema_version": "1",
+      "total_bytes": {
+        "candidate": 2838753602,
+        "reference": 2838753602
+      }
+    },
+    "repeat_1.0_2": {
+      "added": [],
+      "changed": [],
+      "contract": "LegacyMapperFullIncrementalComparison",
+      "duration_seconds": 192.369102,
+      "equal": true,
+      "excluded": {
+        "candidate": [
+          "RUN_SUMMARY.json",
+          "RUN_SUMMARY.md",
+          "_cache_v53/",
+          "index/repository.json"
+        ],
+        "directories": [
+          "_cache_v53"
+        ],
+        "files": [
+          "RUN_SUMMARY.json",
+          "RUN_SUMMARY.md",
+          "index/repository.json"
+        ],
+        "reference": [
+          "RUN_SUMMARY.json",
+          "RUN_SUMMARY.md",
+          "_cache_v53/",
+          "index/repository.json"
+        ]
+      },
+      "file_counts": {
+        "candidate": 47855,
+        "reference": 47855
+      },
+      "files_compared": 47855,
+      "matched": 47855,
+      "removed": [],
+      "schema_version": "1",
+      "total_bytes": {
+        "candidate": 2838753602,
+        "reference": 2838753602
+      }
+    },
+    "verify_fast_1": {
+      "added": [],
+      "changed": [],
+      "contract": "LegacyMapperFullIncrementalComparison",
+      "duration_seconds": 115.352329,
+      "equal": true,
+      "excluded": {
+        "candidate": [
+          "RUN_SUMMARY.json",
+          "RUN_SUMMARY.md",
+          "_cache_v53/",
+          "index/repository.json"
+        ],
+        "directories": [
+          "_cache_v53"
+        ],
+        "files": [
+          "RUN_SUMMARY.json",
+          "RUN_SUMMARY.md",
+          "index/repository.json"
+        ],
+        "reference": [
+          "RUN_SUMMARY.json",
+          "RUN_SUMMARY.md",
+          "_cache_v53/",
+          "index/repository.json"
+        ]
+      },
+      "file_counts": {
+        "candidate": 47523,
+        "reference": 47523
+      },
+      "files_compared": 47523,
+      "matched": 47523,
+      "removed": [],
+      "schema_version": "1",
+      "total_bytes": {
+        "candidate": 2827992848,
+        "reference": 2827992848
+      }
+    },
+    "verify_fast_2": {
+      "added": [],
+      "changed": [],
+      "contract": "LegacyMapperFullIncrementalComparison",
+      "duration_seconds": 84.95226,
+      "equal": true,
+      "excluded": {
+        "candidate": [
+          "RUN_SUMMARY.json",
+          "RUN_SUMMARY.md",
+          "_cache_v53/",
+          "index/repository.json"
+        ],
+        "directories": [
+          "_cache_v53"
+        ],
+        "files": [
+          "RUN_SUMMARY.json",
+          "RUN_SUMMARY.md",
+          "index/repository.json"
+        ],
+        "reference": [
+          "RUN_SUMMARY.json",
+          "RUN_SUMMARY.md",
+          "_cache_v53/",
+          "index/repository.json"
+        ]
+      },
+      "file_counts": {
+        "candidate": 47523,
+        "reference": 47523
+      },
+      "files_compared": 47523,
+      "matched": 47523,
+      "removed": [],
+      "schema_version": "1",
+      "total_bytes": {
+        "candidate": 2827992848,
+        "reference": 2827992848
+      }
+    },
+    "verify_fast_3": {
+      "added": [],
+      "changed": [],
+      "contract": "LegacyMapperFullIncrementalComparison",
+      "duration_seconds": 81.213254,
+      "equal": true,
+      "excluded": {
+        "candidate": [
+          "RUN_SUMMARY.json",
+          "RUN_SUMMARY.md",
+          "_cache_v53/",
+          "index/repository.json"
+        ],
+        "directories": [
+          "_cache_v53"
+        ],
+        "files": [
+          "RUN_SUMMARY.json",
+          "RUN_SUMMARY.md",
+          "index/repository.json"
+        ],
+        "reference": [
+          "RUN_SUMMARY.json",
+          "RUN_SUMMARY.md",
+          "_cache_v53/",
+          "index/repository.json"
+        ]
+      },
+      "file_counts": {
+        "candidate": 47523,
+        "reference": 47523
+      },
+      "files_compared": 47523,
+      "matched": 47523,
+      "removed": [],
+      "schema_version": "1",
+      "total_bytes": {
+        "candidate": 2827992848,
+        "reference": 2827992848
+      }
+    },
+    "verify_hash_1": {
+      "added": [],
+      "changed": [],
+      "contract": "LegacyMapperFullIncrementalComparison",
+      "duration_seconds": 157.10679,
+      "equal": true,
+      "excluded": {
+        "candidate": [
+          "RUN_SUMMARY.json",
+          "RUN_SUMMARY.md",
+          "_cache_v53/",
+          "index/repository.json"
+        ],
+        "directories": [
+          "_cache_v53"
+        ],
+        "files": [
+          "RUN_SUMMARY.json",
+          "RUN_SUMMARY.md",
+          "index/repository.json"
+        ],
+        "reference": [
+          "RUN_SUMMARY.json",
+          "RUN_SUMMARY.md",
+          "_cache_v53/",
+          "index/repository.json"
+        ]
+      },
+      "file_counts": {
+        "candidate": 47523,
+        "reference": 47523
+      },
+      "files_compared": 47523,
+      "matched": 47523,
+      "removed": [],
+      "schema_version": "1",
+      "total_bytes": {
+        "candidate": 2827992848,
+        "reference": 2827992848
+      }
+    },
+    "verify_hash_2": {
+      "added": [],
+      "changed": [],
+      "contract": "LegacyMapperFullIncrementalComparison",
+      "duration_seconds": 82.508877,
+      "equal": true,
+      "excluded": {
+        "candidate": [
+          "RUN_SUMMARY.json",
+          "RUN_SUMMARY.md",
+          "_cache_v53/",
+          "index/repository.json"
+        ],
+        "directories": [
+          "_cache_v53"
+        ],
+        "files": [
+          "RUN_SUMMARY.json",
+          "RUN_SUMMARY.md",
+          "index/repository.json"
+        ],
+        "reference": [
+          "RUN_SUMMARY.json",
+          "RUN_SUMMARY.md",
+          "_cache_v53/",
+          "index/repository.json"
+        ]
+      },
+      "file_counts": {
+        "candidate": 47523,
+        "reference": 47523
+      },
+      "files_compared": 47523,
+      "matched": 47523,
+      "removed": [],
+      "schema_version": "1",
+      "total_bytes": {
+        "candidate": 2827992848,
+        "reference": 2827992848
+      }
+    },
+    "verify_hash_3": {
+      "added": [],
+      "changed": [],
+      "contract": "LegacyMapperFullIncrementalComparison",
+      "duration_seconds": 81.634864,
+      "equal": true,
+      "excluded": {
+        "candidate": [
+          "RUN_SUMMARY.json",
+          "RUN_SUMMARY.md",
+          "_cache_v53/",
+          "index/repository.json"
+        ],
+        "directories": [
+          "_cache_v53"
+        ],
+        "files": [
+          "RUN_SUMMARY.json",
+          "RUN_SUMMARY.md",
+          "index/repository.json"
+        ],
+        "reference": [
+          "RUN_SUMMARY.json",
+          "RUN_SUMMARY.md",
+          "_cache_v53/",
+          "index/repository.json"
+        ]
+      },
+      "file_counts": {
+        "candidate": 47523,
+        "reference": 47523
+      },
+      "files_compared": 47523,
+      "matched": 47523,
+      "removed": [],
+      "schema_version": "1",
+      "total_bytes": {
+        "candidate": 2827992848,
+        "reference": 2827992848
+      }
+    }
+  },
+  "crossover_status": "NOT_OBSERVED_IN_MEASURED_RANGE",
+  "defaults": {
+    "cache_mode": "auto",
+    "cache_mode_status": "TECHNICALLY_VALIDATED_PENDING_HUMAN_REVIEW",
+    "incremental_max_changed_ratio": null,
+    "ratio_status": "CHANGED_RATIO_DEFAULT_DEFERRED",
+    "trust_mtime": false,
+    "verify_cache": "fast"
+  },
+  "file_types": {
+    "app_config": 4,
+    "ascx": 3165,
+    "aspx": 177,
+    "assembly": 239,
+    "css": 122,
+    "html": 248,
+    "javascript": 927,
+    "master": 4,
+    "other": 2946,
+    "resource": 2440,
+    "solution": 113,
+    "vb_project": 259,
+    "vb_source": 4328,
+    "web_config": 60,
+    "xml": 106
+  },
+  "files_total": 15138,
+  "git": {
+    "ahead_local_origin_main": 5,
+    "backup_branch": "backup/v5.3-pre-worktree-cleanup",
+    "backup_head": "2cb317fe5ae3dd2cbad1f865b1faee4a50a99569",
+    "branch": "main",
+    "diff_check": "PASS",
+    "head": "c5f70143193b55713e3ca3d67bffaa7d997c9227",
+    "status_short": [
+      " M .gitignore",
+      " M PROJECT_STATE.json",
+      " M docs/continuity/LEGACYMAPPER_PROJECT_HISTORY_AND_V5_ROADMAP.md",
+      " M docs/continuity/LEGACYMAPPER_V5_ROADMAP.md",
+      "?? docs/V5/V5_3_R2_8_2_GIT_CHECKPOINT.md",
+      "?? docs/V5/V5_3_R2_9_INCREMENTAL_CALIBRATION.json",
+      "?? docs/V5/V5_3_R2_9_INCREMENTAL_CALIBRATION.md",
+      "?? prompts/V5/V5_3_R2_9_INCREMENTAL_CALIBRATION.md",
+      "?? tests/test_v5_3_r2_9_incremental_calibration.py",
+      "?? tools/v5_3_compare_full_incremental.py",
+      "?? tools/v5_3_r2_9_calibrate.py"
+    ]
+  },
+  "grid": [
+    {
+      "actual_ratio": 0.0,
+      "auto": {
+        "added": 0,
+        "bytes_written": 3089,
+        "cache_bytes": 267362549,
+        "cli_pipeline": 194.697,
+        "deleted": 0,
+        "extraction": 0.264,
+        "fallback": null,
+        "file_state": 15.62,
+        "hits": 8064,
+        "misses": 42,
+        "mode": "warm",
+        "modified": 0,
+        "name": "ratio_0_0_auto",
+        "pipeline": 193.843,
+        "ratio": 0.0,
+        "shard_count": 256,
+        "shards": 0,
+        "skipped": 954,
+        "verify_direct": null,
+        "wall": 195.434,
+        "written": 2
+      },
+      "extra_extraction_seconds_per_miss": null,
+      "extra_wall_seconds_per_miss": null,
+      "refresh": {
+        "added": null,
+        "bytes_written": 3089,
+        "cache_bytes": 267362585,
+        "cli_pipeline": 263.415,
+        "deleted": null,
+        "extraction": 63.308,
+        "fallback": "REFRESH_REQUESTED",
+        "file_state": 11.363,
+        "hits": 0,
+        "misses": 8106,
+        "mode": "refresh",
+        "modified": null,
+        "name": "ratio_0_0_refresh",
+        "pipeline": 257.877,
+        "ratio": null,
+        "shard_count": 256,
+        "shards": 256,
+        "skipped": 954,
+        "verify_direct": null,
+        "wall": 264.809,
+        "written": 2
+      },
+      "requested_ratio": 0.0,
+      "saved_wall_percent": 26.19812770713987,
+      "saved_wall_seconds": 69.37500000000003,
+      "status": "PASS"
+    },
+    {
+      "actual_ratio": 0.0009908838684106222,
+      "auto": {
+        "added": 0,
+        "bytes_written": 599968664,
+        "cache_bytes": 267366450,
+        "cli_pipeline": 184.6,
+        "deleted": 0,
+        "extraction": 0.375,
+        "fallback": null,
+        "file_state": 15.671,
+        "hits": 8049,
+        "misses": 57,
+        "mode": "warm",
+        "modified": 15,
+        "name": "ratio_0_001_auto",
+        "pipeline": 183.533,
+        "ratio": 0.000991,
+        "shard_count": 256,
+        "shards": 15,
+        "skipped": 945,
+        "verify_direct": null,
+        "wall": 186.367,
+        "written": 11
+      },
+      "extra_extraction_seconds_per_miss": 0.0073999999999999995,
+      "extra_wall_seconds_per_miss": -0.6044666666666672,
+      "refresh": {
+        "added": null,
+        "bytes_written": 599968664,
+        "cache_bytes": 267362826,
+        "cli_pipeline": 269.024,
+        "deleted": null,
+        "extraction": 64.111,
+        "fallback": "REFRESH_REQUESTED",
+        "file_state": 10.734,
+        "hits": 0,
+        "misses": 8106,
+        "mode": "refresh",
+        "modified": null,
+        "name": "ratio_0_001_refresh",
+        "pipeline": 263.653,
+        "ratio": null,
+        "shard_count": 256,
+        "shards": 256,
+        "skipped": 945,
+        "verify_direct": null,
+        "wall": 270.276,
+        "written": 11
+      },
+      "requested_ratio": 0.001,
+      "saved_wall_percent": 31.045671831757172,
+      "saved_wall_seconds": 83.90900000000002,
+      "status": "PASS"
+    },
+    {
+      "actual_ratio": 0.00502047826661382,
+      "auto": {
+        "added": 0,
+        "bytes_written": 599969223,
+        "cache_bytes": 267375421,
+        "cli_pipeline": 208.151,
+        "deleted": 0,
+        "extraction": 0.812,
+        "fallback": null,
+        "file_state": 17.446,
+        "hits": 7988,
+        "misses": 118,
+        "mode": "warm",
+        "modified": 76,
+        "name": "ratio_0_005_auto",
+        "pipeline": 206.288,
+        "ratio": 0.00502,
+        "shard_count": 256,
+        "shards": 68,
+        "skipped": 945,
+        "verify_direct": null,
+        "wall": 209.973,
+        "written": 11
+      },
+      "extra_extraction_seconds_per_miss": 0.0072105263157894745,
+      "extra_wall_seconds_per_miss": 0.19130263157894759,
+      "refresh": {
+        "added": null,
+        "bytes_written": 599969223,
+        "cache_bytes": 267362831,
+        "cli_pipeline": 274.304,
+        "deleted": null,
+        "extraction": 63.528,
+        "fallback": "REFRESH_REQUESTED",
+        "file_state": 10.632,
+        "hits": 0,
+        "misses": 8106,
+        "mode": "refresh",
+        "modified": null,
+        "name": "ratio_0_005_refresh",
+        "pipeline": 267.989,
+        "ratio": null,
+        "shard_count": 256,
+        "shards": 256,
+        "skipped": 945,
+        "verify_direct": null,
+        "wall": 276.475,
+        "written": 11
+      },
+      "requested_ratio": 0.005,
+      "saved_wall_percent": 24.053531060674565,
+      "saved_wall_seconds": 66.50200000000001,
+      "status": "PASS"
+    },
+    {
+      "requested_ratio": 0.01,
+      "status": "NOT_MEASURED_ADAPTIVE_GRID"
+    },
+    {
+      "requested_ratio": 0.02,
+      "status": "NOT_MEASURED_ADAPTIVE_GRID"
+    },
+    {
+      "requested_ratio": 0.05,
+      "status": "NOT_MEASURED_ADAPTIVE_GRID"
+    },
+    {
+      "actual_ratio": 0.10001321178491214,
+      "auto": {
+        "added": 0,
+        "bytes_written": 2738661941,
+        "cache_bytes": 267418808,
+        "cli_pipeline": 342.41,
+        "deleted": 0,
+        "extraction": 22.74,
+        "fallback": null,
+        "file_state": 11.508,
+        "hits": 6553,
+        "misses": 1553,
+        "mode": "warm",
+        "modified": 1514,
+        "name": "ratio_0_1_auto",
+        "pipeline": 337.341,
+        "ratio": 0.100013,
+        "shard_count": 256,
+        "shards": 256,
+        "skipped": 524,
+        "verify_direct": null,
+        "wall": 343.14,
+        "written": 439
+      },
+      "extra_extraction_seconds_per_miss": 0.01487491727332892,
+      "extra_wall_seconds_per_miss": 0.09775380542686962,
+      "refresh": {
+        "added": null,
+        "bytes_written": 2738661941,
+        "cache_bytes": 267384486,
+        "cli_pipeline": 402.496,
+        "deleted": null,
+        "extraction": 63.32,
+        "fallback": "REFRESH_REQUESTED",
+        "file_state": 13.961,
+        "hits": 0,
+        "misses": 8106,
+        "mode": "refresh",
+        "modified": null,
+        "name": "ratio_0_1_refresh",
+        "pipeline": 398.08,
+        "ratio": null,
+        "shard_count": 256,
+        "shards": 256,
+        "skipped": 524,
+        "verify_direct": null,
+        "wall": 404.355,
+        "written": 439
+      },
+      "requested_ratio": 0.1,
+      "saved_wall_percent": 15.138924954557266,
+      "saved_wall_seconds": 61.21500000000003,
+      "status": "PASS"
+    },
+    {
+      "requested_ratio": 0.25,
+      "status": "NOT_MEASURED_ADAPTIVE_GRID"
+    },
+    {
+      "actual_ratio": 0.5,
+      "auto": {
+        "added": 0,
+        "bytes_written": 2751599488,
+        "cache_bytes": 267505393,
+        "cli_pipeline": 335.117,
+        "deleted": 0,
+        "extraction": 71.834,
+        "fallback": null,
+        "file_state": 13.955,
+        "hits": 535,
+        "misses": 7571,
+        "mode": "warm",
+        "modified": 7569,
+        "name": "ratio_0_5_auto",
+        "pipeline": 330.969,
+        "ratio": 0.5,
+        "shard_count": 256,
+        "shards": 256,
+        "skipped": 564,
+        "verify_direct": null,
+        "wall": 337.721,
+        "written": 396
+      },
+      "extra_extraction_seconds_per_miss": 0.009505910479479348,
+      "extra_wall_seconds_per_miss": 0.018898525700624252,
+      "refresh": {
+        "added": null,
+        "bytes_written": 2751599488,
+        "cache_bytes": 267472145,
+        "cli_pipeline": 403.048,
+        "deleted": null,
+        "extraction": 79.127,
+        "fallback": "REFRESH_REQUESTED",
+        "file_state": 14.431,
+        "hits": 0,
+        "misses": 8106,
+        "mode": "refresh",
+        "modified": null,
+        "name": "ratio_0_5_refresh",
+        "pipeline": 397.985,
+        "ratio": null,
+        "shard_count": 256,
+        "shards": 256,
+        "skipped": 564,
+        "verify_direct": null,
+        "wall": 405.163,
+        "written": 396
+      },
+      "requested_ratio": 0.5,
+      "saved_wall_percent": 16.645646320123014,
+      "saved_wall_seconds": 67.44200000000001,
+      "status": "PASS"
+    },
+    {
+      "actual_ratio": 1.0,
+      "auto": {
+        "added": 0,
+        "bytes_written": 12916680,
+        "cache_bytes": 267513178,
+        "cli_pipeline": 327.22,
+        "deleted": 0,
+        "extraction": 86.491,
+        "fallback": null,
+        "file_state": 9.317,
+        "hits": 0,
+        "misses": 8106,
+        "mode": "warm",
+        "modified": 15138,
+        "name": "ratio_1_0_auto",
+        "pipeline": 323.003,
+        "ratio": 1.0,
+        "shard_count": 256,
+        "shards": 256,
+        "skipped": 956,
+        "verify_direct": null,
+        "wall": 330.149,
+        "written": 4
+      },
+      "extra_extraction_seconds_per_miss": 0.010692832341269842,
+      "extra_wall_seconds_per_miss": 0.016705729166666666,
+      "refresh": {
+        "added": null,
+        "bytes_written": 12916680,
+        "cache_bytes": 267472168,
+        "cli_pipeline": 352.025,
+        "deleted": null,
+        "extraction": 73.09,
+        "fallback": "REFRESH_REQUESTED",
+        "file_state": 15.69,
+        "hits": 0,
+        "misses": 8106,
+        "mode": "refresh",
+        "modified": null,
+        "name": "ratio_1_0_refresh",
+        "pipeline": 347.635,
+        "ratio": null,
+        "shard_count": 256,
+        "shards": 256,
+        "skipped": 956,
+        "verify_direct": null,
+        "wall": 353.966,
+        "written": 4
+      },
+      "requested_ratio": 1.0,
+      "saved_wall_percent": 6.728612352598839,
+      "saved_wall_seconds": 23.817000000000007,
+      "status": "PASS"
+    }
+  ],
+  "human_review": "PENDING",
+  "initial_cold_bytes_preserved_before_warm": false,
+  "initial_cold_equivalence": "NOT_CAPTURED_USE_INDEPENDENT_COLD_PROOF",
+  "manual_pipeline_runs": 33,
+  "observed_crossover": null,
+  "official_source_audit": {
+    "files_checked": 15138,
+    "official_source_unchanged": true,
+    "scanned_inventory_unchanged": true
+  },
+  "provider_calls_this_round": 0,
+  "r2_complete_technical": true,
+  "r3_started": false,
+  "real_llm_calls_this_round": 0,
+  "runs": {
+    "A_auto_cold": {
+      "added": null,
+      "bytes_written": 2758775532,
+      "cache_bytes": 267362612,
+      "cli_pipeline": null,
+      "deleted": null,
+      "extraction": 72.17,
+      "fallback": "NO_CACHE",
+      "file_state": 38.89,
+      "hits": 0,
+      "misses": 8106,
+      "mode": "cold",
+      "modified": null,
+      "name": "A_auto_cold",
+      "pipeline": 794.481,
+      "ratio": null,
+      "shard_count": 256,
+      "shards": 256,
+      "skipped": 0,
+      "verify_direct": null,
+      "wall": 799.007,
+      "written": 956
+    },
+    "A_cold_proof": {
+      "added": null,
+      "bytes_written": 3089,
+      "cache_bytes": 267362558,
+      "cli_pipeline": 272.75,
+      "deleted": null,
+      "extraction": 62.974,
+      "fallback": "NO_CACHE",
+      "file_state": 15.73,
+      "hits": 0,
+      "misses": 8106,
+      "mode": "cold",
+      "modified": null,
+      "name": "A_cold_proof",
+      "pipeline": 267.329,
+      "ratio": null,
+      "shard_count": 256,
+      "shards": 256,
+      "skipped": 954,
+      "verify_direct": null,
+      "wall": 273.196,
+      "written": 2
+    },
+    "B_auto_warm": {
+      "added": 0,
+      "bytes_written": 3089,
+      "cache_bytes": 267362551,
+      "cli_pipeline": null,
+      "deleted": 0,
+      "extraction": 0.239,
+      "fallback": null,
+      "file_state": 12.822,
+      "hits": 8064,
+      "misses": 42,
+      "mode": "warm",
+      "modified": 0,
+      "name": "B_auto_warm",
+      "pipeline": 189.523,
+      "ratio": 0.0,
+      "shard_count": 256,
+      "shards": 0,
+      "skipped": 954,
+      "verify_direct": null,
+      "wall": 191.389,
+      "written": 2
+    },
+    "C_off": {
+      "added": null,
+      "bytes_written": null,
+      "cache_bytes": null,
+      "cli_pipeline": null,
+      "deleted": null,
+      "extraction": null,
+      "fallback": null,
+      "file_state": null,
+      "hits": null,
+      "misses": null,
+      "mode": null,
+      "modified": null,
+      "name": "C_off",
+      "pipeline": null,
+      "ratio": null,
+      "shard_count": null,
+      "shards": null,
+      "skipped": null,
+      "verify_direct": null,
+      "wall": 668.418,
+      "written": null
+    },
+    "D_refresh": {
+      "added": null,
+      "bytes_written": 3089,
+      "cache_bytes": 267362587,
+      "cli_pipeline": null,
+      "deleted": null,
+      "extraction": 63.168,
+      "fallback": "REFRESH_REQUESTED",
+      "file_state": 18.917,
+      "hits": 0,
+      "misses": 8106,
+      "mode": "refresh",
+      "modified": null,
+      "name": "D_refresh",
+      "pipeline": 272.799,
+      "ratio": null,
+      "shard_count": 256,
+      "shards": 256,
+      "skipped": 954,
+      "verify_direct": null,
+      "wall": 279.444,
+      "written": 2
+    },
+    "G_below_candidate": {
+      "added": 0,
+      "bytes_written": 2743793705,
+      "cache_bytes": 267366490,
+      "cli_pipeline": 500.227,
+      "deleted": 0,
+      "extraction": 0.437,
+      "fallback": null,
+      "file_state": 48.012,
+      "hits": 8049,
+      "misses": 57,
+      "mode": "warm",
+      "modified": 15,
+      "name": "G_below_candidate",
+      "pipeline": 498.92,
+      "ratio": 0.000991,
+      "shard_count": 256,
+      "shards": 15,
+      "skipped": 453,
+      "verify_direct": null,
+      "wall": 501.958,
+      "written": 503
+    },
+    "G_below_candidate_refresh": {
+      "added": null,
+      "bytes_written": 2743793706,
+      "cache_bytes": 267362870,
+      "cli_pipeline": 546.53,
+      "deleted": null,
+      "extraction": 69.134,
+      "fallback": "REFRESH_REQUESTED",
+      "file_state": 22.355,
+      "hits": 0,
+      "misses": 8106,
+      "mode": "refresh",
+      "modified": null,
+      "name": "G_below_candidate_refresh",
+      "pipeline": 539.07,
+      "ratio": null,
+      "shard_count": 256,
+      "shards": 256,
+      "skipped": 453,
+      "verify_direct": null,
+      "wall": 549.191,
+      "written": 503
+    },
+    "H_above_candidate": {
+      "added": 0,
+      "bytes_written": 2458654024,
+      "cache_bytes": 267363125,
+      "cli_pipeline": 361.821,
+      "deleted": 0,
+      "extraction": 91.153,
+      "fallback": "CHANGED_RATIO_EXCEEDED",
+      "file_state": 22.934,
+      "hits": 0,
+      "misses": 8106,
+      "mode": "fallback_full",
+      "modified": 151,
+      "name": "H_above_candidate",
+      "pipeline": 356.063,
+      "ratio": 0.009975,
+      "shard_count": 256,
+      "shards": 256,
+      "skipped": 891,
+      "verify_direct": null,
+      "wall": 364.734,
+      "written": 65
+    },
+    "H_above_candidate_refresh": {
+      "added": null,
+      "bytes_written": 2458654024,
+      "cache_bytes": 267363121,
+      "cli_pipeline": 375.886,
+      "deleted": null,
+      "extraction": 90.674,
+      "fallback": "REFRESH_REQUESTED",
+      "file_state": 15.195,
+      "hits": 0,
+      "misses": 8106,
+      "mode": "refresh",
+      "modified": null,
+      "name": "H_above_candidate_refresh",
+      "pipeline": 368.683,
+      "ratio": null,
+      "shard_count": 256,
+      "shards": 256,
+      "skipped": 891,
+      "verify_direct": null,
+      "wall": 377.711,
+      "written": 65
+    },
+    "I_external_cold": {
+      "added": null,
+      "bytes_written": 3089,
+      "cache_bytes": 267362779,
+      "cli_pipeline": 222.486,
+      "deleted": null,
+      "extraction": 62.678,
+      "fallback": "NO_CACHE",
+      "file_state": 11.746,
+      "hits": 0,
+      "misses": 8106,
+      "mode": "cold",
+      "modified": null,
+      "name": "I_external_cold",
+      "pipeline": 217.261,
+      "ratio": null,
+      "shard_count": 256,
+      "shards": 256,
+      "skipped": 954,
+      "verify_direct": null,
+      "wall": 223.993,
+      "written": 2
+    },
+    "I_external_warm": {
+      "added": 0,
+      "bytes_written": 3089,
+      "cache_bytes": 267362764,
+      "cli_pipeline": 168.449,
+      "deleted": 0,
+      "extraction": 0.29,
+      "fallback": null,
+      "file_state": 11.472,
+      "hits": 8064,
+      "misses": 42,
+      "mode": "warm",
+      "modified": 0,
+      "name": "I_external_warm",
+      "pipeline": 167.676,
+      "ratio": 0.0,
+      "shard_count": 256,
+      "shards": 0,
+      "skipped": 954,
+      "verify_direct": null,
+      "wall": 169.979,
+      "written": 2
+    },
+    "ratio_0_001_auto": {
+      "added": 0,
+      "bytes_written": 599968664,
+      "cache_bytes": 267366450,
+      "cli_pipeline": 184.6,
+      "deleted": 0,
+      "extraction": 0.375,
+      "fallback": null,
+      "file_state": 15.671,
+      "hits": 8049,
+      "misses": 57,
+      "mode": "warm",
+      "modified": 15,
+      "name": "ratio_0_001_auto",
+      "pipeline": 183.533,
+      "ratio": 0.000991,
+      "shard_count": 256,
+      "shards": 15,
+      "skipped": 945,
+      "verify_direct": null,
+      "wall": 186.367,
+      "written": 11
+    },
+    "ratio_0_001_refresh": {
+      "added": null,
+      "bytes_written": 599968664,
+      "cache_bytes": 267362826,
+      "cli_pipeline": 269.024,
+      "deleted": null,
+      "extraction": 64.111,
+      "fallback": "REFRESH_REQUESTED",
+      "file_state": 10.734,
+      "hits": 0,
+      "misses": 8106,
+      "mode": "refresh",
+      "modified": null,
+      "name": "ratio_0_001_refresh",
+      "pipeline": 263.653,
+      "ratio": null,
+      "shard_count": 256,
+      "shards": 256,
+      "skipped": 945,
+      "verify_direct": null,
+      "wall": 270.276,
+      "written": 11
+    },
+    "ratio_0_005_auto": {
+      "added": 0,
+      "bytes_written": 599969223,
+      "cache_bytes": 267375421,
+      "cli_pipeline": 208.151,
+      "deleted": 0,
+      "extraction": 0.812,
+      "fallback": null,
+      "file_state": 17.446,
+      "hits": 7988,
+      "misses": 118,
+      "mode": "warm",
+      "modified": 76,
+      "name": "ratio_0_005_auto",
+      "pipeline": 206.288,
+      "ratio": 0.00502,
+      "shard_count": 256,
+      "shards": 68,
+      "skipped": 945,
+      "verify_direct": null,
+      "wall": 209.973,
+      "written": 11
+    },
+    "ratio_0_005_refresh": {
+      "added": null,
+      "bytes_written": 599969223,
+      "cache_bytes": 267362831,
+      "cli_pipeline": 274.304,
+      "deleted": null,
+      "extraction": 63.528,
+      "fallback": "REFRESH_REQUESTED",
+      "file_state": 10.632,
+      "hits": 0,
+      "misses": 8106,
+      "mode": "refresh",
+      "modified": null,
+      "name": "ratio_0_005_refresh",
+      "pipeline": 267.989,
+      "ratio": null,
+      "shard_count": 256,
+      "shards": 256,
+      "skipped": 945,
+      "verify_direct": null,
+      "wall": 276.475,
+      "written": 11
+    },
+    "ratio_0_0_auto": {
+      "added": 0,
+      "bytes_written": 3089,
+      "cache_bytes": 267362549,
+      "cli_pipeline": 194.697,
+      "deleted": 0,
+      "extraction": 0.264,
+      "fallback": null,
+      "file_state": 15.62,
+      "hits": 8064,
+      "misses": 42,
+      "mode": "warm",
+      "modified": 0,
+      "name": "ratio_0_0_auto",
+      "pipeline": 193.843,
+      "ratio": 0.0,
+      "shard_count": 256,
+      "shards": 0,
+      "skipped": 954,
+      "verify_direct": null,
+      "wall": 195.434,
+      "written": 2
+    },
+    "ratio_0_0_refresh": {
+      "added": null,
+      "bytes_written": 3089,
+      "cache_bytes": 267362585,
+      "cli_pipeline": 263.415,
+      "deleted": null,
+      "extraction": 63.308,
+      "fallback": "REFRESH_REQUESTED",
+      "file_state": 11.363,
+      "hits": 0,
+      "misses": 8106,
+      "mode": "refresh",
+      "modified": null,
+      "name": "ratio_0_0_refresh",
+      "pipeline": 257.877,
+      "ratio": null,
+      "shard_count": 256,
+      "shards": 256,
+      "skipped": 954,
+      "verify_direct": null,
+      "wall": 264.809,
+      "written": 2
+    },
+    "ratio_0_1_auto": {
+      "added": 0,
+      "bytes_written": 2738661941,
+      "cache_bytes": 267418808,
+      "cli_pipeline": 342.41,
+      "deleted": 0,
+      "extraction": 22.74,
+      "fallback": null,
+      "file_state": 11.508,
+      "hits": 6553,
+      "misses": 1553,
+      "mode": "warm",
+      "modified": 1514,
+      "name": "ratio_0_1_auto",
+      "pipeline": 337.341,
+      "ratio": 0.100013,
+      "shard_count": 256,
+      "shards": 256,
+      "skipped": 524,
+      "verify_direct": null,
+      "wall": 343.14,
+      "written": 439
+    },
+    "ratio_0_1_refresh": {
+      "added": null,
+      "bytes_written": 2738661941,
+      "cache_bytes": 267384486,
+      "cli_pipeline": 402.496,
+      "deleted": null,
+      "extraction": 63.32,
+      "fallback": "REFRESH_REQUESTED",
+      "file_state": 13.961,
+      "hits": 0,
+      "misses": 8106,
+      "mode": "refresh",
+      "modified": null,
+      "name": "ratio_0_1_refresh",
+      "pipeline": 398.08,
+      "ratio": null,
+      "shard_count": 256,
+      "shards": 256,
+      "skipped": 524,
+      "verify_direct": null,
+      "wall": 404.355,
+      "written": 439
+    },
+    "ratio_0_5_auto": {
+      "added": 0,
+      "bytes_written": 2751599488,
+      "cache_bytes": 267505393,
+      "cli_pipeline": 335.117,
+      "deleted": 0,
+      "extraction": 71.834,
+      "fallback": null,
+      "file_state": 13.955,
+      "hits": 535,
+      "misses": 7571,
+      "mode": "warm",
+      "modified": 7569,
+      "name": "ratio_0_5_auto",
+      "pipeline": 330.969,
+      "ratio": 0.5,
+      "shard_count": 256,
+      "shards": 256,
+      "skipped": 564,
+      "verify_direct": null,
+      "wall": 337.721,
+      "written": 396
+    },
+    "ratio_0_5_refresh": {
+      "added": null,
+      "bytes_written": 2751599488,
+      "cache_bytes": 267472145,
+      "cli_pipeline": 403.048,
+      "deleted": null,
+      "extraction": 79.127,
+      "fallback": "REFRESH_REQUESTED",
+      "file_state": 14.431,
+      "hits": 0,
+      "misses": 8106,
+      "mode": "refresh",
+      "modified": null,
+      "name": "ratio_0_5_refresh",
+      "pipeline": 397.985,
+      "ratio": null,
+      "shard_count": 256,
+      "shards": 256,
+      "skipped": 564,
+      "verify_direct": null,
+      "wall": 405.163,
+      "written": 396
+    },
+    "ratio_1_0_auto": {
+      "added": 0,
+      "bytes_written": 12916680,
+      "cache_bytes": 267513178,
+      "cli_pipeline": 327.22,
+      "deleted": 0,
+      "extraction": 86.491,
+      "fallback": null,
+      "file_state": 9.317,
+      "hits": 0,
+      "misses": 8106,
+      "mode": "warm",
+      "modified": 15138,
+      "name": "ratio_1_0_auto",
+      "pipeline": 323.003,
+      "ratio": 1.0,
+      "shard_count": 256,
+      "shards": 256,
+      "skipped": 956,
+      "verify_direct": null,
+      "wall": 330.149,
+      "written": 4
+    },
+    "ratio_1_0_refresh": {
+      "added": null,
+      "bytes_written": 12916680,
+      "cache_bytes": 267472168,
+      "cli_pipeline": 352.025,
+      "deleted": null,
+      "extraction": 73.09,
+      "fallback": "REFRESH_REQUESTED",
+      "file_state": 15.69,
+      "hits": 0,
+      "misses": 8106,
+      "mode": "refresh",
+      "modified": null,
+      "name": "ratio_1_0_refresh",
+      "pipeline": 347.635,
+      "ratio": null,
+      "shard_count": 256,
+      "shards": 256,
+      "skipped": 956,
+      "verify_direct": null,
+      "wall": 353.966,
+      "written": 4
+    },
+    "repeat_1.0_1_auto": {
+      "added": 0,
+      "bytes_written": 12916694,
+      "cache_bytes": 267513183,
+      "cli_pipeline": 274.482,
+      "deleted": 0,
+      "extraction": 65.886,
+      "fallback": null,
+      "file_state": 8.711,
+      "hits": 0,
+      "misses": 8106,
+      "mode": "warm",
+      "modified": 15138,
+      "name": "repeat_1.0_1_auto",
+      "pipeline": 270.359,
+      "ratio": 1.0,
+      "shard_count": 256,
+      "shards": 256,
+      "skipped": 956,
+      "verify_direct": null,
+      "wall": 275.888,
+      "written": 4
+    },
+    "repeat_1.0_1_refresh": {
+      "added": null,
+      "bytes_written": 12916694,
+      "cache_bytes": 267472175,
+      "cli_pipeline": 305.63,
+      "deleted": null,
+      "extraction": 63.638,
+      "fallback": "REFRESH_REQUESTED",
+      "file_state": 14.284,
+      "hits": 0,
+      "misses": 8106,
+      "mode": "refresh",
+      "modified": null,
+      "name": "repeat_1.0_1_refresh",
+      "pipeline": 301.714,
+      "ratio": null,
+      "shard_count": 256,
+      "shards": 256,
+      "skipped": 956,
+      "verify_direct": null,
+      "wall": 307.459,
+      "written": 4
+    },
+    "repeat_1.0_2_auto": {
+      "added": 0,
+      "bytes_written": 9122333,
+      "cache_bytes": 267513185,
+      "cli_pipeline": 312.694,
+      "deleted": 0,
+      "extraction": 64.556,
+      "fallback": null,
+      "file_state": 14.341,
+      "hits": 0,
+      "misses": 8106,
+      "mode": "warm",
+      "modified": 15138,
+      "name": "repeat_1.0_2_auto",
+      "pipeline": 308.439,
+      "ratio": 1.0,
+      "shard_count": 256,
+      "shards": 256,
+      "skipped": 957,
+      "verify_direct": null,
+      "wall": 314.578,
+      "written": 3
+    },
+    "repeat_1.0_2_refresh": {
+      "added": null,
+      "bytes_written": 9122333,
+      "cache_bytes": 267472169,
+      "cli_pipeline": 345.869,
+      "deleted": null,
+      "extraction": 91.449,
+      "fallback": "REFRESH_REQUESTED",
+      "file_state": 10.14,
+      "hits": 0,
+      "misses": 8106,
+      "mode": "refresh",
+      "modified": null,
+      "name": "repeat_1.0_2_refresh",
+      "pipeline": 342.0,
+      "ratio": null,
+      "shard_count": 256,
+      "shards": 256,
+      "skipped": 957,
+      "verify_direct": null,
+      "wall": 349.045,
+      "written": 3
+    },
+    "verify_fast_1": {
+      "added": 0,
+      "bytes_written": 3088,
+      "cache_bytes": 267362776,
+      "cli_pipeline": 187.86,
+      "deleted": 0,
+      "extraction": 0.355,
+      "fallback": null,
+      "file_state": 16.675,
+      "hits": 8064,
+      "misses": 42,
+      "mode": "warm",
+      "modified": 0,
+      "name": "verify_fast_1",
+      "pipeline": 187.047,
+      "ratio": 0.0,
+      "shard_count": 256,
+      "shards": 0,
+      "skipped": 954,
+      "verify_direct": null,
+      "wall": 188.447,
+      "written": 2
+    },
+    "verify_fast_2": {
+      "added": 0,
+      "bytes_written": 3088,
+      "cache_bytes": 267362776,
+      "cli_pipeline": 175.328,
+      "deleted": 0,
+      "extraction": 0.26,
+      "fallback": null,
+      "file_state": 13.87,
+      "hits": 8064,
+      "misses": 42,
+      "mode": "warm",
+      "modified": 0,
+      "name": "verify_fast_2",
+      "pipeline": 174.581,
+      "ratio": 0.0,
+      "shard_count": 256,
+      "shards": 0,
+      "skipped": 954,
+      "verify_direct": null,
+      "wall": 177.062,
+      "written": 2
+    },
+    "verify_fast_3": {
+      "added": 0,
+      "bytes_written": 3088,
+      "cache_bytes": 267362778,
+      "cli_pipeline": 166.963,
+      "deleted": 0,
+      "extraction": 0.243,
+      "fallback": null,
+      "file_state": 11.437,
+      "hits": 8064,
+      "misses": 42,
+      "mode": "warm",
+      "modified": 0,
+      "name": "verify_fast_3",
+      "pipeline": 166.226,
+      "ratio": 0.0,
+      "shard_count": 256,
+      "shards": 0,
+      "skipped": 954,
+      "verify_direct": null,
+      "wall": 168.515,
+      "written": 2
+    },
+    "verify_hash_1": {
+      "added": 0,
+      "bytes_written": 3089,
+      "cache_bytes": 267362837,
+      "cli_pipeline": 294.968,
+      "deleted": 0,
+      "extraction": 0.777,
+      "fallback": null,
+      "file_state": 36.671,
+      "hits": 8064,
+      "misses": 42,
+      "mode": "warm",
+      "modified": 0,
+      "name": "verify_hash_1",
+      "pipeline": 294.06,
+      "ratio": 0.0,
+      "shard_count": 256,
+      "shards": 0,
+      "skipped": 954,
+      "verify_direct": 5.448,
+      "wall": 302.874,
+      "written": 2
+    },
+    "verify_hash_2": {
+      "added": 0,
+      "bytes_written": 3089,
+      "cache_bytes": 267362835,
+      "cli_pipeline": 179.729,
+      "deleted": 0,
+      "extraction": 0.653,
+      "fallback": null,
+      "file_state": 11.765,
+      "hits": 8064,
+      "misses": 42,
+      "mode": "warm",
+      "modified": 0,
+      "name": "verify_hash_2",
+      "pipeline": 179.018,
+      "ratio": 0.0,
+      "shard_count": 256,
+      "shards": 0,
+      "skipped": 954,
+      "verify_direct": 3.065,
+      "wall": 181.383,
+      "written": 2
+    },
+    "verify_hash_3": {
+      "added": 0,
+      "bytes_written": 3089,
+      "cache_bytes": 267362836,
+      "cli_pipeline": 169.925,
+      "deleted": 0,
+      "extraction": 0.622,
+      "fallback": null,
+      "file_state": 11.52,
+      "hits": 8064,
+      "misses": 42,
+      "mode": "warm",
+      "modified": 0,
+      "name": "verify_hash_3",
+      "pipeline": 169.202,
+      "ratio": 0.0,
+      "shard_count": 256,
+      "shards": 0,
+      "skipped": 954,
+      "verify_direct": 2.421,
+      "wall": 171.355,
+      "written": 2
+    }
+  },
+  "selection": "VB first, other analyzed second, inventory last; round-robin nearest project directories; lexical ties",
+  "status": "V5_3_R2_9_READY_FOR_REVIEW",
+  "suite": {
+    "command": "python -X utf8 -m unittest discover -s tests",
+    "duration_seconds": 650.53,
+    "errors": 0,
+    "exit_code": 0,
+    "failing_tests": [],
+    "failures": 0,
+    "skips": 132,
+    "status": "OK",
+    "total": 2834,
+    "wall_seconds": 659.841
+  },
+  "v5_3_closed": false,
+  "verify": {
+    "fast": {
+      "cache_bytes": {
+        "max": 267362778,
+        "mean": 267362776.66666666,
+        "median": 267362776,
+        "min": 267362776,
+        "population_stddev": 0.9428090415820634,
+        "values": [
+          267362776,
+          267362776,
+          267362778
+        ]
+      },
+      "direct_field_status": "ABSENT_NO_DEEP_VERIFICATION",
+      "pipeline_metrics_seconds": {
+        "max": 187.047,
+        "mean": 175.95133333333334,
+        "median": 174.581,
+        "min": 166.226,
+        "population_stddev": 8.55518830236301,
+        "values": [
+          187.047,
+          174.581,
+          166.226
+        ]
+      },
+      "shards": [
+        256,
+        256,
+        256
+      ],
+      "verify_seconds": null,
+      "wall_seconds": {
+        "max": 188.447,
+        "mean": 178.008,
+        "median": 177.062,
+        "min": 168.515,
+        "population_stddev": 8.164653207577166,
+        "values": [
+          188.447,
+          177.062,
+          168.515
+        ]
+      }
+    },
+    "hash": {
+      "cache_bytes": {
+        "max": 267362837,
+        "mean": 267362836,
+        "median": 267362836,
+        "min": 267362835,
+        "population_stddev": 0.816496580927726,
+        "values": [
+          267362837,
+          267362835,
+          267362836
+        ]
+      },
+      "direct_field_status": "MEASURED",
+      "pipeline_metrics_seconds": {
+        "max": 294.06,
+        "mean": 214.09333333333333,
+        "median": 179.018,
+        "min": 169.202,
+        "population_stddev": 56.68679621295323,
+        "values": [
+          294.06,
+          179.018,
+          169.202
+        ]
+      },
+      "shards": [
+        256,
+        256,
+        256
+      ],
+      "verify_seconds": {
+        "max": 5.448,
+        "mean": 3.6446666666666667,
+        "median": 3.065,
+        "min": 2.421,
+        "population_stddev": 1.3019708991456849,
+        "values": [
+          5.448,
+          3.065,
+          2.421
+        ]
+      },
+      "wall_seconds": {
+        "max": 302.874,
+        "mean": 218.53733333333335,
+        "median": 181.383,
+        "min": 171.355,
+        "population_stddev": 59.775386262983616,
+        "values": [
+          302.874,
+          181.383,
+          171.355
+        ]
+      }
+    }
+  }
+}
