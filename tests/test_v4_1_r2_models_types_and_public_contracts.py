@@ -243,12 +243,15 @@ class HighRiskModulesUntouchedTests(unittest.TestCase):
     key-label/graph-construction/report-composition helpers out of
     FunctionalFlowResolver) behind unchanged compatibility facades -- see
     output/v4_1_r6/V4_1_R6_EXTRACTION_EQUIVALENCE.json. The remaining two
-    modules are still untouched and still fenced off from every round.
+    modules retain byte pins. V5.5 R1 explicitly authorizes resume.py's
+    provider injection/composition, cleanup and AI cache identity changes.
+    Its updated pin is characterized by V3-R7_2_1/R7_2_2 and V5.5-R1 tests;
+    analysis/deep_source.py retains the original R0 pin.
     """
 
     EXPECTED_SHA256 = {
         "legacy_documenter/documentation/resume.py":
-            "d15f498c3a1442086d37fbcb188e12a7b8b5d9c34ab561e29130aea1da0723b3",
+            "b1916cf660bcc695b62dbdf0fa49bc43f71254dfa49d75283fbce925761c77a7",
         "legacy_documenter/analysis/deep_source.py":
             "a61612e0bf0ec0beac2607d87cc85f55f144b9973fbbe32058e960e1506d86f2",
     }
@@ -257,7 +260,7 @@ class HighRiskModulesUntouchedTests(unittest.TestCase):
         for rel, expected in self.EXPECTED_SHA256.items():
             path = REPO_ROOT / rel
             actual = hashlib.sha256(path.read_bytes()).hexdigest()
-            self.assertEqual(actual, expected, f"{rel} was modified; R0 marked it DEFER_TO_CHARACTERIZATION_ROUND")
+            self.assertEqual(actual, expected, f"{rel} changed beyond its latest characterized byte pin")
 
     def test_high_risk_module_public_signatures_unchanged(self) -> None:
         """AST-shape check: same top-level class/function names and same

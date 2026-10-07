@@ -1,18 +1,8 @@
-import asyncio,inspect,json,re,time
+import asyncio,inspect,json,time
 from legacy_documenter.llm import LLMProvider,LLMCapabilities,LLMModelInfo,LLMRequest,LLMResponse,ProviderConfig,Usage,ProviderError,sid,render_request_payload
 
-_SECRET_VALUE_PATTERNS=[re.compile(p,re.IGNORECASE) for p in (
- r"bearer\s+\S+",
- r"(gh|github|copilot_github)?_?token\s*[:=]\s*\S+",
- r"(api[_-]?key|session[_-]?token|oauth[_-]?secret|[a-z0-9_\-]*secret[a-z0-9_\-]*)\s*[:=]\s*\S+",
- r"cookie\s*[:=]\s*\S+",
- r"\bgh[pousr]_[A-Za-z0-9]{10,}\b",
-)]
-def _sanitize(message: str) -> str:
- """Redacts credential-shaped substrings before a raw exception message is ever persisted."""
- out=message
- for pattern in _SECRET_VALUE_PATTERNS: out=pattern.sub("[REDACTED]",out)
- return out
+from legacy_documenter.llm.contracts import ProviderCapabilities
+from legacy_documenter.llm.security import sanitize_diagnostic as _sanitize
 
 class CopilotProvider(LLMProvider):
  """Provides the cohesive CopilotProvider responsibility for this module."""
@@ -23,7 +13,10 @@ class CopilotProvider(LLMProvider):
   """Performs capabilities while preserving this module's deterministic contract."""
   values={"structured_output":True,"json_mode":True,"system_instruction":True,"temperature_control":False}
   values.update(self.config.capabilities)
-  return LLMCapabilities(context_window=self.config.context_window,max_output_tokens=self.config.max_output_tokens,**values)
+  values.setdefault("context_window",self.config.context_window)
+  values.setdefault("max_output_tokens",self.config.max_output_tokens)
+  values.update(provider_id=self.config.provider_id,model_id=self.config.model_id)
+  return ProviderCapabilities(**values)
  def model_info(self) -> LLMModelInfo: return LLMModelInfo(self.config.provider_id,self.config.model_id,self.config.model_id,self.config.provider_type,self.capabilities())
  def _prompt(self,r: LLMRequest,schema: dict|None=None) -> str:
   """Delegates to the shared, provider-neutral `render_request_payload` (V4.3-R5).
@@ -34,8 +27,11 @@ class CopilotProvider(LLMProvider):
   provider's own entry point (unchanged signature and output).
   """
   return render_request_payload(r,schema)
- def generate(self,r: LLMRequest) -> LLMResponse: return asyncio.run(self._generate(r,None))
- def structured_generate(self,r: LLMRequest,schema: dict) -> LLMResponse: return asyncio.run(self._generate(r,schema))
+ def generate(self,r: LLMRequest) -> LLMResponse: return self.structured_generate(r,r.output_contract) if r.output_contract is not None else asyncio.run(self._generate(r,None))
+ def structured_generate(self,r: LLMRequest,schema: dict) -> LLMResponse:
+  if not self.capabilities().structured_output:
+   return LLMResponse(r.request_id,sid("RESP",[r.request_id,"UNSUPPORTED_CAPABILITY"]),self.config.provider_id,self.config.model_id,"UNSUPPORTED_CAPABILITY")
+  return asyncio.run(self._generate(r,schema))
  async def _generate(self,r: LLMRequest,schema: dict|None) -> LLMResponse:
   started=time.perf_counter(); client=None; session=None; phase="client_init"; attempted_model=self.config.model_id or None
   try:
@@ -45,7 +41,7 @@ class CopilotProvider(LLMProvider):
     client=CopilotClient(use_logged_in_user=True)
    phase="client_start"
    await client.start()
-   model=self.config.model_id
+   model=r.model_id or self.config.model_id
    if not model:
     phase="list_models"
     models=await client.list_models()
@@ -61,7 +57,7 @@ class CopilotProvider(LLMProvider):
    session=client.create_session(**opts)
    if inspect.isawaitable(session): session=await session
    phase="send_and_wait"
-   event=await session.send_and_wait(self._prompt(r,schema),timeout=self.config.options.get("timeout",60))
+   event=await session.send_and_wait(self._prompt(r,schema),timeout=r.timeout_s if r.timeout_s is not None else self.config.timeout)
    if event is None: return self._error(r,"PROVIDER_ERROR","Copilot returned no assistant response",False,phase=phase,attempted_model=attempted_model)
    phase="structured_parse"
    data=event.data; content=data.content; actual_model=getattr(data,"model",None) or model

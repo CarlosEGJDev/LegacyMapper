@@ -30,9 +30,12 @@ discovered. It never writes anything to disk and never creates a `Proposal`
 """
 from __future__ import annotations
 
-import os
 from dataclasses import dataclass, field
 from pathlib import Path
+from copy import deepcopy
+from time import perf_counter
+from legacy_documenter.llm.security import error_category, safe_diagnostic_data
+from legacy_documenter.llm.identity import provider_identity
 
 from ._run_evidence_io import load_indexes as _load_indexes, load_source_snapshot as _load_source_snapshot
 from legacy_documenter.context.ai_projection import (
@@ -42,13 +45,14 @@ from legacy_documenter.context.ai_projection import (
     select_flow_ids,
 )
 from legacy_documenter.context.composer import PROFILES
-from legacy_documenter.llm.core import (
+from legacy_documenter.llm.contracts import (
     LLMProvider,
     LLMRequest,
-    ProviderConfig,
-    ProviderRegistry,
-    measure_request_payload,
 )
+
+from legacy_documenter.llm.payload import measure_request_payload
+from legacy_documenter.llm.registry import resolve_provider
+from legacy_documenter.context.request_budget import payload_token_limit as _payload_token_limit
 
 FINDING_SCHEMA = {"required": ["findings"]}
 
@@ -75,7 +79,7 @@ DEFAULT_PROFILE = "SMALL"
 #: which the package's own `statistics.estimated_tokens` does), while still
 #: being ~225x below the ~3.6 M token payload `EEE-02` observed. At the
 #: shared 4-characters-per-token estimate this is ~64,000 characters.
-DEFAULT_MAX_REQUEST_PAYLOAD_TOKENS = 16000
+from legacy_documenter.context.request_budget import DEFAULT_MAX_REQUEST_PAYLOAD_TOKENS
 
 SYSTEM_INSTRUCTION = (
     "You interpret already-discovered, deterministic evidence about a legacy system. "
@@ -119,6 +123,8 @@ class AiInterpretationResult:
     findings: list[dict] = field(default_factory=list)
     context_package_id: str | None = None
     error_message: str | None = None
+    metrics: dict = field(default_factory=dict)
+    failure_category: str | None = None
 
 
 def run_ai_interpretation(
@@ -145,11 +151,53 @@ def run_ai_interpretation(
         indexes = _load_indexes(output_dir)
         source_snapshot = _load_source_snapshot(output_dir)
     except (FileNotFoundError, ValueError, KeyError, OSError) as exc:
-        return AiInterpretationResult(status="CONTEXT_UNAVAILABLE", provider_called=False, error_message=str(exc))
+        result = AiInterpretationResult(status="CONTEXT_UNAVAILABLE", provider_called=False, error_message="context_evidence_unavailable")
+        if provider is not None:
+            try:
+                provider.close()
+            except Exception:
+                result.metrics["cleanup_error"] = "PROVIDER_ERROR"
+        return result
 
-    if provider is None:
-        provider = _resolve_provider()
+    trace = {}
+    started = perf_counter()
+    result = None
+    try:
+        if provider is None:
+            try:
+                provider = _resolve_provider()
+            except Exception as exc:
+                return AiInterpretationResult(status="PROVIDER_ERROR", provider_called=False, error_message="PROVIDER_CONFIGURATION_ERROR" if isinstance(exc, ValueError) else error_category(exc), failure_category=type(exc).__name__)
+        caps = provider.capabilities()
+        info = provider.model_info()
+        trace["capabilities"] = {key: getattr(caps, key, None) for key in ("context_window", "max_output_tokens", "structured_output")}
+        trace.update(provider_id=info.provider_id, model_id=info.model_id, provider_version=getattr(caps, "provider_version", "legacy"))
+        trace.update(provider_identity(provider))
+        if not caps.structured_output:
+            result = AiInterpretationResult(status="PROVIDER_ERROR", provider_called=False, error_message="UNSUPPORTED_CAPABILITY")
+        else:
+            result = _interpret_with_provider(indexes, source_snapshot, flow_ids, profile, provider, trace)
+        trace.update(requested=True, invoked=result.provider_called, request_count=int(result.provider_called), success_count=int(result.status == "SUCCESS"), failure_count=int(result.provider_called and result.status != "SUCCESS"), error_category=result.error_message if result.status == "PROVIDER_ERROR" else result.status if result.status != "SUCCESS" else None)
+        result.metrics = safe_diagnostic_data(trace)
+        return result
+    except Exception as exc:
+        result = AiInterpretationResult(status="PROVIDER_ERROR", provider_called=bool(trace.get("invoked")), error_message=error_category(exc))
+        result.metrics = {"requested": True, "invoked": result.provider_called, "request_count": int(result.provider_called), "success_count": 0, "failure_count": int(result.provider_called), "error_category": result.error_message}
+        return result
+    finally:
+        if provider is not None:
+            try:
+                provider.close()
+            except Exception:
+                if result is not None:
+                    result.metrics["cleanup_error"] = "PROVIDER_ERROR"
+        if result is not None:
+            result.metrics["duration_seconds"] = round(perf_counter() - started, 6)
+
+
+def _interpret_with_provider(indexes, source_snapshot, flow_ids, profile, provider, trace):
     limit = _payload_token_limit(provider)
+    trace["input_token_limit"] = limit
     if limit <= 0:
         # The provider's own declared output reservation consumes its whole
         # `context_window` (or exceeds it): no input payload, however small,
@@ -161,9 +209,14 @@ def run_ai_interpretation(
         )
 
     try:
-        package, request, metrics, rejection = _build_within_budget(indexes, source_snapshot, flow_ids, profile, limit)
+        started = perf_counter()
+        package, request, metrics, rejection = _build_within_budget(indexes, source_snapshot, flow_ids, profile, limit, trace)
+        trace["selection_package_seconds"] = round(perf_counter() - started, 6)
     except ValueError as exc:
-        return AiInterpretationResult(status="CONTEXT_UNAVAILABLE", provider_called=False, error_message=str(exc))
+        return AiInterpretationResult(status="CONTEXT_UNAVAILABLE", provider_called=False, error_message="context_configuration_invalid")
+    trace.update(metrics)
+    trace["context_package_id"] = package["package_id"]
+    trace["selection"] = {key: package["statistics"][key] for key in ("records_selected", "records_included", "records_excluded", "completeness", "budget_profile")}
     if rejection is not None:
         # Reduce-and-retry already happened and still did not fit (or the
         # package itself came back BUDGET_INSUFFICIENT). The R5 prompt is
@@ -178,14 +231,23 @@ def run_ai_interpretation(
     known_refs = package_reference_ids(package)
 
     try:
-        response = provider.structured_generate(request, FINDING_SCHEMA)
+        trace["invoked"] = True
+        started = perf_counter()
+        response = provider.structured_generate(deepcopy(request), deepcopy(FINDING_SCHEMA))
     except Exception as exc:
         # A raw provider/network exception is never the machine contract -- reduce
         # it to a short, credential-free message (see `_sanitize_provider_error`).
         return AiInterpretationResult(status="PROVIDER_ERROR", provider_called=True, error_message=_sanitize_provider_error(exc))
+    finally:
+        trace["provider_seconds"] = round(perf_counter() - started, 6)
 
-    provider_id = getattr(response, "provider_id", None)
-    model_id = getattr(response, "model_id", None)
+    if getattr(response, "request_id", None) != request.request_id:
+        return AiInterpretationResult(status="INVALID_OUTPUT", provider_called=True, error_message="response_request_mismatch")
+    if getattr(response, "usage", None):
+        trace["usage"] = {key: getattr(response.usage, key, None) for key in ("input_tokens", "output_tokens", "total_tokens", "estimated", "token_count_method")}
+    provider_id = safe_diagnostic_data(getattr(response, "provider_id", None))
+    model_id = safe_diagnostic_data(getattr(response, "model_id", None))
+    trace.update(provider_id=provider_id, model_id=model_id)
 
     response_status = getattr(response, "status", None)
     if response_status == "INVALID_STRUCTURED_OUTPUT":
@@ -195,7 +257,7 @@ def run_ai_interpretation(
         # a *post-call* safe failure and is deliberately independent of the
         # pre-call CONTEXT_TOO_LARGE gate above; both can occur, never the
         # same one masking the other.
-        errors = ", ".join(getattr(response, "validation_errors", None) or [])
+        errors = "invalid_structured_output"
         return AiInterpretationResult(
             status="INVALID_OUTPUT", provider_called=True, provider_id=provider_id, model_id=model_id,
             error_message=errors or "invalid_structured_output",
@@ -206,7 +268,9 @@ def run_ai_interpretation(
             error_message=_sanitize_provider_error(getattr(response, "error", None) or response_status),
         )
 
-    findings, error = _validate_findings(response.parsed_output, known_refs)
+    started = perf_counter()
+    findings, error = _validate_findings(getattr(response, "parsed_output", None), known_refs)
+    trace["validation_seconds"] = round(perf_counter() - started, 6)
     if error:
         return AiInterpretationResult(
             status="INVALID_OUTPUT", provider_called=True, provider_id=provider_id, model_id=model_id,
@@ -244,7 +308,7 @@ def _build_request(package: dict) -> LLMRequest:
 
 
 def _build_within_budget(
-    indexes: dict, source_snapshot: str, flow_ids: list[str] | None, profile: str, limit: int,
+    indexes: dict, source_snapshot: str, flow_ids: list[str] | None, profile: str, limit: int, trace: dict | None = None,
 ) -> tuple[dict, LLMRequest, dict, str | None]:
     """Builds the projection and its request, reducing the profile once if the payload does not fit.
 
@@ -274,6 +338,12 @@ def _build_within_budget(
         package = builder.build(scoped, indexes, source_snapshot=source_snapshot, profile=attempt_profile)
         request = _build_request(package)
         metrics = measure_request_payload(request, FINDING_SCHEMA)
+        if trace is not None:
+            trace.setdefault("budget_attempts", []).append({
+                "profile": attempt_profile, "payload_estimated_tokens": metrics["payload_estimated_tokens"],
+                "input_token_limit": limit, "records_included": package["statistics"]["records_included"],
+                "records_excluded": package["statistics"]["records_excluded"], "completeness": package["statistics"]["completeness"],
+            })
         if package["statistics"]["completeness"] == "BUDGET_INSUFFICIENT":
             reasons.append(f"budget_insufficient:profile={attempt_profile}")
             continue
@@ -287,71 +357,10 @@ def _build_within_budget(
     return package, request, metrics, "; ".join(reasons) or "context_budget_not_satisfied"
 
 
-def _payload_token_limit(provider: object, request_max_output_tokens: int | None = None) -> int:
-    """The applicable ceiling for the final INPUT payload, in estimated tokens.
-
-    Policy (V4.3-R5, this correction):
-
-    - A provider that declares no valid `context_window` (not an `int > 0`)
-      gets LegacyMapper's own `DEFAULT_MAX_REQUEST_PAYLOAD_TOKENS` ceiling on
-      the input payload, unchanged from before this correction. That ceiling
-      is never widened by anything below.
-    - A provider that DOES declare a valid `context_window` shares that same
-      window between the input payload and whatever output the provider may
-      still need to produce afterwards. Authorizing an input payload up to
-      the full `context_window` -- the pre-correction behavior -- could
-      therefore authorize `input_tokens + max_output_tokens > context_window`
-      once the provider actually generates. This function instead reserves
-      output capacity first and returns the remainder:
-
-          effective_input_limit = context_window - reserved_output_tokens
-
-      `reserved_output_tokens` is chosen deterministically: prefer the
-      provider's own declared `capabilities().max_output_tokens` when it is a
-      valid `int > 0`; if the caller additionally knows the specific
-      request's `max_output_tokens` and it is a smaller valid positive int,
-      that smaller value is the reservation instead, since it is what that
-      particular request could actually still produce. A provider that
-      declares neither reserves nothing extra (`reserved_output_tokens = 0`)
-      -- there is no further explicit, deterministic figure to reserve
-      against, and LegacyMapper does not guess one.
-    - The effective limit returned here can be zero or negative when the
-      reservation consumes the whole window or more; callers MUST fail
-      closed (`CONTEXT_TOO_LARGE`) on that rather than passing a
-      non-positive limit through to a size comparison, since no input
-      payload, however small, could ever fit alongside that reservation.
-      This function itself never raises for that case -- it reports the
-      number so the caller can gate on it before doing any other work.
-    """
-    try:
-        capabilities = provider.capabilities()
-        window = getattr(capabilities, "context_window", None)
-    except Exception:
-        capabilities = None
-        window = None
-    if not (isinstance(window, int) and window > 0):
-        return DEFAULT_MAX_REQUEST_PAYLOAD_TOKENS
-
-    declared_output = getattr(capabilities, "max_output_tokens", None) if capabilities is not None else None
-    reserved = declared_output if isinstance(declared_output, int) and declared_output > 0 else 0
-    if (
-        isinstance(request_max_output_tokens, int)
-        and request_max_output_tokens > 0
-        and request_max_output_tokens < reserved
-    ):
-        reserved = request_max_output_tokens
-
-    return window - reserved
-
-
 def _resolve_provider() -> LLMProvider:
     """Resolves a real provider through the existing registry (production path only;
     every test injects `provider` explicitly instead of calling this)."""
-    provider_type = os.environ.get("LEGACYMAPPER_LLM_PROVIDER", "COPILOT")
-    provider_id = os.environ.get("LEGACYMAPPER_LLM_PROVIDER_ID", f"{provider_type.lower()}-local")
-    model_id = os.environ.get("LEGACYMAPPER_LLM_MODEL", "")
-    config = ProviderConfig(provider_type, provider_id, model_id, max_output_tokens=2000, options={"timeout": 120})
-    return ProviderRegistry().create(config)
+    return resolve_provider(enabled=True)
 
 
 def _validate_findings(parsed_output: object, known_refs: set[str]) -> tuple[list[dict], str | None]:
@@ -381,11 +390,13 @@ def _validate_findings(parsed_output: object, known_refs: set[str]) -> tuple[lis
         evidence_refs = finding.get("evidence_refs")
         if not isinstance(evidence_refs, list) or not evidence_refs:
             return [], f"finding_{index}_missing_evidence_refs"
+        if any(not isinstance(ref, str) for ref in evidence_refs):
+            return [], f"finding_{index}_invalid_evidence_refs"
         unknown = [ref for ref in evidence_refs if ref not in known_refs]
         if unknown:
-            return [], f"finding_{index}_unknown_evidence_refs:{','.join(sorted(unknown))}"
+            return [], f"finding_{index}_unknown_evidence_refs"
         confidence = finding.get("confidence") or "UNCERTAIN"
-        if confidence not in {"CONFIRMED", "UNCERTAIN"}:
+        if not isinstance(confidence, str) or confidence not in {"CONFIRMED", "UNCERTAIN"}:
             return [], f"finding_{index}_invalid_confidence"
         validated.append({"statement": statement.strip(), "confidence": confidence, "evidence_refs": list(evidence_refs)})
     return validated, None
@@ -395,8 +406,6 @@ def _sanitize_provider_error(error: object) -> str:
     """Reduces a provider error to a short, credential-free message.
 
     Never serializes a raw traceback, environment dump, or credential/token
-    value (V4.2-R4 section 15) -- only the first line of the provider's own
-    message, truncated.
+    value (V4.2-R4 section 15); only a closed error category is exported.
     """
-    text = getattr(error, "message", None) or str(error)
-    return text.splitlines()[0][:300] if text else "provider_error"
+    return error_category(error)

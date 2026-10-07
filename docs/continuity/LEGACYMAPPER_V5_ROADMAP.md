@@ -1,4 +1,8 @@
-> **Estado vigente — V5.4 R3 (07-10-2026):** `V5_4_CLOSED`; R1 aprobada según instrucción R3, R2 `NOT_REQUIRED`, R3 `COMPLETED`. Suite 2850 tests, 0 fallas/errores, 132 skips; IST oficial prístino: equivalencia canónica 0/0/0, fuente intacta, IA/provider 0. Adapter compuesto `vbnet-webforms-oracle` 1.0, analyzer 3; defaults auto / fast / false / None. Commit único y push normal autorizados; recibo efectivo en [cierre R3](../V5/V5_4_R3_FINAL_VERIFICATION_AND_CLOSURE.md). `V5_5_READY_TO_START`, siguiente V5.5-R1; V5.5 no iniciada. Autoridad: PROJECT_STATE.json.
+> **Estado vigente — V5.5 R3 (07-10-2026):** `V5_5_CLOSED`; R1 APPROVED, R2 NOT_REQUIRED, R3 COMPLETED. Suite 2907/0/0/132; dirigidos 580/0/0/0; IST AI OFF reutilizada con SHA/comparación 0/0/0, Fake grounded verificado, real calls0. Commit único/push autorizados: recibo efectivo en [cierre R3](../V5/V5_5_R3_FINAL_VERIFICATION_AND_CLOSURE.md). `V5_6_READY_TO_START`, next V5.6-R1, sin iniciar V5.6. Autoridad: PROJECT_STATE.json.
+
+> *(Histórico al terminar V5.5 R1.)* **Estado vigente — V5.5 R1 (07-10-2026):** `V5_5_R1_READY_FOR_HUMAN_REVIEW`; V5.5 IN_PROGRESS, revisión PENDING, siguiente HUMAN_REVIEW. V5.4 cerrada/publicada en `5e9085f`; recibo post-push conservado. Contrato/provider/context genéricos, Fake productivo PASS; suite 2907/0/0/132; IST IA OFF 0/0/0, fuente intacta, llamadas reales0. Recomendación `V5_5_NEXT_R3_FINAL_VERIFICATION` tras revisión/instrucción; sin commit/push/tag, R3/V5.6 no iniciadas. Autoridad: PROJECT_STATE.json; [entrega R1](../V5/V5_5_R1_INTEGRATED_DELIVERY.md).
+
+> *(Histórico al terminar V5.4 R3.)* **Estado vigente — V5.4 R3 (07-10-2026):** `V5_4_CLOSED`; R1 aprobada según instrucción R3, R2 `NOT_REQUIRED`, R3 `COMPLETED`. Suite 2850 tests, 0 fallas/errores, 132 skips; IST oficial prístino: equivalencia canónica 0/0/0, fuente intacta, IA/provider 0. Adapter compuesto `vbnet-webforms-oracle` 1.0, analyzer 3; defaults auto / fast / false / None. Commit único y push normal autorizados; recibo efectivo en [cierre R3](../V5/V5_4_R3_FINAL_VERIFICATION_AND_CLOSURE.md). `V5_5_READY_TO_START`, siguiente V5.5-R1; V5.5 no iniciada. Autoridad: PROJECT_STATE.json.
 
 > *(Histórico al terminar R1.)* **Estado vigente — V5.4 R1 (06-10-2026):** `V5_4_R1_READY_FOR_HUMAN_REVIEW`; V5.4 `V5_4_IN_PROGRESS`, revisión humana PENDING. Suite 2850 tests, 0 fallas/errores, 132 skips; IST: 47524 archivos canónicos idénticos, added/removed/changed = 0/0/0. Última aprobación V5.3-R4; V5.3 publicada en `9425319cb2edbae896b96f7abfbdcd3764beb538`, sin tag. Siguiente `HUMAN_REVIEW`; recomendación directo R3, sujeto a revisión/instrucción. Autoridad: PROJECT_STATE.json; [entrega R1](../V5/V5_4_R1_INTEGRATED_DELIVERY.md).
 
@@ -318,3 +322,21 @@ V5.4 autorizada como siguiente versión, `V5_4_READY_TO_START`; **no iniciada**.
 - Referencia nueva full/off desde V5.3 cerrado + una corrida final V5.4 auto; IA/provider 0.
 - V5.4 CLOSED; Git autorizado en un commit/push, recibo efectivo en informe R3; sin tag. Administrativos V5.3 R4.1 incluidos.
 - V5.5 READY_TO_START, siguiente V5.5-R1, no iniciada. Modelo R1 integrada / R2 solo si necesaria / R3 verificación y cierre preservado.
+
+
+## Ledger — V5.5 R1 Integrated Delivery (07-10-2026)
+
+- V5.4 R3 aprobada al iniciar V5.5 según instrucción vigente; cierre publicado 5e9085f.
+- Contrato genérico, capabilities, contexto/budget, registry extensible, Fake end-to-end, seguridad/grounding y compatibilidad PASS.
+- Suite 2907 tests, 0 fallas/errores, 132 skips; IST IA OFF equivalente 0/0/0, real provider0.
+- V5.5 abierta; R1 READY_FOR_HUMAN_REVIEW, human PENDING, next HUMAN_REVIEW; recomendación directo R3 solo tras instrucción.
+- Sin commit/push/tag; modelo R1 integrada / R2 solo si necesaria / R3 verificación-cierre, máximo3 rondas. R3 y V5.6 no ejecutadas.
+
+
+## Ledger — V5.5 R3 Final Verification & Closure (07-10-2026)
+
+- R1 APPROVED por instrucción R3; R2 NOT_REQUIRED; producción congelada, sin rediseño/providers nuevos.
+- Suite 2907 tests, 0 failures/errors, 132 skips; dirigidos 580/0/0/0. Fuente IST/outputs oficiales rehashados, equivalencia 0/0/0 y Fake grounded/PENDING/canonical false verificados sin nueva corrida.
+- V5.5 CLOSED; completed V5.5-R3, approved V5.5-R1, human APPROVED. V5.6 READY_TO_START, siguiente V5.6-R1; v5_6_started=false.
+- Commit único y push origin/main autorizados; resultado efectivo/remote SHA en recibo del cierre R3. TAG_NOT_CREATED_BY_INSTRUCTION; sin amend, force, rebase ni segundo commit.
+- Historia y modelo R1 integrada / R2 solo necesaria / R3 cierre, máximo3 rondas, conservados. Detención para revisión humana final; V5.6 no iniciada.

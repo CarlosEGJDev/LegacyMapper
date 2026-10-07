@@ -1,0 +1,656 @@
+{
+  "round": "V5.5-R1",
+  "status": "V5_5_R1_READY_FOR_HUMAN_REVIEW",
+  "recommendation": "V5_5_NEXT_R3_FINAL_VERIFICATION",
+  "human_review": "PENDING",
+  "baseline": {
+    "analyzer_fingerprint_unchanged": true,
+    "baseline_bytes": 2828066791,
+    "baseline_commit": "5e9085f0601db4ad68900bbbc523933c51fa5dd3",
+    "baseline_files": 47523,
+    "baseline_path": "output/_local_v54r3/final",
+    "baseline_reverified_against_independent_official_reference": true,
+    "source_count": 15138,
+    "source_sha256": "77965c64c7e204d39dc06a9451076df07a4b400e2bd41372fff2bab7fcd792e5"
+  },
+  "architecture": {
+    "before": {
+      "modules": 127,
+      "mixed": [
+        "legacy_documenter/llm/core.py",
+        "legacy_documenter/documentation/generator.py",
+        "legacy_documenter/documentation/hierarchical.py",
+        "legacy_documenter/documentation/resume.py",
+        "legacy_documenter/documentation/systematic.py"
+      ],
+      "concrete_import_modules": [
+        "legacy_documenter/llm/copilot_pilot.py",
+        "legacy_documenter/llm/core.py",
+        "legacy_documenter/llm/providers/__init__.py",
+        "legacy_documenter/llm/providers/copilot.py",
+        "legacy_documenter/documentation/generator.py",
+        "legacy_documenter/documentation/hierarchical.py",
+        "legacy_documenter/documentation/resume.py",
+        "legacy_documenter/documentation/systematic.py"
+      ],
+      "neutral_module_count": 119,
+      "high_line_count_modules": [
+        {
+          "path": "legacy_documenter/orchestration/ai_interpretation.py",
+          "lines": 402
+        },
+        {
+          "path": "legacy_documenter/context/ai_projection.py",
+          "lines": 500
+        },
+        {
+          "path": "legacy_documenter/context/hydration.py",
+          "lines": 372
+        },
+        {
+          "path": "legacy_documenter/documentation/human_documentation_scaling.py",
+          "lines": 404
+        },
+        {
+          "path": "legacy_documenter/documentation/human_flow_documentation.py",
+          "lines": 626
+        },
+        {
+          "path": "legacy_documenter/knowledge/canonical/example_report.py",
+          "lines": 344
+        },
+        {
+          "path": "legacy_documenter/cli/full_pipeline.py",
+          "lines": 554
+        },
+        {
+          "path": "legacy_documenter/cli/pipeline_stages.py",
+          "lines": 489
+        }
+      ]
+    },
+    "after": {
+      "modules": 135,
+      "mixed": [],
+      "concrete_import_modules": [
+        "legacy_documenter/llm/copilot_pilot.py",
+        "legacy_documenter/llm/providers/__init__.py",
+        "legacy_documenter/llm/providers/copilot.py",
+        "legacy_documenter/llm/registry.py"
+      ],
+      "neutral_module_count": 131,
+      "high_line_count_modules": [
+        {
+          "path": "legacy_documenter/orchestration/ai_interpretation.py",
+          "lines": 411
+        },
+        {
+          "path": "legacy_documenter/context/ai_projection.py",
+          "lines": 500
+        },
+        {
+          "path": "legacy_documenter/context/hydration.py",
+          "lines": 372
+        },
+        {
+          "path": "legacy_documenter/documentation/human_documentation_scaling.py",
+          "lines": 404
+        },
+        {
+          "path": "legacy_documenter/documentation/human_flow_documentation.py",
+          "lines": 626
+        },
+        {
+          "path": "legacy_documenter/knowledge/canonical/example_report.py",
+          "lines": 344
+        },
+        {
+          "path": "legacy_documenter/cli/full_pipeline.py",
+          "lines": 562
+        },
+        {
+          "path": "legacy_documenter/cli/pipeline_stages.py",
+          "lines": 489
+        }
+      ]
+    },
+    "concrete_imports_in_neutral_boundaries": 0,
+    "evidence_core_llm_imports": 0,
+    "shims": [
+      "legacy_documenter/llm/core.py",
+      "legacy_documenter/llm/__init__.py"
+    ],
+    "preserved": {
+      "preserved": {
+        "context/ai_projection.py": "AST_IDENTICAL",
+        "context/hydration.py": "AST_IDENTICAL",
+        "context/composer.py": "AST_IDENTICAL",
+        "orchestration/proposal_adapter.py": "AST_IDENTICAL",
+        "context/request_budget.py": "AST_IDENTICAL_RELOCATION"
+      },
+      "analyzer_fingerprint": "4f7600f0fa351674878d66940352e9569de2b0f620643a3124b5c94545eb1ec6",
+      "historical_v54_receipt_sha256": "cb19a3563a81356d1d8e294be1815855319bd439700df37da9b0d5c39f4792a7",
+      "source_algorithms_unchanged": true
+    }
+  },
+  "contract": {
+    "aliases": [
+      "AIProvider=LLMProvider",
+      "AIRequest=LLMRequest",
+      "AIResponse=LLMResponse"
+    ],
+    "provider_capabilities": [
+      "provider_id",
+      "model_id",
+      "context_window",
+      "max_output_tokens",
+      "structured_output",
+      "provider_version"
+    ],
+    "methods": [
+      "generate",
+      "capabilities",
+      "model_info",
+      "structured_generate",
+      "close",
+      "context manager"
+    ],
+    "structured_policy": "declared support; generic local JSON parsing; domain validation authoritative; no assumed native schema",
+    "registry": "instance-scoped registered factories; lazy implementations; unknown fails; Fake explicit",
+    "registered_production_types": [
+      "COPILOT",
+      "FAKE"
+    ],
+    "experimental_unregistered": [
+      "GEMINI"
+    ],
+    "retry": "no invocation retry; RATE_LIMITED/CANCELLED/timeout simulations; one context-profile reduction preserved",
+    "configuration_env": [
+      "LEGACYMAPPER_LLM_PROVIDER",
+      "LEGACYMAPPER_LLM_PROVIDER_ID",
+      "LEGACYMAPPER_LLM_MODEL",
+      "LEGACYMAPPER_LLM_TIMEOUT",
+      "LEGACYMAPPER_LLM_CONTEXT_WINDOW",
+      "LEGACYMAPPER_LLM_MAX_OUTPUT_TOKENS"
+    ]
+  },
+  "tests": {
+    "baseline": {
+      "total": 138,
+      "duration_seconds": 39.192,
+      "failures": 0,
+      "errors": 0,
+      "skips": 0
+    },
+    "directed": {
+      "command": "python -X utf8 -m unittest tests.test_v5_5_r1_generic_ai tests.test_v3_r4 tests.test_v3_r6 tests.test_v3_r6_1 tests.test_v3_r7_1 tests.test_v3_r7_2_1 tests.test_v3_r7_2_2 tests.test_v4_3_pre_closure_copilot_provider_correction tests.test_v4_2_r4_ai_interpretation_and_proposal_integration tests.test_v4_2_r5_1_exit_code_contract_and_real_provider_guard tests.test_v4_3_r5_ai_context_budgeting tests.test_v4_3_final_ai_pilot_r2_context_budget_correction tests.test_v5_3_r2_3_versioning_and_fingerprints",
+      "duration_seconds": 60.579,
+      "errors": 0,
+      "failures": 0,
+      "skips": 0,
+      "success": true,
+      "total": 369
+    },
+    "full_suite": {
+      "command": "python -X utf8 -m unittest discover -s tests",
+      "total": 2907,
+      "duration_seconds": 689.446,
+      "failures": 0,
+      "errors": 0,
+      "skips": 132,
+      "exit_code": 0
+    },
+    "new_contract_tests": 57,
+    "initial_full_suite": {
+      "total": 2906,
+      "duration_seconds": 672.118,
+      "failures": 4,
+      "errors": 0,
+      "skips": 132,
+      "cause": "historical live inventory/count and resume byte/diff guards; explicitly rebaselined for authorized V5.5 boundary changes"
+    },
+    "historical_guards": {
+      "total": 66,
+      "duration_seconds": 22.018,
+      "failures": 0,
+      "errors": 0,
+      "skips": 0,
+      "historical_inventories_modified": false
+    }
+  },
+  "ist_ai_off": {
+    "ai_invoked": false,
+    "ai_requested": false,
+    "metrics": {
+      "cache_controls": {
+        "incremental_max_changed_ratio": null,
+        "location": "internal",
+        "observed_changed_ratio": null,
+        "relative_dir": "_cache_v53",
+        "requested_mode": "auto",
+        "trust_mtime": {
+          "enabled": false,
+          "files_hashed": 15138,
+          "files_trusted": 0
+        },
+        "verify_cache": "fast"
+      },
+      "cache_verification": "byte_compare",
+      "completed_at": "2026-10-07T14:46:35+00:00",
+      "contract": "LegacyMapperRunMetrics",
+      "extraction_cache": {
+        "assemble_seconds": 0.008,
+        "cache_size_bytes": 263096270,
+        "extraction_cache_bypass": 42,
+        "extraction_cache_enabled": true,
+        "extraction_cache_hits": 0,
+        "extraction_cache_misses": 8106,
+        "extraction_seconds": 63.109,
+        "files_extracted": 8106,
+        "files_reused": 0,
+        "load_seconds": 0.0,
+        "parse_seconds": 0.0,
+        "persist_seconds": 12.076,
+        "reuse_disabled_reason": null,
+        "shards_invalid": 0,
+        "shards_loaded": 0,
+        "shards_rewritten": 256,
+        "validate_seconds": 0.0
+      },
+      "extraction_postprocess_seconds": 0.025,
+      "fallback_reason": "NO_CACHE",
+      "file_state": {
+        "added": null,
+        "deleted": null,
+        "diff_seconds": null,
+        "file_state_build_seconds": 22.017,
+        "files_total": 15138,
+        "line_ending_only": null,
+        "modified": null,
+        "renamed_candidates": null,
+        "unchanged": null,
+        "validate_seconds": 0.085
+      },
+      "final_status": "SUCCESS",
+      "hydration": {
+        "build_seconds": 0.067,
+        "distinct_flows_hydrated": 12642,
+        "hydrate_seconds": 0.968,
+        "hydrations": 12642,
+        "memo_hits": 12642,
+        "requests": 25284
+      },
+      "mode": "full",
+      "overhead_seconds": {
+        "scope_analysis": 0.004
+      },
+      "peak_memory_bytes": 2978402304,
+      "schema_version": "1",
+      "scope": {
+        "changed_files": {},
+        "external_project_references": 0,
+        "fallback_reason": "NO_CACHE",
+        "impacted_projects": {
+          "count": 0,
+          "items": [],
+          "truncated": false
+        },
+        "inventory_only_files": {
+          "count": 0,
+          "items": [],
+          "truncated": false
+        },
+        "mode": "full",
+        "reach": "bounded",
+        "reasons": {
+          "NO_PREVIOUS_STATE": 1
+        },
+        "symbols_in_changed_files": {
+          "files": {},
+          "total": 0
+        },
+        "transitive_projects": {
+          "count": 0,
+          "items": [],
+          "truncated": false
+        },
+        "unassertable": [],
+        "unknowns": []
+      },
+      "session_mode": "cold",
+      "stage_seconds": {
+        "CALL_RESOLUTION": 1.275,
+        "CONTEXT": 32.901,
+        "DATABASE_RESOLUTION": 1.611,
+        "DEPENDENCY_RESOLUTION": 0.48,
+        "DOCUMENTATION": 482.978,
+        "EXPORT": 59.365,
+        "EXTRACTION": 63.142,
+        "FLOW_RESOLUTION": 6.197,
+        "SCAN": 1.153,
+        "WEB_ENTRY_RESOLUTION": 1.08
+      },
+      "started_at": "2026-10-07T14:35:20+00:00",
+      "total_seconds": 672.357,
+      "versions": {
+        "analysis_config_fingerprint": "c7f85d508790428f08248acddddaae4d499ccf5d34f619d4f050a8e04d020afd",
+        "analyzer_code_fingerprint": "4f7600f0fa351674878d66940352e9569de2b0f620643a3124b5c94545eb1ec6",
+        "analyzer_version": 3,
+        "evidence_schema_version": "1.0",
+        "extraction_cache_schema_version": 1,
+        "renderer_versions": {
+          "ai_context": {
+            "contract_version": "1.0",
+            "model_version": "V2-R5",
+            "schema_version": "1.0"
+          },
+          "consumer_projection": {
+            "contract_version": "1.0",
+            "schema_version": "1.0"
+          },
+          "documentation_v52": {
+            "contract_version": "1"
+          },
+          "human_documentation": {
+            "flow_model_version": "V4.3-R3",
+            "flow_schema_version": "1.0",
+            "scaling_model_version": "V4.3-R4",
+            "scaling_schema_version": "1.0"
+          },
+          "hydration": {
+            "model_version": "V4.3-R3"
+          },
+          "legacy_markdown": {
+            "version": "1"
+          }
+        },
+        "template_profile_fingerprint": "7b5419b00c302af67b8fe2437aa0d3521f9d3c72e49ec62373c8ded9d2146ebf"
+      },
+      "write_skip": {
+        "ai_context": {
+          "bytes_generated": 279178592,
+          "bytes_written": 279178592,
+          "compare_seconds": 0.001,
+          "generated": 5,
+          "skipped_identical": 0,
+          "write_seconds": 0.388,
+          "written": 5
+        },
+        "consumer_projection": {
+          "bytes_generated": 198913444,
+          "bytes_written": 198913444,
+          "compare_seconds": 0.003,
+          "generated": 27,
+          "skipped_identical": 0,
+          "write_seconds": 0.369,
+          "written": 27
+        },
+        "context": {
+          "bytes_generated": 896897,
+          "bytes_written": 896897,
+          "compare_seconds": 0.0,
+          "generated": 1,
+          "skipped_identical": 0,
+          "write_seconds": 0.011,
+          "written": 1
+        },
+        "documentation": {
+          "bytes_generated": 66784080,
+          "bytes_written": 66784080,
+          "compare_seconds": 0.049,
+          "generated": 681,
+          "skipped_identical": 0,
+          "write_seconds": 4.492,
+          "written": 681
+        },
+        "evidence": {
+          "bytes_generated": 1057049755,
+          "bytes_written": 1057049755,
+          "compare_seconds": 0.002,
+          "generated": 25,
+          "skipped_identical": 0,
+          "write_seconds": 1.407,
+          "written": 25
+        },
+        "flujos_humanos": {
+          "bytes_generated": 159693893,
+          "bytes_written": 159693893,
+          "compare_seconds": 0.025,
+          "generated": 195,
+          "skipped_identical": 0,
+          "write_seconds": 2.202,
+          "written": 195
+        },
+        "index": {
+          "bytes_generated": 996416388,
+          "bytes_written": 996416388,
+          "compare_seconds": 0.002,
+          "generated": 22,
+          "skipped_identical": 0,
+          "write_seconds": 1.359,
+          "written": 22
+        }
+      }
+    },
+    "provider_resolution_attempts": 0,
+    "real_provider_calls": 0,
+    "registry_calls": 0,
+    "status": "SUCCESS",
+    "telemetry": {
+      "extras": {
+        "hydration": {
+          "build_seconds": 0.067,
+          "distinct_flows_hydrated": 12642,
+          "hydrate_seconds": 0.968,
+          "hydrations": 12642,
+          "memo_hits": 12642,
+          "requests": 25284
+        }
+      },
+      "stage_seconds": {
+        "CALL_RESOLUTION": 1.275,
+        "CONTEXT": 32.901,
+        "DATABASE_RESOLUTION": 1.611,
+        "DEPENDENCY_RESOLUTION": 0.48,
+        "DOCUMENTATION": 482.978,
+        "EXPORT": 59.365,
+        "EXTRACTION": 63.142,
+        "FLOW_RESOLUTION": 6.197,
+        "SCAN": 1.153,
+        "WEB_ENTRY_RESOLUTION": 1.08
+      }
+    },
+    "wall_seconds": 676.784
+  },
+  "canonical_comparison": {
+    "added": [],
+    "changed": [],
+    "contract": "LegacyMapperFullIncrementalComparison",
+    "equal": true,
+    "excluded": {
+      "candidate": [
+        "RUN_SUMMARY.json",
+        "RUN_SUMMARY.md",
+        "_cache_v53/",
+        "index/repository.json"
+      ],
+      "directories": [
+        "_cache_v53"
+      ],
+      "files": [
+        "RUN_SUMMARY.json",
+        "RUN_SUMMARY.md",
+        "index/repository.json"
+      ],
+      "reference": [
+        "RUN_SUMMARY.json",
+        "RUN_SUMMARY.md",
+        "_cache_v53/",
+        "index/repository.json"
+      ]
+    },
+    "file_counts": {
+      "candidate": 47523,
+      "reference": 47523
+    },
+    "files_compared": 47523,
+    "matched": 47523,
+    "removed": [],
+    "schema_version": "1",
+    "total_bytes": {
+      "candidate": 2828066791,
+      "reference": 2828066791
+    }
+  },
+  "fake_productive_e2e": {
+    "artifacts": [
+      "proposals/AI_PROPOSALS.json",
+      "proposals/AI_PROPOSALS_PENDING_REVIEW.md",
+      "RUN_SUMMARY.json",
+      "_cache_v53/RUN_METRICS.json"
+    ],
+    "canonical_knowledge_produced": false,
+    "capabilities": {
+      "context_window": 16000,
+      "max_output_tokens": 2000,
+      "structured_output": true
+    },
+    "grounding": "ALL_REFS_IN_SENT_PACKAGE",
+    "metrics": {
+      "ai_config_fingerprint": "AICFG-f2dd88f82d351db79ed3e2dc01333d07982b208cfac1135a234a6811fdafde6a",
+      "budget_attempts": [
+        {
+          "completeness": "COMPLETE",
+          "input_token_limit": 14000,
+          "payload_estimated_tokens": 1649,
+          "profile": "SMALL",
+          "records_excluded": 0,
+          "records_included": 1
+        }
+      ],
+      "capabilities": {
+        "context_window": 16000,
+        "max_output_tokens": 2000,
+        "structured_output": true
+      },
+      "chars_per_token": 4,
+      "context_package_id": "AIP-b69f3841b1afd07716ac17d067915a33821aac7f72569dcdf5e5e337efe5b9e7",
+      "duration_seconds": 0.000844,
+      "error_category": null,
+      "estimation_method": "approximation: ceil(chars/chars_per_token)",
+      "failure_count": 0,
+      "input_token_limit": 14000,
+      "invoked": true,
+      "model_id": "offline-model",
+      "payload_bytes": 6596,
+      "payload_characters": 6596,
+      "payload_estimated_tokens": 1649,
+      "provider_id": "v55-r1-fake",
+      "provider_seconds": 0.000162,
+      "provider_version": "1.0",
+      "request_count": 1,
+      "requested": true,
+      "schema_included": true,
+      "selection": {
+        "budget_profile": "SMALL",
+        "completeness": "COMPLETE",
+        "records_excluded": 0,
+        "records_included": 1,
+        "records_selected": 1
+      },
+      "selection_package_seconds": 0.00042,
+      "success_count": 1,
+      "usage": {
+        "estimated": true,
+        "input_tokens": null,
+        "output_tokens": null,
+        "token_count_method": "context_estimate",
+        "total_tokens": null
+      },
+      "validation_seconds": 5e-06
+    },
+    "model_id": "offline-model",
+    "proposal_count": 1,
+    "proposal_review_status": "PENDING_TECHNICAL_LEAD_REVIEW",
+    "provider_closed": true,
+    "provider_id": "v55-r1-fake",
+    "provider_resolution_attempts": 0,
+    "real_provider_calls": 0,
+    "registry_calls": 0,
+    "request_count": 1,
+    "source_unchanged": true,
+    "status": "SUCCESS",
+    "technical_lead_approval": false,
+    "wall_seconds": 0.941556
+  },
+  "security": {
+    "analyzer_fingerprint": "4f7600f0fa351674878d66940352e9569de2b0f620643a3124b5c94545eb1ec6",
+    "analyzer_version": 3,
+    "real_provider_calls": 0,
+    "source_count": 15138,
+    "source_sha256": "77965c64c7e204d39dc06a9451076df07a4b400e2bd41372fff2bab7fcd792e5",
+    "source_unchanged": true,
+    "v54_cache_still_valid": true,
+    "v55_cache_valid": true
+  },
+  "real_provider_calls": 0,
+  "real_llm_calls": 0,
+  "git": {
+    "head": "5e9085f0601db4ad68900bbbc523933c51fa5dd3",
+    "commit": "NOT_CREATED_BY_INSTRUCTION",
+    "push": "NOT_RUN_BY_INSTRUCTION",
+    "tag": "NOT_CREATED_BY_INSTRUCTION",
+    "v54_administrative_receipt": "PRESERVED",
+    "generated_artifacts": "output/_local_v55r1 ignored"
+  },
+  "debt": {
+    "BLOCKING": [],
+    "FUTURE_PHASE": [
+      "large orchestration and historical documentation algorithms",
+      "legacy offline model attribution in consistency_run.py; no provider invocation",
+      "Gemini UNREGISTERED; only Copilot production adapter",
+      "future providers, sophisticated retry, streaming/tools, segmentation, approval and plugins deferred"
+    ],
+    "OBSERVATION": [
+      "historical subprocess reader UnicodeDecodeError diagnostics; suite exit0",
+      "manual_verify_full_pipeline default finding has empty evidence_refs and yields PARTIAL; separate productive Fake validation uses current grounded refs"
+    ]
+  },
+  "performance_sanity": {
+    "status": "PASS",
+    "baseline_wall_seconds": 657.367,
+    "current_wall_seconds": 676.784,
+    "wall_delta_percent": 2.95,
+    "interpretation": "small observational variation; deterministic source algorithms and outputs unchanged",
+    "real_model_benchmark": false
+  },
+  "mandatory_source_hashes_before_delivery": {
+    "docs/V5/V5_0_R1_ARCHITECTURE_CONTRACT.md": "39da1940b6c5b95cbb2444da0389d926d87799edfee89a6729a2f1691c9ac3fb",
+    "docs/V5/V5_0_R2A_CONTRACT_CORRECTIONS.md": "5dd9bc758f31c21c6fb72eababdea8acd0dc80ed7b0b7406a66cc7bfb7d4aa70",
+    "docs/V5/V5_0_R3_FINAL_ARCHITECTURE_PACKAGE.md": "281214792e935e68791808e450bb7119d831591d981b9adba59191c66b3dc5bf",
+    "docs/V5/V5_1_R1_NORMALIZED_EVIDENCE_CONTRACT.md": "5ec650094fe1b5fd7b048998191a7e59c00c35d5a048b35a3e235fbfc5ab3e8b",
+    "docs/V5/V5_1_R4_CIERRE_FINAL.md": "858691ca5167e76c5c05fdd602e812eb2ce716ad5702ecf050b1af1e34a41239",
+    "docs/V5/V5_2_R4_3_CIERRE_FORMAL.md": "85222b127b8e760b842d073e6792fdb24f038e275da5eabb200a6f9f69922033",
+    "docs/V5/V5_3_R4_CLOSURE.md": "5f694f88d00edd59a2e84460dbfa7155913c315faebe90536f926b7d4fdd27cd",
+    "docs/V5/V5_4_R3_FINAL_VERIFICATION_AND_CLOSURE.md": "cb19a3563a81356d1d8e294be1815855319bd439700df37da9b0d5c39f4792a7",
+    "docs/continuity/LEGACYMAPPER_V5_ROADMAP.md": "3664f3e7d8741aef87e514ba04ac806b019b1958d1c5519e8ad82ae49df88b6a",
+    "docs/continuity/LEGACYMAPPER_PROJECT_HISTORY_AND_V5_ROADMAP.md": "b0b41780e45eeebd9ac67275728fa40510ac9ac06e8ee7b82c4fce91c6310228",
+    "docs/V4_3/V4_3_R1_CONSUMABLE_PROJECTION_CONTRACT_RESULT.md": "2f9b2ddccd9200131852e9808907a8c3ea6fc798e3956eea22ef26af4e818503",
+    "docs/V4_3/V4_3_R5_AI_CONTEXT_BUDGETING_RESULT.md": "4a06491bfdf200a9177a3fd3cca36972fe295d37ec4bfb6cbf3e0316084fe455",
+    "docs/V4_3/V4_3_R9_FINAL_CLOSURE_RESULT.md": "a13b17267816cbf1fd410efd8fb4b78e347798d4b8b6173b817276d60b5f51dd",
+    "docs/V4_3/V4_3_PRE_CLOSURE_COPILOT_PROVIDER_CORRECTION_RESULT.md": "26ee76cf3ed24177ceed86ea23058ad68c380dcd97300ff66728415fb5d80ee2",
+    "docs/GENERATED_ARTIFACT_POLICY.md": "9654c47b2518fc0e992162519c72e95c530eec0c188ad90dc15bc170be9a317f"
+  },
+  "post_delivery_checks": {
+    "continuity_tests": {
+      "command": "python -X utf8 -m unittest tests.test_v4_r11_human_readable_document_projection.EntryGateTests tests.test_v4_r12_plugin_facing_machine_readable_output_contract.EntryGateTests tests.test_v4_r13_regression_and_security.RepositoryContinuityStateTests tests.test_v4_r14_manuals_and_final_baseline.EntryGateAndContinuityTests tests.test_v4_r14_manuals_and_final_baseline.DeterminismTests tests.test_v4_r14_manuals_and_final_baseline.NoProviderOrLlmCallsTests tests.test_v4_r14_manuals_and_final_baseline.AgentNeutralContinuityTests",
+      "duration_seconds": 1.339,
+      "errors": 0,
+      "failures": 0,
+      "skips": 0,
+      "success": true,
+      "total": 20
+    },
+    "state_inventory_git_and_frozen_production": "PASS"
+  }
+}

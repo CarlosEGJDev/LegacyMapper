@@ -9,26 +9,25 @@ from legacy_documenter.documentation.envelope import semantic_schema,semantic_re
 from legacy_documenter.documentation.synthesis import AssessmentStore,SynthesisPlanner,request_identity,canonical_hash,expand_document
 from legacy_documenter.documentation.aggregation import evidence_closed
 from legacy_documenter.documentation.renderer import render
-from legacy_documenter.llm import ProviderConfig
-from legacy_documenter.llm.providers.copilot import CopilotProvider
-from legacy_documenter.llm.copilot_pilot import discover_model
+from legacy_documenter.llm.registry import resolve_documentation_provider
 from legacy_documenter.documentation.evidence_catalog import build_catalog,catalog_schema,catalog_request,resolve_payload,resolution_preserves_semantics,EvidenceCatalogError
 
-def run(workspace=".",evidence_constrained=False,status_prefix="V3-R7_2_2"):
+def _run(workspace,evidence_constrained,status_prefix,provider,holder):
  """Performs run while preserving this module's deterministic contract."""
  workspace=Path(workspace); root=workspace/"output"/"v2_r5_1_full"; coverage=CoveragePlanner(root).plan(); batches=CoveragePlanner(root).batches(coverage,8,35); synth=SynthesisPlanner(); target=workspace/"output"/"v3_r7_2"
  stores={"local":AssessmentStore(target/"LOCAL_ASSESSMENTS.json"),"synthesis":AssessmentStore(target/"INTERMEDIATE_ASSESSMENTS.json")}; profiles={"functional":FUNCTIONAL_PROFILE,"technical":TECHNICAL_PROFILE}; packages={k:[_package(k,i,b,coverage["snapshot"],coverage["metrics"]) for i,b in enumerate(batches)] for k in profiles}
  previous={k:_previous(workspace/"output"/("LEVANTAMIENTO_FUNCIONAL.md" if k=="functional" else "LEVANTAMIENTO_TECNICO.md")) for k in profiles}; max_estimate=0; calls=0; reused=0; migrated=0; invalidated=0; model=None
- try: discovered=asyncio.run(discover_model())
+
+ try: provider=provider or resolve_documentation_provider(max_output_tokens=3000)
  except Exception: return {"status":"V3-R7_2_2_BLOCKED_PROVIDER","calls":0}
- provider=CopilotProvider(ProviderConfig("COPILOT","copilot-local",discovered,max_output_tokens=3000,options={"timeout":120}))
+ holder.append(provider)
  def prepare(kind,package,stage,max_claims):
   """Performs prepare while preserving this module's deterministic contract."""
   profile=profiles[kind]; catalog=build_catalog(package) if evidence_constrained else None
   request=(catalog_request(DocumentationPrompt(profile,[package]).to_request(),profile,package,SECTIONS[kind],catalog) if evidence_constrained else semantic_request(DocumentationPrompt(profile,[package]).to_request(),profile,package,SECTIONS[kind])); request.user_instruction += " Produce at most "+str(max_claims)+" claims."; schema=(catalog_schema(profile,catalog,SECTIONS[kind]) if evidence_constrained else semantic_schema(profile,package,SECTIONS[kind])); schema["properties"]["claims"]["maxItems"]=max_claims
   if any(x in schema.get("properties",{}) for x in ("profile_id","source_snapshots","context_package_ids")): raise ValueError("ENVELOPE_INTEGRITY")
   if package["statistics"]["estimated_tokens"]>5000: raise ValueError("BUDGET")
-  return request,schema,request_identity(request,schema),catalog
+  return request,schema,request_identity(request,schema,provider),catalog
  def execute(kind,package,stage,store,max_claims):
   """Performs execute while preserving this module's deterministic contract."""
   nonlocal calls,reused,migrated,invalidated,model,max_estimate
@@ -37,12 +36,13 @@ def run(workspace=".",evidence_constrained=False,status_prefix="V3-R7_2_2"):
    if _strict(cached["assessment_payload"],profile,package): invalidated+=1
    else: reused+=1; model=cached.get("model_id") or model; return cached["assessment_payload"]
   for old in store.load():
+   if old.get("identity",{}).get("ai_config_fingerprint") != identity["ai_config_fingerprint"]: continue
    if old.get("context_package_id")!=package["package_id"] or old.get("profile_id")!=profile.profile_id or old.get("stage")!=stage: continue
    expected=canonical_hash({k:v for k,v in old.items() if k!="content_hash"})
    if old.get("validation_status")!="VALID" or old.get("content_hash")!=expected or _strict(old.get("assessment_payload",{}),profile,package): invalidated+=1; continue
    payload=semantic_payload(old["assessment_payload"]); composed=compose_envelope(payload,profile,package,identity["request_hash"],stage)
    if not semantic_unchanged(payload,composed) or _strict(composed,profile,package): invalidated+=1; continue
-   store.persist(identity,composed,old.get("provider","COPILOT"),old.get("model_id"),stage,{"from_identity":old["identity"],"from_content_hash":old["content_hash"],"semantic_unchanged":True}); migrated+=1; reused+=1; model=old.get("model_id") or model; return composed
+   store.persist(identity,composed,old.get("provider",provider.model_info().provider_type),old.get("model_id"),stage,{"from_identity":old["identity"],"from_content_hash":old["content_hash"],"semantic_unchanged":True}); migrated+=1; reused+=1; model=old.get("model_id") or model; return composed
   if calls>=24: raise OverflowError("CALL_BUDGET")
   response=provider.structured_generate(request,schema); calls+=1
   if not response.parsed_output: raise RuntimeError("MODEL_CONTRACT:"+",".join(response.validation_errors))
@@ -53,7 +53,7 @@ def run(workspace=".",evidence_constrained=False,status_prefix="V3-R7_2_2"):
   if not semantic_unchanged(resolved,composed): raise ValueError("ENVELOPE_INTEGRITY")
   errors=_strict(composed,profile,package)+([] if stage.startswith("LOCAL_") else _global_rules(composed,package))
   if errors: raise RuntimeError("MODEL_CONTRACT:"+",".join(sorted(set(errors))))
-  store.persist(identity,composed,"COPILOT",response.model_id,stage); model=response.model_id; return composed
+  store.persist(identity,composed,provider.model_info().provider_type,response.model_id,stage); model=response.model_id; return composed
  local={k:[] for k in profiles}; all_a={k:[] for k in profiles}; all_p={k:[] for k in profiles}; intermediate={k:0 for k in profiles}; depths={}
  try:
   for kind in profiles:
@@ -82,4 +82,11 @@ def run(workspace=".",evidence_constrained=False,status_prefix="V3-R7_2_2"):
   after={"projects_represented":coverage["metrics"]["total_projects"],"webforms_represented":coverage["metrics"]["represented_webforms"],"flows_represented":coverage["metrics"]["represented_flows"],"data_operations_linked":coverage["metrics"]["linked_data_operations"],"stored_procedures_linked":coverage["metrics"]["linked_stored_procedures"],"confirmed":sum(c["status"]=="CONFIRMED" for c in doc["claims"]),"interpreted":sum(c["status"]=="INTERPRETED" for c in doc["claims"]),"unresolved":sum(c["status"]=="UNRESOLVED" for c in doc["claims"]),"missing_information":len(doc["missing_information"])}; comparison[kind]={"before":previous[kind],"after":after}; docs[kind]={"path":str(path),"bytes":len(text.encode()),"claims":len(doc["claims"]),"missing":len(doc["missing_information"]),"closed":True}
  index={"schema_version":"3.1.0","envelope":"PYTHON_CONTROLLED_IDENTITY","calls":calls,"reused":reused,"migrated":migrated,"invalidated":invalidated,"hierarchy_depth":depths,"intermediate":intermediate,"max_request_estimated_tokens":max_estimate,"comparison":comparison,"metrics":coverage["metrics"]}; target.mkdir(parents=True,exist_ok=True); (target/"COVERAGE_INDEX.json").write_text(json.dumps(index,ensure_ascii=False,sort_keys=True,indent=2),encoding="utf-8")
  return {"status":status_prefix+"_READY_FOR_HUMAN_REVIEW","calls":calls,"reused":reused,"migrated":migrated,"invalidated":invalidated,"model_id":model,"hierarchy_depth":depths,"intermediate":intermediate,"max_request_estimated_tokens":max_estimate,"documents":docs,"comparison":comparison}
+def run(workspace=".",evidence_constrained=False,status_prefix="V3-R7_2_2",provider=None):
+ """Legacy entry point with neutral provider injection and guaranteed cleanup."""
+ holder=[]
+ try: return _run(workspace,evidence_constrained,status_prefix,provider,holder)
+ finally:
+  if holder: holder[0].close()
+
 if __name__=="__main__": print(json.dumps(run(),ensure_ascii=False,sort_keys=True,indent=2))

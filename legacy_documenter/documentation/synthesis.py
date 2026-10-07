@@ -5,9 +5,13 @@ from pathlib import Path
 CONTRACT_VERSION="V3-R7.1-CANONICAL-1"
 SCHEMA_VERSION="3.1.0"
 def canonical_hash(value): return hashlib.sha256(json.dumps(value,sort_keys=True,separators=(",",":"),ensure_ascii=False).encode()).hexdigest()
-def request_identity(request,schema):
+def request_identity(request,schema,provider=None):
  """Performs request identity while preserving this module's deterministic contract."""
- return {"profile_id":request.metadata["profile_id"],"context_package_id":request.context_package_id,"source_snapshot":request.source_snapshot,"prompt_contract_version":CONTRACT_VERSION,"schema_version":SCHEMA_VERSION,"request_hash":canonical_hash({"system":request.system_instruction,"task":request.user_instruction,"context":request.context,"schema":schema})}
+ identity={"profile_id":request.metadata["profile_id"],"context_package_id":request.context_package_id,"source_snapshot":request.source_snapshot,"prompt_contract_version":CONTRACT_VERSION,"schema_version":SCHEMA_VERSION,"request_hash":canonical_hash({"system":request.system_instruction,"task":request.user_instruction,"context":request.context,"schema":schema})}
+ if provider is not None:
+  from legacy_documenter.llm.identity import provider_identity
+  identity.update(provider_identity(provider))
+ return identity
 
 class AssessmentStore:
  """Provides the cohesive AssessmentStore responsibility for this module."""

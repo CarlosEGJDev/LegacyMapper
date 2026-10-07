@@ -1,0 +1,3035 @@
+{
+  "round": "V5.5-R3",
+  "date": "2026-10-07",
+  "technical_status": "V5_5_CLOSED",
+  "r1_human_review": "APPROVED_BY_EXPLICIT_R3_INSTRUCTION",
+  "r2": "NOT_REQUIRED",
+  "r3": "COMPLETED",
+  "preflight": {
+    "base": "5e9085f0601db4ad68900bbbc523933c51fa5dd3",
+    "branch": "main",
+    "mandatory_sources_sha256": {
+      "AGENTS.md": "8d6fb7426183dfd4633b072aaa6642260be927ed0ffa0c5f70aa47a5fc3280e7",
+      "CLAUDE.md": "22e82960485ab76afa68734d2436ed9620142cd7047b9199c49637820628240f",
+      "PROJECT_STATE.json": "38f339dcfb1a38afd3c14ce7bd860e1b3d332a8237e090b8ff9dd4b34c1b8c3e",
+      "prompts/V5/V5_5_R3_FINAL_VERIFICATION_CLOSURE_PUSH.md": "502d7ef890d6f6a057b1067c4f4cc8b395416390d4995b6b1a294258d14155c4",
+      "docs/V5/V5_0_R1_ARCHITECTURE_CONTRACT.md": "39da1940b6c5b95cbb2444da0389d926d87799edfee89a6729a2f1691c9ac3fb",
+      "docs/V5/V5_0_R2A_CONTRACT_CORRECTIONS.md": "5dd9bc758f31c21c6fb72eababdea8acd0dc80ed7b0b7406a66cc7bfb7d4aa70",
+      "docs/V5/V5_0_R3_FINAL_ARCHITECTURE_PACKAGE.md": "281214792e935e68791808e450bb7119d831591d981b9adba59191c66b3dc5bf",
+      "docs/V5/V5_1_R1_NORMALIZED_EVIDENCE_CONTRACT.md": "5ec650094fe1b5fd7b048998191a7e59c00c35d5a048b35a3e235fbfc5ab3e8b",
+      "docs/V5/V5_1_R4_CIERRE_FINAL.md": "858691ca5167e76c5c05fdd602e812eb2ce716ad5702ecf050b1af1e34a41239",
+      "docs/V5/V5_2_R4_3_CIERRE_FORMAL.md": "85222b127b8e760b842d073e6792fdb24f038e275da5eabb200a6f9f69922033",
+      "docs/V5/V5_3_R4_CLOSURE.md": "5f694f88d00edd59a2e84460dbfa7155913c315faebe90536f926b7d4fdd27cd",
+      "docs/V5/V5_4_R3_FINAL_VERIFICATION_AND_CLOSURE.md": "cb19a3563a81356d1d8e294be1815855319bd439700df37da9b0d5c39f4792a7",
+      "docs/continuity/LEGACYMAPPER_V5_ROADMAP.md": "0987fc27eb7a9759b3730f5e32206e82666f6d55a5daa9c7cc3476be1f6179ce",
+      "docs/continuity/LEGACYMAPPER_PROJECT_HISTORY_AND_V5_ROADMAP.md": "193462be7237dbab972c4d3fce711ecfb303a46496504105930ac5d4a3ce5d8c",
+      "docs/V4_3/V4_3_R1_CONSUMABLE_PROJECTION_CONTRACT_RESULT.md": "2f9b2ddccd9200131852e9808907a8c3ea6fc798e3956eea22ef26af4e818503",
+      "docs/V4_3/V4_3_R5_AI_CONTEXT_BUDGETING_RESULT.md": "4a06491bfdf200a9177a3fd3cca36972fe295d37ec4bfb6cbf3e0316084fe455",
+      "docs/V4_3/V4_3_R9_FINAL_CLOSURE_RESULT.md": "a13b17267816cbf1fd410efd8fb4b78e347798d4b8b6173b817276d60b5f51dd",
+      "docs/V4_3/V4_3_PRE_CLOSURE_COPILOT_PROVIDER_CORRECTION_RESULT.md": "26ee76cf3ed24177ceed86ea23058ad68c380dcd97300ff66728415fb5d80ee2",
+      "docs/GENERATED_ARTIFACT_POLICY.md": "9654c47b2518fc0e992162519c72e95c530eec0c188ad90dc15bc170be9a317f",
+      "docs/V5/V5_5_R1_INTEGRATED_DELIVERY.md": "4d33f52eaa58e6fe5262274fea9af6e4dc057efa8b6838f950f2be69fd61b74e",
+      "docs/V5/V5_5_R1_INTEGRATED_DELIVERY.json": "5ad88332c1843fb028969d9bbf237fa725846b2cc17dac074090e7052cd13b82",
+      "docs/V5/V5_5_R1_MAINTAINABILITY_INVENTORY.json": "ada478407f797ba914eb474b5ecca2ef8d81a83f9b9b39cd5e525f7b3480b6f8"
+    },
+    "production_matches_approved_r1": true,
+    "analyzer_fingerprint": "4f7600f0fa351674878d66940352e9569de2b0f620643a3124b5c94545eb1ec6",
+    "v54_administrative_receipt_preserved": true,
+    "git": {
+      "status_short": "M PROJECT_STATE.json\n M docs/V5/V5_4_R3_FINAL_VERIFICATION_AND_CLOSURE.md\n M docs/continuity/LEGACYMAPPER_PROJECT_HISTORY_AND_V5_ROADMAP.md\n M docs/continuity/LEGACYMAPPER_V5_ROADMAP.md\n M legacy_documenter/cache/run_metrics.py\n M legacy_documenter/cli/full_pipeline.py\n M legacy_documenter/documentation/generator.py\n M legacy_documenter/documentation/hierarchical.py\n M legacy_documenter/documentation/resume.py\n M legacy_documenter/documentation/synthesis.py\n M legacy_documenter/documentation/systematic.py\n M legacy_documenter/llm/core.py\n M legacy_documenter/llm/providers/copilot.py\n M legacy_documenter/llm/providers/gemini.py\n M legacy_documenter/orchestration/ai_interpretation.py\n M tests/test_v4_1_r0_maintainability_inventory.py\n M tests/test_v4_1_r2_models_types_and_public_contracts.py\n M tests/test_v4_1_r3_low_risk_naming_readability.py\n?? docs/V5/V5_5_R1_INTEGRATED_DELIVERY.json\n?? docs/V5/V5_5_R1_INTEGRATED_DELIVERY.md\n?? docs/V5/V5_5_R1_MAINTAINABILITY_INVENTORY.json\n?? legacy_documenter/context/request_budget.py\n?? legacy_documenter/llm/contracts.py\n?? legacy_documenter/llm/fake.py\n?? legacy_documenter/llm/identity.py\n?? legacy_documenter/llm/payload.py\n?? legacy_documenter/llm/registry.py\n?? legacy_documenter/llm/security.py\n?? legacy_documenter/llm/validation.py\n?? prompts/V5/V5_5_R1_INTEGRATED_DELIVERY.md\n?? prompts/V5/V5_5_R3_FINAL_VERIFICATION_CLOSURE_PUSH.md\n?? tests/test_v5_5_r1_generic_ai.py",
+      "status_branch": "## main...origin/main\n M PROJECT_STATE.json\n M docs/V5/V5_4_R3_FINAL_VERIFICATION_AND_CLOSURE.md\n M docs/continuity/LEGACYMAPPER_PROJECT_HISTORY_AND_V5_ROADMAP.md\n M docs/continuity/LEGACYMAPPER_V5_ROADMAP.md\n M legacy_documenter/cache/run_metrics.py\n M legacy_documenter/cli/full_pipeline.py\n M legacy_documenter/documentation/generator.py\n M legacy_documenter/documentation/hierarchical.py\n M legacy_documenter/documentation/resume.py\n M legacy_documenter/documentation/synthesis.py\n M legacy_documenter/documentation/systematic.py\n M legacy_documenter/llm/core.py\n M legacy_documenter/llm/providers/copilot.py\n M legacy_documenter/llm/providers/gemini.py\n M legacy_documenter/orchestration/ai_interpretation.py\n M tests/test_v4_1_r0_maintainability_inventory.py\n M tests/test_v4_1_r2_models_types_and_public_contracts.py\n M tests/test_v4_1_r3_low_risk_naming_readability.py\n?? docs/V5/V5_5_R1_INTEGRATED_DELIVERY.json\n?? docs/V5/V5_5_R1_INTEGRATED_DELIVERY.md\n?? docs/V5/V5_5_R1_MAINTAINABILITY_INVENTORY.json\n?? legacy_documenter/context/request_budget.py\n?? legacy_documenter/llm/contracts.py\n?? legacy_documenter/llm/fake.py\n?? legacy_documenter/llm/identity.py\n?? legacy_documenter/llm/payload.py\n?? legacy_documenter/llm/registry.py\n?? legacy_documenter/llm/security.py\n?? legacy_documenter/llm/validation.py\n?? prompts/V5/V5_5_R1_INTEGRATED_DELIVERY.md\n?? prompts/V5/V5_5_R3_FINAL_VERIFICATION_CLOSURE_PUSH.md\n?? tests/test_v5_5_r1_generic_ai.py",
+      "diff_check": "",
+      "diff_stat": "PROJECT_STATE.json                                 |  71 ++++++--\n docs/V5/V5_4_R3_FINAL_VERIFICATION_AND_CLOSURE.md  |  12 ++\n .../LEGACYMAPPER_PROJECT_HISTORY_AND_V5_ROADMAP.md |  13 +-\n docs/continuity/LEGACYMAPPER_V5_ROADMAP.md         |  13 +-\n legacy_documenter/cache/run_metrics.py             |   4 +\n legacy_documenter/cli/full_pipeline.py             |  12 +-\n legacy_documenter/documentation/generator.py       |  19 ++-\n legacy_documenter/documentation/hierarchical.py    |  23 ++-\n legacy_documenter/documentation/resume.py          |  25 ++-\n legacy_documenter/documentation/synthesis.py       |   8 +-\n legacy_documenter/documentation/systematic.py      |  19 ++-\n legacy_documenter/llm/core.py                      | 119 +-------------\n legacy_documenter/llm/providers/copilot.py         |  32 ++--\n legacy_documenter/llm/providers/gemini.py          |   1 +\n .../orchestration/ai_interpretation.py             | 181 +++++++++++----------\n tests/test_v4_1_r0_maintainability_inventory.py    |  15 +-\n ...st_v4_1_r2_models_types_and_public_contracts.py |   9 +-\n tests/test_v4_1_r3_low_risk_naming_readability.py  |   4 +-\n 18 files changed, 300 insertions(+), 280 deletions(-)"
+    },
+    "historical_global_provider_calls": 1,
+    "historical_global_real_llm_calls": 1
+  },
+  "architecture": {
+    "modules": 135,
+    "mixed": 0,
+    "neutral_concrete_imports": 0,
+    "evidence_core_llm_imports": 0,
+    "concrete_import_modules": [
+      "legacy_documenter/llm/copilot_pilot.py",
+      "legacy_documenter/llm/providers/__init__.py",
+      "legacy_documenter/llm/providers/copilot.py",
+      "legacy_documenter/llm/registry.py"
+    ],
+    "modules_inventory": [
+      {
+        "path": "legacy_documenter/llm/__init__.py",
+        "classification": "LEGACY_COMPATIBILITY",
+        "lines": 1,
+        "sha256": "9c4f2326318968ab89282cae7fa40b7eb8fcc4f8fc22a18a787d955cfdc53336",
+        "imports": [
+          ".core"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/llm/contracts.py",
+        "classification": "PROVIDER_CONTRACT",
+        "lines": 85,
+        "sha256": "62471a3dd5162b9a22ef38704e8176eb4a33e06bd5dd2e8a6addcd74449044f7",
+        "imports": [
+          "__future__",
+          "dataclasses",
+          "abc",
+          "hashlib",
+          "json",
+          "math",
+          "dataclasses",
+          ".validation"
+        ],
+        "concrete_imports": [],
+        "markers": {
+          "context_window": [
+            13,
+            25,
+            67
+          ],
+          "timeout": [
+            26,
+            28,
+            30,
+            31,
+            32,
+            37,
+            40
+          ],
+          "retry": [
+            48
+          ],
+          "structured_generate": [
+            56,
+            70
+          ],
+          "credential": [
+            16,
+            25
+          ],
+          "max_output_tokens": [
+            13,
+            25,
+            36
+          ]
+        }
+      },
+      {
+        "path": "legacy_documenter/llm/copilot_pilot.py",
+        "classification": "CLI/COMPOSITION",
+        "lines": 61,
+        "sha256": "bb021883275856ffd13ada080e6d97642ad36deee1675f0e995379d3676dd0e5",
+        "imports": [
+          "asyncio",
+          "importlib.util",
+          "json",
+          "legacy_documenter.documentation.interpretation",
+          "legacy_documenter.llm",
+          "legacy_documenter.llm.providers.copilot",
+          "copilot"
+        ],
+        "concrete_imports": [
+          "legacy_documenter.llm.providers.copilot",
+          "copilot"
+        ],
+        "markers": {
+          "timeout": [
+            51
+          ],
+          "structured_generate": [
+            55
+          ],
+          "max_output_tokens": [
+            30,
+            51
+          ],
+          "COPILOT": [
+            27,
+            49,
+            51
+          ]
+        }
+      },
+      {
+        "path": "legacy_documenter/llm/core.py",
+        "classification": "LEGACY_COMPATIBILITY",
+        "lines": 5,
+        "sha256": "82cb810fae3bc5b22db1e8106914be41443a89a2c0fbc5e49600951c990df4da",
+        "imports": [
+          ".contracts",
+          ".payload",
+          ".fake",
+          ".registry"
+        ],
+        "concrete_imports": [],
+        "markers": {
+          "measure_request_payload": [
+            3
+          ]
+        }
+      },
+      {
+        "path": "legacy_documenter/llm/fake.py",
+        "classification": "PROVIDER_IMPLEMENTATION",
+        "lines": 68,
+        "sha256": "fe771a8daaec4009d4d9e5cecdc69f87bcd371f4af70068a9b3821f3034d5f35",
+        "imports": [
+          "copy",
+          "dataclasses",
+          "json",
+          ".contracts",
+          ".validation"
+        ],
+        "concrete_imports": [],
+        "markers": {
+          "context_window": [
+            23,
+            36
+          ],
+          "structured_generate": [
+            60
+          ],
+          "credential": [
+            1
+          ],
+          "max_output_tokens": [
+            23,
+            38
+          ]
+        }
+      },
+      {
+        "path": "legacy_documenter/llm/identity.py",
+        "classification": "PROVIDER_CONTRACT",
+        "lines": 17,
+        "sha256": "8cc21034a8ef5af97424911212da62959cdb52f46126f04e7e974738dad517e9",
+        "imports": [
+          ".contracts"
+        ],
+        "concrete_imports": [],
+        "markers": {
+          "context_window": [
+            13
+          ],
+          "timeout": [
+            15
+          ],
+          "credential": [
+            9
+          ],
+          "max_output_tokens": [
+            13
+          ]
+        }
+      },
+      {
+        "path": "legacy_documenter/llm/payload.py",
+        "classification": "PROVIDER_CONTRACT",
+        "lines": 37,
+        "sha256": "0aa9b51c5858881305ff060a172a6220b7b8c055704139bc62a801204802d5cb",
+        "imports": [
+          "__future__",
+          "json",
+          "math",
+          ".contracts"
+        ],
+        "concrete_imports": [],
+        "markers": {
+          "measure_request_payload": [
+            27
+          ]
+        }
+      },
+      {
+        "path": "legacy_documenter/llm/providers/__init__.py",
+        "classification": "PROVIDER_IMPLEMENTATION",
+        "lines": 2,
+        "sha256": "4b6626dec64253bbd8a739e7e86976259cc3b0ed62d9612c36f861d14754b79d",
+        "imports": [
+          ".gemini",
+          ".copilot"
+        ],
+        "concrete_imports": [
+          ".gemini",
+          ".copilot"
+        ],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/llm/providers/copilot.py",
+        "classification": "PROVIDER_IMPLEMENTATION",
+        "lines": 100,
+        "sha256": "b3586a00abb759381fa8fee2ba4025368f5d2b6a1e0c5a2757d06ba0ace5eea8",
+        "imports": [
+          "asyncio",
+          "inspect",
+          "json",
+          "time",
+          "legacy_documenter.llm",
+          "legacy_documenter.llm.contracts",
+          "legacy_documenter.llm.security",
+          "copilot",
+          "copilot.generated.rpc"
+        ],
+        "concrete_imports": [
+          "copilot",
+          "copilot.generated.rpc"
+        ],
+        "markers": {
+          "context_window": [
+            16
+          ],
+          "timeout": [
+            60
+          ],
+          "retry": [
+            87,
+            100
+          ],
+          "structured_generate": [
+            30,
+            31
+          ],
+          "max_output_tokens": [
+            17
+          ]
+        }
+      },
+      {
+        "path": "legacy_documenter/llm/providers/gemini.py",
+        "classification": "PROVIDER_IMPLEMENTATION",
+        "lines": 30,
+        "sha256": "0aa823a92a343a6d727d9968ec69605f03a7e6983ce6d13628100c4c898dd9d8",
+        "imports": [
+          "json",
+          "os",
+          "urllib.request",
+          "urllib.error",
+          "legacy_documenter.llm"
+        ],
+        "concrete_imports": [],
+        "markers": {
+          "context_window": [
+            7
+          ],
+          "timeout": [
+            10,
+            11,
+            20
+          ],
+          "retry": [
+            29,
+            30
+          ],
+          "structured_generate": [
+            22
+          ],
+          "credential": [
+            9,
+            14,
+            15
+          ],
+          "os.environ": [
+            9
+          ],
+          "max_output_tokens": [
+            7,
+            16
+          ]
+        }
+      },
+      {
+        "path": "legacy_documenter/llm/registry.py",
+        "classification": "CLI/COMPOSITION",
+        "lines": 75,
+        "sha256": "a549c9ce2b1a0a971df9a044f5ef0e74b47b5f57c8e3d3f2d6fd73868c0105ed",
+        "imports": [
+          "__future__",
+          "os",
+          "collections.abc",
+          ".contracts",
+          ".fake",
+          ".providers.copilot",
+          "asyncio",
+          ".copilot_pilot"
+        ],
+        "concrete_imports": [
+          ".providers.copilot",
+          ".copilot_pilot"
+        ],
+        "markers": {
+          "context_window": [
+            59
+          ],
+          "timeout": [
+            46,
+            54,
+            59
+          ],
+          "credential": [
+            5
+          ],
+          "os.environ": [
+            47
+          ],
+          "max_output_tokens": [
+            46,
+            53,
+            59,
+            68,
+            70
+          ],
+          "COPILOT": [
+            4,
+            29,
+            48,
+            71
+          ]
+        }
+      },
+      {
+        "path": "legacy_documenter/llm/security.py",
+        "classification": "PROVIDER_CONTRACT",
+        "lines": 46,
+        "sha256": "8f25f534d5152c8ffbe6d154e9150b86ac59ac22043594706d0f8041eb015e5f",
+        "imports": [
+          "re",
+          "legacy_documenter.utils.sanitizer"
+        ],
+        "concrete_imports": [],
+        "markers": {
+          "credential": [
+            15
+          ]
+        }
+      },
+      {
+        "path": "legacy_documenter/llm/validation.py",
+        "classification": "PROVIDER_CONTRACT",
+        "lines": 26,
+        "sha256": "e5a546eb1aa3d4b767709589bdaf4e567e5b86e343e77a30b3260b64c9b8ecd4",
+        "imports": [
+          "__future__",
+          "json"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/orchestration/__init__.py",
+        "classification": "AI_ORCHESTRATION",
+        "lines": 11,
+        "sha256": "4a549fe880285eaefb1ac538cecabb874052ad34069c8ea47b41bec1be7de47d",
+        "imports": [],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/orchestration/_run_evidence_io.py",
+        "classification": "AI_ORCHESTRATION",
+        "lines": 44,
+        "sha256": "542ad6f3bdf24f822337d33da0aa9a38c9d1d4915130f5d4b160f204d50e0ed2",
+        "imports": [
+          "__future__",
+          "json",
+          "pathlib"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/orchestration/ai_interpretation.py",
+        "classification": "AI_ORCHESTRATION",
+        "lines": 411,
+        "sha256": "8732aef1915073c658bbefdc3791ffecf236a2c02b93e55f0f1b42c5c5faad4e",
+        "imports": [
+          "__future__",
+          "dataclasses",
+          "pathlib",
+          "copy",
+          "time",
+          "legacy_documenter.llm.security",
+          "legacy_documenter.llm.identity",
+          "._run_evidence_io",
+          "legacy_documenter.context.ai_projection",
+          "legacy_documenter.context.composer",
+          "legacy_documenter.llm.contracts",
+          "legacy_documenter.llm.payload",
+          "legacy_documenter.llm.registry",
+          "legacy_documenter.context.request_budget",
+          "legacy_documenter.context.request_budget"
+        ],
+        "concrete_imports": [],
+        "markers": {
+          "context_window": [
+            69,
+            70,
+            173,
+            203,
+            208
+          ],
+          "retry": [
+            221,
+            318,
+            322
+          ],
+          "structured_generate": [
+            113,
+            236
+          ],
+          "credential": [
+            239,
+            406,
+            408
+          ],
+          "max_output_tokens": [
+            173
+          ],
+          "measure_request_payload": [
+            22,
+            53,
+            78,
+            340
+          ]
+        }
+      },
+      {
+        "path": "legacy_documenter/orchestration/proposal_adapter.py",
+        "classification": "AI_ORCHESTRATION",
+        "lines": 41,
+        "sha256": "e8f5258561b3dd5d8fd18dcf06cce2af09aba5047e0541fe1b12173fc705c841",
+        "imports": [
+          "__future__",
+          "legacy_documenter.knowledge.proposals.enums",
+          "legacy_documenter.knowledge.proposals.models",
+          "legacy_documenter.knowledge.proposals.service"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/context/__init__.py",
+        "classification": "CONTEXT_CORE",
+        "lines": 36,
+        "sha256": "234c0260a40650dd52f5edd9acf7e90bb5500eef3ad9f76baa431c8b00549736",
+        "imports": [],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/context/ai_projection.py",
+        "classification": "CONTEXT_CORE",
+        "lines": 500,
+        "sha256": "96a95cc92c46e98ecbf43b0c36d7033311fa463dc0d09bf77d84a6923487cd7c",
+        "imports": [
+          "hashlib",
+          "json",
+          "math",
+          ".composer",
+          ".hydration"
+        ],
+        "concrete_imports": [],
+        "markers": {
+          "retry": [
+            65
+          ],
+          "measure_request_payload": [
+            29
+          ]
+        }
+      },
+      {
+        "path": "legacy_documenter/context/composer.py",
+        "classification": "CONTEXT_CORE",
+        "lines": 34,
+        "sha256": "1a0050b70346669ffb6bfd325fc4e50a43a338168ccd0c602c624dcf091630e4",
+        "imports": [
+          "json",
+          "math",
+          "hashlib"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/context/consumer_projection.py",
+        "classification": "CONTEXT_CORE",
+        "lines": 283,
+        "sha256": "4caf2be84bd5d4d2a976ebe3d0d6bbe65fa3ee19828417e96baa84c4f55814fe",
+        "imports": [
+          "__future__",
+          "hashlib",
+          "json",
+          ".hydration"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/context/context_builder.py",
+        "classification": "CONTEXT_CORE",
+        "lines": 35,
+        "sha256": "596f7f7ba549ce5e34ad0c7bcf832cccde431e94bc8e7a9423f7d5dffd6d1e75",
+        "imports": [
+          "pathlib",
+          "json",
+          "legacy_documenter.utils.write_if_changed"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/context/hydration.py",
+        "classification": "CONTEXT_CORE",
+        "lines": 372,
+        "sha256": "07c769df0ed1de6994217f41121ce054156012914ce6581491978f5ad436f3ed",
+        "imports": [
+          "collections"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/context/hydration_view.py",
+        "classification": "CONTEXT_CORE",
+        "lines": 80,
+        "sha256": "45d2b810e38412d6e51667c4bd20504be33f5e9deb28afdd48d0b057f5eaa502",
+        "imports": [
+          "copy",
+          "time",
+          ".hydration"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/context/request_budget.py",
+        "classification": "CONTEXT_CORE",
+        "lines": 60,
+        "sha256": "63b00d5e79565dc1f4342b15b20201047f290e01c106ac37cbd20d46935e9917",
+        "imports": [],
+        "concrete_imports": [],
+        "markers": {
+          "context_window": [
+            9,
+            13,
+            16,
+            17,
+            21,
+            42
+          ],
+          "max_output_tokens": [
+            4,
+            17,
+            24,
+            26,
+            49,
+            52,
+            53,
+            54,
+            56
+          ]
+        }
+      },
+      {
+        "path": "legacy_documenter/context/resolver.py",
+        "classification": "CONTEXT_CORE",
+        "lines": 32,
+        "sha256": "c9825f456427a4c03a6fc82c36c70888ca32b315c6b4af08866186a287c6a34d",
+        "imports": [
+          "hashlib",
+          "json",
+          "pathlib"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/context/system_context_builder.py",
+        "classification": "CONTEXT_CORE",
+        "lines": 123,
+        "sha256": "d594d9a07e62f644788036ec2a1661d646ad7fa1672bc1f7caf10f5f7ef70a3c",
+        "imports": [
+          "collections",
+          "pathlib",
+          "json",
+          "legacy_documenter.utils",
+          "legacy_documenter.utils.write_if_changed"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/documentation/__init__.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 5,
+        "sha256": "9bb2b4745606b5e960a33f2a6b29d4d0b156bf608c223c30132960d2a37c79b8",
+        "imports": [
+          ".contracts",
+          ".aggregation",
+          ".renderer"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/documentation/aggregation.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 56,
+        "sha256": "8fada94f7093b4f68202425332759e91f1a198cd850598039cb169a714256887",
+        "imports": [
+          "hashlib",
+          "json"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/documentation/consistency.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 263,
+        "sha256": "94434e9393d505807a32dee67e6258e4385d89b1ae23a1b90d3afc674ada0c5b",
+        "imports": [
+          "dataclasses",
+          "hashlib",
+          "json",
+          "re",
+          "unicodedata"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/documentation/consistency_run.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 77,
+        "sha256": "83652de2fafbda4c8bc774582643d88719d64e07187d50dd0c0d9d096179895b",
+        "imports": [
+          "json",
+          "pathlib",
+          "legacy_documenter.documentation.aggregation",
+          "legacy_documenter.documentation.consistency",
+          "legacy_documenter.documentation.coverage",
+          "legacy_documenter.documentation.interpretation",
+          "legacy_documenter.documentation.renderer",
+          "legacy_documenter.documentation.synthesis",
+          "legacy_documenter.documentation.systematic"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/documentation/contracts.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 67,
+        "sha256": "377d37353b53407593a95a64cf61dc08d029300829416d6ebc9e4be79a62bc72",
+        "imports": [
+          "dataclasses",
+          "hashlib",
+          "json"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/documentation/coverage.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 60,
+        "sha256": "f711356647c01cb774073691a45133b72996938d614e4a3547db51338bdbc794",
+        "imports": [
+          "collections",
+          "pathlib",
+          "hashlib",
+          "json",
+          "math"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/documentation/envelope.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 27,
+        "sha256": "ba4b0ba66dc8bba088723cc64302fbdf1f90cbfc8f5a86b9f5522e53d9123c7b",
+        "imports": [
+          "copy",
+          "legacy_documenter.documentation.interpretation",
+          "legacy_documenter.documentation.synthesis"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/documentation/evidence_catalog.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 59,
+        "sha256": "85145fbb3a83edde15f84508cf94b3c7ef80eb3c55ffe1b94e04ea5ab7ae668e",
+        "imports": [
+          "copy",
+          "json",
+          "math",
+          "legacy_documenter.documentation.envelope",
+          "legacy_documenter.documentation.interpretation"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/documentation/evidence_resume.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 3,
+        "sha256": "8645a96eca0618bf1d86289b57d7995cc4cedc9dfc405d5de226a11b14f362dd",
+        "imports": [
+          "json",
+          "legacy_documenter.documentation.resume"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/documentation/generator.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 104,
+        "sha256": "46d2ff49ddaf6f7cf7536e1ecfafd5ea9f55493b8e7e83b3062f81315b8e00a4",
+        "imports": [
+          "asyncio",
+          "hashlib",
+          "json",
+          "pathlib",
+          "legacy_documenter.context.resolver",
+          "legacy_documenter.context.composer",
+          "legacy_documenter.documentation.aggregation",
+          "legacy_documenter.documentation.interpretation",
+          "legacy_documenter.documentation.renderer",
+          "legacy_documenter.llm.registry"
+        ],
+        "concrete_imports": [],
+        "markers": {
+          "structured_generate": [
+            86
+          ],
+          "max_output_tokens": [
+            36,
+            77
+          ]
+        }
+      },
+      {
+        "path": "legacy_documenter/documentation/hierarchical.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 81,
+        "sha256": "ea12623fd64af9dd43627c5b47c0e7ebac69ead1eda014010fe95c62c0b19d35",
+        "imports": [
+          "asyncio",
+          "json",
+          "pathlib",
+          "legacy_documenter.documentation.coverage",
+          "legacy_documenter.documentation.systematic",
+          "legacy_documenter.documentation.generator",
+          "legacy_documenter.documentation.interpretation",
+          "legacy_documenter.documentation.synthesis",
+          "legacy_documenter.documentation.aggregation",
+          "legacy_documenter.documentation.renderer",
+          "legacy_documenter.llm.registry"
+        ],
+        "concrete_imports": [],
+        "markers": {
+          "structured_generate": [
+            41
+          ],
+          "max_output_tokens": [
+            25
+          ],
+          "request_identity": [
+            8,
+            38
+          ]
+        }
+      },
+      {
+        "path": "legacy_documenter/documentation/human_documentation_scaling.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 404,
+        "sha256": "5fed86d6d9da68f22bf0805a3b913ddae436c0687b9724fc959c1515132ed1a9",
+        "imports": [
+          "legacy_documenter.exporters._documentation_partitioning",
+          ".human_flow_documentation"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/documentation/human_flow_documentation.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 626,
+        "sha256": "283d744608719c3d5a43cef32552e15561e2e5c4de81ef0a5e3454a8fba63daf",
+        "imports": [],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/documentation/human_review.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 179,
+        "sha256": "c22fcec5fa5172bbadd93a304fd3627d24a0313d2af0c919dcb72f4a7bd53d9a",
+        "imports": [
+          "json",
+          "re",
+          "pathlib"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/documentation/interpretation.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 52,
+        "sha256": "b90566a26a19a9f5ee0b3c01601d4e268f8cad561b968bc9e25c58fd416b8e6c",
+        "imports": [
+          "dataclasses",
+          "hashlib",
+          "json",
+          "legacy_documenter.llm",
+          "legacy_documenter.documentation.contracts"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/documentation/renderer.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 30,
+        "sha256": "1cad3b2b55f2a0f1d1a0340aad6c2259649c2deb96e511cc202be00508656a36",
+        "imports": [],
+        "concrete_imports": [],
+        "markers": {
+          "COPILOT": [
+            13
+          ]
+        }
+      },
+      {
+        "path": "legacy_documenter/documentation/resume.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 92,
+        "sha256": "b1916cf660bcc695b62dbdf0fa49bc43f71254dfa49d75283fbce925761c77a7",
+        "imports": [
+          "asyncio",
+          "json",
+          "pathlib",
+          "legacy_documenter.documentation.coverage",
+          "legacy_documenter.documentation.systematic",
+          "legacy_documenter.documentation.generator",
+          "legacy_documenter.documentation.interpretation",
+          "legacy_documenter.documentation.envelope",
+          "legacy_documenter.documentation.synthesis",
+          "legacy_documenter.documentation.aggregation",
+          "legacy_documenter.documentation.renderer",
+          "legacy_documenter.llm.registry",
+          "legacy_documenter.documentation.evidence_catalog"
+        ],
+        "concrete_imports": [],
+        "markers": {
+          "structured_generate": [
+            47
+          ],
+          "max_output_tokens": [
+            21
+          ],
+          "request_identity": [
+            9,
+            30
+          ]
+        }
+      },
+      {
+        "path": "legacy_documenter/documentation/second_review.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 51,
+        "sha256": "99f18393420eadf84c80d4d0e9af23e2e7c4d840c3e9f1c64a7087783f784bd0",
+        "imports": [
+          "json",
+          "pathlib",
+          "legacy_documenter.documentation.human_review"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/documentation/synthesis.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 99,
+        "sha256": "920233c99b76a62e4054cc4b4917902fde7ce11aa68195057affa1911b544067",
+        "imports": [
+          "hashlib",
+          "json",
+          "os",
+          "tempfile",
+          "pathlib",
+          "legacy_documenter.llm.identity"
+        ],
+        "concrete_imports": [],
+        "markers": {
+          "request_identity": [
+            8
+          ]
+        }
+      },
+      {
+        "path": "legacy_documenter/documentation/systematic.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 82,
+        "sha256": "15e0d3c2163b9808b509705c4e08e57c998e3b67a109adc6c83e33b8c29e4e3d",
+        "imports": [
+          "asyncio",
+          "hashlib",
+          "json",
+          "re",
+          "collections",
+          "pathlib",
+          "legacy_documenter.documentation.coverage",
+          "legacy_documenter.documentation.generator",
+          "legacy_documenter.documentation.interpretation",
+          "legacy_documenter.documentation.aggregation",
+          "legacy_documenter.documentation.renderer",
+          "legacy_documenter.llm.registry"
+        ],
+        "concrete_imports": [],
+        "markers": {
+          "structured_generate": [
+            53,
+            62
+          ],
+          "max_output_tokens": [
+            45
+          ]
+        }
+      },
+      {
+        "path": "legacy_documenter/knowledge/__init__.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 2,
+        "sha256": "bf4eef22e9198cb3f4c9d6ff6b36d93493b47b3b27ae14960893ac58023e0bde",
+        "imports": [],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/knowledge/_readiness_evidence.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 56,
+        "sha256": "ec02d2595896e5d4a3a92d377376539795a241678c7f6db880f20b7dc369b54f",
+        "imports": [
+          "json",
+          "pathlib",
+          "legacy_documenter.knowledge._readiness_io"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/knowledge/_readiness_io.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 13,
+        "sha256": "60f3c0398eebc4a612842900845cb7c11565d39c8acb8f66fcb9891d44f242f0",
+        "imports": [
+          "hashlib",
+          "pathlib"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/knowledge/_readiness_parsing.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 60,
+        "sha256": "c95d9163c25b23b179c4f23e75b69e9e463fce5e3d4e3a709d66464b0618fe90",
+        "imports": [
+          "re",
+          "legacy_documenter.documentation.second_review"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/knowledge/approval/__init__.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 12,
+        "sha256": "4d4a7e5c3d292591a9fb258b67a12733c2c01b6a4c06914e8414ce2f93ba83da",
+        "imports": [],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/knowledge/approval/contract_report.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 141,
+        "sha256": "37c34469ec3350425b0fc8d180454f4ce01416e49f45d56b5a9303336e944978",
+        "imports": [
+          "legacy_documenter.knowledge.approval.enums",
+          "legacy_documenter.utils.json_rendering"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/knowledge/approval/enums.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 46,
+        "sha256": "b29c7f7f979cce656366409cab532acbc8f962a1833d9dbf4e8e1d56734598bc",
+        "imports": [
+          "enum"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/knowledge/approval/example_report.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 260,
+        "sha256": "9638e9dc577f2b088a5a5f5ad11012d03aa88b0baf1fb82dfd8e9749adda8f1a",
+        "imports": [
+          "json",
+          "legacy_documenter.knowledge.approval.enums",
+          "legacy_documenter.knowledge.approval.service",
+          "legacy_documenter.knowledge.proposals.enums",
+          "legacy_documenter.knowledge.proposals.service"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/knowledge/approval/models.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 102,
+        "sha256": "c4fffa7d8ea7af6df0b00d66a6f92d9434b082681b416997729d5bb7e3669c2d",
+        "imports": [
+          "dataclasses",
+          "legacy_documenter.documentation.contracts",
+          "legacy_documenter.knowledge.approval.enums"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/knowledge/approval/service.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 227,
+        "sha256": "f0400342175ab3bf77d5800384e60ac3073e53ccd285cfda214ad7c82ca4175f",
+        "imports": [
+          "dataclasses",
+          "legacy_documenter.knowledge.approval.enums",
+          "legacy_documenter.knowledge.approval.models",
+          "legacy_documenter.knowledge.proposals.enums",
+          "legacy_documenter.knowledge.proposals.models",
+          "legacy_documenter.utils.sanitizer"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/knowledge/canonical/__init__.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 25,
+        "sha256": "bc3b49b938daca6015e5ef00127fb256f32cc94134eea18637f8dc3ffb1630a1",
+        "imports": [],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/knowledge/canonical/contract_report.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 187,
+        "sha256": "1f04e19234de1fa937c1de4ad0189c18f539f124ebc052831f8a88a33adb81fe",
+        "imports": [
+          "legacy_documenter.knowledge.domain.enums",
+          "legacy_documenter.utils.json_rendering"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/knowledge/canonical/example_report.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 344,
+        "sha256": "22c985f3e92e2c882e36195bb649baf9a4eb314d5481c6e355f2683446220972",
+        "imports": [
+          "json",
+          "legacy_documenter.knowledge.approval.enums",
+          "legacy_documenter.knowledge.approval.service",
+          "legacy_documenter.knowledge.canonical.service",
+          "legacy_documenter.knowledge.domain.enums",
+          "legacy_documenter.knowledge.domain.models",
+          "legacy_documenter.knowledge.proposals.enums",
+          "legacy_documenter.knowledge.proposals.service"
+        ],
+        "concrete_imports": [],
+        "markers": {
+          "timeout": [
+            185
+          ]
+        }
+      },
+      {
+        "path": "legacy_documenter/knowledge/canonical/models.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 145,
+        "sha256": "2fa618dda93a9f93fa1c518038a5a7ab5e1e344042d34ae5ae46a0a996188aca",
+        "imports": [
+          "dataclasses",
+          "legacy_documenter.documentation.contracts",
+          "legacy_documenter.knowledge.domain.enums",
+          "legacy_documenter.knowledge.domain.models"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/knowledge/canonical/service.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 287,
+        "sha256": "ce2ccfe35f1f936ebcb6f4b09b5975e72e8a3448b26256638ca1e52205526588",
+        "imports": [
+          "dataclasses",
+          "legacy_documenter.knowledge.approval.enums",
+          "legacy_documenter.knowledge.approval.models",
+          "legacy_documenter.knowledge.canonical.models",
+          "legacy_documenter.knowledge.domain.enums",
+          "legacy_documenter.knowledge.domain.models",
+          "legacy_documenter.knowledge.proposals.enums",
+          "legacy_documenter.knowledge.proposals.models",
+          "legacy_documenter.utils.sanitizer"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/knowledge/classification/__init__.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 12,
+        "sha256": "b0b6326b4b65bcab3af844ae4957f9b6805253e8a66f15356175fde7d92af035",
+        "imports": [],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/knowledge/classification/catalog.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 171,
+        "sha256": "09ff9d8be79525526cd05d8452d702100b6131fe2cbdaa098fe590accba8115e",
+        "imports": [
+          "dataclasses",
+          "legacy_documenter.knowledge.domain.enums"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/knowledge/classification/contract_report.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 82,
+        "sha256": "f6a3af95115a8c85732b211675373ca4e6d73867ff0ab96596cc26d985d9d9ca",
+        "imports": [
+          "legacy_documenter.knowledge.classification.catalog",
+          "legacy_documenter.knowledge.classification.enums",
+          "legacy_documenter.knowledge.domain.enums",
+          "legacy_documenter.utils.json_rendering"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/knowledge/classification/enums.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 39,
+        "sha256": "5f381e3bb5338cc66f7ca00402cd4b7348671f23980c3359e3d1e022c23c917b",
+        "imports": [
+          "enum"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/knowledge/classification/models.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 109,
+        "sha256": "cc835d112bc919236ecb319f819c40fa8a4b4e9c9fe96a81eaf261f8e5853cd8",
+        "imports": [
+          "dataclasses",
+          "legacy_documenter.documentation.contracts",
+          "legacy_documenter.knowledge.classification.enums",
+          "legacy_documenter.knowledge.domain.enums"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/knowledge/classification/service.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 184,
+        "sha256": "6d36131140ebdb30f0d342a88d91967222b0c489e78fb2bba58d4830583f4d0f",
+        "imports": [
+          "dataclasses",
+          "legacy_documenter.knowledge.classification.enums",
+          "legacy_documenter.knowledge.classification.models",
+          "legacy_documenter.knowledge.domain.enums",
+          "legacy_documenter.knowledge.domain.models",
+          "legacy_documenter.knowledge.input.contracts",
+          "legacy_documenter.knowledge.input.normalization",
+          "legacy_documenter.utils.sanitizer"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/knowledge/closure/__init__.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 19,
+        "sha256": "61a8206b22af88041932aff11d2de13f2c8557f368c445124e5dec5740386d7a",
+        "imports": [],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/knowledge/closure/artifact_hashes.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 116,
+        "sha256": "0e57b71f2eebfee92c57fe2c850a5794758db2bc9251c8f7c822165c7c0f4e2f",
+        "imports": [
+          "__future__",
+          "hashlib",
+          "re",
+          "pathlib"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/knowledge/closure/baseline_report.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 154,
+        "sha256": "492581bd53ad20d65bfea99a2131bcbd5d6326bca3dc8633946e6da8f5a2bf9b",
+        "imports": [
+          "__future__",
+          "json",
+          "pathlib",
+          "legacy_documenter.knowledge.closure.artifact_hashes",
+          "legacy_documenter.knowledge.closure.maintainability"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/knowledge/closure/maintainability.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 159,
+        "sha256": "65798dffb63479cbc4ef24a722645e3d06799336c3bd236bb493fd5854bf8980",
+        "imports": [
+          "__future__",
+          "ast",
+          "pathlib"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/knowledge/closure/manifest_report.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 140,
+        "sha256": "9fd1d2181333aedde8e77d6ec44e08cbd79e6927e27dfb2f763fb3f9c7aa61ff",
+        "imports": [
+          "__future__",
+          "json",
+          "pathlib"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/knowledge/domain/__init__.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 7,
+        "sha256": "a8520b0a166568a227ec60915cb08d628d2b36e85d9301dc0a49abc30037409b",
+        "imports": [],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/knowledge/domain/enums.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 97,
+        "sha256": "dd0a7a9dc1172b3fbe8ffb2c330f352885765e1bcf74550e681e3aae56ad4c09",
+        "imports": [
+          "enum"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/knowledge/domain/models.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 239,
+        "sha256": "76c74b9d992f6460ecd5b3a0052a268803bafbcd816c86c47e5413c442f4d559",
+        "imports": [
+          "dataclasses",
+          "legacy_documenter.documentation.contracts",
+          "legacy_documenter.knowledge.domain.enums"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/knowledge/ingestion/__init__.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 13,
+        "sha256": "71b2e894d76404422a9eed3778ce3b9fe6361c87204dacffb1271712ac956897",
+        "imports": [],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/knowledge/ingestion/contract_report.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 79,
+        "sha256": "dd77e867798653fab8dc06b54d1f1fe304c8e45804e5805bab19c55d3acb249b",
+        "imports": [
+          "legacy_documenter.knowledge.domain.enums",
+          "legacy_documenter.knowledge.ingestion.service",
+          "legacy_documenter.utils.json_rendering"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/knowledge/ingestion/models.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 65,
+        "sha256": "d1532743ec7af1c41ba1a1f97ec52415e7bdd4336bd1830e97dd9536a921dd4f",
+        "imports": [
+          "dataclasses",
+          "legacy_documenter.knowledge.domain.models",
+          "legacy_documenter.knowledge.provenance.models"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/knowledge/ingestion/service.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 162,
+        "sha256": "b3c594cfe07c72c2c63da403f5d3bae3a266d85e6ac16dd1a52795d536506a52",
+        "imports": [
+          "dataclasses",
+          "legacy_documenter.knowledge.domain.enums",
+          "legacy_documenter.knowledge.domain.models",
+          "legacy_documenter.knowledge.ingestion.models",
+          "legacy_documenter.knowledge.input.contracts",
+          "legacy_documenter.knowledge.input.catalog",
+          "legacy_documenter.knowledge.input.validator",
+          "legacy_documenter.knowledge.provenance.enums",
+          "legacy_documenter.knowledge.provenance.graph",
+          "legacy_documenter.knowledge.provenance.models",
+          "legacy_documenter.utils.sanitizer"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/knowledge/input/__init__.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 11,
+        "sha256": "905249d891ae2477f59a3832b36b7670d1146e15cdac236939e2d05d2d8f4fa6",
+        "imports": [],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/knowledge/input/catalog.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 171,
+        "sha256": "5121d0a799d7e86973524a9042783424799a5c150801f5b6c0c1b7a6a77fe9c2",
+        "imports": [
+          "dataclasses",
+          "legacy_documenter.knowledge.domain.enums"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/knowledge/input/contract_report.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 84,
+        "sha256": "c333b09eb742e1c82e74e94c45b257c22f24265c7fb53ab8dfaff6ab72d45e26",
+        "imports": [
+          "legacy_documenter.knowledge.domain.enums",
+          "legacy_documenter.knowledge.input.catalog",
+          "legacy_documenter.utils.json_rendering"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/knowledge/input/contracts.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 63,
+        "sha256": "fa1dd505b49fec69f844af39e2eb406e2bb979b11b9304058790651309f6da07",
+        "imports": [
+          "dataclasses",
+          "legacy_documenter.documentation.contracts",
+          "legacy_documenter.knowledge.domain.enums",
+          "legacy_documenter.knowledge.domain.models"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/knowledge/input/normalization.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 74,
+        "sha256": "1c8fea3f5bd7dd09626f964a9ae30ee78f00481e982226c088b78a0f07774e4d",
+        "imports": [
+          "dataclasses",
+          "typing",
+          "legacy_documenter.knowledge.input.contracts",
+          "legacy_documenter.utils.sanitizer"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/knowledge/input/validator.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 154,
+        "sha256": "9b294f7837de82f7127624cd512b3022bb6ab702cee7d25a61e24b0cc5f6b1bd",
+        "imports": [
+          "legacy_documenter.knowledge.domain.enums",
+          "legacy_documenter.knowledge.input.catalog",
+          "legacy_documenter.knowledge.input.contracts",
+          "legacy_documenter.knowledge.input.normalization"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/knowledge/plugin_projection/__init__.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 10,
+        "sha256": "6011bbe1fcb258b0e79e77fbf064640308665956955c02b9a2f51e34eaec71fd",
+        "imports": [],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/knowledge/plugin_projection/contract_report.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 185,
+        "sha256": "5cc85350620f37027f5ec538ddad2a038649635bb4fbe31d7d2f2b374c5e5667",
+        "imports": [
+          "legacy_documenter.knowledge.domain.enums",
+          "legacy_documenter.knowledge.plugin_projection.models",
+          "legacy_documenter.utils.json_rendering"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/knowledge/plugin_projection/example_report.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 250,
+        "sha256": "62987d34cc502f5ba24481510b2ab8d5571fc769abc6c6c3a5281e0bcc924b78",
+        "imports": [
+          "json",
+          "legacy_documenter.knowledge.canonical.models",
+          "legacy_documenter.knowledge.canonical.service",
+          "legacy_documenter.knowledge.domain.enums",
+          "legacy_documenter.knowledge.domain.models",
+          "legacy_documenter.knowledge.plugin_projection.serializer",
+          "legacy_documenter.knowledge.plugin_projection.service"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/knowledge/plugin_projection/models.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 216,
+        "sha256": "252805a40921e8d026691852e38d22311a2f0394524db11b4c6216a09f19cb9b",
+        "imports": [
+          "dataclasses",
+          "legacy_documenter.knowledge.canonical.models",
+          "legacy_documenter.knowledge.domain.enums",
+          "legacy_documenter.knowledge.domain.models"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/knowledge/plugin_projection/serializer.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 136,
+        "sha256": "bb69a0e345aaefa46610fc9bf3ceccea5443dea0232005231afa5dac5f4d26e5",
+        "imports": [
+          "hashlib",
+          "json",
+          "legacy_documenter.knowledge.domain.models",
+          "legacy_documenter.knowledge.plugin_projection.models"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/knowledge/plugin_projection/service.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 84,
+        "sha256": "9cb134f7908de62ba616f8eaceca079291203caed26cc3ccc51157ba7857328d",
+        "imports": [
+          "legacy_documenter.knowledge.canonical.service",
+          "legacy_documenter.knowledge.plugin_projection.models"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/knowledge/plugin_projection/validator.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 149,
+        "sha256": "d88452ace86a15a67e3561ccd5e1af564432fabe0626114890155ce29fce0571",
+        "imports": [
+          "legacy_documenter.knowledge.domain.enums",
+          "legacy_documenter.knowledge.plugin_projection.models"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/knowledge/projection/__init__.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 35,
+        "sha256": "c12cc8b1a50c048d49280380fe56e3242f6045b7af303c7917af89db0c5f22ee",
+        "imports": [
+          "legacy_documenter.knowledge.projection.markdown_renderer",
+          "legacy_documenter.knowledge.projection.models",
+          "legacy_documenter.knowledge.projection.rules",
+          "legacy_documenter.knowledge.projection.service"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/knowledge/projection/contract_report.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 166,
+        "sha256": "c5fc8a2de5c132cd086cdf2ad322407301103324509deb7f109f9503acbab456",
+        "imports": [
+          "legacy_documenter.knowledge.domain.enums",
+          "legacy_documenter.knowledge.projection.markdown_renderer",
+          "legacy_documenter.knowledge.projection.rules",
+          "legacy_documenter.utils.json_rendering"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/knowledge/projection/disk_io.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 24,
+        "sha256": "4a1b2a182be9a8022465175d19565ef9767ad2590784a2b413136e89d5e28864",
+        "imports": [
+          "pathlib"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/knowledge/projection/example_report.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 212,
+        "sha256": "dcda594df43e9ae2be061203434b542d438bb8f852ee4b636f231ebe302e5f49",
+        "imports": [
+          "json",
+          "legacy_documenter.knowledge.canonical.models",
+          "legacy_documenter.knowledge.canonical.service",
+          "legacy_documenter.knowledge.domain.enums",
+          "legacy_documenter.knowledge.domain.models",
+          "legacy_documenter.knowledge.projection.markdown_renderer",
+          "legacy_documenter.knowledge.projection.rules",
+          "legacy_documenter.knowledge.projection.service"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/knowledge/projection/markdown_renderer.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 95,
+        "sha256": "393b725d5c25fe3c8ca0dbaba55b917bd8537acaf8c9bc25b29a29c600e7d555",
+        "imports": [
+          "legacy_documenter.knowledge.canonical.models",
+          "legacy_documenter.knowledge.projection.models"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/knowledge/projection/models.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 206,
+        "sha256": "d0ce505b71607b94cc0fd37428bb8af3dec35a5ace4611bbae9468279e81e2c7",
+        "imports": [
+          "dataclasses",
+          "legacy_documenter.knowledge.canonical.models",
+          "legacy_documenter.knowledge.domain.enums"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/knowledge/projection/rules.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 205,
+        "sha256": "14e780b020e84494e95835ea4e0e154ec545c464d51787acd52703e8ed080874",
+        "imports": [
+          "legacy_documenter.knowledge.domain.enums",
+          "legacy_documenter.knowledge.projection.models"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/knowledge/projection/service.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 105,
+        "sha256": "eb031db02ab21f18c19d7d29e8f6bdbac8de40b5f65b4e05bf476d8eb8d551d5",
+        "imports": [
+          "dataclasses",
+          "legacy_documenter.knowledge.canonical.models",
+          "legacy_documenter.knowledge.canonical.service",
+          "legacy_documenter.knowledge.projection.models"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/knowledge/proposals/__init__.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 9,
+        "sha256": "64c8898d83e082f6df36cea30d86aecf22297ce28094d5944cd887b93efc8357",
+        "imports": [],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/knowledge/proposals/contract_report.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 148,
+        "sha256": "f83c8f8870f70913c8dc06c243ad3c3823021764dc5b59f87c4f5b451ad3a2ee",
+        "imports": [
+          "legacy_documenter.knowledge.proposals.enums",
+          "legacy_documenter.utils.json_rendering"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/knowledge/proposals/enums.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 68,
+        "sha256": "62235e79ffc2dd0b6f69c52da8cdfc0e750fd4c50e11e05e663fa5e15dd74d04",
+        "imports": [
+          "enum"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/knowledge/proposals/example_report.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 158,
+        "sha256": "f92be5b2aa5b5781dd2d1573141632382cb1f8f5b2a04766079ace2d5432be1b",
+        "imports": [
+          "json",
+          "legacy_documenter.knowledge.proposals.enums",
+          "legacy_documenter.knowledge.proposals.service"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/knowledge/proposals/models.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 179,
+        "sha256": "03368428b420e30e837bf6c3c4e865f8adfd6856ed3b26711bf237e70d1838b6",
+        "imports": [
+          "dataclasses",
+          "dataclasses",
+          "legacy_documenter.documentation.contracts",
+          "legacy_documenter.knowledge.proposals.enums"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/knowledge/proposals/service.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 254,
+        "sha256": "6cea58c749de44b0cde666169a1b5e22ab90e68f51c1d3ec2a01cd15eef2ce67",
+        "imports": [
+          "dataclasses",
+          "legacy_documenter.knowledge.proposals.enums",
+          "legacy_documenter.knowledge.proposals.models",
+          "legacy_documenter.utils.sanitizer"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/knowledge/provenance/__init__.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 10,
+        "sha256": "9233832c50742ac9b2e8540e5105a6678289ae5ae83435d3289cf3ddc8b3efff",
+        "imports": [],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/knowledge/provenance/contract_report.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 70,
+        "sha256": "e9715772f84dad62a329d95621de11b18244797d8cd272be2713963b757e8e7c",
+        "imports": [
+          "legacy_documenter.knowledge.provenance.enums",
+          "legacy_documenter.utils.json_rendering"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/knowledge/provenance/enums.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 69,
+        "sha256": "b70488480dfaf7b1bb764be6fe49e23dbef66729f0bc13e09691264ccdb1b3ff",
+        "imports": [
+          "enum"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/knowledge/provenance/graph.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 207,
+        "sha256": "39e57fcc0cbb8b52397513725c0ef7ad93cd8ca2de082f05b3312eb12c25d2a0",
+        "imports": [
+          "json",
+          "dataclasses",
+          "legacy_documenter.knowledge.domain.enums",
+          "legacy_documenter.knowledge.input.contracts",
+          "legacy_documenter.knowledge.provenance.enums",
+          "legacy_documenter.knowledge.provenance.models"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/knowledge/provenance/models.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 132,
+        "sha256": "e48da36e83f5df5148b5bc0a28a83237154449b59f4c86524db5293e711baef0",
+        "imports": [
+          "dataclasses",
+          "legacy_documenter.documentation.contracts",
+          "legacy_documenter.knowledge.domain.enums",
+          "legacy_documenter.knowledge.domain.models",
+          "legacy_documenter.knowledge.input.contracts",
+          "legacy_documenter.knowledge.input.normalization",
+          "legacy_documenter.knowledge.provenance.enums",
+          "legacy_documenter.utils.sanitizer"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/knowledge/readiness.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 188,
+        "sha256": "2744ab4a192eac36f67600f90bb6769136b6002c99e366769c269cf680adc2e2",
+        "imports": [
+          "json",
+          "re",
+          "pathlib",
+          "typing",
+          "legacy_documenter.documentation.human_review",
+          "legacy_documenter.documentation.second_review",
+          "legacy_documenter.knowledge._readiness_evidence",
+          "legacy_documenter.knowledge._readiness_io",
+          "legacy_documenter.knowledge._readiness_parsing"
+        ],
+        "concrete_imports": [],
+        "markers": {
+          "credential": [
+            123
+          ]
+        }
+      },
+      {
+        "path": "legacy_documenter/knowledge/relations/__init__.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 1,
+        "sha256": "5ba5428dd7af20ae1739e4566d51d7d3a1a7f5f5fd04f87935590fb2ee2a5420",
+        "imports": [],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/knowledge/relations/contract_report.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 110,
+        "sha256": "c4d9d93b8d9e3ab2d3e2469ac1134d91fc5fd80cc0fc8d6161885a340bc467dd",
+        "imports": [
+          "legacy_documenter.knowledge.relations.enums",
+          "legacy_documenter.utils.json_rendering"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/knowledge/relations/enums.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 49,
+        "sha256": "dd81a2477190bd39d90254c94ac940efa3ef30e86b928cc1895fcedce2b4d0d1",
+        "imports": [
+          "enum"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/knowledge/relations/example_report.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 89,
+        "sha256": "9e581e2b70decfef5786a4725989526f28e65d09a71b68a5aca4e1e637bdadde",
+        "imports": [
+          "json",
+          "legacy_documenter.knowledge.relations.enums",
+          "legacy_documenter.knowledge.relations.service"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/knowledge/relations/models.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 114,
+        "sha256": "40764be4ac0bc5ef74ca2c5e44f572368ca3a6233988920d7ca8678d16cc240c",
+        "imports": [
+          "dataclasses",
+          "legacy_documenter.documentation.contracts",
+          "legacy_documenter.knowledge.relations.enums"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/knowledge/relations/service.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 233,
+        "sha256": "f8547e07a523f16fb1bdf0ee7c016c2ece169d153bde5b670f30c37faf633737",
+        "imports": [
+          "dataclasses",
+          "legacy_documenter.knowledge.classification.models",
+          "legacy_documenter.knowledge.relations.enums",
+          "legacy_documenter.knowledge.relations.models",
+          "legacy_documenter.knowledge.temporal.models",
+          "legacy_documenter.utils.sanitizer"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/knowledge/temporal/__init__.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 14,
+        "sha256": "bdeef874d21ea2462441719523882a742f3a21f20daae6c833597d6a6af74da9",
+        "imports": [],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/knowledge/temporal/contract_report.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 82,
+        "sha256": "2e43ff188439a684d0fbfd376c2eedbed199497a1b98daa1829ee8befd3cd499",
+        "imports": [
+          "legacy_documenter.knowledge.domain.enums",
+          "legacy_documenter.knowledge.temporal.enums",
+          "legacy_documenter.utils.json_rendering"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/knowledge/temporal/enums.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 22,
+        "sha256": "403b655eb5600a0d2c4fadb17756e1880e84a2fce50d5c95dbc1ea5ae101baac",
+        "imports": [
+          "enum"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/knowledge/temporal/models.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 73,
+        "sha256": "11b113476da459119b42dc7bcd5779256cb77f1607f78e047f655de53ccd669f",
+        "imports": [
+          "dataclasses",
+          "legacy_documenter.documentation.contracts",
+          "legacy_documenter.knowledge.domain.enums",
+          "legacy_documenter.knowledge.temporal.enums"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/knowledge/temporal/service.py",
+        "classification": "DOMAIN/KNOWLEDGE",
+        "lines": 141,
+        "sha256": "a53af88a47ce74ae1a93a3b75dab2d16cf47da4e8e55bbc8c3b434a6b1355b16",
+        "imports": [
+          "dataclasses",
+          "legacy_documenter.knowledge.classification.models",
+          "legacy_documenter.knowledge.domain.models",
+          "legacy_documenter.knowledge.temporal.enums",
+          "legacy_documenter.knowledge.temporal.models"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/cli/__init__.py",
+        "classification": "CLI/COMPOSITION",
+        "lines": 8,
+        "sha256": "99310a7ebb5150ad63006e1fb433fe7fcb327aa3359430e800a8ce29d06147d6",
+        "imports": [],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/cli/artifact_lifecycle.py",
+        "classification": "CLI/COMPOSITION",
+        "lines": 142,
+        "sha256": "5db1e3df4c6836530ad5f3d835ecf568bd23774dd97916f595902c95e22e3b21",
+        "imports": [
+          "__future__",
+          "pathlib",
+          "legacy_documenter.utils.write_if_changed"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/cli/execution_model.py",
+        "classification": "CLI/COMPOSITION",
+        "lines": 124,
+        "sha256": "c59165ba0bbe8a870d76e1167b5692a3f3788106829bbf330722e705287fa6d5",
+        "imports": [
+          "__future__",
+          "dataclasses",
+          "enum",
+          "legacy_documenter.cli.stage_identity"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/cli/full_pipeline.py",
+        "classification": "CLI/COMPOSITION",
+        "lines": 562,
+        "sha256": "e4851e5a1396ea23d9b6fc953c9ca0b23f6079a554328309f7380e5b854cc987",
+        "imports": [
+          "__future__",
+          "dataclasses",
+          "functools",
+          "inspect",
+          "pathlib",
+          "time",
+          "typing",
+          "legacy_documenter.cache",
+          "legacy_documenter.cli",
+          "legacy_documenter.cli.artifact_lifecycle",
+          "legacy_documenter.cli.execution_model",
+          "legacy_documenter.cli.run_summary_presenter",
+          "legacy_documenter.cli.stage_identity",
+          "legacy_documenter.knowledge.proposals.models",
+          "legacy_documenter.llm.contracts",
+          "legacy_documenter.orchestration",
+          "legacy_documenter.orchestration.ai_interpretation",
+          "legacy_documenter.utils.atomic_write",
+          "legacy_documenter.utils.json_rendering",
+          "legacy_documenter.utils.stage_timings",
+          "legacy_documenter.utils.write_if_changed",
+          "legacy_documenter.utils.write_policy",
+          "legacy_documenter.llm.security"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/cli/output_manifest.py",
+        "classification": "CLI/COMPOSITION",
+        "lines": 64,
+        "sha256": "c31ec883f4de08f4589008df20a7a09db7e4a9d15b924b5c419466a17bf34411",
+        "imports": [
+          "__future__",
+          "hashlib",
+          "pathlib",
+          "legacy_documenter.cache"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/cli/parser.py",
+        "classification": "CLI/COMPOSITION",
+        "lines": 231,
+        "sha256": "a6dd57741e8d49fef27754e4316ffe57b2b056b8aaccab530143963e42d69fa5",
+        "imports": [
+          "__future__",
+          "argparse",
+          "sys",
+          "legacy_documenter.cache.options"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/cli/pipeline_stages.py",
+        "classification": "CLI/COMPOSITION",
+        "lines": 489,
+        "sha256": "3cf01bd07565bf9a17d13af7aa05f33e28f0c8f794fd4fb6465820d362124dcb",
+        "imports": [
+          "__future__",
+          "json",
+          "logging",
+          "dataclasses",
+          "pathlib",
+          "time",
+          "legacy_documenter.cli.artifact_lifecycle",
+          "legacy_documenter.adapters.vbnet_webforms_oracle.analysis.call_resolver",
+          "legacy_documenter.adapters.vbnet_webforms_oracle.analysis.database_resolver",
+          "legacy_documenter.adapters.vbnet_webforms_oracle.analysis.dependency_resolver",
+          "legacy_documenter.adapters.vbnet_webforms_oracle.analysis.flow_resolver",
+          "legacy_documenter.adapters.vbnet_webforms_oracle.analysis.web_entry_resolver",
+          "legacy_documenter.context.consumer_projection",
+          "legacy_documenter.context.context_builder",
+          "legacy_documenter.context.hydration_view",
+          "legacy_documenter.context.system_context_builder",
+          "legacy_documenter.documentation.human_documentation_scaling",
+          "legacy_documenter.documentation_v52.engine",
+          "legacy_documenter.evidence.invariants",
+          "legacy_documenter.evidence.persistence",
+          "legacy_documenter.exporters.json_exporter",
+          "legacy_documenter.exporters.markdown_exporter",
+          "legacy_documenter.exporters.technical_documentation_renderer",
+          "legacy_documenter.models",
+          "legacy_documenter.scanner.file_classifier",
+          "legacy_documenter.scanner.repository_scanner",
+          "legacy_documenter.utils.stage_timings",
+          "legacy_documenter.utils.write_if_changed",
+          "legacy_documenter.utils.json_rendering",
+          "legacy_documenter.utils.sanitizer",
+          "legacy_documenter.adapters.contracts",
+          "legacy_documenter.adapters.vbnet_webforms_oracle.adapter",
+          "legacy_documenter.adapters.vbnet_webforms_oracle.normalization",
+          "legacy_documenter.adapters.vbnet_webforms_oracle"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/cli/router.py",
+        "classification": "CLI/COMPOSITION",
+        "lines": 128,
+        "sha256": "b23af35a2d390d7e7ae6c0d213e524d560d58bbbcda555b9c8166d0b06b23aa7",
+        "imports": [
+          "__future__",
+          "json",
+          "argparse",
+          "pathlib",
+          "typing",
+          "legacy_documenter.cli.execution_model",
+          "legacy_documenter.cli.full_pipeline",
+          "legacy_documenter.cli.output_manifest",
+          "legacy_documenter.knowledge.readiness",
+          "legacy_documenter.utils.atomic_write",
+          "legacy_documenter.utils.json_rendering"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/cli/run_summary_presenter.py",
+        "classification": "CLI/COMPOSITION",
+        "lines": 292,
+        "sha256": "39e9e0fc1a0710d9d6cbf6706cb7f647c4fe8978f6c003eaeab3a50cc4960a71",
+        "imports": [
+          "__future__",
+          "dataclasses",
+          "pathlib",
+          "legacy_documenter.cli.execution_model",
+          "legacy_documenter.cli.serialization",
+          "legacy_documenter.cli.stage_identity",
+          "legacy_documenter.utils.atomic_write"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/cli/serialization.py",
+        "classification": "CLI/COMPOSITION",
+        "lines": 21,
+        "sha256": "43495476240a1f69e458707371fa7c64cdedcdacb3c1ebf55b777be4f347a683",
+        "imports": [
+          "__future__",
+          "legacy_documenter.cli.execution_model",
+          "legacy_documenter.utils.json_rendering"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      },
+      {
+        "path": "legacy_documenter/cli/stage_identity.py",
+        "classification": "CLI/COMPOSITION",
+        "lines": 43,
+        "sha256": "02012eb2db912090896fb32b857920bc7b10ac443fa822f5a73f8271ac390f59",
+        "imports": [
+          "__future__",
+          "enum"
+        ],
+        "concrete_imports": [],
+        "markers": {}
+      }
+    ],
+    "production_unchanged": true
+  },
+  "production_changes_in_r3": 0,
+  "production_freeze_sha256": {
+    "legacy_documenter/config.py": "520ad9ebe01ae65e82a473866c6073279a8762f1e680c39448e908519aa19aca",
+    "legacy_documenter/main.py": "f52f5d8ac700fe9d5811ee4bb2a68ee8ab1eeab8e19e0b9f8060e18e02300e98",
+    "legacy_documenter/versions.py": "63efcbc1010fe06e88b8a6697af86aec43dad5d3f48eedd44ceb9c1fa7d6753d",
+    "legacy_documenter/__init__.py": "36ab719adbdd48bf063609e387948d5e66fb15ef43d79cdd43f899a02da53469",
+    "legacy_documenter/adapters/contracts.py": "ff951911958701844f260c0777de1a3f50fb11d1493d798324e524a9f6bf5827",
+    "legacy_documenter/adapters/__init__.py": "c50fefe6687923559d5c4a0a8c67221df862a1675de382104c3ff700cfa59016",
+    "legacy_documenter/analysis/call_resolver.py": "dbc261d17a9c11f878107d37b180d06e0d55a89c169a4c56a23349ef00b5110b",
+    "legacy_documenter/analysis/database_resolver.py": "0527e3fe44af7168b6e9df90df0cefcb3cdad006c8ca04f4fd12ec16035abdf7",
+    "legacy_documenter/analysis/deep_interpretation.py": "2f4e6fb33482ae9d15cea3cf2f42aba59765bfc199d1947e1fc54543f329778f",
+    "legacy_documenter/analysis/deep_source.py": "a61612e0bf0ec0beac2607d87cc85f55f144b9973fbbe32058e960e1506d86f2",
+    "legacy_documenter/analysis/dependency_resolver.py": "276cccec634f603bf4dec3a6bf74890d18470a4f89567be6503d0fb6d85f07b5",
+    "legacy_documenter/analysis/flow_resolver.py": "246799529acb2921525eab21379dbcbe3ac33e62c820547773f78c3b4d2b3f2a",
+    "legacy_documenter/analysis/normalized_flow.py": "306a550c49a5b354ef037e029e22290faa2003b70741dfaabeac4ab0281040b4",
+    "legacy_documenter/analysis/targeted_exhaustion.py": "d312ecd9f5f7fb900bd22399b007bdc4bc40561c04c792909322de4e04a39141",
+    "legacy_documenter/analysis/web_entry_resolver.py": "d0f1af2bede9ca09fe3040e761bdf3d4fcaec3866f02ec591c2409fa6d6eaa86",
+    "legacy_documenter/analysis/_flow_graph_construction.py": "5fe844698257c7a2a865f7cbc347f6ca754a9a19751938b381e519fcf180ca55",
+    "legacy_documenter/analysis/_flow_key_labels.py": "d1c702b5198abc154bc9b3bedb9be584b171e2fb671fd1db385794d13928696d",
+    "legacy_documenter/analysis/_flow_report_composition.py": "8f008bdf6cc7c8f46bacf25ee836a0c83ab6cecf87d60f5152bffa4ac0919f54",
+    "legacy_documenter/analysis/_neutral_flow_keys.py": "8f4329f1c601e5caae6261e4692c282ef672fbc791bfec1b4eda664fb44115a0",
+    "legacy_documenter/analysis/_neutral_flow_reporting.py": "62ab92bad7edd8f188f4d49e539a0dff316545fdbf59de2a55c1b7b462fc41ca",
+    "legacy_documenter/analysis/_neutral_graph.py": "9cc78799f436d243af3532b68359843e41de6d374a4f9a54dd120c2b2ccdb186",
+    "legacy_documenter/analysis/__init__.py": "3580282899de025ac82d3bd83a73fd39743a9818359879cc55147d10a3de6c0a",
+    "legacy_documenter/cache/context.py": "119145cd4cb7e8631b5e00512cf89b88edd2ea6b70b1d47e844288b12b4c9d24",
+    "legacy_documenter/cache/diff.py": "662ec41d05aa74334a9ccead58676ec3b5bdb65976ca5f8fa5defcb0d141cfae",
+    "legacy_documenter/cache/extraction.py": "1bbc22fcd9fd30a71ee1c93ae891c76a49dcdde2db61d382b42fffd5941cc9a3",
+    "legacy_documenter/cache/extraction_shards.py": "88682c684190a6289365d8f76508a272f407aa1b3d099594ade5f727e4aa7875",
+    "legacy_documenter/cache/extraction_store.py": "38eca4ef8f812c5aa90de068baf44480ac1ee76fa93816e602e263510988d745",
+    "legacy_documenter/cache/file_state.py": "8b8ca84eb9bc53115bdff7caf144c5bfcb45482ce273d92c6f23ea87a4ee36a2",
+    "legacy_documenter/cache/identity.py": "ad0599730ffd82df424e095daaff7cd9d79c94528af9241557971966068a9ab7",
+    "legacy_documenter/cache/manifest.py": "7a407bf839ee06bb4cf9944f361c415a8313196845bd7fc75a4cc7be086b981e",
+    "legacy_documenter/cache/options.py": "19b77d68c6610bd2fb96c975e851d2793e95df9ac7dfc2537526bdb241db6363",
+    "legacy_documenter/cache/run_metrics.py": "31a82990e08ebcd33cb44206018b59386331744f9c2124cdfeea5b3fec733ed9",
+    "legacy_documenter/cache/run_report.py": "f39f5cb7f51cbd09c547077eb59fe21d42011e6d7e5db6c3ed01e442320d5c30",
+    "legacy_documenter/cache/scope.py": "3e4ac7e663416a82c45e985f6fc129d9d31c3950af4eee83ce0542d2b7d09f2f",
+    "legacy_documenter/cache/session.py": "0ff1bcd168566699cd7ee380ee26e265cd8cb51eb8ba2ebad418eb2ba5bb542b",
+    "legacy_documenter/cache/store.py": "b91efddde07bc307ba90eb31a74ca08b3190afe46b9c013825175b45e30f016f",
+    "legacy_documenter/cache/verify.py": "09d58fcbcb73e9a1bf4b4214f34a04d2385f22c3482d64ce2b04c05dd121ee0e",
+    "legacy_documenter/cache/__init__.py": "de2979f5decdc4225d4771f78156c4d0af5954cda0ed4606d2b176bc4903a65e",
+    "legacy_documenter/cli/artifact_lifecycle.py": "5db1e3df4c6836530ad5f3d835ecf568bd23774dd97916f595902c95e22e3b21",
+    "legacy_documenter/cli/execution_model.py": "c59165ba0bbe8a870d76e1167b5692a3f3788106829bbf330722e705287fa6d5",
+    "legacy_documenter/cli/full_pipeline.py": "e4851e5a1396ea23d9b6fc953c9ca0b23f6079a554328309f7380e5b854cc987",
+    "legacy_documenter/cli/output_manifest.py": "c31ec883f4de08f4589008df20a7a09db7e4a9d15b924b5c419466a17bf34411",
+    "legacy_documenter/cli/parser.py": "a6dd57741e8d49fef27754e4316ffe57b2b056b8aaccab530143963e42d69fa5",
+    "legacy_documenter/cli/pipeline_stages.py": "3cf01bd07565bf9a17d13af7aa05f33e28f0c8f794fd4fb6465820d362124dcb",
+    "legacy_documenter/cli/router.py": "b23af35a2d390d7e7ae6c0d213e524d560d58bbbcda555b9c8166d0b06b23aa7",
+    "legacy_documenter/cli/run_summary_presenter.py": "39e9e0fc1a0710d9d6cbf6706cb7f647c4fe8978f6c003eaeab3a50cc4960a71",
+    "legacy_documenter/cli/serialization.py": "43495476240a1f69e458707371fa7c64cdedcdacb3c1ebf55b777be4f347a683",
+    "legacy_documenter/cli/stage_identity.py": "02012eb2db912090896fb32b857920bc7b10ac443fa822f5a73f8271ac390f59",
+    "legacy_documenter/cli/__init__.py": "99310a7ebb5150ad63006e1fb433fe7fcb327aa3359430e800a8ce29d06147d6",
+    "legacy_documenter/context/ai_projection.py": "96a95cc92c46e98ecbf43b0c36d7033311fa463dc0d09bf77d84a6923487cd7c",
+    "legacy_documenter/context/composer.py": "1a0050b70346669ffb6bfd325fc4e50a43a338168ccd0c602c624dcf091630e4",
+    "legacy_documenter/context/consumer_projection.py": "4caf2be84bd5d4d2a976ebe3d0d6bbe65fa3ee19828417e96baa84c4f55814fe",
+    "legacy_documenter/context/context_builder.py": "596f7f7ba549ce5e34ad0c7bcf832cccde431e94bc8e7a9423f7d5dffd6d1e75",
+    "legacy_documenter/context/hydration.py": "07c769df0ed1de6994217f41121ce054156012914ce6581491978f5ad436f3ed",
+    "legacy_documenter/context/hydration_view.py": "45d2b810e38412d6e51667c4bd20504be33f5e9deb28afdd48d0b057f5eaa502",
+    "legacy_documenter/context/request_budget.py": "63b00d5e79565dc1f4342b15b20201047f290e01c106ac37cbd20d46935e9917",
+    "legacy_documenter/context/resolver.py": "c9825f456427a4c03a6fc82c36c70888ca32b315c6b4af08866186a287c6a34d",
+    "legacy_documenter/context/system_context_builder.py": "d594d9a07e62f644788036ec2a1661d646ad7fa1672bc1f7caf10f5f7ef70a3c",
+    "legacy_documenter/context/__init__.py": "234c0260a40650dd52f5edd9acf7e90bb5500eef3ad9f76baa431c8b00549736",
+    "legacy_documenter/documentation/aggregation.py": "8fada94f7093b4f68202425332759e91f1a198cd850598039cb169a714256887",
+    "legacy_documenter/documentation/consistency.py": "94434e9393d505807a32dee67e6258e4385d89b1ae23a1b90d3afc674ada0c5b",
+    "legacy_documenter/documentation/consistency_run.py": "83652de2fafbda4c8bc774582643d88719d64e07187d50dd0c0d9d096179895b",
+    "legacy_documenter/documentation/contracts.py": "377d37353b53407593a95a64cf61dc08d029300829416d6ebc9e4be79a62bc72",
+    "legacy_documenter/documentation/coverage.py": "f711356647c01cb774073691a45133b72996938d614e4a3547db51338bdbc794",
+    "legacy_documenter/documentation/envelope.py": "ba4b0ba66dc8bba088723cc64302fbdf1f90cbfc8f5a86b9f5522e53d9123c7b",
+    "legacy_documenter/documentation/evidence_catalog.py": "85145fbb3a83edde15f84508cf94b3c7ef80eb3c55ffe1b94e04ea5ab7ae668e",
+    "legacy_documenter/documentation/evidence_resume.py": "8645a96eca0618bf1d86289b57d7995cc4cedc9dfc405d5de226a11b14f362dd",
+    "legacy_documenter/documentation/generator.py": "46d2ff49ddaf6f7cf7536e1ecfafd5ea9f55493b8e7e83b3062f81315b8e00a4",
+    "legacy_documenter/documentation/hierarchical.py": "ea12623fd64af9dd43627c5b47c0e7ebac69ead1eda014010fe95c62c0b19d35",
+    "legacy_documenter/documentation/human_documentation_scaling.py": "5fed86d6d9da68f22bf0805a3b913ddae436c0687b9724fc959c1515132ed1a9",
+    "legacy_documenter/documentation/human_flow_documentation.py": "283d744608719c3d5a43cef32552e15561e2e5c4de81ef0a5e3454a8fba63daf",
+    "legacy_documenter/documentation/human_review.py": "c22fcec5fa5172bbadd93a304fd3627d24a0313d2af0c919dcb72f4a7bd53d9a",
+    "legacy_documenter/documentation/interpretation.py": "b90566a26a19a9f5ee0b3c01601d4e268f8cad561b968bc9e25c58fd416b8e6c",
+    "legacy_documenter/documentation/renderer.py": "1cad3b2b55f2a0f1d1a0340aad6c2259649c2deb96e511cc202be00508656a36",
+    "legacy_documenter/documentation/resume.py": "b1916cf660bcc695b62dbdf0fa49bc43f71254dfa49d75283fbce925761c77a7",
+    "legacy_documenter/documentation/second_review.py": "99f18393420eadf84c80d4d0e9af23e2e7c4d840c3e9f1c64a7087783f784bd0",
+    "legacy_documenter/documentation/synthesis.py": "920233c99b76a62e4054cc4b4917902fde7ce11aa68195057affa1911b544067",
+    "legacy_documenter/documentation/systematic.py": "15e0d3c2163b9808b509705c4e08e57c998e3b67a109adc6c83e33b8c29e4e3d",
+    "legacy_documenter/documentation/__init__.py": "9bb2b4745606b5e960a33f2a6b29d4d0b156bf608c223c30132960d2a37c79b8",
+    "legacy_documenter/documentation_v52/categories.py": "9e2c5f9f2608d08d32f6aa68daa0653eecefb1cf9e986e82d1eee95e1941395e",
+    "legacy_documenter/documentation_v52/config.py": "f3cad1ba16a62fe937366579ea54beccdcdb7c508f4dc934cd0eb04d92276e07",
+    "legacy_documenter/documentation_v52/engine.py": "1ba5f14063aa035ff940c38efab8842ee05f8a4f3e56fce96dd41cab54734dc9",
+    "legacy_documenter/documentation_v52/noise.py": "19c8905ea9c5034b99ce6dfc1ec05e717877439e7b69f588e6ce38f75041071d",
+    "legacy_documenter/documentation_v52/renderer.py": "14964c512fa8b7d36331a2b91c19767e8b67815aae593f1f02e56da2fcf9b47e",
+    "legacy_documenter/documentation_v52/structure.py": "9edcb32bcafa084e33300e053d221d0aa7248588bab6a75e8e20a2455dfae70a",
+    "legacy_documenter/documentation_v52/template.py": "de1a100ae2f00c5beda330a5a38acaa32330a94791d2cc992eb6fefd406d1a3f",
+    "legacy_documenter/documentation_v52/transform.py": "0a7bfd09f257a2d073e7e06aa81325347e435a098f5a20cedae64b62972a2203",
+    "legacy_documenter/documentation_v52/writer.py": "b135736c6c16b7610e597619c5940ddf6a0e7789bbdd5d1829c67c30a09f115e",
+    "legacy_documenter/documentation_v52/__init__.py": "3e6bcc6ea461e6163b489a0bbca86dfbc1f4d2b0da8f7fbeb03a7353aa9ab2e3",
+    "legacy_documenter/evidence/builder.py": "52d640f7e3c4332bcb881238348501f896574d3548388b930922142c2afd186e",
+    "legacy_documenter/evidence/bundle.py": "88d6e0b791d2d58ef902ae2c043dec80f0e1ad3843dbfcbaa48104d46922a4e8",
+    "legacy_documenter/evidence/entities.py": "d94711ac8ca6b52073701821b6dcbe34895dae3ed2b107b4a4a23ae4e7f8c992",
+    "legacy_documenter/evidence/identity.py": "4c2358c0acff6b410f2cf256f0c6aa60b56459340f63b217035dd7991a880581",
+    "legacy_documenter/evidence/invariants.py": "c8f822375dea811d3c3cf34d9704c6fea9e94908b8a847959c9a4f17353b429f",
+    "legacy_documenter/evidence/persistence.py": "4bbd66e35b5dd6ea75464e4c8bddb821caab4033e3cfd681fbcba2166985d270",
+    "legacy_documenter/evidence/projection.py": "bdbb89466141a7b60cc65112de0303eb32c6753d71f950c8b3374699efcc0e3a",
+    "legacy_documenter/evidence/reference.py": "cd951504abe9018281986873bffda26be8dee3aad542291f271083e09bd82ca5",
+    "legacy_documenter/evidence/__init__.py": "17ddf3422b587811f32e5c6bf9de4bc72383738de78204803877468deb728ae3",
+    "legacy_documenter/exporters/json_exporter.py": "7a0084bdd7bb2daf7f55bde91cca9f6f4950efa90f5daf6c4bc53159f158502e",
+    "legacy_documenter/exporters/markdown_exporter.py": "c5158c09e33f4d85de4e75207ba9b4ae4bde335bd33b23373fd771b3fbc135f7",
+    "legacy_documenter/exporters/technical_documentation_renderer.py": "05c1c6469cea378161ed8e8a289288624a0a572d3fd332cde74c694eda16bd7a",
+    "legacy_documenter/exporters/_documentation_partitioning.py": "57aee209d3bb6149f5bb0b5fdef86e1beabc5d802122db056d1e1cf757a81c19",
+    "legacy_documenter/exporters/__init__.py": "d7044b95ae485bc4864754c891b28fe0af6c617b2a6b9111127db87a456274ad",
+    "legacy_documenter/extractors/call_extractor.py": "f07c17fbbd3df8267c16ff24c54d7d1d370ec896257528945387713232741ba4",
+    "legacy_documenter/extractors/database_extractor.py": "470c2dab855d03be52d60499502836b81c58de4d6e13483ce48b2baa1c4ce5ac",
+    "legacy_documenter/extractors/solution_extractor.py": "d7d44fa48d053d011aa8d79ed776beea536811a26d9ce1837070f149030c46f4",
+    "legacy_documenter/extractors/vbnet_extractor.py": "2435e26e3a32edef236434f14e572e181d40613a347a1ccc03d9a4f7fc4f9e0e",
+    "legacy_documenter/extractors/vbproj_extractor.py": "37a61250fcb5adecdac4a64036e5ba2ffa8289b9a186c0c3af5187e552b6caee",
+    "legacy_documenter/extractors/webconfig_extractor.py": "f145815a3f177e90cbb1216205a5e9881ecfe871507fba1f1ea5aa78702aada8",
+    "legacy_documenter/extractors/webforms_extractor.py": "c8ee758ef48a2aa955096eaab8c361c8fe75831b3c0a2a4120850699b9f1d8fe",
+    "legacy_documenter/extractors/web_event_extractor.py": "5b524858c3926d945068c983ccad03cdc79e147e381a59ec9128459456e3540e",
+    "legacy_documenter/extractors/_database_classification.py": "90e44e400e7d5fbc9b49ba8ff418ec8be80af15bbe7193a307536674d7dad85c",
+    "legacy_documenter/extractors/_database_line_scanner.py": "a1958b0bd6f5f135f46c229ed258a6487a13d079e32500f8a24ae9fb50d4ecb9",
+    "legacy_documenter/extractors/_database_token_parsing.py": "b9b5664fddda8c4f454bc836810a6764281f398ffd7472d2b869d90effd2d3af",
+    "legacy_documenter/extractors/__init__.py": "f19661d5780e94656b37d4fffe4904653d1e818ec7560611f506ebafc9ede8fd",
+    "legacy_documenter/fingerprints/code.py": "cc598e6d8b4becc7e16b71fc1b3bff846828a978aea138b889471d3cc63e5e9a",
+    "legacy_documenter/fingerprints/configuration.py": "4d68dee0df949cf69d042ecc61e37b40fc218608ed29454104fc90ea5c74e191",
+    "legacy_documenter/fingerprints/extraction_contract.py": "926b64ed36406aacfb2132db613175289f1a07170a73cf1c110d43414c9d2732",
+    "legacy_documenter/fingerprints/semantic.py": "24691ba2420344555619c782401223890ed7d209587eb3fc6c0133f3f6eac802",
+    "legacy_documenter/fingerprints/templates.py": "db8835c03408952b7d253787c380227b18ef4bb7ec6c13509832eeef96610e7b",
+    "legacy_documenter/fingerprints/_common.py": "95da775a1a282a391275ce67175acef20d430d3d8cf8f2e0d25a480ccc3a2aef",
+    "legacy_documenter/fingerprints/__init__.py": "c198c646564f0325dbec152c028530ef45e91f3e4a62ec43d3624356d69cd098",
+    "legacy_documenter/knowledge/readiness.py": "2744ab4a192eac36f67600f90bb6769136b6002c99e366769c269cf680adc2e2",
+    "legacy_documenter/knowledge/_readiness_evidence.py": "ec02d2595896e5d4a3a92d377376539795a241678c7f6db880f20b7dc369b54f",
+    "legacy_documenter/knowledge/_readiness_io.py": "60f3c0398eebc4a612842900845cb7c11565d39c8acb8f66fcb9891d44f242f0",
+    "legacy_documenter/knowledge/_readiness_parsing.py": "c95d9163c25b23b179c4f23e75b69e9e463fce5e3d4e3a709d66464b0618fe90",
+    "legacy_documenter/knowledge/__init__.py": "bf4eef22e9198cb3f4c9d6ff6b36d93493b47b3b27ae14960893ac58023e0bde",
+    "legacy_documenter/llm/contracts.py": "62471a3dd5162b9a22ef38704e8176eb4a33e06bd5dd2e8a6addcd74449044f7",
+    "legacy_documenter/llm/copilot_pilot.py": "bb021883275856ffd13ada080e6d97642ad36deee1675f0e995379d3676dd0e5",
+    "legacy_documenter/llm/core.py": "82cb810fae3bc5b22db1e8106914be41443a89a2c0fbc5e49600951c990df4da",
+    "legacy_documenter/llm/fake.py": "fe771a8daaec4009d4d9e5cecdc69f87bcd371f4af70068a9b3821f3034d5f35",
+    "legacy_documenter/llm/identity.py": "8cc21034a8ef5af97424911212da62959cdb52f46126f04e7e974738dad517e9",
+    "legacy_documenter/llm/payload.py": "0aa9b51c5858881305ff060a172a6220b7b8c055704139bc62a801204802d5cb",
+    "legacy_documenter/llm/registry.py": "a549c9ce2b1a0a971df9a044f5ef0e74b47b5f57c8e3d3f2d6fd73868c0105ed",
+    "legacy_documenter/llm/security.py": "8f25f534d5152c8ffbe6d154e9150b86ac59ac22043594706d0f8041eb015e5f",
+    "legacy_documenter/llm/validation.py": "e5a546eb1aa3d4b767709589bdaf4e567e5b86e343e77a30b3260b64c9b8ecd4",
+    "legacy_documenter/llm/__init__.py": "9c4f2326318968ab89282cae7fa40b7eb8fcc4f8fc22a18a787d955cfdc53336",
+    "legacy_documenter/models/call.py": "1db20146a667b472d4c5ce7ebda9db01ddfd189ec4a29913025a179a564f68fd",
+    "legacy_documenter/models/dependency.py": "7bb96152598f384bd66ddf4c3cb392927bc8f4baea6767e4b9abb43d49381ed9",
+    "legacy_documenter/models/entry_point.py": "1cc1bbaa117e8e620cb58a583d48859c208fd1324453dc62bc52b6687318126d",
+    "legacy_documenter/models/evidence.py": "97f0dec97a4d5075255779dde8e5cc4ae15809d3c48a40f3a0162cd850312779",
+    "legacy_documenter/models/project.py": "f578a1bc6738888b6bdd805e43e24dac5b8609aeb2a6cfddef217bc0bd50f357",
+    "legacy_documenter/models/source_file.py": "942ed63c78fed0a8efd81c477386d6bebb855bccbc12576ae79969dffc2902eb",
+    "legacy_documenter/models/symbol.py": "910903f6b4e90d124becb1d7fe1656018895e8973805a0c485d136360ebfc457",
+    "legacy_documenter/models/webform.py": "6fb3cd108bdbfa6ceaf0429677bfaf75134ccebe01ac29725ad3561962b29cb2",
+    "legacy_documenter/models/__init__.py": "50967c5fb0678df0e0c9647bf3bf141ba17f8704f1b869d628c19658fc2e8b1a",
+    "legacy_documenter/orchestration/ai_interpretation.py": "8732aef1915073c658bbefdc3791ffecf236a2c02b93e55f0f1b42c5c5faad4e",
+    "legacy_documenter/orchestration/proposal_adapter.py": "e8f5258561b3dd5d8fd18dcf06cce2af09aba5047e0541fe1b12173fc705c841",
+    "legacy_documenter/orchestration/_run_evidence_io.py": "542ad6f3bdf24f822337d33da0aa9a38c9d1d4915130f5d4b160f204d50e0ed2",
+    "legacy_documenter/orchestration/__init__.py": "4a549fe880285eaefb1ac538cecabb874052ad34069c8ea47b41bec1be7de47d",
+    "legacy_documenter/quality/maintainability_audit.py": "d6bea9b02cb842e0390f1b08b7e552eeca5062c6ab14ad14e03dc9574cbf261f",
+    "legacy_documenter/quality/__init__.py": "95945b08b0099a6faab2ed037470b58d29bb24107026a0bb2ed64033b651a703",
+    "legacy_documenter/scanner/file_classifier.py": "91e4b01b7e0016092fa311353ddb600b69dbe7316e8a2569d59a717d9171f042",
+    "legacy_documenter/scanner/repository_scanner.py": "50f44bf2311ffb922c939480e312116f11d60073833e224f40959816c2cccaa0",
+    "legacy_documenter/scanner/__init__.py": "428bb09db51bf858c9e9316338299454d61fae88d3b9a3b28fcfbd89fe90bddc",
+    "legacy_documenter/utils/atomic_write.py": "9282e12a9e75baeac6b6cfcff39bea7694c34d5498be6faf7449e45566f9c901",
+    "legacy_documenter/utils/json_rendering.py": "abf773e1fd27b0ee401a6c54fb6ba0df8fecf381358b0b7dd2ae7952b1c3ad1f",
+    "legacy_documenter/utils/path_limits.py": "ec61de22a97900e93413a8d8cbf362d0101df87e66b37b08b470f04365b2fe9d",
+    "legacy_documenter/utils/sanitizer.py": "deb1368e23de0c274e2eedfb20b85a77a17fb7cecf96272e27da4a733e0be3f8",
+    "legacy_documenter/utils/stage_timings.py": "2d4cf30b3c8cc517c98018117447068b5a45543799e8c3415b347205108b1a8a",
+    "legacy_documenter/utils/write_if_changed.py": "d313bf6d913bdcd440f85895c9c2e44c7f28437e490b427ead2dee9f5689a204",
+    "legacy_documenter/utils/write_policy.py": "c0c50296614edb4ea9a5b58bae74c4b284d55d1b2300533e9b1e8f98393b96d6",
+    "legacy_documenter/utils/__init__.py": "526ddf09c6b4894cd7a554b82fc343e6af1a8d03519bd8fdc33cc8e585159b29",
+    "legacy_documenter/llm/providers/copilot.py": "b3586a00abb759381fa8fee2ba4025368f5d2b6a1e0c5a2757d06ba0ace5eea8",
+    "legacy_documenter/llm/providers/gemini.py": "0aa823a92a343a6d727d9968ec69605f03a7e6983ce6d13628100c4c898dd9d8",
+    "legacy_documenter/llm/providers/__init__.py": "4b6626dec64253bbd8a739e7e86976259cc3b0ed62d9612c36f861d14754b79d",
+    "legacy_documenter/knowledge/approval/contract_report.py": "37c34469ec3350425b0fc8d180454f4ce01416e49f45d56b5a9303336e944978",
+    "legacy_documenter/knowledge/approval/enums.py": "b29c7f7f979cce656366409cab532acbc8f962a1833d9dbf4e8e1d56734598bc",
+    "legacy_documenter/knowledge/approval/example_report.py": "9638e9dc577f2b088a5a5f5ad11012d03aa88b0baf1fb82dfd8e9749adda8f1a",
+    "legacy_documenter/knowledge/approval/models.py": "c4fffa7d8ea7af6df0b00d66a6f92d9434b082681b416997729d5bb7e3669c2d",
+    "legacy_documenter/knowledge/approval/service.py": "f0400342175ab3bf77d5800384e60ac3073e53ccd285cfda214ad7c82ca4175f",
+    "legacy_documenter/knowledge/approval/__init__.py": "4d4a7e5c3d292591a9fb258b67a12733c2c01b6a4c06914e8414ce2f93ba83da",
+    "legacy_documenter/knowledge/canonical/contract_report.py": "1f04e19234de1fa937c1de4ad0189c18f539f124ebc052831f8a88a33adb81fe",
+    "legacy_documenter/knowledge/canonical/example_report.py": "22c985f3e92e2c882e36195bb649baf9a4eb314d5481c6e355f2683446220972",
+    "legacy_documenter/knowledge/canonical/models.py": "2fa618dda93a9f93fa1c518038a5a7ab5e1e344042d34ae5ae46a0a996188aca",
+    "legacy_documenter/knowledge/canonical/service.py": "ce2ccfe35f1f936ebcb6f4b09b5975e72e8a3448b26256638ca1e52205526588",
+    "legacy_documenter/knowledge/canonical/__init__.py": "bc3b49b938daca6015e5ef00127fb256f32cc94134eea18637f8dc3ffb1630a1",
+    "legacy_documenter/knowledge/classification/catalog.py": "09ff9d8be79525526cd05d8452d702100b6131fe2cbdaa098fe590accba8115e",
+    "legacy_documenter/knowledge/classification/contract_report.py": "f6a3af95115a8c85732b211675373ca4e6d73867ff0ab96596cc26d985d9d9ca",
+    "legacy_documenter/knowledge/classification/enums.py": "5f381e3bb5338cc66f7ca00402cd4b7348671f23980c3359e3d1e022c23c917b",
+    "legacy_documenter/knowledge/classification/models.py": "cc835d112bc919236ecb319f819c40fa8a4b4e9c9fe96a81eaf261f8e5853cd8",
+    "legacy_documenter/knowledge/classification/service.py": "6d36131140ebdb30f0d342a88d91967222b0c489e78fb2bba58d4830583f4d0f",
+    "legacy_documenter/knowledge/classification/__init__.py": "b0b6326b4b65bcab3af844ae4957f9b6805253e8a66f15356175fde7d92af035",
+    "legacy_documenter/knowledge/closure/artifact_hashes.py": "0e57b71f2eebfee92c57fe2c850a5794758db2bc9251c8f7c822165c7c0f4e2f",
+    "legacy_documenter/knowledge/closure/baseline_report.py": "492581bd53ad20d65bfea99a2131bcbd5d6326bca3dc8633946e6da8f5a2bf9b",
+    "legacy_documenter/knowledge/closure/maintainability.py": "65798dffb63479cbc4ef24a722645e3d06799336c3bd236bb493fd5854bf8980",
+    "legacy_documenter/knowledge/closure/manifest_report.py": "9fd1d2181333aedde8e77d6ec44e08cbd79e6927e27dfb2f763fb3f9c7aa61ff",
+    "legacy_documenter/knowledge/closure/__init__.py": "61a8206b22af88041932aff11d2de13f2c8557f368c445124e5dec5740386d7a",
+    "legacy_documenter/knowledge/domain/enums.py": "dd0a7a9dc1172b3fbe8ffb2c330f352885765e1bcf74550e681e3aae56ad4c09",
+    "legacy_documenter/knowledge/domain/models.py": "76c74b9d992f6460ecd5b3a0052a268803bafbcd816c86c47e5413c442f4d559",
+    "legacy_documenter/knowledge/domain/__init__.py": "a8520b0a166568a227ec60915cb08d628d2b36e85d9301dc0a49abc30037409b",
+    "legacy_documenter/knowledge/ingestion/contract_report.py": "dd77e867798653fab8dc06b54d1f1fe304c8e45804e5805bab19c55d3acb249b",
+    "legacy_documenter/knowledge/ingestion/models.py": "d1532743ec7af1c41ba1a1f97ec52415e7bdd4336bd1830e97dd9536a921dd4f",
+    "legacy_documenter/knowledge/ingestion/service.py": "b3c594cfe07c72c2c63da403f5d3bae3a266d85e6ac16dd1a52795d536506a52",
+    "legacy_documenter/knowledge/ingestion/__init__.py": "71b2e894d76404422a9eed3778ce3b9fe6361c87204dacffb1271712ac956897",
+    "legacy_documenter/knowledge/input/catalog.py": "5121d0a799d7e86973524a9042783424799a5c150801f5b6c0c1b7a6a77fe9c2",
+    "legacy_documenter/knowledge/input/contracts.py": "fa1dd505b49fec69f844af39e2eb406e2bb979b11b9304058790651309f6da07",
+    "legacy_documenter/knowledge/input/contract_report.py": "c333b09eb742e1c82e74e94c45b257c22f24265c7fb53ab8dfaff6ab72d45e26",
+    "legacy_documenter/knowledge/input/normalization.py": "1c8fea3f5bd7dd09626f964a9ae30ee78f00481e982226c088b78a0f07774e4d",
+    "legacy_documenter/knowledge/input/validator.py": "9b294f7837de82f7127624cd512b3022bb6ab702cee7d25a61e24b0cc5f6b1bd",
+    "legacy_documenter/knowledge/input/__init__.py": "905249d891ae2477f59a3832b36b7670d1146e15cdac236939e2d05d2d8f4fa6",
+    "legacy_documenter/knowledge/plugin_projection/contract_report.py": "5cc85350620f37027f5ec538ddad2a038649635bb4fbe31d7d2f2b374c5e5667",
+    "legacy_documenter/knowledge/plugin_projection/example_report.py": "62987d34cc502f5ba24481510b2ab8d5571fc769abc6c6c3a5281e0bcc924b78",
+    "legacy_documenter/knowledge/plugin_projection/models.py": "252805a40921e8d026691852e38d22311a2f0394524db11b4c6216a09f19cb9b",
+    "legacy_documenter/knowledge/plugin_projection/serializer.py": "bb69a0e345aaefa46610fc9bf3ceccea5443dea0232005231afa5dac5f4d26e5",
+    "legacy_documenter/knowledge/plugin_projection/service.py": "9cb134f7908de62ba616f8eaceca079291203caed26cc3ccc51157ba7857328d",
+    "legacy_documenter/knowledge/plugin_projection/validator.py": "d88452ace86a15a67e3561ccd5e1af564432fabe0626114890155ce29fce0571",
+    "legacy_documenter/knowledge/plugin_projection/__init__.py": "6011bbe1fcb258b0e79e77fbf064640308665956955c02b9a2f51e34eaec71fd",
+    "legacy_documenter/knowledge/projection/contract_report.py": "c5fc8a2de5c132cd086cdf2ad322407301103324509deb7f109f9503acbab456",
+    "legacy_documenter/knowledge/projection/disk_io.py": "4a1b2a182be9a8022465175d19565ef9767ad2590784a2b413136e89d5e28864",
+    "legacy_documenter/knowledge/projection/example_report.py": "dcda594df43e9ae2be061203434b542d438bb8f852ee4b636f231ebe302e5f49",
+    "legacy_documenter/knowledge/projection/markdown_renderer.py": "393b725d5c25fe3c8ca0dbaba55b917bd8537acaf8c9bc25b29a29c600e7d555",
+    "legacy_documenter/knowledge/projection/models.py": "d0ce505b71607b94cc0fd37428bb8af3dec35a5ace4611bbae9468279e81e2c7",
+    "legacy_documenter/knowledge/projection/rules.py": "14e780b020e84494e95835ea4e0e154ec545c464d51787acd52703e8ed080874",
+    "legacy_documenter/knowledge/projection/service.py": "eb031db02ab21f18c19d7d29e8f6bdbac8de40b5f65b4e05bf476d8eb8d551d5",
+    "legacy_documenter/knowledge/projection/__init__.py": "c12cc8b1a50c048d49280380fe56e3242f6045b7af303c7917af89db0c5f22ee",
+    "legacy_documenter/knowledge/proposals/contract_report.py": "f83c8f8870f70913c8dc06c243ad3c3823021764dc5b59f87c4f5b451ad3a2ee",
+    "legacy_documenter/knowledge/proposals/enums.py": "62235e79ffc2dd0b6f69c52da8cdfc0e750fd4c50e11e05e663fa5e15dd74d04",
+    "legacy_documenter/knowledge/proposals/example_report.py": "f92be5b2aa5b5781dd2d1573141632382cb1f8f5b2a04766079ace2d5432be1b",
+    "legacy_documenter/knowledge/proposals/models.py": "03368428b420e30e837bf6c3c4e865f8adfd6856ed3b26711bf237e70d1838b6",
+    "legacy_documenter/knowledge/proposals/service.py": "6cea58c749de44b0cde666169a1b5e22ab90e68f51c1d3ec2a01cd15eef2ce67",
+    "legacy_documenter/knowledge/proposals/__init__.py": "64c8898d83e082f6df36cea30d86aecf22297ce28094d5944cd887b93efc8357",
+    "legacy_documenter/knowledge/provenance/contract_report.py": "e9715772f84dad62a329d95621de11b18244797d8cd272be2713963b757e8e7c",
+    "legacy_documenter/knowledge/provenance/enums.py": "b70488480dfaf7b1bb764be6fe49e23dbef66729f0bc13e09691264ccdb1b3ff",
+    "legacy_documenter/knowledge/provenance/graph.py": "39e57fcc0cbb8b52397513725c0ef7ad93cd8ca2de082f05b3312eb12c25d2a0",
+    "legacy_documenter/knowledge/provenance/models.py": "e48da36e83f5df5148b5bc0a28a83237154449b59f4c86524db5293e711baef0",
+    "legacy_documenter/knowledge/provenance/__init__.py": "9233832c50742ac9b2e8540e5105a6678289ae5ae83435d3289cf3ddc8b3efff",
+    "legacy_documenter/knowledge/relations/contract_report.py": "c4d9d93b8d9e3ab2d3e2469ac1134d91fc5fd80cc0fc8d6161885a340bc467dd",
+    "legacy_documenter/knowledge/relations/enums.py": "dd81a2477190bd39d90254c94ac940efa3ef30e86b928cc1895fcedce2b4d0d1",
+    "legacy_documenter/knowledge/relations/example_report.py": "9e581e2b70decfef5786a4725989526f28e65d09a71b68a5aca4e1e637bdadde",
+    "legacy_documenter/knowledge/relations/models.py": "40764be4ac0bc5ef74ca2c5e44f572368ca3a6233988920d7ca8678d16cc240c",
+    "legacy_documenter/knowledge/relations/service.py": "f8547e07a523f16fb1bdf0ee7c016c2ece169d153bde5b670f30c37faf633737",
+    "legacy_documenter/knowledge/relations/__init__.py": "5ba5428dd7af20ae1739e4566d51d7d3a1a7f5f5fd04f87935590fb2ee2a5420",
+    "legacy_documenter/knowledge/temporal/contract_report.py": "2e43ff188439a684d0fbfd376c2eedbed199497a1b98daa1829ee8befd3cd499",
+    "legacy_documenter/knowledge/temporal/enums.py": "403b655eb5600a0d2c4fadb17756e1880e84a2fce50d5c95dbc1ea5ae101baac",
+    "legacy_documenter/knowledge/temporal/models.py": "11b113476da459119b42dc7bcd5779256cb77f1607f78e047f655de53ccd669f",
+    "legacy_documenter/knowledge/temporal/service.py": "a53af88a47ce74ae1a93a3b75dab2d16cf47da4e8e55bbc8c3b434a6b1355b16",
+    "legacy_documenter/knowledge/temporal/__init__.py": "bdeef874d21ea2462441719523882a742f3a21f20daae6c833597d6a6af74da9",
+    "legacy_documenter/adapters/vbnet_webforms_oracle/adapter.py": "724170c174159040de6d19703d9ff80c74c1ba3967ca242f97bb1ccb773f2a2c",
+    "legacy_documenter/adapters/vbnet_webforms_oracle/extraction.py": "a22a3b097ca05a97af6b90764db0e12d12396ad8ece740b80bfbd8190283e002",
+    "legacy_documenter/adapters/vbnet_webforms_oracle/normalization.py": "088aba1c1678bbc2757850bed3603cd2fcda5bab21bab1bb7bb99147d553abc7",
+    "legacy_documenter/adapters/vbnet_webforms_oracle/projection.py": "adccb14d830b617e8becfa1877efd08a86d77302da4df4e8360a4dc5d13bb377",
+    "legacy_documenter/adapters/vbnet_webforms_oracle/__init__.py": "169cb41afbbfa2613f907c67b22453bca343e671ce60c21cb757fb3c476603a5",
+    "legacy_documenter/adapters/vbnet_webforms_oracle/analysis/call_resolver.py": "24c7bab06af7f884bfc9cdd5bf0377db10d835fb8b8fdccbc75e469dd0aa0229",
+    "legacy_documenter/adapters/vbnet_webforms_oracle/analysis/database_resolver.py": "3981573f15bbe5fd4c5902b5d518933a792c86ad5d533bfd19ff83f8e5fb4a55",
+    "legacy_documenter/adapters/vbnet_webforms_oracle/analysis/dependency_resolver.py": "05c4d0a2bdbf1dcbd325c3100bc4710985d26bab70b362769a833f425422e13e",
+    "legacy_documenter/adapters/vbnet_webforms_oracle/analysis/flow_resolver.py": "781d4a38a7f45688a8d34458feca43e26b6fd22f8d172bb0edfc4e459b5c39f5",
+    "legacy_documenter/adapters/vbnet_webforms_oracle/analysis/web_entry_resolver.py": "e4bc34ae44511a51d982b277c5719aa4394437372cbbdc6b896390272553d780",
+    "legacy_documenter/adapters/vbnet_webforms_oracle/analysis/_flow_graph_construction.py": "5b61385f03b2bfde14beb4acaba4424673fe77b62d023286b5cfe8f4d5807888",
+    "legacy_documenter/adapters/vbnet_webforms_oracle/analysis/_flow_key_labels.py": "836c9b27befca96dca51880a53b5648f1b909b028bc70bc8211987c7897617dd",
+    "legacy_documenter/adapters/vbnet_webforms_oracle/analysis/_flow_report_composition.py": "5742998dfd9836fa2350abdaf89d3f9d2f39dda5e544bf09662606be8e16807e",
+    "legacy_documenter/adapters/vbnet_webforms_oracle/analysis/__init__.py": "c80f68e93cf7f108733dc7fd46ab3011966b6bee20896c959b78849185340dca",
+    "legacy_documenter/adapters/vbnet_webforms_oracle/extractors/call_extractor.py": "dc72ee9e7afa1d6aa3d6e65959a7cb1359f0a6f8556f9aa1cfabf5a208240d21",
+    "legacy_documenter/adapters/vbnet_webforms_oracle/extractors/database_extractor.py": "26e23ded2f5d2aa15d10ab7368753ff5d5c4761ab2e6c5a35a9dac56900f26f5",
+    "legacy_documenter/adapters/vbnet_webforms_oracle/extractors/solution_extractor.py": "e850f568ee129e47cd2a19d18a6bce4a5f75c02bfa7d44aa6be8b28344d66403",
+    "legacy_documenter/adapters/vbnet_webforms_oracle/extractors/vbnet_extractor.py": "b6d56e5414326cf216dbaf8cc3de7bdea8d4c000e7a0d8a5efe24fc609e7e285",
+    "legacy_documenter/adapters/vbnet_webforms_oracle/extractors/vbproj_extractor.py": "ab07c5631dc34f96ed096cc7d0ca5a654bda72db471c726d2c94529e3c913314",
+    "legacy_documenter/adapters/vbnet_webforms_oracle/extractors/webconfig_extractor.py": "757df59db8f6cf6f7e696723046e1f266ba546cc719f6613dd1cb7f564cb3acf",
+    "legacy_documenter/adapters/vbnet_webforms_oracle/extractors/webforms_extractor.py": "702f91724ccf08e5dcbda0549baa29cbb7755e6ad888e2e096331e82d9accfe2",
+    "legacy_documenter/adapters/vbnet_webforms_oracle/extractors/web_event_extractor.py": "1ae758accb15a66ea67fc2dc740db5e195c8d015c62078b935b179ba14dc3214",
+    "legacy_documenter/adapters/vbnet_webforms_oracle/extractors/_database_classification.py": "81d3603f543492f1d5a54ea3c0a598e17091f20c2cdde8cf046f48d6c35ff02f",
+    "legacy_documenter/adapters/vbnet_webforms_oracle/extractors/_database_line_scanner.py": "193c3a092d549f77a2067e8904f136a6c6184b1e16e3987394af0e3a214846b7",
+    "legacy_documenter/adapters/vbnet_webforms_oracle/extractors/_database_token_parsing.py": "b655536d74e1e2d7bc359ccbeac4d89e045a013cb9c15acebd9934d66a41c31d",
+    "legacy_documenter/adapters/vbnet_webforms_oracle/extractors/__init__.py": "c80f68e93cf7f108733dc7fd46ab3011966b6bee20896c959b78849185340dca"
+  },
+  "contract": {
+    "aliases": [
+      "AIProvider=LLMProvider",
+      "AIRequest=LLMRequest",
+      "AIResponse=LLMResponse"
+    ],
+    "provider_capabilities": [
+      "provider_id",
+      "model_id",
+      "context_window",
+      "max_output_tokens",
+      "structured_output",
+      "provider_version"
+    ],
+    "methods": [
+      "generate",
+      "capabilities",
+      "model_info",
+      "structured_generate",
+      "close",
+      "context manager"
+    ],
+    "structured_policy": "declared support; generic local JSON parsing; domain validation authoritative; no assumed native schema",
+    "registry": "instance-scoped registered factories; lazy implementations; unknown fails; Fake explicit",
+    "registered_production_types": [
+      "COPILOT",
+      "FAKE"
+    ],
+    "experimental_unregistered": [
+      "GEMINI"
+    ],
+    "retry": "no invocation retry; RATE_LIMITED/CANCELLED/timeout simulations; one context-profile reduction preserved",
+    "configuration_env": [
+      "LEGACYMAPPER_LLM_PROVIDER",
+      "LEGACYMAPPER_LLM_PROVIDER_ID",
+      "LEGACYMAPPER_LLM_MODEL",
+      "LEGACYMAPPER_LLM_TIMEOUT",
+      "LEGACYMAPPER_LLM_CONTEXT_WINDOW",
+      "LEGACYMAPPER_LLM_MAX_OUTPUT_TOKENS"
+    ]
+  },
+  "tests": {
+    "directed": {
+      "modules": [
+        "tests.test_v5_5_r1_generic_ai",
+        "tests.test_v3_r4",
+        "tests.test_v3_r6",
+        "tests.test_v3_r6_1",
+        "tests.test_v3_r7_1",
+        "tests.test_v3_r7_2_1",
+        "tests.test_v3_r7_2_2",
+        "tests.test_v4_3_pre_closure_copilot_provider_correction",
+        "tests.test_v4_2_r4_ai_interpretation_and_proposal_integration",
+        "tests.test_v4_2_r5_1_exit_code_contract_and_real_provider_guard",
+        "tests.test_v4_3_r5_ai_context_budgeting",
+        "tests.test_v4_3_final_ai_pilot_r2_context_budget_correction",
+        "tests.test_v5_3_r2_3_versioning_and_fingerprints",
+        "tests.test_v5_3_r2_4_cache_manifest_and_file_state",
+        "tests.test_v5_3_r2_7_scope_and_run_metrics",
+        "tests.test_v4_r13_regression_and_security",
+        "tests.test_v4_1_r0_maintainability_inventory",
+        "tests.test_v4_1_r2_models_types_and_public_contracts",
+        "tests.test_v4_1_r3_low_risk_naming_readability"
+      ],
+      "total": 580,
+      "failures": 0,
+      "errors": 0,
+      "skips": 0,
+      "duration_seconds": 247.212,
+      "success": true
+    },
+    "full_suite": {
+      "command": "python -X utf8 -m unittest discover -s tests",
+      "total": 2907,
+      "duration_seconds": 761.267,
+      "failures": 0,
+      "errors": 0,
+      "skips": 132,
+      "exit_code": 0
+    },
+    "post_closure_state_tests": {
+      "modules": [
+        "tests.test_v4_r11_human_readable_document_projection.EntryGateTests",
+        "tests.test_v4_r12_plugin_facing_machine_readable_output_contract.EntryGateTests",
+        "tests.test_v4_r13_regression_and_security.RepositoryContinuityStateTests",
+        "tests.test_v4_r14_manuals_and_final_baseline.EntryGateAndContinuityTests",
+        "tests.test_v4_r14_manuals_and_final_baseline.DeterminismTests",
+        "tests.test_v4_r14_manuals_and_final_baseline.NoProviderOrLlmCallsTests",
+        "tests.test_v4_r14_manuals_and_final_baseline.AgentNeutralContinuityTests"
+      ],
+      "total": 20,
+      "failures": 0,
+      "errors": 0,
+      "skips": 0,
+      "duration_seconds": 0.682,
+      "success": true
+    }
+  },
+  "ist_ai_off_reuse": {
+    "official_source_count": 15138,
+    "source_sha256": "77965c64c7e204d39dc06a9451076df07a4b400e2bd41372fff2bab7fcd792e5",
+    "source_unchanged": true,
+    "baseline_v54_rehashed": true,
+    "r1_output_rehashed": true,
+    "production_matches_r1": true,
+    "new_real_pipeline_runs": 0,
+    "real_provider_calls": 0,
+    "real_llm_calls": 0,
+    "provider_resolution_attempts": 0,
+    "r1_ai_requested": false,
+    "r1_ai_invoked": false,
+    "cache_v54_valid": true,
+    "cache_v55_valid": true,
+    "fake_artifacts_verified": true,
+    "fake_grounding_verified": true,
+    "fake_new_requests_r3": 0,
+    "fake_r1_request_count": 1,
+    "fake_review_pending": true,
+    "fake_canonical_knowledge": false,
+    "fake_fixture_path": "tests/fixtures/v4_2_r3_sample",
+    "performance": "REUSED_R1_NO_RECALIBRATION"
+  },
+  "canonical_comparison": {
+    "contract": "LegacyMapperFullIncrementalComparison",
+    "schema_version": "1",
+    "files_compared": 47523,
+    "matched": 47523,
+    "equal": true,
+    "added": [],
+    "removed": [],
+    "changed": [],
+    "file_counts": {
+      "reference": 47523,
+      "candidate": 47523
+    },
+    "total_bytes": {
+      "reference": 2828066791,
+      "candidate": 2828066791
+    },
+    "excluded": {
+      "files": [
+        "RUN_SUMMARY.json",
+        "RUN_SUMMARY.md",
+        "index/repository.json"
+      ],
+      "directories": [
+        "_cache_v53"
+      ],
+      "reference": [
+        "RUN_SUMMARY.json",
+        "RUN_SUMMARY.md",
+        "_cache_v53/",
+        "index/repository.json"
+      ],
+      "candidate": [
+        "RUN_SUMMARY.json",
+        "RUN_SUMMARY.md",
+        "_cache_v53/",
+        "index/repository.json"
+      ]
+    }
+  },
+  "original_ist_ai_off": {
+    "ai_invoked": false,
+    "ai_requested": false,
+    "metrics": {
+      "cache_controls": {
+        "incremental_max_changed_ratio": null,
+        "location": "internal",
+        "observed_changed_ratio": null,
+        "relative_dir": "_cache_v53",
+        "requested_mode": "auto",
+        "trust_mtime": {
+          "enabled": false,
+          "files_hashed": 15138,
+          "files_trusted": 0
+        },
+        "verify_cache": "fast"
+      },
+      "cache_verification": "byte_compare",
+      "completed_at": "2026-10-07T14:46:35+00:00",
+      "contract": "LegacyMapperRunMetrics",
+      "extraction_cache": {
+        "assemble_seconds": 0.008,
+        "cache_size_bytes": 263096270,
+        "extraction_cache_bypass": 42,
+        "extraction_cache_enabled": true,
+        "extraction_cache_hits": 0,
+        "extraction_cache_misses": 8106,
+        "extraction_seconds": 63.109,
+        "files_extracted": 8106,
+        "files_reused": 0,
+        "load_seconds": 0.0,
+        "parse_seconds": 0.0,
+        "persist_seconds": 12.076,
+        "reuse_disabled_reason": null,
+        "shards_invalid": 0,
+        "shards_loaded": 0,
+        "shards_rewritten": 256,
+        "validate_seconds": 0.0
+      },
+      "extraction_postprocess_seconds": 0.025,
+      "fallback_reason": "NO_CACHE",
+      "file_state": {
+        "added": null,
+        "deleted": null,
+        "diff_seconds": null,
+        "file_state_build_seconds": 22.017,
+        "files_total": 15138,
+        "line_ending_only": null,
+        "modified": null,
+        "renamed_candidates": null,
+        "unchanged": null,
+        "validate_seconds": 0.085
+      },
+      "final_status": "SUCCESS",
+      "hydration": {
+        "build_seconds": 0.067,
+        "distinct_flows_hydrated": 12642,
+        "hydrate_seconds": 0.968,
+        "hydrations": 12642,
+        "memo_hits": 12642,
+        "requests": 25284
+      },
+      "mode": "full",
+      "overhead_seconds": {
+        "scope_analysis": 0.004
+      },
+      "peak_memory_bytes": 2978402304,
+      "schema_version": "1",
+      "scope": {
+        "changed_files": {},
+        "external_project_references": 0,
+        "fallback_reason": "NO_CACHE",
+        "impacted_projects": {
+          "count": 0,
+          "items": [],
+          "truncated": false
+        },
+        "inventory_only_files": {
+          "count": 0,
+          "items": [],
+          "truncated": false
+        },
+        "mode": "full",
+        "reach": "bounded",
+        "reasons": {
+          "NO_PREVIOUS_STATE": 1
+        },
+        "symbols_in_changed_files": {
+          "files": {},
+          "total": 0
+        },
+        "transitive_projects": {
+          "count": 0,
+          "items": [],
+          "truncated": false
+        },
+        "unassertable": [],
+        "unknowns": []
+      },
+      "session_mode": "cold",
+      "stage_seconds": {
+        "CALL_RESOLUTION": 1.275,
+        "CONTEXT": 32.901,
+        "DATABASE_RESOLUTION": 1.611,
+        "DEPENDENCY_RESOLUTION": 0.48,
+        "DOCUMENTATION": 482.978,
+        "EXPORT": 59.365,
+        "EXTRACTION": 63.142,
+        "FLOW_RESOLUTION": 6.197,
+        "SCAN": 1.153,
+        "WEB_ENTRY_RESOLUTION": 1.08
+      },
+      "started_at": "2026-10-07T14:35:20+00:00",
+      "total_seconds": 672.357,
+      "versions": {
+        "analysis_config_fingerprint": "c7f85d508790428f08248acddddaae4d499ccf5d34f619d4f050a8e04d020afd",
+        "analyzer_code_fingerprint": "4f7600f0fa351674878d66940352e9569de2b0f620643a3124b5c94545eb1ec6",
+        "analyzer_version": 3,
+        "evidence_schema_version": "1.0",
+        "extraction_cache_schema_version": 1,
+        "renderer_versions": {
+          "ai_context": {
+            "contract_version": "1.0",
+            "model_version": "V2-R5",
+            "schema_version": "1.0"
+          },
+          "consumer_projection": {
+            "contract_version": "1.0",
+            "schema_version": "1.0"
+          },
+          "documentation_v52": {
+            "contract_version": "1"
+          },
+          "human_documentation": {
+            "flow_model_version": "V4.3-R3",
+            "flow_schema_version": "1.0",
+            "scaling_model_version": "V4.3-R4",
+            "scaling_schema_version": "1.0"
+          },
+          "hydration": {
+            "model_version": "V4.3-R3"
+          },
+          "legacy_markdown": {
+            "version": "1"
+          }
+        },
+        "template_profile_fingerprint": "7b5419b00c302af67b8fe2437aa0d3521f9d3c72e49ec62373c8ded9d2146ebf"
+      },
+      "write_skip": {
+        "ai_context": {
+          "bytes_generated": 279178592,
+          "bytes_written": 279178592,
+          "compare_seconds": 0.001,
+          "generated": 5,
+          "skipped_identical": 0,
+          "write_seconds": 0.388,
+          "written": 5
+        },
+        "consumer_projection": {
+          "bytes_generated": 198913444,
+          "bytes_written": 198913444,
+          "compare_seconds": 0.003,
+          "generated": 27,
+          "skipped_identical": 0,
+          "write_seconds": 0.369,
+          "written": 27
+        },
+        "context": {
+          "bytes_generated": 896897,
+          "bytes_written": 896897,
+          "compare_seconds": 0.0,
+          "generated": 1,
+          "skipped_identical": 0,
+          "write_seconds": 0.011,
+          "written": 1
+        },
+        "documentation": {
+          "bytes_generated": 66784080,
+          "bytes_written": 66784080,
+          "compare_seconds": 0.049,
+          "generated": 681,
+          "skipped_identical": 0,
+          "write_seconds": 4.492,
+          "written": 681
+        },
+        "evidence": {
+          "bytes_generated": 1057049755,
+          "bytes_written": 1057049755,
+          "compare_seconds": 0.002,
+          "generated": 25,
+          "skipped_identical": 0,
+          "write_seconds": 1.407,
+          "written": 25
+        },
+        "flujos_humanos": {
+          "bytes_generated": 159693893,
+          "bytes_written": 159693893,
+          "compare_seconds": 0.025,
+          "generated": 195,
+          "skipped_identical": 0,
+          "write_seconds": 2.202,
+          "written": 195
+        },
+        "index": {
+          "bytes_generated": 996416388,
+          "bytes_written": 996416388,
+          "compare_seconds": 0.002,
+          "generated": 22,
+          "skipped_identical": 0,
+          "write_seconds": 1.359,
+          "written": 22
+        }
+      }
+    },
+    "provider_resolution_attempts": 0,
+    "real_provider_calls": 0,
+    "registry_calls": 0,
+    "status": "SUCCESS",
+    "telemetry": {
+      "extras": {
+        "hydration": {
+          "build_seconds": 0.067,
+          "distinct_flows_hydrated": 12642,
+          "hydrate_seconds": 0.968,
+          "hydrations": 12642,
+          "memo_hits": 12642,
+          "requests": 25284
+        }
+      },
+      "stage_seconds": {
+        "CALL_RESOLUTION": 1.275,
+        "CONTEXT": 32.901,
+        "DATABASE_RESOLUTION": 1.611,
+        "DEPENDENCY_RESOLUTION": 0.48,
+        "DOCUMENTATION": 482.978,
+        "EXPORT": 59.365,
+        "EXTRACTION": 63.142,
+        "FLOW_RESOLUTION": 6.197,
+        "SCAN": 1.153,
+        "WEB_ENTRY_RESOLUTION": 1.08
+      }
+    },
+    "wall_seconds": 676.784
+  },
+  "fake_productive_e2e_reused": {
+    "artifacts": [
+      "proposals/AI_PROPOSALS.json",
+      "proposals/AI_PROPOSALS_PENDING_REVIEW.md",
+      "RUN_SUMMARY.json",
+      "_cache_v53/RUN_METRICS.json"
+    ],
+    "canonical_knowledge_produced": false,
+    "capabilities": {
+      "context_window": 16000,
+      "max_output_tokens": 2000,
+      "structured_output": true
+    },
+    "grounding": "ALL_REFS_IN_SENT_PACKAGE",
+    "metrics": {
+      "ai_config_fingerprint": "AICFG-f2dd88f82d351db79ed3e2dc01333d07982b208cfac1135a234a6811fdafde6a",
+      "budget_attempts": [
+        {
+          "completeness": "COMPLETE",
+          "input_token_limit": 14000,
+          "payload_estimated_tokens": 1649,
+          "profile": "SMALL",
+          "records_excluded": 0,
+          "records_included": 1
+        }
+      ],
+      "capabilities": {
+        "context_window": 16000,
+        "max_output_tokens": 2000,
+        "structured_output": true
+      },
+      "chars_per_token": 4,
+      "context_package_id": "AIP-b69f3841b1afd07716ac17d067915a33821aac7f72569dcdf5e5e337efe5b9e7",
+      "duration_seconds": 0.000844,
+      "error_category": null,
+      "estimation_method": "approximation: ceil(chars/chars_per_token)",
+      "failure_count": 0,
+      "input_token_limit": 14000,
+      "invoked": true,
+      "model_id": "offline-model",
+      "payload_bytes": 6596,
+      "payload_characters": 6596,
+      "payload_estimated_tokens": 1649,
+      "provider_id": "v55-r1-fake",
+      "provider_seconds": 0.000162,
+      "provider_version": "1.0",
+      "request_count": 1,
+      "requested": true,
+      "schema_included": true,
+      "selection": {
+        "budget_profile": "SMALL",
+        "completeness": "COMPLETE",
+        "records_excluded": 0,
+        "records_included": 1,
+        "records_selected": 1
+      },
+      "selection_package_seconds": 0.00042,
+      "success_count": 1,
+      "usage": {
+        "estimated": true,
+        "input_tokens": null,
+        "output_tokens": null,
+        "token_count_method": "context_estimate",
+        "total_tokens": null
+      },
+      "validation_seconds": 5e-06
+    },
+    "model_id": "offline-model",
+    "proposal_count": 1,
+    "proposal_review_status": "PENDING_TECHNICAL_LEAD_REVIEW",
+    "provider_closed": true,
+    "provider_id": "v55-r1-fake",
+    "provider_resolution_attempts": 0,
+    "real_provider_calls": 0,
+    "registry_calls": 0,
+    "request_count": 1,
+    "source_unchanged": true,
+    "status": "SUCCESS",
+    "technical_lead_approval": false,
+    "wall_seconds": 0.941556
+  },
+  "performance_sanity": {
+    "status": "PASS",
+    "baseline_wall_seconds": 657.367,
+    "current_wall_seconds": 676.784,
+    "wall_delta_percent": 2.95,
+    "interpretation": "small observational variation; deterministic source algorithms and outputs unchanged",
+    "real_model_benchmark": false
+  },
+  "security": {
+    "analyzer_fingerprint": "4f7600f0fa351674878d66940352e9569de2b0f620643a3124b5c94545eb1ec6",
+    "analyzer_version": 3,
+    "real_provider_calls": 0,
+    "source_count": 15138,
+    "source_sha256": "77965c64c7e204d39dc06a9451076df07a4b400e2bd41372fff2bab7fcd792e5",
+    "source_unchanged": true,
+    "v54_cache_still_valid": true,
+    "v55_cache_valid": true
+  },
+  "r3_real_provider_calls": 0,
+  "r3_real_llm_calls": 0,
+  "r3_new_fake_e2e_requests": 0,
+  "historical_fake_e2e_requests_r1": 1,
+  "debt": {
+    "BLOCKING": [],
+    "FUTURE_PHASE": [
+      "large orchestration and historical documentation algorithms",
+      "legacy offline model attribution in consistency_run.py; no provider invocation",
+      "Gemini UNREGISTERED; only Copilot production adapter",
+      "future providers, sophisticated retry, streaming/tools, segmentation, approval and plugins deferred"
+    ],
+    "OBSERVATION": [
+      "historical subprocess reader UnicodeDecodeError diagnostics; suite exit0",
+      "manual_verify_full_pipeline default finding has empty evidence_refs and yields PARTIAL; separate productive Fake validation uses current grounded refs",
+      "Default git diff --cached --check exits2 solely for an approved R1 blank line at EOF in context/request_budget.py:59. Production freeze preserved; command-scoped core.whitespace=-blank-at-eof check passes all other whitespace checks. No repository/OS config modified and no canonical comparison exclusion changed."
+    ]
+  },
+  "git": {
+    "base": "5e9085f0601db4ad68900bbbc523933c51fa5dd3",
+    "branch": "main",
+    "remote_preflight_sha": "5e9085f0601db4ad68900bbbc523933c51fa5dd3",
+    "commit_message": "feat(v5.5): add generic ai provider contract",
+    "single_commit": "AUTHORIZED_PENDING_EXECUTION",
+    "push": "AUTHORIZED_PENDING_EXECUTION",
+    "remote_verification": "PENDING_POST_PUSH",
+    "authoritative_post_push_receipt": "docs/V5/V5_5_R3_FINAL_VERIFICATION_AND_CLOSURE.md#recibo-final-post-push",
+    "tag": "TAG_NOT_CREATED_BY_INSTRUCTION",
+    "outputs_cache_temp_staged": false,
+    "v54_receipt_preserved": true,
+    "whitespace_checks": {
+      "working_tree_diff_check_exit": 0,
+      "default_cached_check_exit": 2,
+      "sole_diagnostic": "legacy_documenter/context/request_budget.py:59: new blank line at EOF",
+      "scoped_cached_check_command": "git -c core.whitespace=-blank-at-eof diff --cached --check",
+      "scoped_cached_check_exit": 0,
+      "persistent_config_changed": false,
+      "approved_production_changed": false
+    }
+  },
+  "next_version": "V5.6",
+  "next_round": "V5.6-R1",
+  "V5_6_READY_TO_START": true,
+  "v5_6_started": false
+}

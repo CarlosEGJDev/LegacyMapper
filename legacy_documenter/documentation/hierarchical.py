@@ -8,11 +8,9 @@ from legacy_documenter.documentation.interpretation import FUNCTIONAL_PROFILE,TE
 from legacy_documenter.documentation.synthesis import AssessmentStore,SynthesisPlanner,request_identity,expand_document
 from legacy_documenter.documentation.aggregation import evidence_closed
 from legacy_documenter.documentation.renderer import render
-from legacy_documenter.llm import ProviderConfig
-from legacy_documenter.llm.providers.copilot import CopilotProvider
-from legacy_documenter.llm.copilot_pilot import discover_model
+from legacy_documenter.llm.registry import resolve_documentation_provider
 
-def run(workspace="."):
+def _run(workspace,provider,holder):
  """Performs run while preserving this module's deterministic contract."""
  workspace=Path(workspace); root=workspace/"output"/"v2_r5_1_full"; planner=CoveragePlanner(root); coverage=planner.plan(); batches=planner.batches(coverage,8,35); synth=SynthesisPlanner(); out=workspace/"output"/"v3_r7_2"
  local_store=AssessmentStore(out/"LOCAL_ASSESSMENTS.json"); intermediate_store=AssessmentStore(out/"INTERMEDIATE_ASSESSMENTS.json")
@@ -24,9 +22,11 @@ def run(workspace="."):
    errors=prevalidate_request(request,schema,profiles[kind],p)
    if errors or p["statistics"]["estimated_tokens"]>5000: return {"status":"V3-R7_2_1_BUDGET_STRATEGY_FAILURE","calls":0,"errors":errors,"tokens":p["statistics"]["estimated_tokens"]}
    preflight.append(p["statistics"]["estimated_tokens"])
- try: model=asyncio.run(discover_model())
+ try: provider=provider or resolve_documentation_provider(max_output_tokens=3000)
  except Exception: return {"status":"V3-R7_2_1_BLOCKED_PROVIDER","calls":0}
- provider=CopilotProvider(ProviderConfig("COPILOT","copilot-local",model,max_output_tokens=3000,options={"timeout":120})); calls=0; reused=0; invalidated=0
+ holder.append(provider)
+ model=provider.model_info().model_id
+ calls=0; reused=0; invalidated=0
  def execute(kind,package,stage,store,max_claims=8):
   """Performs execute while preserving this module's deterministic contract."""
   nonlocal calls,reused,invalidated,model
@@ -35,12 +35,12 @@ def run(workspace="."):
   schema=_schema(profile,package,kind); schema["properties"]["claims"]["maxItems"]=max_claims
   errors=prevalidate_request(request,schema,profile,package)
   if errors or package["statistics"]["estimated_tokens"]>5000: raise ValueError("REQUEST_PREFLIGHT")
-  identity=request_identity(request,schema); cached=store.find(identity)
+  identity=request_identity(request,schema,provider); cached=store.find(identity)
   if cached: reused+=1; return cached["assessment_payload"],cached.get("model_id")
   invalidated += sum(1 for x in store.load() if x.get("context_package_id")==package["package_id"] and x.get("identity")!=identity)
   response=provider.structured_generate(request,schema); calls+=1; errors=list(response.validation_errors) if not response.parsed_output else _strict(response.parsed_output,profile,package)+([] if stage.startswith("LOCAL_") else _global_rules(response.parsed_output,package))
   if errors: raise RuntimeError("MODEL_CONTRACT:"+",".join(sorted(set(errors))))
-  store.persist(identity,response.parsed_output,"COPILOT",response.model_id,stage); model=response.model_id; return response.parsed_output,response.model_id
+  store.persist(identity,response.parsed_output,provider.model_info().provider_type,response.model_id,stage); model=response.model_id; return response.parsed_output,response.model_id
  local={"functional":[],"technical":[]}; all_assessments={"functional":[],"technical":[]}; all_packages={"functional":[],"technical":[]}; intermediate_counts={"functional":0,"technical":0}; depth_used={}
  try:
   for kind in profiles:
@@ -71,4 +71,11 @@ def run(workspace="."):
  index={"schema_version":"3.1.0","metrics":coverage["metrics"],"hierarchy_depth":depth_used,"cache":{"reused":reused,"invalidated":invalidated},"calls":calls,"max_request_estimated_tokens":max(preflight),"local_assessments":{k:len(v) for k,v in local.items()},"intermediate_assessments":intermediate_counts,"comparison":comparison}
  out.mkdir(parents=True,exist_ok=True); (out/"COVERAGE_INDEX.json").write_text(json.dumps(index,ensure_ascii=False,sort_keys=True,indent=2),encoding="utf-8")
  return {"status":"V3-R7_2_1_READY_FOR_HUMAN_REVIEW","calls":calls,"reused":reused,"invalidated":invalidated,"model_id":model,"hierarchy_depth":depth_used,"intermediate":intermediate_counts,"max_request_estimated_tokens":max(preflight),"documents":documents,"comparison":comparison}
+def run(workspace=".",provider=None):
+ """Legacy entry point with neutral provider injection and guaranteed cleanup."""
+ holder=[]
+ try: return _run(workspace,provider,holder)
+ finally:
+  if holder: holder[0].close()
+
 if __name__=="__main__": print(json.dumps(run(),ensure_ascii=False,sort_keys=True,indent=2))

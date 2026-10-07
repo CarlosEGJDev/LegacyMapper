@@ -49,8 +49,10 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 # V4.1-R6, after R5's characterization closed all eight open gaps and R6
 # authorized a narrow, low-risk extraction from each behind unchanged
 # compatibility facades -- see output/v4_1_r6/V4_1_R6_EXTRACTION_EQUIVALENCE.json.
+# V5.5 R1 authorizes resume.py's neutral provider boundary and AI reuse
+# identity. Its strict byte pin remains in the R2 test; V3 resume tests and
+# V5.5 boundary tests characterize it. The untouched analysis guard stays.
 HIGH_RISK_MODULES = [
-    "legacy_documenter/documentation/resume.py",
     "legacy_documenter/analysis/deep_source.py",
 ]
 

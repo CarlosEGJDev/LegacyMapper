@@ -143,7 +143,9 @@ class ProductionFileDiscoveryTests(unittest.TestCase):
         files = inv.iter_production_files(REPO_ROOT)
         # V5.4 R1 adds 33 modules: the adapter boundary, neutral evidence
         # bundle and neutral flow traversal. Historical artifacts stay frozen.
-        self.assertEqual(len(files), 256)
+        # V5.5 R1 separates seven AI contract/composition helpers and adds
+        # context/request_budget.py: eight new modules, 264 in total.
+        self.assertEqual(len(files), 264)
 
 
 class FileAnalysisTests(unittest.TestCase):
@@ -299,17 +301,16 @@ class GeneratedArtifactOnDiskTests(unittest.TestCase):
     def test_on_disk_inventory_matches_fresh_build_if_present(self) -> None:
         """Pin the complete live inventory; preserve the historical V4.1 artifact.
 
-        V5.4 R1 relocates 21 implementations and adds 33 modules. The former
-        historical exception list cannot describe that architecture. This
-        round's explicit snapshot checks every file and aggregate without
-        changing or regenerating the approved V4.1 baseline.
+        V5.5 R1 separates the AI provider/context boundary into eight new
+        modules. Its explicit snapshot checks every file and aggregate;
+        approved V4.1 and V5.4 inventories remain historical and unchanged.
         """
         historical = REPO_ROOT / "output" / "v4_1_r0" / "V4_1_MAINTAINABILITY_INVENTORY.json"
         if not historical.exists():
             self.skipTest("V4_1_MAINTAINABILITY_INVENTORY.json not yet generated")
-        path = REPO_ROOT / "docs" / "V5" / "V5_4_R1_MAINTAINABILITY_INVENTORY.json"
+        path = REPO_ROOT / "docs" / "V5" / "V5_5_R1_MAINTAINABILITY_INVENTORY.json"
         snapshot = json.loads(path.read_text(encoding="utf-8"))
-        self.assertEqual(snapshot["round"], "V5.4 R1")
+        self.assertEqual(snapshot["round"], "V5.5 R1")
         self.assertFalse(snapshot["historical_artifacts_modified"])
         self.assertEqual(report.build_inventory(REPO_ROOT), snapshot["inventory"])
 

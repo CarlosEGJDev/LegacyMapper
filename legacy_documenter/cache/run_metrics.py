@@ -118,6 +118,10 @@ def build_run_metrics(
         "peak_memory_bytes": peak_memory_bytes(),
         "overhead_seconds": overhead_seconds,
     }
+    ai = stage_snapshot.get("extras", {}).get("ai")
+    if ai is not None:
+        from legacy_documenter.llm.security import safe_diagnostic_data
+        document["ai"] = safe_diagnostic_data(ai)
     return sanitize_data(document)
 
 

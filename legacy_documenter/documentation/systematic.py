@@ -7,9 +7,7 @@ from legacy_documenter.documentation.generator import _request,_schema,_strict,p
 from legacy_documenter.documentation.interpretation import FUNCTIONAL_PROFILE,TECHNICAL_PROFILE
 from legacy_documenter.documentation.aggregation import hierarchical_aggregate,evidence_closed
 from legacy_documenter.documentation.renderer import render
-from legacy_documenter.llm import ProviderConfig
-from legacy_documenter.llm.providers.copilot import CopilotProvider
-from legacy_documenter.llm.copilot_pilot import discover_model
+from legacy_documenter.llm.registry import resolve_documentation_provider
 
 def _package(kind,index,units,snapshot,metrics):
  records=[{"ref":"COV-SYSTEM-METRICS","category":"SYSTEM","priority":"P0","fact":metrics,"source_type":"DETERMINISTIC_CODE_FACT"}]+[{"ref":u["unit_id"],"category":u["category"],"priority":u["priority"],"fact":u["fact"],"source_type":"DETERMINISTIC_CODE_FACT"} for u in units]
@@ -33,7 +31,7 @@ def _global_rules(result,package):
  for c in result.get("claims",[]):
   if c.get("status")=="CONFIRMED" and any(records[r]["fact"]["status"]!="CONFIRMED" or records[r]["source_type"]!="DETERMINISTIC_CODE_FACT" for r in c.get("evidence_refs",[]) if r in records): errors.append("global status promotion")
  return sorted(set(errors))
-def run(workspace="."):
+def _run(workspace,provider,holder):
  """Performs run while preserving this module's deterministic contract."""
  workspace=Path(workspace); root=workspace/"output"/"v2_r5_1_full"; planner=CoveragePlanner(root); plan=planner.plan(); batches=planner.batches(plan,count=8,max_records=35)
  previous={k:_previous(workspace/"output"/("LEVANTAMIENTO_FUNCIONAL.md" if k=="functional" else "LEVANTAMIENTO_TECNICO.md")) for k in ("functional","technical")}
@@ -44,9 +42,11 @@ def run(workspace="."):
    if len(p["records"])>35 or p["statistics"]["estimated_tokens"]>5000: return {"status":"V3-R7_2_BUDGET_INSUFFICIENT","calls":0,"package":p["package_id"],"records":len(p["records"]),"tokens":p["statistics"]["estimated_tokens"]}
    profile=FUNCTIONAL_PROFILE if kind=="functional" else TECHNICAL_PROFILE; request=_request(profile,p,kind); request.user_instruction += " Produce at most 5 high-value claims and at most 3 MissingInformation items. V2 lookup has already completed for this coverage unit; ask only for genuinely absent or ambiguous facts."; schema=_schema(profile,p,kind); schema["properties"]["claims"]["maxItems"]=5; schema["properties"]["missing_information"]["maxItems"]=3
    if prevalidate_request(request,schema,profile,p): return {"status":"V3-R7_2_REQUEST_CONTRACT_FAILURE","calls":0}
- try: model=asyncio.run(discover_model())
+ try: provider=provider or resolve_documentation_provider(max_output_tokens=3000)
  except Exception: return {"status":"V3-R7_2_BLOCKED_PROVIDER","calls":0}
- provider=CopilotProvider(ProviderConfig("COPILOT","copilot-local",model,max_output_tokens=3000,options={"timeout":120})); calls=0
+ holder.append(provider)
+ model=provider.model_info().model_id
+ calls=0
  for kind,profile in (("functional",FUNCTIONAL_PROFILE),("technical",TECHNICAL_PROFILE)):
   for p in packages[kind]:
    request=_request(profile,p,kind); request.user_instruction += " Produce at most 5 high-value claims and at most 3 MissingInformation items. V2 lookup has already completed; ask only for genuinely absent or ambiguous facts."; schema=_schema(profile,p,kind); schema["properties"]["claims"]["maxItems"]=5; schema["properties"]["missing_information"]["maxItems"]=3
@@ -72,4 +72,11 @@ def run(workspace="."):
  index={"schema_version":"3.1.0","source_snapshot":plan["snapshot"],"metrics":plan["metrics"],"project_classification":plan["projects"],"coverage_units":[{"unit_id":u["unit_id"],"category":u["category"],"priority":u["priority"]} for u in plan["units"]],"batches":[[u["unit_id"] for u in b] for b in batches],"local_assessments":summaries,"global_packages":{k:v["package_id"] for k,v in global_packages.items()},"comparison":comparison}
  target=workspace/"output"/"v3_r7_2"; target.mkdir(parents=True,exist_ok=True); (target/"COVERAGE_INDEX.json").write_text(json.dumps(index,ensure_ascii=False,sort_keys=True,indent=2),encoding="utf-8")
  return {"status":"V3-R7_2_READY_FOR_HUMAN_REVIEW","calls":calls,"model_id":model,"coverage_units":len(plan["units"]),"batches_per_kind":len(batches),"metrics":plan["metrics"],"local_assessments":summaries,"documents":docs,"comparison":comparison}
+def run(workspace=".",provider=None):
+ """Legacy entry point with neutral provider injection and guaranteed cleanup."""
+ holder=[]
+ try: return _run(workspace,provider,holder)
+ finally:
+  if holder: holder[0].close()
+
 if __name__=="__main__": print(json.dumps(run(),ensure_ascii=False,sort_keys=True,indent=2))

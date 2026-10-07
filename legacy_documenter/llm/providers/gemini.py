@@ -1,3 +1,4 @@
+"""Historical experimental adapter; UNREGISTERED (no production selection)."""
 import json,os,urllib.request,urllib.error
 from legacy_documenter.llm import LLMProvider,LLMCapabilities,LLMModelInfo,LLMRequest,LLMResponse,ProviderConfig,Usage,ProviderError,sid
 class GeminiProvider(LLMProvider):

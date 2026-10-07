@@ -41,7 +41,7 @@ from legacy_documenter.cli.run_summary_presenter import (
 )
 from legacy_documenter.cli.stage_identity import StageId
 from legacy_documenter.knowledge.proposals.models import Proposal
-from legacy_documenter.llm.core import LLMProvider
+from legacy_documenter.llm.contracts import LLMProvider
 from legacy_documenter.orchestration import ai_interpretation, proposal_adapter
 from legacy_documenter.orchestration.ai_interpretation import AiInterpretationResult
 from legacy_documenter.utils.atomic_write import atomic_write_text
@@ -49,6 +49,7 @@ from legacy_documenter.utils.json_rendering import render_deterministic_json
 from legacy_documenter.utils.stage_timings import TIMINGS
 from legacy_documenter.utils.write_if_changed import LEDGER, log_write_ledger
 from legacy_documenter.utils.write_policy import POLICY
+from legacy_documenter.llm.security import safe_diagnostic_data
 
 RUN_SUMMARY_JSON = "RUN_SUMMARY.json"
 RUN_SUMMARY_MARKDOWN = "RUN_SUMMARY.md"
@@ -257,6 +258,12 @@ def run_full_pipeline(
         if context_result.status is StageStatus.SUCCESS:
             ai_result, ai_stage_result = _run_ai_interpretation_stage(output, ai_provider)
             ai_invoked = bool(ai_result and ai_result.provider_called)
+            TIMINGS.extras["ai"] = ai_result.metrics if ai_result and ai_result.metrics else {
+                "requested": True, "invoked": ai_invoked, "request_count": int(ai_invoked),
+                "success_count": int(ai_stage_result.status is StageStatus.SUCCESS),
+                "failure_count": int(ai_invoked and ai_stage_result.status is not StageStatus.SUCCESS),
+                "error_category": ai_result.error_message if ai_result else "PROVIDER_ERROR",
+            }
         else:
             ai_stage_result = _skipped(StageId.AI_INTERPRETATION, StageId.CONTEXT)
     else:
@@ -399,7 +406,7 @@ def _run_ai_interpretation_stage(
     if result.status == "SUCCESS":
         return result, StageResult(stage=StageId.AI_INTERPRETATION, status=StageStatus.SUCCESS)
     error = StageError(
-        stage=StageId.AI_INTERPRETATION, category=result.status, message=result.error_message or result.status,
+        stage=StageId.AI_INTERPRETATION, category=result.failure_category or result.status, message=result.error_message or result.status,
     )
     return result, StageResult(stage=StageId.AI_INTERPRETATION, status=StageStatus.FAILED, error=error)
 
@@ -430,6 +437,7 @@ def _write_proposal_output(output: Path, ai_result: AiInterpretationResult, prop
         "context_package_id": ai_result.context_package_id,
         "proposals": [_proposal_to_dict(proposal) for proposal in proposals],
     }
+    envelope = safe_diagnostic_data(envelope)
     atomic_write_text(proposals_dir / "AI_PROPOSALS.json", render_deterministic_json(envelope))
     atomic_write_text(proposals_dir / "AI_PROPOSALS_PENDING_REVIEW.md", _render_proposal_markdown(envelope))
     return envelope["status"]

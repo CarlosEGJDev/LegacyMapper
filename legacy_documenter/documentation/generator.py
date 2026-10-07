@@ -6,9 +6,7 @@ from legacy_documenter.context.composer import ContextComposer
 from legacy_documenter.documentation.aggregation import aggregate,evidence_closed
 from legacy_documenter.documentation.interpretation import DocumentationPrompt,FUNCTIONAL_PROFILE,TECHNICAL_PROFILE,AssessmentValidator,canonical_assessment_schema,ASSESSMENT_FIELDS,CLAIM_FIELDS,MISSING_INFORMATION_FIELDS,ASSESSMENT_STATUSES,FACT_STATUSES,MODEL_SOURCE_TYPES,BLOCKING_LEVELS
 from legacy_documenter.documentation.renderer import render
-from legacy_documenter.llm import ProviderConfig
-from legacy_documenter.llm.providers.copilot import CopilotProvider
-from legacy_documenter.llm.copilot_pilot import discover_model
+from legacy_documenter.llm.registry import resolve_documentation_provider
 
 SECTIONS={"functional":["Resumen funcional del aplicativo","Módulos o áreas funcionales identificadas","Funcionalidades por módulo/área","Pantallas, WebForms o puntos de entrada relevantes","Flujos funcionales identificados","Integraciones funcionales detectadas","Operaciones de datos relacionadas con funcionalidades","Dependencias funcionales relevantes","Información no determinada"],"technical":["Resumen tecnológico","Organización de soluciones y proyectos","Componentes técnicos identificados","Dependencias entre componentes","WebForms y capa de presentación","Lógica de aplicación / negocio","Acceso a datos","Oracle / procedimientos almacenados / SQL","Flujos técnicos representativos","Dependencias entre proyectos","Dependencias externas y ensamblados","Patrón de diseño / arquitectura","Evidencia a favor del patrón","Evidencia contradictoria o ambigua","Riesgos técnicos observables","Información técnica no determinada"]}
 
@@ -71,14 +69,16 @@ def _strict(result,profile,package):
  if result.get("context_package_ids")!=[package["package_id"]]: errors.append("package exact")
  if result.get("source_snapshots")!=[package["source_snapshot"]]: errors.append("snapshot exact")
  return sorted(set(errors))
-def run(workspace="."):
+def _run(workspace,provider,holder):
  """Performs run while preserving this module's deterministic contract."""
  workspace=Path(workspace); source=workspace/"output"/"v2_r5_1_full"
  for name in ("SYSTEM_CONTEXT.json","FUNCTIONAL_FLOWS.json","TRACEABILITY.json"):
   if not (source/"ai_context"/name).exists(): return {"status":"V3-R7_BLOCKED_MISSING_V2_EVIDENCE","calls":0}
- try: model=asyncio.run(discover_model())
+ try: provider=provider or resolve_documentation_provider(max_output_tokens=3500)
  except Exception: return {"status":"V3-R7_BLOCKED_PROVIDER","calls":0}
- provider=CopilotProvider(ProviderConfig("COPILOT","copilot-local",model,max_output_tokens=3500,options={"timeout":120})); accepted=[]; packages=[]; summaries=[]
+ holder.append(provider)
+ model=provider.model_info().model_id
+ accepted=[]; packages=[]; summaries=[]
  for kind,profile in (("functional",FUNCTIONAL_PROFILE),("technical",TECHNICAL_PROFILE)):
   package=build_package(source,kind); packages.append(package)
   request=_request(profile,package,kind); schema=_schema(profile,package,kind); preerrors=prevalidate_request(request,schema,profile,package)
@@ -94,4 +94,11 @@ def run(workspace="."):
   if not evidence_closed(document): return {"status":"V3-R7_TRACEABILITY_FAILURE","calls":2}
   text=render(document,kind,summaries[i]["model_id"]); path=out/("LEVANTAMIENTO_FUNCIONAL.md" if kind=="functional" else "LEVANTAMIENTO_TECNICO.md"); path.write_text(text,encoding="utf-8"); docs[kind]={"path":str(path),"bytes":len(text.encode()),"claims":len(document["claims"]),"missing":len(document["missing_information"]),"closed":True}
  return {"status":"V3-R7_1_READY_FOR_HUMAN_REVIEW","calls":2,"model_id":summaries[0]["model_id"],"packages":[{"id":p["package_id"],"records":len(p["records"]),"tokens":p["statistics"]["estimated_tokens"]} for p in packages],"assessments":summaries,"documents":docs}
+def run(workspace=".",provider=None):
+ """Legacy entry point with neutral provider injection and guaranteed cleanup."""
+ holder=[]
+ try: return _run(workspace,provider,holder)
+ finally:
+  if holder: holder[0].close()
+
 if __name__=="__main__": print(json.dumps(run(),ensure_ascii=False,indent=2,sort_keys=True))
