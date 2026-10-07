@@ -145,7 +145,9 @@ class ProductionFileDiscoveryTests(unittest.TestCase):
         # bundle and neutral flow traversal. Historical artifacts stay frozen.
         # V5.5 R1 separates seven AI contract/composition helpers and adds
         # context/request_budget.py: eight new modules, 264 in total.
-        self.assertEqual(len(files), 264)
+        # V5.6 R1 adds neutral flow segmentation and its request-budget
+        # composition boundary (two modules; no upstream analysis change).
+        self.assertEqual(len(files), 266)
 
 
 class FileAnalysisTests(unittest.TestCase):
@@ -301,16 +303,16 @@ class GeneratedArtifactOnDiskTests(unittest.TestCase):
     def test_on_disk_inventory_matches_fresh_build_if_present(self) -> None:
         """Pin the complete live inventory; preserve the historical V4.1 artifact.
 
-        V5.5 R1 separates the AI provider/context boundary into eight new
-        modules. Its explicit snapshot checks every file and aggregate;
-        approved V4.1 and V5.4 inventories remain historical and unchanged.
+        V5.6 R1 adds two neutral segmentation/composition modules. Its live
+        snapshot checks every file and aggregate; approved V4.1/V5.4/V5.5
+        snapshots remain historical and unchanged.
         """
         historical = REPO_ROOT / "output" / "v4_1_r0" / "V4_1_MAINTAINABILITY_INVENTORY.json"
         if not historical.exists():
             self.skipTest("V4_1_MAINTAINABILITY_INVENTORY.json not yet generated")
-        path = REPO_ROOT / "docs" / "V5" / "V5_5_R1_MAINTAINABILITY_INVENTORY.json"
+        path = REPO_ROOT / "docs" / "V5" / "V5_6_R1_FLOW_SEGMENTATION_INVENTORY.json"
         snapshot = json.loads(path.read_text(encoding="utf-8"))
-        self.assertEqual(snapshot["round"], "V5.5 R1")
+        self.assertEqual(snapshot["round"], "V5.6 R1")
         self.assertFalse(snapshot["historical_artifacts_modified"])
         self.assertEqual(report.build_inventory(REPO_ROOT), snapshot["inventory"])
 

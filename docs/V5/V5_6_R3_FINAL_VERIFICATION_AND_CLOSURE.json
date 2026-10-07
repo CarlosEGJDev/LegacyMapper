@@ -1,0 +1,24 @@
+{
+  "round": "V5.6-R3",
+  "status": "V5_6_CLOSED",
+  "base_commit": "6b8a8138ab6aa90969067fc2b0b63c0671fb07df",
+  "r1": "APPROVED",
+  "r2": "NOT_REQUIRED",
+  "production_freeze": {"files_checked": 266, "mismatches": 0},
+  "tests": {
+    "directed": {"total": 378, "failures": 0, "errors": 0, "skips": 0},
+    "full_suite": {"total": 2935, "failures": 0, "errors": 0, "skips": 132, "duration_seconds": 532.054}
+  },
+  "real_flow_proof": {
+    "FLOW-0333008805": {"paths": 341, "bytes": 476066, "segments": 85, "deterministic": true, "max_payload_estimated_tokens": 15919, "segmentation_seconds": 0.969957},
+    "FLOW-0086579093": {"segments": 0},
+    "FLOW-0630348200": {"segments": 0}
+  },
+  "fingerprints": {"analyzer_version": 3, "analyzer_code_fingerprint": "4f7600f0fa351674878d66940352e9569de2b0f620643a3124b5c94545eb1ec6", "code_file_count": 84},
+  "source_integrity": {"files": 15138, "sha256": "77965c64c7e204d39dc06a9451076df07a4b400e2bd41372fff2bab7fcd792e5", "missing": 0, "changed": 0},
+  "ist_regression": "REUSED_FROM_R1", "fake_segmented_e2e": "REUSED_FROM_R1",
+  "real_provider_calls": 0, "real_llm_calls": 0,
+  "debt": {"BLOCKING": [], "FUTURE_PHASE": ["semantic multi-segment aggregation", "cross-flow/adaptive segmentation", "plugin-facing segment API V5.8", "second technology V5.9", "advanced segment cache"], "OBSERVATION": ["omitted IDs consume budget", "small windows fail closed", "segmented request is not global interpretation"]},
+  "git": {"commit_message": "feat(v5.6): add deterministic flow segmentation", "tag": "TAG_NOT_CREATED_BY_INSTRUCTION", "receipt": "docs/V5/V5_6_R3_FINAL_VERIFICATION_AND_CLOSURE.md#recibo-final-post-push"},
+  "next_version": "V5.7", "next_round": "V5.7-R1", "V5_7_READY_TO_START": true, "v5_7_started": false
+}

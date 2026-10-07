@@ -484,6 +484,10 @@ def _render_proposal_markdown(envelope: dict) -> str:
             f"Status: `{proposal['status']}`"
         )
         lines.append(f"- Statement: {proposal['statement']}")
+        segment = proposal.get("metadata", {}).get("flow_segment")
+        if segment:
+            lines.append(f"- Scope: **PARTIAL** | Parent: `{segment['parent_flow_id']}` | Segment: `{segment['segment_id']}`")
+            lines.append(f"- Paths: {len(segment['included_paths'])} included / {len(segment['omitted_paths'])} omitted (exact IDs in AI_PROPOSALS.json).")
         if proposal.get("rationale"):
             lines.append(f"- Rationale: {proposal['rationale']}")
         refs = ", ".join(f"`{ref}`" for ref in proposal.get("evidence_refs", []))

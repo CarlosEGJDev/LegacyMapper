@@ -1,4 +1,8 @@
-> **Estado vigente — V5.5 R3 (07-10-2026):** `V5_5_CLOSED`; R1 APPROVED, R2 NOT_REQUIRED, R3 COMPLETED. Suite 2907/0/0/132; dirigidos 580/0/0/0; IST AI OFF reutilizada con SHA/comparación 0/0/0, Fake grounded verificado, real calls0. Commit único/push autorizados: recibo efectivo en [cierre R3](../V5/V5_5_R3_FINAL_VERIFICATION_AND_CLOSURE.md). `V5_6_READY_TO_START`, next V5.6-R1, sin iniciar V5.6. Autoridad: PROJECT_STATE.json.
+> **Estado vigente — V5.6 R3 (07-10-2026):** `V5_6_CLOSED`; R1 APPROVED, R2 NOT_REQUIRED, R3 COMPLETED. Suite 2935/0/0/132; dirigidos 378/0/0/0; flujo real 341 paths → 85 segmentos, IST AI OFF reutilizada (0/0/0), fuente 15138 archivos intacta, Fake segmentado grounded, real calls0. Commit único/push autorizados: recibo efectivo en [cierre R3](../V5/V5_6_R3_FINAL_VERIFICATION_AND_CLOSURE.md). `V5_7_READY_TO_START`, next V5.7-R1, sin iniciar V5.7. Autoridad: PROJECT_STATE.json.
+
+> *(Histórico al terminar V5.6 R1.)* **Estado vigente — V5.6 R1 (07-10-2026):** `V5_6_R1_READY_FOR_HUMAN_REVIEW`; V5.6 IN_PROGRESS, revisión PENDING, next HUMAN_REVIEW. V5.5 CLOSED/publicada `6b8a8138`, recibo preservado. Segmentación neutral de paths completos, cobertura/provenance exactas; IST grande 341 paths → 85 segmentos, Fake grounded/PENDING/canonical false. Suite 2935/0/0/132; IST AI OFF 0/0/0, real calls0. Recomendación `V5_6_NEXT_R3_FINAL_VERIFICATION` tras revisión/instrucción; R2 solo por defecto real, modelo máximo3 rondas. Sin commit/push/tag; R3 y V5.7 no iniciadas. Autoridad: PROJECT_STATE.json; [entrega R1](../V5/V5_6_R1_INTEGRATED_DELIVERY.md).
+
+> *(Histórico al terminar V5.5 R3.)* **Estado vigente — V5.5 R3 (07-10-2026):** `V5_5_CLOSED`; R1 APPROVED, R2 NOT_REQUIRED, R3 COMPLETED. Suite 2907/0/0/132; dirigidos 580/0/0/0; IST AI OFF reutilizada con SHA/comparación 0/0/0, Fake grounded verificado, real calls0. Commit único/push autorizados: recibo efectivo en [cierre R3](../V5/V5_5_R3_FINAL_VERIFICATION_AND_CLOSURE.md). `V5_6_READY_TO_START`, next V5.6-R1, sin iniciar V5.6. Autoridad: PROJECT_STATE.json.
 
 > *(Histórico al terminar V5.5 R1.)* **Estado vigente — V5.5 R1 (07-10-2026):** `V5_5_R1_READY_FOR_HUMAN_REVIEW`; V5.5 IN_PROGRESS, revisión PENDING, siguiente HUMAN_REVIEW. V5.4 cerrada/publicada en `5e9085f`; recibo post-push conservado. Contrato/provider/context genéricos, Fake productivo PASS; suite 2907/0/0/132; IST IA OFF 0/0/0, fuente intacta, llamadas reales0. Recomendación `V5_5_NEXT_R3_FINAL_VERIFICATION` tras revisión/instrucción; sin commit/push/tag, R3/V5.6 no iniciadas. Autoridad: PROJECT_STATE.json; [entrega R1](../V5/V5_5_R1_INTEGRATED_DELIVERY.md).
 
@@ -340,3 +344,21 @@ V5.4 autorizada como siguiente versión, `V5_4_READY_TO_START`; **no iniciada**.
 - V5.5 CLOSED; completed V5.5-R3, approved V5.5-R1, human APPROVED. V5.6 READY_TO_START, siguiente V5.6-R1; v5_6_started=false.
 - Commit único y push origin/main autorizados; resultado efectivo/remote SHA en recibo del cierre R3. TAG_NOT_CREATED_BY_INSTRUCTION; sin amend, force, rebase ni segundo commit.
 - Historia y modelo R1 integrada / R2 solo necesaria / R3 cierre, máximo3 rondas, conservados. Detención para revisión humana final; V5.6 no iniciada.
+
+
+## Ledger — V5.6 R1 Integrated Delivery (07-10-2026)
+
+- V5.5 R3 aprobada al iniciar V5.6; cierre publicado 6b8a8138, recibo post-push conservado byte a byte.
+- Gate A: 12642 flows reales, 3310 excluidos en SMALL; mayor record476066 bytes. Policy flow-segmentation-v1, paths completos ordenados, no overlap ni fragmentación interna.
+- Flow real341 paths → 85 segmentos, cobertura/provenance/determinismo PASS; máximo payload15919/16000 tokens estimados. Fake productivo1 request, propuesta parcial PENDING, canonical false.
+- Suite 2935/0/0/132; dirigidos 378/0/0/0; regresión IST AI OFF 47523 archivos iguales, added/removed/changed0/0/0; fuente y extraction fingerprint intactos.
+- V5.6 abierta; completedV5.6-R1, approvedV5.5-R3, humanPENDING, nextHUMAN_REVIEW. Recomendación directo R3 tras revisión/instrucción; R2 solo si defecto real, máximo3 rondas.
+- Sin commit/push/tag, real provider0. R3/V5.7 no iniciadas; outputs pesados bajo output/ ignorado.
+
+
+## Ledger — V5.6 R3 Final Verification & Closure (07-10-2026)
+
+- R1 aprobada, R2 NOT_REQUIRED, R3 completada; V5.6 CLOSED. Producción congelada (266 hashes = R1).
+- Suite 2935/0/0/132; dirigidos 378/0/0/0; FLOW-0333008805 341 paths → 85 segmentos reproducidos (máx. payload 15919/16000); FLOW-0086579093 y FLOW-0630348200 sin segmentar.
+- Fuente IST 15138 archivos sin cambios; ANALYZER_VERSION 3 y fingerprint 4f7600f0… intactos; IST AI OFF de R1 reutilizada (added/removed/changed 0/0/0).
+- Un commit `feat(v5.6): add deterministic flow segmentation` y push a origin/main; sin tag. V5.7 READY_TO_START, no iniciada. Real provider calls 0.

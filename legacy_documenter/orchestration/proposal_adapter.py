@@ -28,12 +28,23 @@ def adapt_findings_to_proposals(findings: list[dict]) -> list[Proposal]:
     service = ProposalService()
     proposals: list[Proposal] = []
     for finding in findings:
+        segment = finding.get("flow_segment")
+        statement = finding["statement"]
+        metadata = {}
+        if segment:
+            # Scope is Python-controlled, never copied from provider output.
+            # Preserve the existing Proposal identity contract: scoped statement
+            # prevents identical parent/segment claims from colliding without
+            # changing canonical domain identity rules.
+            statement = f"Partial segment {segment['segment_id']} of {segment['parent_flow_id']}: {statement}"
+            metadata = {"flow_segment": segment, "ai_request_identity": finding["ai_request_identity"]}
         request = ProposalRequest(
             proposal_kind=ProposalKind.INTERPRETATION,
-            statement=finding["statement"],
+            statement=statement,
             proposal_method=ProposalMethod.AI_PROPOSED,
             evidence_refs=tuple(finding["evidence_refs"]),
             rationale=f"AI-proposed interpretation (confidence: {finding.get('confidence', 'UNCERTAIN')}).",
+            metadata=metadata,
         )
         proposal = service.create_proposal(request)
         proposal = transition_proposal(proposal, ProposalStatus.READY_FOR_REVIEW)

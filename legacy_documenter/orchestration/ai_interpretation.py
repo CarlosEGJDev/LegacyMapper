@@ -130,6 +130,7 @@ class AiInterpretationResult:
 def run_ai_interpretation(
     output_dir: str | Path, provider: LLMProvider | None = None,
     flow_ids: list[str] | None = None, profile: str = DEFAULT_PROFILE,
+    segment_ordinal: int | None = None,
 ) -> AiInterpretationResult:
     """Runs one opt-in AI interpretation pass over the current run's own evidence.
 
@@ -176,7 +177,7 @@ def run_ai_interpretation(
         if not caps.structured_output:
             result = AiInterpretationResult(status="PROVIDER_ERROR", provider_called=False, error_message="UNSUPPORTED_CAPABILITY")
         else:
-            result = _interpret_with_provider(indexes, source_snapshot, flow_ids, profile, provider, trace)
+            result = _interpret_with_provider(indexes, source_snapshot, flow_ids, profile, provider, trace, segment_ordinal)
         trace.update(requested=True, invoked=result.provider_called, request_count=int(result.provider_called), success_count=int(result.status == "SUCCESS"), failure_count=int(result.provider_called and result.status != "SUCCESS"), error_category=result.error_message if result.status == "PROVIDER_ERROR" else result.status if result.status != "SUCCESS" else None)
         result.metrics = safe_diagnostic_data(trace)
         return result
@@ -195,7 +196,7 @@ def run_ai_interpretation(
             result.metrics["duration_seconds"] = round(perf_counter() - started, 6)
 
 
-def _interpret_with_provider(indexes, source_snapshot, flow_ids, profile, provider, trace):
+def _interpret_with_provider(indexes, source_snapshot, flow_ids, profile, provider, trace, segment_ordinal=None):
     limit = _payload_token_limit(provider)
     trace["input_token_limit"] = limit
     if limit <= 0:
@@ -210,7 +211,7 @@ def _interpret_with_provider(indexes, source_snapshot, flow_ids, profile, provid
 
     try:
         started = perf_counter()
-        package, request, metrics, rejection = _build_within_budget(indexes, source_snapshot, flow_ids, profile, limit, trace)
+        package, request, metrics, rejection = _build_within_budget(indexes, source_snapshot, flow_ids, profile, limit, trace, segment_ordinal)
         trace["selection_package_seconds"] = round(perf_counter() - started, 6)
     except ValueError as exc:
         return AiInterpretationResult(status="CONTEXT_UNAVAILABLE", provider_called=False, error_message="context_configuration_invalid")
@@ -226,9 +227,14 @@ def _interpret_with_provider(indexes, source_snapshot, flow_ids, profile, provid
         return AiInterpretationResult(
             status="CONTEXT_TOO_LARGE", provider_called=False,
             context_package_id=package["package_id"], error_message=rejection,
+            failure_category=trace.get("segmentation_error"),
         )
 
     known_refs = package_reference_ids(package)
+    if package.get("segmentation"):
+        request.metadata["ai_config_fingerprint"] = trace["ai_config_fingerprint"]
+        request.request_id = None
+        request.__post_init__()
 
     try:
         trace["invoked"] = True
@@ -277,6 +283,11 @@ def _interpret_with_provider(indexes, source_snapshot, flow_ids, profile, provid
             context_package_id=package["package_id"], error_message=error,
         )
 
+    if package.get("segmentation"):
+        for finding in findings:
+            finding["flow_segment"] = deepcopy(package["segmentation"])
+            finding["ai_request_identity"] = {"request_id": request.request_id, "ai_config_fingerprint": trace["ai_config_fingerprint"]}
+
     return AiInterpretationResult(
         status="SUCCESS", provider_called=True, provider_id=provider_id, model_id=model_id,
         findings=findings, context_package_id=package["package_id"],
@@ -309,6 +320,7 @@ def _build_request(package: dict) -> LLMRequest:
 
 def _build_within_budget(
     indexes: dict, source_snapshot: str, flow_ids: list[str] | None, profile: str, limit: int, trace: dict | None = None,
+    segment_ordinal: int | None = None,
 ) -> tuple[dict, LLMRequest, dict, str | None]:
     """Builds the projection and its request, reducing the profile once if the payload does not fit.
 
@@ -344,6 +356,8 @@ def _build_within_budget(
                 "input_token_limit": limit, "records_included": package["statistics"]["records_included"],
                 "records_excluded": package["statistics"]["records_excluded"], "completeness": package["statistics"]["completeness"],
             })
+        if segment_ordinal is not None:
+            break
         if package["statistics"]["completeness"] == "BUDGET_INSUFFICIENT":
             reasons.append(f"budget_insufficient:profile={attempt_profile}")
             continue
@@ -354,7 +368,18 @@ def _build_within_budget(
             )
             continue
         return package, request, metrics, None
-    return package, request, metrics, "; ".join(reasons) or "context_budget_not_satisfied"
+    if segment_ordinal is None and profile not in PROFILE_REDUCTION:
+        # The smallest profile is an explicit tiny budget: stay fail-closed
+        # (V4.3 R5) instead of widening it to the neutral segment window.
+        return package, request, metrics, "; ".join(reasons) or "context_budget_not_satisfied"
+    from .segmented_context import build_segmented_context
+    from legacy_documenter.context.flow_segmentation import SegmentationError
+    try:
+        return build_segmented_context(builder, indexes, flow_ids if flow_ids is not None else select_flow_ids(indexes, PROFILES[profile][0]), source_snapshot, profile, limit, _build_request, FINDING_SCHEMA, 1 if segment_ordinal is None else segment_ordinal)
+    except SegmentationError as exc:
+        if trace is not None:
+            trace["segmentation_error"] = exc.code
+        return package, request, metrics, ("; ".join(reasons) + "; " if reasons else "") + exc.code
 
 
 def _resolve_provider() -> LLMProvider:
