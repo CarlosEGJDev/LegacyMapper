@@ -9,7 +9,7 @@ boolean that a caller might ignore.
 """
 from __future__ import annotations
 
-from .builder import NormalizedEvidence
+from .bundle import NormalizedEvidence
 from .entities import is_sha256_hex
 from .identity import Collision, collision_summary, detect_collisions, detect_duplicate_ids
 from .reference import BrokenEvidenceReferenceError, EvidenceReference, EvidenceReferenceStore, resolve_against

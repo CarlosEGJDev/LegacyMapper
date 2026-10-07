@@ -1,6 +1,12 @@
+> **Estado vigente — V5.4 R3 (07-10-2026):** `V5_4_CLOSED`; R1 aprobada según instrucción R3, R2 `NOT_REQUIRED`, R3 `COMPLETED`. Suite 2850 tests, 0 fallas/errores, 132 skips; IST oficial prístino: equivalencia canónica 0/0/0, fuente intacta, IA/provider 0. Adapter compuesto `vbnet-webforms-oracle` 1.0, analyzer 3; defaults auto / fast / false / None. Commit único y push normal autorizados; recibo efectivo en [cierre R3](../V5/V5_4_R3_FINAL_VERIFICATION_AND_CLOSURE.md). `V5_5_READY_TO_START`, siguiente V5.5-R1; V5.5 no iniciada. Autoridad: PROJECT_STATE.json.
+
+> *(Histórico al terminar R1.)* **Estado vigente — V5.4 R1 (06-10-2026):** `V5_4_R1_READY_FOR_HUMAN_REVIEW`; V5.4 `V5_4_IN_PROGRESS`, revisión humana PENDING. Suite 2850 tests, 0 fallas/errores, 132 skips; IST: 47524 archivos canónicos idénticos, added/removed/changed = 0/0/0. Última aprobación V5.3-R4; V5.3 publicada en `9425319cb2edbae896b96f7abfbdcd3764beb538`, sin tag. Siguiente `HUMAN_REVIEW`; recomendación directo R3, sujeto a revisión/instrucción. Autoridad: PROJECT_STATE.json; [entrega R1](../V5/V5_4_R1_INTEGRATED_DELIVERY.md).
+
+> **Modelo vigente desde V5.4:** R1 Integrated Delivery → R2 Targeted Corrections only if needed → R3 Final Verification & Closure; target max = 3 rounds. R2 solo por defectos reales de revisión humana. El patrón anterior conservado abajo es histórico.
+
 # LegacyMapper — Historia del proyecto, estado actual y roadmap V5
 
-> **Estado vigente — cierre R4 (06-10-2026):** V5.3 `V5_3_CLOSED`; R3 aprobado humanamente según prompt R4. Defaults auto / fast / false / None; ratio diferido. Baseline completa R3: 2838 tests, 0 fallas/errores, 132 skips; R4 dirigidos: 23 PASS, 0 skips. Cierre documental/contractual preparado para un único commit y push normal autorizado; resultado Git definitivo en resumen post-commit. Sin tag. V5.4 `V5_4_READY_TO_START`, siguiente V5.4-R1, no iniciada. Autoridad: PROJECT_STATE.json; [cierre R4](../V5/V5_3_R4_CLOSURE.md).
+> *(Histórico al terminar V5.3 R4.)* **Estado vigente — cierre R4 (06-10-2026):** V5.3 `V5_3_CLOSED`; R3 aprobado humanamente según prompt R4. Defaults auto / fast / false / None; ratio diferido. Baseline completa R3: 2838 tests, 0 fallas/errores, 132 skips; R4 dirigidos: 23 PASS, 0 skips. Cierre documental/contractual preparado para un único commit y push normal autorizado; resultado Git definitivo en resumen post-commit. Sin tag. V5.4 `V5_4_READY_TO_START`, siguiente V5.4-R1, no iniciada. Autoridad: PROJECT_STATE.json; [cierre R4](../V5/V5_3_R4_CLOSURE.md).
 
 > *(Histórico al terminar R3.)* **Estado vigente — R3 verificada (06-10-2026):** `V5_3_R3_READY_FOR_HUMAN_REVIEW`; R2.9/R2.9.1 aprobados. Baseline `aa7db0d`; defaults auto / fast / false / None; ratio diferido. Suite 2838 tests, 0 fallas/errores, 132 skips; regresión IST canónica equivalente y junction real PASS. R4 pendiente de revisión/instrucción explícita; V5.3 abierta. Autoridad: PROJECT_STATE.json; [resultado R3](../V5/V5_3_R3_VERIFICATION_REAL_REGRESSION.md).
 
@@ -1167,3 +1173,21 @@ No R4 ejecutada, sin cierre/tag V5.3; informes previos preservan sus estados his
 Sin tag V5.3. Deuda FUTURE_PHASE: partial resolver recomputation, stage skipping, flow/projection cache, artifacts.json, refactor full_pipeline.py y unificación de atomic writers. OBSERVATION: repository.json no determinista, trust-mtime inseguro opt-in, ratio default diferido y scope conservador. No bloquean cierre; no se implementan en R4.
 
 V5.4 autorizada como siguiente versión, `V5_4_READY_TO_START`; **no iniciada**. Modelo: R1 Integrated Delivery; R2 Targeted Corrections solo si es necesaria; R3 Final Verification & Closure. Máximo objetivo tres rondas por versión, un objetivo coherente por ronda, sin micro-rondas innecesarias. Inicio requiere instrucción explícita.
+
+
+## Ledger — V5.4 R1 Integrated Delivery (06-10-2026)
+
+- Adapter compuesto `vbnet-webforms-oracle` 1.0; evidencia y recorridos neutrales; 21 shims puros; analyzer 3, schema de evidencia 1.0.
+- Validación: 278 dirigidos PASS; 2850 suite, 0 fallas/errores, 132 skips; una corrida IST post, 0/0/0 diferencias canónicas.
+- Estado: revisión humana pendiente, V5.4 abierta; recomendación `V5_4_NEXT_R3_FINAL_VERIFICATION`. R2 únicamente si revisión encuentra defectos.
+- Git de R1: consultas únicamente; ningún commit/push/tag. Administrativos V5.3 R4.1 y prompt R1 preservados sin versionar.
+
+
+## Ledger — V5.4 R3 Final Verification & Closure (07-10-2026)
+
+- R1 aprobada por instrucción R3; R2 NOT_REQUIRED; R3 COMPLETED. Producción congelada, sin rediseño ni nuevos tests.
+- Frontera neutral PASS; 21 shims puros, 104 identidades verificadas; adapter vbnet-webforms-oracle 1.0, analyzer 3.
+- 278 dirigidos PASS; suite 2850, 0 fallas/errores, 132 skips; IST oficial intacto y comparación canónica 0/0/0.
+- Referencia nueva full/off desde V5.3 cerrado + una corrida final V5.4 auto; IA/provider 0.
+- V5.4 CLOSED; Git autorizado en un commit/push, recibo efectivo en informe R3; sin tag. Administrativos V5.3 R4.1 incluidos.
+- V5.5 READY_TO_START, siguiente V5.5-R1, no iniciada. Modelo R1 integrada / R2 solo si necesaria / R3 verificación y cierre preservado.

@@ -6,6 +6,8 @@ from docs, prompts, tests or governance files.
 from __future__ import annotations
 
 from dataclasses import dataclass, field
+import hashlib
+import json
 from pathlib import Path
 
 from legacy_documenter import versions
@@ -35,9 +37,13 @@ class CacheContext:
     git: dict = field(default_factory=dict)
 
 
-def build_context(repo_root: str | Path, excludes: list[str] | None, flow_max_depth: int) -> CacheContext:
+def build_context(repo_root: str | Path, excludes: list[str] | None, flow_max_depth: int, *, adapter_identity: tuple[str, str] | None = None) -> CacheContext:
     """Computes the current run's context (default `documentation_v52` profiles: the CLI exposes no others)."""
     analysis = analysis_config_fingerprint(excludes, flow_max_depth)
+    # Composition roots injecting another adapter must partition compatibility.
+    # The production reference descriptor is already covered by analyzer code.
+    if adapter_identity is not None:
+        analysis = hashlib.sha256(json.dumps([analysis, list(adapter_identity)], separators=(",", ":")).encode()).hexdigest()
     projection = projection_config_fingerprint()
     return CacheContext(
         identity=repository_identity(repo_root),

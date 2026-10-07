@@ -15,9 +15,9 @@ from ._common import FINGERPRINT_ALGORITHM, length_prefixed, normalize_newlines
 
 
 #: Package-relative directories whose every `*.py` file governs the analysis.
-ANALYZER_CODE_DIRECTORIES = ("extractors", "analysis", "scanner", "models")
+ANALYZER_CODE_DIRECTORIES = ("extractors", "analysis", "scanner", "models", "adapters")
 #: Package-relative single files that govern the analysis.
-ANALYZER_CODE_FILES = ("utils/sanitizer.py", "config.py")
+ANALYZER_CODE_FILES = ("utils/sanitizer.py", "config.py", "evidence/bundle.py")
 #: Only these functions of `cli/pipeline_stages.py` (extraction/normalization/resolution orchestration) are
 #: fingerprinted -- the rest of that module is rendering/writing and must not invalidate an extraction.
 PIPELINE_STAGES_FILE = "cli/pipeline_stages.py"

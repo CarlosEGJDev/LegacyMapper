@@ -28,11 +28,11 @@ from legacy_documenter.cli.artifact_lifecycle import (
     sync_generated_json_partition_directory,
     sync_generated_partition_directory,
 )
-from legacy_documenter.analysis.call_resolver import CallResolver
-from legacy_documenter.analysis.database_resolver import DatabaseResolver
-from legacy_documenter.analysis.dependency_resolver import DependencyResolver
-from legacy_documenter.analysis.flow_resolver import FunctionalFlowResolver
-from legacy_documenter.analysis.web_entry_resolver import WebEntryResolver
+from legacy_documenter.adapters.vbnet_webforms_oracle.analysis.call_resolver import CallResolver
+from legacy_documenter.adapters.vbnet_webforms_oracle.analysis.database_resolver import DatabaseResolver
+from legacy_documenter.adapters.vbnet_webforms_oracle.analysis.dependency_resolver import DependencyResolver
+from legacy_documenter.adapters.vbnet_webforms_oracle.analysis.flow_resolver import FunctionalFlowResolver
+from legacy_documenter.adapters.vbnet_webforms_oracle.analysis.web_entry_resolver import WebEntryResolver
 from legacy_documenter.context.consumer_projection import ConsumerProjectionBuilder
 from legacy_documenter.context.context_builder import ContextBuilder
 from legacy_documenter.context.hydration_view import HydrationView
@@ -42,20 +42,11 @@ from legacy_documenter.documentation.human_documentation_scaling import (
     render_human_documentation_partitions,
 )
 from legacy_documenter.documentation_v52.engine import generate_documentation_v52, source_from_indexes
-from legacy_documenter.evidence.builder import NormalizedEvidenceBuilder
 from legacy_documenter.evidence.invariants import validate_evidence
 from legacy_documenter.evidence.persistence import EVIDENCE_MANIFEST_FILENAME, write_evidence
 from legacy_documenter.exporters.json_exporter import JSONExporter
 from legacy_documenter.exporters.markdown_exporter import MarkdownExporter
 from legacy_documenter.exporters.technical_documentation_renderer import TechnicalDocumentationRenderer
-from legacy_documenter.extractors.call_extractor import CallExtractor
-from legacy_documenter.extractors.database_extractor import DatabaseExtractor
-from legacy_documenter.extractors.solution_extractor import SolutionExtractor
-from legacy_documenter.extractors.vbnet_extractor import VBNetExtractor
-from legacy_documenter.extractors.vbproj_extractor import VBProjExtractor
-from legacy_documenter.extractors.web_event_extractor import WebEventExtractor
-from legacy_documenter.extractors.webconfig_extractor import WebConfigExtractor
-from legacy_documenter.extractors.webforms_extractor import WebFormsExtractor
 from legacy_documenter.models import SourceFile
 from legacy_documenter.scanner.file_classifier import FileClassifier
 from legacy_documenter.scanner.repository_scanner import RepositoryScanner
@@ -63,6 +54,13 @@ from legacy_documenter.utils.stage_timings import TIMINGS
 from legacy_documenter.utils.write_if_changed import write_text_if_changed
 from legacy_documenter.utils.json_rendering import render_deterministic_json
 from legacy_documenter.utils.sanitizer import sanitize_data
+
+from legacy_documenter.adapters.contracts import AdapterRegistry
+from legacy_documenter.adapters.vbnet_webforms_oracle.adapter import ReferenceAdapter
+from legacy_documenter.adapters.vbnet_webforms_oracle.normalization import NormalizedEvidenceBuilder
+from legacy_documenter.adapters.vbnet_webforms_oracle import extraction as _reference_extraction
+
+_adapter_registry = AdapterRegistry([ReferenceAdapter()])
 
 LOG = logging.getLogger("legacy_documenter")
 
@@ -89,202 +87,45 @@ def scan_repository(repo_root: str | Path, excludes: list[str] | None) -> ScanOu
     return ScanOutcome(root=root, files=files, classifier=FileClassifier(), scanner=scanner)
 
 
-@dataclass
-class ExtractionOutcome:
-    """Result of the EXTRACTION stage (raw extraction plus deterministic normalization)."""
-
-    errors: list[dict] = field(default_factory=list)
-    solutions: list[dict] = field(default_factory=list)
-    projects: list[dict] = field(default_factory=list)
-    symbols: list[dict] = field(default_factory=list)
-    logical_symbols: list[dict] = field(default_factory=list)
-    webforms: list[dict] = field(default_factory=list)
-    configuration: list[dict] = field(default_factory=list)
-    calls: list[dict] = field(default_factory=list)
-    web_events: list[dict] = field(default_factory=list)
-    data_access_indexes: list[dict] = field(default_factory=list)
+ExtractionOutcome = _reference_extraction.ExtractionOutcome
 
 
-def extract_repository(files: list[SourceFile], root: Path, extraction_cache=None) -> ExtractionOutcome:
-    """Runs the EXTRACTION stage.
-
-    Per-file extraction stays tolerant of individual file failures exactly as
-    before V4.2 (a bad file is recorded in `errors` and extraction continues);
-    only a failure in the surrounding orchestration itself (not a per-file
-    one) can make this stage fail as a whole. Namespace resolution and
-    partial-class consolidation run last, over the fully extracted symbol/
-    webform lists -- this is the "deterministic normalization/consolidation"
-    step from the V4.2-R2 pipeline description; it has no separate `StageId`
-    because it only operates on EXTRACTION's own in-memory output and has no
-    independent failure boundary worth reporting apart from EXTRACTION itself.
-
-    V5.3-R2.5: each file's extractor output is a self-contained record (`_extract_file`). With an
-    `extraction_cache` (`legacy_documenter.cache.ExtractionCache`), an unchanged file's record comes from the
-    cache and a fresh one is handed to it (serialized immediately) -- always BEFORE the in-place normalization
-    below and any resolver. The records are then assembled in the original two passes (all primary results and
-    errors in scan order, then the per-`.vb` calls/web events/data access), so output order is identical with
-    or without a cache. Normalization always runs over the assembled lists.
-    """
-    outcome = ExtractionOutcome()
-    extractors = _extractors()
-    started = perf_counter()
-    records: list[tuple[SourceFile, dict]] = []
-    for source in files:
-        if source.file_type not in extractors:
-            continue
-        record = extraction_cache.lookup(source.relative_path) if extraction_cache is not None else None
-        if record is None:
-            record, cacheable = _extract_file(source, root, extractors)
-            if extraction_cache is not None:
-                extraction_cache.store(source.relative_path, record, cacheable)
-        records.append((source, record))
-    if extraction_cache is not None:
-        extraction_cache.record_extraction_seconds(perf_counter() - started)
-
-    for source, record in records:
-        if record["error"] is not None:
-            outcome.errors.append(record["error"])
-            continue
-        value = record["value"]
-        if source.file_type == "solution":
-            outcome.solutions.append(value)
-        elif source.file_type == "vb_project":
-            outcome.projects.append(value)
-        elif source.file_type == "vb_source":
-            outcome.symbols.extend(value)
-        elif source.file_type in {"aspx", "ascx", "master"}:
-            outcome.webforms.append(value)
-        elif source.file_type == "web_config":
-            outcome.configuration.append(value)
-    for source, record in records:
-        if source.file_type != "vb_source":
-            continue
-        for slot, sink in (("calls", outcome.calls), ("web_events", outcome.web_events), ("data_access_indexes", outcome.data_access_indexes)):
-            if record[slot] is not None:
-                sink.append(record[slot])
-        outcome.errors.extend(record["secondary_errors"])
-
-    apply_project_namespaces(outcome.symbols, outcome.projects)
-    outcome.logical_symbols = consolidate_partial_symbols(outcome.symbols, outcome.webforms)
-    return outcome
+def extract_repository(files, root, extraction_cache=None):
+    """Composition/legacy compatibility delegate to the reference adapter."""
+    selected = _adapter_registry.select(source.file_type for source in files)
+    if files and selected is None:
+        raise ValueError("UNSUPPORTED_TECHNOLOGY: no registered adapter supports the observed file kinds")
+    return (selected or ReferenceAdapter()).extract(files, root, extraction_cache)
 
 
-def _extractors() -> dict:
-    return {
-        "solution": SolutionExtractor(),
-        "vb_project": VBProjExtractor(),
-        "vb_source": VBNetExtractor(),
-        "aspx": WebFormsExtractor(),
-        "ascx": WebFormsExtractor(),
-        "master": WebFormsExtractor(),
-        "web_config": WebConfigExtractor(),
-    }
+def _extractors():
+    """Composition/legacy compatibility delegate to the reference adapter."""
+    return _reference_extraction._extractors()
 
 
-def _primary_value(file_type: str, extracted):
-    """The JSON-able form of one extractor result (what `extract_repository` has always appended)."""
-    if file_type == "solution" or file_type == "web_config":
-        return extracted
-    if file_type == "vb_source":
-        return [item.to_dict() for item in extracted]
-    return extracted.to_dict()
+def _primary_value(file_type, extracted):
+    """Composition/legacy compatibility delegate to the reference adapter."""
+    return _reference_extraction._primary_value(file_type, extracted)
 
 
-def _extract_file(source: SourceFile, root: Path, extractors: dict) -> tuple[dict, bool]:
-    """Runs every extractor that applies to one file; returns `(record, cacheable)`.
-
-    The record is plain data: `value`/`error` (primary extractor) and, for `.vb` files, `calls`/`web_events`/
-    `data_access_indexes` plus `secondary_errors`. `cacheable` is False when an error came from the OS (it
-    depends on more than the file's bytes).
-    """
-    record = {"value": None, "error": None, "calls": None, "web_events": None, "data_access_indexes": None, "secondary_errors": []}
-    cacheable = True
-    extractor = extractors[source.file_type]
-    full_path = root / source.relative_path
-    try:
-        record["value"] = _primary_value(source.file_type, extractor.extract(full_path, root))
-    except Exception as exc:
-        record["error"] = {"file": source.relative_path, "extractor": extractor.__class__.__name__, "error": str(exc)}
-        cacheable = cacheable and not isinstance(exc, OSError)
-    if source.file_type == "vb_source":
-        for slot, label, secondary in (
-            ("calls", "CallExtractor", CallExtractor()),
-            ("web_events", "WebEventExtractor", WebEventExtractor()),
-            ("data_access_indexes", "DatabaseExtractor", DatabaseExtractor()),
-        ):
-            try:
-                record[slot] = secondary.extract(full_path, root)
-            except Exception as exc:
-                record["secondary_errors"].append({"file": source.relative_path, "extractor": label, "error": str(exc)})
-                cacheable = cacheable and not isinstance(exc, OSError)
-    return record, cacheable
+def _extract_file(source, root, extractors):
+    """Composition/legacy compatibility delegate to the reference adapter."""
+    return _reference_extraction._extract_file(source, root, extractors)
 
 
-def apply_project_namespaces(symbols: list[dict], projects: list[dict]) -> None:
-    """Resolves each symbol's effective namespace from its owning project, in place."""
-    by_file: dict[str, list[dict]] = {}
-    for project in projects:
-        project_dir = Path(project["path"]).parent
-        for item in project.get("compile_items", []):
-            normalized = _norm_path(str(project_dir / item))
-            by_file.setdefault(normalized, []).append(project)
-    for symbol in symbols:
-        matches = by_file.get(_norm_path(symbol["file"]), [])
-        if len(matches) != 1:
-            if not symbol.get("declared_namespace"):
-                symbol["effective_namespace"] = None
-            symbol["namespace_confidence"] = "unresolved"
-            continue
-        project = matches[0]
-        root_namespace = project.get("root_namespace") or None
-        declared = symbol.get("declared_namespace")
-        symbol["project_path"] = project.get("path")
-        symbol["root_namespace"] = root_namespace
-        if root_namespace and declared:
-            symbol["effective_namespace"] = f"{root_namespace}.{declared}"
-        elif root_namespace:
-            symbol["effective_namespace"] = root_namespace
-        else:
-            symbol["effective_namespace"] = declared
-        symbol["namespace_confidence"] = "confirmed"
+def apply_project_namespaces(symbols, projects):
+    """Composition/legacy compatibility delegate to the reference adapter."""
+    return _reference_extraction.apply_project_namespaces(symbols, projects)
 
 
-def consolidate_partial_symbols(symbols: list[dict], webforms: list[dict]) -> list[dict]:
-    """Groups `Partial` classes declared across multiple files into logical symbols."""
-    codebehind_files = {_norm_path(form.get("codebehind", "")) for form in webforms if form.get("codebehind")}
-    codebehind_files.update({_norm_path(form.get("codefile", "")) for form in webforms if form.get("codefile")})
-    groups: dict[tuple, list[dict]] = {}
-    for symbol in symbols:
-        if symbol.get("kind") != "class" or "Partial" not in symbol.get("modifiers", []):
-            continue
-        key = (symbol.get("project_path"), symbol.get("effective_namespace"), symbol.get("name"))
-        groups.setdefault(key, []).append(symbol)
-    logical = []
-    for (project_path, namespace, name), parts in groups.items():
-        files = sorted({part["file"] for part in parts})
-        if len(files) < 2:
-            continue
-        evidence = "Partial declarations"
-        normalized_files = {_norm_path(file) for file in files}
-        if normalized_files & codebehind_files:
-            evidence += "; WebForm code-behind association"
-        logical.append(
-            {
-                "name": name,
-                "kind": "class",
-                "partial": True,
-                "namespace": namespace,
-                "project_path": project_path,
-                "parts": files,
-                "evidence": evidence,
-                "confidence": "confirmed" if project_path and namespace else "unresolved",
-            }
-        )
-    return logical
+def consolidate_partial_symbols(symbols, webforms):
+    """Composition/legacy compatibility delegate to the reference adapter."""
+    return _reference_extraction.consolidate_partial_symbols(symbols, webforms)
 
 
-def _norm_path(value: str) -> str:
-    return value.replace("\\", "/").strip("./").lower()
+def _norm_path(value):
+    """Composition/legacy compatibility delegate to the reference adapter."""
+    return _reference_extraction._norm_path(value)
 
 
 @dataclass
@@ -297,7 +138,7 @@ class CallResolutionOutcome:
 
 def resolve_calls(calls: list[dict], symbols: list[dict]) -> CallResolutionOutcome:
     """Runs the CALL_RESOLUTION stage. Depends only on EXTRACTION's output."""
-    resolved_calls, functional_dependencies = CallResolver().resolve(calls, symbols)
+    resolved_calls, functional_dependencies = ReferenceAdapter().resolve_calls(calls, symbols)
     return CallResolutionOutcome(calls=resolved_calls, functional_dependencies=functional_dependencies)
 
 
@@ -317,7 +158,7 @@ def resolve_web_entries(webforms: list[dict], symbols: list[dict], web_events: l
     output, not the raw extracted calls -- this mirrors the pre-R2 code,
     which reassigned `calls` to the resolved value before this call.
     """
-    entry_points, event_bindings, functional_dependencies = WebEntryResolver().resolve(webforms, symbols, web_events, resolved_calls)
+    entry_points, event_bindings, functional_dependencies = ReferenceAdapter().resolve_entries(webforms, symbols, web_events, resolved_calls)
     return WebEntryResolutionOutcome(entry_points=entry_points, event_bindings=event_bindings, functional_dependencies=functional_dependencies)
 
 
@@ -335,7 +176,7 @@ class DatabaseResolutionOutcome:
 def resolve_database(data_access_indexes: list[dict], projects: list[dict]) -> DatabaseResolutionOutcome:
     """Runs the DATABASE_RESOLUTION stage. Depends only on EXTRACTION's output,
     independently of CALL_RESOLUTION/WEB_ENTRY_RESOLUTION."""
-    data_access, stored_procedures, sql_operations, data_parameters, functional_dependencies = DatabaseResolver().resolve(data_access_indexes, projects)
+    data_access, stored_procedures, sql_operations, data_parameters, functional_dependencies = ReferenceAdapter().resolve_database(data_access_indexes, projects)
     return DatabaseResolutionOutcome(
         data_access=data_access, stored_procedures=stored_procedures, sql_operations=sql_operations,
         data_parameters=data_parameters, functional_dependencies=functional_dependencies,
@@ -369,7 +210,7 @@ def resolve_flows(
     access together. `errors` is mutated in place (unresolved flow findings
     are appended to the same list extraction uses), matching pre-R2 behavior.
     """
-    functional_flows, functional_paths, flow_summary, flow_unresolved = FunctionalFlowResolver(flow_max_depth).resolve(
+    functional_flows, functional_paths, flow_summary, flow_unresolved = ReferenceAdapter().resolve_legacy_flows(flow_max_depth,
         entry_points, resolved_calls, data_access, stored_procedures, sql_operations, functional_dependencies, errors
     )
     return FlowResolutionOutcome(
@@ -381,7 +222,7 @@ def resolve_flows(
 def resolve_dependencies(solutions: list[dict], projects: list[dict], symbols: list[dict], webforms: list[dict]) -> list[dict]:
     """Runs the DEPENDENCY_RESOLUTION stage. Depends only on EXTRACTION's output,
     independently of every resolver stage above."""
-    return [dep.to_dict() for dep in DependencyResolver().resolve(solutions, projects, symbols, webforms)]
+    return ReferenceAdapter().resolve_dependencies(solutions, projects, symbols, webforms)
 
 
 def export_artifacts(output: str | Path, indexes: dict) -> None:
@@ -422,7 +263,7 @@ def build_evidence_artifacts(output: str | Path, indexes: dict) -> None:
     stale_manifest = Path(output) / "evidence" / EVIDENCE_MANIFEST_FILENAME
     stale_manifest.unlink(missing_ok=True)
     started = perf_counter()
-    evidence = NormalizedEvidenceBuilder(repo_root=indexes.get("repository", {}).get("root")).build(indexes)
+    evidence = ReferenceAdapter().normalize(indexes, repo_root=indexes.get("repository", {}).get("root"))
     built = perf_counter()
     validate_evidence(evidence)
     validated = perf_counter()

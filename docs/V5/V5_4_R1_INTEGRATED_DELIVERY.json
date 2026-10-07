@@ -1,0 +1,4537 @@
+{
+  "round": "V5.4-R1",
+  "status": "V5_4_R1_READY_FOR_HUMAN_REVIEW",
+  "human_review": "PENDING",
+  "recommendation": "V5_4_NEXT_R3_FINAL_VERIFICATION",
+  "adapter": {
+    "id": "vbnet-webforms-oracle",
+    "version": "1.0",
+    "decision": "A_COMPOSED"
+  },
+  "inventory": {
+    "before": {
+      "modules": [
+        {
+          "path": "legacy_documenter/extractors/__init__.py",
+          "classification": "TECHNOLOGY_ADAPTER",
+          "imports": [],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": []
+        },
+        {
+          "path": "legacy_documenter/extractors/_database_classification.py",
+          "classification": "DB-SPECIFIC CAPABILITY",
+          "imports": [
+            "re"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 2,
+            "OleDb": 2,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 2
+          },
+          "public_definitions": [
+            "matched_type",
+            "direction",
+            "provider"
+          ]
+        },
+        {
+          "path": "legacy_documenter/extractors/_database_line_scanner.py",
+          "classification": "DB-SPECIFIC CAPABILITY",
+          "imports": [
+            "pathlib"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 1,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "scan_logical_lines",
+            "strip_comment"
+          ]
+        },
+        {
+          "path": "legacy_documenter/extractors/_database_token_parsing.py",
+          "classification": "DB-SPECIFIC CAPABILITY",
+          "imports": [
+            "re"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 1,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "strip_string_literals",
+            "literal",
+            "sql_kind",
+            "first_sql_keyword",
+            "split_args"
+          ]
+        },
+        {
+          "path": "legacy_documenter/extractors/call_extractor.py",
+          "classification": "TECHNOLOGY_ADAPTER",
+          "imports": [
+            "pathlib",
+            "legacy_documenter.models",
+            "re"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "CallExtractor"
+          ]
+        },
+        {
+          "path": "legacy_documenter/extractors/database_extractor.py",
+          "classification": "DB-SPECIFIC CAPABILITY",
+          "imports": [
+            "pathlib",
+            "legacy_documenter.extractors._database_classification",
+            "legacy_documenter.extractors._database_classification",
+            "legacy_documenter.extractors._database_classification",
+            "legacy_documenter.extractors._database_line_scanner",
+            "legacy_documenter.extractors._database_line_scanner",
+            "legacy_documenter.extractors._database_token_parsing",
+            "legacy_documenter.extractors._database_token_parsing",
+            "legacy_documenter.extractors._database_token_parsing",
+            "legacy_documenter.extractors._database_token_parsing",
+            "legacy_documenter.extractors._database_token_parsing",
+            "legacy_documenter.utils",
+            "re"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 13,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 2
+          },
+          "public_definitions": [
+            "DatabaseExtractor"
+          ]
+        },
+        {
+          "path": "legacy_documenter/extractors/solution_extractor.py",
+          "classification": "TECHNOLOGY_ADAPTER",
+          "imports": [
+            "pathlib",
+            "re"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "SolutionExtractor"
+          ]
+        },
+        {
+          "path": "legacy_documenter/extractors/vbnet_extractor.py",
+          "classification": "TECHNOLOGY_ADAPTER",
+          "imports": [
+            "pathlib",
+            "legacy_documenter.models",
+            "re"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "VBNetExtractor"
+          ]
+        },
+        {
+          "path": "legacy_documenter/extractors/vbproj_extractor.py",
+          "classification": "TECHNOLOGY_ADAPTER",
+          "imports": [
+            "pathlib",
+            "legacy_documenter.models",
+            "xml.etree.ElementTree"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "VBProjExtractor"
+          ]
+        },
+        {
+          "path": "legacy_documenter/extractors/web_event_extractor.py",
+          "classification": "TECHNOLOGY_ADAPTER",
+          "imports": [
+            "pathlib",
+            "re"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "WebEventExtractor"
+          ]
+        },
+        {
+          "path": "legacy_documenter/extractors/webconfig_extractor.py",
+          "classification": "TECHNOLOGY_ADAPTER",
+          "imports": [
+            "pathlib",
+            "re",
+            "xml.etree.ElementTree"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "WebConfigExtractor"
+          ]
+        },
+        {
+          "path": "legacy_documenter/extractors/webforms_extractor.py",
+          "classification": "TECHNOLOGY_ADAPTER",
+          "imports": [
+            "pathlib",
+            "legacy_documenter.models",
+            "re"
+          ],
+          "terms": {
+            "WebForms": 2,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "WebFormsExtractor"
+          ]
+        },
+        {
+          "path": "legacy_documenter/analysis/__init__.py",
+          "classification": "CORE",
+          "imports": [],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": []
+        },
+        {
+          "path": "legacy_documenter/analysis/_flow_graph_construction.py",
+          "classification": "CORE",
+          "imports": [],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "node",
+            "add_node",
+            "add_edge"
+          ]
+        },
+        {
+          "path": "legacy_documenter/analysis/_flow_key_labels.py",
+          "classification": "TECHNOLOGY_ADAPTER",
+          "imports": [],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "method_key",
+            "method_label",
+            "class_id",
+            "entry_method_key",
+            "resolved_method_key"
+          ]
+        },
+        {
+          "path": "legacy_documenter/analysis/_flow_report_composition.py",
+          "classification": "CORE",
+          "imports": [
+            "collections"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "project_sequence",
+            "project_sequence_from_nodes",
+            "summary"
+          ]
+        },
+        {
+          "path": "legacy_documenter/analysis/call_resolver.py",
+          "classification": "TECHNOLOGY_ADAPTER",
+          "imports": [
+            "collections",
+            "legacy_documenter.models"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "CallResolver"
+          ]
+        },
+        {
+          "path": "legacy_documenter/analysis/database_resolver.py",
+          "classification": "DB-SPECIFIC CAPABILITY",
+          "imports": [
+            "pathlib",
+            "legacy_documenter.models"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "DatabaseResolver"
+          ]
+        },
+        {
+          "path": "legacy_documenter/analysis/deep_interpretation.py",
+          "classification": "LEGACY COMPATIBILITY / DIAGNOSTIC COMPOSITION",
+          "imports": [
+            "pathlib",
+            "legacy_documenter.llm",
+            "legacy_documenter.llm.copilot_pilot",
+            "legacy_documenter.utils",
+            "asyncio",
+            "hashlib",
+            "json",
+            "os"
+          ],
+          "terms": {
+            "WebForms": 1,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "hid",
+            "estimate",
+            "evidence_pool",
+            "select_for_group",
+            "semantic_schema",
+            "plan_requests",
+            "resolve_result",
+            "merge_reevaluation",
+            "configured_provider",
+            "run_deep_interpretation"
+          ]
+        },
+        {
+          "path": "legacy_documenter/analysis/deep_source.py",
+          "classification": "LEGACY COMPATIBILITY / DIAGNOSTIC COMPOSITION",
+          "imports": [
+            "dataclasses",
+            "collections",
+            "pathlib",
+            "legacy_documenter.main",
+            "legacy_documenter.utils",
+            "argparse",
+            "hashlib",
+            "json",
+            "posixpath",
+            "re",
+            "shutil"
+          ],
+          "terms": {
+            "WebForms": 9,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "DeepEvidence",
+            "stable_id",
+            "tree_snapshot",
+            "plan_requests",
+            "project_dependencies",
+            "external_dependencies",
+            "integration_evidence",
+            "web_entry_evidence",
+            "architecture_evidence",
+            "reevaluate",
+            "run",
+            "main"
+          ]
+        },
+        {
+          "path": "legacy_documenter/analysis/dependency_resolver.py",
+          "classification": "TECHNOLOGY_ADAPTER",
+          "imports": [
+            "pathlib",
+            "legacy_documenter.models"
+          ],
+          "terms": {
+            "WebForms": 4,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "DependencyResolver"
+          ]
+        },
+        {
+          "path": "legacy_documenter/analysis/flow_resolver.py",
+          "classification": "MIXED",
+          "imports": [
+            "collections",
+            "legacy_documenter.analysis._flow_graph_construction",
+            "legacy_documenter.analysis._flow_graph_construction",
+            "legacy_documenter.analysis._flow_graph_construction",
+            "legacy_documenter.analysis._flow_key_labels",
+            "legacy_documenter.analysis._flow_key_labels",
+            "legacy_documenter.analysis._flow_key_labels",
+            "legacy_documenter.analysis._flow_key_labels",
+            "legacy_documenter.analysis._flow_key_labels",
+            "legacy_documenter.analysis._flow_report_composition",
+            "legacy_documenter.analysis._flow_report_composition",
+            "legacy_documenter.analysis._flow_report_composition",
+            "hashlib",
+            "json"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "FunctionalFlowResolver"
+          ]
+        },
+        {
+          "path": "legacy_documenter/analysis/targeted_exhaustion.py",
+          "classification": "LEGACY COMPATIBILITY / DIAGNOSTIC COMPOSITION",
+          "imports": [
+            "collections",
+            "pathlib",
+            "legacy_documenter.documentation.human_review",
+            "legacy_documenter.utils",
+            "hashlib",
+            "json",
+            "re"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "recover_definitions",
+            "targeted_data_lookup",
+            "exhaustion_status",
+            "run"
+          ]
+        },
+        {
+          "path": "legacy_documenter/analysis/web_entry_resolver.py",
+          "classification": "TECHNOLOGY_ADAPTER",
+          "imports": [
+            "pathlib",
+            "legacy_documenter.models"
+          ],
+          "terms": {
+            "WebForms": 2,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "WebEntryResolver"
+          ]
+        },
+        {
+          "path": "legacy_documenter/models/__init__.py",
+          "classification": "LEGACY COMPATIBILITY",
+          "imports": [
+            "dependency",
+            "call",
+            "evidence",
+            "entry_point",
+            "project",
+            "source_file",
+            "symbol",
+            "webform"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": []
+        },
+        {
+          "path": "legacy_documenter/models/call.py",
+          "classification": "LEGACY COMPATIBILITY",
+          "imports": [
+            "dataclasses",
+            "legacy_documenter.models.evidence"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "TypeReference",
+            "Instantiation",
+            "Call"
+          ]
+        },
+        {
+          "path": "legacy_documenter/models/dependency.py",
+          "classification": "LEGACY COMPATIBILITY",
+          "imports": [
+            "dataclasses"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "Dependency"
+          ]
+        },
+        {
+          "path": "legacy_documenter/models/entry_point.py",
+          "classification": "LEGACY COMPATIBILITY",
+          "imports": [
+            "dataclasses"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "EntryPoint",
+            "EventBinding"
+          ]
+        },
+        {
+          "path": "legacy_documenter/models/evidence.py",
+          "classification": "LEGACY COMPATIBILITY",
+          "imports": [
+            "dataclasses"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "Evidence"
+          ]
+        },
+        {
+          "path": "legacy_documenter/models/project.py",
+          "classification": "LEGACY COMPATIBILITY",
+          "imports": [
+            "dataclasses"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "Project"
+          ]
+        },
+        {
+          "path": "legacy_documenter/models/source_file.py",
+          "classification": "LEGACY COMPATIBILITY",
+          "imports": [
+            "dataclasses"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "SourceFile"
+          ]
+        },
+        {
+          "path": "legacy_documenter/models/symbol.py",
+          "classification": "LEGACY COMPATIBILITY",
+          "imports": [
+            "dataclasses"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "Symbol"
+          ]
+        },
+        {
+          "path": "legacy_documenter/models/webform.py",
+          "classification": "LEGACY COMPATIBILITY",
+          "imports": [
+            "dataclasses"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "WebForm"
+          ]
+        },
+        {
+          "path": "legacy_documenter/evidence/__init__.py",
+          "classification": "CORE",
+          "imports": [],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": []
+        },
+        {
+          "path": "legacy_documenter/evidence/builder.py",
+          "classification": "MIXED",
+          "imports": [
+            "__future__",
+            "collections",
+            "dataclasses",
+            "pathlib",
+            "entities",
+            "identity",
+            "reference",
+            "hashlib"
+          ],
+          "terms": {
+            "WebForms": 7,
+            "VB.NET": 1,
+            "Oracle": 3,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 2,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "NormalizedEvidence",
+            "NormalizedEvidenceBuilder"
+          ]
+        },
+        {
+          "path": "legacy_documenter/evidence/entities.py",
+          "classification": "CORE",
+          "imports": [
+            "__future__",
+            "dataclasses",
+            "reference"
+          ],
+          "terms": {
+            "WebForms": 1,
+            "VB.NET": 1,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "is_sha256_hex",
+            "SourceArtifact",
+            "Solution",
+            "Component",
+            "ExternalDependency",
+            "DataObject",
+            "UnresolvedBoundary",
+            "CallIdentity",
+            "Instantiation",
+            "ScanSummary"
+          ]
+        },
+        {
+          "path": "legacy_documenter/evidence/identity.py",
+          "classification": "CORE",
+          "imports": [
+            "__future__",
+            "collections",
+            "collections.abc",
+            "dataclasses",
+            "hashlib",
+            "json"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "sha256_id",
+            "poly33_id",
+            "Collision",
+            "detect_duplicate_ids",
+            "detect_collisions",
+            "collision_summary",
+            "DuplicateOrdinalAssigner"
+          ]
+        },
+        {
+          "path": "legacy_documenter/evidence/invariants.py",
+          "classification": "CORE",
+          "imports": [
+            "__future__",
+            "builder",
+            "entities",
+            "identity",
+            "reference"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "InvariantViolation",
+            "check_i1_id_unique_per_kind",
+            "identity_report",
+            "build_reference_store",
+            "provenance_report",
+            "validate_provenance",
+            "validate_evidence",
+            "check_i2_no_legacy_ref_as_identity",
+            "check_i3_entry_point_to_flow_cardinality",
+            "check_i4_traceability",
+            "check_i5_evidence_reference_resolves_or_fails_explicitly",
+            "check_i6_no_invented_relations",
+            "check_i7_no_promotion_without_basis",
+            "check_i8_state_immutable_across_projections",
+            "check_i9_legacy_projection_byte_equivalence",
+            "check_i10_determinism",
+            "check_i11_segmentation_fields_consistent"
+          ]
+        },
+        {
+          "path": "legacy_documenter/evidence/persistence.py",
+          "classification": "CORE",
+          "imports": [
+            "__future__",
+            "pathlib",
+            "legacy_documenter.utils.write_if_changed",
+            "builder",
+            "entities",
+            "hashlib",
+            "json"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "write_evidence"
+          ]
+        },
+        {
+          "path": "legacy_documenter/evidence/projection.py",
+          "classification": "MIXED",
+          "imports": [
+            "__future__",
+            "builder"
+          ],
+          "terms": {
+            "WebForms": 1,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "LegacyProjectionError",
+            "LegacyIndexProjector"
+          ]
+        },
+        {
+          "path": "legacy_documenter/evidence/reference.py",
+          "classification": "CORE",
+          "imports": [
+            "__future__",
+            "dataclasses"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "BrokenEvidenceReferenceError",
+            "EvidenceReference",
+            "EvidenceReferenceStore",
+            "resolve_against"
+          ]
+        },
+        {
+          "path": "legacy_documenter/cli/__init__.py",
+          "classification": "COMPOSITION/ORCHESTRATION",
+          "imports": [],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": []
+        },
+        {
+          "path": "legacy_documenter/cli/artifact_lifecycle.py",
+          "classification": "COMPOSITION/ORCHESTRATION",
+          "imports": [
+            "__future__",
+            "pathlib",
+            "legacy_documenter.utils.write_if_changed"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "reset_stale_proposal_artifacts",
+            "sync_generated_partition_directory",
+            "sync_generated_json_partition_directory"
+          ]
+        },
+        {
+          "path": "legacy_documenter/cli/execution_model.py",
+          "classification": "COMPOSITION/ORCHESTRATION",
+          "imports": [
+            "__future__",
+            "dataclasses",
+            "enum",
+            "legacy_documenter.cli.stage_identity"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "RunStatus",
+            "StageStatus",
+            "StageError",
+            "StageResult",
+            "RunResult"
+          ]
+        },
+        {
+          "path": "legacy_documenter/cli/full_pipeline.py",
+          "classification": "COMPOSITION/ORCHESTRATION",
+          "imports": [
+            "__future__",
+            "pathlib",
+            "time",
+            "typing",
+            "legacy_documenter.cache",
+            "legacy_documenter.cli",
+            "legacy_documenter.cli.artifact_lifecycle",
+            "legacy_documenter.cli.execution_model",
+            "legacy_documenter.cli.run_summary_presenter",
+            "legacy_documenter.cli.stage_identity",
+            "legacy_documenter.knowledge.proposals.models",
+            "legacy_documenter.llm.core",
+            "legacy_documenter.orchestration",
+            "legacy_documenter.orchestration.ai_interpretation",
+            "legacy_documenter.utils.atomic_write",
+            "legacy_documenter.utils.json_rendering",
+            "legacy_documenter.utils.stage_timings",
+            "legacy_documenter.utils.write_if_changed",
+            "legacy_documenter.utils.write_policy",
+            "dataclasses",
+            "functools",
+            "inspect"
+          ],
+          "terms": {
+            "WebForms": 4,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "run_full_pipeline"
+          ]
+        },
+        {
+          "path": "legacy_documenter/cli/output_manifest.py",
+          "classification": "COMPOSITION/ORCHESTRATION",
+          "imports": [
+            "__future__",
+            "pathlib",
+            "legacy_documenter.cache",
+            "hashlib"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "build_output_manifest"
+          ]
+        },
+        {
+          "path": "legacy_documenter/cli/parser.py",
+          "classification": "COMPOSITION/ORCHESTRATION",
+          "imports": [
+            "__future__",
+            "legacy_documenter.cache.options",
+            "argparse",
+            "sys"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "normalize_cache_argv",
+            "normalize_argv",
+            "build_parser"
+          ]
+        },
+        {
+          "path": "legacy_documenter/cli/pipeline_stages.py",
+          "classification": "COMPOSITION/ORCHESTRATION",
+          "imports": [
+            "__future__",
+            "dataclasses",
+            "pathlib",
+            "time",
+            "legacy_documenter.cli.artifact_lifecycle",
+            "legacy_documenter.analysis.call_resolver",
+            "legacy_documenter.analysis.database_resolver",
+            "legacy_documenter.analysis.dependency_resolver",
+            "legacy_documenter.analysis.flow_resolver",
+            "legacy_documenter.analysis.web_entry_resolver",
+            "legacy_documenter.context.consumer_projection",
+            "legacy_documenter.context.context_builder",
+            "legacy_documenter.context.hydration_view",
+            "legacy_documenter.context.system_context_builder",
+            "legacy_documenter.documentation.human_documentation_scaling",
+            "legacy_documenter.documentation_v52.engine",
+            "legacy_documenter.evidence.builder",
+            "legacy_documenter.evidence.invariants",
+            "legacy_documenter.evidence.persistence",
+            "legacy_documenter.exporters.json_exporter",
+            "legacy_documenter.exporters.markdown_exporter",
+            "legacy_documenter.exporters.technical_documentation_renderer",
+            "legacy_documenter.extractors.call_extractor",
+            "legacy_documenter.extractors.database_extractor",
+            "legacy_documenter.extractors.solution_extractor",
+            "legacy_documenter.extractors.vbnet_extractor",
+            "legacy_documenter.extractors.vbproj_extractor",
+            "legacy_documenter.extractors.web_event_extractor",
+            "legacy_documenter.extractors.webconfig_extractor",
+            "legacy_documenter.extractors.webforms_extractor",
+            "legacy_documenter.models",
+            "legacy_documenter.scanner.file_classifier",
+            "legacy_documenter.scanner.repository_scanner",
+            "legacy_documenter.utils.stage_timings",
+            "legacy_documenter.utils.write_if_changed",
+            "legacy_documenter.utils.json_rendering",
+            "legacy_documenter.utils.sanitizer",
+            "json",
+            "logging"
+          ],
+          "terms": {
+            "WebForms": 15,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 1,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "ScanOutcome",
+            "scan_repository",
+            "ExtractionOutcome",
+            "extract_repository",
+            "apply_project_namespaces",
+            "consolidate_partial_symbols",
+            "CallResolutionOutcome",
+            "resolve_calls",
+            "WebEntryResolutionOutcome",
+            "resolve_web_entries",
+            "DatabaseResolutionOutcome",
+            "resolve_database",
+            "FlowResolutionOutcome",
+            "resolve_flows",
+            "resolve_dependencies",
+            "export_artifacts",
+            "build_evidence_artifacts",
+            "create_run_flow_source",
+            "log_run_flow_source_stats",
+            "build_context_artifacts",
+            "DocumentationOutcome",
+            "render_documentation"
+          ]
+        },
+        {
+          "path": "legacy_documenter/cli/router.py",
+          "classification": "COMPOSITION/ORCHESTRATION",
+          "imports": [
+            "__future__",
+            "argparse",
+            "pathlib",
+            "typing",
+            "legacy_documenter.cli.execution_model",
+            "legacy_documenter.cli.full_pipeline",
+            "legacy_documenter.cli.output_manifest",
+            "legacy_documenter.knowledge.readiness",
+            "legacy_documenter.utils.atomic_write",
+            "legacy_documenter.utils.json_rendering",
+            "json"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "AnalyzeRepository",
+            "route"
+          ]
+        },
+        {
+          "path": "legacy_documenter/cli/run_summary_presenter.py",
+          "classification": "COMPOSITION/ORCHESTRATION",
+          "imports": [
+            "__future__",
+            "pathlib",
+            "legacy_documenter.cli.execution_model",
+            "legacy_documenter.cli.serialization",
+            "legacy_documenter.cli.stage_identity",
+            "legacy_documenter.utils.atomic_write",
+            "dataclasses"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "compute_output_locations",
+            "derive_next_action",
+            "render_console_summary",
+            "render_markdown_summary",
+            "finalize_and_write_run_summary"
+          ]
+        },
+        {
+          "path": "legacy_documenter/cli/serialization.py",
+          "classification": "COMPOSITION/ORCHESTRATION",
+          "imports": [
+            "__future__",
+            "legacy_documenter.cli.execution_model",
+            "legacy_documenter.utils.json_rendering"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "render_run_result"
+          ]
+        },
+        {
+          "path": "legacy_documenter/cli/stage_identity.py",
+          "classification": "COMPOSITION/ORCHESTRATION",
+          "imports": [
+            "__future__",
+            "enum"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "StageId"
+          ]
+        },
+        {
+          "path": "legacy_documenter/scanner/__init__.py",
+          "classification": "COMPOSITION/ORCHESTRATION",
+          "imports": [],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": []
+        },
+        {
+          "path": "legacy_documenter/scanner/file_classifier.py",
+          "classification": "COMPOSITION/ORCHESTRATION",
+          "imports": [
+            "collections",
+            "pathlib"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 1,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "FileClassifier"
+          ]
+        },
+        {
+          "path": "legacy_documenter/scanner/repository_scanner.py",
+          "classification": "COMPOSITION/ORCHESTRATION",
+          "imports": [
+            "pathlib",
+            "legacy_documenter.config",
+            "legacy_documenter.models",
+            "legacy_documenter.scanner.file_classifier"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "RepositoryScanner"
+          ]
+        },
+        {
+          "path": "legacy_documenter/fingerprints/__init__.py",
+          "classification": "CORE",
+          "imports": [
+            "_common",
+            "code",
+            "configuration",
+            "extraction_contract",
+            "semantic",
+            "templates"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": []
+        },
+        {
+          "path": "legacy_documenter/fingerprints/_common.py",
+          "classification": "CORE",
+          "imports": [
+            "__future__",
+            "hashlib",
+            "json"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "length_prefixed",
+            "normalize_newlines",
+            "canonical_json",
+            "sha256_json"
+          ]
+        },
+        {
+          "path": "legacy_documenter/fingerprints/code.py",
+          "classification": "CORE",
+          "imports": [
+            "__future__",
+            "dataclasses",
+            "pathlib",
+            "typing",
+            "_common",
+            "ast",
+            "hashlib"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "CodeFingerprint",
+            "analyzer_code_fingerprint"
+          ]
+        },
+        {
+          "path": "legacy_documenter/fingerprints/configuration.py",
+          "classification": "CORE",
+          "imports": [
+            "__future__",
+            "pathlib",
+            "typing",
+            "_common",
+            "templates",
+            "legacy_documenter"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "analysis_config_fingerprint",
+            "projection_config_fingerprint",
+            "config_fingerprint"
+          ]
+        },
+        {
+          "path": "legacy_documenter/fingerprints/extraction_contract.py",
+          "classification": "CORE",
+          "imports": [
+            "__future__",
+            "pathlib",
+            "_common",
+            "ast",
+            "hashlib"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "extraction_contract_fingerprint"
+          ]
+        },
+        {
+          "path": "legacy_documenter/fingerprints/semantic.py",
+          "classification": "CORE",
+          "imports": [
+            "__future__",
+            "pathlib",
+            "_common",
+            "hashlib"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "semantic_content_sha256",
+            "semantic_file_sha256"
+          ]
+        },
+        {
+          "path": "legacy_documenter/fingerprints/templates.py",
+          "classification": "CORE",
+          "imports": [
+            "__future__",
+            "pathlib",
+            "typing",
+            "_common",
+            "legacy_documenter.documentation_v52.config",
+            "legacy_documenter.documentation_v52.engine",
+            "hashlib",
+            "json"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "template_profile_fingerprint"
+          ]
+        }
+      ],
+      "direct_consumer_test_modules": [
+        "tests/test_v1.py",
+        "tests/test_v1_unittest.py",
+        "tests/test_v3_r8_1.py",
+        "tests/test_v3_r8_2.py",
+        "tests/test_v3_r8_2_correction.py",
+        "tests/test_v3_r8_3.py",
+        "tests/test_v4_1_r2_models_types_and_public_contracts.py",
+        "tests/test_v4_1_r5_database_extractor_characterization.py",
+        "tests/test_v4_1_r5_flow_resolver_characterization.py",
+        "tests/test_v4_1_r6_database_extractor_gap_closure.py",
+        "tests/test_v4_1_r6_flow_resolver_gap_closure.py",
+        "tests/test_v4_1_r7_exception_boundaries_characterization.py",
+        "tests/test_v4_2_r2_deterministic_full_pipeline_orchestrator.py",
+        "tests/test_v4_2_r7_1_real_pilot_findings_correction.py",
+        "tests/test_v5_1_r2_normalized_evidence_core.py"
+      ],
+      "direct_consumer_count": 15,
+      "classification_counts": {
+        "TECHNOLOGY_ADAPTER": 12,
+        "DB-SPECIFIC CAPABILITY": 5,
+        "CORE": 16,
+        "LEGACY COMPATIBILITY / DIAGNOSTIC COMPOSITION": 3,
+        "MIXED": 3,
+        "LEGACY COMPATIBILITY": 9,
+        "COMPOSITION/ORCHESTRATION": 14
+      },
+      "textual_reference_counts": {
+        "WebForms": 46,
+        "VB.NET": 4,
+        "Oracle": 18,
+        "OleDb": 2,
+        "OracleClient": 0,
+        ".vbproj": 4,
+        "ADO.NET": 4
+      },
+      "technology_to_neutral_core_import_edges": [
+        [
+          "legacy_documenter/analysis/flow_resolver.py",
+          "legacy_documenter.analysis._flow_graph_construction"
+        ],
+        [
+          "legacy_documenter/analysis/flow_resolver.py",
+          "legacy_documenter.analysis._flow_report_composition"
+        ],
+        [
+          "legacy_documenter/evidence/builder.py",
+          "legacy_documenter.evidence.entities"
+        ],
+        [
+          "legacy_documenter/evidence/builder.py",
+          "legacy_documenter.evidence.identity"
+        ],
+        [
+          "legacy_documenter/evidence/builder.py",
+          "legacy_documenter.evidence.reference"
+        ]
+      ],
+      "technology_to_neutral_core_import_count": 5,
+      "technology_to_neutral_core_import_statements": 9
+    },
+    "after": {
+      "modules": [
+        {
+          "path": "legacy_documenter/extractors/__init__.py",
+          "classification": "CORE",
+          "imports": [],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": []
+        },
+        {
+          "path": "legacy_documenter/extractors/_database_classification.py",
+          "classification": "LEGACY COMPATIBILITY",
+          "imports": [
+            "legacy_documenter.adapters.vbnet_webforms_oracle.extractors._database_classification"
+          ],
+          "terms": {
+            "WebForms": 1,
+            "VB.NET": 0,
+            "Oracle": 1,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": []
+        },
+        {
+          "path": "legacy_documenter/extractors/_database_line_scanner.py",
+          "classification": "LEGACY COMPATIBILITY",
+          "imports": [
+            "legacy_documenter.adapters.vbnet_webforms_oracle.extractors._database_line_scanner"
+          ],
+          "terms": {
+            "WebForms": 1,
+            "VB.NET": 0,
+            "Oracle": 1,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": []
+        },
+        {
+          "path": "legacy_documenter/extractors/_database_token_parsing.py",
+          "classification": "LEGACY COMPATIBILITY",
+          "imports": [
+            "legacy_documenter.adapters.vbnet_webforms_oracle.extractors._database_token_parsing"
+          ],
+          "terms": {
+            "WebForms": 1,
+            "VB.NET": 0,
+            "Oracle": 1,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": []
+        },
+        {
+          "path": "legacy_documenter/extractors/call_extractor.py",
+          "classification": "LEGACY COMPATIBILITY",
+          "imports": [
+            "legacy_documenter.adapters.vbnet_webforms_oracle.extractors.call_extractor"
+          ],
+          "terms": {
+            "WebForms": 1,
+            "VB.NET": 0,
+            "Oracle": 1,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": []
+        },
+        {
+          "path": "legacy_documenter/extractors/database_extractor.py",
+          "classification": "LEGACY COMPATIBILITY",
+          "imports": [
+            "legacy_documenter.adapters.vbnet_webforms_oracle.extractors.database_extractor"
+          ],
+          "terms": {
+            "WebForms": 1,
+            "VB.NET": 0,
+            "Oracle": 2,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": []
+        },
+        {
+          "path": "legacy_documenter/extractors/solution_extractor.py",
+          "classification": "LEGACY COMPATIBILITY",
+          "imports": [
+            "legacy_documenter.adapters.vbnet_webforms_oracle.extractors.solution_extractor"
+          ],
+          "terms": {
+            "WebForms": 1,
+            "VB.NET": 0,
+            "Oracle": 1,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": []
+        },
+        {
+          "path": "legacy_documenter/extractors/vbnet_extractor.py",
+          "classification": "LEGACY COMPATIBILITY",
+          "imports": [
+            "legacy_documenter.adapters.vbnet_webforms_oracle.extractors.vbnet_extractor"
+          ],
+          "terms": {
+            "WebForms": 1,
+            "VB.NET": 0,
+            "Oracle": 1,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": []
+        },
+        {
+          "path": "legacy_documenter/extractors/vbproj_extractor.py",
+          "classification": "LEGACY COMPATIBILITY",
+          "imports": [
+            "legacy_documenter.adapters.vbnet_webforms_oracle.extractors.vbproj_extractor"
+          ],
+          "terms": {
+            "WebForms": 1,
+            "VB.NET": 0,
+            "Oracle": 1,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 1,
+            "ADO.NET": 0
+          },
+          "public_definitions": []
+        },
+        {
+          "path": "legacy_documenter/extractors/web_event_extractor.py",
+          "classification": "LEGACY COMPATIBILITY",
+          "imports": [
+            "legacy_documenter.adapters.vbnet_webforms_oracle.extractors.web_event_extractor"
+          ],
+          "terms": {
+            "WebForms": 1,
+            "VB.NET": 0,
+            "Oracle": 1,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": []
+        },
+        {
+          "path": "legacy_documenter/extractors/webconfig_extractor.py",
+          "classification": "LEGACY COMPATIBILITY",
+          "imports": [
+            "legacy_documenter.adapters.vbnet_webforms_oracle.extractors.webconfig_extractor"
+          ],
+          "terms": {
+            "WebForms": 1,
+            "VB.NET": 0,
+            "Oracle": 1,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": []
+        },
+        {
+          "path": "legacy_documenter/extractors/webforms_extractor.py",
+          "classification": "LEGACY COMPATIBILITY",
+          "imports": [
+            "legacy_documenter.adapters.vbnet_webforms_oracle.extractors.webforms_extractor"
+          ],
+          "terms": {
+            "WebForms": 3,
+            "VB.NET": 0,
+            "Oracle": 1,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": []
+        },
+        {
+          "path": "legacy_documenter/analysis/__init__.py",
+          "classification": "CORE",
+          "imports": [],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": []
+        },
+        {
+          "path": "legacy_documenter/analysis/_flow_graph_construction.py",
+          "classification": "LEGACY COMPATIBILITY",
+          "imports": [
+            "legacy_documenter.adapters.vbnet_webforms_oracle.analysis._flow_graph_construction"
+          ],
+          "terms": {
+            "WebForms": 1,
+            "VB.NET": 0,
+            "Oracle": 1,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": []
+        },
+        {
+          "path": "legacy_documenter/analysis/_flow_key_labels.py",
+          "classification": "LEGACY COMPATIBILITY",
+          "imports": [
+            "legacy_documenter.adapters.vbnet_webforms_oracle.analysis._flow_key_labels"
+          ],
+          "terms": {
+            "WebForms": 1,
+            "VB.NET": 0,
+            "Oracle": 1,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": []
+        },
+        {
+          "path": "legacy_documenter/analysis/_flow_report_composition.py",
+          "classification": "LEGACY COMPATIBILITY",
+          "imports": [
+            "legacy_documenter.adapters.vbnet_webforms_oracle.analysis._flow_report_composition"
+          ],
+          "terms": {
+            "WebForms": 1,
+            "VB.NET": 0,
+            "Oracle": 1,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": []
+        },
+        {
+          "path": "legacy_documenter/analysis/_neutral_flow_keys.py",
+          "classification": "CORE",
+          "imports": [],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "method_key",
+            "method_label",
+            "class_id",
+            "entry_method_key",
+            "resolved_method_key"
+          ]
+        },
+        {
+          "path": "legacy_documenter/analysis/_neutral_flow_reporting.py",
+          "classification": "CORE",
+          "imports": [
+            "collections"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "project_sequence",
+            "project_sequence_from_nodes",
+            "summary"
+          ]
+        },
+        {
+          "path": "legacy_documenter/analysis/_neutral_graph.py",
+          "classification": "CORE",
+          "imports": [],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "node",
+            "add_node",
+            "add_edge"
+          ]
+        },
+        {
+          "path": "legacy_documenter/analysis/call_resolver.py",
+          "classification": "LEGACY COMPATIBILITY",
+          "imports": [
+            "legacy_documenter.adapters.vbnet_webforms_oracle.analysis.call_resolver"
+          ],
+          "terms": {
+            "WebForms": 1,
+            "VB.NET": 0,
+            "Oracle": 1,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": []
+        },
+        {
+          "path": "legacy_documenter/analysis/database_resolver.py",
+          "classification": "LEGACY COMPATIBILITY",
+          "imports": [
+            "legacy_documenter.adapters.vbnet_webforms_oracle.analysis.database_resolver"
+          ],
+          "terms": {
+            "WebForms": 1,
+            "VB.NET": 0,
+            "Oracle": 1,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": []
+        },
+        {
+          "path": "legacy_documenter/analysis/deep_interpretation.py",
+          "classification": "LEGACY COMPATIBILITY / DIAGNOSTIC COMPOSITION",
+          "imports": [
+            "pathlib",
+            "legacy_documenter.llm",
+            "legacy_documenter.llm.copilot_pilot",
+            "legacy_documenter.utils",
+            "asyncio",
+            "hashlib",
+            "json",
+            "os"
+          ],
+          "terms": {
+            "WebForms": 1,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "hid",
+            "estimate",
+            "evidence_pool",
+            "select_for_group",
+            "semantic_schema",
+            "plan_requests",
+            "resolve_result",
+            "merge_reevaluation",
+            "configured_provider",
+            "run_deep_interpretation"
+          ]
+        },
+        {
+          "path": "legacy_documenter/analysis/deep_source.py",
+          "classification": "LEGACY COMPATIBILITY / DIAGNOSTIC COMPOSITION",
+          "imports": [
+            "dataclasses",
+            "collections",
+            "pathlib",
+            "legacy_documenter.main",
+            "legacy_documenter.utils",
+            "argparse",
+            "hashlib",
+            "json",
+            "posixpath",
+            "re",
+            "shutil"
+          ],
+          "terms": {
+            "WebForms": 9,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "DeepEvidence",
+            "stable_id",
+            "tree_snapshot",
+            "plan_requests",
+            "project_dependencies",
+            "external_dependencies",
+            "integration_evidence",
+            "web_entry_evidence",
+            "architecture_evidence",
+            "reevaluate",
+            "run",
+            "main"
+          ]
+        },
+        {
+          "path": "legacy_documenter/analysis/dependency_resolver.py",
+          "classification": "LEGACY COMPATIBILITY",
+          "imports": [
+            "legacy_documenter.adapters.vbnet_webforms_oracle.analysis.dependency_resolver"
+          ],
+          "terms": {
+            "WebForms": 1,
+            "VB.NET": 0,
+            "Oracle": 1,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": []
+        },
+        {
+          "path": "legacy_documenter/analysis/flow_resolver.py",
+          "classification": "LEGACY COMPATIBILITY",
+          "imports": [
+            "legacy_documenter.adapters.vbnet_webforms_oracle.analysis.flow_resolver"
+          ],
+          "terms": {
+            "WebForms": 1,
+            "VB.NET": 0,
+            "Oracle": 1,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": []
+        },
+        {
+          "path": "legacy_documenter/analysis/normalized_flow.py",
+          "classification": "CORE",
+          "imports": [
+            "collections",
+            "legacy_documenter.analysis._neutral_graph",
+            "legacy_documenter.analysis._neutral_graph",
+            "legacy_documenter.analysis._neutral_graph",
+            "legacy_documenter.analysis._neutral_flow_keys",
+            "legacy_documenter.analysis._neutral_flow_keys",
+            "legacy_documenter.analysis._neutral_flow_keys",
+            "legacy_documenter.analysis._neutral_flow_keys",
+            "legacy_documenter.analysis._neutral_flow_keys",
+            "legacy_documenter.analysis._neutral_flow_reporting",
+            "legacy_documenter.analysis._neutral_flow_reporting",
+            "legacy_documenter.analysis._neutral_flow_reporting",
+            "hashlib",
+            "json"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "NormalizedFlowResolver"
+          ]
+        },
+        {
+          "path": "legacy_documenter/analysis/targeted_exhaustion.py",
+          "classification": "LEGACY COMPATIBILITY / DIAGNOSTIC COMPOSITION",
+          "imports": [
+            "collections",
+            "pathlib",
+            "legacy_documenter.documentation.human_review",
+            "legacy_documenter.utils",
+            "hashlib",
+            "json",
+            "re"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "recover_definitions",
+            "targeted_data_lookup",
+            "exhaustion_status",
+            "run"
+          ]
+        },
+        {
+          "path": "legacy_documenter/analysis/web_entry_resolver.py",
+          "classification": "LEGACY COMPATIBILITY",
+          "imports": [
+            "legacy_documenter.adapters.vbnet_webforms_oracle.analysis.web_entry_resolver"
+          ],
+          "terms": {
+            "WebForms": 1,
+            "VB.NET": 0,
+            "Oracle": 1,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": []
+        },
+        {
+          "path": "legacy_documenter/models/__init__.py",
+          "classification": "LEGACY COMPATIBILITY",
+          "imports": [
+            "dependency",
+            "call",
+            "evidence",
+            "entry_point",
+            "project",
+            "source_file",
+            "symbol",
+            "webform"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": []
+        },
+        {
+          "path": "legacy_documenter/models/call.py",
+          "classification": "LEGACY COMPATIBILITY",
+          "imports": [
+            "dataclasses",
+            "legacy_documenter.models.evidence"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "TypeReference",
+            "Instantiation",
+            "Call"
+          ]
+        },
+        {
+          "path": "legacy_documenter/models/dependency.py",
+          "classification": "LEGACY COMPATIBILITY",
+          "imports": [
+            "dataclasses"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "Dependency"
+          ]
+        },
+        {
+          "path": "legacy_documenter/models/entry_point.py",
+          "classification": "LEGACY COMPATIBILITY",
+          "imports": [
+            "dataclasses"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "EntryPoint",
+            "EventBinding"
+          ]
+        },
+        {
+          "path": "legacy_documenter/models/evidence.py",
+          "classification": "LEGACY COMPATIBILITY",
+          "imports": [
+            "dataclasses"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "Evidence"
+          ]
+        },
+        {
+          "path": "legacy_documenter/models/project.py",
+          "classification": "LEGACY COMPATIBILITY",
+          "imports": [
+            "dataclasses"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "Project"
+          ]
+        },
+        {
+          "path": "legacy_documenter/models/source_file.py",
+          "classification": "LEGACY COMPATIBILITY",
+          "imports": [
+            "dataclasses"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "SourceFile"
+          ]
+        },
+        {
+          "path": "legacy_documenter/models/symbol.py",
+          "classification": "LEGACY COMPATIBILITY",
+          "imports": [
+            "dataclasses"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "Symbol"
+          ]
+        },
+        {
+          "path": "legacy_documenter/models/webform.py",
+          "classification": "LEGACY COMPATIBILITY",
+          "imports": [
+            "dataclasses"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "WebForm"
+          ]
+        },
+        {
+          "path": "legacy_documenter/evidence/__init__.py",
+          "classification": "CORE",
+          "imports": [],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": []
+        },
+        {
+          "path": "legacy_documenter/evidence/builder.py",
+          "classification": "LEGACY COMPATIBILITY",
+          "imports": [
+            "legacy_documenter.adapters.vbnet_webforms_oracle.normalization"
+          ],
+          "terms": {
+            "WebForms": 1,
+            "VB.NET": 0,
+            "Oracle": 1,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": []
+        },
+        {
+          "path": "legacy_documenter/evidence/bundle.py",
+          "classification": "CORE",
+          "imports": [
+            "dataclasses",
+            "entities"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "NormalizedEvidence"
+          ]
+        },
+        {
+          "path": "legacy_documenter/evidence/entities.py",
+          "classification": "CORE",
+          "imports": [
+            "__future__",
+            "dataclasses",
+            "reference"
+          ],
+          "terms": {
+            "WebForms": 1,
+            "VB.NET": 1,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "is_sha256_hex",
+            "SourceArtifact",
+            "Solution",
+            "Component",
+            "ExternalDependency",
+            "DataObject",
+            "UnresolvedBoundary",
+            "CallIdentity",
+            "Instantiation",
+            "ScanSummary"
+          ]
+        },
+        {
+          "path": "legacy_documenter/evidence/identity.py",
+          "classification": "CORE",
+          "imports": [
+            "__future__",
+            "collections",
+            "collections.abc",
+            "dataclasses",
+            "hashlib",
+            "json"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "sha256_id",
+            "poly33_id",
+            "Collision",
+            "detect_duplicate_ids",
+            "detect_collisions",
+            "collision_summary",
+            "DuplicateOrdinalAssigner"
+          ]
+        },
+        {
+          "path": "legacy_documenter/evidence/invariants.py",
+          "classification": "CORE",
+          "imports": [
+            "__future__",
+            "bundle",
+            "entities",
+            "identity",
+            "reference"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "InvariantViolation",
+            "check_i1_id_unique_per_kind",
+            "identity_report",
+            "build_reference_store",
+            "provenance_report",
+            "validate_provenance",
+            "validate_evidence",
+            "check_i2_no_legacy_ref_as_identity",
+            "check_i3_entry_point_to_flow_cardinality",
+            "check_i4_traceability",
+            "check_i5_evidence_reference_resolves_or_fails_explicitly",
+            "check_i6_no_invented_relations",
+            "check_i7_no_promotion_without_basis",
+            "check_i8_state_immutable_across_projections",
+            "check_i9_legacy_projection_byte_equivalence",
+            "check_i10_determinism",
+            "check_i11_segmentation_fields_consistent"
+          ]
+        },
+        {
+          "path": "legacy_documenter/evidence/persistence.py",
+          "classification": "CORE",
+          "imports": [
+            "__future__",
+            "pathlib",
+            "legacy_documenter.utils.write_if_changed",
+            "bundle",
+            "entities",
+            "hashlib",
+            "json"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "write_evidence"
+          ]
+        },
+        {
+          "path": "legacy_documenter/evidence/projection.py",
+          "classification": "LEGACY COMPATIBILITY",
+          "imports": [
+            "legacy_documenter.adapters.vbnet_webforms_oracle.projection"
+          ],
+          "terms": {
+            "WebForms": 1,
+            "VB.NET": 0,
+            "Oracle": 1,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": []
+        },
+        {
+          "path": "legacy_documenter/evidence/reference.py",
+          "classification": "CORE",
+          "imports": [
+            "__future__",
+            "dataclasses"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "BrokenEvidenceReferenceError",
+            "EvidenceReference",
+            "EvidenceReferenceStore",
+            "resolve_against"
+          ]
+        },
+        {
+          "path": "legacy_documenter/cli/__init__.py",
+          "classification": "COMPOSITION/ORCHESTRATION",
+          "imports": [],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": []
+        },
+        {
+          "path": "legacy_documenter/cli/artifact_lifecycle.py",
+          "classification": "COMPOSITION/ORCHESTRATION",
+          "imports": [
+            "__future__",
+            "pathlib",
+            "legacy_documenter.utils.write_if_changed"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "reset_stale_proposal_artifacts",
+            "sync_generated_partition_directory",
+            "sync_generated_json_partition_directory"
+          ]
+        },
+        {
+          "path": "legacy_documenter/cli/execution_model.py",
+          "classification": "COMPOSITION/ORCHESTRATION",
+          "imports": [
+            "__future__",
+            "dataclasses",
+            "enum",
+            "legacy_documenter.cli.stage_identity"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "RunStatus",
+            "StageStatus",
+            "StageError",
+            "StageResult",
+            "RunResult"
+          ]
+        },
+        {
+          "path": "legacy_documenter/cli/full_pipeline.py",
+          "classification": "COMPOSITION/ORCHESTRATION",
+          "imports": [
+            "__future__",
+            "pathlib",
+            "time",
+            "typing",
+            "legacy_documenter.cache",
+            "legacy_documenter.cli",
+            "legacy_documenter.cli.artifact_lifecycle",
+            "legacy_documenter.cli.execution_model",
+            "legacy_documenter.cli.run_summary_presenter",
+            "legacy_documenter.cli.stage_identity",
+            "legacy_documenter.knowledge.proposals.models",
+            "legacy_documenter.llm.core",
+            "legacy_documenter.orchestration",
+            "legacy_documenter.orchestration.ai_interpretation",
+            "legacy_documenter.utils.atomic_write",
+            "legacy_documenter.utils.json_rendering",
+            "legacy_documenter.utils.stage_timings",
+            "legacy_documenter.utils.write_if_changed",
+            "legacy_documenter.utils.write_policy",
+            "dataclasses",
+            "functools",
+            "inspect"
+          ],
+          "terms": {
+            "WebForms": 4,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "run_full_pipeline"
+          ]
+        },
+        {
+          "path": "legacy_documenter/cli/output_manifest.py",
+          "classification": "COMPOSITION/ORCHESTRATION",
+          "imports": [
+            "__future__",
+            "pathlib",
+            "legacy_documenter.cache",
+            "hashlib"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "build_output_manifest"
+          ]
+        },
+        {
+          "path": "legacy_documenter/cli/parser.py",
+          "classification": "COMPOSITION/ORCHESTRATION",
+          "imports": [
+            "__future__",
+            "legacy_documenter.cache.options",
+            "argparse",
+            "sys"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "normalize_cache_argv",
+            "normalize_argv",
+            "build_parser"
+          ]
+        },
+        {
+          "path": "legacy_documenter/cli/pipeline_stages.py",
+          "classification": "COMPOSITION/ORCHESTRATION",
+          "imports": [
+            "__future__",
+            "dataclasses",
+            "pathlib",
+            "time",
+            "legacy_documenter.cli.artifact_lifecycle",
+            "legacy_documenter.adapters.vbnet_webforms_oracle.analysis.call_resolver",
+            "legacy_documenter.adapters.vbnet_webforms_oracle.analysis.database_resolver",
+            "legacy_documenter.adapters.vbnet_webforms_oracle.analysis.dependency_resolver",
+            "legacy_documenter.adapters.vbnet_webforms_oracle.analysis.flow_resolver",
+            "legacy_documenter.adapters.vbnet_webforms_oracle.analysis.web_entry_resolver",
+            "legacy_documenter.context.consumer_projection",
+            "legacy_documenter.context.context_builder",
+            "legacy_documenter.context.hydration_view",
+            "legacy_documenter.context.system_context_builder",
+            "legacy_documenter.documentation.human_documentation_scaling",
+            "legacy_documenter.documentation_v52.engine",
+            "legacy_documenter.evidence.invariants",
+            "legacy_documenter.evidence.persistence",
+            "legacy_documenter.exporters.json_exporter",
+            "legacy_documenter.exporters.markdown_exporter",
+            "legacy_documenter.exporters.technical_documentation_renderer",
+            "legacy_documenter.models",
+            "legacy_documenter.scanner.file_classifier",
+            "legacy_documenter.scanner.repository_scanner",
+            "legacy_documenter.utils.stage_timings",
+            "legacy_documenter.utils.write_if_changed",
+            "legacy_documenter.utils.json_rendering",
+            "legacy_documenter.utils.sanitizer",
+            "legacy_documenter.adapters.contracts",
+            "legacy_documenter.adapters.vbnet_webforms_oracle.adapter",
+            "legacy_documenter.adapters.vbnet_webforms_oracle.normalization",
+            "legacy_documenter.adapters.vbnet_webforms_oracle",
+            "json",
+            "logging"
+          ],
+          "terms": {
+            "WebForms": 14,
+            "VB.NET": 0,
+            "Oracle": 8,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "ScanOutcome",
+            "scan_repository",
+            "extract_repository",
+            "apply_project_namespaces",
+            "consolidate_partial_symbols",
+            "CallResolutionOutcome",
+            "resolve_calls",
+            "WebEntryResolutionOutcome",
+            "resolve_web_entries",
+            "DatabaseResolutionOutcome",
+            "resolve_database",
+            "FlowResolutionOutcome",
+            "resolve_flows",
+            "resolve_dependencies",
+            "export_artifacts",
+            "build_evidence_artifacts",
+            "create_run_flow_source",
+            "log_run_flow_source_stats",
+            "build_context_artifacts",
+            "DocumentationOutcome",
+            "render_documentation"
+          ]
+        },
+        {
+          "path": "legacy_documenter/cli/router.py",
+          "classification": "COMPOSITION/ORCHESTRATION",
+          "imports": [
+            "__future__",
+            "argparse",
+            "pathlib",
+            "typing",
+            "legacy_documenter.cli.execution_model",
+            "legacy_documenter.cli.full_pipeline",
+            "legacy_documenter.cli.output_manifest",
+            "legacy_documenter.knowledge.readiness",
+            "legacy_documenter.utils.atomic_write",
+            "legacy_documenter.utils.json_rendering",
+            "json"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "AnalyzeRepository",
+            "route"
+          ]
+        },
+        {
+          "path": "legacy_documenter/cli/run_summary_presenter.py",
+          "classification": "COMPOSITION/ORCHESTRATION",
+          "imports": [
+            "__future__",
+            "pathlib",
+            "legacy_documenter.cli.execution_model",
+            "legacy_documenter.cli.serialization",
+            "legacy_documenter.cli.stage_identity",
+            "legacy_documenter.utils.atomic_write",
+            "dataclasses"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "compute_output_locations",
+            "derive_next_action",
+            "render_console_summary",
+            "render_markdown_summary",
+            "finalize_and_write_run_summary"
+          ]
+        },
+        {
+          "path": "legacy_documenter/cli/serialization.py",
+          "classification": "COMPOSITION/ORCHESTRATION",
+          "imports": [
+            "__future__",
+            "legacy_documenter.cli.execution_model",
+            "legacy_documenter.utils.json_rendering"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "render_run_result"
+          ]
+        },
+        {
+          "path": "legacy_documenter/cli/stage_identity.py",
+          "classification": "COMPOSITION/ORCHESTRATION",
+          "imports": [
+            "__future__",
+            "enum"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "StageId"
+          ]
+        },
+        {
+          "path": "legacy_documenter/scanner/__init__.py",
+          "classification": "COMPOSITION/ORCHESTRATION",
+          "imports": [],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": []
+        },
+        {
+          "path": "legacy_documenter/scanner/file_classifier.py",
+          "classification": "COMPOSITION/ORCHESTRATION",
+          "imports": [
+            "collections",
+            "pathlib"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 1,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "FileClassifier"
+          ]
+        },
+        {
+          "path": "legacy_documenter/scanner/repository_scanner.py",
+          "classification": "COMPOSITION/ORCHESTRATION",
+          "imports": [
+            "pathlib",
+            "legacy_documenter.config",
+            "legacy_documenter.models",
+            "legacy_documenter.scanner.file_classifier"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "RepositoryScanner"
+          ]
+        },
+        {
+          "path": "legacy_documenter/fingerprints/__init__.py",
+          "classification": "CORE",
+          "imports": [
+            "_common",
+            "code",
+            "configuration",
+            "extraction_contract",
+            "semantic",
+            "templates"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": []
+        },
+        {
+          "path": "legacy_documenter/fingerprints/_common.py",
+          "classification": "CORE",
+          "imports": [
+            "__future__",
+            "hashlib",
+            "json"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "length_prefixed",
+            "normalize_newlines",
+            "canonical_json",
+            "sha256_json"
+          ]
+        },
+        {
+          "path": "legacy_documenter/fingerprints/code.py",
+          "classification": "CORE",
+          "imports": [
+            "__future__",
+            "dataclasses",
+            "pathlib",
+            "typing",
+            "_common",
+            "ast",
+            "hashlib"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "CodeFingerprint",
+            "analyzer_code_fingerprint"
+          ]
+        },
+        {
+          "path": "legacy_documenter/fingerprints/configuration.py",
+          "classification": "CORE",
+          "imports": [
+            "__future__",
+            "pathlib",
+            "typing",
+            "_common",
+            "templates",
+            "legacy_documenter"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "analysis_config_fingerprint",
+            "projection_config_fingerprint",
+            "config_fingerprint"
+          ]
+        },
+        {
+          "path": "legacy_documenter/fingerprints/extraction_contract.py",
+          "classification": "CORE",
+          "imports": [
+            "__future__",
+            "pathlib",
+            "_common",
+            "ast",
+            "hashlib"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "extraction_contract_fingerprint"
+          ]
+        },
+        {
+          "path": "legacy_documenter/fingerprints/semantic.py",
+          "classification": "CORE",
+          "imports": [
+            "__future__",
+            "pathlib",
+            "_common",
+            "hashlib"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "semantic_content_sha256",
+            "semantic_file_sha256"
+          ]
+        },
+        {
+          "path": "legacy_documenter/fingerprints/templates.py",
+          "classification": "CORE",
+          "imports": [
+            "__future__",
+            "pathlib",
+            "typing",
+            "_common",
+            "legacy_documenter.documentation_v52.config",
+            "legacy_documenter.documentation_v52.engine",
+            "hashlib",
+            "json"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "template_profile_fingerprint"
+          ]
+        },
+        {
+          "path": "legacy_documenter/adapters/__init__.py",
+          "classification": "CORE",
+          "imports": [],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": []
+        },
+        {
+          "path": "legacy_documenter/adapters/contracts.py",
+          "classification": "CORE",
+          "imports": [
+            "__future__",
+            "dataclasses",
+            "pathlib",
+            "typing",
+            "legacy_documenter.evidence.bundle"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "AdapterCapabilities",
+            "TechnologyAdapter",
+            "AdapterSelectionError",
+            "AdapterRegistry"
+          ]
+        },
+        {
+          "path": "legacy_documenter/adapters/vbnet_webforms_oracle/__init__.py",
+          "classification": "TECHNOLOGY_ADAPTER",
+          "imports": [],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": []
+        },
+        {
+          "path": "legacy_documenter/adapters/vbnet_webforms_oracle/adapter.py",
+          "classification": "TECHNOLOGY_ADAPTER",
+          "imports": [
+            "pathlib",
+            "legacy_documenter.adapters.contracts",
+            "normalization",
+            "",
+            "analysis.call_resolver",
+            "analysis.database_resolver",
+            "analysis.dependency_resolver",
+            "analysis.web_entry_resolver",
+            "analysis.flow_resolver"
+          ],
+          "terms": {
+            "WebForms": 4,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "ReferenceAdapter"
+          ]
+        },
+        {
+          "path": "legacy_documenter/adapters/vbnet_webforms_oracle/analysis/__init__.py",
+          "classification": "TECHNOLOGY_ADAPTER",
+          "imports": [],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": []
+        },
+        {
+          "path": "legacy_documenter/adapters/vbnet_webforms_oracle/analysis/_flow_graph_construction.py",
+          "classification": "TECHNOLOGY_ADAPTER",
+          "imports": [
+            "legacy_documenter.analysis._neutral_graph"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": []
+        },
+        {
+          "path": "legacy_documenter/adapters/vbnet_webforms_oracle/analysis/_flow_key_labels.py",
+          "classification": "TECHNOLOGY_ADAPTER",
+          "imports": [],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "method_key",
+            "method_label",
+            "class_id",
+            "entry_method_key",
+            "resolved_method_key"
+          ]
+        },
+        {
+          "path": "legacy_documenter/adapters/vbnet_webforms_oracle/analysis/_flow_report_composition.py",
+          "classification": "TECHNOLOGY_ADAPTER",
+          "imports": [
+            "legacy_documenter.analysis._neutral_flow_reporting"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": []
+        },
+        {
+          "path": "legacy_documenter/adapters/vbnet_webforms_oracle/analysis/call_resolver.py",
+          "classification": "TECHNOLOGY_ADAPTER",
+          "imports": [
+            "collections",
+            "legacy_documenter.models"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "CallResolver"
+          ]
+        },
+        {
+          "path": "legacy_documenter/adapters/vbnet_webforms_oracle/analysis/database_resolver.py",
+          "classification": "DB-SPECIFIC CAPABILITY",
+          "imports": [
+            "pathlib",
+            "legacy_documenter.models"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "DatabaseResolver"
+          ]
+        },
+        {
+          "path": "legacy_documenter/adapters/vbnet_webforms_oracle/analysis/dependency_resolver.py",
+          "classification": "TECHNOLOGY_ADAPTER",
+          "imports": [
+            "pathlib",
+            "legacy_documenter.models"
+          ],
+          "terms": {
+            "WebForms": 4,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "DependencyResolver"
+          ]
+        },
+        {
+          "path": "legacy_documenter/adapters/vbnet_webforms_oracle/analysis/flow_resolver.py",
+          "classification": "TECHNOLOGY_ADAPTER",
+          "imports": [
+            "legacy_documenter.analysis.normalized_flow",
+            "_flow_key_labels",
+            "legacy_documenter.analysis._neutral_graph"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "FunctionalFlowResolver"
+          ]
+        },
+        {
+          "path": "legacy_documenter/adapters/vbnet_webforms_oracle/analysis/web_entry_resolver.py",
+          "classification": "TECHNOLOGY_ADAPTER",
+          "imports": [
+            "pathlib",
+            "legacy_documenter.models"
+          ],
+          "terms": {
+            "WebForms": 2,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "WebEntryResolver"
+          ]
+        },
+        {
+          "path": "legacy_documenter/adapters/vbnet_webforms_oracle/extraction.py",
+          "classification": "TECHNOLOGY_ADAPTER",
+          "imports": [
+            "__future__",
+            "dataclasses",
+            "pathlib",
+            "time",
+            "legacy_documenter.models",
+            "legacy_documenter.adapters.vbnet_webforms_oracle.extractors.call_extractor",
+            "legacy_documenter.adapters.vbnet_webforms_oracle.extractors.database_extractor",
+            "legacy_documenter.adapters.vbnet_webforms_oracle.extractors.solution_extractor",
+            "legacy_documenter.adapters.vbnet_webforms_oracle.extractors.vbnet_extractor",
+            "legacy_documenter.adapters.vbnet_webforms_oracle.extractors.vbproj_extractor",
+            "legacy_documenter.adapters.vbnet_webforms_oracle.extractors.web_event_extractor",
+            "legacy_documenter.adapters.vbnet_webforms_oracle.extractors.webconfig_extractor",
+            "legacy_documenter.adapters.vbnet_webforms_oracle.extractors.webforms_extractor"
+          ],
+          "terms": {
+            "WebForms": 19,
+            "VB.NET": 0,
+            "Oracle": 8,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 1,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "ExtractionOutcome",
+            "extract_repository",
+            "apply_project_namespaces",
+            "consolidate_partial_symbols"
+          ]
+        },
+        {
+          "path": "legacy_documenter/adapters/vbnet_webforms_oracle/extractors/__init__.py",
+          "classification": "TECHNOLOGY_ADAPTER",
+          "imports": [],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": []
+        },
+        {
+          "path": "legacy_documenter/adapters/vbnet_webforms_oracle/extractors/_database_classification.py",
+          "classification": "DB-SPECIFIC CAPABILITY",
+          "imports": [
+            "re"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 2,
+            "OleDb": 2,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 2
+          },
+          "public_definitions": [
+            "matched_type",
+            "direction",
+            "provider"
+          ]
+        },
+        {
+          "path": "legacy_documenter/adapters/vbnet_webforms_oracle/extractors/_database_line_scanner.py",
+          "classification": "DB-SPECIFIC CAPABILITY",
+          "imports": [
+            "pathlib"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 1,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "scan_logical_lines",
+            "strip_comment"
+          ]
+        },
+        {
+          "path": "legacy_documenter/adapters/vbnet_webforms_oracle/extractors/_database_token_parsing.py",
+          "classification": "DB-SPECIFIC CAPABILITY",
+          "imports": [
+            "re"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 1,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "strip_string_literals",
+            "literal",
+            "sql_kind",
+            "first_sql_keyword",
+            "split_args"
+          ]
+        },
+        {
+          "path": "legacy_documenter/adapters/vbnet_webforms_oracle/extractors/call_extractor.py",
+          "classification": "TECHNOLOGY_ADAPTER",
+          "imports": [
+            "pathlib",
+            "legacy_documenter.models",
+            "re"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "CallExtractor"
+          ]
+        },
+        {
+          "path": "legacy_documenter/adapters/vbnet_webforms_oracle/extractors/database_extractor.py",
+          "classification": "DB-SPECIFIC CAPABILITY",
+          "imports": [
+            "pathlib",
+            "legacy_documenter.adapters.vbnet_webforms_oracle.extractors._database_classification",
+            "legacy_documenter.adapters.vbnet_webforms_oracle.extractors._database_classification",
+            "legacy_documenter.adapters.vbnet_webforms_oracle.extractors._database_classification",
+            "legacy_documenter.adapters.vbnet_webforms_oracle.extractors._database_line_scanner",
+            "legacy_documenter.adapters.vbnet_webforms_oracle.extractors._database_line_scanner",
+            "legacy_documenter.adapters.vbnet_webforms_oracle.extractors._database_token_parsing",
+            "legacy_documenter.adapters.vbnet_webforms_oracle.extractors._database_token_parsing",
+            "legacy_documenter.adapters.vbnet_webforms_oracle.extractors._database_token_parsing",
+            "legacy_documenter.adapters.vbnet_webforms_oracle.extractors._database_token_parsing",
+            "legacy_documenter.adapters.vbnet_webforms_oracle.extractors._database_token_parsing",
+            "legacy_documenter.utils",
+            "re"
+          ],
+          "terms": {
+            "WebForms": 10,
+            "VB.NET": 0,
+            "Oracle": 23,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 2
+          },
+          "public_definitions": [
+            "DatabaseExtractor"
+          ]
+        },
+        {
+          "path": "legacy_documenter/adapters/vbnet_webforms_oracle/extractors/solution_extractor.py",
+          "classification": "TECHNOLOGY_ADAPTER",
+          "imports": [
+            "pathlib",
+            "re"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "SolutionExtractor"
+          ]
+        },
+        {
+          "path": "legacy_documenter/adapters/vbnet_webforms_oracle/extractors/vbnet_extractor.py",
+          "classification": "TECHNOLOGY_ADAPTER",
+          "imports": [
+            "pathlib",
+            "legacy_documenter.models",
+            "re"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "VBNetExtractor"
+          ]
+        },
+        {
+          "path": "legacy_documenter/adapters/vbnet_webforms_oracle/extractors/vbproj_extractor.py",
+          "classification": "TECHNOLOGY_ADAPTER",
+          "imports": [
+            "pathlib",
+            "legacy_documenter.models",
+            "xml.etree.ElementTree"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "VBProjExtractor"
+          ]
+        },
+        {
+          "path": "legacy_documenter/adapters/vbnet_webforms_oracle/extractors/web_event_extractor.py",
+          "classification": "TECHNOLOGY_ADAPTER",
+          "imports": [
+            "pathlib",
+            "re"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "WebEventExtractor"
+          ]
+        },
+        {
+          "path": "legacy_documenter/adapters/vbnet_webforms_oracle/extractors/webconfig_extractor.py",
+          "classification": "TECHNOLOGY_ADAPTER",
+          "imports": [
+            "pathlib",
+            "re",
+            "xml.etree.ElementTree"
+          ],
+          "terms": {
+            "WebForms": 0,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "WebConfigExtractor"
+          ]
+        },
+        {
+          "path": "legacy_documenter/adapters/vbnet_webforms_oracle/extractors/webforms_extractor.py",
+          "classification": "TECHNOLOGY_ADAPTER",
+          "imports": [
+            "pathlib",
+            "legacy_documenter.models",
+            "re"
+          ],
+          "terms": {
+            "WebForms": 2,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "WebFormsExtractor"
+          ]
+        },
+        {
+          "path": "legacy_documenter/adapters/vbnet_webforms_oracle/normalization.py",
+          "classification": "TECHNOLOGY_ADAPTER",
+          "imports": [
+            "__future__",
+            "collections",
+            "legacy_documenter.evidence.bundle",
+            "pathlib",
+            "legacy_documenter.evidence.entities",
+            "legacy_documenter.evidence.identity",
+            "legacy_documenter.evidence.reference",
+            "hashlib"
+          ],
+          "terms": {
+            "WebForms": 7,
+            "VB.NET": 1,
+            "Oracle": 3,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 2,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "NormalizedEvidenceBuilder"
+          ]
+        },
+        {
+          "path": "legacy_documenter/adapters/vbnet_webforms_oracle/projection.py",
+          "classification": "TECHNOLOGY_ADAPTER",
+          "imports": [
+            "__future__",
+            "normalization",
+            "legacy_documenter.evidence.bundle"
+          ],
+          "terms": {
+            "WebForms": 1,
+            "VB.NET": 0,
+            "Oracle": 0,
+            "OleDb": 0,
+            "OracleClient": 0,
+            ".vbproj": 0,
+            "ADO.NET": 0
+          },
+          "public_definitions": [
+            "LegacyProjectionError",
+            "LegacyIndexProjector"
+          ]
+        }
+      ],
+      "classification_counts": {
+        "CORE": 22,
+        "LEGACY COMPATIBILITY": 30,
+        "LEGACY COMPATIBILITY / DIAGNOSTIC COMPOSITION": 3,
+        "COMPOSITION/ORCHESTRATION": 14,
+        "TECHNOLOGY_ADAPTER": 21,
+        "DB-SPECIFIC CAPABILITY": 5
+      },
+      "textual_reference_counts": {
+        "WebForms": 101,
+        "VB.NET": 4,
+        "Oracle": 66,
+        "OleDb": 2,
+        "OracleClient": 0,
+        ".vbproj": 5,
+        "ADO.NET": 4
+      },
+      "technology_to_neutral_core_import_edges": [
+        [
+          "legacy_documenter/adapters/vbnet_webforms_oracle/analysis/_flow_graph_construction.py",
+          "legacy_documenter.analysis._neutral_graph"
+        ],
+        [
+          "legacy_documenter/adapters/vbnet_webforms_oracle/analysis/_flow_report_composition.py",
+          "legacy_documenter.analysis._neutral_flow_reporting"
+        ],
+        [
+          "legacy_documenter/adapters/vbnet_webforms_oracle/analysis/flow_resolver.py",
+          "legacy_documenter.analysis._neutral_graph"
+        ],
+        [
+          "legacy_documenter/adapters/vbnet_webforms_oracle/analysis/flow_resolver.py",
+          "legacy_documenter.analysis.normalized_flow"
+        ],
+        [
+          "legacy_documenter/adapters/vbnet_webforms_oracle/normalization.py",
+          "legacy_documenter.evidence.bundle"
+        ],
+        [
+          "legacy_documenter/adapters/vbnet_webforms_oracle/normalization.py",
+          "legacy_documenter.evidence.entities"
+        ],
+        [
+          "legacy_documenter/adapters/vbnet_webforms_oracle/normalization.py",
+          "legacy_documenter.evidence.identity"
+        ],
+        [
+          "legacy_documenter/adapters/vbnet_webforms_oracle/normalization.py",
+          "legacy_documenter.evidence.reference"
+        ],
+        [
+          "legacy_documenter/adapters/vbnet_webforms_oracle/projection.py",
+          "legacy_documenter.evidence.bundle"
+        ]
+      ],
+      "technology_to_neutral_core_import_count": 9,
+      "technology_to_neutral_core_import_statements": 9
+    },
+    "scope": "extractors/analysis/models/evidence/cli/scanner/fingerprints/adapters; pipeline implementations are cli/pipeline_stages.py and cli/full_pipeline.py",
+    "baseline_core_to_technology_material_edges": [
+      [
+        "evidence/invariants.py",
+        "evidence/builder.py"
+      ],
+      [
+        "evidence/persistence.py",
+        "evidence/builder.py"
+      ]
+    ],
+    "baseline_mixed_modules": [
+      "evidence/builder.py",
+      "evidence/projection.py",
+      "analysis/flow_resolver.py"
+    ],
+    "baseline_mixed_flow_to_technology_helper_edges": [
+      [
+        "analysis/flow_resolver.py",
+        "analysis/_flow_key_labels.py"
+      ]
+    ],
+    "after_core_to_technology_material_edges": [],
+    "after_mixed_modules": []
+  },
+  "architecture_audit": {
+    "neutral_core_to_technology_imports_after": 0,
+    "neutral_core_modules": [
+      "legacy_documenter/evidence/bundle.py",
+      "legacy_documenter/evidence/entities.py",
+      "legacy_documenter/evidence/identity.py",
+      "legacy_documenter/evidence/reference.py",
+      "legacy_documenter/evidence/invariants.py",
+      "legacy_documenter/evidence/persistence.py",
+      "legacy_documenter/analysis/normalized_flow.py",
+      "legacy_documenter/analysis/_neutral_graph.py",
+      "legacy_documenter/analysis/_neutral_flow_keys.py",
+      "legacy_documenter/analysis/_neutral_flow_reporting.py"
+    ],
+    "algorithm_bodies_preserved": [
+      "legacy_documenter/analysis/_flow_key_labels.py",
+      "legacy_documenter/analysis/call_resolver.py",
+      "legacy_documenter/analysis/database_resolver.py",
+      "legacy_documenter/analysis/dependency_resolver.py",
+      "legacy_documenter/analysis/web_entry_resolver.py",
+      "legacy_documenter/extractors/_database_classification.py",
+      "legacy_documenter/extractors/_database_line_scanner.py",
+      "legacy_documenter/extractors/_database_token_parsing.py",
+      "legacy_documenter/extractors/call_extractor.py",
+      "legacy_documenter/extractors/database_extractor.py",
+      "legacy_documenter/extractors/solution_extractor.py",
+      "legacy_documenter/extractors/vbnet_extractor.py",
+      "legacy_documenter/extractors/vbproj_extractor.py",
+      "legacy_documenter/extractors/web_event_extractor.py",
+      "legacy_documenter/extractors/webconfig_extractor.py",
+      "legacy_documenter/extractors/webforms_extractor.py"
+    ],
+    "generic_helper_bodies_preserved": [
+      "_neutral_graph",
+      "_neutral_flow_reporting"
+    ],
+    "flow_method_bodies_preserved": [
+      "__init__",
+      "_walk",
+      "_index_terminals",
+      "_terminal_nodes",
+      "_entry_method_key",
+      "_resolved_method_key",
+      "_method_key",
+      "_method_label",
+      "_class_id",
+      "_node",
+      "_add_node",
+      "_add_edge",
+      "_add_path",
+      "_path_id",
+      "_weakest",
+      "_flow_status",
+      "_project_sequence",
+      "_project_sequence_from_nodes",
+      "_summary",
+      "_stable_id"
+    ],
+    "normalized_builder_ast_preserved": true,
+    "canonical_modules_moved": 21,
+    "legacy_shims": 21,
+    "direct_test_consumers_before": 15,
+    "remaining_mixed_core_modules": [],
+    "permitted_technology_vocabulary_outside_adapters": [
+      "scanner file-kind classification/composition",
+      "models legacy DTOs",
+      "legacy renderers/context projections",
+      "compatibility shim paths",
+      "documentation/comments"
+    ],
+    "db_boundary": "composed adapter internal capability; existing Oracle/ADO.NET algorithms preserved",
+    "legacy_flow_boundary": "technology-labelled flow projection belongs to reference adapter, not neutral evidence core"
+  },
+  "directed_tests": {
+    "command": "-X utf8 -m unittest tests.test_v5_4_r1_adapters tests.test_v5_3_r2_3_versioning_and_fingerprints tests.test_v5_1_r2_normalized_evidence_core tests.test_v5_3_r3_verification tests.test_v5_3_r2_9_incremental_calibration tests.test_v4_1_r5_database_extractor_characterization tests.test_v4_1_r6_database_extractor_gap_closure tests.test_v4_1_r5_flow_resolver_characterization tests.test_v4_1_r6_flow_resolver_gap_closure tests.test_v4_1_r0_maintainability_inventory",
+    "total": 278,
+    "duration_seconds": 80.057,
+    "wall_seconds": 80.643,
+    "exit_code": 0,
+    "footer": "OK",
+    "failures": 0,
+    "errors": 0,
+    "skips": 0,
+    "failing_tests": []
+  },
+  "full_suite": {
+    "command": "-X utf8 -m unittest discover -s tests",
+    "total": 2850,
+    "duration_seconds": 743.612,
+    "wall_seconds": 749.965,
+    "exit_code": 0,
+    "footer": "OK (skipped=132)",
+    "failures": 0,
+    "errors": 0,
+    "skips": 132,
+    "failing_tests": []
+  },
+  "initial_suite_attempt": {
+    "command": "-X utf8 -m unittest discover -s tests",
+    "total": 2849,
+    "duration_seconds": 665.426,
+    "wall_seconds": 673.633,
+    "exit_code": 1,
+    "footer": "FAILED (failures=2, skipped=132)",
+    "failures": 2,
+    "errors": 0,
+    "skips": 132,
+    "failing_tests": [
+      "test_on_disk_inventory_matches_fresh_build_if_present (test_v4_1_r0_maintainability_inventory.GeneratedArtifactOnDiskTests.test_on_disk_inventory_matches_fresh_build_if_present)",
+      "test_file_count_matches_r14_baseline_observation (test_v4_1_r0_maintainability_inventory.ProductionFileDiscoveryTests.test_file_count_matches_r14_baseline_observation)"
+    ]
+  },
+  "fixture_comparison": {
+    "contract": "LegacyMapperFullIncrementalComparison",
+    "schema_version": "1",
+    "files_compared": 106,
+    "matched": 106,
+    "equal": true,
+    "added": [],
+    "removed": [],
+    "changed": [],
+    "file_counts": {
+      "reference": 106,
+      "candidate": 106
+    },
+    "total_bytes": {
+      "reference": 204127,
+      "candidate": 204127
+    },
+    "excluded": {
+      "files": [
+        "RUN_SUMMARY.json",
+        "RUN_SUMMARY.md",
+        "index/repository.json"
+      ],
+      "directories": [
+        "_cache_v53"
+      ],
+      "reference": [
+        "RUN_SUMMARY.json",
+        "RUN_SUMMARY.md",
+        "index/repository.json"
+      ],
+      "candidate": [
+        "RUN_SUMMARY.json",
+        "RUN_SUMMARY.md",
+        "index/repository.json"
+      ]
+    }
+  },
+  "ist": {
+    "cache_healthy": true,
+    "cache_mode": "auto",
+    "exit_code": 0,
+    "metrics": {
+      "cache_controls": {
+        "incremental_max_changed_ratio": null,
+        "location": "internal",
+        "observed_changed_ratio": null,
+        "relative_dir": "_cache_v53",
+        "requested_mode": "auto",
+        "trust_mtime": {
+          "enabled": false,
+          "files_hashed": 15138,
+          "files_trusted": 0
+        },
+        "verify_cache": "fast"
+      },
+      "cache_verification": "byte_compare",
+      "completed_at": "2026-10-07T00:56:31+00:00",
+      "contract": "LegacyMapperRunMetrics",
+      "extraction_cache": {
+        "assemble_seconds": 0.01,
+        "cache_size_bytes": 263096755,
+        "extraction_cache_bypass": 42,
+        "extraction_cache_enabled": true,
+        "extraction_cache_hits": 0,
+        "extraction_cache_misses": 8106,
+        "extraction_seconds": 74.426,
+        "files_extracted": 8106,
+        "files_reused": 0,
+        "load_seconds": 0.0,
+        "parse_seconds": 0.0,
+        "persist_seconds": 12.889,
+        "reuse_disabled_reason": null,
+        "shards_invalid": 0,
+        "shards_loaded": 0,
+        "shards_rewritten": 256,
+        "validate_seconds": 0.0
+      },
+      "extraction_postprocess_seconds": 0.021,
+      "fallback_reason": "ANALYZER_VERSION_MISMATCH",
+      "file_state": {
+        "added": null,
+        "deleted": null,
+        "diff_seconds": null,
+        "file_state_build_seconds": 25.324,
+        "files_total": 15138,
+        "line_ending_only": null,
+        "modified": null,
+        "renamed_candidates": null,
+        "unchanged": null,
+        "validate_seconds": 0.109
+      },
+      "final_status": "SUCCESS",
+      "hydration": {
+        "build_seconds": 0.088,
+        "distinct_flows_hydrated": 12642,
+        "hydrate_seconds": 2.717,
+        "hydrations": 12642,
+        "memo_hits": 12642,
+        "requests": 25284
+      },
+      "mode": "full",
+      "overhead_seconds": {
+        "scope_analysis": 0.002
+      },
+      "peak_memory_bytes": 2999578624,
+      "schema_version": "1",
+      "scope": {
+        "changed_files": {},
+        "external_project_references": 0,
+        "fallback_reason": "ANALYZER_VERSION_MISMATCH",
+        "impacted_projects": {
+          "count": 0,
+          "items": [],
+          "truncated": false
+        },
+        "inventory_only_files": {
+          "count": 0,
+          "items": [],
+          "truncated": false
+        },
+        "mode": "full",
+        "reach": "bounded",
+        "reasons": {
+          "NO_PREVIOUS_STATE": 1
+        },
+        "symbols_in_changed_files": {
+          "files": {},
+          "total": 0
+        },
+        "transitive_projects": {
+          "count": 0,
+          "items": [],
+          "truncated": false
+        },
+        "unassertable": [],
+        "unknowns": []
+      },
+      "session_mode": "fallback_full",
+      "stage_seconds": {
+        "CALL_RESOLUTION": 1.419,
+        "CONTEXT": 31.921,
+        "DATABASE_RESOLUTION": 1.813,
+        "DEPENDENCY_RESOLUTION": 0.46,
+        "DOCUMENTATION": 161.128,
+        "EXPORT": 75.893,
+        "EXTRACTION": 74.457,
+        "FLOW_RESOLUTION": 7.017,
+        "SCAN": 0.717,
+        "WEB_ENTRY_RESOLUTION": 1.088
+      },
+      "started_at": "2026-10-07T00:50:06+00:00",
+      "total_seconds": 381.43,
+      "versions": {
+        "analysis_config_fingerprint": "c7f85d508790428f08248acddddaae4d499ccf5d34f619d4f050a8e04d020afd",
+        "analyzer_code_fingerprint": "4f7600f0fa351674878d66940352e9569de2b0f620643a3124b5c94545eb1ec6",
+        "analyzer_version": 3,
+        "evidence_schema_version": "1.0",
+        "extraction_cache_schema_version": 1,
+        "renderer_versions": {
+          "ai_context": {
+            "contract_version": "1.0",
+            "model_version": "V2-R5",
+            "schema_version": "1.0"
+          },
+          "consumer_projection": {
+            "contract_version": "1.0",
+            "schema_version": "1.0"
+          },
+          "documentation_v52": {
+            "contract_version": "1"
+          },
+          "human_documentation": {
+            "flow_model_version": "V4.3-R3",
+            "flow_schema_version": "1.0",
+            "scaling_model_version": "V4.3-R4",
+            "scaling_schema_version": "1.0"
+          },
+          "hydration": {
+            "model_version": "V4.3-R3"
+          },
+          "legacy_markdown": {
+            "version": "1"
+          }
+        },
+        "template_profile_fingerprint": "7b5419b00c302af67b8fe2437aa0d3521f9d3c72e49ec62373c8ded9d2146ebf"
+      },
+      "write_skip": {
+        "ai_context": {
+          "bytes_generated": 279178584,
+          "bytes_written": 0,
+          "compare_seconds": 0.428,
+          "generated": 5,
+          "skipped_identical": 5,
+          "write_seconds": 0.0,
+          "written": 0
+        },
+        "consumer_projection": {
+          "bytes_generated": 198913444,
+          "bytes_written": 0,
+          "compare_seconds": 1.018,
+          "generated": 27,
+          "skipped_identical": 27,
+          "write_seconds": 0.0,
+          "written": 0
+        },
+        "context": {
+          "bytes_generated": 896897,
+          "bytes_written": 0,
+          "compare_seconds": 0.011,
+          "generated": 1,
+          "skipped_identical": 1,
+          "write_seconds": 0.0,
+          "written": 0
+        },
+        "documentation": {
+          "bytes_generated": 66784060,
+          "bytes_written": 0,
+          "compare_seconds": 10.996,
+          "generated": 681,
+          "skipped_identical": 681,
+          "write_seconds": 0.0,
+          "written": 0
+        },
+        "evidence": {
+          "bytes_generated": 1056977107,
+          "bytes_written": 2625,
+          "compare_seconds": 2.915,
+          "generated": 25,
+          "skipped_identical": 24,
+          "write_seconds": 0.017,
+          "written": 1
+        },
+        "flujos_humanos": {
+          "bytes_generated": 159693893,
+          "bytes_written": 0,
+          "compare_seconds": 3.524,
+          "generated": 195,
+          "skipped_identical": 195,
+          "write_seconds": 0.0,
+          "written": 0
+        },
+        "index": {
+          "bytes_generated": 996335916,
+          "bytes_written": 465,
+          "compare_seconds": 1.48,
+          "generated": 22,
+          "skipped_identical": 21,
+          "write_seconds": 0.081,
+          "written": 1
+        }
+      }
+    },
+    "real_llm_calls": 0,
+    "telemetry": {
+      "extras": {
+        "hydration": {
+          "build_seconds": 0.088,
+          "distinct_flows_hydrated": 12642,
+          "hydrate_seconds": 2.717,
+          "hydrations": 12642,
+          "memo_hits": 12642,
+          "requests": 25284
+        }
+      },
+      "pipeline_seconds": 386.502,
+      "stage_seconds": {
+        "CALL_RESOLUTION": 1.419,
+        "CONTEXT": 31.921,
+        "DATABASE_RESOLUTION": 1.813,
+        "DEPENDENCY_RESOLUTION": 0.46,
+        "DOCUMENTATION": 161.128,
+        "EXPORT": 75.893,
+        "EXTRACTION": 74.457,
+        "FLOW_RESOLUTION": 7.017,
+        "SCAN": 0.717,
+        "WEB_ENTRY_RESOLUTION": 1.088
+      },
+      "write_skip": {
+        "ai_context": {
+          "bytes_generated": 279178584,
+          "bytes_written": 0,
+          "compare_seconds": 0.428,
+          "generated": 5,
+          "skipped_identical": 5,
+          "write_seconds": 0.0,
+          "written": 0
+        },
+        "consumer_projection": {
+          "bytes_generated": 198913444,
+          "bytes_written": 0,
+          "compare_seconds": 1.018,
+          "generated": 27,
+          "skipped_identical": 27,
+          "write_seconds": 0.0,
+          "written": 0
+        },
+        "context": {
+          "bytes_generated": 896897,
+          "bytes_written": 0,
+          "compare_seconds": 0.011,
+          "generated": 1,
+          "skipped_identical": 1,
+          "write_seconds": 0.0,
+          "written": 0
+        },
+        "documentation": {
+          "bytes_generated": 66784060,
+          "bytes_written": 0,
+          "compare_seconds": 10.996,
+          "generated": 681,
+          "skipped_identical": 681,
+          "write_seconds": 0.0,
+          "written": 0
+        },
+        "evidence": {
+          "bytes_generated": 1056977107,
+          "bytes_written": 2625,
+          "compare_seconds": 2.915,
+          "generated": 25,
+          "skipped_identical": 24,
+          "write_seconds": 0.017,
+          "written": 1
+        },
+        "flujos_humanos": {
+          "bytes_generated": 159693893,
+          "bytes_written": 0,
+          "compare_seconds": 3.524,
+          "generated": 195,
+          "skipped_identical": 195,
+          "write_seconds": 0.0,
+          "written": 0
+        },
+        "index": {
+          "bytes_generated": 996335916,
+          "bytes_written": 465,
+          "compare_seconds": 1.48,
+          "generated": 22,
+          "skipped_identical": 21,
+          "write_seconds": 0.081,
+          "written": 1
+        }
+      }
+    },
+    "verify": "fast",
+    "wall_seconds": 387.145
+  },
+  "canonical_comparison": {
+    "added": [],
+    "changed": [],
+    "comparison_seconds": 40.838,
+    "contract": "LegacyMapperFullIncrementalComparison",
+    "equal": true,
+    "excluded": {
+      "candidate": [
+        "RUN_SUMMARY.json",
+        "RUN_SUMMARY.md",
+        "_cache_v53/",
+        "index/repository.json"
+      ],
+      "directories": [
+        "_cache_v53"
+      ],
+      "files": [
+        "RUN_SUMMARY.json",
+        "RUN_SUMMARY.md",
+        "index/repository.json"
+      ],
+      "reference": [
+        "RUN_SUMMARY.json",
+        "RUN_SUMMARY.md",
+        "_cache_v53/",
+        "index/repository.json"
+      ]
+    },
+    "file_counts": {
+      "candidate": 47524,
+      "reference": 47524
+    },
+    "files_compared": 47524,
+    "matched": 47524,
+    "removed": [],
+    "schema_version": "1",
+    "total_bytes": {
+      "candidate": 2827997275,
+      "reference": 2827997275
+    }
+  },
+  "baseline": {
+    "commit": "9425319cb2edbae896b96f7abfbdcd3764beb538",
+    "runtime_same_since_r3": true,
+    "run": {
+      "ai_invoked": false,
+      "ai_requested": false,
+      "cache_mode": "off",
+      "exit_code": 0,
+      "name": "off_reference",
+      "telemetry": {
+        "extras": {
+          "hydration": {
+            "build_seconds": 0.126,
+            "distinct_flows_hydrated": 12642,
+            "hydrate_seconds": 2.974,
+            "hydrations": 12642,
+            "memo_hits": 12642,
+            "requests": 25284
+          }
+        },
+        "pipeline_seconds": 672.213,
+        "stage_seconds": {
+          "CALL_RESOLUTION": 0.979,
+          "CONTEXT": 38.616,
+          "DATABASE_RESOLUTION": 1.255,
+          "DEPENDENCY_RESOLUTION": 0.43,
+          "DOCUMENTATION": 413.016,
+          "EXPORT": 102.522,
+          "EXTRACTION": 103.37,
+          "FLOW_RESOLUTION": 9.062,
+          "SCAN": 0.825,
+          "WEB_ENTRY_RESOLUTION": 1.456
+        },
+        "write_skip": {
+          "ai_context": {
+            "bytes_generated": 279178584,
+            "bytes_written": 279178584,
+            "compare_seconds": 0.0,
+            "generated": 5,
+            "skipped_identical": 0,
+            "write_seconds": 0.445,
+            "written": 5
+          },
+          "consumer_projection": {
+            "bytes_generated": 198913444,
+            "bytes_written": 198913444,
+            "compare_seconds": 0.0,
+            "generated": 27,
+            "skipped_identical": 0,
+            "write_seconds": 0.443,
+            "written": 27
+          },
+          "context": {
+            "bytes_generated": 896897,
+            "bytes_written": 896897,
+            "compare_seconds": 0.0,
+            "generated": 1,
+            "skipped_identical": 0,
+            "write_seconds": 0.012,
+            "written": 1
+          },
+          "documentation": {
+            "bytes_generated": 66784060,
+            "bytes_written": 66784060,
+            "compare_seconds": 0.0,
+            "generated": 681,
+            "skipped_identical": 0,
+            "write_seconds": 5.47,
+            "written": 681
+          },
+          "evidence": {
+            "bytes_generated": 1056977107,
+            "bytes_written": 1056977107,
+            "compare_seconds": 0.0,
+            "generated": 25,
+            "skipped_identical": 0,
+            "write_seconds": 1.775,
+            "written": 25
+          },
+          "flujos_humanos": {
+            "bytes_generated": 159693893,
+            "bytes_written": 159693893,
+            "compare_seconds": 0.0,
+            "generated": 195,
+            "skipped_identical": 0,
+            "write_seconds": 1.773,
+            "written": 195
+          },
+          "index": {
+            "bytes_generated": 996335916,
+            "bytes_written": 996335916,
+            "compare_seconds": 0.0,
+            "generated": 22,
+            "skipped_identical": 0,
+            "write_seconds": 1.848,
+            "written": 22
+          }
+        }
+      },
+      "verify": "fast",
+      "wall_seconds": 673.798
+    },
+    "reused": true,
+    "source": "output/v53r29/r",
+    "output": "output/v53r29/f",
+    "controlled_fixture_mutations_inherited": 151,
+    "evidence_schema": "1.0",
+    "configuration": {
+      "cache_mode": "off",
+      "allow_ai_interpretation": false,
+      "long_paths": true,
+      "config": null,
+      "max_depth": 12
+    }
+  },
+  "source_audit": {
+    "official_before": {
+      "official_source_unchanged": true,
+      "inventory_unchanged": true,
+      "files_checked": 15138,
+      "method": "read-only inventory + SHA-256 against frozen V5.3 PLAN"
+    },
+    "official_after": {
+      "official_source_unchanged": true,
+      "inventory_unchanged": true,
+      "files_checked": 15138,
+      "method": "read-only inventory + SHA-256 against frozen V5.3 PLAN"
+    },
+    "controlled": {
+      "controlled_input_unchanged": true,
+      "files_checked": 15138,
+      "reference_commit": "9425319cb2edbae896b96f7abfbdcd3764beb538",
+      "runtime_same_since_r3": true
+    }
+  },
+  "maintainability": {
+    "production_modules": 256,
+    "risk_summary": {
+      "files_by_risk_category": {
+        "LOW": 138,
+        "MEDIUM": 84,
+        "HIGH": 24,
+        "VERY_HIGH": 10
+      },
+      "very_high_risk_files": [
+        "legacy_documenter/analysis/deep_source.py",
+        "legacy_documenter/cli/full_pipeline.py",
+        "legacy_documenter/cli/pipeline_stages.py",
+        "legacy_documenter/documentation/generator.py",
+        "legacy_documenter/documentation/hierarchical.py",
+        "legacy_documenter/documentation/human_flow_documentation.py",
+        "legacy_documenter/documentation/resume.py",
+        "legacy_documenter/documentation/systematic.py",
+        "legacy_documenter/documentation_v52/config.py",
+        "legacy_documenter/orchestration/ai_interpretation.py"
+      ],
+      "high_risk_files": [
+        "legacy_documenter/adapters/vbnet_webforms_oracle/extraction.py",
+        "legacy_documenter/analysis/deep_interpretation.py",
+        "legacy_documenter/analysis/normalized_flow.py",
+        "legacy_documenter/analysis/targeted_exhaustion.py",
+        "legacy_documenter/cli/router.py",
+        "legacy_documenter/cli/run_summary_presenter.py",
+        "legacy_documenter/context/ai_projection.py",
+        "legacy_documenter/context/consumer_projection.py",
+        "legacy_documenter/documentation/consistency.py",
+        "legacy_documenter/documentation/consistency_run.py",
+        "legacy_documenter/documentation/contracts.py",
+        "legacy_documenter/documentation/coverage.py",
+        "legacy_documenter/documentation/human_documentation_scaling.py",
+        "legacy_documenter/documentation/human_review.py",
+        "legacy_documenter/documentation/interpretation.py",
+        "legacy_documenter/documentation/second_review.py",
+        "legacy_documenter/documentation/synthesis.py",
+        "legacy_documenter/documentation_v52/renderer.py",
+        "legacy_documenter/documentation_v52/transform.py",
+        "legacy_documenter/documentation_v52/writer.py",
+        "legacy_documenter/knowledge/projection/models.py",
+        "legacy_documenter/knowledge/readiness.py",
+        "legacy_documenter/llm/copilot_pilot.py",
+        "legacy_documenter/quality/maintainability_audit.py"
+      ]
+    },
+    "historical_artifacts_modified": false,
+    "snapshot_path": "docs/V5/V5_4_R1_MAINTAINABILITY_INVENTORY.json"
+  },
+  "security": {
+    "real_provider_calls": 0,
+    "real_llm_calls": 0,
+    "official_source_writes": 0,
+    "captured_runtime_logs_persisted": false,
+    "sanitizer": "centralized unchanged"
+  },
+  "git": {
+    "branch": "main",
+    "head": "9425319cb2edbae896b96f7abfbdcd3764beb538",
+    "origin_main": "9425319cb2edbae896b96f7abfbdcd3764beb538",
+    "ahead": 0,
+    "behind": 0,
+    "status": [
+      "M PROJECT_STATE.json",
+      " M docs/continuity/LEGACYMAPPER_PROJECT_HISTORY_AND_V5_ROADMAP.md",
+      " M docs/continuity/LEGACYMAPPER_V5_ROADMAP.md",
+      " M legacy_documenter/analysis/_flow_graph_construction.py",
+      " M legacy_documenter/analysis/_flow_key_labels.py",
+      " M legacy_documenter/analysis/_flow_report_composition.py",
+      " M legacy_documenter/analysis/call_resolver.py",
+      " M legacy_documenter/analysis/database_resolver.py",
+      " M legacy_documenter/analysis/dependency_resolver.py",
+      " M legacy_documenter/analysis/flow_resolver.py",
+      " M legacy_documenter/analysis/web_entry_resolver.py",
+      " M legacy_documenter/cache/context.py",
+      " M legacy_documenter/cli/pipeline_stages.py",
+      " M legacy_documenter/evidence/builder.py",
+      " M legacy_documenter/evidence/invariants.py",
+      " M legacy_documenter/evidence/persistence.py",
+      " M legacy_documenter/evidence/projection.py",
+      " M legacy_documenter/extractors/_database_classification.py",
+      " M legacy_documenter/extractors/_database_line_scanner.py",
+      " M legacy_documenter/extractors/_database_token_parsing.py",
+      " M legacy_documenter/extractors/call_extractor.py",
+      " M legacy_documenter/extractors/database_extractor.py",
+      " M legacy_documenter/extractors/solution_extractor.py",
+      " M legacy_documenter/extractors/vbnet_extractor.py",
+      " M legacy_documenter/extractors/vbproj_extractor.py",
+      " M legacy_documenter/extractors/web_event_extractor.py",
+      " M legacy_documenter/extractors/webconfig_extractor.py",
+      " M legacy_documenter/extractors/webforms_extractor.py",
+      " M legacy_documenter/fingerprints/code.py",
+      " M legacy_documenter/versions.py",
+      " M tests/test_v4_1_r0_maintainability_inventory.py",
+      " M tests/test_v5_3_r2_3_versioning_and_fingerprints.py",
+      "?? docs/V5/V5_3_R4_1_GIT_PUSH_RESULT.md",
+      "?? docs/V5/V5_4_R1_INTEGRATED_DELIVERY.json",
+      "?? docs/V5/V5_4_R1_INTEGRATED_DELIVERY.md",
+      "?? docs/V5/V5_4_R1_MAINTAINABILITY_INVENTORY.json",
+      "?? legacy_documenter/adapters/__init__.py",
+      "?? legacy_documenter/adapters/contracts.py",
+      "?? legacy_documenter/adapters/vbnet_webforms_oracle/__init__.py",
+      "?? legacy_documenter/adapters/vbnet_webforms_oracle/adapter.py",
+      "?? legacy_documenter/adapters/vbnet_webforms_oracle/analysis/__init__.py",
+      "?? legacy_documenter/adapters/vbnet_webforms_oracle/analysis/_flow_graph_construction.py",
+      "?? legacy_documenter/adapters/vbnet_webforms_oracle/analysis/_flow_key_labels.py",
+      "?? legacy_documenter/adapters/vbnet_webforms_oracle/analysis/_flow_report_composition.py",
+      "?? legacy_documenter/adapters/vbnet_webforms_oracle/analysis/call_resolver.py",
+      "?? legacy_documenter/adapters/vbnet_webforms_oracle/analysis/database_resolver.py",
+      "?? legacy_documenter/adapters/vbnet_webforms_oracle/analysis/dependency_resolver.py",
+      "?? legacy_documenter/adapters/vbnet_webforms_oracle/analysis/flow_resolver.py",
+      "?? legacy_documenter/adapters/vbnet_webforms_oracle/analysis/web_entry_resolver.py",
+      "?? legacy_documenter/adapters/vbnet_webforms_oracle/extraction.py",
+      "?? legacy_documenter/adapters/vbnet_webforms_oracle/extractors/__init__.py",
+      "?? legacy_documenter/adapters/vbnet_webforms_oracle/extractors/_database_classification.py",
+      "?? legacy_documenter/adapters/vbnet_webforms_oracle/extractors/_database_line_scanner.py",
+      "?? legacy_documenter/adapters/vbnet_webforms_oracle/extractors/_database_token_parsing.py",
+      "?? legacy_documenter/adapters/vbnet_webforms_oracle/extractors/call_extractor.py",
+      "?? legacy_documenter/adapters/vbnet_webforms_oracle/extractors/database_extractor.py",
+      "?? legacy_documenter/adapters/vbnet_webforms_oracle/extractors/solution_extractor.py",
+      "?? legacy_documenter/adapters/vbnet_webforms_oracle/extractors/vbnet_extractor.py",
+      "?? legacy_documenter/adapters/vbnet_webforms_oracle/extractors/vbproj_extractor.py",
+      "?? legacy_documenter/adapters/vbnet_webforms_oracle/extractors/web_event_extractor.py",
+      "?? legacy_documenter/adapters/vbnet_webforms_oracle/extractors/webconfig_extractor.py",
+      "?? legacy_documenter/adapters/vbnet_webforms_oracle/extractors/webforms_extractor.py",
+      "?? legacy_documenter/adapters/vbnet_webforms_oracle/normalization.py",
+      "?? legacy_documenter/adapters/vbnet_webforms_oracle/projection.py",
+      "?? legacy_documenter/analysis/_neutral_flow_keys.py",
+      "?? legacy_documenter/analysis/_neutral_flow_reporting.py",
+      "?? legacy_documenter/analysis/_neutral_graph.py",
+      "?? legacy_documenter/analysis/normalized_flow.py",
+      "?? legacy_documenter/evidence/bundle.py",
+      "?? prompts/V5/V5_3_R4_1_FINAL_GIT_PUSH.md",
+      "?? prompts/V5/V5_4_R1_INTEGRATED_DELIVERY.md",
+      "?? tests/test_v5_4_r1_adapters.py"
+    ],
+    "mutations": [],
+    "backup": "2cb317fe5ae3dd2cbad1f865b1faee4a50a99569",
+    "pending_v53_administrative": {
+      "docs/V5/V5_3_R4_1_GIT_PUSH_RESULT.md": "f89957fdeefec795ffa3c912d34545def4e3b3c136de71642a7077aec6b4edbe",
+      "prompts/V5/V5_3_R4_1_FINAL_GIT_PUSH.md": "681648e562f66a095358632fcb838b568ac03b1766f6751674c2b176e9266e7e"
+    }
+  },
+  "debt": [
+    {
+      "severity": "NON_BLOCKING",
+      "item": "Legacy import shims and legacy DTO/output projections retained for compatibility."
+    },
+    {
+      "severity": "NON_BLOCKING",
+      "item": "Existing large traversal/extraction/normalization algorithms retained; no heuristic risk improvement claimed from relocation."
+    },
+    {
+      "severity": "NON_BLOCKING",
+      "item": "full_pipeline/pipeline_stages retain historical orchestration complexity; partial resolver recomputation remains out of scope."
+    },
+    {
+      "severity": "NON_BLOCKING",
+      "item": "Registry contract supports synthetic proof; CLI production composition currently registers only reference adapter."
+    }
+  ],
+  "next_execution": "HUMAN_REVIEW; do not automatically start R2/R3/V5.5"
+}

@@ -50,7 +50,7 @@ from pathlib import Path
 
 from legacy_documenter.utils.write_if_changed import write_text_if_changed
 
-from .builder import NormalizedEvidence
+from .bundle import NormalizedEvidence
 from .entities import EVIDENCE_SCHEMA_VERSION
 
 #: Newly-modeled entity kinds (this round's own dataclasses).

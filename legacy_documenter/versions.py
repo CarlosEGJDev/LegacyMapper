@@ -9,7 +9,7 @@ from __future__ import annotations
 #: namespace normalization, partial-class consolidation, resolvers, sanitizer. It is a plain integer, never
 #: a Git commit. `fingerprints.analyzer_code_fingerprint()` is the automatic safety net; a guard test fails
 #: when relevant code changed and this number did not (see tests/test_v5_3_r2_3_versioning_and_fingerprints.py).
-ANALYZER_VERSION = 2  # 2: R2.5 extraction refactored into per-file records (`_extract_file`); output unchanged
+ANALYZER_VERSION = 3  # 3: V5.4 adapter boundary and relocated sources; canonical output preserved
 
 #: Version of the persisted extraction-cache contract (shard format, entry structure/key, `cache_bypass` rules,
 #: loading/validation/writing; R2.6). Independent of `ANALYZER_VERSION` and of the manifest schema. Bump it whenever

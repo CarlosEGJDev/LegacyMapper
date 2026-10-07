@@ -26,8 +26,8 @@ PACKAGE = Path(versions.__file__).resolve().parent
 # whether the analysis output can change. Procedure when `test_analyzer_version_guard` fails:
 #   1. relevant analyzer code changed -> bump `legacy_documenter.versions.ANALYZER_VERSION`;
 #   2. then update BOTH values below to the new version and the fingerprint the failure message prints.
-GUARD_ANALYZER_VERSION = 2
-GUARD_ANALYZER_CODE_FINGERPRINT = "63456e55b1a96580906508f8da711f9c8b595b88a6256854cbe64a6df6bd1a65"
+GUARD_ANALYZER_VERSION = 3
+GUARD_ANALYZER_CODE_FINGERPRINT = "4f7600f0fa351674878d66940352e9569de2b0f620643a3124b5c94545eb1ec6"
 
 
 def _new_runtime_files() -> list[Path]:
@@ -159,7 +159,7 @@ class AnalyzerCodeFingerprintTests(unittest.TestCase):
         marker = "def extract_repository("
         self.assertIn(marker, text)
         stages.write_text(text.replace(marker, "def extract_repository(", 1).replace(
-            "    outcome = ExtractionOutcome()\n", "    outcome = ExtractionOutcome()  # changed\n", 1), encoding="utf-8")
+            "    return (selected or ReferenceAdapter()).extract(files, root, extraction_cache)\n", "    pass  # changed\n    return (selected or ReferenceAdapter()).extract(files, root, extraction_cache)\n", 1), encoding="utf-8")
         self.assertNotEqual(self._fp(), before)
 
     def test_files_outside_scope_do_not_affect_it(self):
@@ -472,7 +472,7 @@ class SemanticHashTests(unittest.TestCase):
             self.assertIsNone(semantic_file_sha256(Path(tmp) / "does-not-exist.js", "javascript"))
 
     def test_analyzed_types_equal_the_extractor_map_of_the_pipeline(self):
-        tree = ast.parse((PACKAGE / "cli" / "pipeline_stages.py").read_text(encoding="utf-8"))
+        tree = ast.parse((PACKAGE / "adapters" / "vbnet_webforms_oracle" / "extraction.py").read_text(encoding="utf-8"))
         extract = next(n for n in tree.body if isinstance(n, ast.FunctionDef) and n.name == "_extractors")
         keys: set[str] = set()
         for node in ast.walk(extract):
@@ -481,7 +481,7 @@ class SemanticHashTests(unittest.TestCase):
         self.assertEqual(set(fingerprints.ANALYZED_FILE_TYPES), keys)
 
     def test_source_artifact_sha256_is_not_modified(self):
-        from legacy_documenter.evidence import builder
+        from legacy_documenter.adapters.vbnet_webforms_oracle import normalization as builder
 
         text = Path(builder.__file__).read_text(encoding="utf-8")
         self.assertIn("sha256=_hash_file(repo_root / record[\"relative_path\"])", text)

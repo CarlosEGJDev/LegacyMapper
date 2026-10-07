@@ -1,0 +1,689 @@
+{
+  "round": "V5.4-R3",
+  "date": "2026-10-07",
+  "technical_status": "V5_4_CLOSED",
+  "r1_human_review": "APPROVED_BY_ACTIVE_R3_INSTRUCTION",
+  "r2": "NOT_REQUIRED",
+  "production_freeze": "PASS",
+  "architecture": {
+    "algorithm_bodies_preserved": [
+      "legacy_documenter/analysis/_flow_key_labels.py",
+      "legacy_documenter/analysis/call_resolver.py",
+      "legacy_documenter/analysis/database_resolver.py",
+      "legacy_documenter/analysis/dependency_resolver.py",
+      "legacy_documenter/analysis/web_entry_resolver.py",
+      "legacy_documenter/extractors/_database_classification.py",
+      "legacy_documenter/extractors/_database_line_scanner.py",
+      "legacy_documenter/extractors/_database_token_parsing.py",
+      "legacy_documenter/extractors/call_extractor.py",
+      "legacy_documenter/extractors/database_extractor.py",
+      "legacy_documenter/extractors/solution_extractor.py",
+      "legacy_documenter/extractors/vbnet_extractor.py",
+      "legacy_documenter/extractors/vbproj_extractor.py",
+      "legacy_documenter/extractors/web_event_extractor.py",
+      "legacy_documenter/extractors/webconfig_extractor.py",
+      "legacy_documenter/extractors/webforms_extractor.py"
+    ],
+    "forbidden_imports": [],
+    "mixed_material": 0,
+    "neutral_modules": {
+      "legacy_documenter/adapters/contracts.py": [
+        "__future__",
+        "dataclasses",
+        "pathlib",
+        "typing",
+        "legacy_documenter.evidence.bundle"
+      ],
+      "legacy_documenter/analysis/_neutral_flow_keys.py": [],
+      "legacy_documenter/analysis/_neutral_flow_reporting.py": [
+        "collections"
+      ],
+      "legacy_documenter/analysis/_neutral_graph.py": [],
+      "legacy_documenter/analysis/normalized_flow.py": [
+        "collections",
+        "hashlib",
+        "json",
+        "legacy_documenter.analysis._neutral_graph",
+        "legacy_documenter.analysis._neutral_graph",
+        "legacy_documenter.analysis._neutral_graph",
+        "legacy_documenter.analysis._neutral_flow_keys",
+        "legacy_documenter.analysis._neutral_flow_keys",
+        "legacy_documenter.analysis._neutral_flow_keys",
+        "legacy_documenter.analysis._neutral_flow_keys",
+        "legacy_documenter.analysis._neutral_flow_keys",
+        "legacy_documenter.analysis._neutral_flow_reporting",
+        "legacy_documenter.analysis._neutral_flow_reporting",
+        "legacy_documenter.analysis._neutral_flow_reporting"
+      ],
+      "legacy_documenter/evidence/bundle.py": [
+        "dataclasses",
+        "entities"
+      ],
+      "legacy_documenter/evidence/entities.py": [
+        "__future__",
+        "dataclasses",
+        "reference"
+      ],
+      "legacy_documenter/evidence/identity.py": [
+        "__future__",
+        "hashlib",
+        "json",
+        "collections",
+        "collections.abc",
+        "dataclasses"
+      ],
+      "legacy_documenter/evidence/invariants.py": [
+        "__future__",
+        "bundle",
+        "entities",
+        "identity",
+        "reference"
+      ],
+      "legacy_documenter/evidence/persistence.py": [
+        "__future__",
+        "hashlib",
+        "json",
+        "pathlib",
+        "legacy_documenter.utils.write_if_changed",
+        "bundle",
+        "entities"
+      ],
+      "legacy_documenter/evidence/reference.py": [
+        "__future__",
+        "dataclasses"
+      ]
+    },
+    "normalized_builder_ast_preserved": true,
+    "shims": [
+      "legacy_documenter/extractors/call_extractor.py",
+      "legacy_documenter/extractors/database_extractor.py",
+      "legacy_documenter/extractors/solution_extractor.py",
+      "legacy_documenter/extractors/vbnet_extractor.py",
+      "legacy_documenter/extractors/vbproj_extractor.py",
+      "legacy_documenter/extractors/webconfig_extractor.py",
+      "legacy_documenter/extractors/webforms_extractor.py",
+      "legacy_documenter/extractors/web_event_extractor.py",
+      "legacy_documenter/extractors/_database_classification.py",
+      "legacy_documenter/extractors/_database_line_scanner.py",
+      "legacy_documenter/extractors/_database_token_parsing.py",
+      "legacy_documenter/analysis/call_resolver.py",
+      "legacy_documenter/analysis/database_resolver.py",
+      "legacy_documenter/analysis/dependency_resolver.py",
+      "legacy_documenter/analysis/flow_resolver.py",
+      "legacy_documenter/analysis/web_entry_resolver.py",
+      "legacy_documenter/analysis/_flow_graph_construction.py",
+      "legacy_documenter/analysis/_flow_key_labels.py",
+      "legacy_documenter/analysis/_flow_report_composition.py",
+      "legacy_documenter/evidence/builder.py",
+      "legacy_documenter/evidence/projection.py"
+    ],
+    "symbol_identity_checks": 104
+  },
+  "directed_tests": {
+    "duration_seconds": 58.454,
+    "errors": 0,
+    "failures": 0,
+    "modules": [
+      "tests.test_v5_4_r1_adapters",
+      "tests.test_v5_3_r2_3_versioning_and_fingerprints",
+      "tests.test_v5_1_r2_normalized_evidence_core",
+      "tests.test_v5_3_r3_verification",
+      "tests.test_v5_3_r2_9_incremental_calibration",
+      "tests.test_v4_1_r5_database_extractor_characterization",
+      "tests.test_v4_1_r6_database_extractor_gap_closure",
+      "tests.test_v4_1_r5_flow_resolver_characterization",
+      "tests.test_v4_1_r6_flow_resolver_gap_closure",
+      "tests.test_v4_1_r0_maintainability_inventory"
+    ],
+    "skips": 0,
+    "success": true,
+    "total": 278
+  },
+  "full_suite": {
+    "command": "python -X utf8 -m unittest discover -s tests",
+    "total": 2850,
+    "duration_seconds": 595.514,
+    "failures": 0,
+    "errors": 0,
+    "skips": 132,
+    "exit_code": 0
+  },
+  "baseline": {
+    "baseline_analyzer": 2,
+    "baseline_commit": "9425319cb2edbae896b96f7abfbdcd3764beb538",
+    "baseline_source": "official pristine IST",
+    "matches_frozen_official_plan": true,
+    "reason_new_baseline": "Existing V5.3 outputs use a controlled copy with 151 fixture mutations; no verified official V5.3 canonical output under local output.",
+    "source_inventory_count": 15138,
+    "source_inventory_sha256": "77965c64c7e204d39dc06a9451076df07a4b400e2bd41372fff2bab7fcd792e5"
+  },
+  "baseline_run": {
+    "ai_invoked": false,
+    "ai_requested": false,
+    "analyzer_version": 2,
+    "cache_mode": "off",
+    "provider_calls": 0,
+    "provider_resolution_attempts": 0,
+    "real_llm_calls": 0,
+    "status": "SUCCESS",
+    "telemetry": {
+      "extras": {
+        "hydration": {
+          "build_seconds": 0.073,
+          "distinct_flows_hydrated": 12642,
+          "hydrate_seconds": 1.196,
+          "hydrations": 12642,
+          "memo_hits": 12642,
+          "requests": 25284
+        }
+      },
+      "stage_seconds": {
+        "CALL_RESOLUTION": 1.045,
+        "CONTEXT": 29.758,
+        "DATABASE_RESOLUTION": 1.275,
+        "DEPENDENCY_RESOLUTION": 0.468,
+        "DOCUMENTATION": 458.963,
+        "EXPORT": 70.821,
+        "EXTRACTION": 69.094,
+        "FLOW_RESOLUTION": 9.339,
+        "SCAN": 1.137,
+        "WEB_ENTRY_RESOLUTION": 1.376
+      }
+    },
+    "wall_seconds": 643.345,
+    "write_skip": {
+      "ai_context": {
+        "bytes_generated": 279178592,
+        "bytes_written": 279178592,
+        "compare_seconds": 0.0,
+        "generated": 5,
+        "skipped_identical": 0,
+        "write_seconds": 0.358,
+        "written": 5
+      },
+      "consumer_projection": {
+        "bytes_generated": 198913444,
+        "bytes_written": 198913444,
+        "compare_seconds": 0.0,
+        "generated": 27,
+        "skipped_identical": 0,
+        "write_seconds": 0.371,
+        "written": 27
+      },
+      "context": {
+        "bytes_generated": 896897,
+        "bytes_written": 896897,
+        "compare_seconds": 0.0,
+        "generated": 1,
+        "skipped_identical": 0,
+        "write_seconds": 0.011,
+        "written": 1
+      },
+      "documentation": {
+        "bytes_generated": 66784080,
+        "bytes_written": 66784080,
+        "compare_seconds": 0.0,
+        "generated": 681,
+        "skipped_identical": 0,
+        "write_seconds": 4.353,
+        "written": 681
+      },
+      "evidence": {
+        "bytes_generated": 1057049755,
+        "bytes_written": 1057049755,
+        "compare_seconds": 0.0,
+        "generated": 25,
+        "skipped_identical": 0,
+        "write_seconds": 1.314,
+        "written": 25
+      },
+      "flujos_humanos": {
+        "bytes_generated": 159693893,
+        "bytes_written": 159693893,
+        "compare_seconds": 0.0,
+        "generated": 195,
+        "skipped_identical": 0,
+        "write_seconds": 1.926,
+        "written": 195
+      },
+      "index": {
+        "bytes_generated": 996416388,
+        "bytes_written": 996416388,
+        "compare_seconds": 0.0,
+        "generated": 22,
+        "skipped_identical": 0,
+        "write_seconds": 1.291,
+        "written": 22
+      }
+    }
+  },
+  "final_run": {
+    "ai_invoked": false,
+    "ai_requested": false,
+    "analyzer_version": 3,
+    "cache_mode": "auto",
+    "metrics": {
+      "cache_controls": {
+        "incremental_max_changed_ratio": null,
+        "location": "internal",
+        "observed_changed_ratio": null,
+        "relative_dir": "_cache_v53",
+        "requested_mode": "auto",
+        "trust_mtime": {
+          "enabled": false,
+          "files_hashed": 15138,
+          "files_trusted": 0
+        },
+        "verify_cache": "fast"
+      },
+      "cache_verification": "byte_compare",
+      "completed_at": "2026-10-07T13:20:24+00:00",
+      "contract": "LegacyMapperRunMetrics",
+      "extraction_cache": {
+        "assemble_seconds": 0.009,
+        "cache_size_bytes": 263096270,
+        "extraction_cache_bypass": 42,
+        "extraction_cache_enabled": true,
+        "extraction_cache_hits": 0,
+        "extraction_cache_misses": 8106,
+        "extraction_seconds": 63.985,
+        "files_extracted": 8106,
+        "files_reused": 0,
+        "load_seconds": 0.0,
+        "parse_seconds": 0.0,
+        "persist_seconds": 11.126,
+        "reuse_disabled_reason": null,
+        "shards_invalid": 0,
+        "shards_loaded": 0,
+        "shards_rewritten": 256,
+        "validate_seconds": 0.0
+      },
+      "extraction_postprocess_seconds": 0.024,
+      "fallback_reason": "NO_CACHE",
+      "file_state": {
+        "added": null,
+        "deleted": null,
+        "diff_seconds": null,
+        "file_state_build_seconds": 11.965,
+        "files_total": 15138,
+        "line_ending_only": null,
+        "modified": null,
+        "renamed_candidates": null,
+        "unchanged": null,
+        "validate_seconds": 0.38
+      },
+      "final_status": "SUCCESS",
+      "hydration": {
+        "build_seconds": 0.066,
+        "distinct_flows_hydrated": 12642,
+        "hydrate_seconds": 0.922,
+        "hydrations": 12642,
+        "memo_hits": 12642,
+        "requests": 25284
+      },
+      "mode": "full",
+      "overhead_seconds": {
+        "scope_analysis": 0.002
+      },
+      "peak_memory_bytes": 2977480704,
+      "schema_version": "1",
+      "scope": {
+        "changed_files": {},
+        "external_project_references": 0,
+        "fallback_reason": "NO_CACHE",
+        "impacted_projects": {
+          "count": 0,
+          "items": [],
+          "truncated": false
+        },
+        "inventory_only_files": {
+          "count": 0,
+          "items": [],
+          "truncated": false
+        },
+        "mode": "full",
+        "reach": "bounded",
+        "reasons": {
+          "NO_PREVIOUS_STATE": 1
+        },
+        "symbols_in_changed_files": {
+          "files": {},
+          "total": 0
+        },
+        "transitive_projects": {
+          "count": 0,
+          "items": [],
+          "truncated": false
+        },
+        "unassertable": [],
+        "unknowns": []
+      },
+      "session_mode": "cold",
+      "stage_seconds": {
+        "CALL_RESOLUTION": 1.269,
+        "CONTEXT": 33.872,
+        "DATABASE_RESOLUTION": 1.636,
+        "DEPENDENCY_RESOLUTION": 0.496,
+        "DOCUMENTATION": 468.503,
+        "EXPORT": 63.131,
+        "EXTRACTION": 64.018,
+        "FLOW_RESOLUTION": 6.518,
+        "SCAN": 1.096,
+        "WEB_ENTRY_RESOLUTION": 1.086
+      },
+      "started_at": "2026-10-07T13:09:28+00:00",
+      "total_seconds": 654.04,
+      "versions": {
+        "analysis_config_fingerprint": "c7f85d508790428f08248acddddaae4d499ccf5d34f619d4f050a8e04d020afd",
+        "analyzer_code_fingerprint": "4f7600f0fa351674878d66940352e9569de2b0f620643a3124b5c94545eb1ec6",
+        "analyzer_version": 3,
+        "evidence_schema_version": "1.0",
+        "extraction_cache_schema_version": 1,
+        "renderer_versions": {
+          "ai_context": {
+            "contract_version": "1.0",
+            "model_version": "V2-R5",
+            "schema_version": "1.0"
+          },
+          "consumer_projection": {
+            "contract_version": "1.0",
+            "schema_version": "1.0"
+          },
+          "documentation_v52": {
+            "contract_version": "1"
+          },
+          "human_documentation": {
+            "flow_model_version": "V4.3-R3",
+            "flow_schema_version": "1.0",
+            "scaling_model_version": "V4.3-R4",
+            "scaling_schema_version": "1.0"
+          },
+          "hydration": {
+            "model_version": "V4.3-R3"
+          },
+          "legacy_markdown": {
+            "version": "1"
+          }
+        },
+        "template_profile_fingerprint": "7b5419b00c302af67b8fe2437aa0d3521f9d3c72e49ec62373c8ded9d2146ebf"
+      },
+      "write_skip": {
+        "ai_context": {
+          "bytes_generated": 279178592,
+          "bytes_written": 279178592,
+          "compare_seconds": 0.0,
+          "generated": 5,
+          "skipped_identical": 0,
+          "write_seconds": 0.381,
+          "written": 5
+        },
+        "consumer_projection": {
+          "bytes_generated": 198913444,
+          "bytes_written": 198913444,
+          "compare_seconds": 0.003,
+          "generated": 27,
+          "skipped_identical": 0,
+          "write_seconds": 0.487,
+          "written": 27
+        },
+        "context": {
+          "bytes_generated": 896897,
+          "bytes_written": 896897,
+          "compare_seconds": 0.0,
+          "generated": 1,
+          "skipped_identical": 0,
+          "write_seconds": 0.011,
+          "written": 1
+        },
+        "documentation": {
+          "bytes_generated": 66784080,
+          "bytes_written": 66784080,
+          "compare_seconds": 0.049,
+          "generated": 681,
+          "skipped_identical": 0,
+          "write_seconds": 4.375,
+          "written": 681
+        },
+        "evidence": {
+          "bytes_generated": 1057049755,
+          "bytes_written": 1057049755,
+          "compare_seconds": 0.003,
+          "generated": 25,
+          "skipped_identical": 0,
+          "write_seconds": 1.489,
+          "written": 25
+        },
+        "flujos_humanos": {
+          "bytes_generated": 159693893,
+          "bytes_written": 159693893,
+          "compare_seconds": 0.016,
+          "generated": 195,
+          "skipped_identical": 0,
+          "write_seconds": 1.598,
+          "written": 195
+        },
+        "index": {
+          "bytes_generated": 996416388,
+          "bytes_written": 996416388,
+          "compare_seconds": 0.002,
+          "generated": 22,
+          "skipped_identical": 0,
+          "write_seconds": 1.367,
+          "written": 22
+        }
+      }
+    },
+    "provider_calls": 0,
+    "provider_resolution_attempts": 0,
+    "real_llm_calls": 0,
+    "selected_adapter": {
+      "id": "vbnet-webforms-oracle",
+      "version": "1.0"
+    },
+    "status": "SUCCESS",
+    "telemetry": {
+      "extras": {
+        "hydration": {
+          "build_seconds": 0.066,
+          "distinct_flows_hydrated": 12642,
+          "hydrate_seconds": 0.922,
+          "hydrations": 12642,
+          "memo_hits": 12642,
+          "requests": 25284
+        }
+      },
+      "stage_seconds": {
+        "CALL_RESOLUTION": 1.269,
+        "CONTEXT": 33.872,
+        "DATABASE_RESOLUTION": 1.636,
+        "DEPENDENCY_RESOLUTION": 0.496,
+        "DOCUMENTATION": 468.503,
+        "EXPORT": 63.131,
+        "EXTRACTION": 64.018,
+        "FLOW_RESOLUTION": 6.518,
+        "SCAN": 1.096,
+        "WEB_ENTRY_RESOLUTION": 1.086
+      }
+    },
+    "wall_seconds": 657.367,
+    "write_skip": {
+      "ai_context": {
+        "bytes_generated": 279178592,
+        "bytes_written": 279178592,
+        "compare_seconds": 0.0,
+        "generated": 5,
+        "skipped_identical": 0,
+        "write_seconds": 0.381,
+        "written": 5
+      },
+      "consumer_projection": {
+        "bytes_generated": 198913444,
+        "bytes_written": 198913444,
+        "compare_seconds": 0.003,
+        "generated": 27,
+        "skipped_identical": 0,
+        "write_seconds": 0.487,
+        "written": 27
+      },
+      "context": {
+        "bytes_generated": 896897,
+        "bytes_written": 896897,
+        "compare_seconds": 0.0,
+        "generated": 1,
+        "skipped_identical": 0,
+        "write_seconds": 0.011,
+        "written": 1
+      },
+      "documentation": {
+        "bytes_generated": 66784080,
+        "bytes_written": 66784080,
+        "compare_seconds": 0.049,
+        "generated": 681,
+        "skipped_identical": 0,
+        "write_seconds": 4.375,
+        "written": 681
+      },
+      "evidence": {
+        "bytes_generated": 1057049755,
+        "bytes_written": 1057049755,
+        "compare_seconds": 0.003,
+        "generated": 25,
+        "skipped_identical": 0,
+        "write_seconds": 1.489,
+        "written": 25
+      },
+      "flujos_humanos": {
+        "bytes_generated": 159693893,
+        "bytes_written": 159693893,
+        "compare_seconds": 0.016,
+        "generated": 195,
+        "skipped_identical": 0,
+        "write_seconds": 1.598,
+        "written": 195
+      },
+      "index": {
+        "bytes_generated": 996416388,
+        "bytes_written": 996416388,
+        "compare_seconds": 0.002,
+        "generated": 22,
+        "skipped_identical": 0,
+        "write_seconds": 1.367,
+        "written": 22
+      }
+    }
+  },
+  "canonical_comparison": {
+    "added": [],
+    "changed": [],
+    "contract": "LegacyMapperFullIncrementalComparison",
+    "duration_seconds": 153.405189,
+    "equal": true,
+    "excluded": {
+      "candidate": [
+        "RUN_SUMMARY.json",
+        "RUN_SUMMARY.md",
+        "_cache_v53/",
+        "index/repository.json"
+      ],
+      "directories": [
+        "_cache_v53"
+      ],
+      "files": [
+        "RUN_SUMMARY.json",
+        "RUN_SUMMARY.md",
+        "index/repository.json"
+      ],
+      "reference": [
+        "RUN_SUMMARY.json",
+        "RUN_SUMMARY.md",
+        "index/repository.json"
+      ]
+    },
+    "file_counts": {
+      "candidate": 47523,
+      "reference": 47523
+    },
+    "files_compared": 47523,
+    "matched": 47523,
+    "removed": [],
+    "schema_version": "1",
+    "total_bytes": {
+      "candidate": 2828066791,
+      "reference": 2828066791
+    }
+  },
+  "security": {
+    "analyzer_2_compatibility": "ANALYZER_VERSION_MISMATCH",
+    "cache_sanitized_shards_checked": 256,
+    "cache_shards_checksum_and_schema": "PASS",
+    "cache_valid": true,
+    "inventory_count": 15138,
+    "inventory_sha256": "77965c64c7e204d39dc06a9451076df07a4b400e2bd41372fff2bab7fcd792e5",
+    "provider_calls": 0,
+    "real_llm_calls": 0,
+    "source_unchanged": true
+  },
+  "performance_sanity": {
+    "status": "PASS_NO_SEVERE_REGRESSION_OBSERVED",
+    "baseline_off_wall_seconds": 643.345,
+    "final_auto_wall_seconds": 657.367,
+    "wall_change_percent": 2.18,
+    "stage_ratio_final_over_baseline": {
+      "CALL_RESOLUTION": 1.214,
+      "CONTEXT": 1.138,
+      "DATABASE_RESOLUTION": 1.283,
+      "DEPENDENCY_RESOLUTION": 1.06,
+      "DOCUMENTATION": 1.021,
+      "EXPORT": 0.891,
+      "EXTRACTION": 0.927,
+      "FLOW_RESOLUTION": 0.698,
+      "SCAN": 0.964,
+      "WEB_ENTRY_RESOLUTION": 0.789
+    },
+    "r1_comparability": "R1 reused outputs on a controlled copy; R3 uses fresh outputs and official pristine source; no causal performance attribution"
+  },
+  "debt": {
+    "BLOCKING": [],
+    "FUTURE_PHASE": [
+      "Refactor full_pipeline.py/pipeline_stages.py and large legacy algorithms in their own phase",
+      "Second real technology deferred to V5.9",
+      "Partial resolver recomputation outside V5.4"
+    ],
+    "OBSERVATION": [
+      "21 pure legacy compatibility shims retained",
+      "Production CLI registry currently contains one real adapter",
+      "Performance comparisons have different input/output conditions across R1/R3",
+      "Suite emitted subprocess reader UnicodeDecodeError diagnostics; unittest still completed 2850/0/0/132; no production correction in R3"
+    ]
+  },
+  "git": {
+    "parent": "9425319cb2edbae896b96f7abfbdcd3764beb538",
+    "message": "feat(v5.4): separate technology and database adapters",
+    "commit_push_receipt": "Actual receipt will be appended to the Markdown report after the single commit and push",
+    "tag": "TAG_NOT_CREATED_BY_INSTRUCTION"
+  },
+  "next": "V5_5_READY_TO_START",
+  "v5_5_started": false,
+  "state_after_update_tests": {
+    "duration_seconds": 1.009,
+    "errors": 0,
+    "failures": 0,
+    "modules": [
+      "tests.test_v4_r12_plugin_facing_machine_readable_output_contract.EntryGateTests",
+      "tests.test_v4_r13_regression_and_security.RepositoryContinuityStateTests",
+      "tests.test_v4_r14_manuals_and_final_baseline.EntryGateAndContinuityTests",
+      "tests.test_v4_r14_manuals_and_final_baseline.DeterminismTests"
+    ],
+    "skips": 0,
+    "success": true,
+    "total": 13
+  },
+  "output_inventory_vs_controlled_r1": {
+    "controlled_r1_count": 47524,
+    "official_r3_count": 47523,
+    "only_controlled_r1": [
+      "documentation_v52/developer/modules/slnGeneraDoc/files/Form1_Designer/Form1.md"
+    ],
+    "only_official_r3": []
+  }
+}
