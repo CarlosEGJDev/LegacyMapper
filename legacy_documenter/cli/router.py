@@ -66,6 +66,8 @@ def route(args: Namespace, analyze_repository: AnalyzeRepository) -> tuple[int, 
         return _route_readiness()
     if args.command == "output-manifest":
         return _route_output_manifest(args)
+    if args.command == "review":
+        return _route_review(args)
     raise ValueError(f"Unknown command: {args.command!r}")
 
 
@@ -126,3 +128,12 @@ def _route_output_manifest(args: Namespace) -> tuple[int, RunResult]:
     atomic_write_text(target, render_deterministic_json(manifest))
     message = f"Wrote {target}: {manifest['file_count']} file(s), {manifest['total_bytes']} byte(s) total."
     return EXIT_SUCCESS, RunResult(command="output-manifest", status=RunStatus.SUCCESS, message=message)
+
+
+def _route_review(args: Namespace) -> tuple[int, RunResult]:
+    """Thin route to the explicit human review command (V5.7); never reached by `full`/`analyze`."""
+    from legacy_documenter.cli.review_command import run_review
+
+    exit_code, message = run_review(args)
+    status = RunStatus.SUCCESS if exit_code == EXIT_SUCCESS else RunStatus.FAILED
+    return exit_code, RunResult(command="review", status=status, message=message)

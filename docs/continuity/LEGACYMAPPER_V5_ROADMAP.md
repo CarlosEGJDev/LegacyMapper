@@ -1,4 +1,10 @@
-> **Estado vigente — V5.6 R3 (07-10-2026):** `V5_6_CLOSED`; R1 APPROVED, R2 NOT_REQUIRED, R3 COMPLETED. Suite 2935/0/0/132; dirigidos 378/0/0/0; flujo real 341 paths → 85 segmentos, IST AI OFF reutilizada (0/0/0), fuente 15138 archivos intacta, Fake segmentado grounded, real calls0. Commit único/push autorizados: recibo efectivo en [cierre R3](../V5/V5_6_R3_FINAL_VERIFICATION_AND_CLOSURE.md). `V5_7_READY_TO_START`, next V5.7-R1, sin iniciar V5.7. Autoridad: PROJECT_STATE.json.
+> **Estado vigente — V5.7 R3 (07-10-2026):** `V5_7_CLOSED`; R1 COMPLETED, la revisión humana detectó dos defectos, R2 los corrigió y fue aprobada, R3 COMPLETED. Review baseline obligatorio, stale/tampered separados, snapshot inmutable de la proposal que sobrevive a `full`, cadena canonical → decision → snapshot → baseline → evidence, partial V5.6 preservado, sin auto-approval ni provider. Suite 3009/0/0/132; dirigidos 439/0/0/0; IST sin approval reutilizada (47523 archivos, 0/0/0); real calls0. Commit único/push autorizados: recibo efectivo en [cierre R3](../V5/V5_7_R3_FINAL_VERIFICATION_AND_CLOSURE.md). `V5_8_READY_TO_START`, next V5.8-R1, sin iniciar V5.8. Autoridad: PROJECT_STATE.json.
+
+> *(Histórico al terminar V5.7 R2.)* **Estado vigente — V5.7 R2 (07-10-2026):** `V5_7_R2_READY_FOR_HUMAN_REVIEW`; V5.7 IN_PROGRESS, revisión PENDING, next HUMAN_REVIEW. La revisión humana de R1 solicitó R2 con dos correcciones, ya aplicadas: baseline de review verificable obligatorio antes de toda primera decisión (stale aunque las refs sigan existiendo) y snapshot inmutable de la proposal revisada dentro de `knowledge/` (la cadena de auditoría sobrevive a un `full`). Suite 3009/0/0/132; IST sin approval 47523 archivos iguales (0/0/0), real calls0. Recomendación `V5_7_NEXT_R3_FINAL_VERIFICATION`; máximo3 rondas preservado. Sin commit/push/tag; R3 y V5.8 no iniciadas. Autoridad: PROJECT_STATE.json; [entrega R2](../V5/V5_7_R2_TARGETED_CORRECTIONS.md).
+
+> *(Histórico al terminar V5.7 R1.)* **Estado vigente — V5.7 R1 (07-10-2026):** `V5_7_R1_READY_FOR_HUMAN_REVIEW`; V5.7 IN_PROGRESS, revisión PENDING, next HUMAN_REVIEW. V5.6 CLOSED/publicada `14280cf8`, recibo conservado. HumanDecision (APPROVE/REJECT/CORRECT/DEFER) + CanonicalKnowledgeRecord append-only, reviewer explícito, stale/tamper/grounding fail-closed, partial V5.6 preservado; sin auto-approval ni provider. Suite 2979/0/0/132; IST sin approval 47523 archivos iguales (0/0/0), real calls0. Recomendación `V5_7_NEXT_R3_FINAL_VERIFICATION` tras revisión/instrucción; R2 solo por defecto real, modelo máximo3 rondas. Sin commit/push/tag; R3 y V5.8 no iniciadas. Autoridad: PROJECT_STATE.json; [entrega R1](../V5/V5_7_R1_INTEGRATED_DELIVERY.md).
+
+> *(Histórico al terminar V5.6 R3.)* **Estado vigente — V5.6 R3 (07-10-2026):** `V5_6_CLOSED`; R1 APPROVED, R2 NOT_REQUIRED, R3 COMPLETED. Suite 2935/0/0/132; dirigidos 378/0/0/0; flujo real 341 paths → 85 segmentos, IST AI OFF reutilizada (0/0/0), fuente 15138 archivos intacta, Fake segmentado grounded, real calls0. Commit único/push autorizados: recibo efectivo en [cierre R3](../V5/V5_6_R3_FINAL_VERIFICATION_AND_CLOSURE.md). `V5_7_READY_TO_START`, next V5.7-R1, sin iniciar V5.7. Autoridad: PROJECT_STATE.json.
 
 > *(Histórico al terminar V5.6 R1.)* **Estado vigente — V5.6 R1 (07-10-2026):** `V5_6_R1_READY_FOR_HUMAN_REVIEW`; V5.6 IN_PROGRESS, revisión PENDING, next HUMAN_REVIEW. V5.5 CLOSED/publicada `6b8a8138`, recibo preservado. Segmentación neutral de paths completos, cobertura/provenance exactas; IST grande 341 paths → 85 segmentos, Fake grounded/PENDING/canonical false. Suite 2935/0/0/132; IST AI OFF 0/0/0, real calls0. Recomendación `V5_6_NEXT_R3_FINAL_VERIFICATION` tras revisión/instrucción; R2 solo por defecto real, modelo máximo3 rondas. Sin commit/push/tag; R3 y V5.7 no iniciadas. Autoridad: PROJECT_STATE.json; [entrega R1](../V5/V5_6_R1_INTEGRATED_DELIVERY.md).
 
@@ -362,3 +368,27 @@ V5.4 autorizada como siguiente versión, `V5_4_READY_TO_START`; **no iniciada**.
 - Suite 2935/0/0/132; dirigidos 378/0/0/0; FLOW-0333008805 341 paths → 85 segmentos reproducidos (máx. payload 15919/16000); FLOW-0086579093 y FLOW-0630348200 sin segmentar.
 - Fuente IST 15138 archivos sin cambios; ANALYZER_VERSION 3 y fingerprint 4f7600f0… intactos; IST AI OFF de R1 reutilizada (added/removed/changed 0/0/0).
 - Un commit `feat(v5.6): add deterministic flow segmentation` y push a origin/main; sin tag. V5.7 READY_TO_START, no iniciada. Real provider calls 0.
+
+
+## Ledger — V5.7 R1 Integrated Delivery (07-10-2026)
+
+- V5.6 CLOSED y publicada (14280cf8); recibo administrativo post-push conservado sin cambios de fondo.
+- Paquete `legacy_documenter/review/` (models/evidence/store/service/render) + `review` CLI; persistencia `knowledge/decisions` y `knowledge/canonical` solo al decidir un humano. V4 R9/R10 en memoria no reutilizado.
+- Reviewer explícito (nunca AUTO/provider/model); proposal inmutable; TAMPERED/STALE/MISSING_EVIDENCE/INVALID_GROUNDING; DEFER no es REJECT; CORRECT = contenido humano validado; segmento aprobado sigue partial.
+- Suite 2979/0/0/132; dirigidos 452/0/0/0; E2E de 4 acciones sobre copias de artifacts reales V5.5/V5.6; IST AI OFF sin approval 47523 archivos iguales, added/removed/changed 0/0/0; fingerprint analyzer intacto.
+- V5.7 abierta; completed V5.7-R1, approved V5.6-R3, human PENDING, next HUMAN_REVIEW. Sin commit/push/tag, real provider0. R3/V5.8 no iniciadas.
+
+
+## Ledger — V5.7 R2 Targeted Corrections (07-10-2026)
+
+- R1 realizada; la revisión humana solicitó R2 (exactamente dos defectos). Modelo R1 / R2 / R3 y máximo3 rondas preservados.
+- Defecto A: `review prepare` fija un `ReviewBaseline` (proposal + evidence fingerprints); `decide` sin baseline → `BASELINE_REQUIRED`; evidencia cambiada con refs vigentes → `PROPOSAL_STALE`, con recheck optimista antes de escribir.
+- Defecto B: primera decisión persiste `knowledge/review_snapshots/PRP-*.json` inmutable; cadena canonical → decision → snapshot → evidence reconstruible tras limpiar `proposals/`.
+- Suite 3009/0/0/132; dirigidos 439/0/0/0; IST AI OFF 47523 archivos iguales, added/removed/changed 0/0/0; fingerprint analyzer intacto; real provider0. Sin commit/push/tag.
+
+
+## Ledger — V5.7 R3 Final Verification & Closure (07-10-2026)
+
+- R1 completada; revisión humana detectó 2 defectos; R2 corregida y aprobada; R3 completada. V5.7 CLOSED; V5.8 READY_TO_START (no iniciada).
+- Producción congelada (ningún .py modificado desde antes de la corrida IST de R2); suite 3009/0/0/132; dirigidos 439/0/0/0; E2E de 4 acciones sobre copias V5.5/V5.6 con cleanup, árboles knowledge idénticos a R2; fuente IST 15138 archivos intacta; fingerprint analyzer intacto.
+- Un commit `feat(v5.7): add audited human review and canonical knowledge` y push a origin/main; sin tag. Real provider calls 0.

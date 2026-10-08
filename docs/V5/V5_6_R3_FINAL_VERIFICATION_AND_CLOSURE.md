@@ -48,4 +48,8 @@ Un commit `feat(v5.6): add deterministic flow segmentation` con staging por ruta
 
 ## Recibo final post-push
 
-(Pendiente de completar tras el push.)
+Estado efectivo: `V5_6_CLOSED`; `V5_6_R3_PUSHED_TO_ORIGIN_MAIN`; `V5_7_READY_TO_START`.
+
+Único commit `14280cf8e42700be3105999f463733ebfa88b4a9`; padre `6b8a8138ab6aa90969067fc2b0b63c0671fb07df`; mensaje `feat(v5.6): add deterministic flow segmentation`; 18 archivos, staging por rutas explícitas, sin outputs/cache/IST/temp. `git push origin main` sin force (6b8a813..14280cf). Verificación: HEAD = origin/main = `git ls-remote origin refs/heads/main` = `14280cf8…`; ahead 0, behind 0. Sin amend, rebase ni segundo commit. `TAG_NOT_CREATED_BY_INSTRUCTION`.
+
+Este recibo es la única modificación local autorreferencial posterior al push; no se crea segundo commit por él. V5.7 no iniciada. Detención para revisión humana final.

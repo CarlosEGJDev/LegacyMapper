@@ -1,0 +1,34 @@
+{
+  "round": "V5.7-R2",
+  "status": "V5_7_R2_READY_FOR_HUMAN_REVIEW",
+  "recommendation": "V5_7_NEXT_R3_FINAL_VERIFICATION",
+  "defects": {
+    "A_stale_first_review": {"confirmed": true, "fix": "ReviewBaseline via review prepare; decide requires baseline (BASELINE_REQUIRED); PROPOSAL_STALE on evidence change even when refs remain; optimistic recheck before write", "status": "RESOLVED"},
+    "B_proposal_snapshot": {"confirmed": true, "fix": "immutable knowledge/review_snapshots/PRP-*.json on first decision; proposal resolved from snapshot when proposals/ is cleared; audit chain reconstructable", "status": "RESOLVED"}
+  },
+  "tests": {
+    "new_module": {"file": "tests/test_v5_7_r2_review_baseline_and_snapshot.py", "total": 30},
+    "directed": {"total": 439, "failures": 0, "errors": 0, "skips": 0},
+    "full_suite": {"total": 3009, "failures": 0, "errors": 0, "skips": 132, "duration_seconds": 757.621}
+  },
+  "e2e_real_artifact_copies": {
+    "actions": ["APPROVE", "REJECT", "CORRECT", "DEFER"], "artifacts": ["v55_unsegmented", "v56_segmented"],
+    "proposals_cleanup_simulated": true, "snapshot_intact": true, "audit_chain_resolves": true, "partial_preserved": true,
+    "index_unchanged": true, "deterministic_fixed_clock": true, "original_artifacts_untouched": true, "provider_calls": 0
+  },
+  "ist_regression_without_approval": {
+    "status": "SUCCESS", "ai_requested": false, "ai_invoked": false, "review_invoked": false, "knowledge_created": false,
+    "files": 47523, "total_bytes": 2828066791, "added": 0, "removed": 0, "changed": 0, "wall_seconds": 813.084, "real_provider_calls": 0
+  },
+  "source_integrity": {"files": 15138, "sha256": "77965c64c7e204d39dc06a9451076df07a4b400e2bd41372fff2bab7fcd792e5", "unchanged": true},
+  "fingerprints": {"analyzer_version": 3, "analyzer_code_fingerprint": "4f7600f0fa351674878d66940352e9569de2b0f620643a3124b5c94545eb1ec6", "unchanged": true},
+  "performance_seconds": {"baseline_create": 0.014, "baseline_load_and_stale_revalidation": 0.013, "decide_incl_snapshot": 0.0285, "snapshot_readback": 0.0004},
+  "debt": {
+    "RESOLVED": ["first approval without verifiable baseline", "reviewed proposal deletable without snapshot"],
+    "BLOCKING": [],
+    "FUTURE_PHASE": ["inter-process lock", "UI/RBAC", "signatures", "quorum", "bulk review", "advanced query", "semantic multi-segment merge", "explicit canonical supersede"],
+    "OBSERVATION": ["IST evidence index load ~8s per prepare/decide", "new refs added by a CORRECT have no prior baseline state", "legacy V4 in-memory approval/canonical unused"]
+  },
+  "git": {"commit": false, "push": false, "tag": false, "base": "14280cf8e42700be3105999f463733ebfa88b4a9", "branch": "main"},
+  "project_state": {"current_version": "V5.7", "status": "V5_7_IN_PROGRESS", "latest_completed_round": "V5.7-R2", "latest_approved_round": "V5.6-R3", "round_status": "V5_7_R2_READY_FOR_HUMAN_REVIEW", "human_review": "PENDING", "v5_7_closed": false, "next": "HUMAN_REVIEW"}
+}

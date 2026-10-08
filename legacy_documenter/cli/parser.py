@@ -14,7 +14,7 @@ import sys
 
 from legacy_documenter.cache.options import CACHE_MODES, VERIFY_LEVELS, ratio_argument
 
-COMMANDS = ("analyze", "full", "readiness", "output-manifest")
+COMMANDS = ("analyze", "full", "readiness", "output-manifest", "review")
 
 
 def normalize_cache_argv(argv: list[str]) -> list[str]:
@@ -227,5 +227,9 @@ def build_parser() -> argparse.ArgumentParser:
         "output-manifest", help=output_manifest_help, description=output_manifest_help
     )
     output_manifest_parser.add_argument("output_dir", help="The --output directory of a completed run")
+
+    from legacy_documenter.cli.review_command import add_review_parser
+
+    add_review_parser(subparsers)
 
     return parser

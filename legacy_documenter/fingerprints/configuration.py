@@ -41,6 +41,8 @@ CLI_OPTION_CLASSES = {
     "verify_cache": RUNTIME_ONLY,
     "trust_mtime": RUNTIME_ONLY,  # opt-in: lets unchanged (size, mtime_ns) skip hashing in File State
     "incremental_max_changed_ratio": RUNTIME_ONLY,
+    # V5.7 `review` subcommand selector: explicit human review never touches extraction or its cache.
+    "review_command": RUNTIME_ONLY,
 }
 #: `generate_documentation_v52` parameters that are not CLI options (library-level); classified likewise.
 V52_PARAMETER_CLASSES = {

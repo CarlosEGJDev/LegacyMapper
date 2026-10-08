@@ -1,0 +1,19 @@
+{
+  "round": "V5.7-R3",
+  "status": "V5_7_CLOSED",
+  "base_commit": "14280cf8e42700be3105999f463733ebfa88b4a9",
+  "r1": "COMPLETED", "r2": "COMPLETED_APPROVED_FOR_R3", "r3": "COMPLETED",
+  "production_freeze": "no legacy_documenter/*.py modified since before R2 IST run start",
+  "tests": {
+    "directed": {"total": 439, "failures": 0, "errors": 0, "skips": 0},
+    "full_suite": {"total": 3009, "failures": 0, "errors": 0, "skips": 132, "duration_seconds": 839.479}
+  },
+  "e2e": {"artifacts": ["v55", "v56_segmented"], "actions": 4, "cleanup_survival": true, "audit_chain": true, "partial_preserved": true, "knowledge_trees_identical_to_r2": true, "index_unchanged": true, "provider_calls": 0},
+  "ist_regression": "REUSED_FROM_R2", "ist_without_approval": {"files": 47523, "total_bytes": 2828066791, "added": 0, "removed": 0, "changed": 0, "knowledge_created": false, "review_invoked": false},
+  "source_integrity": {"files": 15138, "sha256": "77965c64c7e204d39dc06a9451076df07a4b400e2bd41372fff2bab7fcd792e5", "unchanged": true},
+  "fingerprints": {"analyzer_version": 3, "analyzer_code_fingerprint": "4f7600f0fa351674878d66940352e9569de2b0f620643a3124b5c94545eb1ec6", "unchanged": true},
+  "real_provider_calls": 0, "real_llm_calls": 0,
+  "debt": {"RESOLVED": ["first approval without verifiable baseline", "reviewed proposal deletable without snapshot"], "BLOCKING": [], "FUTURE_PHASE": ["inter-process lock", "UI/RBAC", "signatures", "quorum", "bulk review", "advanced query", "semantic multi-segment merge", "explicit canonical supersede"], "OBSERVATION": ["IST index load ~8s", "new CORRECT refs lack prior baseline state", "legacy V4 in-memory approval/canonical unused"]},
+  "git": {"commit_message": "feat(v5.7): add audited human review and canonical knowledge", "tag": "TAG_NOT_CREATED_BY_INSTRUCTION", "receipt": "docs/V5/V5_7_R3_FINAL_VERIFICATION_AND_CLOSURE.md#recibo-final-post-push"},
+  "next_version": "V5.8", "next_round": "V5.8-R1", "V5_8_READY_TO_START": true, "v5_8_started": false
+}
