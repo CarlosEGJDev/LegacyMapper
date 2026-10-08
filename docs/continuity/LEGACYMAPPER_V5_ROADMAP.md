@@ -1,4 +1,8 @@
-> **Estado vigente — V5.7 R3 (07-10-2026):** `V5_7_CLOSED`; R1 COMPLETED, la revisión humana detectó dos defectos, R2 los corrigió y fue aprobada, R3 COMPLETED. Review baseline obligatorio, stale/tampered separados, snapshot inmutable de la proposal que sobrevive a `full`, cadena canonical → decision → snapshot → baseline → evidence, partial V5.6 preservado, sin auto-approval ni provider. Suite 3009/0/0/132; dirigidos 439/0/0/0; IST sin approval reutilizada (47523 archivos, 0/0/0); real calls0. Commit único/push autorizados: recibo efectivo en [cierre R3](../V5/V5_7_R3_FINAL_VERIFICATION_AND_CLOSURE.md). `V5_8_READY_TO_START`, next V5.8-R1, sin iniciar V5.8. Autoridad: PROJECT_STATE.json.
+> **Estado vigente — V5.8 R3 (08-10-2026):** `V5_8_CLOSED`; R1 APPROVED, R2 NOT_REQUIRED, R3 COMPLETED. Consumer Contract 1.0 y Plugin Contract 1.0 cerrados; Plugin Runtime sigue NO implementado. Suite 3053/0/0/132; dirigidos 727/0/0/0; IST reutilizada 47523 archivos 0/0/0, fuente 15138 intacta; flujo 399 paths → 19 segmentos parciales; real calls 0. Commit único/push autorizados: recibo efectivo en [cierre R3](../V5/V5_8_R3_FINAL_VERIFICATION_AND_CLOSURE.md). `V5_9_READY_TO_START`, next V5.9-R1, sin iniciar V5.9. Autoridad: PROJECT_STATE.json.
+
+> *(Histórico al terminar V5.8 R1.)* **Estado vigente — V5.8 R1 (08-10-2026):** `V5_8_R1_READY_FOR_HUMAN_REVIEW`; V5.8 IN_PROGRESS, revisión PENDING, next HUMAN_REVIEW. V5.7 CLOSED/publicada `bf901dce`. Consumer Contract 1.0 (8 capabilities de solo lectura, facade sobre proyecciones existentes) y Plugin Contract 1.0 (manifest declarativo validado, nunca ejecutado) separados de Plugin Runtime (NO implementado). Partial V5.6 preservado, sin escritura/approval/provider. Suite 3053/0/0/132; dirigidos 727/0/0/0; IST reutilizada 47523 archivos 0/0/0; real calls 0. Recomendación `V5_8_NEXT_R3_FINAL_VERIFICATION`; R2 solo por defecto real. V5.9 no iniciada. Sin commit/push/tag. Autoridad: PROJECT_STATE.json; [entrega R1](../V5/V5_8_R1_INTEGRATED_DELIVERY.md).
+
+> *(Histórico al terminar V5.7 R3.)* **Estado vigente — V5.7 R3 (07-10-2026):** `V5_7_CLOSED`; R1 COMPLETED, la revisión humana detectó dos defectos, R2 los corrigió y fue aprobada, R3 COMPLETED. Review baseline obligatorio, stale/tampered separados, snapshot inmutable de la proposal que sobrevive a `full`, cadena canonical → decision → snapshot → baseline → evidence, partial V5.6 preservado, sin auto-approval ni provider. Suite 3009/0/0/132; dirigidos 439/0/0/0; IST sin approval reutilizada (47523 archivos, 0/0/0); real calls0. Commit único/push autorizados: recibo efectivo en [cierre R3](../V5/V5_7_R3_FINAL_VERIFICATION_AND_CLOSURE.md). `V5_8_READY_TO_START`, next V5.8-R1, sin iniciar V5.8. Autoridad: PROJECT_STATE.json.
 
 > *(Histórico al terminar V5.7 R2.)* **Estado vigente — V5.7 R2 (07-10-2026):** `V5_7_R2_READY_FOR_HUMAN_REVIEW`; V5.7 IN_PROGRESS, revisión PENDING, next HUMAN_REVIEW. La revisión humana de R1 solicitó R2 con dos correcciones, ya aplicadas: baseline de review verificable obligatorio antes de toda primera decisión (stale aunque las refs sigan existiendo) y snapshot inmutable de la proposal revisada dentro de `knowledge/` (la cadena de auditoría sobrevive a un `full`). Suite 3009/0/0/132; IST sin approval 47523 archivos iguales (0/0/0), real calls0. Recomendación `V5_7_NEXT_R3_FINAL_VERIFICATION`; máximo3 rondas preservado. Sin commit/push/tag; R3 y V5.8 no iniciadas. Autoridad: PROJECT_STATE.json; [entrega R2](../V5/V5_7_R2_TARGETED_CORRECTIONS.md).
 
@@ -392,3 +396,15 @@ V5.4 autorizada como siguiente versión, `V5_4_READY_TO_START`; **no iniciada**.
 - R1 completada; revisión humana detectó 2 defectos; R2 corregida y aprobada; R3 completada. V5.7 CLOSED; V5.8 READY_TO_START (no iniciada).
 - Producción congelada (ningún .py modificado desde antes de la corrida IST de R2); suite 3009/0/0/132; dirigidos 439/0/0/0; E2E de 4 acciones sobre copias V5.5/V5.6 con cleanup, árboles knowledge idénticos a R2; fuente IST 15138 archivos intacta; fingerprint analyzer intacto.
 - Un commit `feat(v5.7): add audited human review and canonical knowledge` y push a origin/main; sin tag. Real provider calls 0.
+
+
+## Ledger — V5.8 R1 Integrated Delivery (08-10-2026)
+
+- Consumer/Plugin Contract 1.0 implementados (`consumers/`, `plugins/`); Plugin Runtime no implementado; fix aditivo de lectura masiva en `review/store.py`.
+- Suite 3053/0/0/132; dirigidos 727/0/0/0; IST 0/0/0; real provider 0. Completed V5.8-R1, approved V5.7-R3, human PENDING, next HUMAN_REVIEW. Sin commit/push/tag; V5.9 no iniciada.
+
+
+## Ledger — V5.8 R3 Final Verification & Closure (08-10-2026)
+
+- R1 aprobada; R2 NOT_REQUIRED; R3 completada. V5.8 CLOSED; Plugin Contract cerrado, Plugin Runtime fuera; V5.9 READY_TO_START (no iniciada).
+- Producción congelada; suite 3053/0/0/132; dirigidos 727/0/0/0; IST 0/0/0; real provider 0. Un commit `feat(v5.8): add consumer and plugin contracts` y push a origin/main; sin tag.

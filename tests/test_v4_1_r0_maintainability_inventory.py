@@ -149,7 +149,9 @@ class ProductionFileDiscoveryTests(unittest.TestCase):
         # composition boundary (two modules; no upstream analysis change).
         # V5.7 R1 adds the human-review package (six modules) and its CLI adapter: 273 in total.
         # V5.7 R2 adds review/baseline.py (review baseline + proposal snapshot contracts): 274.
-        self.assertEqual(len(files), 274)
+        # V5.8 R1 adds the consumer contract (consumers/: __init__, contracts, registry, sources, facade) and the
+        # declarative plugin contract (plugins/: __init__, contracts, validation): eight modules, 282 in total.
+        self.assertEqual(len(files), 282)
 
 
 class FileAnalysisTests(unittest.TestCase):
@@ -305,16 +307,16 @@ class GeneratedArtifactOnDiskTests(unittest.TestCase):
     def test_on_disk_inventory_matches_fresh_build_if_present(self) -> None:
         """Pin the complete live inventory; preserve the historical V4.1 artifact.
 
-        V5.7 R2 (after R1's review package) adds the baseline/snapshot contracts. Its live
-        snapshot checks every file and aggregate; approved V4.1/V5.4/V5.5/V5.6
+        V5.8 R1 adds the consumer/plugin contract packages (and additive review-store read helpers).
+        Its live snapshot checks every file and aggregate; approved V4.1/V5.4/V5.5/V5.6/V5.7
         snapshots remain historical and unchanged.
         """
         historical = REPO_ROOT / "output" / "v4_1_r0" / "V4_1_MAINTAINABILITY_INVENTORY.json"
         if not historical.exists():
             self.skipTest("V4_1_MAINTAINABILITY_INVENTORY.json not yet generated")
-        path = REPO_ROOT / "docs" / "V5" / "V5_7_R2_REVIEW_SNAPSHOT_INVENTORY.json"
+        path = REPO_ROOT / "docs" / "V5" / "V5_8_R1_CONSUMER_PLUGIN_INVENTORY.json"
         snapshot = json.loads(path.read_text(encoding="utf-8"))
-        self.assertEqual(snapshot["round"], "V5.7 R2")
+        self.assertEqual(snapshot["round"], "V5.8 R1")
         self.assertFalse(snapshot["historical_artifacts_modified"])
         self.assertEqual(report.build_inventory(REPO_ROOT), snapshot["inventory"])
 

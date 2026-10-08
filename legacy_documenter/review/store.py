@@ -89,7 +89,12 @@ class ReviewStore:
 
     def decisions_for(self, proposal_id: str) -> list[HumanDecision]:
         """Decision history of one proposal in chain order (each links to its previous decision)."""
-        items = {d.decision_id: d for d in self.decisions() if d.proposal_id == proposal_id}
+        return self.chain_of(self.decisions(), proposal_id)
+
+    @staticmethod
+    def chain_of(decisions: list[HumanDecision], proposal_id: str) -> list[HumanDecision]:
+        """Chain-ordered history of `proposal_id` out of already-loaded decisions (lets a bulk reader load once)."""
+        items = {d.decision_id: d for d in decisions if d.proposal_id == proposal_id}
         ordered: list[HumanDecision] = []
         previous = None
         while True:
@@ -120,10 +125,13 @@ class ReviewStore:
         """Canonical records citing this evidence ref."""
         return [r for r in self.canonical_records() if ref in r.evidence_refs]
 
+    def baselines(self) -> list[ReviewBaseline]:
+        """Every pinned baseline, stable order (baseline_id)."""
+        return sorted(self._read_all(self.baselines_dir, ReviewBaseline.from_dict), key=lambda b: b.baseline_id)
+
     def baselines_for(self, proposal_id: str) -> list[ReviewBaseline]:
         """Baselines pinned for this proposal, stable order."""
-        items = self._read_all(self.baselines_dir, ReviewBaseline.from_dict)
-        return sorted((b for b in items if b.proposal_id == proposal_id), key=lambda b: b.baseline_id)
+        return [b for b in self.baselines() if b.proposal_id == proposal_id]
 
     def snapshot_for(self, proposal_id: str) -> ProposalSnapshot | None:
         """The immutable reviewed-proposal snapshot, or None before the first decision."""
@@ -135,14 +143,20 @@ class ReviewStore:
         decision = next((d for d in self.decisions() if d.decision_id == decision_id), None)
         if decision is None:
             raise ReviewError(ReviewErrorCode.INVALID_DECISION, f"decision_not_found:{decision_id}")
-        snapshot = self.snapshot_for(decision.proposal_id)
-        baseline = next((b for b in self.baselines_for(decision.proposal_id) if b.baseline_id == decision.baseline_id), None)
+        return self.verify_audit_chain(decision, self.snapshot_for(decision.proposal_id), self.baselines_for(decision.proposal_id),
+                                       self.canonical_for_proposal(decision.proposal_id))
+
+    @staticmethod
+    def verify_audit_chain(decision: HumanDecision, snapshot: ProposalSnapshot | None, baselines: list[ReviewBaseline],
+                           canonical_records: list[CanonicalKnowledgeRecord]) -> dict:
+        """Verifies the links of one decision over already-loaded records of its proposal (lets a bulk reader load once)."""
+        baseline = next((b for b in baselines if b.baseline_id == decision.baseline_id), None)
         if snapshot is None or baseline is None:
             raise ReviewError(ReviewErrorCode.PROPOSAL_NOT_FOUND, "audit_chain_incomplete")
         if (snapshot.proposal_fingerprint != decision.proposal_fingerprint or baseline.proposal_fingerprint != decision.proposal_fingerprint
                 or snapshot.baseline_id != baseline.baseline_id):
             raise ReviewError(ReviewErrorCode.PROPOSAL_TAMPERED, "audit_chain_fingerprint_mismatch")
-        canonical = next((r for r in self.canonical_for_proposal(decision.proposal_id) if r.decision_id == decision_id), None)
+        canonical = next((r for r in canonical_records if r.decision_id == decision.decision_id), None)
         return {"decision": decision, "proposal_snapshot": snapshot, "baseline": baseline, "canonical": canonical,
                 "evidence_fingerprint": baseline.evidence_fingerprint}
 

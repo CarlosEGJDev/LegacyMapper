@@ -433,7 +433,12 @@ class ArchitectureGuardTests(unittest.TestCase):
     def test_only_review_command_imports_the_service(self) -> None:
         users = [p.name for p in (ROOT / "legacy_documenter").rglob("*.py")
                  if "legacy_documenter.review" in p.read_text(encoding="utf-8") and "review" not in p.parent.name]
-        self.assertEqual(sorted(users), ["review_command.py"])
+        # V5.8: the read-only consumer facade reads decisions/canonical through `review.store` and `review.models`
+        # (never the service); the mutating service stays reachable only from the explicit human CLI.
+        self.assertEqual(sorted(users), ["facade.py", "review_command.py"])
+        service_users = [p.name for p in (ROOT / "legacy_documenter").rglob("*.py")
+                         if "legacy_documenter.review.service" in p.read_text(encoding="utf-8") and "review" not in p.parent.name]
+        self.assertEqual(sorted(service_users), ["review_command.py"])
 
 
 if __name__ == "__main__":

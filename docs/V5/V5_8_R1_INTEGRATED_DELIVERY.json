@@ -1,0 +1,217 @@
+{
+  "analyzer": {
+    "fingerprint": "4f7600f0fa351674878d66940352e9569de2b0f620643a3124b5c94545eb1ec6",
+    "unchanged": true,
+    "version": 3
+  },
+  "debt": {
+    "blocking": [],
+    "future_phase": [
+      "plugin runtime",
+      "install",
+      "sandbox",
+      "signing",
+      "remote registry",
+      "RBAC",
+      "hot reload",
+      "V5.9"
+    ]
+  },
+  "design": {
+    "capabilities": [
+      "READ_EVIDENCE",
+      "READ_FLOW",
+      "READ_PARTIAL_FLOW",
+      "READ_AI_CONTEXT",
+      "READ_CANONICAL",
+      "READ_REVIEW_HISTORY",
+      "RENDER_HUMAN_DOC",
+      "EXPORT_JSON"
+    ],
+    "consumer_contract": "1.0",
+    "new_cli_command": false,
+    "packages": [
+      "legacy_documenter/consumers",
+      "legacy_documenter/plugins"
+    ],
+    "persistence": "ON_DEMAND_NONE",
+    "plugin_contract": "1.0",
+    "plugin_runtime": "NOT_IMPLEMENTED",
+    "read_only": true,
+    "upstream_change": "review/store.py additive bulk-read helpers"
+  },
+  "git": {
+    "ahead_behind": [
+      0,
+      0
+    ],
+    "branch": "main",
+    "commit_push_tag": "NONE_BY_INSTRUCTION",
+    "head": "bf901dcefcf8c4b100adbe40421e231d2299c7eb",
+    "origin_main": "bf901dcefcf8c4b100adbe40421e231d2299c7eb"
+  },
+  "initial_state": {
+    "base_commit": "bf901dcefcf8c4b100adbe40421e231d2299c7eb",
+    "status": "V5_7_CLOSED",
+    "version": "V5.7"
+  },
+  "ist_proof": {
+    "provider_resolution_attempts": 0,
+    "real_provider_calls": 0,
+    "results": {
+      "ai_context": {
+        "bytes": 3950,
+        "error": null,
+        "identities": 1,
+        "package_id": "AIP-3b74e2369f8e3fa79ef049242a87ba12e1ebee941497245abd882e2205ca2fda",
+        "partial": false,
+        "result_id": "CRES-2035c9070e6c4c458577daac52eabf230ccab63e600f0dfd7df3ca9caed7e97e",
+        "status": "OK"
+      },
+      "canonical_controlled": {
+        "count": 1,
+        "error": null,
+        "partial": true,
+        "status": "OK"
+      },
+      "complete_flow": {
+        "bytes": 2625,
+        "error": null,
+        "flow_id": "FLOW-0000207528",
+        "identities": 1,
+        "input_paths": 1,
+        "partial": false,
+        "path_groups": 1,
+        "result_id": "CRES-c4443fefd7fd6cbf66c8a9c6f8cf4cd6fda5148a246d1584ba952eddc99bee39",
+        "status": "OK"
+      },
+      "determinism_complete_flow_same_bytes": true,
+      "evidence": {
+        "bytes": 5784,
+        "error": null,
+        "identities": 4,
+        "kinds": [
+          "DATA_ACCESS",
+          "ENTRY_POINT",
+          "FLOW",
+          "PATH"
+        ],
+        "partial": false,
+        "result_id": "CRES-aa60aa7a01c5548d977a5b54c092f32c40928c0421e0c9d8ed36227dd6f9be63",
+        "status": "OK"
+      },
+      "export_manifest": {
+        "bytes": 7621,
+        "error": null,
+        "identities": 1,
+        "partial": false,
+        "partition_count": 26,
+        "result_id": "CRES-f4492b3aaba63398a7a70f5999fa69ec205d32b1d6f72a3430427ec500c0334d",
+        "status": "OK"
+      },
+      "human_functional": {
+        "bytes": 4074,
+        "document_count": 5,
+        "error": null,
+        "identities": 1,
+        "partial": false,
+        "result_id": "CRES-ad995000616f98a60aad24901f351bf82ee28d4823207ef59559144d87f25743",
+        "status": "OK"
+      },
+      "human_technical": {
+        "bytes": 22889,
+        "document_count": 46561,
+        "error": null,
+        "identities": 1,
+        "partial": false,
+        "result_id": "CRES-40f2b988b6e552736550d465103723592777b7f3f2fc2d66c7d34c5186984e82",
+        "status": "OK"
+      },
+      "ist_output_untouched_mtime": true,
+      "partial_flow": {
+        "all_partial": true,
+        "bytes": 1816736,
+        "error": null,
+        "every_segment_has_omitted": true,
+        "every_segment_has_refs": true,
+        "flow_id": "FLOW-0152459726",
+        "identities": 19,
+        "included_union": 399,
+        "included_union_equals_input_path_ids": true,
+        "input_paths": 399,
+        "parent_ok": true,
+        "partial": true,
+        "result_id": "CRES-0a627e735a0813ec93404eb413f794e2ede6eccdd04f7fcc6ab487fda42a5fff",
+        "segments": 19,
+        "status": "OK"
+      },
+      "partial_flow_default_budget": {
+        "bytes": 584,
+        "error": {
+          "code": "PARTIAL_NOT_SUPPORTED",
+          "detail": "BUDGET_IMPOSSIBLE_AFTER_SEGMENTATION:FLOW-0152459726"
+        },
+        "identities": 0,
+        "partial": false,
+        "result_id": "CRES-ef8804892363a0cff50e43d1481f52a61646853dfa63de385109e0bcfed0ce48",
+        "status": "ERROR"
+      },
+      "review_history_controlled": {
+        "audit_chain_verified": true,
+        "decisions": 1,
+        "error": null,
+        "status": "OK"
+      },
+      "unresolved_evidence_preserved": true
+    },
+    "timings": {
+      "ai_context_ms": 0.36,
+      "complete_flow_ms": 54.12,
+      "evidence_lookup_build_seconds": 0.605,
+      "evidence_ms": 0.4,
+      "export_manifest_ms": 0.65,
+      "human_functional_ms": 47.96,
+      "human_technical_ms": 7.86,
+      "index_load_seconds": 3.451,
+      "partial_flow_default_budget_ms": 6.28,
+      "partial_flow_ms": 140.83
+    }
+  },
+  "ist_regression": {
+    "added": 0,
+    "analyzer_fingerprint": "4f7600f0fa351674878d66940352e9569de2b0f620643a3124b5c94545eb1ec6",
+    "analyzer_fingerprint_unchanged": true,
+    "changed": 0,
+    "ist_output_bytes": 2828066791,
+    "ist_output_files": 47523,
+    "removed": 0,
+    "source_count": 15138,
+    "source_sha256": "77965c64c7e204d39dc06a9451076df07a4b400e2bd41372fff2bab7fcd792e5",
+    "source_unchanged": true
+  },
+  "provider_calls": 0,
+  "real_llm_calls": 0,
+  "recommendation": "V5_8_NEXT_R3_FINAL_VERIFICATION",
+  "round": "V5.8-R1",
+  "status": "V5_8_R1_READY_FOR_HUMAN_REVIEW",
+  "tests": {
+    "directed": {
+      "errors": 0,
+      "failures": 0,
+      "skips": 0,
+      "total": 727
+    },
+    "full_suite": {
+      "command": "python -X utf8 -m unittest discover -s tests",
+      "duration_seconds": 654.234,
+      "errors": 0,
+      "failures": 0,
+      "skips": 132,
+      "total": 3053
+    },
+    "new_module": {
+      "file": "tests/test_v5_8_r1_consumer_plugin_contract.py",
+      "total": 44
+    }
+  }
+}

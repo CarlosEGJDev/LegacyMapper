@@ -64,4 +64,8 @@ Un único commit `feat(v5.7): add audited human review and canonical knowledge` 
 
 ## Recibo final post-push
 
-(Pendiente de completar tras el push.)
+Estado efectivo: `V5_7_CLOSED`; `V5_7_R3_PUSHED_TO_ORIGIN_MAIN`; `V5_8_READY_TO_START`.
+
+Único commit `bf901dcefcf8c4b100adbe40421e231d2299c7eb`; padre `14280cf8e42700be3105999f463733ebfa88b4a9`; mensaje `feat(v5.7): add audited human review and canonical knowledge`; 30 archivos (34679 inserciones, 22 borrados), staging por rutas explícitas, sin outputs/cache/IST/temp. `git push origin main` sin force (14280cf..bf901dc). Verificación: HEAD = origin/main = `git ls-remote origin refs/heads/main` = `bf901dce…`; ahead 0, behind 0. Sin amend, rebase ni segundo commit. `TAG_NOT_CREATED_BY_INSTRUCTION`.
+
+Este recibo es la única modificación local autorreferencial posterior al push; no se crea segundo commit por él. V5.8 no iniciada. Detención para revisión humana final.
