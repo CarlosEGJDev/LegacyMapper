@@ -1,0 +1,120 @@
+{
+  "adapters": {
+    "python-generic": "1.0",
+    "vbnet-webforms-oracle": "1.0"
+  },
+  "analyzer": {
+    "code_fingerprint": "f05b2de43b726e75e03b97e1d35fef8b3407d54247e0a4e4537ab24d282fa26b",
+    "version": 3
+  },
+  "artifact": "V5_FINAL_BASELINE",
+  "blocking_debt": [],
+  "closure_readiness": {
+    "audit_clean": true,
+    "git_closure_pending": "Closure R3 (commit/push/tag decision)",
+    "recommendation": "V5_CLOSURE_NEXT_R3_FINAL_CLOSURE",
+    "tag": "TAG_NOT_CREATED_BY_INSTRUCTION"
+  },
+  "closure_round": "V5-Closure-R1",
+  "consumer_capabilities": [
+    "READ_EVIDENCE",
+    "READ_FLOW",
+    "READ_PARTIAL_FLOW",
+    "READ_AI_CONTEXT",
+    "READ_CANONICAL",
+    "READ_REVIEW_HISTORY",
+    "RENDER_HUMAN_DOC",
+    "EXPORT_JSON"
+  ],
+  "consumer_contract": "1.0",
+  "debt_counts": {
+    "BLOCKING": 0,
+    "FUTURE_PHASE": 14,
+    "HISTORICAL_COMPATIBILITY": 5,
+    "OBSERVATION": 15
+  },
+  "evidence_schema": "1.0",
+  "explicit_contract_versions": {
+    "ai_hydrated_projection": "1.0",
+    "canonical_knowledge": "CANONICAL_KNOWLEDGE 1.0",
+    "consumer_projection": "1.0",
+    "documentation_v52_manifest": "LegacyMapperDocumentationV52",
+    "exit_codes": "SUCCESS_0_PARTIAL_1_USAGE_2_FAILED_4",
+    "extraction_cache_schema": 1,
+    "human_decision": "HUMAN_DECISION 1.0",
+    "hydration_model": "V4.3-R3",
+    "segmentation_policy": "flow-segmentation-v1"
+  },
+  "guards": {
+    "auto_approval": false,
+    "auto_canonicalization": false,
+    "consumers_read_only": true,
+    "plugin_runtime": "NOT_IMPLEMENTED",
+    "provider_resolution_attempts": 0,
+    "real_llm_calls": 0,
+    "real_provider_calls": 0,
+    "source_read_only": true,
+    "static_parsing_only": true
+  },
+  "ist_baseline": {
+    "added": 0,
+    "basis": "V5.9-R2 full run reused (production frozen, fingerprint and source re-verified)",
+    "changed": 0,
+    "output_bytes": 2828066791,
+    "output_files": 47523,
+    "removed": 0,
+    "source_files": 15138,
+    "source_sha256": "77965c64c7e204d39dc06a9451076df07a4b400e2bd41372fff2bab7fcd792e5"
+  },
+  "plugin_contract": "1.0",
+  "production_commit_candidate": "957ef09538a7afea649d1f2ac195a3d3819a660f",
+  "python_pilot_baseline": {
+    "adapter": "python-generic 1.0",
+    "cross_tech_total_shared_ids": 0,
+    "entity_counts": {
+      "Call": 16145,
+      "Component": 887,
+      "DataOperation": 692,
+      "EntryPoint": 73,
+      "EvidenceReference": 22514,
+      "ExternalDependency": 1,
+      "FunctionalFlow": 19,
+      "FunctionalPath": 4600,
+      "Project": 4,
+      "SourceArtifact": 540,
+      "UnresolvedBoundary": 4191
+    },
+    "external_independence_claim": false,
+    "independent_external_product": false,
+    "origin_commit": "e9e3d6063243073e65a93cbece97d6050184a0c6",
+    "pilot_kind": "SELF_HOSTED_CIRCULAR",
+    "real_second_technology": true,
+    "relocation_stable": true,
+    "repository_id_declared": "SELF_HOSTED_LEGACYMAPPER_V4_2_R8_E9E3D60",
+    "second_source_id": "SELF_HOSTED_LEGACYMAPPER_V4_2_R8_E9E3D60",
+    "second_source_is_legacy_mapper_itself": true,
+    "tree_hash": "a190898bd89683a8ae443fd9d0640e37fc454327ceea34cacdd818c2862ce39e"
+  },
+  "schema_version": "1.0",
+  "scope": "V5.0 -> V5.9",
+  "status": "V5_FINAL_AUDIT_PENDING_HUMAN_APPROVAL",
+  "tests": {
+    "directed": {
+      "command": "python -X utf8 -m unittest <28 modules covering architecture, evidence, docs, cache, adapters, provider guard, segmentation, review, consumers, collision identity>",
+      "duration_seconds": 306.041,
+      "errors": 0,
+      "failures": 0,
+      "total": 970
+    },
+    "full_suite": {
+      "command": "python -X utf8 -m unittest discover -s tests",
+      "duration_seconds": 668.1,
+      "errors": 0,
+      "failures": 0,
+      "skips": 132,
+      "total": 3100
+    }
+  },
+  "v5_closed": false,
+  "version": "V5"
+}

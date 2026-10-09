@@ -47,7 +47,7 @@ actual) es:
   legada en particular.
 
 Si no tiene acceso a ese repositorio legado, aun así puede: ejecutar todos los tests, leer cada decisión y
-resultado de V1–V4, y continuar el desarrollo de V4 desde `PROJECT_STATE.json` en adelante.
+resultado de V1–V4, y continuar el desarrollo desde `PROJECT_STATE.json` en adelante.
 
 ## Artefactos históricos pesados (excluidos de Git)
 
@@ -88,7 +88,7 @@ Tras clonar, ejecute, en orden:
 python -m unittest discover -s tests
 ```
 
-Esperado: **676 tests, OK** (ver `PROJECT_STATE.json` para el conteo autoritativo actual).
+Esperado: **OK, 0 fallos, 0 errores** (baseline V5: 3100 tests, 132 skips explicados en un clon nuevo; ver `PROJECT_STATE.json` para el conteo autoritativo actual).
 
 ```text
 python -m legacy_documenter.knowledge.readiness
@@ -100,33 +100,35 @@ Esperado: `readiness=READY`, `ai_knowledge_allowed=true`, `ai_knowledge_generate
 Si alguna de las dos verificaciones falla en un clon limpio, deténgase y repórtelo — no continúe con nuevo
 desarrollo hasta que ambas pasen, según las reglas de control de fases de `AGENTS.md`.
 
-## Estado actual
+## Estado actual (V5 CLOSED)
 
-No rederive el conocimiento del proyecto aquí; siga estos punteros:
+Empiece la recuperación por, en este orden:
 
-* Traspaso actual: `docs/V4/V4_AI_HANDOVER.md`
-* Roadmap actual: `docs/V4/V4_PROPOSED_ROADMAP.md`
-* Baseline canónica de V3: `output/v3_final/V3_FINAL_BASELINE.json`
-* Resultado de la última ronda aprobada: ver `PROJECT_STATE.json` → `latest_approved_round` y
-  `latest_result_path`
-* Índice de estado legible por máquina: `PROJECT_STATE.json`
+1. `PROJECT_STATE.json` — autoridad operativa legible por máquina (estado, última ronda, `next`).
+2. `docs/V5/V5_FINAL_AUDIT_AND_RELEASE_BASELINE.md` — auditoría final, invariantes, baselines y deuda.
+3. `docs/V5/V5_FINAL_BASELINE.json` — baseline de release (analyzer v3, fingerprint, IST, piloto Python).
+4. `docs/V5/V5_OPERATIONS_GUIDE.md` — guía operativa mínima.
+5. `docs/V5/V5_FINAL_CLOSURE.md` — recibo de cierre: commit final, verificación remota, estado del tag.
+
+Qué permite reconstruir:
+
+* **Estado V5 y commit final:** `PROJECT_STATE.json` → `v5_final_production_commit`; recibo en `docs/V5/V5_FINAL_CLOSURE.json`.
+* **Invariantes y contratos:** `docs/V5/V5_FINAL_INVARIANT_MATRIX.json`, `docs/V5/V5_FINAL_CONTRACT_MATRIX.json`.
+* **Baselines:** IST (47523 archivos de salida, 0 diferencias) y piloto Python circular (`SELF_HOSTED_CIRCULAR`, sin claim de independencia externa) en `V5_FINAL_BASELINE.json`.
+* **Deuda y trabajos post-V5:** `docs/V5/V5_FINAL_DEBT_LEDGER.json` (BLOCKING = 0) y `docs/V5/V5_FINAL_MAINTAINABILITY_INVENTORY.json`. Siguiente paso: `POST_V5_PLANNING`; no hay V6 iniciada.
+* **Roadmap e historia:** `docs/continuity/LEGACYMAPPER_V5_ROADMAP.md`, `docs/continuity/LEGACYMAPPER_PROJECT_HISTORY_AND_V5_ROADMAP.md`.
+
+Histórico (V4/V3, conservado para compatibilidad y trazabilidad, no es el estado vigente):
+`docs/V4/V4_AI_HANDOVER.md`, `docs/V4/V4_PROPOSED_ROADMAP.md`, `output/v3_final/V3_FINAL_BASELINE.json`.
 
 ## Descubrimiento del siguiente paso
 
-Un nuevo agente de desarrollo determina la siguiente tarea leyendo, en orden:
+Un nuevo agente de desarrollo lee, en orden:
 
-1. `CLAUDE.md` — punto de entrada, señala `AGENTS.md`, el traspaso, la baseline, y el prompt activo.
-2. `AGENTS.md` — reglas operativas, límite de permisos, control de fases.
-3. `PROJECT_STATE.json` — puntero legible por máquina a la última ronda completada/aprobada y a la tarea
-   declarada como `next`.
-4. `docs/V4/V4_AI_HANDOVER.md` — requisitos de continuidad narrativa.
-5. `docs/V4/V4_PROPOSED_ROADMAP.md` — la lista ordenada completa de rondas (V4-R1 … V4-R14) y el alcance de
-   cada una.
-6. El documento de resultado de la última ronda aprobada bajo `docs/V4/` (por ejemplo,
-   `V4_R1_KNOWLEDGE_DOMAIN_MODEL_RESULT.md`) — su línea `NEXT=` nombra la siguiente ronda.
-7. El prompt correspondiente bajo `prompts/V4/` para esa siguiente ronda, si ya existe; en caso contrario,
-   la siguiente ronda se delimita mediante un nuevo prompt antes de comenzar la implementación, según el
-   control de fases de `AGENTS.md` (`Do not automatically start the next round`).
+1. `AGENTS.md` — reglas operativas, límite de permisos, control de fases.
+2. `CLAUDE.md` — punto de entrada y orden de lectura.
+3. `PROJECT_STATE.json` — estado y tarea declarada como `next`.
+4. Los documentos V5 listados arriba.
+5. El prompt activo bajo `prompts/V5/` (o `prompts/V4/` para historia V4), si existe; en caso contrario, la siguiente ronda se delimita con un nuevo prompt antes de implementar (`Do not automatically start the next round`).
 
-No comience a implementar una ronda cuyo prompt aún no exista bajo `prompts/V4/`, y no implemente V4-R2 ni
-posteriores como efecto colateral de este documento de recuperación.
+No inicie trabajo post-V5 (incluida cualquier V6) sin un prompt explícito.

@@ -1,0 +1,221 @@
+{
+  "explicit_contract_versions": {
+    "adapters": {
+      "python": {
+        "ADAPTER_ID": "python-generic",
+        "ADAPTER_VERSION": "1.0"
+      },
+      "vbnet": {
+        "REFERENCE_ADAPTER_ID": "vbnet-webforms-oracle",
+        "REFERENCE_ADAPTER_VERSION": "1.0"
+      }
+    },
+    "ai_projection": {
+      "CONTRACT_NAME": "AI_HYDRATED_PROJECTION",
+      "CONTRACT_VERSION": "1.0",
+      "SCHEMA_VERSION": "1.0"
+    },
+    "capabilities": [
+      "READ_EVIDENCE",
+      "READ_FLOW",
+      "READ_PARTIAL_FLOW",
+      "READ_AI_CONTEXT",
+      "READ_CANONICAL",
+      "READ_REVIEW_HISTORY",
+      "RENDER_HUMAN_DOC",
+      "EXPORT_JSON"
+    ],
+    "consumer": {
+      "CONTRACT_NAME": "LegacyMapperConsumerContract",
+      "CONTRACT_VERSION": "1.0",
+      "RESULT_SCHEMA": "CONSUMER_RESULT",
+      "SUPPORTED_CONTRACT_VERSIONS": [
+        "1.0"
+      ]
+    },
+    "consumer_projection": {
+      "CONTRACT_NAME": "LegacyMapperConsumerProjection",
+      "CONTRACT_VERSION": "1.0",
+      "SCHEMA_VERSION": "1.0"
+    },
+    "decision_actions": [
+      "APPROVE",
+      "REJECT",
+      "CORRECT",
+      "DEFER"
+    ],
+    "docs_v52": {
+      "MANIFEST_CONTRACT": "LegacyMapperDocumentationV52",
+      "VERIFICATION_MODE": "strict_content"
+    },
+    "evidence": {
+      "EVIDENCE_SCHEMA_VERSION": "1.0"
+    },
+    "hydration": {
+      "MODEL_VERSION": "V4.3-R3"
+    },
+    "output_dirs": {
+      "DEFAULT_PROFILES": [
+        "general_overview",
+        "developer_technical"
+      ],
+      "OUTPUT_DIRNAME": "documentation_v52"
+    },
+    "plugin": {
+      "PLUGIN_CONTRACT_NAME": "LegacyMapperPluginContract",
+      "PLUGIN_CONTRACT_VERSION": "1.0",
+      "SUPPORTED_PLUGIN_CONTRACT_VERSIONS": [
+        "1.0"
+      ]
+    },
+    "review": {
+      "CANONICAL_SCHEMA": "CANONICAL_KNOWLEDGE",
+      "DECISION_SCHEMA": "HUMAN_DECISION",
+      "SCHEMA_VERSION": "1.0"
+    },
+    "review_baseline": {
+      "BASELINE_SCHEMA": "REVIEW_BASELINE",
+      "SNAPSHOT_SCHEMA": "REVIEW_PROPOSAL_SNAPSHOT"
+    },
+    "run_metrics": {
+      "CONTRACT": null,
+      "SCHEMA_VERSION": null
+    },
+    "seg_policy": {
+      "version": "flow-segmentation-v1"
+    },
+    "versions": {
+      "ANALYZER_VERSION": 3,
+      "EXTRACTION_CACHE_SCHEMA_VERSION": 1,
+      "LEGACY_MARKDOWN_RENDERER_VERSION": "1"
+    }
+  },
+  "round": "V5-Closure-R1",
+  "rows": [
+    {
+      "capability": "Architecture & contracts (normalized core, adapter, projection, template/profile, provider boundaries)",
+      "contract_version": "documentary contract V5.0 (R1..R3 package); enforced by guards",
+      "debt": "none",
+      "final_state": "CLOSED",
+      "production_location": [
+        "docs/V5/V5_0_R3_FINAL_ARCHITECTURE_PACKAGE.md"
+      ],
+      "real_proof": "architecture guards in the suite; IST regression",
+      "version": "V5.0"
+    },
+    {
+      "capability": "Normalized Evidence Core",
+      "contract_version": "EVIDENCE_SCHEMA_VERSION 1.0",
+      "debt": "D-5 evidence reader (FUTURE); I-7 no real case (OBS)",
+      "final_state": "CLOSED",
+      "production_location": [
+        "legacy_documenter/evidence/entities.py",
+        "legacy_documenter/evidence/invariants.py",
+        "legacy_documenter/evidence/identity.py"
+      ],
+      "real_proof": "IST 15138 SourceArtifacts, I-1..I-11 invariants; Python 540",
+      "version": "V5.1"
+    },
+    {
+      "capability": "Template-driven documentation & output profiles",
+      "contract_version": "LegacyMapperDocumentationV52 (profiles general_overview, developer_technical = human-functional / human-technical; ai_context)",
+      "debt": "large modules (FUTURE); presentation roots (OBS)",
+      "final_state": "CLOSED",
+      "production_location": [
+        "legacy_documenter/documentation_v52/engine.py",
+        "legacy_documenter/documentation_v52/defaults/profiles/general_overview.json"
+      ],
+      "real_proof": "IST 46.5k docs byte-identical across rounds; Python 4640-file tree; data-only terminology overlay",
+      "version": "V5.2"
+    },
+    {
+      "capability": "Incremental engine & cache",
+      "contract_version": "extraction cache schema 1; ANALYZER_VERSION 3; fingerprint f05b2de4",
+      "debt": "scope mode=full (OBS); partial recomputation (FUTURE)",
+      "final_state": "CLOSED",
+      "production_location": [
+        "legacy_documenter/cache/extraction.py",
+        "legacy_documenter/fingerprints/code.py",
+        "legacy_documenter/versions.py"
+      ],
+      "real_proof": "Python cold/warm 243 hits/incremental 242+1; IST cold run",
+      "version": "V5.3"
+    },
+    {
+      "capability": "Technology / DB adapters",
+      "contract_version": "TechnologyAdapter protocol; vbnet-webforms-oracle 1.0",
+      "debt": "legacy shims (HISTORICAL_COMPATIBILITY)",
+      "final_state": "CLOSED",
+      "production_location": [
+        "legacy_documenter/adapters/contracts.py",
+        "legacy_documenter/adapters/vbnet_webforms_oracle/adapter.py"
+      ],
+      "real_proof": "IST byte-identical through every later round",
+      "version": "V5.4"
+    },
+    {
+      "capability": "Generic AI provider + context",
+      "contract_version": "AI_HYDRATED_PROJECTION 1.0",
+      "debt": "extra providers (FUTURE)",
+      "final_state": "CLOSED",
+      "production_location": [
+        "legacy_documenter/llm/contracts.py",
+        "legacy_documenter/context/ai_projection.py",
+        "legacy_documenter/orchestration/ai_interpretation.py"
+      ],
+      "real_proof": "Fake provider grounded proposal on Python (0 real provider calls)",
+      "version": "V5.5"
+    },
+    {
+      "capability": "Flow segmentation",
+      "contract_version": "flow-segmentation-v1",
+      "debt": "adaptive/cross-flow (FUTURE)",
+      "final_state": "CLOSED",
+      "production_location": [
+        "legacy_documenter/context/flow_segmentation.py",
+        "legacy_documenter/orchestration/segmented_context.py"
+      ],
+      "real_proof": "Python FLOW-0042743202 -> 108 segments; IST 341->85 and 399->19",
+      "version": "V5.6"
+    },
+    {
+      "capability": "Approval + canonical knowledge",
+      "contract_version": "HUMAN_DECISION / CANONICAL_KNOWLEDGE / REVIEW_BASELINE 1.0",
+      "debt": "UI/RBAC/quorum (FUTURE)",
+      "final_state": "CLOSED",
+      "production_location": [
+        "legacy_documenter/review/service.py",
+        "legacy_documenter/review/store.py",
+        "legacy_documenter/cli/review_command.py"
+      ],
+      "real_proof": "controlled APPROVE+canonical+audit chain, PROPOSAL_STALE on Python copy",
+      "version": "V5.7"
+    },
+    {
+      "capability": "Consumer / Plugin contract",
+      "contract_version": "LegacyMapperConsumerContract 1.0; LegacyMapperPluginContract 1.0",
+      "debt": "Plugin Runtime (FUTURE)",
+      "final_state": "CLOSED",
+      "production_location": [
+        "legacy_documenter/consumers/facade.py",
+        "legacy_documenter/consumers/contracts.py",
+        "legacy_documenter/plugins/validation.py"
+      ],
+      "real_proof": "8 capabilities served on IST and Python; Fake manifest E2E",
+      "version": "V5.8"
+    },
+    {
+      "capability": "Real multi-technology pilot + SourceArtifact namespace",
+      "contract_version": "python-generic 1.0; repository_id namespace (opt-in)",
+      "debt": "external validation (FUTURE)",
+      "final_state": "CLOSED (pilot SELF_HOSTED_CIRCULAR)",
+      "production_location": [
+        "legacy_documenter/adapters/python_generic/adapter.py",
+        "legacy_documenter/evidence/identity.py"
+      ],
+      "real_proof": "Python 540 artifacts; IST+Python shared ids = 0; relocation stable",
+      "version": "V5.9"
+    }
+  ],
+  "verified_against_code": true
+}

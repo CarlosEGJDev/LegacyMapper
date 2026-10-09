@@ -1,0 +1,318 @@
+{
+  "blocking": [],
+  "counts": {
+    "BLOCKING": 0,
+    "FUTURE_PHASE": 14,
+    "HISTORICAL_COMPATIBILITY": 5,
+    "OBSERVATION": 15
+  },
+  "items": [
+    {
+      "classification": "FUTURE_PHASE",
+      "current_status": "OPEN",
+      "description": "External independent second-technology validation",
+      "evidence": "pilot_kind=SELF_HOSTED_CIRCULAR; external_independence_claim=false",
+      "id": "FP-01",
+      "origin_version": "V5.9",
+      "recommended_future_phase": "post-V5 pilot on an external corpus"
+    },
+    {
+      "classification": "FUTURE_PHASE",
+      "current_status": "OPEN",
+      "description": "Python richer type inference (attribute/receiver types, decorators)",
+      "evidence": "~42% of Python calls unresolved by design (6768/16145)",
+      "id": "FP-02",
+      "origin_version": "V5.9",
+      "recommended_future_phase": "python-generic 1.x"
+    },
+    {
+      "classification": "FUTURE_PHASE",
+      "current_status": "OPEN",
+      "description": "Python argparse / console-script entry points",
+      "evidence": "entries only via __main__ guards (73 candidates)",
+      "id": "FP-03",
+      "origin_version": "V5.9",
+      "recommended_future_phase": "python-generic 1.x"
+    },
+    {
+      "classification": "FUTURE_PHASE",
+      "current_status": "OPEN",
+      "description": "Python DB adapters",
+      "evidence": "no SQL/DB driver boundary in the adapter",
+      "id": "FP-04",
+      "origin_version": "V5.9",
+      "recommended_future_phase": "adapter after external corpus"
+    },
+    {
+      "classification": "FUTURE_PHASE",
+      "current_status": "OPEN (intentionally not implemented)",
+      "description": "Plugin Runtime (discovery, loading, install, sandbox, signing, remote registry, hot reload, lifecycle)",
+      "evidence": "plugin_runtime=NOT_IMPLEMENTED; AST no-runtime guard",
+      "id": "FP-05",
+      "origin_version": "V5.8",
+      "recommended_future_phase": "dedicated runtime phase"
+    },
+    {
+      "classification": "FUTURE_PHASE",
+      "current_status": "OPEN",
+      "description": "Third technology",
+      "evidence": "two stacks proven",
+      "id": "FP-06",
+      "origin_version": "V5.9",
+      "recommended_future_phase": "post-V5"
+    },
+    {
+      "classification": "FUTURE_PHASE",
+      "current_status": "OPEN",
+      "description": "Consumer write capabilities / permissions model",
+      "evidence": "write-like capabilities rejected",
+      "id": "FP-07",
+      "origin_version": "V5.8",
+      "recommended_future_phase": "with Plugin Runtime"
+    },
+    {
+      "classification": "FUTURE_PHASE",
+      "current_status": "OPEN",
+      "description": "Review UI, RBAC, signatures, quorum, bulk approval, inter-process lock, canonical supersede, multi-segment semantic merge",
+      "evidence": "V5.7 R3 closure debt",
+      "id": "FP-08",
+      "origin_version": "V5.7",
+      "recommended_future_phase": "review product phase"
+    },
+    {
+      "classification": "FUTURE_PHASE",
+      "current_status": "OPEN",
+      "description": "Additional providers, advanced retry/streaming/tools (Gemini unregistered)",
+      "evidence": "FakeAIProvider + Copilot only",
+      "id": "FP-09",
+      "origin_version": "V5.5",
+      "recommended_future_phase": "provider phase"
+    },
+    {
+      "classification": "FUTURE_PHASE",
+      "current_status": "OPEN",
+      "description": "Adaptive / cross-flow segmentation, segment cache",
+      "evidence": "greedy atomic-path segmentation",
+      "id": "FP-10",
+      "origin_version": "V5.6",
+      "recommended_future_phase": "segmentation 2"
+    },
+    {
+      "classification": "FUTURE_PHASE",
+      "current_status": "OPEN",
+      "description": "Partial resolver recomputation, stage skipping, flow/projection cache, unified atomic writers",
+      "evidence": "only extraction is reused; later stages always recompute",
+      "id": "FP-11",
+      "origin_version": "V5.3",
+      "recommended_future_phase": "incremental 2"
+    },
+    {
+      "classification": "FUTURE_PHASE",
+      "current_status": "OPEN",
+      "description": "Refactor of very large modules (full_pipeline, pipeline_stages, transform, technical_documentation_renderer, documentation_v52/config)",
+      "evidence": "11 VERY_HIGH-risk files in the final inventory",
+      "id": "FP-12",
+      "origin_version": "V5.2/V5.3",
+      "recommended_future_phase": "maintainability phase"
+    },
+    {
+      "classification": "FUTURE_PHASE",
+      "current_status": "OPEN",
+      "description": "Evidence reader (evidence/ -> entities) and unexercised source_span/textual references",
+      "evidence": "V5.1 R4 debt D-5",
+      "id": "FP-13",
+      "origin_version": "V5.1",
+      "recommended_future_phase": "when a consumer needs persisted evidence"
+    },
+    {
+      "classification": "FUTURE_PHASE",
+      "current_status": "OPEN",
+      "description": "Retire legacy compatibility shims (evidence/builder.py, evidence/projection.py, analysis/*, extractors/* delegates)",
+      "evidence": "22 shim modules; guarded as pure re-exports",
+      "id": "FP-14",
+      "origin_version": "V5.4",
+      "recommended_future_phase": "deprecation window"
+    },
+    {
+      "classification": "OBSERVATION",
+      "current_status": "ACCEPTED (explicitly authorized)",
+      "description": "SELF_HOSTED_CIRCULAR_PILOT: the second corpus is LegacyMapper itself",
+      "evidence": "docs/V5/V5_9_R1_* and R3",
+      "id": "OB-01",
+      "origin_version": "V5.9",
+      "recommended_future_phase": "see FP-01"
+    },
+    {
+      "classification": "OBSERVATION",
+      "current_status": "ACCEPTED (compat-preserving)",
+      "description": "Repositories analyzed without --repository-id share the legacy V5.1 SRC namespace (declaration is not mandatory)",
+      "evidence": "undeclared Python vs IST still shares .gitignore SRC; declared = 0 shared",
+      "id": "OB-02",
+      "origin_version": "V5.9-R2",
+      "recommended_future_phase": "decide mandatory declaration with IST re-baseline"
+    },
+    {
+      "classification": "OBSERVATION",
+      "current_status": "ACCEPTED",
+      "description": "PRJ-/CMP-/CAL-/XDP- remain path-derived",
+      "evidence": "not observed colliding (shared ids = 0)",
+      "id": "OB-03",
+      "origin_version": "V5.1/V5.9",
+      "recommended_future_phase": "with OB-02"
+    },
+    {
+      "classification": "OBSERVATION",
+      "current_status": "ACCEPTED",
+      "description": "Physical-root directory names appear in some presentation outputs (system name, scan_summary, SYSTEM_CONTEXT, project overview)",
+      "evidence": "7 of 4640 files differ between two roots; none carries identity",
+      "id": "OB-04",
+      "origin_version": "V5.9",
+      "recommended_future_phase": "presentation cleanup"
+    },
+    {
+      "classification": "OBSERVATION",
+      "current_status": "ACCEPTED",
+      "description": "Incremental scope reports mode=full for code changes (conservative global resolution); extraction reuse is still bounded",
+      "evidence": "Python incremental: 242 hits / 1 miss but scope mode=full",
+      "id": "OB-05",
+      "origin_version": "V5.3",
+      "recommended_future_phase": "incremental 2"
+    },
+    {
+      "classification": "OBSERVATION",
+      "current_status": "ACCEPTED",
+      "description": "trust-mtime is unsafe opt-in; incremental ratio default deferred; repository.json not deterministic (duration)",
+      "evidence": "defaults auto/fast/false/None",
+      "id": "OB-06",
+      "origin_version": "V5.3",
+      "recommended_future_phase": "incremental 2"
+    },
+    {
+      "classification": "OBSERVATION",
+      "current_status": "ACCEPTED (contractual precision)",
+      "description": "Review baseline proves stability between `review prepare` and the decision; proposals carry no generation-time evidence fingerprint",
+      "evidence": "grep: no evidence_fingerprint in proposal generation",
+      "id": "OB-07",
+      "origin_version": "V5.7",
+      "recommended_future_phase": "embed fingerprints at proposal generation"
+    },
+    {
+      "classification": "OBSERVATION",
+      "current_status": "ACCEPTED",
+      "description": "IST evidence index load is seconds-scale per consumer/review instance",
+      "evidence": "3.4-5.5 s measured on IST",
+      "id": "OB-08",
+      "origin_version": "V5.7",
+      "recommended_future_phase": "lazy index"
+    },
+    {
+      "classification": "OBSERVATION",
+      "current_status": "ACCEPTED (NOT_TRIGGERED_REAL)",
+      "description": "AI-request segmentation not triggered by the real Python corpus (flows segment through the consumer path)",
+      "evidence": "pilot matrix",
+      "id": "OB-09",
+      "origin_version": "V5.9",
+      "recommended_future_phase": "external corpus"
+    },
+    {
+      "classification": "OBSERVATION",
+      "current_status": "ACCEPTED",
+      "description": "I-7 promotion invariant has no real trigger; upstream VBProj empty Include refs preserved with ordinals",
+      "evidence": "V5.1 R4 §13",
+      "id": "OB-10",
+      "origin_version": "V5.1",
+      "recommended_future_phase": "—"
+    },
+    {
+      "classification": "OBSERVATION",
+      "current_status": "ACCEPTED",
+      "description": "A 14-package import cluster (adapters, analysis, cache, cli, documentation, documentation_v52, evidence, exporters, fingerprints, knowledge, llm, main, orchestration, review) — grown by V5.4 (adapters, evidence via shims) and V5.7 (review via documentation.contracts.stable_id); consumers, plugins and python_generic are outside it",
+      "evidence": "SCC measured at 9425319, 5e9085f, bf901dc, bcb8d57, 957ef09; no cycle added by V5.8/V5.9",
+      "id": "OB-11",
+      "origin_version": "V5.4/V5.7",
+      "recommended_future_phase": "break the cluster during module refactor"
+    },
+    {
+      "classification": "OBSERVATION",
+      "current_status": "ACCEPTED",
+      "description": "cache/run_metrics imports llm.security (a neutral layer reaches a helper in the llm package, lazily; importing cache loads no provider)",
+      "evidence": "audit: llm_imports_by_layer; import check loads 0 provider modules",
+      "id": "OB-12",
+      "origin_version": "V5.3",
+      "recommended_future_phase": "move sanitizer to utils"
+    },
+    {
+      "classification": "OBSERVATION",
+      "current_status": "ACCEPTED",
+      "description": "42 `except Exception` stage/boundary handlers, 0 bare except",
+      "evidence": "audit_arch",
+      "id": "OB-13",
+      "origin_version": "V5.x",
+      "recommended_future_phase": "narrow progressively"
+    },
+    {
+      "classification": "OBSERVATION",
+      "current_status": "RESOLVED_IN_CLOSURE_R3",
+      "description": "User-facing docs lag V5: README.md is still the V4.3 index; docs/PROJECT_RECOVERY.md and CLAUDE.md's read list point to V4-era handover/V3 baseline (commands remain valid; PROJECT_STATE.json is authoritative)",
+      "evidence": "grep V5 mentions: README 0, PROJECT_RECOVERY 0; V5 guide added: docs/V5/V5_OPERATIONS_GUIDE.md; Closure R3 refreshed README.md, docs/PROJECT_RECOVERY.md and the CLAUDE.md read list to the V5 baseline (docs only; no production change)",
+      "id": "OB-14",
+      "origin_version": "V4.3/V5",
+      "recommended_future_phase": "refresh in Closure R3"
+    },
+    {
+      "classification": "OBSERVATION",
+      "current_status": "ACCEPTED",
+      "description": "Historical UnicodeDecodeError diagnostics from a subprocess reader appear in the full-suite log without failing; manual_verify_full_pipeline may end PARTIAL with an empty finding",
+      "evidence": "4 occurrences in the Closure R1 suite log; suite OK",
+      "id": "OB-15",
+      "origin_version": "V5.5",
+      "recommended_future_phase": "test-tooling cleanup"
+    },
+    {
+      "classification": "HISTORICAL_COMPATIBILITY",
+      "current_status": "KEPT",
+      "description": "Legacy `documentation/` tree and the legacy `index/` layout remain outputs",
+      "evidence": "IST byte-identical",
+      "id": "HC-01",
+      "origin_version": "V3/V4",
+      "recommended_future_phase": "—"
+    },
+    {
+      "classification": "HISTORICAL_COMPATIBILITY",
+      "current_status": "KEPT",
+      "description": "Compatibility re-export shims",
+      "evidence": "22 modules",
+      "id": "HC-02",
+      "origin_version": "V5.4",
+      "recommended_future_phase": "FP-14"
+    },
+    {
+      "classification": "HISTORICAL_COMPATIBILITY",
+      "current_status": "KEPT",
+      "description": "In-memory V4 approval/canonical/plugin_projection layers coexist unused by production paths",
+      "evidence": "ApprovalService (V5.7) is the only persisted path",
+      "id": "HC-03",
+      "origin_version": "V4-R9/R10/R12",
+      "recommended_future_phase": "deprecate later"
+    },
+    {
+      "classification": "HISTORICAL_COMPATIBILITY",
+      "current_status": "KEPT",
+      "description": "117 small canonical artifacts under output/ are tracked by policy (GENERATED_ARTIFACT_POLICY)",
+      "evidence": "git ls-files output | wc -l",
+      "id": "HC-04",
+      "origin_version": "V3/V4",
+      "recommended_future_phase": "—"
+    },
+    {
+      "classification": "HISTORICAL_COMPATIBILITY",
+      "current_status": "KEPT",
+      "description": "Historical prompts live in prompts/V5_0; V5.3+ in prompts/V5",
+      "evidence": "docs decision V5.2 R4.3",
+      "id": "HC-05",
+      "origin_version": "V5.2",
+      "recommended_future_phase": "—"
+    }
+  ],
+  "round": "V5-Closure-R1"
+}

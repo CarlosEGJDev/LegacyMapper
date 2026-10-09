@@ -1,0 +1,326 @@
+{
+  "adapter_boundaries": {
+    "imports_of_python_adapter": [
+      "cli/pipeline_stages.py"
+    ],
+    "python-generic": "adapters/python_generic (8 modules)",
+    "vbnet-webforms-oracle": "adapters/vbnet_webforms_oracle (2668 lines)"
+  },
+  "broad_exception_handlers": {
+    "except_Exception": 42
+  },
+  "classification": {
+    "BLOCKING": [],
+    "see": "V5_FINAL_DEBT_LEDGER.json"
+  },
+  "compatibility_shims": [
+    "analysis/_flow_graph_construction.py",
+    "analysis/_flow_key_labels.py",
+    "analysis/_flow_report_composition.py",
+    "analysis/call_resolver.py",
+    "analysis/database_resolver.py",
+    "analysis/dependency_resolver.py",
+    "analysis/flow_resolver.py",
+    "analysis/web_entry_resolver.py",
+    "cli/pipeline_stages.py",
+    "evidence/builder.py",
+    "evidence/projection.py",
+    "extractors/_database_classification.py",
+    "extractors/_database_line_scanner.py",
+    "extractors/_database_token_parsing.py",
+    "extractors/call_extractor.py",
+    "extractors/database_extractor.py",
+    "extractors/solution_extractor.py",
+    "extractors/vbnet_extractor.py",
+    "extractors/vbproj_extractor.py",
+    "extractors/web_event_extractor.py",
+    "extractors/webconfig_extractor.py",
+    "extractors/webforms_extractor.py"
+  ],
+  "docs_prompts_separation": "runtime never opens docs/, prompts/ or tests/ paths and never imports tests/tools (audit); prompts live in prompts/, results in docs/",
+  "dynamic_exec_calls": [
+    "documentation/renderer.py:21:__import__"
+  ],
+  "largest_classes": [
+    [
+      "legacy_documenter/documentation_v52/transform.py",
+      871
+    ],
+    [
+      "legacy_documenter/adapters/vbnet_webforms_oracle/extractors/database_extractor.py",
+      319
+    ],
+    [
+      "legacy_documenter/analysis/normalized_flow.py",
+      290
+    ],
+    [
+      "legacy_documenter/documentation_v52/template.py",
+      303
+    ],
+    [
+      "legacy_documenter/review/store.py",
+      143
+    ],
+    [
+      "legacy_documenter/consumers/facade.py",
+      269
+    ]
+  ],
+  "largest_functions": [
+    [
+      "legacy_documenter/knowledge/canonical/example_report.py",
+      285
+    ],
+    [
+      "legacy_documenter/cli/full_pipeline.py",
+      260
+    ],
+    [
+      "legacy_documenter/knowledge/approval/example_report.py",
+      221
+    ],
+    [
+      "legacy_documenter/knowledge/canonical/contract_report.py",
+      169
+    ],
+    [
+      "legacy_documenter/knowledge/plugin_projection/contract_report.py",
+      159
+    ],
+    [
+      "legacy_documenter/knowledge/projection/contract_report.py",
+      146
+    ]
+  ],
+  "largest_modules": [
+    [
+      "legacy_documenter/exporters/technical_documentation_renderer.py",
+      1222
+    ],
+    [
+      "legacy_documenter/documentation_v52/transform.py",
+      1012
+    ],
+    [
+      "legacy_documenter/documentation/human_flow_documentation.py",
+      626
+    ],
+    [
+      "legacy_documenter/cli/full_pipeline.py",
+      573
+    ],
+    [
+      "legacy_documenter/cli/pipeline_stages.py",
+      506
+    ],
+    [
+      "legacy_documenter/context/ai_projection.py",
+      500
+    ],
+    [
+      "legacy_documenter/adapters/vbnet_webforms_oracle/normalization.py",
+      478
+    ],
+    [
+      "legacy_documenter/orchestration/ai_interpretation.py",
+      436
+    ]
+  ],
+  "neutral_layers_importing_adapters": {
+    "evidence": [
+      "evidence/builder.py -> legacy_documenter.adapters.vbnet_webforms_oracle.normalization._hash_file",
+      "evidence/builder.py -> legacy_documenter.adapters.vbnet_webforms_oracle.normalization._evidence_list_provenance",
+      "evidence/builder.py -> legacy_documenter.adapters.vbnet_webforms_oracle.normalization.NormalizedEvidence",
+      "evidence/builder.py -> legacy_documenter.adapters.vbnet_webforms_oracle.normalization._whole_file_source_ref",
+      "evidence/builder.py -> legacy_documenter.adapters.vbnet_webforms_oracle.normalization.PASSTHROUGH_INDEX_KEYS",
+      "evidence/builder.py -> legacy_documenter.adapters.vbnet_webforms_oracle.normalization.NormalizedEvidenceBuilder",
+      "evidence/builder.py -> legacy_documenter.adapters.vbnet_webforms_oracle.normalization._connection_provenance",
+      "evidence/builder.py -> legacy_documenter.adapters.vbnet_webforms_oracle.normalization.REFERENCE_ADAPTER_VERSION",
+      "evidence/builder.py -> legacy_documenter.adapters.vbnet_webforms_oracle.normalization._TERMINAL_UNRESOLVED_TYPES",
+      "evidence/builder.py -> legacy_documenter.adapters.vbnet_webforms_oracle.normalization.REFERENCE_ADAPTER_ID",
+      "evidence/builder.py -> legacy_documenter.adapters.vbnet_webforms_oracle.normalization",
+      "evidence/projection.py -> legacy_documenter.adapters.vbnet_webforms_oracle.projection._SYMBOL_KINDS",
+      "evidence/projection.py -> legacy_documenter.adapters.vbnet_webforms_oracle.projection.LegacyIndexProjector",
+      "evidence/projection.py -> legacy_documenter.adapters.vbnet_webforms_oracle.projection.LegacyProjectionError",
+      "evidence/projection.py -> legacy_documenter.adapters.vbnet_webforms_oracle.projection",
+      "evidence/projection.py -> legacy_documenter.adapters.vbnet_webforms_oracle.projection._WEBFORM_KINDS"
+    ]
+  },
+  "neutral_layers_importing_llm": {
+    "analysis": [
+      "analysis/deep_interpretation.py -> legacy_documenter.llm.ProviderRegistry",
+      "analysis/deep_interpretation.py -> legacy_documenter.llm.LLMRequest",
+      "analysis/deep_interpretation.py -> legacy_documenter.llm",
+      "analysis/deep_interpretation.py -> legacy_documenter.llm.copilot_pilot",
+      "analysis/deep_interpretation.py -> legacy_documenter.llm.copilot_pilot.discover_model",
+      "analysis/deep_interpretation.py -> legacy_documenter.llm.ProviderConfig"
+    ],
+    "cache": [
+      "cache/run_metrics.py -> legacy_documenter.llm.security.safe_diagnostic_data",
+      "cache/run_metrics.py -> legacy_documenter.llm.security"
+    ]
+  },
+  "package_cycles_scc": [
+    [
+      "adapters",
+      "analysis",
+      "cache",
+      "cli",
+      "documentation",
+      "documentation_v52",
+      "evidence",
+      "exporters",
+      "fingerprints",
+      "knowledge",
+      "llm",
+      "main",
+      "orchestration",
+      "review",
+      "versions"
+    ]
+  ],
+  "package_graph": {
+    "adapters": [
+      "analysis",
+      "evidence",
+      "models",
+      "utils"
+    ],
+    "analysis": [
+      "adapters",
+      "documentation",
+      "llm",
+      "main",
+      "utils"
+    ],
+    "cache": [
+      "fingerprints",
+      "llm",
+      "utils",
+      "versions"
+    ],
+    "cli": [
+      "adapters",
+      "cache",
+      "context",
+      "documentation",
+      "documentation_v52",
+      "evidence",
+      "exporters",
+      "knowledge",
+      "llm",
+      "models",
+      "orchestration",
+      "review",
+      "scanner",
+      "utils"
+    ],
+    "consumers": [
+      "context",
+      "review",
+      "utils"
+    ],
+    "context": [
+      "utils"
+    ],
+    "documentation": [
+      "context",
+      "exporters",
+      "llm"
+    ],
+    "documentation_v52": [
+      "exporters",
+      "utils"
+    ],
+    "evidence": [
+      "adapters",
+      "utils"
+    ],
+    "exporters": [
+      "cli",
+      "utils"
+    ],
+    "extractors": [
+      "adapters"
+    ],
+    "fingerprints": [
+      "config",
+      "documentation_v52"
+    ],
+    "knowledge": [
+      "documentation",
+      "utils"
+    ],
+    "llm": [
+      "documentation",
+      "utils"
+    ],
+    "main": [
+      "cli"
+    ],
+    "orchestration": [
+      "context",
+      "knowledge",
+      "llm"
+    ],
+    "plugins": [
+      "consumers"
+    ],
+    "review": [
+      "documentation",
+      "knowledge",
+      "utils"
+    ],
+    "scanner": [
+      "config",
+      "models"
+    ],
+    "versions": [
+      "context",
+      "documentation",
+      "documentation_v52",
+      "evidence"
+    ]
+  },
+  "production_modules": 290,
+  "risk_summary": {
+    "HIGH": 29,
+    "LOW": 155,
+    "MEDIUM": 95,
+    "VERY_HIGH": 11
+  },
+  "risky_stdlib_imports": {
+    "cache/run_metrics.py": [
+      "ctypes"
+    ],
+    "llm/copilot_pilot.py": [
+      "importlib"
+    ],
+    "llm/providers/gemini.py": [
+      "urllib"
+    ]
+  },
+  "round": "V5-Closure-R1",
+  "runtime_reads_docs_prompts_tests": [],
+  "technology_tokens_outside_adapters_modules": {
+    "oracle": 49,
+    "python": 5,
+    "vbnet": 15,
+    "webforms": 57
+  },
+  "tracked_files": 1102,
+  "very_high_risk_files": [
+    "legacy_documenter/analysis/deep_source.py",
+    "legacy_documenter/cli/full_pipeline.py",
+    "legacy_documenter/cli/pipeline_stages.py",
+    "legacy_documenter/consumers/facade.py",
+    "legacy_documenter/documentation/generator.py",
+    "legacy_documenter/documentation/hierarchical.py",
+    "legacy_documenter/documentation/human_flow_documentation.py",
+    "legacy_documenter/documentation/resume.py",
+    "legacy_documenter/documentation/systematic.py",
+    "legacy_documenter/documentation_v52/config.py",
+    "legacy_documenter/orchestration/ai_interpretation.py"
+  ]
+}

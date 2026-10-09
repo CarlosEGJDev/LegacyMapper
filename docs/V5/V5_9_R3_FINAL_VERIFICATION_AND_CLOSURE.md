@@ -101,4 +101,8 @@ Staging por rutas explícitas (adapter, cambios neutrales R1, identidad R2, test
 
 ## Recibo final post-push
 
-(Pendiente de completar tras el push.)
+Estado efectivo: `V5_9_CLOSED`; `V5_9_R3_PUSHED_TO_ORIGIN_MAIN`; `V5_CLOSURE_READY_TO_START`.
+
+Único commit `957ef09538a7afea649d1f2ac195a3d3819a660f`; padre `bcb8d57097ec769da75f5fc7207b9a6db295e374`; mensaje `feat(v5.9): add multi-technology pilot and python adapter`; 50 archivos (40 128 inserciones, 90 borrados), staging por rutas explícitas, sin outputs/cache/IST/temp. `git push origin main` sin force (bcb8d57..957ef09). Verificación: HEAD = origin/main = `git ls-remote origin refs/heads/main` = `957ef095…`; ahead 0, behind 0. Sin amend, rebase ni segundo commit. `TAG_NOT_CREATED_BY_INSTRUCTION`.
+
+Este recibo es la única modificación local autorreferencial posterior al push; no se crea segundo commit por él. V5 Closure no iniciada.

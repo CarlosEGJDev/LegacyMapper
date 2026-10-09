@@ -1,0 +1,57 @@
+{
+  "analyzer_fingerprint": "f05b2de43b726e75e03b97e1d35fef8b3407d54247e0a4e4537ab24d282fa26b",
+  "analyzer_version": 3,
+  "base_commit": "957ef09538a7afea649d1f2ac195a3d3819a660f",
+  "blocking_debt": 0,
+  "branch": "main",
+  "closure_round": "V5-Closure-R3",
+  "final_commit": "PENDING_POST_PUSH",
+  "future_phase_debt_count": 14,
+  "historical_compatibility_count": 5,
+  "ist_baseline": {
+    "added": 0,
+    "basis": "V5.9-R2 run reused; production frozen, fingerprint and source re-verified in R3",
+    "changed": 0,
+    "output_bytes": 2828066791,
+    "output_files": 47523,
+    "removed": 0,
+    "source_files": 15138,
+    "source_sha256": "77965c64c7e204d39dc06a9451076df07a4b400e2bd41372fff2bab7fcd792e5"
+  },
+  "ob14": "RESOLVED_IN_CLOSURE_R3",
+  "observation_debt_count": 15,
+  "parent_commit": "957ef09538a7afea649d1f2ac195a3d3819a660f",
+  "provider_calls": 0,
+  "push_status": "PENDING_POST_PUSH",
+  "python_pilot": {
+    "adapter": "python-generic 1.0",
+    "external_independence_claim": false,
+    "independent_external_product": false,
+    "pilot_kind": "SELF_HOSTED_CIRCULAR",
+    "source_id": "SELF_HOSTED_LEGACYMAPPER_V4_2_R8_E9E3D60",
+    "total_shared_ids": 0,
+    "tree_hash": "a190898bd89683a8ae443fd9d0640e37fc454327ceea34cacdd818c2862ce39e"
+  },
+  "real_llm_calls": 0,
+  "remote": "origin",
+  "status": "V5_CLOSED",
+  "tag_recommendation": "v5 (existing tags: v5.2; not created)",
+  "tag_status": "TAG_NOT_CREATED_PENDING_HUMAN_DECISION",
+  "tests": {
+    "directed": {
+      "duration_seconds": 313.359,
+      "errors": 0,
+      "failures": 0,
+      "total": 970
+    },
+    "full_suite": {
+      "duration_seconds": 704.259,
+      "errors": 0,
+      "failures": 0,
+      "skips": 132,
+      "total": 3100
+    }
+  },
+  "v5_closed": true,
+  "v6_started": false
+}

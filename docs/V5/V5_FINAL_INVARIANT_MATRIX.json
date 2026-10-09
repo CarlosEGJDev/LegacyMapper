@@ -1,0 +1,173 @@
+{
+  "guard_test_keyword_map": {
+    "determinism": {
+      "top_files": {
+        "test_v5_1_r2_normalized_evidence_core.py": 4,
+        "test_v5_2_r2_documentation_engine.py": 2,
+        "test_v5_3_r2_4_cache_manifest_and_file_state.py": 2,
+        "test_v5_3_r2_5_extraction_cache.py": 2,
+        "test_v5_5_r1_generic_ai.py": 3,
+        "test_v5_9_r1_python_adapter.py": 3
+      },
+      "total_tests": 33
+    },
+    "no_auto_approval": {
+      "top_files": {
+        "test_v4_r13_regression_and_security.py": 8,
+        "test_v5_1_r2_normalized_evidence_core.py": 2,
+        "test_v5_2_r2_documentation_engine.py": 1,
+        "test_v5_3_r2_8_cache_cli_controls.py": 3,
+        "test_v5_7_r1_human_review.py": 2,
+        "test_v5_8_r1_consumer_plugin_contract.py": 2
+      },
+      "total_tests": 19
+    },
+    "no_plugin_runtime": {
+      "top_files": {
+        "test_v5_4_r1_adapters.py": 1,
+        "test_v5_8_r1_consumer_plugin_contract.py": 2
+      },
+      "total_tests": 3
+    },
+    "no_source_mutation": {
+      "top_files": {
+        "test_v5_2_r2_documentation_engine.py": 1,
+        "test_v5_2_r3_2_project_identity_and_human_clarity.py": 1,
+        "test_v5_2_r3_3_component_navigation.py": 1,
+        "test_v5_2_r3_4_1_method_detail_quality.py": 1,
+        "test_v5_3_r2_3_versioning_and_fingerprints.py": 1,
+        "test_v5_3_r2_6_write_skip_and_extraction_guardian.py": 1
+      },
+      "total_tests": 13
+    },
+    "partial_explicit": {
+      "top_files": {
+        "test_v5_1_r2_normalized_evidence_core.py": 2,
+        "test_v5_2_r2_documentation_engine.py": 1,
+        "test_v5_3_r2_5_extraction_cache.py": 3,
+        "test_v5_6_r1_flow_segmentation.py": 8,
+        "test_v5_7_r1_human_review.py": 5,
+        "test_v5_8_r1_consumer_plugin_contract.py": 3
+      },
+      "total_tests": 26
+    },
+    "provenance": {
+      "top_files": {
+        "test_v4_r13_regression_and_security.py": 2,
+        "test_v5_1_r2_normalized_evidence_core.py": 10,
+        "test_v5_6_r1_flow_segmentation.py": 2,
+        "test_v5_7_r1_human_review.py": 1,
+        "test_v5_8_r1_consumer_plugin_contract.py": 1,
+        "test_v5_9_r1_python_adapter.py": 1
+      },
+      "total_tests": 17
+    },
+    "provider_neutrality": {
+      "top_files": {
+        "test_v4_2_r5_1_exit_code_contract_and_real_provider_guard.py": 3,
+        "test_v5_5_r1_generic_ai.py": 2
+      },
+      "total_tests": 5
+    },
+    "read_only_consumers": {
+      "top_files": {
+        "test_v5_3_r2_2_write_skip_and_max_path.py": 2,
+        "test_v5_3_r2_9_incremental_calibration.py": 1,
+        "test_v5_8_r1_consumer_plugin_contract.py": 3
+      },
+      "total_tests": 6
+    },
+    "runtime_independence": {
+      "top_files": {
+        "test_v4_r13_regression_and_security.py": 4,
+        "test_v5_1_r2_normalized_evidence_core.py": 3,
+        "test_v5_2_r2_documentation_engine.py": 3,
+        "test_v5_3_r2_1_shared_hydration_view.py": 2,
+        "test_v5_7_r1_human_review.py": 3,
+        "test_v5_9_r1_python_adapter.py": 4
+      },
+      "total_tests": 28
+    },
+    "technology_neutrality": {
+      "top_files": {
+        "test_v5_1_r2_normalized_evidence_core.py": 1,
+        "test_v5_2_r2_documentation_engine.py": 2,
+        "test_v5_2_r3_4_method_traceability.py": 1,
+        "test_v5_4_r1_adapters.py": 2,
+        "test_v5_5_r1_generic_ai.py": 3,
+        "test_v5_9_r1_python_adapter.py": 5
+      },
+      "total_tests": 16
+    },
+    "unresolved_preservation": {
+      "top_files": {
+        "test_v5_1_r2_normalized_evidence_core.py": 4,
+        "test_v5_2_r3_2_project_identity_and_human_clarity.py": 2,
+        "test_v5_2_r3_4_1_method_detail_quality.py": 3,
+        "test_v5_2_r3_4_method_traceability.py": 1,
+        "test_v5_3_r2_1_shared_hydration_view.py": 1,
+        "test_v5_9_r1_python_adapter.py": 2
+      },
+      "total_tests": 16
+    }
+  },
+  "invariants": {
+    "determinism": {
+      "evidence": "V5.1 id determinism; V5.3 cold==warm, incremental==cold(mutated); V5.8 same bytes; V5.9 two cold Python runs identical (4640 files)",
+      "status": "HELD"
+    },
+    "ist_compatibility": {
+      "evidence": "47523 files / 2828066791 bytes, added=removed=changed=0 after V5.9-R1 and R2 changes (reused run; fingerprint and source re-verified)",
+      "status": "HELD"
+    },
+    "no_auto_approval": {
+      "evidence": "no AUTO/AI approver exists (V4 enums exclude it; reviewer validator rejects automatic and provider names); pipeline never creates decisions",
+      "status": "HELD"
+    },
+    "no_auto_canonicalization": {
+      "evidence": "canonical only via APPROVE/CORRECT by ApprovalService (imported only by review_command); full/analyze produce canonical_knowledge_produced=false",
+      "status": "HELD"
+    },
+    "no_plugin_runtime": {
+      "evidence": "AST guard: no importlib/exec/subprocess/network in consumers/plugins; manifest never executed",
+      "status": "HELD"
+    },
+    "no_real_provider_call_in_deterministic_pipeline": {
+      "evidence": "analyze/full without --allow-ai-interpretation make 0 provider resolutions (patched _resolve_provider never called)",
+      "status": "HELD"
+    },
+    "no_source_mutation": {
+      "evidence": "IST source SHA-256 and Python tree hash unchanged after all runs; mutations only on copies",
+      "status": "HELD"
+    },
+    "partial_explicitness": {
+      "evidence": "partial=true/parent_flow_id/segment_id/included/omitted/refs; 108-segment real flow: union=parent, no overlap; budget impossible -> explicit error",
+      "status": "HELD"
+    },
+    "provenance": {
+      "evidence": "I-4/I-5 enforced at EXPORT for both adapters (fail-closed); Python 22514 refs resolve",
+      "status": "HELD"
+    },
+    "provider_neutrality": {
+      "evidence": "importing core/neutral packages loads no llm/provider module; real-provider guard in tests/__init__; 0 real calls in Closure R1",
+      "status": "HELD"
+    },
+    "read_only_consumers": {
+      "evidence": "tree hash unchanged after every capability; no write names; write-like capability -> READ_ONLY_VIOLATION",
+      "status": "HELD"
+    },
+    "runtime_independence": {
+      "evidence": "no runtime read of docs/prompts/tests; neutral packages do not import adapters except the two V5.4 re-export shims; legacy 14-package import cluster pre-dates V5.8/V5.9",
+      "status": "HELD_WITH_HISTORICAL_COMPAT"
+    },
+    "technology_neutrality": {
+      "evidence": "no Python/Oracle/WebForms entity in core; `python_source` appears only as a file-kind label in 4 neutral modules + composition root",
+      "status": "HELD"
+    },
+    "unresolved_preservation": {
+      "evidence": "never promoted: Python 6768 unresolved calls / 4191 boundaries; IST 217581 / 162914; pathlib-by-name ops stay `inferred`",
+      "status": "HELD"
+    }
+  },
+  "round": "V5-Closure-R1"
+}
