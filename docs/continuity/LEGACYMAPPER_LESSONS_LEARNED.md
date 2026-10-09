@@ -855,3 +855,65 @@ En las corridas R3.3/R3.4 se observaron esperas repetidas por monitores de proce
 - **No cerrar una versión con el estado oficial desactualizado:** `PROJECT_STATE.json` debe actualizarse en la ronda de cierre. Al hacerlo, comprobar los tests históricos que parsean sus campos (los de rondas V4 exigían una etiqueta `V4…-R<N>`; se generalizaron para aceptar `V5.x-R<N>`).
 - **Cubrir con tests las correcciones de robustez:** un reintento de escritura (`_replace_with_retry`) documentado pero sin prueba directa era una deuda evitable; se cubrió en R4.2 simulando `os.replace` y `time.sleep`.
 - **Versionar antes de una nueva fase importante:** cerrar con commit + tag + push (con aprobación humana del push) para no arrastrar semanas de trabajo sin historial.
+
+---
+
+# 37. Lecciones post-V5 (cierre V5, clean-room y consolidación, 09-10-2026)
+
+Cada ítem se clasifica: **[lección]**, **[limitación aceptada]**, **[defecto candidato]**, **[capacidad futura]**.
+
+## 37.1 Disciplina de ejecución de hitos (regla permanente)
+
+```text
+- completar cada hito en un único prompt/ronda siempre que sea razonable;
+- si un prompt no alcanza, usar como máximo 3 rondas de revisión/corrección por defecto;
+- solo casos excepcionales y justificados por escrito pueden extender a 5 rondas;
+- si 3 rondas no bastan, detenerse y re-diagnosticar antes de continuar;
+- no continuar mecánicamente con micro-rondas;
+- agrupar correcciones relacionadas en una sola ronda coherente.
+```
+
+[lección] Complementa §6 y §25 (que desaconsejan rondas infinitas) con un límite numérico explícito.
+
+## 37.2 Producto
+
+* [lección] La corrección documental no basta; importa la **comprensión**. Cada audiencia necesita su nivel de abstracción.
+* [lección] El detalle de método/clase suele ser demasiado bajo para una primera comprensión; en sistemas grandes primero mapas, módulos, flujos y casos de uso.
+* [lección] El valor de la IA es mayor **después** de existir evidencia determinista.
+
+## 37.3 Arquitectura
+
+* [lección] Analizar una vez, proyectar muchas; persistir evidence normalizada.
+* [lección] Separar la identidad lógica del repositorio (`repository_id` declarado) de las rutas físicas; la ubicación del output y `repository_id` son identidades distintas.
+* [lección] La IA nunca muta la verdad determinista; proposal ≠ canonical; preservar unresolved.
+* [lección] La independencia del runtime se prueba **fuera** del repo de desarrollo (clean-room con `git archive` del tag y `.venv` propio).
+* [limitación aceptada] El piloto Python es `SELF_HOSTED_CIRCULAR`: no prueba independencia externa.
+
+## 37.4 IA
+
+* [lección] La IA interpreta evidencia, no descubre verdad adivinando. Las llamadas a provider deben ser explícitas.
+* [lección] Un provider Fake debe seguir estando **grounded** (citar evidence_refs reales); el Fake genérico termina en `INVALID_OUTPUT` por el guard de evidencia, comportamiento de seguridad esperado.
+* [lección] Las salidas de IA requieren provenance e identidad de baseline.
+* [lección] Los diagramas deben salir de modelos estructurados validados + renderer determinista, no de dibujo libre.
+* [capacidad futura] Reutilizar un output determinista para interpretación (AI-only) es esencial en repos grandes; hoy no existe comando público.
+
+## 37.5 Proceso
+
+* [lección] Medir antes de diseñar; corpus real antes de declarar completa una arquitectura.
+* [lección] Un objetivo coherente por ronda; pruebas en la misma ronda; regresión completa antes de cerrar; las puertas de revisión humana importan.
+* [lección] La aceptación clean-room precede a considerar completa una distribución. **Una suite verde no es aceptación de producto.**
+* [lección] **Volver a correr la suite completa después de editar `PROJECT_STATE.json`.** En el cierre V5 el estado se editó (`latest_approved_round = V5-Closure-R1`) después de la última corrida completa; tests históricos que parsean ese campo con el patrón `V[45](.n)?-R<N>` fallan con ese valor (5 tests, detectados en la consolidación post-V5; ver `docs/POST_V5/POST_V5_DOCUMENTATION_CONSOLIDATION_RESULT.md`).
+
+## 37.6 Windows / runtime
+
+* [lección] El límite de rutas largas importa: el piloto Python con un output bajo un root largo requiere `--long-paths` (sin él, `OUTPUT_PATH_TOO_LONG`).
+* [lección] En PowerShell la ruta relativa desde `app\` al venv del clean-room es `..\.venv\Scripts\python.exe`, no `\.venv\...` (esa sería relativa a la raíz de la unidad).
+* [lección] El venv del clean-room no debe resolver al entorno de desarrollo (verificar `sys.executable` y `sys.path`).
+* [limitación aceptada] Los auxiliares de PowerShell (`Activate.ps1`, `Copy-Item`, `Remove-Item`) **no se validaron** en la sesión clean-room (PowerShell bloqueado por directiva de grupo); los argumentos de la CLI sí se validaron en Git Bash.
+
+## 37.7 UX observada en el clean-room
+
+* [defecto candidato] UX-01: `full` sobre un repositorio inexistente devuelve SUCCESS con análisis vacío.
+* [limitación aceptada] UX-03: existe la Consumer API pero no un CLI de consumers.
+* [lección] Un `START_HERE` y una hoja de comandos verificados valen mucho para el usuario.
+* [capacidad futura] UX-02: la ausencia de un modo AI-only en la CLI pública es una brecha práctica.

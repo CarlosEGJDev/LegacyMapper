@@ -85,7 +85,8 @@ class EntryGateTests(unittest.TestCase):
         # (see the V4.1-R1 round-ordinal-parsing fix).
         state = json.loads(Path("PROJECT_STATE.json").read_text(encoding="utf-8"))
         # V5.2-R4.3: also accepts V5.<minor>-R<N> (any V5 round is ordered after V4).
-        match = re.search(r"V([45])(?:\.(\d+))?-R(\d+)", state.get("latest_approved_round", ""))
+        # V5-Closure-R<N> (post-V5 closure rounds) is also accepted: "V5-Closure-R1" parses like a V5 round.
+        match = re.search(r"V([45])(?:\.(\d+))?-(?:Closure-)?R(\d+)", state.get("latest_approved_round", ""))
         self.assertIsNotNone(match)
         phase = (int(match.group(1)) - 4) * 100 + int(match.group(2) or 0)
         round_number = int(match.group(3))

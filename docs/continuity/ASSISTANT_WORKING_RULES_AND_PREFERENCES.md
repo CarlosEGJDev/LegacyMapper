@@ -492,3 +492,15 @@ Estas preferencias no deben convertirse en restricciones absolutas para LegacyMa
 - El agente **no** hace commit, tag ni push por iniciativa propia. El push requiere aprobación humana explícita; el usuario mantiene la autoridad final.
 - No ejecutar el commit automáticamente si hay archivos ajenos o dudosos en `git status`.
 - Prompts nuevos desde V5.3 bajo `prompts/V5/`; los históricos permanecen en `prompts/V5_0/`.
+
+---
+
+# 28. Preferencias añadidas tras V5 (09-10-2026)
+
+Se preservan: comunicación concisa en español; prompts `.md` físicos; rutas explícitas del repositorio; puntos de control humanos; máximo ~3 rondas por versión/iniciativa cuando sea práctico (ver Lecciones §37.1); un objetivo coherente por ronda; Claude ejecuta los prompts del repo; la autoridad Git debe ser explícita; commit/push/tag nunca se asumen.
+
+Añadido:
+
+* Para trabajo de UX de producto, probar como usuario real **fuera** del repo de desarrollo.
+* Preferir comandos copiables y ejecutables.
+* Distinguir hechos de interpretación; decir qué se verificó y qué no.

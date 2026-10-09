@@ -1,4 +1,6 @@
-> **Estado vigente — V5 CLOSED (V5 Closure R3, 09-10-2026):** `V5_CLOSED`; V5.0–V5.9 CLOSED, Closure R1 APPROVED, no existe R2, Closure R3 COMPLETED. Suite 3100/0/0/132, dirigidos 970/0/0, IST 47523 archivos 0/0/0 (fuente 15138, sha `77965c64…`), fingerprint analyzer v3 `f05b2de4…`, piloto Python `SELF_HOSTED_CIRCULAR` (`external_independence_claim=false`, 0 ids compartidos), real provider 0, deuda BLOCKING 0 (FUTURE 14, OBSERVATION 15, HISTORICAL_COMPATIBILITY 5; OB-14 resuelta). Siguiente: `POST_V5_PLANNING`; V6 no iniciada; `TAG_NOT_CREATED_PENDING_HUMAN_DECISION`. Autoridad: PROJECT_STATE.json; [cierre](../V5/V5_FINAL_CLOSURE.md).
+> **Estado vigente — POST_V5_PLANNING (09-10-2026):** V5 `CLOSED` (V5.0–V5.9 + Closure), tag `v5` anotado publicado (→ `e831a2f…`), aceptación clean-room completada. Iniciativa activa: *Human Experience & AI Documentation* (H1–H5), `PLANNED`; V6 no iniciada. Ver la sección 38 de este documento y el [roadmap post-V5](../POST_V5/HUMAN_EXPERIENCE_AND_AI_DOCUMENTATION_ROADMAP.md). Autoridad: PROJECT_STATE.json.
+
+> *(Histórico al terminar V5 Closure R3.)* **Estado vigente — V5 CLOSED (V5 Closure R3, 09-10-2026):** `V5_CLOSED`; V5.0–V5.9 CLOSED, Closure R1 APPROVED, no existe R2, Closure R3 COMPLETED. Suite 3100/0/0/132, dirigidos 970/0/0, IST 47523 archivos 0/0/0 (fuente 15138, sha `77965c64…`), fingerprint analyzer v3 `f05b2de4…`, piloto Python `SELF_HOSTED_CIRCULAR` (`external_independence_claim=false`, 0 ids compartidos), real provider 0, deuda BLOCKING 0 (FUTURE 14, OBSERVATION 15, HISTORICAL_COMPATIBILITY 5; OB-14 resuelta). Siguiente: `POST_V5_PLANNING`; V6 no iniciada; `TAG_NOT_CREATED_PENDING_HUMAN_DECISION`. Autoridad: PROJECT_STATE.json; [cierre](../V5/V5_FINAL_CLOSURE.md).
 
 > *(Histórico al terminar Closure R1.)* **Estado vigente — V5 Closure R1 (09-10-2026):** `V5_CLOSURE_R1_READY_FOR_HUMAN_REVIEW`; V5.0–V5.9 CLOSED y publicadas (`957ef09`), V5 **no** cerrada formalmente: auditoría final pendiente de aprobación humana. Auditoría limpia: IST 47523 archivos 0/0/0 (reutilizada y re-verificada), suite 3100/0/0/132, dirigidos 970/0/0, Python piloto circular con 0 ids compartidos, 0 llamadas a provider real, deuda BLOCKING 0 (FUTURE 14, OBSERVATION 15, HISTORICAL_COMPATIBILITY 5). Piloto Python sigue `SELF_HOSTED_CIRCULAR`, `external_independence_claim=false`. Sin commit/push/tag. Recomendación `V5_CLOSURE_NEXT_R3_FINAL_CLOSURE`. Autoridad: PROJECT_STATE.json; [auditoría](../V5/V5_FINAL_AUDIT_AND_RELEASE_BASELINE.md); [baseline](../V5/V5_FINAL_BASELINE.json).
 
@@ -100,7 +102,8 @@ C:\dev\LegacyMapper
 ## Proyecto legacy real usado como baseline
 
 ```text
-C:\inetpub\wwwroot\2010\IST\Operacional
+C:\Users\cgalianj\source\IST_40\Operacional   (oficial para el baseline final V5)
+C:\inetpub\wwwroot\2010\IST\Operacional       (HISTÓRICA, V4.x/V5.0; no usar como baseline vigente)
 ```
 
 ## Distribución limpia recomendada
@@ -1031,7 +1034,7 @@ Después de aproximadamente tres intentos fallidos atribuibles al modelo, cambia
 
 ---
 
-# 34. Punto de partida oficial de V5
+# 34. Punto de partida oficial de V5 *(HISTÓRICO: V5 ya está cerrada; ver §38)*
 
 Estado:
 
@@ -1050,7 +1053,7 @@ R0 debe ser diagnóstico/documental y no debe modificar producción.
 
 ---
 
-# 35. Punto de partida para una futura V6
+# 35. Punto de partida para una futura V6 *(V6 NO iniciada; el trabajo vigente es la iniciativa post-V5, §38)*
 
 Antes de iniciar V6:
 
@@ -1284,3 +1287,39 @@ V5.4 autorizada como siguiente versión, `V5_4_READY_TO_START`; **no iniciada**.
 
 - V5.0 CLOSED … V5.9 CLOSED; V5 Closure R1 completed; V5 Closure R3 completed; **V5 CLOSED**. Un commit `chore(v5): close V5 release baseline` y push a origin/main (recibo en `docs/V5/V5_FINAL_CLOSURE.md`).
 - Baselines: analyzer v3 `f05b2de4…`; IST 47523 archivos 0/0/0; piloto Python circular (sin claim externo); BLOCKING 0. Deuda post-V5: FUTURE 14, OBSERVATION 15, HISTORICAL_COMPATIBILITY 5 (ver `V5_FINAL_DEBT_LEDGER.json`). OB-14 resuelta en Closure R3. No hay roadmap V6; tag pendiente de decisión humana.
+
+# 38. Visión del producto, cierre de V5 y estado post-V5 (consolidado 09-10-2026)
+
+Esta sección es la fuente vigente; las secciones anteriores que dicen `V5_0_READY_TO_START` o `V6` futura son **históricas**.
+
+## 38.1 Visión (permanente)
+
+LegacyMapper **no** es solo un generador de documentación de código. Reconstruye la comprensión práctica más fiable posible de cómo funciona un sistema legado, con evidencia determinista primero e interpretación de IA después, sin inventar hechos en silencio. **Python descubre, estructura, selecciona y valida; la IA interpreta.** Audiencias: usuario no técnico (qué hace y cómo se comporta), funcional/analista (módulos, procesos, casos de uso, flujos, datos/integraciones), técnico (proyectos, capas, pantallas, componentes, dependencias, datos), consumidor de IA (evidencia estructurada, contexto, provenance y no resuelto). Principios estables: [`docs/POST_V5/LEGACYMAPPER_PRODUCT_PRINCIPLES.md`](../POST_V5/LEGACYMAPPER_PRODUCT_PRINCIPLES.md).
+
+## 38.2 Qué entregó V5 *[hecho]*
+
+Evidence normalizada y persistida (V5.1); documentación determinista por perfiles `general/` y `developer/` (V5.2); cache incremental (V5.3); adapter VB.NET WebForms/Oracle (V5.4); contrato genérico de provider de IA (V5.5); segmentación determinista de flujos grandes (V5.6); revisión humana auditada y conocimiento canónico append-only (V5.7); Consumer Contract y Plugin Contract de solo lectura (V5.8); segundo adapter Python y piloto multitecnología (V5.9). **Plugin Runtime no existe.** Cierre: `e831a2f84d2749b4452e06860521b3171093c7b9`, tag annotated `v5` publicado; sincronización post-tag `90efa975e44abbd0314bd0793fe3f9d37ff13432` (no es el destino del tag).
+
+## 38.3 Baselines finales *[hecho]*
+
+Analyzer v3 / fingerprint `f05b2de43b726e75e03b97e1d35fef8b3407d54247e0a4e4537ab24d282fa26b`. IST: fuente **`C:\Users\cgalianj\source\IST_40\Operacional`** (ruta oficial del baseline final V5; `C:\inetpub\wwwroot\2010\IST\Operacional` es la ruta **histórica** de V4.x/V5.0), 15138 archivos, sha256 `77965c64…92e5`, salida 47523 archivos / 2828066791 bytes, 0/0/0. Piloto Python `SELF_HOSTED_CIRCULAR` (`SELF_HOSTED_LEGACYMAPPER_V4_2_R8_E9E3D60`, tree hash `a190898b…`, `python-generic` 1.0, 0 ids compartidos con `repository_id` declarado): **no prueba independencia externa** (`external_independence_claim=false`). Tests 3100 / 0 fallos / 0 errores / 132 skips; dirigidos 970. Deuda: BLOCKING 0, FUTURE_PHASE 14, OBSERVATION 15, HISTORICAL_COMPATIBILITY 5.
+
+## 38.4 Modelo de uso real *[hecho, verificado en clean-room]*
+
+Ejecución desde código fuente: `python main.py <comando>` (sin `pyproject.toml`, sin dependencias de terceros, Python 3.14.7 en la validación). Comandos: `analyze`, `full` (recomendado), `readiness`, `output-manifest`, `review {list,prepare,decide,canonical}`. IA solo con `full --allow-ai-interpretation` (puede llamar al provider real). **No hay CLI de consumers** (Consumer API en Python). Clean-room en `C:\PruebasLegacyMapper\V5_USER_ACCEPTANCE` (fuera del repo): release extraído del tag con `git archive`, sin imports desde el repo de desarrollo, `START_HERE.md` y hoja de comandos creados. PowerShell no se validó (bloqueado por directiva de grupo); CLI validada en Git Bash. `--long-paths` necesario para el piloto Python en Windows.
+
+## 38.5 IA: propuesta, revisión, canónico *[hecho]*
+
+`Evidence → AI context → provider → proposal → human review → canonical`. Una propuesta (`READY_FOR_REVIEW`, `PENDING_TECHNICAL_LEAD_REVIEW`) **no** es conocimiento canónico; solo APPROVE/CORRECT humanos crean registros canónicos, con baseline obligatorio y cadena de auditoría. Nada se aprueba automáticamente.
+
+## 38.6 Capacidad deseada: AI-only *[capacidad futura]*
+
+Modo C: reutilizar un output determinista válido (Evidence manifest, AI context, fingerprint, provenance, identidad de fuente) para interpretar sin reescanear; con puerta de validación y estado `AI_ONLY_INPUT_INVALID` sin llamar al provider. **No existe comando público**; nombre no fijado. Detalle en el roadmap post-V5.
+
+## 38.7 Roadmap corto H1–H5 y deuda post-V5
+
+Ver [`HUMAN_EXPERIENCE_AND_AI_DOCUMENTATION_ROADMAP.md`](../POST_V5/HUMAN_EXPERIENCE_AND_AI_DOCUMENTATION_ROADMAP.md) (H1 AI-only; H2 perfiles por audiencia; H3 visuales estructurados; H4 entregables HTML/PDF; H5 validación en IST). Siguiente: **H1-R1**. Deuda `POST_V5` (no bloquea V5): UX-01 `full` con repo inexistente → SUCCESS vacío; UX-02 sin comando AI-only; UX-03 sin CLI de consumers; HX-01/02/03 brechas de documentación humana/visual. Lecciones: [`LEGACYMAPPER_LESSONS_LEARNED.md`](LEGACYMAPPER_LESSONS_LEARNED.md) §37 (incluye la regla de ≤3 rondas por hito).
+
+## 38.8 Punto de partida para continuar
+
+`PROJECT_STATE.json` → `docs/V5/V5_FINAL_CLOSURE.md` / `V5_FINAL_AUDIT_AND_RELEASE_BASELINE.md` → `docs/V5/V5_OPERATIONS_GUIDE.md` → este documento → roadmap post-V5. No iniciar V6 ni H1 sin prompt explícito.

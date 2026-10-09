@@ -108,7 +108,9 @@ Empiece la recuperación por, en este orden:
 2. `docs/V5/V5_FINAL_AUDIT_AND_RELEASE_BASELINE.md` — auditoría final, invariantes, baselines y deuda.
 3. `docs/V5/V5_FINAL_BASELINE.json` — baseline de release (analyzer v3, fingerprint, IST, piloto Python).
 4. `docs/V5/V5_OPERATIONS_GUIDE.md` — guía operativa mínima.
-5. `docs/V5/V5_FINAL_CLOSURE.md` — recibo de cierre: commit final, verificación remota, estado del tag.
+5. `docs/V5/V5_FINAL_CLOSURE.md` — recibo de cierre: commit final, verificación remota, tag `v5`.
+6. `docs/continuity/LEGACYMAPPER_PROJECT_HISTORY_AND_V5_ROADMAP.md` y `LEGACYMAPPER_LESSONS_LEARNED.md` — historia, visión, lecciones.
+7. `docs/POST_V5/HUMAN_EXPERIENCE_AND_AI_DOCUMENTATION_ROADMAP.md` — iniciativa post-V5 (H1–H5, planificada).
 
 Qué permite reconstruir:
 

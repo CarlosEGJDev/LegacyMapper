@@ -738,3 +738,21 @@ humano aprueba siguiente paso
 ```
 
 Ese patrón produjo los mejores resultados en LegacyMapper.
+
+---
+
+# 40. Prácticas añadidas tras V5 (09-10-2026)
+
+Solo prácticas reutilizables de ingeniería/agentes; no historia del producto.
+
+* Leer siempre el `--help` real antes de documentar una CLI; **nunca inventar comandos ni opciones**.
+* Distinguir la sintaxis de Git Bash de la de PowerShell y declarar qué shell se validó. En PowerShell, desde un subdirectorio, la ruta relativa al venv hermano es `..\.venv\Scripts\python.exe`.
+* Validar el runtime desde un clean-room (`git archive` del tag, `.venv` propio); comprobar `sys.executable` y `sys.path`.
+* Usar rutas explícitas; no asumir la ubicación del `.venv`.
+* Outputs grandes de targets reales fuera del repo de desarrollo.
+* Preferir reutilizar un baseline determinista existente a reanalizar; verificar fingerprint y hash de fuente antes de reutilizar.
+* No invocar un provider por accidente: usar un Fake grounded o parchear la resolución del provider; nunca `--allow-ai-interpretation` real en pruebas manuales sin autorización.
+* Nunca aprobar ni canonicalizar automáticamente; las demos de revisión van sobre copias.
+* Los diagramas y la documentación asistida por IA deben conservar anclaje a evidencia.
+* Una suite verde no es aceptación de producto; y **re-ejecutar la suite completa tras tocar archivos de estado** que los tests parsean.
+* Si una herramienta (p. ej. PowerShell) está bloqueada, decirlo; no afirmar que se validó.

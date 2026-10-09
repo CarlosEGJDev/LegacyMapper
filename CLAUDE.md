@@ -7,8 +7,9 @@ Lee y respeta primero:
 3. `PROJECT_STATE.json`
 4. `docs/V5/V5_FINAL_AUDIT_AND_RELEASE_BASELINE.md`
 5. `docs/V5/V5_OPERATIONS_GUIDE.md`
-6. roadmap/historia V5 (`docs/continuity/LEGACYMAPPER_V5_ROADMAP.md`)
-7. el prompt activo de `prompts/V5/` (V4: `prompts/V4/`, solo historia)
+6. roadmap/historia V5 (`docs/continuity/LEGACYMAPPER_V5_ROADMAP.md`, `LEGACYMAPPER_LESSONS_LEARNED.md`)
+7. roadmap post-V5 (`docs/POST_V5/HUMAN_EXPERIENCE_AND_AI_DOCUMENTATION_ROADMAP.md`)
+8. el prompt activo de `prompts/V5/` (V4: `prompts/V4/`, solo historia)
 
 Si el repositorio no compila mentalmente (checkout nuevo, sin memoria de sesión), ver `docs/PROJECT_RECOVERY.md`.
 

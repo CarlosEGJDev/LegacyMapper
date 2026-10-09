@@ -60,7 +60,8 @@ def _round_ordinal(round_label: str) -> int:
     of V4 is approved."""
     # V5.2-R4.3: also accepts the V5.<minor>-R<N> shape; any V5 round is
     # ordered after every V4 round (V5 only begins once V4 is closed).
-    match = re.search(r"V([45])(?:\.(\d+))?-R(\d+)", round_label)
+    # V5-Closure-R<N> (post-V5 closure rounds) is also accepted: "V5-Closure-R1" parses like a V5 round.
+    match = re.search(r"V([45])(?:\.(\d+))?-(?:Closure-)?R(\d+)", round_label)
     if not match:
         raise AssertionError(f"no_round_ordinal_found:{round_label}")
     phase = (int(match.group(1)) - 4) * 100 + int(match.group(2) or 0)

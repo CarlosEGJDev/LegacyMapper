@@ -67,3 +67,19 @@ Plugin Runtime (descubrimiento, carga, instalación, sandbox, firma, hot reload,
 ## 9. Comandos auxiliares
 
 `python main.py readiness` (valida los prerrequisitos de conocimiento del propio proyecto); `python main.py output-manifest <dir>` (escribe `OUTPUT_MANIFEST.json` con ruta/tamaño/SHA-256 de una corrida terminada); pruebas: `python -X utf8 -m unittest discover -s tests`.
+
+## 10. Actualización post-V5 (09-10-2026)
+
+**Modelo de ejecución verificado en clean-room:** código fuente, `python main.py <comando>`, sin `pyproject.toml` ni dependencias de terceros; release extraído con `git archive v5`, `.venv` propio, sin imports desde el repo de desarrollo. Comandos públicos: `analyze`, `full`, `readiness`, `output-manifest`, `review {list,prepare,decide,canonical}`; IA solo con `full --allow-ai-interpretation`. **No hay CLI de consumers** (solo la API Python).
+
+Ejemplo PowerShell desde `app\` con un venv hermano (ruta relativa correcta `..\.venv`, no `\.venv`):
+
+```powershell
+..\.venv\Scripts\python.exe -X utf8 main.py full ..\targets\mi_repo --output ..\outputs\mi_repo
+```
+
+*Estado de validación:* los argumentos de la CLI se validaron en Git Bash; los auxiliares PowerShell (`Activate.ps1`, `Copy-Item`, `Remove-Item`) **no** se validaron (PowerShell bloqueado por directiva de grupo en esa sesión).
+
+**`--long-paths`** (Windows): necesario para outputs grandes bajo roots largos (p. ej. el piloto Python); sin él, `OUTPUT_PATH_TOO_LONG`.
+
+**Brecha actual:** no existe ningún comando público AI-only para reutilizar un output determinista ya generado (UX-02; planificado como H1, ver `docs/POST_V5/HUMAN_EXPERIENCE_AND_AI_DOCUMENTATION_ROADMAP.md`). `full` sobre un repositorio inexistente devuelve SUCCESS con análisis vacío (UX-01).

@@ -721,7 +721,8 @@ class RepositoryContinuityStateTests(unittest.TestCase):
         # ordered after every plain V4-R round, since V4.1 only begins once
         # all of V4 is approved.
         # V5.2-R4.3: also accepts V5.<minor>-R<N> (any V5 round is ordered after V4).
-        match = re.search(r"V([45])(?:\.(\d+))?-R(\d+)", value or "")
+        # V5-Closure-R<N> (post-V5 closure rounds) is also accepted: "V5-Closure-R1" parses like a V5 round.
+        match = re.search(r"V([45])(?:\.(\d+))?-(?:Closure-)?R(\d+)", value or "")
         if not match:
             return -1
         phase = (int(match.group(1)) - 4) * 100 + int(match.group(2) or 0)

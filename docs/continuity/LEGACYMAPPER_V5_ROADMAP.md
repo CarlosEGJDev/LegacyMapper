@@ -1,4 +1,6 @@
-> **Estado vigente — V5 CLOSED (V5 Closure R3, 09-10-2026):** `V5_CLOSED`; V5.0–V5.9 CLOSED, Closure R1 APPROVED, no existe R2, Closure R3 COMPLETED. Suite 3100/0/0/132, dirigidos 970/0/0, IST 47523 archivos 0/0/0 (fuente 15138, sha `77965c64…`), fingerprint analyzer v3 `f05b2de4…`, piloto Python `SELF_HOSTED_CIRCULAR` (`external_independence_claim=false`, 0 ids compartidos), real provider 0, deuda BLOCKING 0 (FUTURE 14, OBSERVATION 15, HISTORICAL_COMPATIBILITY 5; OB-14 resuelta). Siguiente: `POST_V5_PLANNING`; V6 no iniciada; `TAG_NOT_CREATED_PENDING_HUMAN_DECISION`. Autoridad: PROJECT_STATE.json; [cierre](../V5/V5_FINAL_CLOSURE.md).
+> **Estado vigente — POST_V5_PLANNING (09-10-2026):** V5 `CLOSED` (V5.0–V5.9 + Closure), tag `v5` anotado publicado (→ `e831a2f…`), aceptación clean-room completada. Iniciativa activa: *Human Experience & AI Documentation* (H1–H5), `PLANNED`; V6 no iniciada. Ver el estado consolidado V5 al final de este documento y el [roadmap post-V5](../POST_V5/HUMAN_EXPERIENCE_AND_AI_DOCUMENTATION_ROADMAP.md). Autoridad: PROJECT_STATE.json.
+
+> *(Histórico al terminar V5 Closure R3.)* **Estado vigente — V5 CLOSED (V5 Closure R3, 09-10-2026):** `V5_CLOSED`; V5.0–V5.9 CLOSED, Closure R1 APPROVED, no existe R2, Closure R3 COMPLETED. Suite 3100/0/0/132, dirigidos 970/0/0, IST 47523 archivos 0/0/0 (fuente 15138, sha `77965c64…`), fingerprint analyzer v3 `f05b2de4…`, piloto Python `SELF_HOSTED_CIRCULAR` (`external_independence_claim=false`, 0 ids compartidos), real provider 0, deuda BLOCKING 0 (FUTURE 14, OBSERVATION 15, HISTORICAL_COMPATIBILITY 5; OB-14 resuelta). Siguiente: `POST_V5_PLANNING`; V6 no iniciada; `TAG_NOT_CREATED_PENDING_HUMAN_DECISION`. Autoridad: PROJECT_STATE.json; [cierre](../V5/V5_FINAL_CLOSURE.md).
 
 > *(Histórico al terminar Closure R1.)* **Estado vigente — V5 Closure R1 (09-10-2026):** `V5_CLOSURE_R1_READY_FOR_HUMAN_REVIEW`; V5.0–V5.9 CLOSED y publicadas (`957ef09`), V5 **no** cerrada formalmente: auditoría final pendiente de aprobación humana. Auditoría limpia: IST 47523 archivos 0/0/0 (reutilizada y re-verificada), suite 3100/0/0/132, dirigidos 970/0/0, Python piloto circular con 0 ids compartidos, 0 llamadas a provider real, deuda BLOCKING 0 (FUTURE 14, OBSERVATION 15, HISTORICAL_COMPATIBILITY 5). Piloto Python sigue `SELF_HOSTED_CIRCULAR`, `external_independence_claim=false`. Sin commit/push/tag. Recomendación `V5_CLOSURE_NEXT_R3_FINAL_CLOSURE`. Autoridad: PROJECT_STATE.json; [auditoría](../V5/V5_FINAL_AUDIT_AND_RELEASE_BASELINE.md); [baseline](../V5/V5_FINAL_BASELINE.json).
 
@@ -448,3 +450,41 @@ V5.4 autorizada como siguiente versión, `V5_4_READY_TO_START`; **no iniciada**.
 
 - V5.0 CLOSED … V5.9 CLOSED; V5 Closure R1 completed; V5 Closure R3 completed; **V5 CLOSED**. Un commit `chore(v5): close V5 release baseline` y push a origin/main (recibo en `docs/V5/V5_FINAL_CLOSURE.md`).
 - Baselines: analyzer v3 `f05b2de4…`; IST 47523 archivos 0/0/0; piloto Python circular (sin claim externo); BLOCKING 0. Deuda post-V5: FUTURE 14, OBSERVATION 15, HISTORICAL_COMPATIBILITY 5 (ver `V5_FINAL_DEBT_LEDGER.json`). OB-14 resuelta en Closure R3. No hay roadmap V6; tag pendiente de decisión humana.
+
+## Estado consolidado V5 (vigente, 09-10-2026)
+
+Los bloques «READY_TO_START» y «IN_PROGRESS» de este documento son **instantáneas históricas**; el estado vigente es este.
+
+| Versión | Estado |
+|---|---|
+| V5.0 Architecture & Contracts | CLOSED |
+| V5.1 Normalized Evidence Core | CLOSED |
+| V5.2 Template-Driven Documentation | CLOSED (tag `v5.2`) |
+| V5.3 Incremental Engine & Cache | CLOSED |
+| V5.4 Technology / DB Adapters | CLOSED |
+| V5.5 Generic AI Provider + Context | CLOSED |
+| V5.6 Rich Flow Segmentation | CLOSED |
+| V5.7 Approval + Canonical Knowledge | CLOSED |
+| V5.8 Consumer / Plugin Contract | CLOSED (Plugin Runtime NO implementado) |
+| V5.9 Multi-Technology Pilot | CLOSED (piloto Python circular) |
+| V5 Closure | CLOSED — R1 aprobada, sin R2, R3 completada |
+| Tag `v5` | annotated, publicado en origin, → `e831a2f84d2749b4452e06860521b3171093c7b9` |
+| Aceptación clean-room | completada (`V5_CLEANROOM_READY_FOR_USER_ACCEPTANCE`; PowerShell no validado) |
+
+Baselines: analyzer v3 `f05b2de4…`; IST (`C:\Users\cgalianj\source\IST_40\Operacional`) 15138 fuentes → 47523 archivos / 2828066791 bytes, 0/0/0; suite 3100 (970 dirigidos), 132 skips; deuda BLOCKING 0 / FUTURE_PHASE 14 / OBSERVATION 15 / HISTORICAL_COMPATIBILITY 5.
+
+# Post-V5 — Human Experience & AI Documentation
+
+**No es V6.** Estado `PLANNED`. Detalle y criterios en [`docs/POST_V5/HUMAN_EXPERIENCE_AND_AI_DOCUMENTATION_ROADMAP.md`](../POST_V5/HUMAN_EXPERIENCE_AND_AI_DOCUMENTATION_ROADMAP.md).
+
+* **H1** — AI-only desde conocimiento determinista persistido (sin reescanear; sin provider si el baseline es inválido).
+* **H2** — Documentación humana por audiencia (`executive`, `functional`, `technical-overview`), nivel sistema/módulo/proyecto/capa/flujo/caso de uso.
+* **H3** — Proyecciones visuales estructuradas (Evidence → modelo de diagrama validado → renderer determinista).
+* **H4** — Entregables humanos finales (HTML navegable primario, PDF secundario, SVG/PNG).
+* **H5** — Validación real en un slice de IST y cierre.
+
+Primera ronda recomendada: **H1-R1 — AI-only contract, baseline validation and UX design**. Diferido: tercera tecnología, Plugin Runtime, inferencia de tipos Python, expansión del adapter de BD Python, refactors grandes, escritura en consumers, más providers, documentación profunda de método/clase, V6.
+
+## Ledger — Consolidación documental post-V5 (09-10-2026)
+
+- Documentación consolidada, sin cambios de producto, esquemas ni tags. Resultado: [`POST_V5_DOCUMENTATION_CONSOLIDATION_RESULT.md`](../POST_V5/POST_V5_DOCUMENTATION_CONSOLIDATION_RESULT.md).

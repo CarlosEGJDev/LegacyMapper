@@ -1,4 +1,4 @@
-# LegacyMapper — V5 CLOSED
+# LegacyMapper — V5 CLOSED (tag `v5`)
 
 Principio: **Python descubre y resuelve hechos; la IA interpreta después.** El análisis es determinista; la IA es opcional, propone y nunca decide.
 
@@ -24,6 +24,8 @@ LegacyMapper V5 está **cerrada** (baseline de release en `docs/V5/V5_FINAL_BASE
 * Auditoría y baseline final: `docs/V5/V5_FINAL_AUDIT_AND_RELEASE_BASELINE.md`, `docs/V5/V5_FINAL_BASELINE.json`
 * Uso: `docs/V5/V5_OPERATIONS_GUIDE.md`
 * Cierre formal: `docs/V5/V5_FINAL_CLOSURE.md`
+* Historia y continuidad: `docs/continuity/LEGACYMAPPER_PROJECT_HISTORY_AND_V5_ROADMAP.md`; lecciones: `docs/continuity/LEGACYMAPPER_LESSONS_LEARNED.md`
+* Siguiente iniciativa (post-V5, planificada): `docs/POST_V5/HUMAN_EXPERIENCE_AND_AI_DOCUMENTATION_ROADMAP.md`
 * Roadmap e historia: `docs/continuity/LEGACYMAPPER_V5_ROADMAP.md`
 * Recuperación desde un checkout nuevo: `docs/PROJECT_RECOVERY.md`
 * Reglas para agentes: `AGENTS.md`, `CLAUDE.md`
