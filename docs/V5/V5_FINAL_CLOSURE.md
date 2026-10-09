@@ -18,9 +18,20 @@ Estado: `V5_CLOSED`. Recibo máquina: `V5_FINAL_CLOSURE.json`.
 14. **Roadmaps.** Actualizados (V5.0–V5.9 CLOSED, Closure R1 y R3 completadas, V5 CLOSED). Sin roadmap V6.
 15. **Seguridad.** 0 llamadas a provider real, sin ejecución del target, sin red, sin secretos nuevos, sin Plugin Runtime, fuente sin mutar.
 16–19. **Git (staging, commit, push, verificación remota):** ver recibo final abajo.
-20. **Tag.** Tags existentes: `v5.2`. Recomendado: `v5` (no `v5.0`). No creado: `TAG_NOT_CREATED_PENDING_HUMAN_DECISION`.
+20. **Tag.** Tags existentes al cierre: `v5.2`. Se recomendó `v5` (no `v5.0`); posteriormente el humano lo autorizó, se creó como **annotated** (mensaje `LegacyMapper V5 final release baseline`) y se publicó en origin: `V5_TAG_PUSHED_TO_ORIGIN`.
 21. **Estado final.** `V5_CLOSED`, `V5_FINAL_CLOSURE_R3_COMPLETED`, `POST_V5_PLANNING`; `v6_started=false`.
 
 ## Recibo final post-push
 
-(Pendiente de completar tras el push.)
+Commit único `e831a2f84d2749b4452e06860521b3171093c7b9`; padre `957ef09538a7afea649d1f2ac195a3d3819a660f`; mensaje `chore(v5): close V5 release baseline`; 19 archivos (3781 inserciones, 66 borrados); staging por rutas explícitas (sin outputs/cache/IST/temp). `git push origin main` sin force (957ef09..e831a2f).
+Verificación remota: HEAD = origin/main = `git ls-remote origin refs/heads/main` = `e831a2f8…`; ahead 0, behind 0. Sin amend, rebase ni segundo commit.
+Tag (estado al cierre): no creado, recomendado `v5`. Actualizado tras la autorización humana: ver sección siguiente.
+Estados: `V5_CLOSED`, `V5_FINAL_CLOSURE_R3_COMPLETED`, `V5_FINAL_CLOSURE_PUSHED_TO_ORIGIN_MAIN`, `POST_V5_PLANNING`. `v6_started=false`.
+Este recibo es la única modificación local autorreferencial posterior al push; no se crea segundo commit por él.
+
+## Tag final y sincronización posterior
+
+* Commit formal de cierre = `e831a2f84d2749b4452e06860521b3171093c7b9`.
+* Tag de release `v5` (annotated, `LegacyMapper V5 final release baseline`, publicado en origin) → `e831a2f84d2749b4452e06860521b3171093c7b9`.
+* Commit administrativo de sincronización post-tag = el commit `docs(v5): record final v5 release tag` que contiene esta sección (no es el destino del tag; el tag no se mueve).
+* `tag_status = V5_TAG_PUSHED_TO_ORIGIN`; `v5_closed = true`; `v6_started = false`; `next = POST_V5_PLANNING`.

@@ -5,7 +5,17 @@
   "blocking_debt": 0,
   "branch": "main",
   "closure_round": "V5-Closure-R3",
-  "final_commit": "PENDING_POST_PUSH",
+  "commit_deletions": 66,
+  "commit_files": 19,
+  "commit_insertions": 3781,
+  "commit_message": "chore(v5): close V5 release baseline",
+  "final_commit": "e831a2f84d2749b4452e06860521b3171093c7b9",
+  "final_states": [
+    "V5_CLOSED",
+    "V5_FINAL_CLOSURE_R3_COMPLETED",
+    "V5_FINAL_CLOSURE_PUSHED_TO_ORIGIN_MAIN",
+    "POST_V5_PLANNING"
+  ],
   "future_phase_debt_count": 14,
   "historical_compatibility_count": 5,
   "ist_baseline": {
@@ -22,7 +32,7 @@
   "observation_debt_count": 15,
   "parent_commit": "957ef09538a7afea649d1f2ac195a3d3819a660f",
   "provider_calls": 0,
-  "push_status": "PENDING_POST_PUSH",
+  "push_status": "PUSHED_TO_ORIGIN_MAIN",
   "python_pilot": {
     "adapter": "python-generic 1.0",
     "external_independence_claim": false,
@@ -34,9 +44,22 @@
   },
   "real_llm_calls": 0,
   "remote": "origin",
+  "remote_verification": {
+    "ahead": 0,
+    "behind": 0,
+    "head": "e831a2f84d2749b4452e06860521b3171093c7b9",
+    "ls_remote": "e831a2f84d2749b4452e06860521b3171093c7b9",
+    "origin_main": "e831a2f84d2749b4452e06860521b3171093c7b9"
+  },
   "status": "V5_CLOSED",
-  "tag_recommendation": "v5 (existing tags: v5.2; not created)",
-  "tag_status": "TAG_NOT_CREATED_PENDING_HUMAN_DECISION",
+  "tag": "v5",
+  "tag_created": true,
+  "tag_message": "LegacyMapper V5 final release baseline",
+  "tag_pushed_to_origin": true,
+  "tag_recommendation": "v5 (recommended; subsequently authorized by the human, created and pushed)",
+  "tag_status": "V5_TAG_PUSHED_TO_ORIGIN",
+  "tag_target": "e831a2f84d2749b4452e06860521b3171093c7b9",
+  "tag_type": "annotated",
   "tests": {
     "directed": {
       "duration_seconds": 313.359,
@@ -53,5 +76,6 @@
     }
   },
   "v5_closed": true,
+  "v5_final_release_tag_commit": "e831a2f84d2749b4452e06860521b3171093c7b9",
   "v6_started": false
 }

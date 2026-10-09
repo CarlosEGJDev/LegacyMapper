@@ -715,7 +715,7 @@
   "v5_closure_git_checkpoint": "R3_AUTHORIZED_SINGLE_COMMIT_AND_PUSH_RECEIPT_IN_FINAL_CLOSURE",
   "v6_started": false,
   "v5_closure_r3": "COMPLETED",
-  "v5_final_production_commit": "PENDING_SELF_REFERENTIAL_RECEIPT (see docs/V5/V5_FINAL_CLOSURE.json)",
+  "v5_final_production_commit": "e831a2f84d2749b4452e06860521b3171093c7b9",
   "v5_final_analyzer_version": 3,
   "v5_final_analyzer_fingerprint": "f05b2de43b726e75e03b97e1d35fef8b3407d54247e0a4e4537ab24d282fa26b",
   "v5_closure_result_path": "docs/V5/V5_FINAL_CLOSURE.md",
@@ -742,5 +742,13 @@
     "OBSERVATION": 15,
     "HISTORICAL_COMPATIBILITY": 5
   },
-  "v5_tag": "TAG_NOT_CREATED_PENDING_HUMAN_DECISION"
+  "v5_tag": "v5",
+  "v5_tag_status": "V5_TAG_PUSHED_TO_ORIGIN",
+  "v5_final_tag": "v5",
+  "v5_final_tag_type": "annotated",
+  "v5_final_tag_created": true,
+  "v5_final_tag_pushed": true,
+  "v5_final_tag_target": "e831a2f84d2749b4452e06860521b3171093c7b9",
+  "v5_final_tag_message": "LegacyMapper V5 final release baseline",
+  "v5_final_release_tag_commit": "e831a2f84d2749b4452e06860521b3171093c7b9"
 }
