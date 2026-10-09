@@ -144,5 +144,7 @@ def write_evidence(evidence: NormalizedEvidence, output_dir: str | Path) -> Path
         "entity_counts": entity_counts,
         "partition_sha256": partition_hashes,
     }
+    if evidence.repository.get("repository_id"):  # declared logical identity (V5.9 R2); absent => V5.1 path-only SRC ids
+        manifest["repository_id"] = evidence.repository["repository_id"]
     write_text_if_changed(target / EVIDENCE_MANIFEST_FILENAME, _render(manifest), family="evidence")
     return target

@@ -15,6 +15,8 @@ class AdapterCapabilities:
     source_kinds: frozenset[str]
     capabilities: frozenset[str]
     schema_version_target: str = "1.0"
+    #: Opaque id of a data-only documentation vocabulary overlay; `None` keeps the default catalog (reference adapter).
+    documentation_terminology: str | None = None
 
     @property
     def cache_identity(self) -> tuple[str, str]:
@@ -50,6 +52,10 @@ class AdapterRegistry:
         if descriptor.adapter_id in self._adapters:
             raise AdapterSelectionError("Duplicate adapter identity: " + descriptor.adapter_id)
         self._adapters[descriptor.adapter_id] = adapter
+
+    def get(self, adapter_id: str) -> TechnologyAdapter | None:
+        """The registered adapter with this id, or None (used to route later stages to the adapter that extracted)."""
+        return self._adapters.get(adapter_id)
 
     def select(self, source_kinds) -> TechnologyAdapter | None:
         observed = frozenset(source_kinds)

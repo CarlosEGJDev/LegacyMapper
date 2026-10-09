@@ -56,11 +56,12 @@ from legacy_documenter.utils.json_rendering import render_deterministic_json
 from legacy_documenter.utils.sanitizer import sanitize_data
 
 from legacy_documenter.adapters.contracts import AdapterRegistry
+from legacy_documenter.adapters.python_generic.adapter import PythonGenericAdapter
 from legacy_documenter.adapters.vbnet_webforms_oracle.adapter import ReferenceAdapter
 from legacy_documenter.adapters.vbnet_webforms_oracle.normalization import NormalizedEvidenceBuilder
 from legacy_documenter.adapters.vbnet_webforms_oracle import extraction as _reference_extraction
 
-_adapter_registry = AdapterRegistry([ReferenceAdapter()])
+_adapter_registry = AdapterRegistry([ReferenceAdapter(), PythonGenericAdapter()])
 
 LOG = logging.getLogger("legacy_documenter")
 
@@ -96,6 +97,11 @@ def extract_repository(files, root, extraction_cache=None):
     if files and selected is None:
         raise ValueError("UNSUPPORTED_TECHNOLOGY: no registered adapter supports the observed file kinds")
     return (selected or ReferenceAdapter()).extract(files, root, extraction_cache)
+
+
+def adapter_of(outcome):
+    """The adapter that produced `outcome` (later stages must resolve with the same one); the reference adapter by default."""
+    return _adapter_registry.get(getattr(outcome, "adapter_id", None)) or ReferenceAdapter()
 
 
 def _extractors():
@@ -136,9 +142,9 @@ class CallResolutionOutcome:
     functional_dependencies: list[dict]
 
 
-def resolve_calls(calls: list[dict], symbols: list[dict]) -> CallResolutionOutcome:
+def resolve_calls(calls: list[dict], symbols: list[dict], adapter=None) -> CallResolutionOutcome:
     """Runs the CALL_RESOLUTION stage. Depends only on EXTRACTION's output."""
-    resolved_calls, functional_dependencies = ReferenceAdapter().resolve_calls(calls, symbols)
+    resolved_calls, functional_dependencies = (adapter or ReferenceAdapter()).resolve_calls(calls, symbols)
     return CallResolutionOutcome(calls=resolved_calls, functional_dependencies=functional_dependencies)
 
 
@@ -151,14 +157,14 @@ class WebEntryResolutionOutcome:
     functional_dependencies: list[dict]
 
 
-def resolve_web_entries(webforms: list[dict], symbols: list[dict], web_events: list[dict], resolved_calls: list[dict]) -> WebEntryResolutionOutcome:
+def resolve_web_entries(webforms: list[dict], symbols: list[dict], web_events: list[dict], resolved_calls: list[dict], adapter=None) -> WebEntryResolutionOutcome:
     """Runs the WEB_ENTRY_RESOLUTION stage.
 
     Depends on CALL_RESOLUTION: `resolved_calls` must be CALL_RESOLUTION's
     output, not the raw extracted calls -- this mirrors the pre-R2 code,
     which reassigned `calls` to the resolved value before this call.
     """
-    entry_points, event_bindings, functional_dependencies = ReferenceAdapter().resolve_entries(webforms, symbols, web_events, resolved_calls)
+    entry_points, event_bindings, functional_dependencies = (adapter or ReferenceAdapter()).resolve_entries(webforms, symbols, web_events, resolved_calls)
     return WebEntryResolutionOutcome(entry_points=entry_points, event_bindings=event_bindings, functional_dependencies=functional_dependencies)
 
 
@@ -173,10 +179,10 @@ class DatabaseResolutionOutcome:
     functional_dependencies: list[dict]
 
 
-def resolve_database(data_access_indexes: list[dict], projects: list[dict]) -> DatabaseResolutionOutcome:
+def resolve_database(data_access_indexes: list[dict], projects: list[dict], adapter=None) -> DatabaseResolutionOutcome:
     """Runs the DATABASE_RESOLUTION stage. Depends only on EXTRACTION's output,
     independently of CALL_RESOLUTION/WEB_ENTRY_RESOLUTION."""
-    data_access, stored_procedures, sql_operations, data_parameters, functional_dependencies = ReferenceAdapter().resolve_database(data_access_indexes, projects)
+    data_access, stored_procedures, sql_operations, data_parameters, functional_dependencies = (adapter or ReferenceAdapter()).resolve_database(data_access_indexes, projects)
     return DatabaseResolutionOutcome(
         data_access=data_access, stored_procedures=stored_procedures, sql_operations=sql_operations,
         data_parameters=data_parameters, functional_dependencies=functional_dependencies,
@@ -202,6 +208,7 @@ def resolve_flows(
     functional_dependencies: list[dict],
     errors: list[dict],
     flow_max_depth: int,
+    adapter=None,
 ) -> FlowResolutionOutcome:
     """Runs the FLOW_RESOLUTION stage.
 
@@ -210,7 +217,7 @@ def resolve_flows(
     access together. `errors` is mutated in place (unresolved flow findings
     are appended to the same list extraction uses), matching pre-R2 behavior.
     """
-    functional_flows, functional_paths, flow_summary, flow_unresolved = ReferenceAdapter().resolve_legacy_flows(flow_max_depth,
+    functional_flows, functional_paths, flow_summary, flow_unresolved = (adapter or ReferenceAdapter()).resolve_legacy_flows(flow_max_depth,
         entry_points, resolved_calls, data_access, stored_procedures, sql_operations, functional_dependencies, errors
     )
     return FlowResolutionOutcome(
@@ -219,10 +226,10 @@ def resolve_flows(
     )
 
 
-def resolve_dependencies(solutions: list[dict], projects: list[dict], symbols: list[dict], webforms: list[dict]) -> list[dict]:
+def resolve_dependencies(solutions: list[dict], projects: list[dict], symbols: list[dict], webforms: list[dict], adapter=None) -> list[dict]:
     """Runs the DEPENDENCY_RESOLUTION stage. Depends only on EXTRACTION's output,
     independently of every resolver stage above."""
-    return ReferenceAdapter().resolve_dependencies(solutions, projects, symbols, webforms)
+    return (adapter or ReferenceAdapter()).resolve_dependencies(solutions, projects, symbols, webforms)
 
 
 def export_artifacts(output: str | Path, indexes: dict) -> None:
@@ -263,7 +270,9 @@ def build_evidence_artifacts(output: str | Path, indexes: dict) -> None:
     stale_manifest = Path(output) / "evidence" / EVIDENCE_MANIFEST_FILENAME
     stale_manifest.unlink(missing_ok=True)
     started = perf_counter()
-    evidence = ReferenceAdapter().normalize(indexes, repo_root=indexes.get("repository", {}).get("root"))
+    kinds = [kind for kind in indexes.get("repository", {}).get("stats", {}) if kind != "total_files"]
+    adapter = _adapter_registry.select(kinds) or ReferenceAdapter()
+    evidence = adapter.normalize(indexes, repo_root=indexes.get("repository", {}).get("root"))
     built = perf_counter()
     validate_evidence(evidence)
     validated = perf_counter()
@@ -272,6 +281,13 @@ def build_evidence_artifacts(output: str | Path, indexes: dict) -> None:
         "Evidence Core: build %.1fs, validate %.1fs, persist %.1fs (%s source artifacts)",
         built - started, validated - built, perf_counter() - validated, len(evidence.source_artifacts),
     )
+
+
+def _documentation_terminology(indexes: dict) -> str | None:
+    """The selected adapter's documentation vocabulary overlay id (None for the reference adapter: default catalog)."""
+    kinds = [kind for kind in indexes.get("repository", {}).get("stats", {}) if kind != "total_files"]
+    adapter = _adapter_registry.select(kinds)
+    return adapter.descriptor.documentation_terminology if adapter is not None else None
 
 
 def create_run_flow_source(indexes: dict) -> HydrationView:
@@ -471,6 +487,7 @@ def _render_documentation_v52(
     try:
         result = generate_documentation_v52(
             source_from_indexes(indexes, _load_external_dependencies(output)), output, long_paths=long_paths,
+            terminology=_documentation_terminology(indexes),
         )
         for warning in result.warnings:
             LOG.warning("documentation_v52: %s", warning)

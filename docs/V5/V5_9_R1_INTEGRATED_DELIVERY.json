@@ -1,0 +1,760 @@
+{
+  "adapter": {
+    "lines": 1077,
+    "modules": 8,
+    "package": "legacy_documenter/adapters/python_generic",
+    "reference_adapter_lines": 2668,
+    "scope": "ast static parsing; modules/classes/functions; main-guard entry points; conservative call resolution; file-operation boundary; flows via the neutral traversal"
+  },
+  "analyzer_fingerprint": {
+    "analyzer_version": 3,
+    "expected_invalidation": "existing extraction caches are invalidated once (fingerprint is part of every cache key); IST run was cold for that reason",
+    "new": "ce21000dfe5c64c4ad8af70c1dcb240eeb9d342bdf06d72220b7be7cbd39d2d7",
+    "old": "4f7600f0fa351674878d66940352e9569de2b0f620643a3124b5c94545eb1ec6",
+    "reason": "new analyzer source (adapters/python_generic, contracts, scanner kind, stage routing); vbnet output proven byte-identical on the real IST run"
+  },
+  "base_commit": "bcb8d57097ec769da75f5fc7207b9a6db295e374",
+  "cache": {
+    "cold": {
+      "extraction_cache": {
+        "extraction_cache_enabled": true,
+        "extraction_cache_hits": 0,
+        "extraction_cache_misses": 243,
+        "files_extracted": 243,
+        "files_reused": 0,
+        "reuse_disabled_reason": null
+      },
+      "file_state": {
+        "added": null,
+        "deleted": null,
+        "diff_seconds": null,
+        "file_state_build_seconds": 0.302,
+        "files_total": 540,
+        "line_ending_only": null,
+        "modified": null,
+        "renamed_candidates": null,
+        "unchanged": null,
+        "validate_seconds": 0.265
+      },
+      "mode": "full",
+      "peak_memory_bytes": 193875968,
+      "real_provider_calls": 0,
+      "scope": {
+        "changed_files": {},
+        "mode": "full",
+        "reasons": {
+          "NO_PREVIOUS_STATE": 1
+        },
+        "symbols_in_changed_files": 0
+      },
+      "session_mode": "cold",
+      "stage_seconds": {
+        "CALL_RESOLUTION": 0.114,
+        "CONTEXT": 0.955,
+        "DATABASE_RESOLUTION": 0.006,
+        "DEPENDENCY_RESOLUTION": 0.001,
+        "DOCUMENTATION": 48.529,
+        "EXPORT": 3.021,
+        "EXTRACTION": 1.653,
+        "FLOW_RESOLUTION": 0.245,
+        "SCAN": 0.068,
+        "WEB_ENTRY_RESOLUTION": 0.003
+      },
+      "wall_seconds": 56.779
+    },
+    "determinism_run": {
+      "extraction_cache": {
+        "extraction_cache_enabled": true,
+        "extraction_cache_hits": 0,
+        "extraction_cache_misses": 243,
+        "files_extracted": 243,
+        "files_reused": 0,
+        "reuse_disabled_reason": null
+      },
+      "file_state": {
+        "added": null,
+        "deleted": null,
+        "diff_seconds": null,
+        "file_state_build_seconds": 0.144,
+        "files_total": 540,
+        "line_ending_only": null,
+        "modified": null,
+        "renamed_candidates": null,
+        "unchanged": null,
+        "validate_seconds": 0.132
+      },
+      "mode": "full",
+      "peak_memory_bytes": 215093248,
+      "real_provider_calls": 0,
+      "scope": {
+        "changed_files": {},
+        "mode": "full",
+        "reasons": {
+          "NO_PREVIOUS_STATE": 1
+        },
+        "symbols_in_changed_files": 0
+      },
+      "session_mode": "cold",
+      "stage_seconds": {
+        "CALL_RESOLUTION": 0.043,
+        "CONTEXT": 0.791,
+        "DATABASE_RESOLUTION": 0.006,
+        "DEPENDENCY_RESOLUTION": 0.001,
+        "DOCUMENTATION": 51.548,
+        "EXPORT": 2.546,
+        "EXTRACTION": 1.139,
+        "FLOW_RESOLUTION": 0.204,
+        "SCAN": 0.034,
+        "WEB_ENTRY_RESOLUTION": 0.002
+      },
+      "wall_seconds": 57.962
+    },
+    "determinism_vs_cold": {
+      "added": 0,
+      "bytes": 115322799,
+      "changed": 0,
+      "changed_sample": [],
+      "equal": true,
+      "files_a": 4640,
+      "files_b": 4640,
+      "removed": 0
+    },
+    "incremental": {
+      "extraction_cache": {
+        "extraction_cache_enabled": true,
+        "extraction_cache_hits": 242,
+        "extraction_cache_misses": 1,
+        "files_extracted": 1,
+        "files_reused": 242,
+        "reuse_disabled_reason": null
+      },
+      "file_state": {
+        "added": 0,
+        "deleted": 0,
+        "diff_seconds": 0.001,
+        "file_state_build_seconds": 0.216,
+        "files_total": 540,
+        "line_ending_only": 0,
+        "modified": 1,
+        "renamed_candidates": 0,
+        "unchanged": 539,
+        "validate_seconds": 0.232
+      },
+      "mode": "incremental",
+      "peak_memory_bytes": 222498816,
+      "real_provider_calls": 0,
+      "scope": {
+        "changed_files": {
+          "modified": 1
+        },
+        "mode": "full",
+        "reasons": {
+          "SOURCE_IN_PROJECT": 1
+        },
+        "symbols_in_changed_files": 1
+      },
+      "session_mode": "warm",
+      "stage_seconds": {
+        "CALL_RESOLUTION": 0.068,
+        "CONTEXT": 0.838,
+        "DATABASE_RESOLUTION": 0.01,
+        "DEPENDENCY_RESOLUTION": 0.001,
+        "DOCUMENTATION": 2.697,
+        "EXPORT": 2.366,
+        "EXTRACTION": 0.012,
+        "FLOW_RESOLUTION": 0.264,
+        "SCAN": 0.048,
+        "WEB_ENTRY_RESOLUTION": 0.002
+      },
+      "wall_seconds": 6.972
+    },
+    "incremental_equals_cold_of_mutated": {
+      "added": 0,
+      "bytes": 115327727,
+      "changed": 0,
+      "changed_sample": [],
+      "equal": true,
+      "files_a": 4641,
+      "files_b": 4641,
+      "removed": 0
+    },
+    "incremental_vs_baseline": {
+      "added": 1,
+      "bytes": 115327727,
+      "changed": 17,
+      "changed_sample": [
+        "ai_context/SYSTEM_CONTEXT.json",
+        "ai_context/SYSTEM_CONTEXT.md",
+        "documentation_v52/MANIFEST.json",
+        "documentation_v52/developer/modules/init/files/sanitizer.md",
+        "documentation_v52/developer/modules/init/files/sanitizer/legacy_documenter_utils_sanitizer.md",
+        "documentation_v52/developer/modules/init/files/sanitizer/legacy_documenter_utils_sanitizer/detail.md",
+        "documentation_v52/developer/modules/init/files/sanitizer/legacy_documenter_utils_sanitizer/sanitize_text.md",
+        "evidence/EVIDENCE_MANIFEST.json",
+        "evidence/call_identities.json",
+        "evidence/calls.json",
+        "evidence/components.json",
+        "evidence/functional_dependencies.json"
+      ],
+      "equal": false,
+      "files_a": 4640,
+      "files_b": 4641,
+      "removed": 0
+    },
+    "original_source_untouched": true,
+    "warm": {
+      "extraction_cache": {
+        "extraction_cache_enabled": true,
+        "extraction_cache_hits": 243,
+        "extraction_cache_misses": 0,
+        "files_extracted": 0,
+        "files_reused": 243,
+        "reuse_disabled_reason": null
+      },
+      "file_state": {
+        "added": 0,
+        "deleted": 0,
+        "diff_seconds": 0.001,
+        "file_state_build_seconds": 0.274,
+        "files_total": 540,
+        "line_ending_only": 0,
+        "modified": 0,
+        "renamed_candidates": 0,
+        "unchanged": 540,
+        "validate_seconds": 0.201
+      },
+      "mode": "incremental",
+      "peak_memory_bytes": 200970240,
+      "real_provider_calls": 0,
+      "scope": {
+        "changed_files": {},
+        "mode": "partial_candidate",
+        "reasons": {
+          "NO_CHANGES": 1
+        },
+        "symbols_in_changed_files": 0
+      },
+      "session_mode": "warm",
+      "stage_seconds": {
+        "CALL_RESOLUTION": 0.067,
+        "CONTEXT": 0.867,
+        "DATABASE_RESOLUTION": 0.01,
+        "DEPENDENCY_RESOLUTION": 0.001,
+        "DOCUMENTATION": 2.625,
+        "EXPORT": 2.416,
+        "EXTRACTION": 0.005,
+        "FLOW_RESOLUTION": 0.325,
+        "SCAN": 0.052,
+        "WEB_ENTRY_RESOLUTION": 0.008
+      },
+      "wall_seconds": 7.106
+    },
+    "warm_vs_cold_outputs": {
+      "added": 0,
+      "bytes": 115322799,
+      "changed": 0,
+      "changed_sample": [],
+      "equal": true,
+      "files_a": 4640,
+      "files_b": 4640,
+      "removed": 0
+    }
+  },
+  "collisions": {
+    "call_identities": {
+      "ist": 230356,
+      "python": 16145,
+      "shared_ids": 0
+    },
+    "components": {
+      "ist": 9859,
+      "python": 887,
+      "shared_ids": 0
+    },
+    "data_access": {
+      "ist": 20082,
+      "python": 692,
+      "shared_ids": 0
+    },
+    "entry_points": {
+      "ist": 12662,
+      "python": 73,
+      "shared_ids": 0
+    },
+    "event_bindings": {
+      "ist": 12662,
+      "python": 73,
+      "shared_ids": 0
+    },
+    "external_dependencies": {
+      "ist": 4839,
+      "python": 1,
+      "shared_ids": 0
+    },
+    "functional_flows": {
+      "ist": 12642,
+      "python": 19,
+      "shared_ids": 0
+    },
+    "functional_paths": {
+      "ist": 170020,
+      "python": 4600,
+      "shared_ids": 0
+    },
+    "projects": {
+      "ist": 259,
+      "python": 4,
+      "shared_ids": 0
+    },
+    "similar_names": {
+      "config": {
+        "ist_symbols": 0,
+        "python_symbols": 1
+      },
+      "main": {
+        "ist_symbols": 0,
+        "python_symbols": 2
+      },
+      "run": {
+        "ist_symbols": 0,
+        "python_symbols": 0
+      },
+      "service": {
+        "ist_symbols": 0,
+        "python_symbols": 9
+      }
+    },
+    "source_artifacts": {
+      "ist": 15138,
+      "python": 540,
+      "shared_ids": 1
+    },
+    "total_shared_ids": 1,
+    "unresolved_boundaries": {
+      "ist": 162914,
+      "python": 4191,
+      "shared_ids": 0
+    }
+  },
+  "consumers": {
+    "EXPORT_JSON": {
+      "error": null,
+      "identities": 1,
+      "ms": 9.13,
+      "partial": false,
+      "result_id": "CRES-22f5630ded2b44995686e3fe244b228a31894b40c5c301570888bf9c67b3cc02",
+      "status": "OK"
+    },
+    "READ_AI_CONTEXT": {
+      "error": null,
+      "identities": 1,
+      "ms": 0.51,
+      "partial": false,
+      "result_id": "CRES-6c572cc719f046ef97b1fda319430d0ed4f8ec190b079bbf4e869cdba1592452",
+      "status": "OK"
+    },
+    "READ_CANONICAL (controlled copy)": {
+      "count": 1,
+      "error": null,
+      "status": "OK"
+    },
+    "READ_EVIDENCE": {
+      "error": null,
+      "identities": 4,
+      "ms": 74.68,
+      "partial": false,
+      "result_id": "CRES-a4c3e21f584fa55b96983ea852eda1ce01bdfcd8655d2d597198fdca82d05f15",
+      "status": "OK"
+    },
+    "READ_FLOW": {
+      "error": null,
+      "identities": 1,
+      "ms": 0.81,
+      "partial": false,
+      "result_id": "CRES-e2ed2bea69144b4e2f0264b565e9202cfeba4d07595441d4caf313db7d9874af",
+      "status": "OK"
+    },
+    "READ_PARTIAL_FLOW": {
+      "all_partial": true,
+      "error": null,
+      "every_segment_has_omitted_and_refs": true,
+      "flow_id": "FLOW-0042743202",
+      "identities": 108,
+      "included_union_equals_parent": true,
+      "ms": 231.72,
+      "no_overlap": true,
+      "parent_ok": true,
+      "partial": true,
+      "real_segmentation": true,
+      "result_id": "CRES-2a0ecbd99649e37ddbbc1b392242571a213066124a56aad9407a964603c47c9b",
+      "segments": 108,
+      "status": "OK"
+    },
+    "READ_REVIEW_HISTORY (controlled copy)": {
+      "audit_chain_verified": true,
+      "status": "OK"
+    },
+    "RENDER_HUMAN_DOC human-functional": {
+      "error": null,
+      "identities": 1,
+      "ms": 40.6,
+      "partial": false,
+      "result_id": "CRES-bd5f33771464298708976508f6649e374bded16ff8b72bd00fbefd2bfab176b5",
+      "status": "OK"
+    },
+    "RENDER_HUMAN_DOC human-technical": {
+      "error": null,
+      "identities": 1,
+      "ms": 15.31,
+      "partial": false,
+      "result_id": "CRES-d21b4222a5d0c3677868007032dfb465e9ffd867652d5280617281ca44b20fa0",
+      "status": "OK"
+    },
+    "determinism_same_bytes": true,
+    "fake_plugin_v58_manifest": {
+      "READ_EVIDENCE": "OK",
+      "READ_FLOW": "OK",
+      "undeclared_capability": "UNSUPPORTED_CAPABILITY",
+      "write_capability": "READ_ONLY_VIOLATION"
+    },
+    "provider_resolution_attempts": 0
+  },
+  "debt": {
+    "blocking": [],
+    "future_phase": [
+      "external independent second-tech validation"
+    ],
+    "observation": [
+      "SELF_HOSTED_CIRCULAR_PILOT"
+    ]
+  },
+  "external_independence_claim": false,
+  "fake_provider_and_review": {
+    "external_independence_claim": false,
+    "fits_budget": {
+      "ai_invoked": true,
+      "canonical_knowledge_produced": false,
+      "context_window": 16000,
+      "envelope_status": "PENDING_TECHNICAL_LEAD_REVIEW",
+      "knowledge_dir_present": false,
+      "proposal_count": 1,
+      "proposal_status": [
+        "READY_FOR_REVIEW"
+      ],
+      "provider_requests_recorded": 1,
+      "real_provider_resolution_attempts": 0,
+      "request_count": 1,
+      "segment_partial_flags": [],
+      "segmented_proposals": 0,
+      "status": "SUCCESS",
+      "technical_lead_approval": false
+    },
+    "forced_segmentation_summary": {
+      "seg_w4500": {
+        "context_window": 4500,
+        "proposal_count": 0,
+        "segmented_proposals": 0,
+        "status": "PARTIAL"
+      },
+      "seg_w6000": {
+        "context_window": 6000,
+        "proposal_count": 0,
+        "segmented_proposals": 0,
+        "status": "PARTIAL"
+      },
+      "seg_w8000": {
+        "context_window": 8000,
+        "proposal_count": 1,
+        "segmented_proposals": 0,
+        "status": "SUCCESS"
+      }
+    },
+    "independent_external_product": false,
+    "pilot_kind": "SELF_HOSTED_CIRCULAR",
+    "real_second_technology": true,
+    "review_controlled": {
+      "audit_canonical_matches": true,
+      "audit_chain_links": [
+        "baseline",
+        "canonical",
+        "decision",
+        "evidence_fingerprint",
+        "proposal_snapshot"
+      ],
+      "baseline_id": "BAS-fd524e687ef956493e8a966bfb697ba99356c25ff510e50f3a1a9e682d3e25fb",
+      "canonical_id": "CAN-4d13db46cfb622721fa42488e350c4787183444fb93036b098253dea24de79b4",
+      "canonical_readback_equal": true,
+      "decision": "APPROVE",
+      "original_artifact_has_knowledge_dir": false,
+      "proposal_id": "PRP-1d34890466eb03b875b9590b94192263aae1f9a593b790cb9848d06fcd9624be",
+      "stale_copy_has_canonical": false,
+      "stale_guard": "PROPOSAL_STALE"
+    },
+    "second_source_is_legacy_mapper_itself": true,
+    "seg_w4500": {
+      "ai_invoked": false,
+      "canonical_knowledge_produced": false,
+      "context_window": 4500,
+      "envelope_status": "NO_PROPOSALS_GENERATED",
+      "knowledge_dir_present": false,
+      "proposal_count": 0,
+      "proposal_status": [],
+      "provider_requests_recorded": 0,
+      "real_provider_resolution_attempts": 0,
+      "request_count": 0,
+      "segment_partial_flags": [],
+      "segmented_proposals": 0,
+      "status": "PARTIAL",
+      "technical_lead_approval": false
+    },
+    "seg_w6000": {
+      "ai_invoked": false,
+      "canonical_knowledge_produced": false,
+      "context_window": 6000,
+      "envelope_status": "NO_PROPOSALS_GENERATED",
+      "knowledge_dir_present": false,
+      "proposal_count": 0,
+      "proposal_status": [],
+      "provider_requests_recorded": 0,
+      "real_provider_resolution_attempts": 0,
+      "request_count": 0,
+      "segment_partial_flags": [],
+      "segmented_proposals": 0,
+      "status": "PARTIAL",
+      "technical_lead_approval": false
+    },
+    "seg_w8000": {
+      "ai_invoked": true,
+      "canonical_knowledge_produced": false,
+      "context_window": 8000,
+      "envelope_status": "PENDING_TECHNICAL_LEAD_REVIEW",
+      "knowledge_dir_present": false,
+      "proposal_count": 1,
+      "proposal_status": [
+        "READY_FOR_REVIEW"
+      ],
+      "provider_requests_recorded": 1,
+      "real_provider_resolution_attempts": 0,
+      "request_count": 1,
+      "segment_partial_flags": [],
+      "segmented_proposals": 0,
+      "status": "SUCCESS",
+      "technical_lead_approval": false
+    }
+  },
+  "finding_fixed_in_r1": "V5.2 templates/catalog carried .NET/WebForms vocabulary and transform hard-coded vb_source; solved with a data-only terminology overlay (no template/renderer fork); default catalog byte-identical (IST docs unchanged)",
+  "history": [
+    "V5_9_R1_BLOCKED_SECOND_TECH_SOURCE (initial Gate A)",
+    "human authorized circular Python pilot",
+    "R1 resumed in the same round"
+  ],
+  "human_sample": {
+    "breakdown": {
+      "calls_external": 5,
+      "calls_internal": 9,
+      "calls_unresolved": 6,
+      "entry_points": 8,
+      "external_dependencies": 1,
+      "file_operations": 10,
+      "flow_unresolved": 6
+    },
+    "correct": 45,
+    "incorrect": 0,
+    "reviewer": "the implementing assistant (not an independent human), evidence = source line + resolved target; no global precision claim",
+    "sample_size": 45,
+    "uncertain": 0
+  },
+  "independent_external_product": false,
+  "ist_regression": {
+    "comparison": {
+      "added": 0,
+      "baseline": "output/_local_v57r2/final (V5.8-equivalent)",
+      "bytes_baseline": 2828066791,
+      "bytes_candidate": 2828066791,
+      "changed": 0,
+      "changed_sample": [],
+      "equal": true,
+      "excluded": {
+        "candidate": [
+          "RUN_SUMMARY.json",
+          "RUN_SUMMARY.md",
+          "_cache_v53/",
+          "index/repository.json"
+        ],
+        "directories": [
+          "_cache_v53"
+        ],
+        "files": [
+          "RUN_SUMMARY.json",
+          "RUN_SUMMARY.md",
+          "index/repository.json"
+        ],
+        "reference": [
+          "RUN_SUMMARY.json",
+          "RUN_SUMMARY.md",
+          "_cache_v53/",
+          "index/repository.json"
+        ]
+      },
+      "files_baseline": 47523,
+      "files_candidate": 47523,
+      "removed": 0,
+      "source_files": 15138,
+      "source_sha256": "77965c64c7e204d39dc06a9451076df07a4b400e2bd41372fff2bab7fcd792e5",
+      "source_unchanged": true
+    },
+    "run": {
+      "ai_invoked": false,
+      "ai_requested": false,
+      "analyzer_fingerprint": "ce21000dfe5c64c4ad8af70c1dcb240eeb9d342bdf06d72220b7be7cbd39d2d7",
+      "extraction_cache": {
+        "extraction_cache_hits": 0,
+        "extraction_cache_misses": 8106,
+        "files_extracted": 8106,
+        "files_reused": 0,
+        "reuse_disabled_reason": null
+      },
+      "fallback_reason": "NO_CACHE",
+      "peak_memory_bytes": 3009249280,
+      "provider_resolution_attempts": 0,
+      "registry_calls": 0,
+      "session_mode": "cold",
+      "stage_seconds": {
+        "CALL_RESOLUTION": 1.404,
+        "CONTEXT": 27.271,
+        "DATABASE_RESOLUTION": 1.804,
+        "DEPENDENCY_RESOLUTION": 0.911,
+        "DOCUMENTATION": 445.839,
+        "EXPORT": 82.488,
+        "EXTRACTION": 69.29,
+        "FLOW_RESOLUTION": 6.571,
+        "SCAN": 1.913,
+        "WEB_ENTRY_RESOLUTION": 1.122
+      },
+      "status": "SUCCESS",
+      "wall_seconds": 656.577
+    }
+  },
+  "neutral_changes": [
+    "scanner: .py -> python_source",
+    "adapters/contracts.py: registry.get + optional documentation_terminology",
+    "pipeline_stages/full_pipeline/main: stage routing by the extracting adapter",
+    "cache: ANALYZED_FILE_TYPES and CODE_TYPES gain python_source",
+    "documentation_v52: terminology overlay (data only), code-file kind by extension, source_files counted over code kinds",
+    "fingerprints: terminology classified PROJECTION_AFFECTING"
+  ],
+  "normalized_core": {
+    "python-generic": {
+      "Call": 16145,
+      "Component": 887,
+      "DataObject(stored_procedure|sql)": 0,
+      "DataOperation(data_access)": 692,
+      "EntryPoint": 73,
+      "EvidenceReference(provenance refs)": 22514,
+      "ExternalDependency": 1,
+      "FunctionalFlow": 19,
+      "FunctionalPath": 4600,
+      "Project": 4,
+      "SourceArtifact": 540,
+      "UnresolvedBoundary": 4191,
+      "adapter_ids_in_source_artifacts": [
+        "python-generic"
+      ],
+      "evidence_schema_version": "1.0",
+      "states": {
+        "calls": {
+          "confirmed": 9377,
+          "unresolved": 6768
+        },
+        "data_access": {
+          "confirmed": 289,
+          "inferred": 403
+        },
+        "entry_points": {
+          "confirmed": 19,
+          "unresolved": 54
+        },
+        "functional_flows": {
+          "unresolved": 19
+        },
+        "functional_paths": {
+          "confirmed": 282,
+          "inferred": 145,
+          "unresolved": 4173
+        }
+      }
+    },
+    "vbnet-webforms-oracle": {
+      "Call": 230356,
+      "Component": 9859,
+      "DataObject(stored_procedure|sql)": 5392,
+      "DataOperation(data_access)": 20082,
+      "EntryPoint": 12662,
+      "EvidenceReference(provenance refs)": 454010,
+      "ExternalDependency": 4839,
+      "FunctionalFlow": 12642,
+      "FunctionalPath": 170020,
+      "Project": 259,
+      "SourceArtifact": 15138,
+      "UnresolvedBoundary": 162914,
+      "adapter_ids_in_source_artifacts": [
+        "vbnet-webforms-oracle"
+      ],
+      "evidence_schema_version": "1.0",
+      "states": {
+        "calls": {
+          "confirmed": 12775,
+          "unresolved": 217581
+        },
+        "data_access": {
+          "confirmed": 20073,
+          "unresolved": 9
+        },
+        "entry_points": {
+          "confirmed": 12642,
+          "unresolved": 20
+        },
+        "functional_flows": {
+          "confirmed": 1274,
+          "unresolved": 11368
+        },
+        "functional_paths": {
+          "confirmed": 7103,
+          "unresolved": 162917
+        }
+      }
+    }
+  },
+  "pilot_kind": "SELF_HOSTED_CIRCULAR",
+  "provider_calls": 0,
+  "real_llm_calls": 0,
+  "real_second_technology": true,
+  "recommendation": "V5_9_NEXT_R3_FINAL_VERIFICATION",
+  "round": "V5.9-R1",
+  "second_adapter_id": "python-generic",
+  "second_adapter_version": "1.0",
+  "second_source_id": "SELF_HOSTED_LEGACYMAPPER_V4_2_R8_E9E3D60",
+  "second_source_is_legacy_mapper_itself": true,
+  "second_source_tree_hash": "a190898bd89683a8ae443fd9d0640e37fc454327ceea34cacdd818c2862ce39e",
+  "second_technology": "Python",
+  "status": "V5_9_R1_READY_FOR_HUMAN_REVIEW",
+  "tests": {
+    "directed": {
+      "errors": 0,
+      "failures": 0,
+      "skips": "see full run",
+      "total": 867
+    },
+    "full_suite": {
+      "command": "python -X utf8 -m unittest discover -s tests",
+      "errors": 0,
+      "failures": 0,
+      "skips": 132,
+      "total": 3083
+    },
+    "new_module": {
+      "file": "tests/test_v5_9_r1_python_adapter.py",
+      "total": 30
+    }
+  }
+}

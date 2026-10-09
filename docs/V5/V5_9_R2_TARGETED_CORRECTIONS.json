@@ -1,0 +1,380 @@
+{
+  "analyzer_fingerprint": {
+    "analyzer_version": 3,
+    "new": "f05b2de43b726e75e03b97e1d35fef8b3407d54247e0a4e4537ab24d282fa26b",
+    "old": "ce21000dfe5c64c4ad8af70c1dcb240eeb9d342bdf06d72220b7be7cbd39d2d7"
+  },
+  "consumers": {
+    "EXPORT_JSON": {
+      "error": null,
+      "identities": 1,
+      "ms": 17.31,
+      "partial": false,
+      "result_id": "CRES-22f5630ded2b44995686e3fe244b228a31894b40c5c301570888bf9c67b3cc02",
+      "status": "OK"
+    },
+    "READ_AI_CONTEXT": {
+      "error": null,
+      "identities": 1,
+      "ms": 0.48,
+      "partial": false,
+      "result_id": "CRES-6c572cc719f046ef97b1fda319430d0ed4f8ec190b079bbf4e869cdba1592452",
+      "status": "OK"
+    },
+    "READ_CANONICAL (controlled copy)": {
+      "count": 1,
+      "error": null,
+      "status": "OK"
+    },
+    "READ_EVIDENCE": {
+      "error": null,
+      "identities": 4,
+      "ms": 51.49,
+      "partial": false,
+      "result_id": "CRES-a4c3e21f584fa55b96983ea852eda1ce01bdfcd8655d2d597198fdca82d05f15",
+      "status": "OK"
+    },
+    "READ_FLOW": {
+      "error": null,
+      "identities": 1,
+      "ms": 0.82,
+      "partial": false,
+      "result_id": "CRES-e2ed2bea69144b4e2f0264b565e9202cfeba4d07595441d4caf313db7d9874af",
+      "status": "OK"
+    },
+    "READ_PARTIAL_FLOW": {
+      "all_partial": true,
+      "error": null,
+      "every_segment_has_omitted_and_refs": true,
+      "flow_id": "FLOW-0042743202",
+      "identities": 108,
+      "included_union_equals_parent": true,
+      "ms": 229.78,
+      "no_overlap": true,
+      "parent_ok": true,
+      "partial": true,
+      "real_segmentation": true,
+      "result_id": "CRES-2a0ecbd99649e37ddbbc1b392242571a213066124a56aad9407a964603c47c9b",
+      "segments": 108,
+      "status": "OK"
+    },
+    "READ_REVIEW_HISTORY (controlled copy)": {
+      "audit_chain_verified": true,
+      "status": "OK"
+    },
+    "RENDER_HUMAN_DOC human-functional": {
+      "error": null,
+      "identities": 1,
+      "ms": 7.46,
+      "partial": false,
+      "result_id": "CRES-bd5f33771464298708976508f6649e374bded16ff8b72bd00fbefd2bfab176b5",
+      "status": "OK"
+    },
+    "RENDER_HUMAN_DOC human-technical": {
+      "error": null,
+      "identities": 1,
+      "ms": 1.06,
+      "partial": false,
+      "result_id": "CRES-d21b4222a5d0c3677868007032dfb465e9ffd867652d5280617281ca44b20fa0",
+      "status": "OK"
+    },
+    "determinism_same_bytes": true,
+    "fake_plugin_v58_manifest": {
+      "READ_EVIDENCE": "OK",
+      "READ_FLOW": "OK",
+      "undeclared_capability": "UNSUPPORTED_CAPABILITY",
+      "write_capability": "READ_ONLY_VIOLATION"
+    },
+    "provider_resolution_attempts": 0
+  },
+  "cross_tech_collisions": {
+    "call_identities": {
+      "ist": 230356,
+      "python": 16145,
+      "shared_ids": 0
+    },
+    "components": {
+      "ist": 9859,
+      "python": 887,
+      "shared_ids": 0
+    },
+    "data_access": {
+      "ist": 20082,
+      "python": 692,
+      "shared_ids": 0
+    },
+    "entry_points": {
+      "ist": 12662,
+      "python": 73,
+      "shared_ids": 0
+    },
+    "event_bindings": {
+      "ist": 12662,
+      "python": 73,
+      "shared_ids": 0
+    },
+    "external_dependencies": {
+      "ist": 4839,
+      "python": 1,
+      "shared_ids": 0
+    },
+    "functional_flows": {
+      "ist": 12642,
+      "python": 19,
+      "shared_ids": 0
+    },
+    "functional_paths": {
+      "ist": 170020,
+      "python": 4600,
+      "shared_ids": 0
+    },
+    "projects": {
+      "ist": 259,
+      "python": 4,
+      "shared_ids": 0
+    },
+    "source_artifacts": {
+      "ist": 15138,
+      "python": 540,
+      "shared_ids": 0
+    },
+    "total_shared_ids": 0,
+    "undeclared_python_vs_ist_shared_src": [
+      ".gitignore"
+    ],
+    "unresolved_boundaries": {
+      "ist": 162914,
+      "python": 4191,
+      "shared_ids": 0
+    }
+  },
+  "debt": {
+    "blocking": [],
+    "future_phase": [
+      "external independent second-tech validation"
+    ],
+    "observation": [
+      "SELF_HOSTED_CIRCULAR_PILOT",
+      "undeclared repositories share the V5.1 SRC namespace (making declaration mandatory = scenario B, human decision)",
+      "PRJ-/CMP-/CAL-/XDP- remain path-derived",
+      "outputs that print the physical root directory name"
+    ],
+    "resolved": [
+      "CROSS_REPOSITORY_SOURCE_ARTIFACT_ID_COLLISION"
+    ]
+  },
+  "defect": "CROSS_REPOSITORY_SOURCE_ARTIFACT_ID_COLLISION",
+  "defect_status": "RESOLVED",
+  "design": {
+    "classification": {
+      "declared": "opt-in additive evolution",
+      "undeclared": "IDENTITY_COMPATIBLE"
+    },
+    "declared": "SRC = sha256_id('SRC', repository_id, relative_posix_path)",
+    "ist_scenario": "A (ids unchanged, byte-identical)",
+    "repository_id_source": "declared by a person: --repository-id / repository_id kwarg; validated as a name, never a path",
+    "undeclared": "SRC = sha256_id('SRC', relative_posix_path) (V5.1, unchanged)"
+  },
+  "external_independence_claim": false,
+  "git": {
+    "branch": "main",
+    "commit_push_tag": "NONE_BY_INSTRUCTION",
+    "head": "bcb8d57097ec769da75f5fc7207b9a6db295e374"
+  },
+  "ist_regression": {
+    "comparison": {
+      "added": 0,
+      "baseline": "output/_local_v57r2/final (V5.8-equivalent)",
+      "bytes_baseline": 2828066791,
+      "bytes_candidate": 2828066791,
+      "changed": 0,
+      "changed_sample": [],
+      "equal": true,
+      "excluded": {
+        "candidate": [
+          "RUN_SUMMARY.json",
+          "RUN_SUMMARY.md",
+          "_cache_v53/",
+          "index/repository.json"
+        ],
+        "directories": [
+          "_cache_v53"
+        ],
+        "files": [
+          "RUN_SUMMARY.json",
+          "RUN_SUMMARY.md",
+          "index/repository.json"
+        ],
+        "reference": [
+          "RUN_SUMMARY.json",
+          "RUN_SUMMARY.md",
+          "_cache_v53/",
+          "index/repository.json"
+        ]
+      },
+      "files_baseline": 47523,
+      "files_candidate": 47523,
+      "removed": 0,
+      "source_files": 15138,
+      "source_sha256": "77965c64c7e204d39dc06a9451076df07a4b400e2bd41372fff2bab7fcd792e5",
+      "source_unchanged": true
+    },
+    "run": {
+      "ai_invoked": false,
+      "ai_requested": false,
+      "analyzer_fingerprint": "f05b2de43b726e75e03b97e1d35fef8b3407d54247e0a4e4537ab24d282fa26b",
+      "extraction_cache": {
+        "extraction_cache_hits": 0,
+        "extraction_cache_misses": 8106,
+        "files_extracted": 8106,
+        "files_reused": 0,
+        "reuse_disabled_reason": null
+      },
+      "fallback_reason": "NO_CACHE",
+      "peak_memory_bytes": 3009417216,
+      "provider_resolution_attempts": 0,
+      "registry_calls": 0,
+      "session_mode": "cold",
+      "stage_seconds": {
+        "CALL_RESOLUTION": 1.498,
+        "CONTEXT": 27.56,
+        "DATABASE_RESOLUTION": 1.571,
+        "DEPENDENCY_RESOLUTION": 0.432,
+        "DOCUMENTATION": 467.52,
+        "EXPORT": 61.241,
+        "EXTRACTION": 64.855,
+        "FLOW_RESOLUTION": 6.437,
+        "SCAN": 1.231,
+        "WEB_ENTRY_RESOLUTION": 1.246
+      },
+      "status": "SUCCESS",
+      "wall_seconds": 651.678
+    }
+  },
+  "pilot_kind": "SELF_HOSTED_CIRCULAR",
+  "provider_calls": 0,
+  "python_rerun": {
+    "cold_declared": {
+      "extraction_hits": 0,
+      "extraction_misses": 243,
+      "real_provider_calls": 0,
+      "session_mode": "cold",
+      "wall_seconds": 52.0
+    },
+    "determinism_second_cold_run": {
+      "extraction_hits": 0,
+      "extraction_misses": 243,
+      "real_provider_calls": 0,
+      "session_mode": "cold",
+      "wall_seconds": 50.562
+    },
+    "determinism_tree_diff": {
+      "added": 0,
+      "changed": 0,
+      "changed_files": [],
+      "equal": true,
+      "files_a": 4640,
+      "files_b": 4640,
+      "removed": 0
+    },
+    "identity_change_manifest_repository_id": "SELF_HOSTED_LEGACYMAPPER_V4_2_R8_E9E3D60_ALT",
+    "identity_change_same_output_dir": {
+      "extraction_hits": 243,
+      "extraction_misses": 0,
+      "real_provider_calls": 0,
+      "session_mode": "warm",
+      "wall_seconds": 20.523
+    },
+    "identity_change_src_ids_disjoint": true,
+    "origin_repo_untracked_before_and_after": null,
+    "relocated_root": {
+      "extraction_hits": 0,
+      "extraction_misses": 243,
+      "real_provider_calls": 0,
+      "session_mode": "cold",
+      "wall_seconds": 51.995
+    },
+    "relocation_all_evidence_partitions_equal_except_physical_root": true,
+    "relocation_src_ids_equal": true,
+    "relocation_tree_diff": {
+      "added": 0,
+      "changed": 7,
+      "changed_files": [
+        "ai_context/SYSTEM_CONTEXT.json",
+        "documentation/PROJECT_OVERVIEW.md",
+        "documentation/README.md",
+        "documentation_v52/MANIFEST.json",
+        "documentation_v52/general/README.md",
+        "evidence/EVIDENCE_MANIFEST.json",
+        "evidence/scan_summary.json"
+      ],
+      "equal": false,
+      "files_a": 4640,
+      "files_b": 4640,
+      "removed": 0
+    },
+    "repository_id": "SELF_HOSTED_LEGACYMAPPER_V4_2_R8_E9E3D60",
+    "scanned_files": 540,
+    "source_intact": true,
+    "tree_hash_after": "a190898bd89683a8ae443fd9d0640e37fc454327ceea34cacdd818c2862ce39e",
+    "tree_hash_before": "a190898bd89683a8ae443fd9d0640e37fc454327ceea34cacdd818c2862ce39e",
+    "warm_run": {
+      "extraction_hits": 243,
+      "extraction_misses": 0,
+      "real_provider_calls": 0,
+      "session_mode": "warm",
+      "wall_seconds": 6.754
+    },
+    "warm_tree_diff_vs_det": {
+      "added": 0,
+      "changed": 0,
+      "changed_files": [],
+      "equal": true,
+      "files_a": 4640,
+      "files_b": 4640,
+      "removed": 0
+    }
+  },
+  "real_llm_calls": 0,
+  "recommendation": "V5_9_NEXT_R3_FINAL_VERIFICATION",
+  "review_canonical_controlled": {
+    "audit_canonical_matches": true,
+    "audit_chain_links": [
+      "baseline",
+      "canonical",
+      "decision",
+      "evidence_fingerprint",
+      "proposal_snapshot"
+    ],
+    "baseline_id": "BAS-fd524e687ef956493e8a966bfb697ba99356c25ff510e50f3a1a9e682d3e25fb",
+    "canonical_id": "CAN-4d13db46cfb622721fa42488e350c4787183444fb93036b098253dea24de79b4",
+    "canonical_readback_equal": true,
+    "decision": "APPROVE",
+    "original_artifact_has_knowledge_dir": false,
+    "proposal_id": "PRP-1d34890466eb03b875b9590b94192263aae1f9a593b790cb9848d06fcd9624be",
+    "stale_copy_has_canonical": false,
+    "stale_guard": "PROPOSAL_STALE"
+  },
+  "round": "V5.9-R2",
+  "second_adapter_id": "python-generic",
+  "second_technology": "Python",
+  "status": "V5_9_R2_READY_FOR_HUMAN_REVIEW",
+  "tests": {
+    "directed": {
+      "errors": 0,
+      "failures": 0,
+      "total": 627
+    },
+    "full_suite": {
+      "duration_seconds": 623.544,
+      "errors": 0,
+      "failures": 0,
+      "skips": 132,
+      "total": 3100
+    },
+    "new_module": {
+      "file": "tests/test_v5_9_r2_source_identity.py",
+      "total": 17
+    }
+  }
+}

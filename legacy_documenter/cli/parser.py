@@ -63,6 +63,15 @@ def normalize_argv(argv: list[str] | None) -> list[str]:
     return ["analyze", *args]
 
 
+def _repository_id(value: str) -> str:
+    """argparse type: a declared repository id must be a name, never a path."""
+    from legacy_documenter.evidence.identity import normalize_repository_id
+    try:
+        return normalize_repository_id(value)
+    except ValueError as exc:
+        raise argparse.ArgumentTypeError(str(exc)) from None
+
+
 def _add_analysis_arguments(subparser: argparse.ArgumentParser) -> None:
     """Adds the analysis options shared by `analyze` and `full`.
 
@@ -73,6 +82,11 @@ def _add_analysis_arguments(subparser: argparse.ArgumentParser) -> None:
     subparser.add_argument("--output", default="output", help="Output directory")
     subparser.add_argument("--exclude", action="append", default=[], help="Additional folder name to exclude")
     subparser.add_argument("--verbose", action="store_true", help="Enable info logging")
+    subparser.add_argument(
+        "--repository-id", type=_repository_id, default=None,
+        help="Declared logical repository identity (not a path). Namespaces SourceArtifact ids so two repositories with the same "
+             "relative paths never share them. Omit to keep the V5.1 path-only ids.",
+    )
     subparser.add_argument(
         "--flow-max-depth", type=int, default=12, help="Maximum confirmed method-call depth for R4 flows"
     )

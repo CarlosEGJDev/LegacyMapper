@@ -1,0 +1,155 @@
+{
+  "external_independence_claim": false,
+  "independent_external_product": false,
+  "note": "IST cells marked REAL for rows not re-run in V5.9 reference the earlier round's real evidence (see evidence_round); only the IST regression, consumer and adapter-detection rows were re-measured now.",
+  "pilot_kind": "SELF_HOSTED_CIRCULAR",
+  "real_second_technology": true,
+  "round": "V5.9-R1",
+  "rows": [
+    {
+      "capability": "Adapter detection",
+      "evidence": "AdapterRegistry.select by observed scanner kinds; python-generic vs vbnet-webforms-oracle; wrong-adapter and mixed repo rejected (unit tests, CONTROLLED_FIXTURE)",
+      "evidence_round": "IST: V5.4; Python: V5.9",
+      "ist_webforms_oracle": "REAL",
+      "result": "PASS",
+      "second_technology_python": "REAL"
+    },
+    {
+      "capability": "Normalized Evidence",
+      "evidence": "Evidence schema 1.0; Python: 540 artifacts, 887 components, 16145 calls; validate_evidence passes in both runs",
+      "evidence_round": "V5.1 contracts unchanged",
+      "ist_webforms_oracle": "REAL",
+      "result": "PASS",
+      "second_technology_python": "REAL"
+    },
+    {
+      "capability": "Provenance",
+      "evidence": "I-4/I-5 enforced at EXPORT; provenance refs: IST 454010, Python 22514",
+      "evidence_round": "",
+      "ist_webforms_oracle": "REAL",
+      "result": "PASS",
+      "second_technology_python": "REAL"
+    },
+    {
+      "capability": "Unresolved",
+      "evidence": "preserved, never promoted: Python calls unresolved 6768, boundaries 4191",
+      "evidence_round": "",
+      "ist_webforms_oracle": "REAL",
+      "result": "PASS",
+      "second_technology_python": "REAL"
+    },
+    {
+      "capability": "human-functional",
+      "evidence": "same profile/templates/renderer; data-only vocabulary overlay for Python",
+      "evidence_round": "",
+      "ist_webforms_oracle": "REAL",
+      "result": "PASS",
+      "second_technology_python": "REAL"
+    },
+    {
+      "capability": "human-technical",
+      "evidence": "same profile/templates/renderer; data-only vocabulary overlay for Python",
+      "evidence_round": "",
+      "ist_webforms_oracle": "REAL",
+      "result": "PASS",
+      "second_technology_python": "REAL"
+    },
+    {
+      "capability": "AI context",
+      "evidence": "ai_context/ + AI_HYDRATED_PROJECTION via READ_AI_CONTEXT, 0 provider calls",
+      "evidence_round": "",
+      "ist_webforms_oracle": "REAL",
+      "result": "PASS",
+      "second_technology_python": "REAL"
+    },
+    {
+      "capability": "Cold cache",
+      "evidence": "IST cold 656.577 s (fingerprint changed, NO_CACHE); Python cold 56.779 s",
+      "evidence_round": "",
+      "ist_webforms_oracle": "REAL",
+      "result": "PASS",
+      "second_technology_python": "REAL"
+    },
+    {
+      "capability": "Warm cache",
+      "evidence": "Python warm 7.106 s, 243 hits/0 misses, outputs byte-identical; IST warm: V5.3 evidence (not re-run in V5.9)",
+      "evidence_round": "IST: V5.3-R3/R4",
+      "ist_webforms_oracle": "REAL",
+      "result": "PASS",
+      "second_technology_python": "REAL"
+    },
+    {
+      "capability": "Single-file incremental",
+      "evidence": "1 file changed on a copy: 242 hits / 1 miss, 17 changed + 1 added of 4641 output files; equals a cold run of the mutated copy; IST: V5.3-R2.9",
+      "evidence_round": "IST: V5.3",
+      "ist_webforms_oracle": "REAL",
+      "result": "PASS",
+      "second_technology_python": "REAL"
+    },
+    {
+      "capability": "Fake provider proposal",
+      "evidence": "Fake provider only: grounded proposal READY_FOR_REVIEW, canonical=false, 0 real provider attempts (corpus is real; provider is Fake by design)",
+      "evidence_round": "",
+      "ist_webforms_oracle": "REAL",
+      "result": "PASS",
+      "second_technology_python": "REAL"
+    },
+    {
+      "capability": "Segmentation contract",
+      "evidence": "FlowSegmenter over a real Python flow FLOW-0042743202: 108 partial segments at the default 16000-char budget, union=parent, no overlap, omitted+refs present. AI-request segmentation (V5.6 segmented_context): NOT_TRIGGERED_REAL on this corpus (selected flows fit; smaller windows fail closed CONTEXT_TOO_LARGE). Controlled large Python fixture: CONTROLLED_FIXTURE (unit test)",
+      "evidence_round": "IST: V5.6 (341->85) and V5.8 (399->19)",
+      "ist_webforms_oracle": "REAL",
+      "result": "PASS",
+      "second_technology_python": "REAL"
+    },
+    {
+      "capability": "Review baseline",
+      "evidence": "prepare on a copy; stale guard: PROPOSAL_STALE",
+      "evidence_round": "IST: V5.7 (copies of Fake artifacts)",
+      "ist_webforms_oracle": "CONTROLLED_FIXTURE",
+      "result": "PASS",
+      "second_technology_python": "CONTROLLED_FIXTURE"
+    },
+    {
+      "capability": "Canonical controlled",
+      "evidence": "APPROVE simulated on a copy; canonical readback equal=True; audit chain links 5; original artifact untouched",
+      "evidence_round": "IST: V5.7",
+      "ist_webforms_oracle": "CONTROLLED_FIXTURE",
+      "result": "PASS",
+      "second_technology_python": "CONTROLLED_FIXTURE"
+    },
+    {
+      "capability": "ConsumerFacade",
+      "evidence": "READ_EVIDENCE, READ_FLOW, READ_PARTIAL_FLOW, READ_AI_CONTEXT, RENDER_HUMAN_DOC x2, EXPORT_JSON: all OK on the Python run; READ_CANONICAL/READ_REVIEW_HISTORY on the controlled copy",
+      "evidence_round": "IST: V5.8",
+      "ist_webforms_oracle": "REAL",
+      "result": "PASS",
+      "second_technology_python": "REAL"
+    },
+    {
+      "capability": "Plugin Contract",
+      "evidence": "same V5.8 Fake manifest, unchanged: {'READ_EVIDENCE': 'OK', 'READ_FLOW': 'OK', 'undeclared_capability': 'UNSUPPORTED_CAPABILITY', 'write_capability': 'READ_ONLY_VIOLATION'}; no Plugin Runtime",
+      "evidence_round": "IST: V5.8",
+      "ist_webforms_oracle": "CONTROLLED_FIXTURE",
+      "result": "PASS",
+      "second_technology_python": "CONTROLLED_FIXTURE"
+    },
+    {
+      "capability": "Runtime independence",
+      "evidence": "AST/import guards: core, docs, review, consumers/plugins, provider layer never import the Python adapter; adapter imports no CLI/provider/consumers/review/context; only cli/pipeline_stages (composition root) imports it",
+      "evidence_round": "",
+      "ist_webforms_oracle": "REAL",
+      "result": "PASS",
+      "second_technology_python": "REAL"
+    }
+  ],
+  "second_source_is_legacy_mapper_itself": true,
+  "states": [
+    "REAL",
+    "CONTROLLED_FIXTURE",
+    "NOT_TRIGGERED_REAL",
+    "NOT_APPLICABLE",
+    "FAIL"
+  ],
+  "status": "V5_9_R1_READY_FOR_HUMAN_REVIEW"
+}

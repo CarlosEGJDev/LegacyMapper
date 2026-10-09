@@ -132,6 +132,7 @@ def generate_documentation_v52(
     interpreted: dict[str, InterpretedSection] | None = None,
     partition_override: PartitionPolicy | None = None,
     long_paths: bool = False,
+    terminology: str | None = None,
 ) -> DocumentationV52Result:
     """Generates `<output_dir>/documentation_v52/`.
 
@@ -147,7 +148,7 @@ def generate_documentation_v52(
     `strict_templates=True` it raises `ConfigError` instead.
     """
     started = perf_counter()
-    registry = ConfigRegistry(custom_dir, strict=strict_templates)
+    registry = ConfigRegistry(custom_dir, strict=strict_templates, terminology=terminology)
     root = Path(output_dir) / OUTPUT_DIRNAME
     result = DocumentationV52Result(output_dir=root)
     all_files: dict[str, str] = {}

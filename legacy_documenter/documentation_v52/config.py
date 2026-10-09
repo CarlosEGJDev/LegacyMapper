@@ -215,9 +215,11 @@ class _SafeDict(dict):
 class ConfigRegistry:
     """Resolves defaults with optional custom overlays; collects warnings."""
 
-    def __init__(self, custom_dir: str | Path | None = None, strict: bool = False) -> None:
+    def __init__(self, custom_dir: str | Path | None = None, strict: bool = False, terminology: str | None = None) -> None:
         self.custom_dir = Path(custom_dir) if custom_dir else None
         self.strict = strict
+        #: Opaque id of a data-only terminology overlay (`defaults/i18n/terminology/<id>.<lang>.json`); never a different template.
+        self.terminology = terminology
         self.warnings: list[str] = []
 
     # ---------------------------------------------------------------- helpers
@@ -260,7 +262,20 @@ class ConfigRegistry:
         ) else fallback
         if texts is fallback and lang != "es":
             self.warnings.append(f"catálogo de idioma '{lang}' no existe; se usa 'es'.")
+        if self.terminology:
+            texts = {**texts, **self._terminology_overlay(lang, fallback)}
         return Catalog(lang, texts, fallback)
+
+    def _terminology_overlay(self, lang: str, fallback: dict) -> dict:
+        """Technology vocabulary as catalog overrides. Same templates, profiles and renderer; unknown keys are rejected."""
+        path = DEFAULTS_DIR / "i18n" / "terminology" / f"{self.terminology}.{lang}.json"
+        if not path.is_file():
+            return {}
+        overlay = _catalog_texts(_load_json(path))
+        unknown = sorted(set(overlay) - set(fallback))
+        if unknown:
+            raise ConfigError(f"terminología '{self.terminology}': claves desconocidas {unknown[:3]}")
+        return overlay
 
     def template(self, template_id: str, profile: OutputProfile, catalog: Catalog) -> dict:
         def build(data: dict, source: str) -> dict:

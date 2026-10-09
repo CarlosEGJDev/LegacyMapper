@@ -454,7 +454,8 @@ class RuntimeIndependenceTests(unittest.TestCase):
     def test_analyzed_types_still_equal_the_extractor_map(self):
         # the INVENTORY_ONLY rule relies on this equality (guarded since R2.3)
         from legacy_documenter.fingerprints import ANALYZED_FILE_TYPES
-        self.assertEqual(set(ANALYZED_FILE_TYPES), set(stages._extractors()))
+        from legacy_documenter.adapters.python_generic.adapter import PythonGenericAdapter  # V5.9: union of adapters' kinds
+        self.assertEqual(set(ANALYZED_FILE_TYPES), set(stages._extractors()) | PythonGenericAdapter.descriptor.source_kinds)
 
     def test_exports(self):
         for name in ("analyze_scope", "ScopeAnalysisResult", "write_run_metrics", "read_run_metrics"):

@@ -38,7 +38,9 @@ from legacy_documenter.evidence.entities import (
     SourceArtifact,
     UnresolvedBoundary,
 )
-from legacy_documenter.evidence.identity import DuplicateOrdinalAssigner, poly33_id, sha256_id
+from legacy_documenter.evidence.identity import (
+    DuplicateOrdinalAssigner, normalize_repository_id, poly33_id, sha256_id, source_artifact_id,
+)
 from legacy_documenter.evidence.reference import EvidenceReference
 
 #: The only Technology Adapter V5.1 implements: wraps the existing VB.NET/
@@ -99,10 +101,12 @@ class NormalizedEvidenceBuilder:
         self._repo_root = Path(repo_root) if repo_root else None
         self._adapter_id = adapter_id
         self._adapter_version = adapter_version
+        self._repository_id: str | None = None
 
     def build(self, indexes: dict) -> NormalizedEvidence:
         evidence = NormalizedEvidence()
         evidence.repository = indexes.get("repository", {})
+        self._repository_id = normalize_repository_id(evidence.repository.get("repository_id"))  # None = undeclared: V5.1 ids
         evidence.scan_summary = self._build_scan_summary(evidence.repository)
         evidence.source_artifacts = self._build_source_artifacts(indexes.get("files", []), self._resolve_repo_root(evidence.repository))
         evidence.solutions = self._build_solutions(indexes.get("solutions", []))
@@ -136,7 +140,7 @@ class NormalizedEvidenceBuilder:
         result = []
         for record in files:
             path_posix = record["relative_path"].replace("\\", "/")
-            artifact_id = sha256_id("SRC", path_posix)
+            artifact_id = source_artifact_id(path_posix, self._repository_id)
             result.append(
                 SourceArtifact(
                     id=artifact_id,
@@ -162,7 +166,7 @@ class NormalizedEvidenceBuilder:
                 Solution(
                     id=solution_id, name=record["name"], path=record["path"],
                     adapter_id=self._adapter_id, adapter_version=self._adapter_version,
-                    project_refs=project_refs, provenance=[_whole_file_source_ref(record["path"])], extensions=record,
+                    project_refs=project_refs, provenance=[_whole_file_source_ref(record["path"], self._repository_id)], extensions=record,
                 )
             )
         return result
@@ -175,7 +179,7 @@ class NormalizedEvidenceBuilder:
             project_id = sha256_id("PRJ", record["path"])
             result.append({
                 "id": project_id, "kind": "Project", "name": record["name"], "path": record["path"],
-                "provenance": [_whole_file_source_ref(record["path"])],
+                "provenance": [_whole_file_source_ref(record["path"], self._repository_id)],
                 "adapter": {"id": self._adapter_id, "version": self._adapter_version},
                 "extensions": {self._adapter_id: record},
             })
@@ -195,7 +199,7 @@ class NormalizedEvidenceBuilder:
             discriminator = assigner_key_counts[key]
             assigner_key_counts[key] += 1
             component_id = sha256_id("CMP", "class-like", record.get("file"), record.get("name"), record.get("kind"), discriminator)
-            source_ref = sha256_id("SRC", (record.get("file") or "").replace("\\", "/"))
+            source_ref = source_artifact_id(record.get("file"), self._repository_id)
             result.append(
                 Component(
                     id=component_id,
@@ -218,7 +222,7 @@ class NormalizedEvidenceBuilder:
             discriminator = assigner_key_counts[key]
             assigner_key_counts[key] += 1
             component_id = sha256_id("CMP", "webform", record.get("path"), record.get("kind"), discriminator)
-            source_ref = sha256_id("SRC", (record.get("path") or "").replace("\\", "/"))
+            source_ref = source_artifact_id(record.get("path"), self._repository_id)
             result.append(
                 Component(
                     id=component_id,
@@ -300,7 +304,7 @@ class NormalizedEvidenceBuilder:
                     # (`source_file`/`evidence`, the same fields the
                     # `functional_dependencies` edge itself carries) --
                     # never a second/invented instance.
-                    provenance=[_connection_provenance(record)],
+                    provenance=[_connection_provenance(record, self._repository_id)],
                     extensions={},
                 )
             )
@@ -316,7 +320,7 @@ class NormalizedEvidenceBuilder:
                     id=record["id"], object_kind="stored_procedure", name=record["name"],
                     state=record.get("confidence", "unresolved"),
                     adapter_id=self._adapter_id, adapter_version=self._adapter_version,
-                    provenance=_evidence_list_provenance(record.get("evidence")), extensions=record,
+                    provenance=_evidence_list_provenance(record.get("evidence"), self._repository_id), extensions=record,
                 )
             )
         for record in sql_operations:
@@ -326,7 +330,7 @@ class NormalizedEvidenceBuilder:
                     id=record["id"], object_kind="sql", name=name,
                     state=record.get("confidence", "unresolved"),
                     adapter_id=self._adapter_id, adapter_version=self._adapter_version,
-                    provenance=_evidence_list_provenance(record.get("evidence")), extensions=record,
+                    provenance=_evidence_list_provenance(record.get("evidence"), self._repository_id), extensions=record,
                 )
             )
         return result
@@ -348,7 +352,7 @@ class NormalizedEvidenceBuilder:
                 duplicate_ordinal = assigner.assign(base_tuple)
                 legacy_ref = poly33_id("CALL", file_name, line, expression, resolved_target)
                 call_id = sha256_id("CAL", file_name, list(containing_symbol), line, expression, resolved_target, duplicate_ordinal)
-                source_artifact = sha256_id("SRC", (file_name or "").replace("\\", "/"))
+                source_artifact = source_artifact_id(file_name, self._repository_id)
                 result.append(
                     CallIdentity(
                         id=call_id,
@@ -371,7 +375,7 @@ class NormalizedEvidenceBuilder:
         result = []
         for file_entry in calls_by_file:
             file_name = file_entry.get("file")
-            source_artifact = sha256_id("SRC", (file_name or "").replace("\\", "/"))
+            source_artifact = source_artifact_id(file_name, self._repository_id)
             for position, record in enumerate(file_entry.get("instantiations", [])):
                 evidence = record.get("evidence") or {}
                 containing_symbol = (
@@ -435,15 +439,15 @@ def _hash_file(target: Path) -> str:
         return hashlib.file_digest(handle, "sha256").hexdigest()
 
 
-def _whole_file_source_ref(path: str) -> EvidenceReference:
+def _whole_file_source_ref(path: str, repository_id: str | None = None) -> EvidenceReference:
     """A `source` `EvidenceReference` for a whole file, identified the same
     way `SourceArtifact.id`/`Component.source_ref` already are (V5.1 R3.2):
     `sha256_id("SRC", path posix)`. Used for entities whose real origin is
     an entire source file (`Solution`, `Project`) rather than one line."""
-    return EvidenceReference.source(sha256_id("SRC", (path or "").replace("\\", "/")))
+    return EvidenceReference.source(source_artifact_id(path, repository_id))
 
 
-def _evidence_list_provenance(evidence: list[dict] | None) -> list[EvidenceReference]:
+def _evidence_list_provenance(evidence: list[dict] | None, repository_id: str | None = None) -> list[EvidenceReference]:
     """Builds provenance from a legacy `evidence[]` list already attached
     to the record (stored procedures/SQL operations carry one real
     occurrence per element: `file`/`line`/`expression`) -- uses the first
@@ -455,11 +459,11 @@ def _evidence_list_provenance(evidence: list[dict] | None) -> list[EvidenceRefer
     file_ = first.get("file")
     if not file_:
         return []
-    source_id = sha256_id("SRC", file_.replace("\\", "/"))
+    source_id = source_artifact_id(file_, repository_id)
     return [EvidenceReference.source(source_id, line=first.get("line"), excerpt=first.get("expression"))]
 
 
-def _connection_provenance(functional_dependency: dict) -> EvidenceReference:
+def _connection_provenance(functional_dependency: dict, repository_id: str | None = None) -> EvidenceReference:
     """Provenance for a `database_connection` `ExternalDependency`, from the
     same `functional_dependencies` edge record (`DataAccessOperation ->
     Connection`) that already carries `source_file`/`evidence` -- the real
@@ -470,5 +474,5 @@ def _connection_provenance(functional_dependency: dict) -> EvidenceReference:
     source_file = functional_dependency.get("source_file")
     excerpt = functional_dependency.get("evidence")
     if source_file:
-        return EvidenceReference.source(sha256_id("SRC", source_file.replace("\\", "/")), excerpt=excerpt)
+        return EvidenceReference.source(source_artifact_id(source_file, repository_id), excerpt=excerpt)
     return EvidenceReference.textual(excerpt or f"target={functional_dependency.get('target')!r}", origin="functional_dependencies")

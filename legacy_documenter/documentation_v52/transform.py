@@ -130,6 +130,15 @@ def _resolve_owner(file_path: str, pre_resolved: str | None, projects: dict, ind
     return UNASSIGNED, sorted(set(candidates))
 
 
+#: Scanner file kinds that are analyzed source code (counted as "source files"); order is irrelevant.
+CODE_FILE_KINDS = ("vb_source", "python_source")
+
+
+def _code_file_kind(path: str) -> str:
+    """The file-kind label of a code file by extension: `.py` is Python; every other code file keeps its historical label."""
+    return "python_source" if path.lower().endswith(".py") else "vb_source"
+
+
 class AudienceTransformer:
     """Builds the neutral model. `noise_policy` classifies technical noise;
     `unassigned_label` names the module for elements with no project and
@@ -612,7 +621,7 @@ class AudienceTransformer:
         return {
             "name": _s(ntpath.basename(root) or "sistema"),
             "solutions": len(source.get("solutions", [])), "projects": len(projects),
-            "source_files": repository.get("stats", {}).get("vb_source", 0),
+            "source_files": sum(repository.get("stats", {}).get(kind, 0) for kind in CODE_FILE_KINDS),
             "screens": len(source.get("webforms", [])) or len({e.get("webform") for e in source.get("entry_points", [])}),
             "flows": total_flows, "real_flows": real,
             "infra_flows": sum(m.values["tx_flows"] for m in module_models), "unresolved_flows": unresolved,
@@ -706,7 +715,7 @@ class AudienceTransformer:
                 continue
             owner, candidates = _resolve_owner(symbol.get("file"), symbol.get("project_path"), projects, compile_index)
             key = (owner, _s(symbol.get("file")))
-            grouped.setdefault(key, {"kind": "vb_source", "candidates": candidates, "items": []})["items"].append(("symbol", symbol))
+            grouped.setdefault(key, {"kind": _code_file_kind(_s(symbol.get("file"))), "candidates": candidates, "items": []})["items"].append(("symbol", symbol))
         for form in webforms:
             owner, candidates = _resolve_owner(form.get("path"), None, projects, content_index)
             key = (owner, _s(form.get("path")))
@@ -734,7 +743,7 @@ class AudienceTransformer:
             if owner == UNASSIGNED and not candidates:
                 owner, candidates = _resolve_owner(display_path, None, projects, content_index)
             lowered = display_path.lower()
-            kind = "vb_source" if lowered.endswith(".vb") or lowered.endswith(".cs") else (
+            kind = _code_file_kind(display_path) if lowered.endswith((".vb", ".cs", ".py")) else (
                 "aspx" if lowered.endswith(".aspx") else "ascx" if lowered.endswith(".ascx") else
                 "master" if lowered.endswith(".master") else "web"
             )

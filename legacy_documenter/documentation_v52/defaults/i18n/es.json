@@ -288,5 +288,7 @@
   "gap.method_dependencies_not_available": "Las dependencias declaradas (Proyecto -> Proyecto/DLL/Archivo) no incluyen qué método las usa; se muestran solo a nivel de proyecto, como en la ronda anterior.",
   "gap.method_unresolved_not_attributable": "Los límites de flujo no resueltos no incluyen, en la forma en que se consumen hoy, el método donde ocurren; se muestran solo agregados por proyecto, como en la ronda anterior.",
   "gap.method_identity_no_signatures": "El análisis no registra parámetros ni firmas de métodos; dos métodos con el mismo nombre en un mismo componente no pueden distinguirse entre sí.",
-  "gap.method_overloads_ambiguous": "Existen nombres de método repetidos dentro de un mismo componente con alguna relación técnica asociada al nombre; se declara la ambigüedad y no se atribuye a un método específico."
+  "gap.method_overloads_ambiguous": "Existen nombres de método repetidos dentro de un mismo componente con alguna relación técnica asociada al nombre; se declara la ambigüedad y no se atribuye a un método específico.",
+  "filekind.python_source": "Código Python",
+  "methodkind.method": "Método"
 }

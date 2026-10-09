@@ -1,0 +1,502 @@
+{
+  "analyzer": {
+    "fingerprint": "f05b2de43b726e75e03b97e1d35fef8b3407d54247e0a4e4537ab24d282fa26b",
+    "version": 3
+  },
+  "base_commit": "bcb8d57097ec769da75f5fc7207b9a6db295e374",
+  "cache": {
+    "cold": {
+      "extraction_cache": {
+        "extraction_cache_enabled": true,
+        "extraction_cache_hits": 0,
+        "extraction_cache_misses": 243,
+        "files_extracted": 243,
+        "files_reused": 0,
+        "reuse_disabled_reason": null
+      },
+      "file_state": {
+        "added": null,
+        "deleted": null,
+        "diff_seconds": null,
+        "file_state_build_seconds": 0.156,
+        "files_total": 540,
+        "line_ending_only": null,
+        "modified": null,
+        "renamed_candidates": null,
+        "unchanged": null,
+        "validate_seconds": 0.096
+      },
+      "mode": "full",
+      "peak_memory_bytes": 192249856,
+      "real_provider_calls": 0,
+      "scope": {
+        "changed_files": {},
+        "mode": "full",
+        "reasons": {
+          "NO_PREVIOUS_STATE": 1
+        },
+        "symbols_in_changed_files": 0
+      },
+      "session_mode": "cold",
+      "stage_seconds": {
+        "CALL_RESOLUTION": 0.061,
+        "CONTEXT": 0.803,
+        "DATABASE_RESOLUTION": 0.006,
+        "DEPENDENCY_RESOLUTION": 0.001,
+        "DOCUMENTATION": 35.994,
+        "EXPORT": 2.371,
+        "EXTRACTION": 1.118,
+        "FLOW_RESOLUTION": 0.183,
+        "SCAN": 0.037,
+        "WEB_ENTRY_RESOLUTION": 0.002
+      },
+      "wall_seconds": 42.222
+    },
+    "incremental": {
+      "extraction_cache": {
+        "extraction_cache_enabled": true,
+        "extraction_cache_hits": 242,
+        "extraction_cache_misses": 1,
+        "files_extracted": 1,
+        "files_reused": 242,
+        "reuse_disabled_reason": null
+      },
+      "file_state": {
+        "added": 0,
+        "deleted": 0,
+        "diff_seconds": 0.001,
+        "file_state_build_seconds": 0.228,
+        "files_total": 540,
+        "line_ending_only": 0,
+        "modified": 1,
+        "renamed_candidates": 0,
+        "unchanged": 539,
+        "validate_seconds": 0.235
+      },
+      "mode": "incremental",
+      "peak_memory_bytes": 222265344,
+      "real_provider_calls": 0,
+      "scope": {
+        "changed_files": {
+          "modified": 1
+        },
+        "mode": "full",
+        "reasons": {
+          "SOURCE_IN_PROJECT": 1
+        },
+        "symbols_in_changed_files": 1
+      },
+      "session_mode": "warm",
+      "stage_seconds": {
+        "CALL_RESOLUTION": 0.064,
+        "CONTEXT": 0.985,
+        "DATABASE_RESOLUTION": 0.01,
+        "DEPENDENCY_RESOLUTION": 0.001,
+        "DOCUMENTATION": 3.52,
+        "EXPORT": 2.651,
+        "EXTRACTION": 0.007,
+        "FLOW_RESOLUTION": 0.369,
+        "SCAN": 0.073,
+        "WEB_ENTRY_RESOLUTION": 0.005
+      },
+      "wall_seconds": 8.469
+    },
+    "incremental_equals_cold_of_mutated": {
+      "added": 0,
+      "bytes": 115327786,
+      "changed": 0,
+      "changed_sample": [],
+      "equal": true,
+      "files_a": 4641,
+      "files_b": 4641,
+      "removed": 0
+    },
+    "warm": {
+      "extraction_cache": {
+        "extraction_cache_enabled": true,
+        "extraction_cache_hits": 243,
+        "extraction_cache_misses": 0,
+        "files_extracted": 0,
+        "files_reused": 243,
+        "reuse_disabled_reason": null
+      },
+      "file_state": {
+        "added": 0,
+        "deleted": 0,
+        "diff_seconds": 0.001,
+        "file_state_build_seconds": 0.15,
+        "files_total": 540,
+        "line_ending_only": 0,
+        "modified": 0,
+        "renamed_candidates": 0,
+        "unchanged": 540,
+        "validate_seconds": 0.12
+      },
+      "mode": "incremental",
+      "peak_memory_bytes": 200462336,
+      "real_provider_calls": 0,
+      "scope": {
+        "changed_files": {},
+        "mode": "partial_candidate",
+        "reasons": {
+          "NO_CHANGES": 1
+        },
+        "symbols_in_changed_files": 0
+      },
+      "session_mode": "warm",
+      "stage_seconds": {
+        "CALL_RESOLUTION": 0.063,
+        "CONTEXT": 0.697,
+        "DATABASE_RESOLUTION": 0.006,
+        "DEPENDENCY_RESOLUTION": 0.001,
+        "DOCUMENTATION": 2.813,
+        "EXPORT": 2.214,
+        "EXTRACTION": 0.005,
+        "FLOW_RESOLUTION": 0.279,
+        "SCAN": 0.036,
+        "WEB_ENTRY_RESOLUTION": 0.004
+      },
+      "wall_seconds": 6.579
+    },
+    "warm_vs_cold_outputs": {
+      "added": 0,
+      "bytes": 115322858,
+      "changed": 0,
+      "changed_sample": [],
+      "equal": true,
+      "files_a": 4640,
+      "files_b": 4640,
+      "removed": 0
+    }
+  },
+  "collisions": {
+    "call_identities": {
+      "ist": 230356,
+      "python": 16145,
+      "shared_ids": 0
+    },
+    "components": {
+      "ist": 9859,
+      "python": 887,
+      "shared_ids": 0
+    },
+    "data_access": {
+      "ist": 20082,
+      "python": 692,
+      "shared_ids": 0
+    },
+    "entry_points": {
+      "ist": 12662,
+      "python": 73,
+      "shared_ids": 0
+    },
+    "event_bindings": {
+      "ist": 12662,
+      "python": 73,
+      "shared_ids": 0
+    },
+    "external_dependencies": {
+      "ist": 4839,
+      "python": 1,
+      "shared_ids": 0
+    },
+    "functional_flows": {
+      "ist": 12642,
+      "python": 19,
+      "shared_ids": 0
+    },
+    "functional_paths": {
+      "ist": 170020,
+      "python": 4600,
+      "shared_ids": 0
+    },
+    "projects": {
+      "ist": 259,
+      "python": 4,
+      "shared_ids": 0
+    },
+    "source_artifacts": {
+      "ist": 15138,
+      "python": 540,
+      "shared_ids": 0
+    },
+    "total_shared_ids": 0,
+    "undeclared_python_vs_ist_shared_src": [
+      ".gitignore"
+    ],
+    "unresolved_boundaries": {
+      "ist": 162914,
+      "python": 4191,
+      "shared_ids": 0
+    }
+  },
+  "consumers_and_plugin": {
+    "EXPORT_JSON": {
+      "error": null,
+      "identities": 1,
+      "ms": 0.71,
+      "partial": false,
+      "result_id": "CRES-22f5630ded2b44995686e3fe244b228a31894b40c5c301570888bf9c67b3cc02",
+      "status": "OK"
+    },
+    "READ_AI_CONTEXT": {
+      "error": null,
+      "identities": 1,
+      "ms": 0.55,
+      "partial": false,
+      "result_id": "CRES-6c572cc719f046ef97b1fda319430d0ed4f8ec190b079bbf4e869cdba1592452",
+      "status": "OK"
+    },
+    "READ_CANONICAL (controlled copy)": {
+      "count": 1,
+      "error": null,
+      "status": "OK"
+    },
+    "READ_EVIDENCE": {
+      "error": null,
+      "identities": 4,
+      "ms": 59.27,
+      "partial": false,
+      "result_id": "CRES-a4c3e21f584fa55b96983ea852eda1ce01bdfcd8655d2d597198fdca82d05f15",
+      "status": "OK"
+    },
+    "READ_FLOW": {
+      "error": null,
+      "identities": 1,
+      "ms": 0.91,
+      "partial": false,
+      "result_id": "CRES-e2ed2bea69144b4e2f0264b565e9202cfeba4d07595441d4caf313db7d9874af",
+      "status": "OK"
+    },
+    "READ_PARTIAL_FLOW": {
+      "all_partial": true,
+      "error": null,
+      "every_segment_has_omitted_and_refs": true,
+      "flow_id": "FLOW-0042743202",
+      "identities": 108,
+      "included_union_equals_parent": true,
+      "ms": 289.3,
+      "no_overlap": true,
+      "parent_ok": true,
+      "partial": true,
+      "real_segmentation": true,
+      "result_id": "CRES-2a0ecbd99649e37ddbbc1b392242571a213066124a56aad9407a964603c47c9b",
+      "segments": 108,
+      "status": "OK"
+    },
+    "READ_REVIEW_HISTORY (controlled copy)": {
+      "audit_chain_verified": true,
+      "status": "OK"
+    },
+    "RENDER_HUMAN_DOC human-functional": {
+      "error": null,
+      "identities": 1,
+      "ms": 7.22,
+      "partial": false,
+      "result_id": "CRES-bd5f33771464298708976508f6649e374bded16ff8b72bd00fbefd2bfab176b5",
+      "status": "OK"
+    },
+    "RENDER_HUMAN_DOC human-technical": {
+      "error": null,
+      "identities": 1,
+      "ms": 16.15,
+      "partial": false,
+      "result_id": "CRES-d21b4222a5d0c3677868007032dfb465e9ffd867652d5280617281ca44b20fa0",
+      "status": "OK"
+    },
+    "determinism_same_bytes": true,
+    "fake_plugin_v58_manifest": {
+      "READ_EVIDENCE": "OK",
+      "READ_FLOW": "OK",
+      "undeclared_capability": "UNSUPPORTED_CAPABILITY",
+      "write_capability": "READ_ONLY_VIOLATION"
+    },
+    "provider_resolution_attempts": 0
+  },
+  "debt": {
+    "blocking": [],
+    "future_phase": [
+      "external independent second-tech validation",
+      "richer Python type inference",
+      "argparse/console entry points",
+      "Python DB adapters",
+      "Plugin Runtime",
+      "third technology"
+    ],
+    "observation": [
+      "SELF_HOSTED_CIRCULAR_PILOT",
+      "undeclared repositories share legacy V5.1 SRC namespace",
+      "PRJ-/CMP-/CAL-/XDP- remain path-derived",
+      "physical-root names appear in some presentation outputs",
+      "incremental scope reports mode=full for code changes"
+    ],
+    "resolved": [
+      "CROSS_REPOSITORY_SOURCE_ARTIFACT_ID_COLLISION"
+    ]
+  },
+  "determinism_tree_equal": true,
+  "evidence_reference_count": 22514,
+  "evidence_schema_version": "1.0",
+  "external_independence_claim": false,
+  "fake_provider_and_review": {
+    "external_independence_claim": false,
+    "fits_budget": {
+      "ai_invoked": true,
+      "canonical_knowledge_produced": false,
+      "context_window": 16000,
+      "envelope_status": "PENDING_TECHNICAL_LEAD_REVIEW",
+      "knowledge_dir_present": false,
+      "proposal_count": 1,
+      "proposal_status": [
+        "READY_FOR_REVIEW"
+      ],
+      "provider_requests_recorded": 1,
+      "real_provider_resolution_attempts": 0,
+      "request_count": 1,
+      "segment_partial_flags": [],
+      "segmented_proposals": 0,
+      "status": "SUCCESS",
+      "technical_lead_approval": false
+    },
+    "independent_external_product": false,
+    "pilot_kind": "SELF_HOSTED_CIRCULAR",
+    "real_second_technology": true,
+    "review_controlled": {
+      "audit_canonical_matches": true,
+      "audit_chain_links": [
+        "baseline",
+        "canonical",
+        "decision",
+        "evidence_fingerprint",
+        "proposal_snapshot"
+      ],
+      "baseline_id": "BAS-fd524e687ef956493e8a966bfb697ba99356c25ff510e50f3a1a9e682d3e25fb",
+      "canonical_id": "CAN-4d13db46cfb622721fa42488e350c4787183444fb93036b098253dea24de79b4",
+      "canonical_readback_equal": true,
+      "decision": "APPROVE",
+      "original_artifact_has_knowledge_dir": false,
+      "proposal_id": "PRP-1d34890466eb03b875b9590b94192263aae1f9a593b790cb9848d06fcd9624be",
+      "stale_copy_has_canonical": false,
+      "stale_guard": "PROPOSAL_STALE"
+    },
+    "second_source_is_legacy_mapper_itself": true
+  },
+  "independent_external_product": false,
+  "ist": {
+    "conditions": {
+      "fingerprint_matches": true,
+      "production_frozen_since_ist_run_start": true,
+      "source_unchanged": true
+    },
+    "reused_from": "V5.9-R2 full run (656 s class, cold)",
+    "run": {
+      "ai_invoked": false,
+      "ai_requested": false,
+      "analyzer_fingerprint": "f05b2de43b726e75e03b97e1d35fef8b3407d54247e0a4e4537ab24d282fa26b",
+      "extraction_cache": {
+        "extraction_cache_hits": 0,
+        "extraction_cache_misses": 8106,
+        "files_extracted": 8106,
+        "files_reused": 0,
+        "reuse_disabled_reason": null
+      },
+      "fallback_reason": "NO_CACHE",
+      "peak_memory_bytes": 3009417216,
+      "provider_resolution_attempts": 0,
+      "registry_calls": 0,
+      "session_mode": "cold",
+      "stage_seconds": {
+        "CALL_RESOLUTION": 1.498,
+        "CONTEXT": 27.56,
+        "DATABASE_RESOLUTION": 1.571,
+        "DEPENDENCY_RESOLUTION": 0.432,
+        "DOCUMENTATION": 467.52,
+        "EXPORT": 61.241,
+        "EXTRACTION": 64.855,
+        "FLOW_RESOLUTION": 6.437,
+        "SCAN": 1.231,
+        "WEB_ENTRY_RESOLUTION": 1.246
+      },
+      "status": "SUCCESS",
+      "wall_seconds": 651.678
+    },
+    "verification": {
+      "added": 0,
+      "bytes": 2828066791,
+      "changed": 0,
+      "equal": true,
+      "files": 47523,
+      "fingerprint": "f05b2de43b726e75e03b97e1d35fef8b3407d54247e0a4e4537ab24d282fa26b",
+      "fingerprint_matches_r2_run": true,
+      "removed": 0,
+      "source_files": 15138,
+      "source_sha256": "77965c64c7e204d39dc06a9451076df07a4b400e2bd41372fff2bab7fcd792e5"
+    }
+  },
+  "next": "V5 Closure (not started)",
+  "origin_commit": "e9e3d6063243073e65a93cbece97d6050184a0c6",
+  "pilot_kind": "SELF_HOSTED_CIRCULAR",
+  "production_frozen": true,
+  "provider_calls": 0,
+  "provider_resolution_attempts": 0,
+  "python_entity_counts": {
+    "call_identities": 16145,
+    "components": 887,
+    "data_access": 692,
+    "data_objects": 0,
+    "entry_points": 73,
+    "external_dependencies": 1,
+    "functional_flows": 19,
+    "functional_paths": 4600,
+    "projects": 4,
+    "source_artifacts": 540,
+    "unresolved_boundaries": 4191
+  },
+  "r1": "APPROVED",
+  "r2": "APPROVED",
+  "r3": "COMPLETED",
+  "real_llm_calls": 0,
+  "real_second_technology": true,
+  "relocation": {
+    "relocation_all_evidence_partitions_equal_except_physical_root": true,
+    "relocation_src_ids_equal": true
+  },
+  "relocation_physical_root_files": [
+    "ai_context/SYSTEM_CONTEXT.json",
+    "documentation/PROJECT_OVERVIEW.md",
+    "documentation/README.md",
+    "documentation_v52/MANIFEST.json",
+    "documentation_v52/general/README.md",
+    "evidence/EVIDENCE_MANIFEST.json",
+    "evidence/scan_summary.json"
+  ],
+  "repository_identity": {
+    "declared": "sha256_id('SRC', repository_id, relative_posix_path)",
+    "mandatory": false,
+    "undeclared": "V5.1 formula unchanged"
+  },
+  "round": "V5.9-R3",
+  "second_adapter_id": "python-generic",
+  "second_adapter_version": "1.0",
+  "second_source_id": "SELF_HOSTED_LEGACYMAPPER_V4_2_R8_E9E3D60",
+  "second_source_is_legacy_mapper_itself": true,
+  "second_technology": "Python",
+  "source_intact": true,
+  "status": "V5_9_CLOSED",
+  "tag": "TAG_NOT_CREATED_BY_INSTRUCTION",
+  "tests": {
+    "directed": {
+      "errors": 0,
+      "failures": 0,
+      "total": 667
+    },
+    "full_suite": {
+      "duration_seconds": 638.325,
+      "errors": 0,
+      "failures": 0,
+      "skips": 132,
+      "total": 3100
+    }
+  },
+  "tree_hash": "a190898bd89683a8ae443fd9d0640e37fc454327ceea34cacdd818c2862ce39e"
+}

@@ -11,7 +11,8 @@ from legacy_documenter.cli.run_summary_presenter import render_console_summary
 LOG = logging.getLogger("legacy_documenter")
 
 
-def analyze_repository(repo_root: str | Path, output_dir: str | Path, excludes: list[str] | None = None, flow_max_depth: int = 12) -> dict:
+def analyze_repository(repo_root: str | Path, output_dir: str | Path, excludes: list[str] | None = None, flow_max_depth: int = 12,
+                       repository_id: str | None = None) -> dict:
     """Runs the deterministic analysis pipeline end to end (the `analyze` compatibility orchestration).
 
     Calls the same stage functions `full` uses (`legacy_documenter.cli.pipeline_stages`
@@ -25,27 +26,31 @@ def analyze_repository(repo_root: str | Path, output_dir: str | Path, excludes: 
     output = Path(output_dir).resolve()
 
     extraction = stages.extract_repository(scan.files, scan.root)
-    call_resolution = stages.resolve_calls(extraction.calls, extraction.symbols)
+    adapter = stages.adapter_of(extraction)
+    call_resolution = stages.resolve_calls(extraction.calls, extraction.symbols, adapter)
     web_entry_resolution = stages.resolve_web_entries(
-        extraction.webforms, extraction.symbols, extraction.web_events, call_resolution.calls
+        extraction.webforms, extraction.symbols, extraction.web_events, call_resolution.calls, adapter
     )
     functional_dependencies = call_resolution.functional_dependencies + web_entry_resolution.functional_dependencies
-    database_resolution = stages.resolve_database(extraction.data_access_indexes, extraction.projects)
+    database_resolution = stages.resolve_database(extraction.data_access_indexes, extraction.projects, adapter)
     functional_dependencies = functional_dependencies + database_resolution.functional_dependencies
     flow_resolution = stages.resolve_flows(
         web_entry_resolution.entry_points, call_resolution.calls, database_resolution.data_access,
         database_resolution.stored_procedures, database_resolution.sql_operations,
-        functional_dependencies, extraction.errors, flow_max_depth,
+        functional_dependencies, extraction.errors, flow_max_depth, adapter,
     )
-    dependencies = stages.resolve_dependencies(extraction.solutions, extraction.projects, extraction.symbols, extraction.webforms)
+    dependencies = stages.resolve_dependencies(extraction.solutions, extraction.projects, extraction.symbols, extraction.webforms, adapter)
 
+    repository = {
+        "root": str(scan.root),
+        "stats": scan.classifier.stats([item.to_dict() for item in scan.files]),
+        "ignored": scan.scanner.ignored,
+        "duration_seconds": round(perf_counter() - start, 3),
+    }
+    if repository_id:  # declared logical identity (V5.9 R2); omitted when undeclared so existing outputs are unchanged
+        repository["repository_id"] = repository_id
     indexes = {
-        "repository": {
-            "root": str(scan.root),
-            "stats": scan.classifier.stats([item.to_dict() for item in scan.files]),
-            "ignored": scan.scanner.ignored,
-            "duration_seconds": round(perf_counter() - start, 3),
-        },
+        "repository": repository,
         "files": [item.to_dict() for item in scan.files],
         "solutions": extraction.solutions,
         "projects": extraction.projects,

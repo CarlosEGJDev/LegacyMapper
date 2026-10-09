@@ -25,6 +25,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import re
 from collections import Counter
 from collections.abc import Iterable
 from dataclasses import dataclass
@@ -41,6 +42,34 @@ def sha256_id(prefix: str, *parts: object) -> str:
     canonical = json.dumps(list(parts), ensure_ascii=False, separators=(",", ":"))
     digest = hashlib.sha256(canonical.encode("utf-8")).hexdigest()
     return f"{prefix}-{digest}"
+
+
+_REPOSITORY_ID_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$")
+
+
+def normalize_repository_id(value: object) -> str | None:
+    """A declared logical repository id, or `None` (undeclared). Never a path: no separators, spaces or control characters.
+
+    This is a *declared name* chosen by a person (V5.9 R2), independent of where the repository lives on disk, of the
+    machine and of the user, so moving or copying the same repository never changes any identity derived from it.
+    """
+    if value is None:
+        return None
+    if not isinstance(value, str) or not _REPOSITORY_ID_RE.match(value):
+        raise ValueError("repository_id must be 1-128 chars of letters, digits and . _ : - (no path separators or spaces)")
+    return value
+
+
+def source_artifact_id(path: str, repository_id: str | None = None) -> str:
+    """`SRC-` identity of a source file.
+
+    Undeclared repository (default): `sha256_id("SRC", path)` exactly as V5.1 fixed it (IDENTITY_COMPATIBLE, every existing
+    baseline keeps its ids). Declared repository: `sha256_id("SRC", repository_id, path)`, so the same relative path in two
+    different logical repositories can never share an id. `path` is the repository-relative POSIX path.
+    """
+    posix = (path or "").replace("\\", "/")
+    rid = normalize_repository_id(repository_id)
+    return sha256_id("SRC", posix) if rid is None else sha256_id("SRC", rid, posix)
 
 
 def poly33_id(prefix: str, *parts: object) -> str:

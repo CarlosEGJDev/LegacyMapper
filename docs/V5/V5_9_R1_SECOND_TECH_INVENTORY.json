@@ -1,0 +1,159 @@
+{
+  "external_independence_claim": false,
+  "history": [
+    {
+      "detail": "no real/local second-technology application found; candidates inspected and rejected",
+      "outcome": "BLOCKED_SECOND_TECH_SOURCE",
+      "step": "Gate A"
+    },
+    {
+      "detail": "prompts/V5/V5_9_R1_RESUME_AUTHORIZED_CIRCULAR_PYTHON_PILOT.md: explicit, exceptional authorization to use a local copy of LegacyMapper (Python)",
+      "outcome": "AUTHORIZED_CIRCULAR_PYTHON_PILOT",
+      "step": "human decision"
+    },
+    {
+      "detail": "no R1.1/R1B/R2 created; same deliverables updated",
+      "outcome": "SAME_ROUND",
+      "step": "R1 resumed"
+    }
+  ],
+  "independent_external_product": false,
+  "initial_gate_a_candidates": [
+    {
+      "path": "C:\\Users\\cgalianj\\source\\IST*",
+      "technology": "vbnet-webforms-oracle",
+      "verdict": "REJECTED_IS_CURRENT_TECHNOLOGY"
+    },
+    {
+      "bytes": 2009084,
+      "path": "C:\\PruebasLegacyMapper\\LegacyMapper (+dist)",
+      "python_files": 246,
+      "technology": "python",
+      "verdict": "REJECTED_CIRCULAR_TOOL_ITSELF"
+    },
+    {
+      "bytes": 368910,
+      "path": "C:\\dev\\AI-SES-Refactoring\\.tmp_validation_r4",
+      "python_files": 79,
+      "technology": "python",
+      "verdict": "REJECTED_THIRD_PARTY_SITE_PACKAGES"
+    },
+    {
+      "bytes": 2112,
+      "path": "C:\\dev\\cursos\\python\\.venv",
+      "python_files": 2,
+      "technology": "python",
+      "verdict": "REJECTED_THIRD_PARTY_SITE_PACKAGES"
+    },
+    {
+      "bytes": 40283,
+      "path": "C:\\Users\\cgalianj\\develop\\python\\automatizaciones",
+      "python_files": 11,
+      "technology": "python",
+      "verdict": "REJECTED_UTILITY_SCRIPTS_NOT_REPRESENTATIVE"
+    },
+    {
+      "js_files": 10,
+      "path": "C:\\Users\\cgalianj\\Desktop\\Escritorio\\sqldeveloper",
+      "sql_files": 151,
+      "technology": "sql/javascript",
+      "verdict": "REJECTED_PRODUCT_INSTALL_NOT_A_SYSTEM"
+    },
+    {
+      "path": "E:\\sitios, E:\\TMP_FILE, sitios.zip",
+      "source_files": 0,
+      "technology": "none",
+      "verdict": "REJECTED_NO_SOURCE"
+    },
+    {
+      "path": "tests/ fixtures",
+      "technology": "synthetic",
+      "verdict": "UNIT_TESTS_ONLY_BY_RULE"
+    }
+  ],
+  "interpretation": {
+    "allowed": "V5.9 shows the V5 architecture processes two different stacks (VB.NET WebForms/Oracle and Python) through common contracts.",
+    "not_allowed": "independent generalization to arbitrary external systems; that requires a future external corpus"
+  },
+  "pilot_kind": "SELF_HOSTED_CIRCULAR",
+  "real_second_technology": true,
+  "round": "V5.9-R1",
+  "second_source_is_legacy_mapper_itself": true,
+  "selected": {
+    "selection_basis": "explicit human authorization (circular); frozen copy = tracked tree of C:\\PruebasLegacyMapper\\LegacyMapper at e9e3d60 (V4.2-R8, predates every V5 adapter, so no contamination by the new adapter)",
+    "source": {
+      "SECOND_TECH_SOURCE_ID": "SELF_HOSTED_LEGACYMAPPER_V4_2_R8_E9E3D60",
+      "authorized_origin": "C:\\PruebasLegacyMapper\\LegacyMapper",
+      "call_sites": 16145,
+      "candidate_entrypoints(main guards)": 73,
+      "class_count": 644,
+      "cli_entrypoints_via_argparse_or_console_scripts": "NOT_COVERED_BY_ADAPTER (no setup/console_scripts; argparse handlers are not followed)",
+      "data_access_if_present": "filesystem only (no SQL/DB driver imports)",
+      "external_independence_claim": false,
+      "extraction_errors": [],
+      "file_count_scanned": 540,
+      "file_operation_candidates": 692,
+      "frozen_copy": "git archive e9e3d60 -> output/_local_v59r1/python_source (tracked files only, read-only use)",
+      "function_member_count": 2721,
+      "import_statements": 1985,
+      "independent_external_product": false,
+      "internal_import_roots": [
+        "legacy_documenter",
+        "tests",
+        "tools"
+      ],
+      "module_count": 243,
+      "network_or_provider_modules_imported": [
+        "asyncio",
+        "copilot",
+        "urllib"
+      ],
+      "origin_commit": "e9e3d6063243073e65a93cbece97d6050184a0c6",
+      "origin_untracked_or_modified_excluded": [
+        "?? list_copilot_models.py",
+        "?? test_flow_ai.py",
+        "?? test_flow_ai_hydrated.py"
+      ],
+      "pilot_kind": "SELF_HOSTED_CIRCULAR",
+      "projects(top-level dirs)": [
+        {
+          "external_packages": [],
+          "files": 1,
+          "name": "(root)"
+        },
+        {
+          "external_packages": [
+            "copilot"
+          ],
+          "files": 169,
+          "name": "legacy_documenter"
+        },
+        {
+          "external_packages": [],
+          "files": 62,
+          "name": "tests"
+        },
+        {
+          "external_packages": [],
+          "files": 11,
+          "name": "tools"
+        }
+      ],
+      "pyproject.toml": false,
+      "python_files": 243,
+      "python_source_bytes": 2023806,
+      "real_second_technology": true,
+      "requirements": [],
+      "scan_excludes": [
+        "fixtures (VB test fixtures of the corpus; would make the repository mixed-technology)"
+      ],
+      "second_source_is_legacy_mapper_itself": true,
+      "setup.cfg": false,
+      "setup.py": false,
+      "source_bytes_scanned": 5795557,
+      "technology": "python",
+      "tree_hash_sha256": "a190898bd89683a8ae443fd9d0640e37fc454327ceea34cacdd818c2862ce39e"
+    },
+    "technology": "python"
+  }
+}

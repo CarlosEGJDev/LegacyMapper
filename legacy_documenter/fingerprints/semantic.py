@@ -13,7 +13,7 @@ from ._common import normalize_newlines
 
 #: `file_type`s that have an extractor (the keys of `extract_repository`'s extractor map; a guard test keeps
 #: this set equal to them). Only these get a semantic hash; everything else is raw-hash only.
-ANALYZED_FILE_TYPES = frozenset({"solution", "vb_project", "vb_source", "aspx", "ascx", "master", "web_config"})
+ANALYZED_FILE_TYPES = frozenset({"solution", "vb_project", "vb_source", "aspx", "ascx", "master", "web_config", "python_source"})
 
 
 def semantic_content_sha256(content: bytes, file_type: str) -> str | None:

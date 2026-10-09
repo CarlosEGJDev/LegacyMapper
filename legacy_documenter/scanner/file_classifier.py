@@ -14,6 +14,8 @@ class FileClassifier:
             return "vb_project"
         if suffix == ".vb":
             return "vb_source"
+        if suffix == ".py":
+            return "python_source"
         if suffix == ".aspx":
             return "aspx"
         if suffix == ".ascx":

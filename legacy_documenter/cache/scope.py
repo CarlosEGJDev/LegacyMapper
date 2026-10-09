@@ -35,7 +35,7 @@ MODE_FULL = "full"
 MODE_PARTIAL = "partial_candidate"
 #: Lists in the persisted form are capped so a branch switch cannot bloat the metrics; counts are always exact.
 LIST_LIMIT = 200
-CODE_TYPES = frozenset({"vb_source", "aspx", "ascx", "master"})
+CODE_TYPES = frozenset({"vb_source", "aspx", "ascx", "master", "python_source"})
 GLOBAL_RESOLUTION = "GLOBAL_RESOLUTION_EFFECTS_NOT_BOUNDED"
 #: Change kinds whose effect on name resolution is global and therefore unbounded by project dependencies.
 GLOBAL_TRIGGER_TYPES = CODE_TYPES | {"vb_project", "solution"}

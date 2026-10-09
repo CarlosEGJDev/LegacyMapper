@@ -27,7 +27,10 @@ PACKAGE = Path(versions.__file__).resolve().parent
 #   1. relevant analyzer code changed -> bump `legacy_documenter.versions.ANALYZER_VERSION`;
 #   2. then update BOTH values below to the new version and the fingerprint the failure message prints.
 GUARD_ANALYZER_VERSION = 3
-GUARD_ANALYZER_CODE_FINGERPRINT = "4f7600f0fa351674878d66940352e9569de2b0f620643a3124b5c94545eb1ec6"
+# V5.9-R1: the python-generic adapter (new analyzer source), the `.py` file kind and the stage routing change the code fingerprint;
+# the vbnet-webforms-oracle output is proven byte-identical on the real IST run, so ANALYZER_VERSION stays 3 (previous value: 4f7600f0fa351674878d66940352e9569de2b0f620643a3124b5c94545eb1ec6).
+# V5.9-R2: namespaced SourceArtifact identity in both adapters' normalization (opt-in, undeclared = V5.1 ids); previous: ce21000dfe5c64c4ad8af70c1dcb240eeb9d342bdf06d72220b7be7cbd39d2d7.
+GUARD_ANALYZER_CODE_FINGERPRINT = "f05b2de43b726e75e03b97e1d35fef8b3407d54247e0a4e4537ab24d282fa26b"
 
 
 def _new_runtime_files() -> list[Path]:
@@ -478,7 +481,9 @@ class SemanticHashTests(unittest.TestCase):
         for node in ast.walk(extract):
             if isinstance(node, ast.Return) and isinstance(node.value, ast.Dict):
                 keys = {k.value for k in node.value.keys}
-        self.assertEqual(set(fingerprints.ANALYZED_FILE_TYPES), keys)
+        # V5.9: the analyzed set is the union of every registered adapter's extractable kinds.
+        from legacy_documenter.adapters.python_generic.adapter import PythonGenericAdapter
+        self.assertEqual(set(fingerprints.ANALYZED_FILE_TYPES), keys | PythonGenericAdapter.descriptor.source_kinds)
 
     def test_source_artifact_sha256_is_not_modified(self):
         from legacy_documenter.adapters.vbnet_webforms_oracle import normalization as builder

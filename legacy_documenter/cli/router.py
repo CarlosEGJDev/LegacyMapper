@@ -52,7 +52,7 @@ class AnalyzeRepository(Protocol):
     """Shape of `legacy_documenter.main.analyze_repository`, injected to avoid a circular import."""
 
     def __call__(
-        self, repo_root: str, output_dir: str, excludes: list[str] | None = None, flow_max_depth: int = 12
+        self, repo_root: str, output_dir: str, excludes: list[str] | None = None, flow_max_depth: int = 12, **identity: object
     ) -> dict: ...
 
 
@@ -71,9 +71,15 @@ def route(args: Namespace, analyze_repository: AnalyzeRepository) -> tuple[int, 
     raise ValueError(f"Unknown command: {args.command!r}")
 
 
+def _identity_kwargs(args: Namespace) -> dict:
+    """`repository_id` is forwarded only when declared, so undeclared runs call the pipelines exactly as before."""
+    repository_id = getattr(args, "repository_id", None)
+    return {"repository_id": repository_id} if repository_id else {}
+
+
 def _route_analyze(args: Namespace, analyze_repository: AnalyzeRepository) -> tuple[int, RunResult]:
     """Runs the existing deterministic analysis pipeline unchanged."""
-    analyze_repository(args.repository, args.output, args.exclude, args.flow_max_depth)
+    analyze_repository(args.repository, args.output, args.exclude, args.flow_max_depth, **_identity_kwargs(args))
     return EXIT_SUCCESS, RunResult(command="analyze", status=RunStatus.SUCCESS)
 
 
@@ -96,6 +102,7 @@ def _route_full(args: Namespace) -> tuple[int, RunResult]:
         verify_cache=getattr(args, "verify_cache", "fast"),
         trust_mtime=getattr(args, "trust_mtime", False),
         incremental_max_changed_ratio=getattr(args, "incremental_max_changed_ratio", None),
+        **_identity_kwargs(args),
     )
     return _EXIT_CODE_BY_STATUS[result.status], result
 

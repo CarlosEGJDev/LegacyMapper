@@ -29,4 +29,8 @@ R1 APPROVED, R2 NOT_REQUIRED, R3 COMPLETED. Producción congelada: ningún `.py`
 
 ## Recibo final post-push
 
-(Pendiente de completar tras el push.)
+Estado efectivo: `V5_8_CLOSED`; `V5_8_R3_PUSHED_TO_ORIGIN_MAIN`; `V5_9_READY_TO_START`.
+
+Único commit `bcb8d57097ec769da75f5fc7207b9a6db295e374`; padre `bf901dcefcf8c4b100adbe40421e231d2299c7eb`; mensaje `feat(v5.8): add consumer and plugin contracts`; 23 archivos (20353 inserciones, 30 borrados), staging por rutas explícitas, sin outputs/cache/IST/temp. `git push origin main` sin force (bf901dc..bcb8d57). Verificación: HEAD = origin/main = `git ls-remote origin refs/heads/main` = `bcb8d570…`; ahead 0, behind 0. Sin amend, rebase ni segundo commit. `TAG_NOT_CREATED_BY_INSTRUCTION`.
+
+Este recibo es la única modificación local autorreferencial posterior al push; no se crea segundo commit por él. V5.9 no iniciada.

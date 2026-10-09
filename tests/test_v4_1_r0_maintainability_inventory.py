@@ -151,7 +151,9 @@ class ProductionFileDiscoveryTests(unittest.TestCase):
         # V5.7 R2 adds review/baseline.py (review baseline + proposal snapshot contracts): 274.
         # V5.8 R1 adds the consumer contract (consumers/: __init__, contracts, registry, sources, facade) and the
         # declarative plugin contract (plugins/: __init__, contracts, validation): eight modules, 282 in total.
-        self.assertEqual(len(files), 282)
+        # V5.9 R1 adds the python-generic adapter package (adapters/python_generic: __init__, _names, adapter, analysis,
+        # extraction, normalization, resolution, source_parser): eight modules, 290 in total.
+        self.assertEqual(len(files), 290)
 
 
 class FileAnalysisTests(unittest.TestCase):
@@ -307,16 +309,16 @@ class GeneratedArtifactOnDiskTests(unittest.TestCase):
     def test_on_disk_inventory_matches_fresh_build_if_present(self) -> None:
         """Pin the complete live inventory; preserve the historical V4.1 artifact.
 
-        V5.8 R1 adds the consumer/plugin contract packages (and additive review-store read helpers).
-        Its live snapshot checks every file and aggregate; approved V4.1/V5.4/V5.5/V5.6/V5.7
+        V5.9 R2 namespaces SourceArtifact identity (no new production module; 290 as in R1).
+        Its live snapshot checks every file and aggregate; approved V4.1/V5.4/V5.5/V5.6/V5.7/V5.8
         snapshots remain historical and unchanged.
         """
         historical = REPO_ROOT / "output" / "v4_1_r0" / "V4_1_MAINTAINABILITY_INVENTORY.json"
         if not historical.exists():
             self.skipTest("V4_1_MAINTAINABILITY_INVENTORY.json not yet generated")
-        path = REPO_ROOT / "docs" / "V5" / "V5_8_R1_CONSUMER_PLUGIN_INVENTORY.json"
+        path = REPO_ROOT / "docs" / "V5" / "V5_9_R2_IDENTITY_IMPACT.json"
         snapshot = json.loads(path.read_text(encoding="utf-8"))
-        self.assertEqual(snapshot["round"], "V5.8 R1")
+        self.assertEqual(snapshot["round"], "V5.9 R2")
         self.assertFalse(snapshot["historical_artifacts_modified"])
         self.assertEqual(report.build_inventory(REPO_ROOT), snapshot["inventory"])
 

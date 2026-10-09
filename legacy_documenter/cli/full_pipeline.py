@@ -90,6 +90,7 @@ def run_full_pipeline(
     verify_cache: str = "fast",
     trust_mtime: bool = False,
     incremental_max_changed_ratio: float | None = None,
+    repository_id: str | None = None,
 ) -> RunResult:
     """Executes the full pipeline and writes the run summary artifact.
 
@@ -152,7 +153,7 @@ def run_full_pipeline(
     call_outcome = None
     if extraction_ok:
         call_outcome, call_result = _run_stage(
-            StageId.CALL_RESOLUTION, lambda: stages.resolve_calls(extraction_outcome.calls, extraction_outcome.symbols)
+            StageId.CALL_RESOLUTION, lambda: stages.resolve_calls(extraction_outcome.calls, extraction_outcome.symbols, stages.adapter_of(extraction_outcome))
         )
     else:
         call_result = _skipped(StageId.CALL_RESOLUTION, StageId.EXTRACTION)
@@ -164,7 +165,8 @@ def run_full_pipeline(
         web_entry_outcome, web_entry_result = _run_stage(
             StageId.WEB_ENTRY_RESOLUTION,
             lambda: stages.resolve_web_entries(
-                extraction_outcome.webforms, extraction_outcome.symbols, extraction_outcome.web_events, call_outcome.calls
+                extraction_outcome.webforms, extraction_outcome.symbols, extraction_outcome.web_events, call_outcome.calls,
+                stages.adapter_of(extraction_outcome),
             ),
         )
     else:
@@ -176,7 +178,7 @@ def run_full_pipeline(
     if extraction_ok:
         database_outcome, database_result = _run_stage(
             StageId.DATABASE_RESOLUTION,
-            lambda: stages.resolve_database(extraction_outcome.data_access_indexes, extraction_outcome.projects),
+            lambda: stages.resolve_database(extraction_outcome.data_access_indexes, extraction_outcome.projects, stages.adapter_of(extraction_outcome)),
         )
     else:
         database_result = _skipped(StageId.DATABASE_RESOLUTION, StageId.EXTRACTION)
@@ -199,6 +201,7 @@ def run_full_pipeline(
                 web_entry_outcome.entry_points, call_outcome.calls, database_outcome.data_access,
                 database_outcome.stored_procedures, database_outcome.sql_operations,
                 functional_dependencies, extraction_outcome.errors if extraction_outcome else [], flow_max_depth,
+                stages.adapter_of(extraction_outcome),
             ),
         )
     else:
@@ -217,7 +220,8 @@ def run_full_pipeline(
         dependency_outcome, dependency_result = _run_stage(
             StageId.DEPENDENCY_RESOLUTION,
             lambda: stages.resolve_dependencies(
-                extraction_outcome.solutions, extraction_outcome.projects, extraction_outcome.symbols, extraction_outcome.webforms
+                extraction_outcome.solutions, extraction_outcome.projects, extraction_outcome.symbols, extraction_outcome.webforms,
+                stages.adapter_of(extraction_outcome),
             ),
         )
     else:
@@ -227,7 +231,7 @@ def run_full_pipeline(
     if extraction_ok:
         indexes = _assemble_indexes(
             scan_outcome, extraction_outcome, call_outcome, web_entry_outcome, database_outcome,
-            flow_outcome, dependency_outcome, functional_dependencies, round(perf_counter() - start, 3),
+            flow_outcome, dependency_outcome, functional_dependencies, round(perf_counter() - start, 3), repository_id,
         )
         # V5.3-R2.1: one run-scoped source of hydrated flows, created and owned by `pipeline_stages`
         # (this orchestrator only threads the opaque handle): shared by `consumer_projection` (CONTEXT)
@@ -525,7 +529,7 @@ def _compute_status(stage_results: list[StageResult], has_extraction_errors: boo
 
 def _assemble_indexes(
     scan_outcome, extraction_outcome, call_outcome, web_entry_outcome, database_outcome,
-    flow_outcome, dependency_outcome, functional_dependencies: list[dict], duration_seconds: float,
+    flow_outcome, dependency_outcome, functional_dependencies: list[dict], duration_seconds: float, repository_id: str | None = None,
 ) -> dict:
     """Builds the same `indexes` shape `analyze_repository` builds, from whatever
     stages actually succeeded. A field whose producing stage failed/was skipped
@@ -535,13 +539,16 @@ def _assemble_indexes(
     produce real call data even though it could not be resolved.
     """
     calls = call_outcome.calls if call_outcome else extraction_outcome.calls
+    repository = {
+        "root": str(scan_outcome.root),
+        "stats": scan_outcome.classifier.stats([item.to_dict() for item in scan_outcome.files]),
+        "ignored": scan_outcome.scanner.ignored,
+        "duration_seconds": duration_seconds,
+    }
+    if repository_id:  # declared logical identity (V5.9 R2); omitted when undeclared so existing outputs are unchanged
+        repository["repository_id"] = repository_id
     return {
-        "repository": {
-            "root": str(scan_outcome.root),
-            "stats": scan_outcome.classifier.stats([item.to_dict() for item in scan_outcome.files]),
-            "ignored": scan_outcome.scanner.ignored,
-            "duration_seconds": duration_seconds,
-        },
+        "repository": repository,
         "files": [item.to_dict() for item in scan_outcome.files],
         "solutions": extraction_outcome.solutions,
         "projects": extraction_outcome.projects,
