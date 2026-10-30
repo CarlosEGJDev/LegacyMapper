@@ -1,0 +1,77 @@
+{
+  "id": "tech.layers",
+  "contract_version": "1",
+  "profile_compat": [
+    "technical_overview"
+  ],
+  "scope": "system",
+  "file": "layers.md",
+  "order": 20,
+  "title_key": "tech.layers_title",
+  "disclaimer": "top",
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text_key": "tech.layers_intro"
+    },
+    {
+      "type": "note",
+      "text_key": "aud.layer_rule"
+    },
+    {
+      "type": "link",
+      "text_key": "tech.back_index",
+      "target": "template:tech.system"
+    },
+    {
+      "type": "partitioned_table",
+      "source": "slots.projects_layers",
+      "columns": [
+        {
+          "field": "name",
+          "header_key": "aud.col.project",
+          "link": "project_overview"
+        },
+        {
+          "field": "solutions",
+          "header_key": "aud.col.solutions",
+          "max_chars": 80
+        },
+        {
+          "field": "layer",
+          "header_key": "aud.col.layer",
+          "translate": "layer"
+        },
+        {
+          "field": "layer_status",
+          "header_key": "aud.col.status",
+          "translate": "status"
+        },
+        {
+          "field": "screens",
+          "header_key": "aud.col.screens"
+        },
+        {
+          "field": "real_flows",
+          "header_key": "aud.col.real_flows"
+        },
+        {
+          "field": "data_ops",
+          "header_key": "aud.col.data_ops"
+        },
+        {
+          "field": "refs_out",
+          "header_key": "aud.col.refs_out"
+        },
+        {
+          "field": "refs_in",
+          "header_key": "aud.col.refs_in"
+        }
+      ],
+      "name": "projects",
+      "title_key": "tech.layers_title",
+      "file_stem": "projects",
+      "when": "nonempty:slots.projects_layers"
+    }
+  ]
+}

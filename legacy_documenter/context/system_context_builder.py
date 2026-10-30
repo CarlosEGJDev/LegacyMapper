@@ -15,6 +15,7 @@ class SystemContextBuilder:
     def build(self, output_dir: str | Path, indexes: dict) -> dict:
         """Performs build while preserving this module's deterministic contract."""
         artifacts = self._artifacts(indexes)
+        self._logical_snapshot(artifacts["SYSTEM_CONTEXT.json"]["metadata"], output_dir)
         target = Path(output_dir) / "ai_context"
         target.mkdir(parents=True, exist_ok=True)
         for name, data in artifacts.items():
@@ -23,6 +24,21 @@ class SystemContextBuilder:
             else:
                 write_text_if_changed(target / name, data, family="ai_context")
         return artifacts
+
+    @staticmethod
+    def _logical_snapshot(metadata: dict, output_dir: str | Path) -> None:
+        """Gate B.1 contract: `source_snapshot_sha256` is a LEGACY CONSTANT kept only for historical compatibility (it never was a content
+        hash). The honest snapshot identity is `logical_snapshot_sha256` -- SHA-256 over every analyzed file's (relative path, content
+        sha256) -- read from the run's own Evidence manifest; null when that evidence is unavailable. Neither depends on the physical root."""
+        provenance = {}
+        try:
+            manifest = json.loads((Path(output_dir) / "evidence" / "EVIDENCE_MANIFEST.json").read_text(encoding="utf-8"))
+            provenance = manifest.get("source_provenance") or {}
+        except (OSError, ValueError):
+            pass
+        metadata["source_snapshot_sha256_semantics"] = "legacy_contract_constant_not_a_content_hash"
+        metadata["logical_snapshot_sha256"] = provenance.get("logical_snapshot_sha256")
+        metadata["portable_evidence_sha256"] = provenance.get("portable_evidence_sha256")
 
     def _artifacts(self, ix: dict) -> dict:
         flows = sorted(ix.get("functional_flows", []), key=lambda x: x["id"])

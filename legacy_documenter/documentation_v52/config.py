@@ -33,6 +33,23 @@ SYSTEM_SLOT_FIELDS = {
     "data_providers": {"name", "count"},
     "data_packages": {"package", "objects"},
     "configs": {"path", "marker"},
+    # H2 audience slots (documentation_v52/audience.py)
+    "areas": {"name", "slug", "projects", "screens", "real_flows", "data_ops", "unresolved_total"},
+    "layer_summary": {"layer", "projects", "screens", "real_flows", "data_ops", "status"},
+    "projects_layers": {"name", "slug", "solutions", "layer", "layer_status", "screens", "real_flows", "data_ops", "refs_out", "refs_in", "unresolved_total"},
+    "screens_by_project": {"name", "slug", "screens", "real_flows"},
+    "processes_all": {"project", "webform", "event", "terminal", "action", "status"},
+    # H2-R2 functional readability slots
+    "action_summary": {"action", "interactions", "screens", "projects", "status"},
+    "interactions_by_project": {"project", "interactions", "kinds"},
+    "screens_active": {"webform", "project", "interactions", "kinds"},
+    "areas_unresolved": {"name", "slug", "unresolved_total", "projects"},
+    "data_top": {"target", "kind", "count", "projects"},
+    "integrations": {"name", "kind", "status"},
+    "unresolved_top": {"target", "count", "status"},
+    "unresolved_by_project": {"name", "slug", "unresolved_total", "unresolved_flows", "status"},
+    "ai_interpretations": {"statement", "confidence", "evidence_count", "origin", "status"},
+    "canonical_knowledge": {"statement", "reviewer", "evidence_count", "status"},
 }
 MODULE_SLOT_FIELDS = {
     "entry_points": {"webform", "events", "real_flows"},
@@ -52,6 +69,17 @@ MODULE_SLOT_FIELDS = {
 }
 SOLUTION_SLOT_FIELDS = {
     "projects": {"name", "path", "slug"},
+    "module_rows": {"name", "slug", "layer", "layer_status", "screens", "real_flows", "data_ops", "unresolved_total"},
+    "processes": {"project", "webform", "event", "terminal", "action", "status"},
+    "data_top": {"target", "kind", "count"},
+    "action_summary": {"action", "interactions", "screens", "projects", "status"},
+    "screens_active": {"webform", "project", "interactions", "kinds"},
+    "interactions_read": {"project", "webform", "event", "terminal", "action", "status"},
+    "interactions_create": {"project", "webform", "event", "terminal", "action", "status"},
+    "interactions_update": {"project", "webform", "event", "terminal", "action", "status"},
+    "interactions_delete": {"project", "webform", "event", "terminal", "action", "status"},
+    "interactions_mixed": {"project", "webform", "event", "terminal", "action", "status"},
+    "interactions_unknown": {"project", "webform", "event", "terminal", "action", "status"},
 }
 FILE_SLOT_FIELDS = {
     "components": {"name", "kind", "member_count", "slug"},
@@ -74,13 +102,22 @@ _SCOPE_SLOT_FIELDS = {
 SYSTEM_VALUE_FIELDS = {
     "name", "solutions", "projects", "source_files", "screens", "flows", "real_flows", "infra_flows", "unresolved_flows",
     "percent", "objects", "sql", "edges", "solution_links", "configs", "connections", "data_ops", "unowned_flows",
+    # H2 audience values
+    "areas", "layer_presentation", "layer_logic", "layer_data_access", "layer_unclassified", "ai_proposals", "canonical_records",
+    "integrations", "unresolved_distinct", "unresolved_projects", "processes_listed", "deep_reference",
+    "interactions", "interaction_screens", "interaction_projects", "unresolved_share",
 }
 MODULE_VALUE_FIELDS = {
     "name", "path", "slug", "solutions", "output_type", "project_type", "copy_marker", "source_files", "screens",
     "events", "flows", "real_flows", "tx_flows", "incoming_flows", "incoming_screens", "data_ops", "infra_ops",
     "indirect_targets", "unresolved_total", "unresolved_flows",
+    # H2 audience values
+    "layer", "layer_rule", "layer_status", "refs_out", "refs_in", "deep_path",
 }
-SOLUTION_VALUE_FIELDS = {"name", "path", "slug", "project_count"}
+SOLUTION_VALUE_FIELDS = {
+    "name", "path", "slug", "project_count", "screens", "real_flows", "data_ops", "unresolved_total", "interactions",
+    "layer_presentation", "layer_logic", "layer_data_access", "layer_unclassified",
+}
 FILE_VALUE_FIELDS = {"name", "path", "kind", "module_name", "module_slug", "slug", "component_count", "ownership_note"}
 COMPONENT_VALUE_FIELDS = {
     "name", "kind", "module_name", "module_slug", "file_name", "file_path", "file_slug", "slug", "accessibility",
@@ -96,8 +133,8 @@ _SCOPE_VALUE_FIELDS = {
 }
 PROFILE_PARAMS = {"body_row_limit"}
 BLOCK_TYPES = {"heading", "paragraph", "note", "table", "bullets", "link", "interpreted", "partitioned_table"}
-TRANSLATE_PREFIXES = {"state", "direction", "noise", "kind", "depclass", "filekind", "compkind", "methodkind"}
-LINK_TYPES = ("module", "solution", "file", "component", "method")
+TRANSLATE_PREFIXES = {"state", "direction", "noise", "kind", "depclass", "filekind", "compkind", "methodkind", "status", "layer", "layerrule", "action"}
+LINK_TYPES = ("module", "solution", "file", "component", "method", "area", "project_overview")
 _PARAM_FUNCS = ("count", "total", "shown", "noise", "noise_count")
 _COND_HEADS = {
     "nonempty", "empty", "nonempty_total", "empty_total", "zero", "positive", "value", "empty_value",
@@ -314,6 +351,12 @@ def _check_param_path(path: str, scope: str) -> None:
     if path.startswith("const:"):
         return
     head, _, rest = path.partition(":")
+    if head == "t" and rest:  # H2 `t:<prefix>:<path>` catalog translation
+        prefix, _, inner = rest.partition(":")
+        if prefix not in TRANSLATE_PREFIXES:
+            raise ConfigError(f"traducción desconocida {path!r}")
+        _check_param_path(inner, scope)
+        return
     if rest and head in _PARAM_FUNCS:
         _slot_fields(rest, scope)
         return

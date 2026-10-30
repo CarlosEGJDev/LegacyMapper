@@ -1,0 +1,87 @@
+{
+  "id": "aud.unresolved",
+  "contract_version": "1",
+  "profile_compat": [
+    "functional",
+    "technical_overview"
+  ],
+  "scope": "system",
+  "file": "unresolved.md",
+  "order": 80,
+  "title_key": "aud.unres_title",
+  "disclaimer": "top",
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text_key": "aud.unres_intro"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "aud.unres_totals",
+      "params": {
+        "flows": "system.unresolved_flows",
+        "projects": "system.unresolved_projects",
+        "distinct": "system.unresolved_distinct"
+      }
+    },
+    {
+      "type": "paragraph",
+      "text_key": "aud.status_unresolved"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "aud.unres_top",
+      "when": "nonempty:slots.unresolved_top"
+    },
+    {
+      "type": "table",
+      "source": "slots.unresolved_top",
+      "columns": [
+        {
+          "field": "target",
+          "header_key": "aud.col.target",
+          "code": true,
+          "max_chars": 120
+        },
+        {
+          "field": "count",
+          "header_key": "aud.col.count"
+        },
+        {
+          "field": "status",
+          "header_key": "aud.col.status",
+          "translate": "status"
+        }
+      ],
+      "limit": 25,
+      "when": "nonempty:slots.unresolved_top"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "aud.unres_projects",
+      "when": "nonempty:slots.unresolved_by_project"
+    },
+    {
+      "type": "table",
+      "source": "slots.unresolved_by_project",
+      "columns": [
+        {
+          "field": "name",
+          "header_key": "aud.col.project"
+        },
+        {
+          "field": "unresolved_total",
+          "header_key": "aud.col.unresolved"
+        },
+        {
+          "field": "unresolved_flows",
+          "header_key": "aud.col.flows"
+        }
+      ],
+      "limit": 20,
+      "when": "nonempty:slots.unresolved_by_project"
+    }
+  ]
+}

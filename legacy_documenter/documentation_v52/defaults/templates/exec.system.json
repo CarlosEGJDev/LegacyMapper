@@ -1,0 +1,285 @@
+{
+  "id": "exec.system",
+  "contract_version": "1",
+  "profile_compat": [
+    "executive"
+  ],
+  "scope": "system",
+  "file": "README.md",
+  "order": 10,
+  "title_key": "exec.title",
+  "disclaimer": "top",
+  "blocks": [
+    {
+      "type": "note",
+      "text_key": "aud.legend"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "exec.what"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "exec.what_text",
+      "params": {
+        "name": "system.name",
+        "areas": "system.areas",
+        "projects": "system.projects",
+        "screens": "system.screens",
+        "source_files": "system.source_files"
+      }
+    },
+    {
+      "type": "paragraph",
+      "text_key": "aud.status_confirmed"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "exec.purpose_heading"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "purpose_missing",
+      "when": "no_interpreted:system"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "aud.status_unresolved",
+      "when": "no_interpreted:system"
+    },
+    {
+      "type": "interpreted",
+      "target": "system",
+      "when": "interpreted:system"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "exec.areas"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "exec.areas_text",
+      "params": {
+        "areas": "system.areas",
+        "solutions": "system.solutions"
+      }
+    },
+    {
+      "type": "note",
+      "text_key": "aud.area_note"
+    },
+    {
+      "type": "table",
+      "source": "slots.areas",
+      "columns": [
+        {
+          "field": "name",
+          "header_key": "aud.col.area"
+        },
+        {
+          "field": "projects",
+          "header_key": "aud.col.projects"
+        },
+        {
+          "field": "screens",
+          "header_key": "aud.col.screens"
+        },
+        {
+          "field": "real_flows",
+          "header_key": "aud.col.real_flows"
+        }
+      ],
+      "limit": "profile.body_row_limit",
+      "when": "nonempty:slots.areas"
+    },
+    {
+      "type": "link",
+      "text_key": "exec.areas_link",
+      "target": "template:exec.areas",
+      "params": {
+        "areas": "system.areas"
+      }
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "exec.org"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "exec.org_text",
+      "params": {
+        "projects": "system.projects"
+      }
+    },
+    {
+      "type": "table",
+      "source": "slots.layer_summary",
+      "columns": [
+        {
+          "field": "layer",
+          "header_key": "aud.col.layer",
+          "translate": "layer"
+        },
+        {
+          "field": "projects",
+          "header_key": "aud.col.projects"
+        },
+        {
+          "field": "screens",
+          "header_key": "aud.col.screens"
+        },
+        {
+          "field": "status",
+          "header_key": "aud.col.status",
+          "translate": "status"
+        }
+      ],
+      "limit": "profile.body_row_limit",
+      "when": "nonempty:slots.layer_summary"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "exec.data"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "exec.data_text",
+      "params": {
+        "objects": "system.objects",
+        "sql": "system.sql",
+        "data_ops": "system.data_ops",
+        "connections": "system.connections",
+        "unclassified": "total:slots.unclassified_libraries"
+      }
+    },
+    {
+      "type": "paragraph",
+      "text_key": "aud.status_confirmed"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "exec.risk"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "exec.risk_text",
+      "params": {
+        "flows": "system.flows",
+        "real_flows": "system.real_flows",
+        "percent": "system.percent",
+        "unresolved_flows": "system.unresolved_flows"
+      }
+    },
+    {
+      "type": "paragraph",
+      "text_key": "aud.status_unresolved"
+    },
+    {
+      "type": "bullets",
+      "items": [
+        {
+          "text_key": "gap.no_business_purpose"
+        },
+        {
+          "text_key": "gap.no_module_grouping"
+        },
+        {
+          "text_key": "gap.no_external_services"
+        },
+        {
+          "text_key": "gap.project_copies",
+          "when": "gap:gap.project_copies"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "exec.canonical",
+      "when": "nonempty:slots.canonical_knowledge"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "exec.canonical_text",
+      "when": "nonempty:slots.canonical_knowledge"
+    },
+    {
+      "type": "table",
+      "source": "slots.canonical_knowledge",
+      "columns": [
+        {
+          "field": "statement",
+          "header_key": "aud.col.statement",
+          "max_chars": 400
+        },
+        {
+          "field": "reviewer",
+          "header_key": "aud.col.reviewer"
+        },
+        {
+          "field": "evidence_count",
+          "header_key": "aud.col.evidence"
+        },
+        {
+          "field": "status",
+          "header_key": "aud.col.status",
+          "translate": "status"
+        }
+      ],
+      "limit": "profile.body_row_limit",
+      "when": "nonempty:slots.canonical_knowledge"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "exec.ai",
+      "when": "nonempty:slots.ai_interpretations"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "exec.ai_text",
+      "when": "nonempty:slots.ai_interpretations"
+    },
+    {
+      "type": "table",
+      "source": "slots.ai_interpretations",
+      "columns": [
+        {
+          "field": "statement",
+          "header_key": "aud.col.statement",
+          "max_chars": 400
+        },
+        {
+          "field": "origin",
+          "header_key": "aud.col.origin"
+        },
+        {
+          "field": "evidence_count",
+          "header_key": "aud.col.evidence"
+        },
+        {
+          "field": "status",
+          "header_key": "aud.col.status",
+          "translate": "status"
+        }
+      ],
+      "limit": "profile.body_row_limit",
+      "when": "nonempty:slots.ai_interpretations"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "exec.detail"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "exec.detail_func"
+    }
+  ]
+}

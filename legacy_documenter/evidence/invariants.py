@@ -165,6 +165,59 @@ def validate_provenance(evidence: NormalizedEvidence, store: EvidenceReferenceSt
     return report
 
 
+def validate_ui_evidence(evidence: NormalizedEvidence) -> dict:
+    """UI/navigation/style Evidence gate (Gate B): unique ids per partition, resolvable `source_refs`, known statuses and consistent
+    cross references. Raises `InvariantViolation`; returns per-partition counts."""
+    from .ui_model import PARTITION_CONTROLS, PARTITION_DOCUMENTS, STATUSES, UI_KINDS, UI_PARTITIONS
+
+    if not evidence.ui:
+        return {}
+    source_ids = {artifact.id for artifact in evidence.source_artifacts}
+    documents = {r["id"]: r for r in evidence.ui.get(PARTITION_DOCUMENTS, [])}
+    counts = {}
+    for name in UI_PARTITIONS:
+        records = evidence.ui.get(name)
+        if records is None:
+            raise InvariantViolation(f"UI-1: partition {name} missing from a run that produced UI evidence")
+        duplicates = detect_duplicate_ids(r.get("id") for r in records)
+        if duplicates:
+            raise InvariantViolation(f"UI-1: duplicate ids in {name}: {[d.id for d in duplicates[:3]]}")
+        for record in records:
+            if record.get("kind") != UI_KINDS[name]:
+                raise InvariantViolation(f"UI-2: {name} record {record.get('id')} has kind {record.get('kind')!r}")
+            if record.get("status") not in STATUSES:
+                raise InvariantViolation(f"UI-3: {name} record {record.get('id')} has status {record.get('status')!r}")
+            if "source_refs" in record:                          # self-sourced record (document, navigation edge, file, stylesheet)
+                if not record["source_refs"] or any(ref not in source_ids for ref in record["source_refs"]):
+                    raise InvariantViolation(f"UI-4: {name} record {record.get('id')} has unresolved source_refs")
+                continue
+            scope = (record.get("relationships") or {}).get("source_scope")      # child fact: provenance through its document
+            if scope == "shared":
+                continue
+            doc = documents.get((record.get("relationships") or {}).get("document_id"))
+            code = ((doc or {}).get("properties") or {}).get("code_behind") or {}
+            if doc is None or scope not in ("markup", "code_behind") or (scope == "code_behind" and not code.get("source_ref")):
+                raise InvariantViolation(f"UI-4: {name} record {record.get('id')} has unresolved source_refs")
+        counts[name] = len(records)
+    document_ids = {r["id"] for r in evidence.ui[PARTITION_DOCUMENTS]}
+    control_ids = {r["id"] for r in evidence.ui[PARTITION_CONTROLS]}
+    for name, field_ in (("ui_controls", "document_id"), ("ui_event_bindings", "document_id"), ("ui_messages", "document_id"),
+                         ("ui_parameters", "document_id")):
+        for record in evidence.ui[name]:
+            if record["relationships"].get(field_) not in document_ids:
+                raise InvariantViolation(f"UI-5: {name} record {record['id']} points to an unknown document")
+    profiles = {r["id"] for r in evidence.ui["ui_style_references"] if r["properties"].get("style_kind") == "style_profile"}
+    for record in evidence.ui["ui_controls"]:
+        profile = record["relationships"].get("style_profile")
+        if profile is not None and profile not in profiles:
+            raise InvariantViolation(f"UI-5: ui_controls record {record['id']} points to an unknown style profile")
+    for record in evidence.ui["ui_assets"]:
+        rel = record["relationships"]
+        if rel.get("control_record") and rel["control_record"] not in control_ids:
+            raise InvariantViolation(f"UI-5: ui_assets record {record['id']} points to an unknown control")
+    return counts
+
+
 def validate_evidence(evidence: NormalizedEvidence) -> dict[str, dict]:
     """Production gate run before `evidence/` is persisted (V5.1 R3.1 D-3,
     extended by V5.1 R3.2 D-4): I-1 over every canonical kind, mandatory
@@ -179,6 +232,7 @@ def validate_evidence(evidence: NormalizedEvidence) -> dict[str, dict]:
     if unhashed:
         raise InvariantViolation(f"SourceArtifact.sha256 missing/invalid for {len(unhashed)} artifact(s): {unhashed[:5]}")
     validate_provenance(evidence)  # I-4/I-5 -- raises InvariantViolation on empty/broken provenance
+    validate_ui_evidence(evidence)
     return report
 
 

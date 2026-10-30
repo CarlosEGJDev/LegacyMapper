@@ -109,6 +109,8 @@ class NormalizedEvidenceBuilder:
         self._repository_id = normalize_repository_id(evidence.repository.get("repository_id"))  # None = undeclared: V5.1 ids
         evidence.scan_summary = self._build_scan_summary(evidence.repository)
         evidence.source_artifacts = self._build_source_artifacts(indexes.get("files", []), self._resolve_repo_root(evidence.repository))
+        self._build_ui_evidence(evidence, indexes)
+        evidence.cross_project_calls = self._build_cross_project_calls(indexes)
         evidence.solutions = self._build_solutions(indexes.get("solutions", []))
         evidence.projects = self._build_projects(indexes.get("projects", []))
         evidence.components = self._build_components(indexes.get("symbols", []), indexes.get("webforms", []))
@@ -154,6 +156,59 @@ class NormalizedEvidenceBuilder:
                 )
             )
         return result
+
+    # -- cross-project call resolution (post-V5 Gate C) -------------------
+
+    def _build_cross_project_calls(self, indexes: dict) -> list[dict]:
+        """Persists the cross-project resolution facts the CALL_RESOLUTION stage already decided (no new resolution happens here)."""
+        file_project = {}
+        for symbol in indexes.get("symbols", []):
+            if symbol.get("project_path") and symbol.get("file"):
+                file_project.setdefault(str(symbol["file"]).replace("\\", "/").lower(), str(symbol["project_path"]).replace("\\", "/"))
+        assigner = DuplicateOrdinalAssigner()
+        records = []
+        for group in indexes.get("calls", []):
+            file_name = group.get("file")
+            for call in group.get("calls", []):
+                xp = call.get("cross_project")
+                source_project = file_project.get(str(file_name or "").replace("\\", "/").lower())
+                target_project = (xp or {}).get("project") or call.get("resolved_project")
+                target_project = str(target_project).replace("\\", "/") if target_project else None
+                crossing = bool(target_project and source_project and target_project != source_project)
+                if xp is None and not crossing:
+                    continue
+                evidence_ref = call.get("evidence") or {}
+                if xp is None:
+                    xp = {"status": "CONFIRMED", "code": "RESOLVED", "basis": "unique_declaring_type", "candidate_count": 1,
+                          "candidates": [call.get("resolved_target")]}
+                base = (file_name, evidence_ref.get("line"), call.get("expression"))
+                ordinal = assigner.assign(base)
+                records.append({
+                    "id": sha256_id("XPC", *( [self._repository_id] if self._repository_id else []), *base, ordinal),
+                    "kind": "CrossProjectCall", "schema_version": "1.0",
+                    "source_symbol": f"{call.get('containing_class') or '<unknown>'}.{call.get('containing_method') or '<unknown>'}",
+                    "target_symbol": xp.get("target") or call.get("resolved_target"), "source_project": source_project,
+                    "target_project": target_project, "status": xp["status"], "resolution_code": xp.get("code"),
+                    "resolution_basis": xp.get("basis"), "candidate_count": xp.get("candidate_count", 0), "candidates": list(xp.get("candidates") or []),
+                    "external": xp.get("external"), "declared_target": xp.get("declared_target"), "expression": call.get("expression"),
+                    "line": evidence_ref.get("line"), "source_refs": [source_artifact_id(file_name, self._repository_id)],
+                })
+        return records
+
+    # -- UI / navigation / style evidence (post-V5 Gate B) ----------------
+
+    def _build_ui_evidence(self, evidence: NormalizedEvidence, indexes: dict) -> None:
+        """Persists what the behavioral layer used to read from source later: the extraction happens here, once, at analysis time."""
+        from .ui_extraction import UI_EXTRACTOR_ID, UI_EXTRACTOR_VERSION, UiEvidenceExtractor
+
+        root = self._resolve_repo_root(evidence.repository)
+        if root is None:
+            return
+        extractor = UiEvidenceExtractor(root, indexes.get("files", []), indexes.get("webforms", []), indexes.get("projects", []),
+                                        self._repository_id)
+        evidence.ui = extractor.extract()
+        evidence.ui_extractor = {"id": UI_EXTRACTOR_ID, "version": UI_EXTRACTOR_VERSION, "adapter_id": self._adapter_id,
+                                 "adapter_version": self._adapter_version, "summary": extractor.summary}
 
     # -- Solution -----------------------------------------------------------
 

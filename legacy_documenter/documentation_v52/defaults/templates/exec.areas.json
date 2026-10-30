@@ -1,0 +1,57 @@
+{
+  "id": "exec.areas",
+  "contract_version": "1",
+  "profile_compat": [
+    "executive"
+  ],
+  "scope": "system",
+  "file": "areas.md",
+  "order": 20,
+  "title_key": "exec.areas_title",
+  "disclaimer": "top",
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text_key": "exec.areas_all_intro"
+    },
+    {
+      "type": "note",
+      "text_key": "aud.area_note"
+    },
+    {
+      "type": "link",
+      "text_key": "aud.back_index",
+      "target": "template:exec.system"
+    },
+    {
+      "type": "partitioned_table",
+      "source": "slots.areas",
+      "columns": [
+        {
+          "field": "name",
+          "header_key": "aud.col.area"
+        },
+        {
+          "field": "projects",
+          "header_key": "aud.col.projects"
+        },
+        {
+          "field": "screens",
+          "header_key": "aud.col.screens"
+        },
+        {
+          "field": "real_flows",
+          "header_key": "aud.col.real_flows"
+        },
+        {
+          "field": "data_ops",
+          "header_key": "aud.col.data_ops"
+        }
+      ],
+      "name": "areas",
+      "title_key": "exec.areas_title",
+      "file_stem": "areas",
+      "when": "nonempty:slots.areas"
+    }
+  ]
+}

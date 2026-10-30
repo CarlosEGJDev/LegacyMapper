@@ -1,0 +1,145 @@
+{
+  "id": "tech.system",
+  "contract_version": "1",
+  "profile_compat": [
+    "technical_overview"
+  ],
+  "scope": "system",
+  "file": "README.md",
+  "order": 10,
+  "title_key": "tech.title",
+  "disclaimer": "top",
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text_key": "tech.intro"
+    },
+    {
+      "type": "note",
+      "text_key": "aud.legend"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "tech.summary"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "tech.summary_text",
+      "params": {
+        "name": "system.name",
+        "solutions": "system.solutions",
+        "projects": "system.projects",
+        "source_files": "system.source_files",
+        "screens": "system.screens",
+        "edges": "system.edges"
+      }
+    },
+    {
+      "type": "paragraph",
+      "text_key": "aud.status_confirmed"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "tech.layers"
+    },
+    {
+      "type": "note",
+      "text_key": "aud.layer_rule"
+    },
+    {
+      "type": "table",
+      "source": "slots.layer_summary",
+      "columns": [
+        {
+          "field": "layer",
+          "header_key": "aud.col.layer",
+          "translate": "layer"
+        },
+        {
+          "field": "projects",
+          "header_key": "aud.col.projects"
+        },
+        {
+          "field": "screens",
+          "header_key": "aud.col.screens"
+        },
+        {
+          "field": "real_flows",
+          "header_key": "aud.col.real_flows"
+        },
+        {
+          "field": "data_ops",
+          "header_key": "aud.col.data_ops"
+        },
+        {
+          "field": "status",
+          "header_key": "aud.col.status",
+          "translate": "status"
+        }
+      ],
+      "limit": "profile.body_row_limit",
+      "when": "nonempty:slots.layer_summary"
+    },
+    {
+      "type": "link",
+      "text_key": "tech.layers_link",
+      "target": "template:tech.layers"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "tech.deps"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "tech.deps_text",
+      "params": {
+        "internal": "total:slots.internal_libraries",
+        "platform": "total:slots.platform_libraries",
+        "unclassified": "total:slots.unclassified_libraries"
+      }
+    },
+    {
+      "type": "link",
+      "text_key": "tech.deps_link",
+      "target": "template:tech.dependencies"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "tech.data"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "tech.data_text",
+      "params": {
+        "data_ops": "system.data_ops",
+        "objects": "system.objects",
+        "sql": "system.sql"
+      }
+    },
+    {
+      "type": "link",
+      "text_key": "func.data_link",
+      "target": "template:aud.data"
+    },
+    {
+      "type": "link",
+      "text_key": "func.integrations_link",
+      "target": "template:aud.integrations"
+    },
+    {
+      "type": "link",
+      "text_key": "func.unresolved_link",
+      "target": "template:aud.unresolved"
+    },
+    {
+      "type": "link",
+      "text_key": "func.interp_link",
+      "target": "template:aud.interpretation",
+      "when": "nonempty_total:slots.ai_interpretations|slots.canonical_knowledge"
+    }
+  ]
+}

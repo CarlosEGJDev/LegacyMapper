@@ -477,13 +477,15 @@ Baselines: analyzer v3 `f05b2de4…`; IST (`C:\Users\cgalianj\source\IST_40\Oper
 
 **No es V6.** Estado `PLANNED`. Detalle y criterios en [`docs/POST_V5/HUMAN_EXPERIENCE_AND_AI_DOCUMENTATION_ROADMAP.md`](../POST_V5/HUMAN_EXPERIENCE_AND_AI_DOCUMENTATION_ROADMAP.md).
 
+> **Estado actual:** Post-V5 H4 está **CERRADO** (H1–H4 cerrados; H5 `NOT_STARTED`; V6 `NOT_STARTED`). El estado vigente de la iniciativa se mantiene en [`HUMAN_EXPERIENCE_AND_AI_DOCUMENTATION_ROADMAP.md`](../POST_V5/HUMAN_EXPERIENCE_AND_AI_DOCUMENTATION_ROADMAP.md) y `PROJECT_STATE.json`.
+
 * **H1** — AI-only desde conocimiento determinista persistido (sin reescanear; sin provider si el baseline es inválido).
 * **H2** — Documentación humana por audiencia (`executive`, `functional`, `technical-overview`), nivel sistema/módulo/proyecto/capa/flujo/caso de uso.
 * **H3** — Proyecciones visuales estructuradas (Evidence → modelo de diagrama validado → renderer determinista).
 * **H4** — Entregables humanos finales (HTML navegable primario, PDF secundario, SVG/PNG).
 * **H5** — Validación real en un slice de IST y cierre.
 
-Primera ronda recomendada: **H1-R1 — AI-only contract, baseline validation and UX design**. Diferido: tercera tecnología, Plugin Runtime, inferencia de tipos Python, expansión del adapter de BD Python, refactors grandes, escritura en consumers, más providers, documentación profunda de método/clase, V6.
+Estado: H1 (AI-only, `interpret`) y H2 (documentación por audiencia, `docs`, con corrección H2-R2) implementados; H3 (proyecciones visuales, `visuals`, con corrección H3-R2) implementado y cerrado; H4 (entregables humanos finales, `deliver`: HTML navegable + PDF) implementado; siguiente: **H5 — Real IST validation and closure** (no iniciada). Diferido: tercera tecnología, Plugin Runtime, inferencia de tipos Python, expansión del adapter de BD Python, refactors grandes, escritura en consumers, más providers, documentación profunda de método/clase, V6.
 
 ## Ledger — Consolidación documental post-V5 (09-10-2026)
 

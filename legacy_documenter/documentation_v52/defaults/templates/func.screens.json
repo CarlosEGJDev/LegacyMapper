@@ -1,0 +1,45 @@
+{
+  "id": "func.screens",
+  "contract_version": "1",
+  "profile_compat": [
+    "functional"
+  ],
+  "scope": "system",
+  "file": "screens.md",
+  "order": 50,
+  "title_key": "func.screens_title",
+  "disclaimer": "top",
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text_key": "func.screens_intro"
+    },
+    {
+      "type": "link",
+      "text_key": "aud.back_index",
+      "target": "template:func.system"
+    },
+    {
+      "type": "partitioned_table",
+      "source": "slots.screens_by_project",
+      "columns": [
+        {
+          "field": "name",
+          "header_key": "aud.col.project"
+        },
+        {
+          "field": "screens",
+          "header_key": "aud.col.screens"
+        },
+        {
+          "field": "real_flows",
+          "header_key": "aud.col.real_flows"
+        }
+      ],
+      "name": "screens",
+      "title_key": "func.screens_title",
+      "file_stem": "screens",
+      "when": "nonempty:slots.screens_by_project"
+    }
+  ]
+}

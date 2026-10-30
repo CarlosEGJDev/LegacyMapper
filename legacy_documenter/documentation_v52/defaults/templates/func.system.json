@@ -1,0 +1,230 @@
+{
+  "id": "func.system",
+  "contract_version": "1",
+  "profile_compat": [
+    "functional"
+  ],
+  "scope": "system",
+  "file": "README.md",
+  "order": 10,
+  "title_key": "func.title",
+  "disclaimer": "top",
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text_key": "func.intro"
+    },
+    {
+      "type": "note",
+      "text_key": "aud.legend"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "func.r2.summary",
+      "when": "positive:system.interactions"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "func.r2.summary_text",
+      "params": {
+        "interactions": "system.interactions",
+        "screens": "system.interaction_screens",
+        "projects": "system.interaction_projects"
+      },
+      "when": "positive:system.interactions"
+    },
+    {
+      "type": "table",
+      "source": "slots.action_summary",
+      "columns": [
+        {
+          "field": "action",
+          "header_key": "aud.col.action",
+          "translate": "action"
+        },
+        {
+          "field": "interactions",
+          "header_key": "aud.col.interactions"
+        },
+        {
+          "field": "screens",
+          "header_key": "aud.col.screens_n"
+        },
+        {
+          "field": "projects",
+          "header_key": "aud.col.projects_n"
+        },
+        {
+          "field": "status",
+          "header_key": "aud.col.status",
+          "translate": "status"
+        }
+      ],
+      "limit": "profile.body_row_limit",
+      "when": "nonempty:slots.action_summary"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "func.r2.purpose",
+      "when": "positive:system.interactions"
+    },
+    {
+      "type": "link",
+      "text_key": "func.processes_link",
+      "target": "template:func.processes",
+      "params": {
+        "listed": "system.processes_listed"
+      }
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "func.summary"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "func.summary_text",
+      "params": {
+        "name": "system.name",
+        "areas": "system.areas",
+        "projects": "system.projects",
+        "screens": "system.screens",
+        "flows": "system.flows",
+        "real_flows": "system.real_flows"
+      }
+    },
+    {
+      "type": "paragraph",
+      "text_key": "aud.status_confirmed"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "func.areas"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "func.areas_text",
+      "params": {
+        "areas": "system.areas"
+      }
+    },
+    {
+      "type": "note",
+      "text_key": "aud.area_note"
+    },
+    {
+      "type": "link",
+      "text_key": "func.areas_link",
+      "target": "template:func.areas"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "func.processes"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "func.processes_text",
+      "params": {
+        "flows": "system.flows",
+        "real_flows": "system.real_flows",
+        "percent": "system.percent",
+        "infra_flows": "system.infra_flows",
+        "unresolved_flows": "system.unresolved_flows"
+      }
+    },
+    {
+      "type": "paragraph",
+      "text_key": "aud.status_confirmed"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "func.screens"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "func.screens_text",
+      "params": {
+        "screens": "system.screens"
+      }
+    },
+    {
+      "type": "link",
+      "text_key": "func.screens_link",
+      "target": "template:func.screens"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "func.data"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "func.data_text",
+      "params": {
+        "objects": "system.objects",
+        "sql": "system.sql",
+        "data_ops": "system.data_ops"
+      }
+    },
+    {
+      "type": "link",
+      "text_key": "func.data_link",
+      "target": "template:aud.data"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "func.integrations"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "func.integrations_text",
+      "params": {
+        "connections": "system.connections"
+      }
+    },
+    {
+      "type": "link",
+      "text_key": "func.integrations_link",
+      "target": "template:aud.integrations"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "func.unresolved"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "func.unresolved_text",
+      "params": {
+        "unresolved_flows": "system.unresolved_flows",
+        "unresolved_distinct": "system.unresolved_distinct"
+      }
+    },
+    {
+      "type": "paragraph",
+      "text_key": "aud.status_unresolved"
+    },
+    {
+      "type": "link",
+      "text_key": "func.unresolved_link",
+      "target": "template:func.unresolved"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "aud.interp_title",
+      "when": "nonempty_total:slots.ai_interpretations|slots.canonical_knowledge"
+    },
+    {
+      "type": "link",
+      "text_key": "func.interp_link",
+      "target": "template:aud.interpretation",
+      "when": "nonempty_total:slots.ai_interpretations|slots.canonical_knowledge"
+    }
+  ]
+}

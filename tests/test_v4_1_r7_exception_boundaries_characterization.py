@@ -30,10 +30,10 @@ def _make_repo(root: Path) -> None:
 class TestV4_1_R7ExceptionBoundaryCharacterization(unittest.TestCase):
     def test_call_extractor_failure_is_recorded_as_structured_error_and_others_still_run(self):
         with tempfile.TemporaryDirectory() as temp:
-            root = Path(temp)
+            root = Path(temp) / "src"  # Gate A: the output must live outside the (read-only) source
             _make_repo(root)
             with patch.object(CallExtractor, "extract", side_effect=ValueError("call-boom")):
-                indexes = analyze_repository(root, root / "out")
+                indexes = analyze_repository(root, root.parent / "out")
             self.assertEqual(
                 indexes["errors"],
                 [{"file": "A.vb", "extractor": "CallExtractor", "error": "call-boom"}],
@@ -42,10 +42,10 @@ class TestV4_1_R7ExceptionBoundaryCharacterization(unittest.TestCase):
 
     def test_web_event_extractor_failure_is_recorded_as_structured_error(self):
         with tempfile.TemporaryDirectory() as temp:
-            root = Path(temp)
+            root = Path(temp) / "src"  # Gate A: the output must live outside the (read-only) source
             _make_repo(root)
             with patch.object(WebEventExtractor, "extract", side_effect=RuntimeError("event-boom")):
-                indexes = analyze_repository(root, root / "out")
+                indexes = analyze_repository(root, root.parent / "out")
             self.assertEqual(
                 indexes["errors"],
                 [{"file": "A.vb", "extractor": "WebEventExtractor", "error": "event-boom"}],
@@ -54,10 +54,10 @@ class TestV4_1_R7ExceptionBoundaryCharacterization(unittest.TestCase):
 
     def test_database_extractor_failure_is_recorded_as_structured_error(self):
         with tempfile.TemporaryDirectory() as temp:
-            root = Path(temp)
+            root = Path(temp) / "src"  # Gate A: the output must live outside the (read-only) source
             _make_repo(root)
             with patch.object(DatabaseExtractor, "extract", side_effect=KeyError("db-boom")):
-                indexes = analyze_repository(root, root / "out")
+                indexes = analyze_repository(root, root.parent / "out")
             self.assertEqual(len(indexes["errors"]), 1)
             self.assertEqual(indexes["errors"][0]["file"], "A.vb")
             self.assertEqual(indexes["errors"][0]["extractor"], "DatabaseExtractor")
@@ -65,12 +65,12 @@ class TestV4_1_R7ExceptionBoundaryCharacterization(unittest.TestCase):
 
     def test_all_three_extractor_failures_preserve_call_order_per_file(self):
         with tempfile.TemporaryDirectory() as temp:
-            root = Path(temp)
+            root = Path(temp) / "src"  # Gate A: the output must live outside the (read-only) source
             _make_repo(root)
             with patch.object(CallExtractor, "extract", side_effect=ValueError("c")), \
                  patch.object(WebEventExtractor, "extract", side_effect=ValueError("w")), \
                  patch.object(DatabaseExtractor, "extract", side_effect=ValueError("d")):
-                indexes = analyze_repository(root, root / "out")
+                indexes = analyze_repository(root, root.parent / "out")
             self.assertEqual(
                 [e["extractor"] for e in indexes["errors"]],
                 ["CallExtractor", "WebEventExtractor", "DatabaseExtractor"],
@@ -80,9 +80,9 @@ class TestV4_1_R7ExceptionBoundaryCharacterization(unittest.TestCase):
 
     def test_no_failure_yields_no_errors_and_populated_results(self):
         with tempfile.TemporaryDirectory() as temp:
-            root = Path(temp)
+            root = Path(temp) / "src"  # Gate A: the output must live outside the (read-only) source
             _make_repo(root)
-            indexes = analyze_repository(root, root / "out")
+            indexes = analyze_repository(root, root.parent / "out")
             self.assertEqual(indexes["errors"], [])
             self.assertEqual(len(indexes["calls"]), 1)
 

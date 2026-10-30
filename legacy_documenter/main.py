@@ -1,11 +1,15 @@
+import json
 import logging
+import sys
 from pathlib import Path
 from time import perf_counter
 
 from legacy_documenter.cli.parser import build_parser, normalize_argv
+from legacy_documenter.cli.full_pipeline import PATH_CONTRACT_CATEGORY
 from legacy_documenter.cli.router import route
 from legacy_documenter.cli import pipeline_stages as stages
 from legacy_documenter.cli.run_summary_presenter import render_console_summary
+from legacy_documenter.utils.path_contract import PathContractError, validate_source_and_output
 
 
 LOG = logging.getLogger("legacy_documenter")
@@ -22,12 +26,12 @@ def analyze_repository(repo_root: str | Path, output_dir: str | Path, excludes: 
     `analyze`'s observable behavior byte-for-byte equivalent to the pre-R2 CLI.
     """
     start = perf_counter()
+    _, output = validate_source_and_output(repo_root, output_dir)  # Gate A: raises PathContractError before any scan/write
     scan = stages.scan_repository(repo_root, excludes)
-    output = Path(output_dir).resolve()
 
     extraction = stages.extract_repository(scan.files, scan.root)
     adapter = stages.adapter_of(extraction)
-    call_resolution = stages.resolve_calls(extraction.calls, extraction.symbols, adapter)
+    call_resolution = stages.resolve_calls(extraction.calls, extraction.symbols, adapter, extraction.projects)
     web_entry_resolution = stages.resolve_web_entries(
         extraction.webforms, extraction.symbols, extraction.web_events, call_resolution.calls, adapter
     )
@@ -95,8 +99,19 @@ def main(argv: list[str] | None = None) -> int:
         # V4.2-R5 section 10: make the opt-in explicit at the point of use too,
         # not only in --help -- this run may call the configured AI provider.
         print("AI interpretation requested: this run may call the configured AI provider.")
-    exit_code, result = route(args, analyze_repository)
-    if result.command in ("readiness", "output-manifest", "review") and result.message is not None:
+    if args.command == "interpret":
+        print("AI-only interpretation requested: this run may call the configured AI provider (no repository rescan).")
+    try:
+        exit_code, result = route(args, analyze_repository)
+    except PathContractError as exc:  # `analyze`: same human-readable + machine-detectable refusal as `full`
+        print(json.dumps(exc.to_dict(), ensure_ascii=False, sort_keys=True), file=sys.stderr)
+        return 4
+    if result.command == "full" and any(
+        stage.error is not None and stage.error.category == PATH_CONTRACT_CATEGORY for stage in result.stages
+    ):
+        print(result.message, file=sys.stderr)
+        return exit_code
+    if result.command in ("readiness", "output-manifest", "review", "interpret", "docs", "visuals", "deliver") and result.message is not None:
         print(result.message)
     elif result.command == "full":
         summary = render_console_summary(

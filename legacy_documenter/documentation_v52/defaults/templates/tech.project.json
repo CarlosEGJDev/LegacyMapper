@@ -1,0 +1,191 @@
+{
+  "id": "tech.project",
+  "contract_version": "1",
+  "profile_compat": [
+    "technical_overview"
+  ],
+  "scope": "module",
+  "file": "modules/{slug}.md",
+  "order": 30,
+  "title_key": "tech.project_title",
+  "disclaimer": "top",
+  "blocks": [
+    {
+      "type": "link",
+      "text_key": "tech.layers_link",
+      "target": "template:tech.layers"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "tech.project_summary"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "tech.project_summary_text",
+      "params": {
+        "name": "module.name",
+        "output_type": "module.output_type",
+        "solutions": "module.solutions",
+        "screens": "module.screens",
+        "real_flows": "module.real_flows",
+        "data_ops": "module.data_ops"
+      }
+    },
+    {
+      "type": "paragraph",
+      "text_key": "aud.status_confirmed"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "tech.project_layer"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "tech.project_layer_text",
+      "params": {
+        "layer": "t:layer:module.layer",
+        "rule": "t:layerrule:module.layer_rule"
+      }
+    },
+    {
+      "type": "paragraph",
+      "text_key": "tech.project_layer_status",
+      "params": {
+        "status": "t:status:module.layer_status"
+      }
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "tech.project_deps",
+      "when": "nonempty_total:module.slots.project_refs_out|module.slots.project_refs_in"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "text_key": "tech.project_refs_out",
+      "when": "nonempty:module.slots.project_refs_out"
+    },
+    {
+      "type": "table",
+      "source": "module.slots.project_refs_out",
+      "columns": [
+        {
+          "field": "name",
+          "header_key": "aud.col.project"
+        }
+      ],
+      "limit": 15,
+      "when": "nonempty:module.slots.project_refs_out"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "text_key": "tech.project_refs_in",
+      "when": "nonempty:module.slots.project_refs_in"
+    },
+    {
+      "type": "table",
+      "source": "module.slots.project_refs_in",
+      "columns": [
+        {
+          "field": "name",
+          "header_key": "aud.col.project"
+        }
+      ],
+      "limit": 15,
+      "when": "nonempty:module.slots.project_refs_in"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "tech.project_screens",
+      "when": "nonempty:module.slots.entry_points"
+    },
+    {
+      "type": "table",
+      "source": "module.slots.entry_points",
+      "columns": [
+        {
+          "field": "webform",
+          "header_key": "aud.col.screen",
+          "code": true
+        },
+        {
+          "field": "events",
+          "header_key": "aud.col.events"
+        },
+        {
+          "field": "real_flows",
+          "header_key": "aud.col.real_flows"
+        }
+      ],
+      "limit": 10,
+      "when": "nonempty:module.slots.entry_points"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "tech.project_data",
+      "when": "nonempty:module.slots.data_targets"
+    },
+    {
+      "type": "table",
+      "source": "module.slots.data_targets",
+      "columns": [
+        {
+          "field": "target",
+          "header_key": "aud.col.object",
+          "code": true
+        },
+        {
+          "field": "kind",
+          "header_key": "aud.col.kind",
+          "translate": "kind"
+        },
+        {
+          "field": "count",
+          "header_key": "aud.col.uses"
+        }
+      ],
+      "limit": 10,
+      "when": "nonempty:module.slots.data_targets"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "tech.project_unresolved",
+      "when": "positive:module.unresolved_total"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "tech.project_unresolved_text",
+      "params": {
+        "unresolved": "module.unresolved_total"
+      },
+      "when": "positive:module.unresolved_total"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "aud.status_unresolved",
+      "when": "positive:module.unresolved_total"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "tech.project_deep",
+      "when": "value:module.deep_path"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "tech.project_deep_text",
+      "params": {
+        "path": "module.deep_path"
+      },
+      "when": "value:module.deep_path"
+    }
+  ],
+  "when": "value:module.path"
+}

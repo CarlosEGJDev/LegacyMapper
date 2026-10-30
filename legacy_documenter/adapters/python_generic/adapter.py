@@ -21,7 +21,7 @@ class PythonGenericAdapter:
     def extract(self, files, root, extraction_cache=None):
         return extraction.extract_repository(files, root, extraction_cache)
 
-    def resolve_calls(self, calls, symbols):
+    def resolve_calls(self, calls, symbols, projects=None):
         return resolution.resolve_calls(calls, symbols)
 
     def resolve_entries(self, webforms, symbols, events, calls):

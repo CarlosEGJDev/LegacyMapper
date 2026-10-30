@@ -23,6 +23,8 @@ from .writer import write_tree
 
 OUTPUT_DIRNAME = "documentation_v52"
 DEFAULT_PROFILES = ("general_overview", "developer_technical")
+#: H2 audience profiles (post-V5). Opt-in: `full` keeps rendering `DEFAULT_PROFILES`; these are produced by `docs`.
+AUDIENCE_PROFILES = ("executive", "functional", "technical_overview")
 EVIDENCE_PARTITIONS = (
     "repository", "solutions", "projects", "entry_points", "functional_flows", "flow_unresolved", "data_access",
     "stored_procedures", "sql_operations", "dependencies", "configuration", "flow_summary", "webforms", "symbols",
@@ -133,6 +135,8 @@ def generate_documentation_v52(
     partition_override: PartitionPolicy | None = None,
     long_paths: bool = False,
     terminology: str | None = None,
+    knowledge: dict | None = None,
+    deep_reference: bool = False,
 ) -> DocumentationV52Result:
     """Generates `<output_dir>/documentation_v52/`.
 
@@ -146,6 +150,11 @@ def generate_documentation_v52(
     `templates/`, `profiles/`, `noise/`, `i18n/`, one JSON per id). An invalid
     custom item yields a visible warning and falls back to the default; with
     `strict_templates=True` it raises `ConfigError` instead.
+
+    H2: when any `AUDIENCE_PROFILES` profile is requested the model is enriched once with audience-level facts
+    (`audience.enrich_for_audiences`); `knowledge` (`audience.load_knowledge_overlay`) optionally adds clearly
+    labelled AI interpretations / canonical records; `deep_reference` adds the path of the existing developer
+    document of each project. No provider is ever called here.
     """
     started = perf_counter()
     registry = ConfigRegistry(custom_dir, strict=strict_templates, terminology=terminology)
@@ -166,6 +175,10 @@ def generate_documentation_v52(
             model = AudienceTransformer(
                 policy, catalog.text("unassigned_module"), catalog.text("origin_unknown"), catalog.text("file_ownership_shared"),
             ).transform(source)
+            if any(p in AUDIENCE_PROFILES for p in profiles):
+                from .audience import enrich_for_audiences
+
+                enrich_for_audiences(model, source, knowledge, deep_reference)
             models_cache[cache_key] = model
         model.interpreted = dict(interpreted or {})
         templates = {tid: registry.template(tid, profile, catalog) for tid in profile.templates}
@@ -210,7 +223,7 @@ def _root_readme(catalog, profiles, registry, result: DocumentationV52Result) ->
     doc.blocks.append(Paragraph(Text.of(catalog.raw("readme.intro"))))
     for profile_id in profiles:
         info = result.profiles[profile_id]
-        key = "readme.general" if profile_id == "general_overview" else "readme.developer"
+        key = "readme.general" if profile_id == "general_overview" else "readme.developer" if profile_id == "developer_technical" else f"readme.{profile_id}"
         label = catalog.raw(key) if catalog.has(key) else profile_id
         doc.blocks.append(Link(Text.of(label), f"{info['output_dir']}/README.md"))
     if result.warnings:

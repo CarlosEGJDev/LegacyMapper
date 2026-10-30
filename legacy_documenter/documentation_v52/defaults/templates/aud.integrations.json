@@ -1,0 +1,68 @@
+{
+  "id": "aud.integrations",
+  "contract_version": "1",
+  "profile_compat": [
+    "functional",
+    "technical_overview"
+  ],
+  "scope": "system",
+  "file": "integrations.md",
+  "order": 70,
+  "title_key": "aud.integ_title",
+  "disclaimer": "top",
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text_key": "aud.integ_intro"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "aud.integ_db",
+      "when": "nonempty:slots.integrations"
+    },
+    {
+      "type": "table",
+      "source": "slots.integrations",
+      "columns": [
+        {
+          "field": "name",
+          "header_key": "aud.col.name"
+        },
+        {
+          "field": "kind",
+          "header_key": "aud.col.kind"
+        },
+        {
+          "field": "status",
+          "header_key": "aud.col.status",
+          "translate": "status"
+        }
+      ],
+      "limit": "profile.body_row_limit",
+      "when": "nonempty:slots.integrations"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "aud.integ_unclassified",
+      "when": "nonempty:slots.unclassified_libraries"
+    },
+    {
+      "type": "table",
+      "source": "slots.unclassified_libraries",
+      "columns": [
+        {
+          "field": "name",
+          "header_key": "aud.col.name"
+        },
+        {
+          "field": "projects_using",
+          "header_key": "aud.col.libs"
+        }
+      ],
+      "limit": 25,
+      "when": "nonempty:slots.unclassified_libraries"
+    }
+  ]
+}

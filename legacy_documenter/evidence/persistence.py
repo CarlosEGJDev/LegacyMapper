@@ -52,6 +52,7 @@ from legacy_documenter.utils.write_if_changed import write_text_if_changed
 
 from .bundle import NormalizedEvidence
 from .entities import EVIDENCE_SCHEMA_VERSION
+from .ui_model import UI_EVIDENCE_SCHEMA_VERSION, UI_PARTITIONS
 
 #: Newly-modeled entity kinds (this round's own dataclasses).
 NEW_ENTITY_PARTITIONS = (
@@ -91,6 +92,8 @@ PASSTHROUGH_PARTITIONS = (
 PARTITIONS = NEW_ENTITY_PARTITIONS + PASSTHROUGH_PARTITIONS
 
 EVIDENCE_MANIFEST_FILENAME = "EVIDENCE_MANIFEST.json"
+CROSS_PROJECT_PARTITION = "cross_project_calls"
+CROSS_PROJECT_SCHEMA_VERSION = "1.0"
 
 
 def _render(data: object) -> str:
@@ -105,6 +108,28 @@ def _render_project(record: dict) -> dict:
     before persistence). Serialize it here, at the one point this partition
     is actually rendered to JSON (V5.1 R3.2)."""
     return {**record, "provenance": [ref.to_dict() for ref in record["provenance"]]}
+
+
+def logical_source_provenance(evidence: NormalizedEvidence, partition_hashes: dict) -> dict:
+    """Derived logical projection of the source identity (Gate B): independent of the machine, user and installation path.
+
+    The physical root stays in `scan_summary.root` as compatibility metadata only; nothing portable is keyed on it.
+    `portable_evidence_sha256` hashes every partition except `scan_summary` (the only one that records the physical root).
+    """
+    snapshot = hashlib.sha256()
+    for artifact in sorted(evidence.source_artifacts, key=lambda a: a.path):
+        snapshot.update(f"{artifact.path}\t{artifact.sha256}\n".encode("utf-8"))
+    portable = hashlib.sha256()
+    for name in sorted(partition_hashes):
+        if name != "scan_summary":
+            portable.update(f"{name}:{partition_hashes[name]}\n".encode("ascii"))
+    return {
+        "contract": "LegacyMapperLogicalSourceProvenance", "contract_version": "1.0",
+        "logical_source_id": evidence.repository.get("repository_id") or None,
+        "logical_snapshot_sha256": snapshot.hexdigest(), "source_file_count": len(evidence.source_artifacts),
+        "portable_evidence_sha256": portable.hexdigest(),
+        "physical_root": {"recorded_in": "evidence/scan_summary.json#root", "role": "compatibility_metadata_not_identity"},
+    }
 
 
 def write_evidence(evidence: NormalizedEvidence, output_dir: str | Path) -> Path:
@@ -130,6 +155,12 @@ def write_evidence(evidence: NormalizedEvidence, output_dir: str | Path) -> Path
         if name in evidence.passthrough:
             partition_payloads[name] = evidence.passthrough[name]
 
+    for name in UI_PARTITIONS:
+        if name in evidence.ui:
+            partition_payloads[name] = evidence.ui[name]
+    if evidence.cross_project_calls is not None:
+        partition_payloads[CROSS_PROJECT_PARTITION] = evidence.cross_project_calls
+
     entity_counts = {}
     partition_hashes = {}
     for name, payload in partition_payloads.items():
@@ -144,6 +175,13 @@ def write_evidence(evidence: NormalizedEvidence, output_dir: str | Path) -> Path
         "entity_counts": entity_counts,
         "partition_sha256": partition_hashes,
     }
+    if evidence.ui:  # additive UI/navigation/style extension (Gate B): core partitions and `evidence_schema_version` are unchanged
+        manifest["ui_evidence_schema_version"] = UI_EVIDENCE_SCHEMA_VERSION
+        manifest["ui_evidence"] = {"partitions": [name for name in UI_PARTITIONS if name in evidence.ui], "extractor": evidence.ui_extractor,
+                                   "authority": "UI / navigation / style facts are authoritative here; sidecars are derived projections"}
+    if evidence.cross_project_calls is not None:
+        manifest["cross_project_evidence_schema_version"] = CROSS_PROJECT_SCHEMA_VERSION
+    manifest["source_provenance"] = logical_source_provenance(evidence, partition_hashes)
     if evidence.repository.get("repository_id"):  # declared logical identity (V5.9 R2); absent => V5.1 path-only SRC ids
         manifest["repository_id"] = evidence.repository["repository_id"]
     write_text_if_changed(target / EVIDENCE_MANIFEST_FILENAME, _render(manifest), family="evidence")

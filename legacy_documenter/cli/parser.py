@@ -14,7 +14,7 @@ import sys
 
 from legacy_documenter.cache.options import CACHE_MODES, VERIFY_LEVELS, ratio_argument
 
-COMMANDS = ("analyze", "full", "readiness", "output-manifest", "review")
+COMMANDS = ("analyze", "full", "readiness", "output-manifest", "review", "interpret", "docs", "visuals", "deliver")
 
 
 def normalize_cache_argv(argv: list[str]) -> list[str]:
@@ -125,6 +125,31 @@ Which command should I use?
       Verification only -- never re-runs analysis. Available from a clean,
       runtime-only distribution (main.py + legacy_documenter/ alone), with no
       dependency on this development repository's docs/tests/tools/.
+
+  python main.py interpret <existing-output-dir>
+      AI-only: runs AI interpretation + proposal generation over an ALREADY
+      generated, valid deterministic output (from `analyze`/`full`). It does
+      NOT rescan the repository and does NOT rebuild Evidence. An invalid
+      baseline is refused (AI_ONLY_INPUT_INVALID) before any provider call.
+      May call the configured AI provider. Proposals are never canonical.
+
+  python main.py docs <existing-output-dir>
+      Audience-level human documentation (executive / functional /
+      technical_overview) from an ALREADY generated deterministic output.
+      No rescan, no Evidence rebuild, never calls an AI provider.
+
+  python main.py visuals <existing-output-dir>
+      Structured visual projections (SVG + machine-readable model + manifest):
+      system, project/layer, dependency, observable-flow and data-interaction
+      maps, with explicit confirmed/inferred/unresolved/AI/canonical status.
+      No rescan, no Evidence rebuild, never calls an AI provider.
+
+  python main.py deliver <existing-output-dir>
+      Final human package: a static, offline HTML site (executive /
+      functional / technical + the ten delivery surfaces) and PDFs, composed
+      from the audience documentation and the structured visuals of an
+      ALREADY generated deterministic output. No rescan, no Evidence
+      rebuild, never calls an AI provider.
 """
 
 
@@ -245,5 +270,17 @@ def build_parser() -> argparse.ArgumentParser:
     from legacy_documenter.cli.review_command import add_review_parser
 
     add_review_parser(subparsers)
+    from legacy_documenter.cli.interpret_command import add_interpret_parser
+
+    add_interpret_parser(subparsers)
+    from legacy_documenter.cli.docs_command import add_docs_parser
+
+    add_docs_parser(subparsers)
+    from legacy_documenter.cli.visuals_command import add_visuals_parser
+
+    add_visuals_parser(subparsers)
+    from legacy_documenter.cli.deliver_command import add_deliver_parser
+
+    add_deliver_parser(subparsers)
 
     return parser

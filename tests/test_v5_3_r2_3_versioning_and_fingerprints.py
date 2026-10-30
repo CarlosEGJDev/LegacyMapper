@@ -26,11 +26,16 @@ PACKAGE = Path(versions.__file__).resolve().parent
 # whether the analysis output can change. Procedure when `test_analyzer_version_guard` fails:
 #   1. relevant analyzer code changed -> bump `legacy_documenter.versions.ANALYZER_VERSION`;
 #   2. then update BOTH values below to the new version and the fingerprint the failure message prints.
-GUARD_ANALYZER_VERSION = 3
+GUARD_ANALYZER_VERSION = 4
 # V5.9-R1: the python-generic adapter (new analyzer source), the `.py` file kind and the stage routing change the code fingerprint;
 # the vbnet-webforms-oracle output is proven byte-identical on the real IST run, so ANALYZER_VERSION stays 3 (previous value: 4f7600f0fa351674878d66940352e9569de2b0f620643a3124b5c94545eb1ec6).
 # V5.9-R2: namespaced SourceArtifact identity in both adapters' normalization (opt-in, undeclared = V5.1 ids); previous: ce21000dfe5c64c4ad8af70c1dcb240eeb9d342bdf06d72220b7be7cbd39d2d7.
-GUARD_ANALYZER_CODE_FINGERPRINT = "f05b2de43b726e75e03b97e1d35fef8b3407d54247e0a4e4537ab24d282fa26b"
+# Post-V5 Gate B: additive UI/navigation/style Evidence extension (adapters/vbnet_webforms_oracle/ui_extraction.py + new ui_* partitions).
+# Core partitions and the `index/` projection are byte-identical on the real IST run (see the Gate B result), so ANALYZER_VERSION stays 3;
+# previous: f05b2de43b726e75e03b97e1d35fef8b3407d54247e0a4e4537ab24d282fa26b.
+# Gate B.1: asset application roots, menu/config edges, schema 1.1 (core output still byte-identical); previous: f1ec965e562993ef2344d300f2cbc7e47eaa76f6c83dc038bf74516cf9c3ef39.
+# Gate C: cross-project resolution + declared member parameters => ANALYZER_VERSION 4; previous: 84d5ed34029810c1a30093007c5bfe9ca82d07685ce80749673ccd06bb5d1b44.
+GUARD_ANALYZER_CODE_FINGERPRINT = "0f28803976d5750a0629dd688fa2daff908c390a086c55225453552281b5c9bd"
 
 
 def _new_runtime_files() -> list[Path]:
@@ -92,6 +97,8 @@ class VersionTests(unittest.TestCase):
         for path in PACKAGE.rglob("*.py"):
             if path in _new_runtime_files() or "cache" in path.relative_to(PACKAGE).parts[:1]:
                 continue
+            if path == PACKAGE / "orchestration" / "ai_only.py":
+                continue  # post-V5 H1: the AI-only baseline gate reads the analyzer version/fingerprint (the second consumer)
             text = path.read_text(encoding="utf-8")
             self.assertNotIn("legacy_documenter.fingerprints", text, path)
             self.assertNotIn("legacy_documenter.versions", text, path)

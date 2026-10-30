@@ -24,7 +24,7 @@ def write(path: Path, text: str) -> Path:
 class V1Tests(unittest.TestCase):
     def test_repository_scanner(self):
         with tempfile.TemporaryDirectory() as temp:
-            root = Path(temp)
+            root = Path(temp) / "src"  # Gate A: the output must live outside the (read-only) source
             write(root / "App" / "Default.aspx", '<%@ Page Language="VB" %>')
             write(root / "bin" / "ignored.dll", "")
             files = RepositoryScanner().scan(root)
@@ -33,14 +33,14 @@ class V1Tests(unittest.TestCase):
 
     def test_solution_extractor(self):
         with tempfile.TemporaryDirectory() as temp:
-            root = Path(temp)
+            root = Path(temp) / "src"  # Gate A: the output must live outside the (read-only) source
             sln = write(root / "Sample.sln", 'Project("{TYPE}") = "Web", "Web\\Web.vbproj", "{PROJECT}"\nEndProject\n')
             result = SolutionExtractor().extract(sln, root)
             self.assertEqual(result["projects"][0]["name"], "Web")
 
     def test_vbproj_extractor(self):
         with tempfile.TemporaryDirectory() as temp:
-            root = Path(temp)
+            root = Path(temp) / "src"  # Gate A: the output must live outside the (read-only) source
             vbproj = write(root / "Web.vbproj", """<Project><PropertyGroup><AssemblyName>Web</AssemblyName><TargetFrameworkVersion>v4.0</TargetFrameworkVersion></PropertyGroup><ItemGroup><ProjectReference Include="BL.vbproj"><Name>BL</Name></ProjectReference><Reference Include="System.Web" /></ItemGroup><ItemGroup><Compile Include="A.vb" /><Content Include="A.aspx" /></ItemGroup></Project>""")
             project = VBProjExtractor().extract(vbproj, root)
             self.assertEqual(project.target_framework, "v4.0")
@@ -50,7 +50,7 @@ class V1Tests(unittest.TestCase):
 
     def test_vbnet_extractor(self):
         with tempfile.TemporaryDirectory() as temp:
-            root = Path(temp)
+            root = Path(temp) / "src"  # Gate A: the output must live outside the (read-only) source
             vb = write(root / "A.vb", """Namespace N
 Public Interface IFoo
 End Interface
@@ -77,7 +77,7 @@ End Namespace""")
 
     def test_webforms_extractor(self):
         with tempfile.TemporaryDirectory() as temp:
-            root = Path(temp)
+            root = Path(temp) / "src"  # Gate A: the output must live outside the (read-only) source
             aspx = write(root / "Default.aspx", '<%@ Page Language="VB" CodeBehind="Default.aspx.vb" Inherits="N.C" %><%@ Register Src="~/C.ascx" TagPrefix="uc" TagName="C" %><script src="/a.js"></script><link rel="stylesheet" href="/a.css" />')
             form = WebFormsExtractor().extract(aspx, root)
             self.assertEqual(form.codebehind, "Default.aspx.vb")
@@ -87,7 +87,7 @@ End Namespace""")
 
     def test_webconfig_extractor(self):
         with tempfile.TemporaryDirectory() as temp:
-            root = Path(temp)
+            root = Path(temp) / "src"  # Gate A: the output must live outside the (read-only) source
             config = write(root / "web.config", '<configuration><appSettings><add key="Mode" value="Prod" /></appSettings><connectionStrings><add name="Main" connectionString="User ID=scott;Password=tiger;Data Source=db" /></connectionStrings><system.web><compilation><assemblies><add assembly="System.Web" /></assemblies></compilation></system.web></configuration>')
             result = WebConfigExtractor().extract(config, root)
             self.assertIn("User ID=********", result["connectionStrings"][0]["connectionString"])
@@ -119,7 +119,7 @@ End Namespace""")
 
     def test_r1_01_webforms_attributes_are_case_insensitive(self):
         with tempfile.TemporaryDirectory() as temp:
-            root = Path(temp)
+            root = Path(temp) / "src"  # Gate A: the output must live outside the (read-only) source
             variants = [
                 ("A.aspx", "CodeBehind", "Inherits", "Src", "Namespace", "Assembly"),
                 ("B.aspx", "Codebehind", "inherits", "src", "namespace", "assembly"),
@@ -142,10 +142,10 @@ End Namespace""")
 
     def test_r1_02_scanner_ignores_vti_metadata(self):
         with tempfile.TemporaryDirectory() as temp:
-            root = Path(temp)
+            root = Path(temp) / "src"  # Gate A: the output must live outside the (read-only) source
             write(root / "Real.vbproj", "<Project />")
             write(root / "_vti_cnf" / "Real.vbproj", "not xml")
-            output = root / "out"
+            output = root.parent / "out"
             indexes = analyze_repository(root, output)
             self.assertEqual(indexes["repository"]["stats"]["vb_project"], 1)
             self.assertEqual(indexes["errors"], [])
@@ -153,7 +153,7 @@ End Namespace""")
 
     def test_r1_03_effective_namespace_uses_project_compile_evidence(self):
         with tempfile.TemporaryDirectory() as temp:
-            root = Path(temp)
+            root = Path(temp) / "src"  # Gate A: the output must live outside the (read-only) source
             write(
                 root / "App.vbproj",
                 '<Project><PropertyGroup><RootNamespace>Empresa.Modulo</RootNamespace></PropertyGroup>'
@@ -162,7 +162,7 @@ End Namespace""")
             write(root / "Cliente.vb", "Public Class Cliente\nEnd Class\n")
             write(root / "Cobranza.vb", "Namespace Cobranza\nPublic Class Cliente\nEnd Class\nEnd Namespace\n")
             write(root / "CercanoNoIncluido.vb", "Public Class Suelto\nEnd Class\n")
-            indexes = analyze_repository(root, root / "out")
+            indexes = analyze_repository(root, root.parent / "out")
             by_file = {symbol["file"].replace("\\", "/"): symbol for symbol in indexes["symbols"]}
             self.assertEqual(by_file["Cliente.vb"]["root_namespace"], "Empresa.Modulo")
             self.assertEqual(by_file["Cliente.vb"]["effective_namespace"], "Empresa.Modulo")
@@ -173,7 +173,7 @@ End Namespace""")
 
     def test_r1_04_partial_classes_are_consolidated_without_losing_physical_symbols(self):
         with tempfile.TemporaryDirectory() as temp:
-            root = Path(temp)
+            root = Path(temp) / "src"  # Gate A: the output must live outside the (read-only) source
             write(
                 root / "Web.vbproj",
                 '<Project><PropertyGroup><RootNamespace>Empresa.Web</RootNamespace></PropertyGroup>'
@@ -182,7 +182,7 @@ End Namespace""")
             write(root / "Cliente.ascx.vb", "Partial Class Cliente\nEnd Class\n")
             write(root / "Cliente.ascx.designer.vb", "Partial Class Cliente\nEnd Class\n")
             write(root / "Cliente.ascx", '<%@ Control CodeBehind="Cliente.ascx.vb" Inherits="Empresa.Web.Cliente" %>')
-            indexes = analyze_repository(root, root / "out")
+            indexes = analyze_repository(root, root.parent / "out")
             physical = [symbol for symbol in indexes["symbols"] if symbol["name"] == "Cliente"]
             self.assertEqual(len(physical), 2)
             logical = [symbol for symbol in indexes["logical_symbols"] if symbol["name"] == "Cliente"]
@@ -191,7 +191,7 @@ End Namespace""")
 
     def test_v2_r1_extracts_imports_instantiation_and_instance_call(self):
         with tempfile.TemporaryDirectory() as temp:
-            root = Path(temp)
+            root = Path(temp) / "src"  # Gate A: the output must live outside the (read-only) source
             vb = write(
                 root / "A.vb",
                 """Imports Empresa.BL
@@ -214,7 +214,7 @@ End Class""",
 
     def test_v2_r1_resolves_instance_shared_and_internal_calls(self):
         with tempfile.TemporaryDirectory() as temp:
-            root = Path(temp)
+            root = Path(temp) / "src"  # Gate A: the output must live outside the (read-only) source
             write(root / "App.vbproj", '<Project><PropertyGroup><RootNamespace>Empresa</RootNamespace></PropertyGroup><ItemGroup><Compile Include="A.vb" /><Compile Include="Servicio.vb" /></ItemGroup></Project>')
             write(
                 root / "A.vb",
@@ -230,7 +230,7 @@ End Sub
 End Class""",
             )
             write(root / "Servicio.vb", "Public Class Servicio\nPublic Sub Procesar()\nEnd Sub\nPublic Shared Sub SharedProcesar()\nEnd Sub\nEnd Class")
-            indexes = analyze_repository(root, root / "out")
+            indexes = analyze_repository(root, root.parent / "out")
             resolved = [call for file_calls in indexes["calls"] for call in file_calls["calls"] if call["confidence"] == "confirmed"]
             targets = {call["resolved_target"] for call in resolved}
             self.assertIn("Empresa.Servicio.procesar", targets)
@@ -243,31 +243,31 @@ End Class""",
 
     def test_v2_r1_cross_project_call_keeps_project_target(self):
         with tempfile.TemporaryDirectory() as temp:
-            root = Path(temp)
+            root = Path(temp) / "src"  # Gate A: the output must live outside the (read-only) source
             write(root / "Web" / "Web.vbproj", '<Project><PropertyGroup><RootNamespace>Empresa.Web</RootNamespace></PropertyGroup><ItemGroup><Compile Include="Page.vb" /></ItemGroup></Project>')
             write(root / "BL" / "BL.vbproj", '<Project><PropertyGroup><RootNamespace>Empresa.BL</RootNamespace></PropertyGroup><ItemGroup><Compile Include="Servicio.vb" /></ItemGroup></Project>')
             write(root / "Web" / "Page.vb", "Public Class Page\nPublic Sub Run()\nDim svc As New Servicio()\nsvc.Procesar()\nEnd Sub\nEnd Class")
             write(root / "BL" / "Servicio.vb", "Public Class Servicio\nPublic Sub Procesar()\nEnd Sub\nEnd Class")
-            indexes = analyze_repository(root, root / "out")
+            indexes = analyze_repository(root, root.parent / "out")
             call = next(call for file_calls in indexes["calls"] for call in file_calls["calls"] if call["method_name"] == "Procesar")
             self.assertEqual(call["confidence"], "confirmed")
             self.assertEqual(call["resolved_project"].replace("\\", "/"), "BL/BL.vbproj")
 
     def test_v2_r1_ambiguous_call_is_not_confirmed(self):
         with tempfile.TemporaryDirectory() as temp:
-            root = Path(temp)
+            root = Path(temp) / "src"  # Gate A: the output must live outside the (read-only) source
             write(root / "App.vbproj", '<Project><PropertyGroup><RootNamespace>Empresa</RootNamespace></PropertyGroup><ItemGroup><Compile Include="A.vb" /><Compile Include="Uno.vb" /><Compile Include="Dos.vb" /></ItemGroup></Project>')
             write(root / "A.vb", "Public Class Page\nPublic Sub Run()\nDim x As New Servicio()\nx.Procesar()\nEnd Sub\nEnd Class")
             write(root / "Uno.vb", "Public Class Servicio\nPublic Sub Procesar()\nEnd Sub\nEnd Class")
             write(root / "Dos.vb", "Public Class Servicio\nPublic Sub Procesar()\nEnd Sub\nEnd Class")
-            indexes = analyze_repository(root, root / "out")
+            indexes = analyze_repository(root, root.parent / "out")
             call = next(call for file_calls in indexes["calls"] for call in file_calls["calls"] if call["method_name"] == "Procesar")
             self.assertEqual(call["confidence"], "unresolved")
             self.assertIsNone(call["resolved_target"])
 
     def test_v2_r1_1_filters_vb_intrinsics_before_call_creation(self):
         with tempfile.TemporaryDirectory() as temp:
-            root = Path(temp)
+            root = Path(temp) / "src"  # Gate A: the output must live outside the (read-only) source
             vb = write(root / "A.vb", """Public Class Page
 Public Sub Run()
 If Not IsNothing(dbc) Then CStr(CInt(1))
@@ -281,7 +281,7 @@ End Class""")
 
     def test_v2_r1_1_does_not_extract_calls_from_string_literals(self):
         with tempfile.TemporaryDirectory() as temp:
-            root = Path(temp)
+            root = Path(temp) / "src"  # Gate A: the output must live outside the (read-only) source
             vb = write(root / "A.vb", """Public Class Page
 Public Sub Run()
 Dim script = "javascript:OnClickWindowOpen('x');"
@@ -295,7 +295,7 @@ End Class""")
 
     def test_v2_r1_1_ignores_indexed_default_property_access(self):
         with tempfile.TemporaryDirectory() as temp:
-            root = Path(temp)
+            root = Path(temp) / "src"  # Gate A: the output must live outside the (read-only) source
             vb = write(root / "A.vb", """Public Class Page
 Public Sub Run()
 Dim a = ds.Tables(0).Rows(0).Item("ID")
@@ -311,17 +311,17 @@ End Class""")
 
     def test_v2_r1_1_local_call_without_member_is_unresolved(self):
         with tempfile.TemporaryDirectory() as temp:
-            root = Path(temp)
+            root = Path(temp) / "src"  # Gate A: the output must live outside the (read-only) source
             write(root / "App.vbproj", '<Project><PropertyGroup><RootNamespace>Empresa</RootNamespace></PropertyGroup><ItemGroup><Compile Include="A.vb" /></ItemGroup></Project>')
             write(root / "A.vb", "Public Class Page\nPublic Sub Run()\nMissingLocal()\nEnd Sub\nEnd Class")
-            indexes = analyze_repository(root, root / "out")
+            indexes = analyze_repository(root, root.parent / "out")
             call = next(call for file_calls in indexes["calls"] for call in file_calls["calls"])
             self.assertEqual(call["confidence"], "unresolved")
             self.assertIsNone(call["resolved_target"])
 
     def test_v2_r1_1_deduplicates_functional_dependencies(self):
         with tempfile.TemporaryDirectory() as temp:
-            root = Path(temp)
+            root = Path(temp) / "src"  # Gate A: the output must live outside the (read-only) source
             write(root / "App.vbproj", '<Project><PropertyGroup><RootNamespace>Empresa</RootNamespace></PropertyGroup><ItemGroup><Compile Include="A.vb" /><Compile Include="Servicio.vb" /></ItemGroup></Project>')
             write(root / "A.vb", """Public Class Page
 Public Sub Run()
@@ -330,14 +330,14 @@ Dim b As New Servicio()
 End Sub
 End Class""")
             write(root / "Servicio.vb", "Public Class Servicio\nEnd Class")
-            indexes = analyze_repository(root, root / "out")
+            indexes = analyze_repository(root, root.parent / "out")
             uses = [dep for dep in indexes["functional_dependencies"] if dep["dependency_type"] == "Class -> UsesClass"]
             self.assertEqual(len(uses), 1)
             self.assertEqual(uses[0]["evidence_count"], 2)
 
     def test_v2_r1_1_preserves_full_qualifier_for_fully_qualified_calls(self):
         with tempfile.TemporaryDirectory() as temp:
-            root = Path(temp)
+            root = Path(temp) / "src"  # Gate A: the output must live outside the (read-only) source
             vb = write(root / "A.vb", """Public Class Page
 Public Sub Run()
 Bl.ADHAdmCalculoDs67.blADHds67.txtraerPereva(2)
@@ -351,11 +351,11 @@ End Class""")
 
     def test_v2_r2_handles_button_click_entry_point(self):
         with tempfile.TemporaryDirectory() as temp:
-            root = Path(temp)
+            root = Path(temp) / "src"  # Gate A: the output must live outside the (read-only) source
             write(root / "Web.vbproj", '<Project><PropertyGroup><RootNamespace>Empresa.Web</RootNamespace></PropertyGroup><ItemGroup><Compile Include="Default.aspx.vb" /><Content Include="Default.aspx" /></ItemGroup></Project>')
             write(root / "Default.aspx", '<%@ Page CodeBehind="Default.aspx.vb" Inherits="Empresa.Web.DefaultPage" %>')
             write(root / "Default.aspx.vb", "Public Class DefaultPage\nProtected Sub btnBuscar_Click(sender As Object, e As EventArgs) Handles btnBuscar.Click\nEnd Sub\nEnd Class")
-            indexes = analyze_repository(root, root / "out")
+            indexes = analyze_repository(root, root.parent / "out")
             entry = indexes["entry_points"][0]
             self.assertEqual(entry["webform"], "Default.aspx")
             self.assertEqual(entry["control"], "btnBuscar")
@@ -365,84 +365,84 @@ End Class""")
 
     def test_v2_r2_handles_me_and_mybase_load_lifecycle(self):
         with tempfile.TemporaryDirectory() as temp:
-            root = Path(temp)
+            root = Path(temp) / "src"  # Gate A: the output must live outside the (read-only) source
             write(root / "Web.vbproj", '<Project><PropertyGroup><RootNamespace>Empresa.Web</RootNamespace></PropertyGroup><ItemGroup><Compile Include="A.aspx.vb" /><Compile Include="B.aspx.vb" /><Content Include="A.aspx" /><Content Include="B.aspx" /></ItemGroup></Project>')
             write(root / "A.aspx", '<%@ Page CodeBehind="A.aspx.vb" Inherits="Empresa.Web.APage" %>')
             write(root / "A.aspx.vb", "Public Class APage\nPrivate Sub Page_Load(sender As Object, e As EventArgs) Handles Me.Load\nEnd Sub\nEnd Class")
             write(root / "B.aspx", '<%@ Page CodeBehind="B.aspx.vb" Inherits="Empresa.Web.BPage" %>')
             write(root / "B.aspx.vb", "Public Class BPage\nPrivate Sub Page_Load(sender As Object, e As EventArgs) Handles MyBase.Load\nEnd Sub\nEnd Class")
-            indexes = analyze_repository(root, root / "out")
+            indexes = analyze_repository(root, root.parent / "out")
             controls = {entry["control"] for entry in indexes["entry_points"]}
             self.assertEqual(controls, {"Me", "MyBase"})
             self.assertEqual({entry["type"] for entry in indexes["entry_points"]}, {"web_lifecycle"})
 
     def test_v2_r2_multiple_handles_events(self):
         with tempfile.TemporaryDirectory() as temp:
-            root = Path(temp)
+            root = Path(temp) / "src"  # Gate A: the output must live outside the (read-only) source
             write(root / "Web.vbproj", '<Project><PropertyGroup><RootNamespace>Empresa.Web</RootNamespace></PropertyGroup><ItemGroup><Compile Include="Default.aspx.vb" /><Content Include="Default.aspx" /></ItemGroup></Project>')
             write(root / "Default.aspx", '<%@ Page CodeBehind="Default.aspx.vb" Inherits="Empresa.Web.DefaultPage" %>')
             write(root / "Default.aspx.vb", "Public Class DefaultPage\nProtected Sub Guardar(sender As Object, e As EventArgs) Handles btnAceptar.Click, btnGuardar.Click\nEnd Sub\nEnd Class")
-            indexes = analyze_repository(root, root / "out")
+            indexes = analyze_repository(root, root.parent / "out")
             self.assertEqual({entry["control"] for entry in indexes["entry_points"]}, {"btnAceptar", "btnGuardar"})
 
     def test_v2_r2_markup_onclick_and_generic_onevent(self):
         with tempfile.TemporaryDirectory() as temp:
-            root = Path(temp)
+            root = Path(temp) / "src"  # Gate A: the output must live outside the (read-only) source
             write(root / "Web.vbproj", '<Project><PropertyGroup><RootNamespace>Empresa.Web</RootNamespace></PropertyGroup><ItemGroup><Compile Include="Default.aspx.vb" /><Content Include="Default.aspx" /></ItemGroup></Project>')
             write(root / "Default.aspx", '<%@ Page CodeBehind="Default.aspx.vb" Inherits="Empresa.Web.DefaultPage" %><asp:Button ID="btnBuscar" OnClick="btnBuscar_Click" runat="server" /><asp:DropDownList ID="ddl" OnSelectedIndexChanged="ddl_Changed" runat="server" />')
             write(root / "Default.aspx.vb", "Public Class DefaultPage\nProtected Sub btnBuscar_Click(sender As Object, e As EventArgs)\nEnd Sub\nProtected Sub ddl_Changed(sender As Object, e As EventArgs)\nEnd Sub\nEnd Class")
-            indexes = analyze_repository(root, root / "out")
+            indexes = analyze_repository(root, root.parent / "out")
             events = {(entry["control"], entry["event"], entry["handler"], entry["confidence"]) for entry in indexes["entry_points"]}
             self.assertIn(("btnBuscar", "Click", "btnBuscar_Click", "confirmed"), events)
             self.assertIn(("ddl", "SelectedIndexChanged", "ddl_Changed", "confirmed"), events)
 
     def test_v2_r2_handler_entry_has_outgoing_calls(self):
         with tempfile.TemporaryDirectory() as temp:
-            root = Path(temp)
+            root = Path(temp) / "src"  # Gate A: the output must live outside the (read-only) source
             write(root / "Web.vbproj", '<Project><PropertyGroup><RootNamespace>Empresa.Web</RootNamespace></PropertyGroup><ItemGroup><Compile Include="Default.aspx.vb" /><Compile Include="Servicio.vb" /><Content Include="Default.aspx" /></ItemGroup></Project>')
             write(root / "Default.aspx", '<%@ Page CodeBehind="Default.aspx.vb" Inherits="Empresa.Web.DefaultPage" %>')
             write(root / "Default.aspx.vb", "Public Class DefaultPage\nProtected Sub btnBuscar_Click(sender As Object, e As EventArgs) Handles btnBuscar.Click\nDim svc As New Servicio()\nsvc.Procesar()\nEnd Sub\nEnd Class")
             write(root / "Servicio.vb", "Public Class Servicio\nPublic Sub Procesar()\nEnd Sub\nEnd Class")
-            indexes = analyze_repository(root, root / "out")
+            indexes = analyze_repository(root, root.parent / "out")
             entry = indexes["entry_points"][0]
             self.assertEqual(entry["handler_method"], "DefaultPage.btnBuscar_Click")
             self.assertEqual(entry["outgoing_calls"][0]["method_name"], "Procesar")
 
     def test_v2_r2_handler_name_without_binding_is_not_entry_point(self):
         with tempfile.TemporaryDirectory() as temp:
-            root = Path(temp)
+            root = Path(temp) / "src"  # Gate A: the output must live outside the (read-only) source
             write(root / "Web.vbproj", '<Project><PropertyGroup><RootNamespace>Empresa.Web</RootNamespace></PropertyGroup><ItemGroup><Compile Include="Default.aspx.vb" /><Content Include="Default.aspx" /></ItemGroup></Project>')
             write(root / "Default.aspx", '<%@ Page CodeBehind="Default.aspx.vb" Inherits="Empresa.Web.DefaultPage" %>')
             write(root / "Default.aspx.vb", "Public Class DefaultPage\nProtected Sub btnBuscar_Click(sender As Object, e As EventArgs)\nEnd Sub\nEnd Class")
-            indexes = analyze_repository(root, root / "out")
+            indexes = analyze_repository(root, root.parent / "out")
             self.assertEqual(indexes["entry_points"], [])
 
     def test_v2_r2_missing_markup_handler_is_unresolved(self):
         with tempfile.TemporaryDirectory() as temp:
-            root = Path(temp)
+            root = Path(temp) / "src"  # Gate A: the output must live outside the (read-only) source
             write(root / "Web.vbproj", '<Project><PropertyGroup><RootNamespace>Empresa.Web</RootNamespace></PropertyGroup><ItemGroup><Compile Include="Default.aspx.vb" /><Content Include="Default.aspx" /></ItemGroup></Project>')
             write(root / "Default.aspx", '<%@ Page CodeBehind="Default.aspx.vb" Inherits="Empresa.Web.DefaultPage" %><asp:Button ID="btnBuscar" OnClick="MissingHandler" runat="server" />')
             write(root / "Default.aspx.vb", "Public Class DefaultPage\nEnd Class")
-            indexes = analyze_repository(root, root / "out")
+            indexes = analyze_repository(root, root.parent / "out")
             self.assertEqual(indexes["entry_points"][0]["confidence"], "unresolved")
             self.assertIsNone(indexes["entry_points"][0]["handler_method"])
 
     def test_v2_r2_javascript_string_is_not_event_binding(self):
         with tempfile.TemporaryDirectory() as temp:
-            root = Path(temp)
+            root = Path(temp) / "src"  # Gate A: the output must live outside the (read-only) source
             write(root / "Web.vbproj", '<Project><PropertyGroup><RootNamespace>Empresa.Web</RootNamespace></PropertyGroup><ItemGroup><Compile Include="Default.aspx.vb" /><Content Include="Default.aspx" /></ItemGroup></Project>')
             write(root / "Default.aspx", '<%@ Page CodeBehind="Default.aspx.vb" Inherits="Empresa.Web.DefaultPage" %><script>var x="OnClick=\\"btnBuscar_Click\\"";</script>')
             write(root / "Default.aspx.vb", "Public Class DefaultPage\nProtected Sub btnBuscar_Click(sender As Object, e As EventArgs)\nEnd Sub\nEnd Class")
-            indexes = analyze_repository(root, root / "out")
+            indexes = analyze_repository(root, root.parent / "out")
             self.assertEqual(indexes["event_bindings"], [])
 
     def test_v2_r2_duplicate_event_binding_deduplicates_dependencies(self):
         with tempfile.TemporaryDirectory() as temp:
-            root = Path(temp)
+            root = Path(temp) / "src"  # Gate A: the output must live outside the (read-only) source
             write(root / "Web.vbproj", '<Project><PropertyGroup><RootNamespace>Empresa.Web</RootNamespace></PropertyGroup><ItemGroup><Compile Include="Default.aspx.vb" /><Content Include="Default.aspx" /></ItemGroup></Project>')
             write(root / "Default.aspx", '<%@ Page CodeBehind="Default.aspx.vb" Inherits="Empresa.Web.DefaultPage" %><asp:Button ID="btnBuscar" OnClick="btnBuscar_Click" runat="server" />')
             write(root / "Default.aspx.vb", "Public Class DefaultPage\nProtected Sub btnBuscar_Click(sender As Object, e As EventArgs) Handles btnBuscar.Click\nEnd Sub\nEnd Class")
-            indexes = analyze_repository(root, root / "out")
+            indexes = analyze_repository(root, root.parent / "out")
             self.assertEqual(len(indexes["entry_points"]), 1)
             event_edges = [dep for dep in indexes["functional_dependencies"] if dep["dependency_type"] == "WebForm -> Event"]
             self.assertEqual(len(event_edges), 1)
@@ -450,18 +450,18 @@ End Class""")
 
     def test_v2_r2_lifecycle_name_without_evidence_is_not_confirmed(self):
         with tempfile.TemporaryDirectory() as temp:
-            root = Path(temp)
+            root = Path(temp) / "src"  # Gate A: the output must live outside the (read-only) source
             write(root / "Web.vbproj", '<Project><PropertyGroup><RootNamespace>Empresa.Web</RootNamespace></PropertyGroup><ItemGroup><Compile Include="Default.aspx.vb" /><Content Include="Default.aspx" /></ItemGroup></Project>')
             write(root / "Default.aspx", '<%@ Page CodeBehind="Default.aspx.vb" Inherits="Empresa.Web.DefaultPage" %>')
             write(root / "Default.aspx.vb", "Public Class DefaultPage\nProtected Sub Page_Load(sender As Object, e As EventArgs)\nEnd Sub\nProtected Overrides Sub OnLoad(e As EventArgs)\nEnd Sub\nEnd Class")
-            indexes = analyze_repository(root, root / "out")
+            indexes = analyze_repository(root, root.parent / "out")
             self.assertEqual(len(indexes["entry_points"]), 1)
             self.assertEqual(indexes["entry_points"][0]["event"], "Load")
             self.assertEqual(indexes["entry_points"][0]["handler"], "OnLoad")
 
     def test_v2_r3_direct_oracle_stored_proc_execute_and_parameter(self):
         with tempfile.TemporaryDirectory() as temp:
-            root = Path(temp)
+            root = Path(temp) / "src"  # Gate A: the output must live outside the (read-only) source
             write(root / "App.vbproj", '<Project><PropertyGroup><RootNamespace>Empresa.Data</RootNamespace></PropertyGroup><ItemGroup><Compile Include="Repo.vb" /></ItemGroup></Project>')
             write(root / "Repo.vb", """Public Class Repo
 Public Sub Save(id As Integer)
@@ -472,7 +472,7 @@ cmd.Parameters.Add("P_ID", OracleDbType.Int32).Value = id
 cmd.ExecuteNonQuery()
 End Sub
 End Class""")
-            indexes = analyze_repository(root, root / "out")
+            indexes = analyze_repository(root, root.parent / "out")
             self.assertIn("data_access", indexes)
             self.assertTrue(any(op["stored_procedure"] == "PKG_CLIENTE.SAVE" for op in indexes["data_access"]))
             self.assertTrue(any(param["name"] == "P_ID" for param in indexes["data_parameters"]))
@@ -482,7 +482,7 @@ End Class""")
 
     def test_v2_r3_adapter_fill_and_static_sql_operations(self):
         with tempfile.TemporaryDirectory() as temp:
-            root = Path(temp)
+            root = Path(temp) / "src"  # Gate A: the output must live outside the (read-only) source
             vb = write(root / "Repo.vb", """Public Class Repo
 Public Sub Load()
 Dim da As New OracleDataAdapter("SELECT * FROM CLIENTE", conn)
@@ -498,7 +498,7 @@ End Class""")
 
     def test_v2_r3_detects_dynamic_sql_conservatively(self):
         with tempfile.TemporaryDirectory() as temp:
-            root = Path(temp)
+            root = Path(temp) / "src"  # Gate A: the output must live outside the (read-only) source
             vb = write(root / "Repo.vb", """Public Class Repo
 Public Sub Load(id As Integer)
 Dim cmd As New OracleCommand()
@@ -513,7 +513,7 @@ End Class""")
 
     def test_v2_r3_oraconn_execproc_transactions_and_wrapper_parameters(self):
         with tempfile.TemporaryDirectory() as temp:
-            root = Path(temp)
+            root = Path(temp) / "src"  # Gate A: the output must live outside the (read-only) source
             vb = write(root / "Repo.vb", """Public Class Repo
 Public Sub Save()
 Dim dbc As New OraConn()
@@ -529,7 +529,7 @@ End Class""")
 
     def test_v2_r3_ignores_comments_strings_and_untyped_wrappers(self):
         with tempfile.TemporaryDirectory() as temp:
-            root = Path(temp)
+            root = Path(temp) / "src"  # Gate A: the output must live outside the (read-only) source
             vb = write(root / "Repo.vb", """Public Class Repo
 Public Sub Run()
 ' Dim cmd As New OracleCommand("DELETE FROM X", conn)
@@ -545,7 +545,7 @@ End Class""")
 
     def test_v2_r3_deduplicates_data_access_dependencies_preserving_evidence(self):
         with tempfile.TemporaryDirectory() as temp:
-            root = Path(temp)
+            root = Path(temp) / "src"  # Gate A: the output must live outside the (read-only) source
             write(root / "App.vbproj", '<Project><PropertyGroup><RootNamespace>Empresa.Data</RootNamespace></PropertyGroup><ItemGroup><Compile Include="Repo.vb" /></ItemGroup></Project>')
             write(root / "Repo.vb", """Public Class Repo
 Public Sub Save()
@@ -555,7 +555,7 @@ cmd.ExecuteNonQuery()
 cmd.ExecuteNonQuery()
 End Sub
 End Class""")
-            indexes = analyze_repository(root, root / "out")
+            indexes = analyze_repository(root, root.parent / "out")
             edges = [dep for dep in indexes["functional_dependencies"] if dep["dependency_type"] == "DataAccessOperation -> StoredProcedure"]
             keys = {(dep["source"], dep["target"], dep["dependency_type"]) for dep in edges}
             self.assertEqual(len(edges), len(keys))
@@ -563,7 +563,7 @@ End Class""")
 
     def test_v2_r3_ambiguous_stored_proc_expression_remains_unresolved(self):
         with tempfile.TemporaryDirectory() as temp:
-            root = Path(temp)
+            root = Path(temp) / "src"  # Gate A: the output must live outside the (read-only) source
             vb = write(root / "Repo.vb", """Public Class Repo
 Public Sub Save(procName As String)
 Dim cmd As New OracleCommand(procName, conn)
@@ -578,24 +578,24 @@ End Class""")
 
     def test_v2_r3_preserves_v2_r2_entry_points(self):
         with tempfile.TemporaryDirectory() as temp:
-            root = Path(temp)
+            root = Path(temp) / "src"  # Gate A: the output must live outside the (read-only) source
             write(root / "Web.vbproj", '<Project><PropertyGroup><RootNamespace>Empresa.Web</RootNamespace></PropertyGroup><ItemGroup><Compile Include="Default.aspx.vb" /><Content Include="Default.aspx" /></ItemGroup></Project>')
             write(root / "Default.aspx", '<%@ Page CodeBehind="Default.aspx.vb" Inherits="Empresa.Web.DefaultPage" %><asp:Button ID="btnBuscar" OnClick="btnBuscar_Click" runat="server" />')
             write(root / "Default.aspx.vb", "Public Class DefaultPage\nProtected Sub btnBuscar_Click(sender As Object, e As EventArgs)\nEnd Sub\nEnd Class")
-            indexes = analyze_repository(root, root / "out")
+            indexes = analyze_repository(root, root.parent / "out")
             self.assertEqual(len(indexes["entry_points"]), 1)
             self.assertEqual(indexes["entry_points"][0]["confidence"], "confirmed")
 
     def test_v2_r3_1_oraconn_byref_parameter_execproc_links_method(self):
         with tempfile.TemporaryDirectory() as temp:
-            root = Path(temp)
+            root = Path(temp) / "src"  # Gate A: the output must live outside the (read-only) source
             write(root / "App.vbproj", '<Project><PropertyGroup><RootNamespace>Empresa.Sys</RootNamespace></PropertyGroup><ItemGroup><Compile Include="Sys.vb" /></ItemGroup></Project>')
             write(root / "Sys.vb", """Public Class Sys
 Public Shared Function Buscar(ByRef dbc As OraConn, ByVal idAdm As Integer) As DataSet
 Return dbc.ExecProc("PSYS.BUSCAR", "ID_ADM,THISCURSOR", values, "in,out", "int,cursor")
 End Function
 End Class""")
-            indexes = analyze_repository(root, root / "out")
+            indexes = analyze_repository(root, root.parent / "out")
             op = next(op for op in indexes["data_access"] if op["stored_procedure"] == "PSYS.BUSCAR")
             self.assertEqual(op["method"], "Buscar")
             self.assertEqual(op["class"], "Sys")
@@ -606,7 +606,7 @@ End Class""")
 
     def test_v2_r3_1_oraconn_byval_parameter_execprocds_and_transactions(self):
         with tempfile.TemporaryDirectory() as temp:
-            root = Path(temp)
+            root = Path(temp) / "src"  # Gate A: the output must live outside the (read-only) source
             vb = write(root / "Sys.vb", """Public Class Sys
 Public Shared Sub Crear(ByVal dbc As OraConn, ByVal ds As Object)
 dbc.BeginTrans()
@@ -622,7 +622,7 @@ End Class""")
 
     def test_v2_r3_1_public_shared_sub_attribute_and_multiline_signature(self):
         with tempfile.TemporaryDirectory() as temp:
-            root = Path(temp)
+            root = Path(temp) / "src"  # Gate A: the output must live outside the (read-only) source
             vb = write(root / "Sys.vb", """Public Class Sys
 <Obsolete()>
 Public Shared Sub Crear( _
@@ -638,7 +638,7 @@ End Class""")
 
     def test_v2_r3_1_direct_oracle_class_field_commandtext_execute_fill(self):
         with tempfile.TemporaryDirectory() as temp:
-            root = Path(temp)
+            root = Path(temp) / "src"  # Gate A: the output must live outside the (read-only) source
             vb = write(root / "Repo.vb", """Public Class Repo
 Private cmd As OracleCommand
 Private da As OracleDataAdapter
@@ -656,7 +656,7 @@ End Class""")
 
     def test_v2_r3_1_execprocds_dynamic_and_non_oraconn_guard(self):
         with tempfile.TemporaryDirectory() as temp:
-            root = Path(temp)
+            root = Path(temp) / "src"  # Gate A: the output must live outside the (read-only) source
             vb = write(root / "Sys.vb", """Public Class Sys
 Public Sub Run(ByRef dbc As OraConn, helper As Object, procName As String)
 dbc.ExecProcDS(procName, "ID_ADM", values)
@@ -670,7 +670,7 @@ End Class""")
 
     def test_v2_r3_1_unrelated_sql_string_false_positive_guard(self):
         with tempfile.TemporaryDirectory() as temp:
-            root = Path(temp)
+            root = Path(temp) / "src"  # Gate A: the output must live outside the (read-only) source
             vb = write(root / "Repo.vb", """Public Class Repo
 Public Sub Run()
 Dim text As String = "SELECT * FROM CLIENTE"
@@ -681,7 +681,7 @@ End Class""")
 
     def test_v2_r3_1_sanitizes_nested_evidence_and_dependency_samples(self):
         with tempfile.TemporaryDirectory() as temp:
-            root = Path(temp)
+            root = Path(temp) / "src"  # Gate A: the output must live outside the (read-only) source
             write(root / "App.vbproj", '<Project><PropertyGroup><RootNamespace>Empresa.Data</RootNamespace></PropertyGroup><ItemGroup><Compile Include="Repo.vb" /></ItemGroup></Project>')
             write(root / "Repo.vb", """Public Class Repo
 Public Sub Run()
@@ -691,16 +691,16 @@ cmd.CommandType = CommandType.StoredProcedure
 cmd.ExecuteNonQuery()
 End Sub
 End Class""")
-            analyze_repository(root, root / "out")
+            analyze_repository(root, root.parent / "out")
             for name in ["data_access.json", "stored_procedures.json", "data_parameters.json", "functional_dependencies.json"]:
-                text = (root / "out" / "index" / name).read_text(encoding="utf-8").lower()
+                text = (root.parent / "out" / "index" / name).read_text(encoding="utf-8").lower()
                 self.assertNotIn("scott", text)
                 self.assertNotIn("tiger", text)
                 self.assertNotIn("token=abc", text)
 
     def test_v2_r3_1_dedup_and_r1_r2_preserved(self):
         with tempfile.TemporaryDirectory() as temp:
-            root = Path(temp)
+            root = Path(temp) / "src"  # Gate A: the output must live outside the (read-only) source
             write(root / "Web.vbproj", '<Project><PropertyGroup><RootNamespace>Empresa.Web</RootNamespace></PropertyGroup><ItemGroup><Compile Include="Default.aspx.vb" /><Compile Include="Servicio.vb" /><Content Include="Default.aspx" /></ItemGroup></Project>')
             write(root / "Default.aspx", '<%@ Page CodeBehind="Default.aspx.vb" Inherits="Empresa.Web.DefaultPage" %><asp:Button ID="btnBuscar" OnClick="btnBuscar_Click" runat="server" />')
             write(root / "Default.aspx.vb", """Public Class DefaultPage
@@ -716,7 +716,7 @@ dbc.ExecProc("P.BUSCAR", "ID", values, "in", "int")
 dbc.ExecProc("P.BUSCAR", "ID", values, "in", "int")
 End Sub
 End Class""")
-            indexes = analyze_repository(root, root / "out")
+            indexes = analyze_repository(root, root.parent / "out")
             self.assertEqual(len(indexes["entry_points"]), 1)
             self.assertTrue(any(call["method_name"] == "Buscar" and call["confidence"] == "confirmed" for file_calls in indexes["calls"] for call in file_calls["calls"]))
             keys = [(dep["source"], dep["target"], dep["dependency_type"], dep["source_file"], dep["confidence"]) for dep in indexes["functional_dependencies"]]
@@ -724,7 +724,7 @@ End Class""")
 
     def test_v2_r4_builds_deterministic_branching_flows(self):
         with tempfile.TemporaryDirectory() as temp:
-            root = Path(temp)
+            root = Path(temp) / "src"  # Gate A: the output must live outside the (read-only) source
             write(root / "Web.vbproj", '<Project><PropertyGroup><RootNamespace>Empresa.Web</RootNamespace></PropertyGroup><ItemGroup><Compile Include="Default.aspx.vb" /><Compile Include="Servicio.vb" /><Content Include="Default.aspx" /></ItemGroup></Project>')
             write(root / "Default.aspx", '<%@ Page CodeBehind="Default.aspx.vb" Inherits="Empresa.Web.DefaultPage" %><asp:Button ID="btnGuardar" OnClick="btnGuardar_Click" runat="server" />')
             write(root / "Default.aspx.vb", """Public Class DefaultPage
@@ -748,14 +748,14 @@ Dim cmd As New OracleCommand("SELECT * FROM CLIENTE", conn)
 cmd.ExecuteReader()
 End Sub
 End Class""")
-            first = analyze_repository(root, root / "out")
-            second = analyze_repository(root, root / "out2")
+            first = analyze_repository(root, root.parent / "out")
+            second = analyze_repository(root, root.parent / "out2")
             self.assertEqual(len(first["functional_flows"]), 1)
             terminals = {item["terminal_type"] for item in first["functional_paths"]}
             self.assertTrue({"stored_procedure", "sql", "unresolved_boundary"}.issubset(terminals))
             self.assertIn("P.GUARDAR", {item["terminal_target"] for item in first["functional_paths"]})
             self.assertEqual(first["functional_flows"], second["functional_flows"])
-            self.assertTrue((root / "out" / "index" / "flow_summary.json").exists())
+            self.assertTrue((root.parent / "out" / "index" / "flow_summary.json").exists())
 
     def test_v2_r4_1_path_ids_use_complete_canonical_identity_and_guard_collisions(self):
         resolver = FunctionalFlowResolver()
@@ -782,11 +782,11 @@ End Class""")
 
     def test_v2_r5_generates_compact_ai_context_artifacts(self):
         with tempfile.TemporaryDirectory() as temp:
-            root = Path(temp)
+            root = Path(temp) / "src"  # Gate A: the output must live outside the (read-only) source
             write(root / "App.vbproj", '<Project><PropertyGroup><RootNamespace>Empresa.Web</RootNamespace></PropertyGroup><ItemGroup><Compile Include="Default.aspx.vb" /><Content Include="Default.aspx" /></ItemGroup></Project>')
             write(root / "Default.aspx", '<%@ Page CodeBehind="Default.aspx.vb" Inherits="Empresa.Web.DefaultPage" %>')
             write(root / "Default.aspx.vb", "Public Class DefaultPage\nProtected Overrides Sub OnLoad(e As EventArgs)\nEnd Sub\nEnd Class")
-            output = root / "out"
+            output = root.parent / "out"
             analyze_repository(root, output)
             context = output / "ai_context"
             for name in ["SYSTEM_CONTEXT.json", "SYSTEM_CONTEXT.md", "ARCHITECTURE_GRAPH.json", "FUNCTIONAL_FLOWS.json", "TRACEABILITY.json"]:

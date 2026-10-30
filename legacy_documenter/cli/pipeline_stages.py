@@ -142,9 +142,9 @@ class CallResolutionOutcome:
     functional_dependencies: list[dict]
 
 
-def resolve_calls(calls: list[dict], symbols: list[dict], adapter=None) -> CallResolutionOutcome:
+def resolve_calls(calls: list[dict], symbols: list[dict], adapter=None, projects: list[dict] | None = None) -> CallResolutionOutcome:
     """Runs the CALL_RESOLUTION stage. Depends only on EXTRACTION's output."""
-    resolved_calls, functional_dependencies = (adapter or ReferenceAdapter()).resolve_calls(calls, symbols)
+    resolved_calls, functional_dependencies = (adapter or ReferenceAdapter()).resolve_calls(calls, symbols, projects=projects)
     return CallResolutionOutcome(calls=resolved_calls, functional_dependencies=functional_dependencies)
 
 

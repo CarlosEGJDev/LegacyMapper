@@ -153,7 +153,28 @@ class ProductionFileDiscoveryTests(unittest.TestCase):
         # declarative plugin contract (plugins/: __init__, contracts, validation): eight modules, 282 in total.
         # V5.9 R1 adds the python-generic adapter package (adapters/python_generic: __init__, _names, adapter, analysis,
         # extraction, normalization, resolution, source_parser): eight modules, 290 in total.
-        self.assertEqual(len(files), 290)
+        # Post-V5 H1 adds the AI-only baseline gate (orchestration/ai_only.py) and its CLI adapter
+        # (cli/interpret_command.py): two modules, 292 in total.
+        # Post-V5 H2 adds the audience enrichment (documentation_v52/audience.py) and the `docs` CLI adapter
+        # (cli/docs_command.py): two modules, 294 in total.
+        # Post-V5 H3 adds the `visuals` package (model, layout, svg, builders, package + __init__) and its CLI adapter
+        # (cli/visuals_command.py): seven modules, 301 in total.
+        # Post-H3-R2 adds visuals/decompose.py (deterministic summary + detail decomposition): 302 in total.
+        # Post-V5 H4 adds the `deliver` package (markdown, html, pdf, package + __init__) and its CLI adapter
+        # (cli/deliver_command.py): six modules, 308 in total.
+        # Post-V5 H4-R4 adds the `behavior` prototype package (model, source, evidence, wireframe, explain, validate, render,
+        # prototype + __init__): nine modules, 317 in total.
+        # Post-V5 H4-R5 adds behavior/usage.py (observable-usage classification) and behavior/ai.py (AI behavioral interpretation): 319.
+        # Post-V5 human template productization adds behavior/{template,styles,flowboxes}.py: 322.
+        # Final template polish adds behavior/svgtext.py (deterministic SVG text wrapping): 323.
+        # Pre-H5 Gate A adds utils/path_contract.py (global source/output path contract): 324.
+        # Pre-H5 Gate A.1 adds legacy_documenter/__main__.py (`python -m legacy_documenter`): 325.
+        # Pre-H5 Gate B adds the UI Evidence extension: evidence/ui_model.py, evidence/ui_css.py,
+        # adapters/vbnet_webforms_oracle/ui_extraction.py (deterministic extractor) and behavior/ui_evidence.py (persisted reader): 329.
+        # Pre-H5 Gate C adds adapters/vbnet_webforms_oracle/analysis/cross_project.py (cross-project call resolution): 330.
+        # Post-V5 H4 final knowledge productization adds the `product` package (__init__, domain, package): 333.
+        # Post-V5 H4 final screen/narrative micro-polish adds behavior/humanize.py (human-prose polish at composition time): 334.
+        self.assertEqual(len(files), 334)
 
 
 class FileAnalysisTests(unittest.TestCase):
@@ -316,9 +337,9 @@ class GeneratedArtifactOnDiskTests(unittest.TestCase):
         historical = REPO_ROOT / "output" / "v4_1_r0" / "V4_1_MAINTAINABILITY_INVENTORY.json"
         if not historical.exists():
             self.skipTest("V4_1_MAINTAINABILITY_INVENTORY.json not yet generated")
-        path = REPO_ROOT / "docs" / "V5" / "V5_9_R2_IDENTITY_IMPACT.json"
+        path = REPO_ROOT / "docs" / "POST_V5" / "PRE_H5_GATE_C_FINAL_HARDENING_EVIDENCE.json"
         snapshot = json.loads(path.read_text(encoding="utf-8"))
-        self.assertEqual(snapshot["round"], "V5.9 R2")
+        self.assertEqual(snapshot["round"], "PRE-H5 Gate C final hardening")
         self.assertFalse(snapshot["historical_artifacts_modified"])
         self.assertEqual(report.build_inventory(REPO_ROOT), snapshot["inventory"])
 

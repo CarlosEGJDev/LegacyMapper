@@ -1,0 +1,12 @@
+/* LegacyMapperHumanTemplate human/default - PDF presentation (subset read by the dependency-free PDF writer).
+   Supported per class: font-size (pt), color (#rrggbb), text-align (center | justify), margin-top / margin-bottom (pt).
+   Document structure -> class: title = .doc-title, section = .h1, view subtitle = .h2, sub-section = .h3, paragraphs = .body */
+.doc-title { font-size: 27pt; color: #1f4e79; text-align: center; }
+.h1        { font-size: 20pt; color: #1b2430; margin-top: 22pt; margin-bottom: 8pt; }
+.h2        { font-size: 15pt; color: #1f4e79; text-align: center; margin-top: 26pt; margin-bottom: 12pt; }
+.h3        { font-size: 12pt; color: #1b2430; margin-top: 14pt; margin-bottom: 5pt; }
+.body      { font-size: 10pt; text-align: justify; margin-bottom: 7pt; }
+.caption   { font-size: 8.5pt; }
+.technical { font-size: 8.5pt; }
+.evidence  { font-size: 7pt; }
+.badge     { font-size: 8pt; }

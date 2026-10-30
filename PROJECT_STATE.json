@@ -2,15 +2,15 @@
   "project": "LegacyMapper",
   "schema_version": "1.0",
   "current_version": "POST_V5",
-  "current_version_status": "POST_V5_PLANNING",
+  "current_version_status": "POST_V5_H4_CLOSED_H5_NOT_STARTED",
   "v4_2_closed": true,
   "v4_3_closed": true,
-  "human_review": "PENDING",
+  "human_review": "APPROVED",
   "approval_authority": "TECHNICAL_LEAD",
   "latest_completed_round": "V5-Closure-R3",
   "latest_approved_round": "V5-Closure-R1",
   "current_round_in_progress": null,
-  "tests": 3100,
+  "tests": 3551,
   "test_failures": 0,
   "test_errors": 0,
   "expected_fresh_clone_skips": 132,
@@ -22,8 +22,8 @@
   "real_llm_calls": 0,
   "canonical_v3_baseline_path": "output/v3_final/V3_FINAL_BASELINE.json",
   "active_handover_path": "docs/V4/V4_AI_HANDOVER.md",
-  "active_roadmap_path": "docs/continuity/LEGACYMAPPER_V5_ROADMAP.md",
-  "latest_result_path": "docs/POST_V5/POST_V5_DOCUMENTATION_CONSOLIDATION_RESULT.md",
+  "active_roadmap_path": "docs/POST_V5/HUMAN_EXPERIENCE_AND_AI_DOCUMENTATION_ROADMAP.md",
+  "latest_result_path": "docs/POST_V5/H4_FORMAL_CLOSURE_RESULT.md",
   "recovery_document_path": "docs/PROJECT_RECOVERY.md",
   "generated_artifact_policy_path": "docs/GENERATED_ARTIFACT_POLICY.md",
   "repository_continuity_contract_path": "docs/V4/V4_REPOSITORY_CONTINUITY_CONTRACT.md",
@@ -31,7 +31,7 @@
   "v4_1_closure_result_path": "docs/V4_1/V4_1_FINAL_CLOSURE_AND_VERSIONING_RESULT.md",
   "v4_2_closure_result_path": "docs/V4_2/V4_2_FINAL_CLOSURE_AND_VERSIONING_RESULT.md",
   "v4_3_closure_result_path": "docs/V4_3/V4_3_R9_FINAL_CLOSURE_RESULT.md",
-  "round_status": "POST_V5_DOCUMENTATION_CONSOLIDATION_READY_FOR_HUMAN_REVIEW",
+  "round_status": "H4_FORMAL_CLOSURE_CLOSED",
   "v4_2_r5": "APPROVED",
   "v4_2_r5_1": "APPROVED",
   "v4_2_r6": "APPROVED",
@@ -100,7 +100,7 @@
   "final_baseline_sha256": "4e80b2ac757227204178d46c3eddb0fdebd166ee40c6453bbbae2c45e184d5ed",
   "final_manifest_path": "output/v4_2_r8/V4_2_FINAL_MANIFEST.json",
   "final_manifest_sha256": "1ed09ad06daaa698ed3bf0b7d119fffdea41a610b6cc230d79bfedebb8cef7e0",
-  "next": "H1_R1_AI_ONLY_CONTRACT_AND_UX_DESIGN",
+  "next": "H5_REAL_IST_VALIDATION_AND_CLOSURE",
   "v4_1_reopened": false,
   "v5_implemented": true,
   "plugin_runtime": "NOT_IMPLEMENTED",
@@ -170,7 +170,7 @@
   "v5_3_r3_real_llm_calls": 0,
   "v5_3_r3_checkpoint": "aa7db0db6c77d7ec8a1b15f50e33bf176d948bcd",
   "v5_3_r3_reparse_real": "PASS",
-  "status": "POST_V5_PLANNING",
+  "status": "POST_V5_H4_CLOSED_H5_NOT_STARTED",
   "next_version": null,
   "next_round": null,
   "v5_3_r4_closure": "COMPLETED",
@@ -751,9 +751,9 @@
   "v5_final_tag_target": "e831a2f84d2749b4452e06860521b3171093c7b9",
   "v5_final_tag_message": "LegacyMapper V5 final release baseline",
   "v5_final_release_tag_commit": "e831a2f84d2749b4452e06860521b3171093c7b9",
-  "post_v5_latest_round": "POST-V5-Documentation-Consolidation",
+  "post_v5_latest_round": "H4_FORMAL_CLOSURE",
   "active_initiative": "HUMAN_EXPERIENCE_AND_AI_DOCUMENTATION",
-  "initiative_status": "PLANNED",
+  "initiative_status": "IN_PROGRESS",
   "initiative_roadmap_path": "docs/POST_V5/HUMAN_EXPERIENCE_AND_AI_DOCUMENTATION_ROADMAP.md",
   "initiative_phases": [
     "H1 AI-only from persisted deterministic knowledge",
@@ -768,14 +768,608 @@
   "v5_post_tag_receipt_sync_commit": "90efa975e44abbd0314bd0793fe3f9d37ff13432",
   "v5_final_ist_source_path": "C:\\Users\\cgalianj\\source\\IST_40\\Operacional",
   "post_v5_debt_candidates": [
-    "UX-01 full against a nonexistent repository returns SUCCESS with empty analysis",
-    "UX-02 no public AI-only command to reuse an existing deterministic output",
+    "UX-01 RESOLVED_BY_PRE_H5_GATE_A (full/analyze reject invalid source/output with exit 4 before scanner/analyzer/provider)",
     "UX-03 no consumer CLI",
-    "HX-01 human docs too technical / insufficiently visual for broad audiences",
-    "HX-02 PDF/HTML visual documentation not productized",
-    "HX-03 structured use-case/module visual projection not implemented"
+    "UX-02 RESOLVED_BY_H1 (python main.py interpret)",
+    "HX-01 RESOLVED_BY_H2_H3_H4 (pending H5 human acceptance)",
+    "HX-02 RESOLVED_BY_H4 (python main.py deliver: HTML + PDF)",
+    "HX-03 RESOLVED_BY_H3 (python main.py visuals)"
   ],
   "post_v5_documentation_result_path": "docs/POST_V5/POST_V5_DOCUMENTATION_CONSOLIDATION_RESULT.md",
   "post_v5_provider_calls": 0,
-  "post_v5_real_llm_calls": 0
+  "post_v5_real_llm_calls": 7,
+  "h1_ai_only": "CLOSED",
+  "h1_cli_command": "interpret",
+  "h1_result_path": "docs/POST_V5/H1_AI_ONLY_INTEGRATED_DELIVERY_RESULT.md",
+  "h1_full_suite": {
+    "command": "python -X utf8 -m unittest discover -s tests",
+    "total": 3124,
+    "failures": 0,
+    "errors": 0,
+    "skips": 132,
+    "duration_seconds": 853.858
+  },
+  "h1_new_tests": 24,
+  "h1_ist_validation": {
+    "baseline": "IST_REAL_AI (persisted deterministic output)",
+    "source_artifacts": 15138,
+    "validate_hash_seconds": 7.5,
+    "interpretation_seconds": 17.0,
+    "provider_calls_fake": 1,
+    "real_provider_calls": 0,
+    "scanner_or_analyzer_invocations": 0,
+    "baseline_files_added": 0,
+    "baseline_files_removed": 0,
+    "baseline_files_changed": 0
+  },
+  "h1_real_provider_validation": "NOT_RUN",
+  "h2_human_documentation_by_audience": "CLOSED",
+  "h2_cli_command": "docs",
+  "h2_profiles": [
+    "executive",
+    "functional",
+    "technical_overview"
+  ],
+  "h2_result_path": "docs/POST_V5/H2_HUMAN_DOCUMENTATION_BY_AUDIENCE_RESULT.md",
+  "h2_full_suite": {
+    "command": "python -X utf8 -m unittest discover -s tests",
+    "total": 3160,
+    "failures": 0,
+    "errors": 0,
+    "skips": 132
+  },
+  "h2_new_tests": 36,
+  "h2_ist_validation": {
+    "baseline": "IST_REAL_AI (persisted deterministic output)",
+    "generation_seconds": 18,
+    "documents": {
+      "executive": 2,
+      "functional": 97,
+      "technical_overview": 267
+    },
+    "links_checked": 733,
+    "broken_links": 0,
+    "empty_sections": 0,
+    "rerun_byte_identical": true,
+    "baseline_files_added": 0,
+    "baseline_files_removed": 0,
+    "baseline_files_changed": 0,
+    "provider_calls": 0
+  },
+  "h2_human_review_sample": "C:\\PruebasLegacyMapper\\Resultados\\post_v5_h2_human_review (outside the repository)",
+  "h2_human_acceptance": "NOT_CLAIMED_PENDING_HUMAN_REVIEW",
+  "h2_human_review": "READY_FOR_FINAL_HUMAN_CONFIRMATION",
+  "h2_r2": "COMPLETED_FUNCTIONAL_READABILITY_CORRECTION",
+  "h2_review_result_before_r2": {
+    "executive": "PASS",
+    "technical_overview": "PASS",
+    "functional": "PARTIAL"
+  },
+  "h2_r2_new_tests": 15,
+  "h2_r2_ist_validation": {
+    "interactions": 672,
+    "by_action": {
+      "read": 407,
+      "create": 61,
+      "update": 20,
+      "delete": 18,
+      "mixed": 97,
+      "unknown": 69
+    },
+    "links_checked": 829,
+    "broken_links": 0,
+    "rerun_byte_identical": true,
+    "executive_and_technical_overview_byte_identical_to_reviewed": true,
+    "baseline_files_added": 0,
+    "baseline_files_removed": 0,
+    "baseline_files_changed": 0,
+    "provider_calls": 0
+  },
+  "h3_structured_visual_projections": "CLOSED",
+  "h3_cli_command": "visuals",
+  "h3_diagram_kinds": [
+    "system-map",
+    "project-layer-map",
+    "dependency-map",
+    "observable-flow",
+    "data-interaction-map"
+  ],
+  "h3_result_path": "docs/POST_V5/H3_STRUCTURED_VISUAL_PROJECTIONS_RESULT.md",
+  "h3_full_suite": {
+    "command": "python -X utf8 -m unittest discover -s tests",
+    "total": 3208,
+    "failures": 0,
+    "errors": 0,
+    "skips": 132
+  },
+  "h3_new_tests": 28,
+  "h3_ist_validation": {
+    "baseline": "IST_REAL_AI (persisted deterministic output)",
+    "diagrams": 17,
+    "largest_svg_bytes": 48377,
+    "max_nodes": 41,
+    "max_edges": 80,
+    "partial_diagrams": 9,
+    "references_checked": 3719,
+    "unresolved_references": 0,
+    "baseline_files_added": 0,
+    "baseline_files_removed": 0,
+    "baseline_files_changed": 0,
+    "provider_calls": 0,
+    "scanner_or_analyzer_invocations": 0
+  },
+  "h3_human_review_sample": "C:\\PruebasLegacyMapper\\Resultados\\post_v5_h3_visual_review (outside the repository)",
+  "h3_human_acceptance": "APPROVED_BY_HUMAN_REVIEW_BEFORE_H4",
+  "h3_r2": "COMPLETED_VISUAL_READABILITY_CORRECTION",
+  "h3_review_result_before_r2": {
+    "system-map": "PASS",
+    "project-layer-map": "PASS",
+    "observable-flow": "PASS_WITH_READABILITY_OBSERVATION",
+    "dependency-map": "PARTIAL",
+    "data-interaction-map": "PARTIAL"
+  },
+  "h3_human_review": "APPROVED",
+  "h3_r2_new_tests": 20,
+  "h3_r2_ist_validation": {
+    "diagrams": 40,
+    "decomposed_summaries": 4,
+    "detail_diagrams": 28,
+    "largest_svg_bytes": 47221,
+    "max_canvas_width": 1374,
+    "dependency_relations_summary_equals_details": "44=44",
+    "data_interaction_relations_summary_equals_details": "34=34",
+    "references_checked": 3848,
+    "unresolved_references": 0,
+    "rerun_byte_identical": true,
+    "system_map_and_project_layer_map_byte_identical_to_reviewed": true,
+    "baseline_files_added": 0,
+    "baseline_files_removed": 0,
+    "baseline_files_changed": 0,
+    "provider_calls": 0,
+    "scanner_or_analyzer_invocations": 0
+  },
+  "h4_final_human_deliverables": "PACKAGING_TECHNICALLY_VALIDATED_BEHAVIORAL_DOCUMENTATION_IN_HUMAN_REVIEW",
+  "h4_cli_command": "deliver",
+  "h4_result_path": "docs/POST_V5/H4_FINAL_HUMAN_DELIVERABLES_RESULT.md",
+  "h4_deliverables": [
+    "SYSTEM_OVERVIEW",
+    "MODULE_MAP",
+    "FUNCTIONAL_AREAS",
+    "USE_CASES",
+    "BUSINESS_FLOWS",
+    "ARCHITECTURE_OVERVIEW",
+    "PROJECT_LAYER_MAP",
+    "DATA_INTERACTIONS",
+    "EXTERNAL_INTEGRATIONS",
+    "KNOWN_UNRESOLVED_AREAS"
+  ],
+  "h4_primary_format": "static offline HTML (index.html)",
+  "h4_secondary_format": "PDF (dependency-free writer, vector diagrams)",
+  "h4_manifest_contract": "LegacyMapperDeliverablesManifest 1.0",
+  "h4_new_tests": 46,
+  "h4_ist_validation": {
+    "baseline": "IST_REAL_AI (persisted deterministic output)",
+    "generation_seconds": 34.9,
+    "html_files": 777,
+    "pdf_files": 4,
+    "svg_files": 399,
+    "package_mb": 14.63,
+    "largest_html": "visuals/index.html",
+    "largest_html_bytes": 99347,
+    "largest_pdf": "pdf/LegacyMapper_Functional.pdf",
+    "largest_pdf_bytes": 146990,
+    "pdf_pages": {
+      "LegacyMapper_Executive.pdf": 13,
+      "LegacyMapper_Functional.pdf": 55,
+      "LegacyMapper_System_Overview.pdf": 49,
+      "LegacyMapper_Technical_Overview.pdf": 50
+    },
+    "diagrams": 399,
+    "partial_diagrams": 11,
+    "links_checked": 16549,
+    "broken_links": 0,
+    "missing_fragments": 0,
+    "unresolvable_references": 0,
+    "provider_calls": 0,
+    "scanner_or_analyzer_invocations": 0,
+    "baseline_files_added": 0,
+    "baseline_files_removed": 0,
+    "baseline_files_changed": 0,
+    "rerun_byte_identical": true
+  },
+  "h4_human_review_sample": "C:\\PruebasLegacyMapper\\Resultados\\post_v5_h4_final_deliverables_review (outside the repository)",
+  "h4_human_acceptance": "APPROVED_BY_OWNER_MANUAL_REVIEW",
+  "h4_final_screen_reconstruction_narrative_micro_polish": "READY_FOR_FINAL_HUMAN_APPROVAL (H4 = HUMAN_APPROVAL_PENDING; H5 = NOT_STARTED; provider_calls 0; scanner/analyzer/source reads 0; ai/ byte-identical; diagrams frozen; no commit/push/tag)",
+  "h4_final_screen_reconstruction_narrative_micro_polish_review_path": "C:\\PruebasLegacyMapper\\FinalValidation\\runs\\manual_final_h4_candidate\\package (outside the repository)",
+  "h4_final_layout_overflow_polish": "READY_FOR_HUMAN_APPROVAL (H4 = HUMAN_APPROVAL_PENDING; H5 = NOT_STARTED; provider_calls 0; scanner/analyzer/source reads 0; ai/ byte-identical; presentation only; no commit/push/tag)",
+  "h4_final_layout_overflow_polish_review_path": "C:\\PruebasLegacyMapper\\FinalValidation\\runs\\manual_final_layout_polish\\package (outside the repository)",
+  "h4_final_catalog_wireframe_micro_polish": "READY_FOR_FINAL_MANUAL_RUN (H4 = HUMAN_APPROVAL_PENDING; H5 = NOT_STARTED; provider_calls 0; ai/ byte-identical; full suite 3500 OK; no commit/push/tag)",
+  "h4_final_catalog_wireframe_micro_polish_review_path": "C:\\PruebasLegacyMapper\\Resultados\\h4_final_catalog_wireframe_polish\\package (outside the repository)",
+  "h4_final_human_noise_pdf_polish": "READY_FOR_MANUAL_VALIDATION (H4 = HUMAN_APPROVAL_PENDING; H5 = NOT_STARTED; provider_calls 0; ai/ package byte-identical; full suite 3494 OK; no commit/push/tag)",
+  "h4_final_human_noise_pdf_polish_review_path": "C:\\PruebasLegacyMapper\\Resultados\\h4_final_human_noise_pdf_polish\\package (outside the repository)",
+  "h4_final_knowledge_productization": "READY_FOR_HUMAN_APPROVAL (H4 = HUMAN_APPROVAL_PENDING; H5 = NOT_STARTED; real Copilot interpretation 6/6 copilot-local gpt-6-luna; scanner/analyzer reruns 0; full suite 3481 OK; no commit/push/tag)",
+  "h4_final_knowledge_productization_review_path": "C:\\PruebasLegacyMapper\\Resultados\\h4_final_knowledge_productization\\package (outside the repository)",
+  "h4_final_content_polish": "READY_FOR_HUMAN_APPROVAL (H4 = HUMAN_APPROVAL_PENDING; H5 = NOT_STARTED; no commit/push/tag; provider_calls 0)",
+  "h4_final_content_polish_review_path": "C:\\PruebasLegacyMapper\\Resultados\\post_v5_h4_final_content_polish (outside the repository)",
+  "h4_human_review": "APPROVED",
+  "h4_full_suite": {
+    "command": "python -X utf8 -m unittest discover -s tests",
+    "total": 3254,
+    "failures": 0,
+    "errors": 0,
+    "skips": 132,
+    "duration_seconds": 689.607,
+    "exit_code": 0,
+    "run": "H4-R3 final tree"
+  },
+  "h4_r3": "TECHNICAL_VERIFICATION_COMPLETED_HUMAN_APPROVAL_PENDING",
+  "h5_real_ist_validation_and_closure": "NOT_STARTED",
+  "ai_knowledge_package_generated": true,
+  "ai_knowledge_package_generated_note": "Current state: real AI interpretation (copilot-local) and the machine-readable ai/ knowledge package exist in the approved H4 run (package/ai).",
+  "post_h4_state_consistency_sync": "PASS",
+  "post_h4_state_consistency_sync_result_path": "docs/POST_V5/POST_H4_STATE_CONSISTENCY_SYNC_RESULT.md",
+  "v5_closure_roadmap_path": "docs/continuity/LEGACYMAPPER_V5_ROADMAP.md",
+  "legacy_v5_round_fields_note": "latest_completed_round and latest_approved_round are V5-closure-scoped legacy fields (tests require the V<N>-Closure-R<N> shape); the current Post-V5 marker is post_v5_latest_round and the current status is current_version_status.",
+  "current_suite_note": "tests/test_failures/test_errors/expected_fresh_clone_skips = the final H4 full suite (3551 / 0 / 0 / 132); earlier baselines live in h4_full_suite and per-version keys.",
+  "ai_knowledge_generated_note": "HISTORICAL_BASELINE: V4-era readiness-gate flag pinned false by V4 tests and the V4 final baseline (the gate itself never generates AI knowledge). It does not mean the product has no AI knowledge; see ai_knowledge_package_generated.",
+  "post_v5_h4_final_human_deliverables": "CLOSED",
+  "h4_owner_approval": "APPROVED",
+  "h4_blocking_debt": 0,
+  "h4_formal_closure": "CLOSED",
+  "h4_formal_closure_result_path": "docs/POST_V5/H4_FORMAL_CLOSURE_RESULT.md",
+  "h4_closure_path": "docs/POST_V5/H4_CLOSURE.md",
+  "h4_cleanup_and_final_human_candidate": "READY_FOR_OWNER_APPROVAL (approved H4 closure candidate)",
+  "h4_cleanup_and_final_human_candidate_result_path": "docs/POST_V5/H4_CLEANUP_AND_FINAL_HUMAN_CANDIDATE_RESULT.md",
+  "h4_approved_review_path": "C:\\PruebasLegacyMapper\\FinalValidation\\runs\\final_h4_review (outside the repository)",
+  "h4_final_full_suite": {"total": 3551, "failures": 0, "errors": 0, "skips": 132},
+  "h4_final_counters": {"provider_calls": 0, "scanner": 0, "analyzer": 0, "evidence_rebuild": 0, "source_reads": 0},
+  "v6": "NOT_STARTED",
+  "h4_r4_behavioral_prototype": "READY_FOR_HUMAN_REVIEW",
+  "h4_r4_result_path": "docs/POST_V5/H4_BEHAVIORAL_DOCUMENTATION_PROTOTYPE_RESULT.md",
+  "h4_r4_module_classification": "NO_SAFE_MODULE_STRUCTURE",
+  "h4_r4_ai_provider_calls": 0,
+  "h4_r4_ai_narrative": "NOT_RUN_DETERMINISTIC_EXPLAINER_WITH_VALIDATED_AI_OVERLAY_CONTRACT",
+  "h4_r4_measurements": {
+    "vistas_del_proyecto": 121,
+    "grupos_o_modulos_candidatos": "NO_SAFE_MODULE_STRUCTURE (59 familias por prefijo)",
+    "con_code_behind": 107,
+    "con_marcado": 121,
+    "con_eventos_o_acciones": 107,
+    "alcanzan_clase_de_negocio_o_dao": 17,
+    "alcanzan_operacion_de_datos": 17,
+    "alcanzan_procedimiento_o_sql": 17,
+    "con_invocaciones_entrantes": 8,
+    "con_invocaciones_salientes": 32,
+    "soportan_wireframe_documental": 117,
+    "estructuralmente_no_resueltas (acciones sin ruta confirmada)": 102,
+    "dialogos_de_busqueda_inferidos": 3
+  },
+  "h4_r4_ist_validation": {
+    "project": "WebPREPrevencion",
+    "solution": "slnPREPrevencion_2010",
+    "pilot_views": [
+      "ucPreMantEmpadronamiento",
+      "ucBusSuc",
+      "ucPreMantDepPrevencion",
+      "ucPreEstadisticasAccidentes",
+      "ucPreMantMetas"
+    ],
+    "violations_rejected": 0,
+    "violations_noted": {
+      "INVOCATION_TARGET_MISSING": 2
+    },
+    "provider_calls": 0,
+    "baseline_files_added": 0,
+    "baseline_files_removed": 0,
+    "baseline_files_changed": 0,
+    "rerun_byte_identical": true,
+    "pdf_pages": 50
+  },
+  "h4_r4_new_tests": 27,
+  "h4_r4_human_review_sample": "C:\\PruebasLegacyMapper\\Resultados\\post_v5_h4_behavioral_doc_prototype (outside the repository)",
+  "h4_r4_full_suite": {
+    "command": "python -X utf8 -m unittest discover -s tests",
+    "total": 3281,
+    "failures": 0,
+    "errors": 0,
+    "skips": 132,
+    "duration_seconds": 772.516,
+    "exit_code": 0
+  },
+  "h4_behavioral_ai": "READY_FOR_HUMAN_REVIEW",
+  "h4_r5_ai": {
+    "provider_id": "copilot-local",
+    "model_id": "gpt-6-luna",
+    "requests": 6,
+    "successful": 6,
+    "input_chars_total": 113777,
+    "output_chars_total": 106152,
+    "accepted_claims": 92,
+    "rejected_claims": 7,
+    "status_policy": "all AI narrative = AI_INTERPRETATION",
+    "validation_replayed_from_real_run": true
+  },
+  "h4_r5_usage_classification": {
+    "ACTIVE_OBSERVABLE": 7,
+    "UNRESOLVED_USAGE": 114
+  },
+  "h4_r5_new_tests": 18,
+  "h4_r5_full_suite": {
+    "command": "python -X utf8 -m unittest discover -s tests",
+    "total": 3299,
+    "failures": 0,
+    "errors": 0,
+    "skips": 132,
+    "duration_seconds": 753.797,
+    "exit_code": 0
+  },
+  "h4_r5_baseline_delta": {
+    "added": 0,
+    "removed": 0,
+    "changed": 0
+  },
+  "h4_human_template": "READY_FOR_FINAL_HUMAN_APPROVAL",
+  "h4_human_template_contract": "LegacyMapperHumanTemplate 1.0",
+  "h4_human_template_roots": {
+    "human": "IMPLEMENTED (templates/human/default)",
+    "ai": "RESERVED_DOCUMENTED_ONLY"
+  },
+  "h4_human_template_cli": "python -m legacy_documenter.behavior.prototype <baseline> --source <repo> --output <dir> --template human/default [--template-dir <dir>]",
+  "h4_human_template_new_tests": 25,
+  "h4_human_template_full_suite": {
+    "command": "python -X utf8 -m unittest discover -s tests",
+    "total": 3334,
+    "failures": 0,
+    "errors": 0,
+    "skips": 132,
+    "duration_seconds": 2266.7,
+    "exit_code": 0
+  },
+  "h4_human_template_ui_fidelity": {
+    "project_distribution": {
+      "STRUCTURE_ONLY": 7,
+      "STYLE_HIGH_CONFIDENCE": 5,
+      "STYLE_PARTIAL": 109
+    },
+    "pilot_views": "STYLE_PARTIAL",
+    "views_with_wireframe": 117
+  },
+  "h4_human_template_baseline_delta": {
+    "added": 0,
+    "removed": 0,
+    "changed": 0
+  },
+  "h4_human_template_byte_identical_rerun": true,
+  "h4_human_template_provider_calls_new": 0,
+  "h4_human_template_open_debt": [
+    "UI/navigation evidence persisted only as a versioned sidecar (Evidence Core unchanged)",
+    "cross-project BL calls remain unresolved",
+    "UX-01",
+    "UX-03"
+  ],
+  "h4_human_template_review_sample": "C:\\PruebasLegacyMapper\\Resultados\\post_v5_human_template_productization (outside the repository)",
+  "h4_human_template_polish_new_tests": 10,
+  "pre_h5_gate_a_portability": "PASS",
+  "pre_h5_gate_a_result_path": "docs/POST_V5/PRE_H5_GATE_A_PORTABILITY_RESULT.md",
+  "pre_h5_gate_a_evidence_path": "docs/POST_V5/PRE_H5_GATE_A_PORTABILITY_EVIDENCE.json",
+  "pre_h5_gate_a_scope": [
+    "DT-01 portability/runtime independence",
+    "DT-02 UX-01 strict invalid-path handling",
+    "DT-05 AI provider optional",
+    "DT-06 global path/resource contract"
+  ],
+  "pre_h5_gate_a_path_contract": "legacy_documenter/utils/path_contract.py",
+  "pre_h5_gate_a_builtin_templates": "legacy_documenter/templates/{human,ai} (moved from the checkout-root templates/)",
+  "pre_h5_gate_a_new_tests": 27,
+  "pre_h5_gate_a_provider_calls_new": 0,
+  "pre_h5_gate_a_git": {
+    "commit": false,
+    "push": false,
+    "tag": false
+  },
+  "pre_h5_remaining": {
+    "next": "H5_REAL_IST_VALIDATION_AND_CLOSURE (after explicit human review)"
+  },
+  "pre_h5_gate_a_full_suite": {
+    "command": "python -X utf8 -m unittest discover -s tests",
+    "total": 3361,
+    "failures": 0,
+    "errors": 0,
+    "skips": 132,
+    "duration_seconds": 1118.3,
+    "exit_code": 0
+  },
+  "pre_h5_gate_a_ist_persisted_regression": {
+    "baseline": "IST_REAL_AI (persisted deterministic output)",
+    "files": 47529,
+    "bytes": 2828160172,
+    "tree_sha256_unchanged": true,
+    "scanner_calls": 0,
+    "analyzer_calls": 0,
+    "provider_calls": 0,
+    "package_files": 1584,
+    "package_absolute_path_hits": 0
+  },
+  "pre_h5_gate_a_directed_tests": {
+    "module": "tests/test_post_v5_gate_a_portability.py",
+    "count": 27,
+    "result": "OK"
+  },
+  "pre_h5_gate_a_open_debt": [
+    "scan_summary.root/source_repository persist the physical path (V5.9-R2 informative contract)",
+    "Gate B: DT-03",
+    "Gate C: DT-04, DT-07, DT-08"
+  ],
+  "pre_h5_gate_a1_distribution_closure": "PASS",
+  "pre_h5_gate_a1_result_path": "docs/POST_V5/PRE_H5_GATE_A1_DISTRIBUTION_CLOSURE_RESULT.md",
+  "pre_h5_gate_a1_evidence_path": "docs/POST_V5/PRE_H5_GATE_A1_DISTRIBUTION_CLOSURE_EVIDENCE.json",
+  "pre_h5_gate_a1_scope": [
+    "A1-01 distribution/installability",
+    "A1-02 generic behavior prototype defaults",
+    "A1-03 output-manifest controlled failure"
+  ],
+  "pre_h5_gate_a1_distribution": {
+    "artifact": "wheel legacymapper-5.9.0-py3-none-any.whl",
+    "metadata": "pyproject.toml (setuptools)",
+    "console_script": "legacymapper",
+    "module_entry": "python -m legacy_documenter",
+    "validated_python": "3.14.7 (requires-python >=3.12, floor untested)",
+    "validated_os": "Windows",
+    "isolated_venv_install": true,
+    "checkout_dependency": false
+  },
+  "pre_h5_gate_a1_directed_tests": {
+    "module": "tests/test_post_v5_gate_a1_distribution.py",
+    "count": 22,
+    "result": "OK"
+  },
+  "pre_h5_gate_a1_provider_calls_new": 0,
+  "pre_h5_gate_a1_git": {
+    "commit": false,
+    "push": false,
+    "tag": false
+  },
+  "pre_h5_gate_a1_full_suite": {
+    "command": "python -X utf8 -m unittest discover -s tests",
+    "total": 3383,
+    "failures": 0,
+    "errors": 0,
+    "skips": 132,
+    "duration_seconds": 837.8,
+    "exit_code": 0
+  },
+  "pre_h5_gate_b_evidence_core": "PASS",
+  "pre_h5_gate_b_result_path": "docs/POST_V5/PRE_H5_GATE_B_EVIDENCE_CORE_RESULT.md",
+  "pre_h5_gate_b_evidence_path": "docs/POST_V5/PRE_H5_GATE_B_EVIDENCE_CORE_EVIDENCE.json",
+  "pre_h5_gate_b_scope": [
+    "DT-03 UI/navigation/styles -> Evidence Core (additive ui_* partitions, ui_evidence_schema_version 1.0)",
+    "physical vs logical source provenance: derived source_provenance in the evidence manifest"
+  ],
+  "pre_h5_gate_b_directed_tests": {
+    "module": "tests/test_post_v5_gate_b_ui_evidence_core.py",
+    "count": 30,
+    "result": "OK"
+  },
+  "pre_h5_gate_b_provider_calls_new": 0,
+  "pre_h5_gate_b_git": {
+    "commit": false,
+    "push": false,
+    "tag": false
+  },
+  "pre_h5_gate_b_ist": {
+    "full_analyses": 1,
+    "core_partitions_changed": 0,
+    "downstream_source_open_events": 0,
+    "scanner_calls": 0,
+    "analyzer_calls": 0,
+    "provider_calls": 0
+  },
+  "h5": "NOT_STARTED",
+  "pre_h5_gate_b_full_suite": {
+    "command": "python -X utf8 -m unittest discover -s tests",
+    "total": 3413,
+    "failures": 0,
+    "errors": 0,
+    "skips": 132,
+    "duration_seconds": 857.9,
+    "exit_code": 0,
+    "note": "first full run had 1 failure (second pinned analyzer fingerprint in test_v5_8_r1); fixed and the whole suite repeated on the final tree"
+  },
+  "pre_h5_gate_b1_evidence_core_closure": "PASS",
+  "pre_h5_gate_b1_result_path": "docs/POST_V5/PRE_H5_GATE_B1_EVIDENCE_CORE_CLOSURE_RESULT.md",
+  "pre_h5_gate_b1_evidence_path": "docs/POST_V5/PRE_H5_GATE_B1_EVIDENCE_CORE_CLOSURE_EVIDENCE.json",
+  "pre_h5_gate_b1_scope": [
+    "B1-01 ~/ asset roots",
+    "B1-02 menu/config navigation",
+    "B1-03 usage parity diagnosis",
+    "B1-04 portable provenance",
+    "B1-05 snapshot hash contract",
+    "B1-06 evidence size reduction",
+    "B1-07 dependency cycle"
+  ],
+  "pre_h5_gate_b1_ui_evidence_schema_version": "1.1",
+  "pre_h5_gate_b1_directed_tests": {
+    "module": "tests/test_post_v5_gate_b1_evidence_core_closure.py",
+    "count": 19,
+    "result": "OK"
+  },
+  "pre_h5_gate_b1_ist": {
+    "full_analyses": 1,
+    "core_partitions_changed": 0,
+    "ui_evidence_bytes_before": 174677491,
+    "ui_evidence_bytes_after": 108026968,
+    "downstream_source_open_events": 0,
+    "scanner_calls": 0,
+    "analyzer_calls": 0,
+    "provider_calls": 0,
+    "usage_summary": {
+      "ACTIVE_OBSERVABLE": 7,
+      "POSSIBLY_ACTIVE": 52,
+      "UNRESOLVED_USAGE": 62
+    }
+  },
+  "pre_h5_gate_b1_usage_diagnosis": "H4 package incorrect (name_references=0 with confirmed incoming); superseded; mechanical cause UNRESOLVED_HISTORICAL_PARITY",
+  "pre_h5_gate_b1_git": {
+    "commit": false,
+    "push": false,
+    "tag": false
+  },
+  "pre_h5_gate_b1_full_suite": {
+    "command": "python -X utf8 -m unittest discover -s tests",
+    "total": 3432,
+    "failures": 0,
+    "errors": 0,
+    "skips": 132,
+    "duration_seconds": 715.8,
+    "exit_code": 0
+  },
+  "pre_h5_gate_c_final_hardening": "PASS",
+  "pre_h5_blocking_debt": 0,
+  "pre_h5_gate_c_result_path": "docs/POST_V5/PRE_H5_GATE_C_FINAL_HARDENING_RESULT.md",
+  "pre_h5_gate_c_evidence_path": "docs/POST_V5/PRE_H5_GATE_C_FINAL_HARDENING_EVIDENCE.json",
+  "pre_h5_gate_c_scope": [
+    "DT-04 cross-project call resolution",
+    "DT-07 second human template (human/executive)",
+    "DT-08 selected product debt",
+    "UX-03 decision: FUTURE_CAPABILITY (deferred)"
+  ],
+  "pre_h5_gate_c_directed_tests": {
+    "module": "tests/test_post_v5_gate_c_final_hardening.py",
+    "count": 22,
+    "result": "OK"
+  },
+  "pre_h5_gate_c_ist": {
+    "full_analyses": 1,
+    "calls_confirmed": [
+      12775,
+      19487
+    ],
+    "calls_inferred": [
+      0,
+      460
+    ],
+    "flows_with_confirmed_terminal": [
+      2370,
+      2500
+    ],
+    "downstream_source_open_events": 0,
+    "scanner_calls": 0,
+    "analyzer_calls": 0,
+    "provider_calls": 0
+  },
+  "analyzer_version": 4,
+  "pre_h5_gate_c_git": {
+    "commit": false,
+    "push": false,
+    "tag": false
+  },
+  "pre_h5_gate_c_full_suite": {
+    "command": "python -X utf8 -m unittest discover -s tests",
+    "total": 3454,
+    "failures": 0,
+    "errors": 0,
+    "skips": 132,
+    "duration_seconds": 743.2,
+    "exit_code": 0
+  }
 }

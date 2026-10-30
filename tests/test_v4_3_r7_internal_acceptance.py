@@ -332,11 +332,17 @@ class OutputManifestCliSubcommandTests(unittest.TestCase):
             self.assertEqual(result.status.value, "SUCCESS")
             self.assertTrue((Path(out) / "OUTPUT_MANIFEST.json").is_file())
 
-    def test_router_propagates_file_not_found_for_a_missing_output_dir(self) -> None:
+    def test_router_raises_a_controlled_path_contract_error_for_a_missing_output_dir(self) -> None:
+        """Pre-H5 Gate A.1 (A1-03): the CLI route no longer leaks a raw `FileNotFoundError` for this expected invalid input; it raises
+        the shared path-contract error, which `main` renders as JSON + exit 4. The library `build_output_manifest` is unchanged."""
         from argparse import Namespace
         from legacy_documenter.cli.router import route
-        with self.assertRaises(FileNotFoundError):
+        from legacy_documenter.utils.path_contract import PathContractError
+        with self.assertRaises(PathContractError) as raised:
             route(Namespace(command="output-manifest", output_dir="/does/not/exist/at/all"), analyze_repository=None)
+        self.assertEqual(raised.exception.code, "OUTPUT_MANIFEST_INPUT_NOT_FOUND")
+        with self.assertRaises(FileNotFoundError):
+            build_output_manifest("/does/not/exist/at/all")
 
 
 class SpanishByDefaultProductDocumentationTests(unittest.TestCase):

@@ -22,6 +22,8 @@ from .structure import (
 _LINK_TEMPLATES = {
     "module": "dev.module", "solution": "dev.solution", "file": "dev.file", "component": "dev.component",
     "method": "dev.method",
+    # H2 audience profiles: per-row links to the functional area page and the technical-overview project page.
+    "area": "func.area", "project_overview": "tech.project",
 }
 
 
@@ -195,6 +197,11 @@ class TemplateEngine:
         if path.startswith("const:"):
             return path[6:]
         head, _, rest = path.partition(":")
+        if head == "t" and rest:  # H2: catalog translation of a value, `t:<prefix>:<path>` -> catalog["<prefix>.<value>"]
+            prefix, _, inner = rest.partition(":")
+            value = self._param(inner, ctx)
+            key = f"{prefix}.{value}"
+            return self.catalog.text(key) if self.catalog.has(key) else value
         if rest and head in ("count", "total", "shown", "noise", "noise_count"):
             items = self._all(rest, ctx)
             if head == "total":

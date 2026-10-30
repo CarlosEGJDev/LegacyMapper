@@ -1318,7 +1318,7 @@ Modo C: reutilizar un output determinista válido (Evidence manifest, AI context
 
 ## 38.7 Roadmap corto H1–H5 y deuda post-V5
 
-Ver [`HUMAN_EXPERIENCE_AND_AI_DOCUMENTATION_ROADMAP.md`](../POST_V5/HUMAN_EXPERIENCE_AND_AI_DOCUMENTATION_ROADMAP.md) (H1 AI-only; H2 perfiles por audiencia; H3 visuales estructurados; H4 entregables HTML/PDF; H5 validación en IST). Siguiente: **H1-R1**. Deuda `POST_V5` (no bloquea V5): UX-01 `full` con repo inexistente → SUCCESS vacío; UX-02 sin comando AI-only; UX-03 sin CLI de consumers; HX-01/02/03 brechas de documentación humana/visual. Lecciones: [`LEGACYMAPPER_LESSONS_LEARNED.md`](LEGACYMAPPER_LESSONS_LEARNED.md) §37 (incluye la regla de ≤3 rondas por hito).
+Ver [`HUMAN_EXPERIENCE_AND_AI_DOCUMENTATION_ROADMAP.md`](../POST_V5/HUMAN_EXPERIENCE_AND_AI_DOCUMENTATION_ROADMAP.md) (H1 AI-only; H2 perfiles por audiencia; H3 visuales estructurados; H4 entregables HTML/PDF; H5 validación en IST). Estado: H1 (`interpret`) y H2 (`docs`, con corrección H2-R2) implementados; H3 (`visuals`) implementado y cerrado; H4 (`deliver`: HTML navegable + PDF) implementado; siguiente: **H5** (no iniciada). Deuda `POST_V5` (no bloquea V5): UX-01 `full` con repo inexistente → SUCCESS vacío; UX-02 resuelto en H1; UX-03 sin CLI de consumers; HX-01 parcialmente resuelto en H2; HX-03 (proyección visual estructurada) resuelto en H3; HX-02 (HTML/PDF) abierto para H4. Lecciones: [`LEGACYMAPPER_LESSONS_LEARNED.md`](LEGACYMAPPER_LESSONS_LEARNED.md) §37 (incluye la regla de ≤3 rondas por hito).
 
 ## 38.8 Punto de partida para continuar
 

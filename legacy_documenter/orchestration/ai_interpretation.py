@@ -384,8 +384,16 @@ def _build_within_budget(
 
 def _resolve_provider() -> LLMProvider:
     """Resolves a real provider through the existing registry (production path only;
-    every test injects `provider` explicitly instead of calling this)."""
-    return resolve_provider(enabled=True)
+    every test injects `provider` explicitly instead of calling this).
+
+    Gate A (provider optional): when the selected provider's SDK is not installed the run stops here with a
+    controlled `ImportError` (reported as PROVIDER_UNAVAILABLE, `provider_called=False`) instead of surfacing
+    as a failed provider request. Deterministic commands never reach this function."""
+    from legacy_documenter.llm.registry import config_from_environment, ensure_provider_available
+
+    config = config_from_environment()
+    ensure_provider_available(config)
+    return resolve_provider(enabled=True, config=config)
 
 
 def _validate_findings(parsed_output: object, known_refs: set[str]) -> tuple[list[dict], str | None]:

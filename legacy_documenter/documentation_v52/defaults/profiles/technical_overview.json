@@ -1,0 +1,31 @@
+{
+  "id": "technical_overview",
+  "contract_version": "1",
+  "audience": "technical",
+  "max_detail_level": 3,
+  "visible_categories": [
+    "KEEP_SIMPLE",
+    "KEEP_TECHNICAL"
+  ],
+  "detail_on_demand": "none",
+  "language": "es",
+  "noise_policy": "default",
+  "noise_visibility_overrides": {},
+  "unresolved_behavior": "summary_only",
+  "body_row_limit": 20,
+  "output_dir": "technical_overview",
+  "templates": [
+    "tech.system",
+    "tech.layers",
+    "tech.project",
+    "tech.dependencies",
+    "aud.data",
+    "aud.integrations",
+    "aud.unresolved",
+    "aud.interpretation"
+  ],
+  "partition": {
+    "max_items_per_part": 300,
+    "max_bytes_per_part": 65536
+  }
+}

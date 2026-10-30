@@ -1,0 +1,71 @@
+{
+  "id": "aud.data",
+  "contract_version": "1",
+  "profile_compat": [
+    "functional",
+    "technical_overview"
+  ],
+  "scope": "system",
+  "file": "data.md",
+  "order": 60,
+  "title_key": "aud.data_title",
+  "disclaimer": "top",
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text_key": "aud.data_intro"
+    },
+    {
+      "type": "table",
+      "source": "slots.data_top",
+      "columns": [
+        {
+          "field": "target",
+          "header_key": "aud.col.object",
+          "code": true
+        },
+        {
+          "field": "kind",
+          "header_key": "aud.col.kind",
+          "translate": "kind"
+        },
+        {
+          "field": "count",
+          "header_key": "aud.col.uses"
+        },
+        {
+          "field": "projects",
+          "header_key": "aud.col.used_by"
+        }
+      ],
+      "limit": 30,
+      "when": "nonempty:slots.data_top"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "aud.data_providers",
+      "when": "nonempty:slots.data_providers"
+    },
+    {
+      "type": "table",
+      "source": "slots.data_providers",
+      "columns": [
+        {
+          "field": "name",
+          "header_key": "aud.col.name"
+        },
+        {
+          "field": "count",
+          "header_key": "aud.col.count"
+        }
+      ],
+      "limit": "profile.body_row_limit",
+      "when": "nonempty:slots.data_providers"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "aud.status_confirmed"
+    }
+  ]
+}

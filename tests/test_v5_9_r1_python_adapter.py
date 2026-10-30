@@ -281,7 +281,7 @@ class CacheTests(PythonCase):
         a = build_context(self.repo, None, 12, adapter_identity=("python-generic", "1.0"))
         b = build_context(self.repo, None, 12, adapter_identity=("vbnet-webforms-oracle", "1.0"))
         self.assertNotEqual(a.analysis_config_fingerprint, b.analysis_config_fingerprint)
-        self.assertEqual(ANALYZER_VERSION, 3)  # no analyzer-version bump: record format and contracts are unchanged
+        self.assertEqual(ANALYZER_VERSION, 4)  # Gate C bump (python-generic record format itself is unchanged)
 
 
 class SecurityTests(unittest.TestCase):

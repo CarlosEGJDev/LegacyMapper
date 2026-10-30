@@ -632,9 +632,9 @@ class ArchitectureGuardTests(unittest.TestCase):
         self.assertEqual(dynamic, ["documentation/renderer.py", "llm/copilot_pilot.py"])
 
     def test_analysis_fingerprint_and_version_are_pinned(self) -> None:
-        self.assertEqual(ANALYZER_VERSION, 3)
+        self.assertEqual(ANALYZER_VERSION, 4)  # Gate C: member parameters + cross-project resolution change the analysis output
         # V5.9-R1: the python-generic adapter source changed the analyzer code fingerprint (was 4f7600f0fa351674878d66940352e9569de2b0f620643a3124b5c94545eb1ec6).
-        self.assertEqual(analyzer_code_fingerprint().sha256, "f05b2de43b726e75e03b97e1d35fef8b3407d54247e0a4e4537ab24d282fa26b")  # V5.9-R2 (was ce21000dfe5c64c4ad8af70c1dcb240eeb9d342bdf06d72220b7be7cbd39d2d7)
+        self.assertEqual(analyzer_code_fingerprint().sha256, "0f28803976d5750a0629dd688fa2daff908c390a086c55225453552281b5c9bd")  # Post-V5 Gate C (was 84d5ed340298) Gate B.1 (UI evidence schema 1.1)  Gate B additive UI evidence (was f05b2de43b726e75e03b97e1d35fef8b3407d54247e0a4e4537ab24d282fa26b)
 
     def test_facade_is_read_only_by_construction(self) -> None:
         tmp = Path(tempfile.mkdtemp())

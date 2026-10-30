@@ -20,6 +20,9 @@ from legacy_documenter.cli.output_manifest import MANIFEST_FILENAME, build_outpu
 from legacy_documenter.knowledge.readiness import run as run_readiness
 from legacy_documenter.utils.atomic_write import atomic_write_text
 from legacy_documenter.utils.json_rendering import render_deterministic_json
+from legacy_documenter.utils.path_contract import (
+    OUTPUT_MANIFEST_INPUT_NOT_DIRECTORY, OUTPUT_MANIFEST_INPUT_NOT_FOUND, validate_existing_output_directory,
+)
 
 # Exit-code contract, established V4.2-R2 and explicitly reaffirmed as
 # authoritative by the Technical Lead at V4.2-R5.1 (scripts must be able to
@@ -68,6 +71,14 @@ def route(args: Namespace, analyze_repository: AnalyzeRepository) -> tuple[int, 
         return _route_output_manifest(args)
     if args.command == "review":
         return _route_review(args)
+    if args.command == "interpret":
+        return _route_interpret(args)
+    if args.command == "docs":
+        return _route_docs(args)
+    if args.command == "visuals":
+        return _route_visuals(args)
+    if args.command == "deliver":
+        return _route_deliver(args)
     raise ValueError(f"Unknown command: {args.command!r}")
 
 
@@ -128,8 +139,13 @@ def _route_output_manifest(args: Namespace) -> tuple[int, RunResult]:
     docs/V4_3/V4_3_REAL_PILOT_INSTRUCTIONS.md). `FileNotFoundError` (missing/
     non-directory `output_dir`) is CLI usage error territory, not a pipeline
     failure -- it propagates uncaught, the same way argparse's own usage errors
-    do, rather than being mapped to `RunStatus.FAILED`.
+    do, rather than being mapped to `RunStatus.FAILED`. Since pre-H5 Gate A.1 the CLI route validates the directory first with the
+    shared path contract, so the expected invalid input surfaces as a controlled `PathContractError` (exit 4, JSON on stderr).
     """
+    # Gate A.1: an expected-input error is a PathContractError (stderr JSON + exit 4 in `main`), never a raw traceback,
+    # and it is raised before anything is written.
+    validate_existing_output_directory(
+        args.output_dir, not_found_code=OUTPUT_MANIFEST_INPUT_NOT_FOUND, not_directory_code=OUTPUT_MANIFEST_INPUT_NOT_DIRECTORY, writable=True)
     manifest = build_output_manifest(args.output_dir)
     target = Path(args.output_dir) / MANIFEST_FILENAME
     atomic_write_text(target, render_deterministic_json(manifest))
@@ -144,3 +160,39 @@ def _route_review(args: Namespace) -> tuple[int, RunResult]:
     exit_code, message = run_review(args)
     status = RunStatus.SUCCESS if exit_code == EXIT_SUCCESS else RunStatus.FAILED
     return exit_code, RunResult(command="review", status=status, message=message)
+
+
+def _route_interpret(args: Namespace) -> tuple[int, RunResult]:
+    """Thin route to the AI-only command (post-V5 H1); never scans or analyzes a repository."""
+    from legacy_documenter.cli.interpret_command import run_interpret
+
+    exit_code, message, ai_invoked = run_interpret(args)
+    status = {EXIT_SUCCESS: RunStatus.SUCCESS, EXIT_PARTIAL: RunStatus.PARTIAL}.get(exit_code, RunStatus.FAILED)
+    return exit_code, RunResult(command="interpret", status=status, message=message, ai_invoked=ai_invoked, ai_requested=True)
+
+
+def _route_docs(args: Namespace) -> tuple[int, RunResult]:
+    """Thin route to the audience documentation command (post-V5 H2); no analysis, no provider."""
+    from legacy_documenter.cli.docs_command import run_docs
+
+    exit_code, message = run_docs(args)
+    status = RunStatus.SUCCESS if exit_code == EXIT_SUCCESS else RunStatus.FAILED
+    return exit_code, RunResult(command="docs", status=status, message=message)
+
+
+def _route_visuals(args: Namespace) -> tuple[int, RunResult]:
+    """Thin route to the structured visual projections command (post-V5 H3); no analysis, no provider."""
+    from legacy_documenter.cli.visuals_command import run_visuals
+
+    exit_code, message = run_visuals(args)
+    status = RunStatus.SUCCESS if exit_code == EXIT_SUCCESS else RunStatus.FAILED
+    return exit_code, RunResult(command="visuals", status=status, message=message)
+
+
+def _route_deliver(args: Namespace) -> tuple[int, RunResult]:
+    """Thin route to the final human package command (post-V5 H4); no analysis, no provider."""
+    from legacy_documenter.cli.deliver_command import run_deliver
+
+    exit_code, message = run_deliver(args)
+    status = RunStatus.SUCCESS if exit_code == EXIT_SUCCESS else RunStatus.FAILED
+    return exit_code, RunResult(command="deliver", status=status, message=message)

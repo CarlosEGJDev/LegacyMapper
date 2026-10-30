@@ -1,0 +1,62 @@
+{
+  "id": "func.areas",
+  "contract_version": "1",
+  "profile_compat": [
+    "functional"
+  ],
+  "scope": "system",
+  "file": "areas.md",
+  "order": 20,
+  "title_key": "func.areas_title",
+  "disclaimer": "top",
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text_key": "func.areas_intro"
+    },
+    {
+      "type": "note",
+      "text_key": "aud.area_note"
+    },
+    {
+      "type": "link",
+      "text_key": "aud.back_index",
+      "target": "template:func.system"
+    },
+    {
+      "type": "partitioned_table",
+      "source": "slots.areas",
+      "columns": [
+        {
+          "field": "name",
+          "header_key": "aud.col.area",
+          "link": "area"
+        },
+        {
+          "field": "projects",
+          "header_key": "aud.col.projects"
+        },
+        {
+          "field": "screens",
+          "header_key": "aud.col.screens"
+        },
+        {
+          "field": "real_flows",
+          "header_key": "aud.col.real_flows"
+        },
+        {
+          "field": "data_ops",
+          "header_key": "aud.col.data_ops"
+        },
+        {
+          "field": "unresolved_total",
+          "header_key": "aud.col.unresolved"
+        }
+      ],
+      "name": "areas",
+      "title_key": "func.areas_title",
+      "file_stem": "areas",
+      "when": "nonempty:slots.areas"
+    }
+  ]
+}

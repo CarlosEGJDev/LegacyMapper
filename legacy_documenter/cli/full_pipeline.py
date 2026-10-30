@@ -27,6 +27,7 @@ from __future__ import annotations
 
 import dataclasses
 import functools
+import json
 import inspect
 from pathlib import Path
 from time import perf_counter
@@ -45,6 +46,7 @@ from legacy_documenter.llm.contracts import LLMProvider
 from legacy_documenter.orchestration import ai_interpretation, proposal_adapter
 from legacy_documenter.orchestration.ai_interpretation import AiInterpretationResult
 from legacy_documenter.utils.atomic_write import atomic_write_text
+from legacy_documenter.utils.path_contract import PathContractError, validate_source_and_output
 from legacy_documenter.utils.json_rendering import render_deterministic_json
 from legacy_documenter.utils.stage_timings import TIMINGS
 from legacy_documenter.utils.write_if_changed import LEDGER, log_write_ledger
@@ -53,6 +55,7 @@ from legacy_documenter.llm.security import safe_diagnostic_data
 
 RUN_SUMMARY_JSON = "RUN_SUMMARY.json"
 RUN_SUMMARY_MARKDOWN = "RUN_SUMMARY.md"
+PATH_CONTRACT_CATEGORY = "PATH_CONTRACT_VIOLATION"
 
 _T = TypeVar("_T")
 _R = TypeVar("_R")
@@ -118,8 +121,16 @@ def run_full_pipeline(
     full whenever it runs, and `output_locations` is derived from which
     stages succeeded in *this* run, never from filesystem existence.
     """
+    try:  # Gate A path contract: an invalid source/output is refused before any scanner, analyzer, provider or write
+        _, output = validate_source_and_output(repo_root, output_dir)
+    except PathContractError as exc:
+        error = StageError(stage=StageId.SCAN, category=PATH_CONTRACT_CATEGORY, message=exc.message, reference=exc.code)
+        return RunResult(
+            command="full", status=RunStatus.FAILED,
+            stages=(StageResult(StageId.SCAN, StageStatus.FAILED, error),),
+            message=json.dumps(exc.to_dict(), ensure_ascii=False, sort_keys=True),
+        )
     start = perf_counter()
-    output = Path(output_dir).resolve()
     reset_stale_proposal_artifacts(output)
     LEDGER.reset()  # V5.3-R2.6: in-memory write-skip counters of this run
     TIMINGS.reset()  # V5.3-R2.7: in-memory stage timings (run metrics)
@@ -153,7 +164,7 @@ def run_full_pipeline(
     call_outcome = None
     if extraction_ok:
         call_outcome, call_result = _run_stage(
-            StageId.CALL_RESOLUTION, lambda: stages.resolve_calls(extraction_outcome.calls, extraction_outcome.symbols, stages.adapter_of(extraction_outcome))
+            StageId.CALL_RESOLUTION, lambda: stages.resolve_calls(extraction_outcome.calls, extraction_outcome.symbols, stages.adapter_of(extraction_outcome), extraction_outcome.projects)
         )
     else:
         call_result = _skipped(StageId.CALL_RESOLUTION, StageId.EXTRACTION)

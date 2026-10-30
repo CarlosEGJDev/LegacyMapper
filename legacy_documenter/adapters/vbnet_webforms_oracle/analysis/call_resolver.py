@@ -2,12 +2,16 @@ from collections import defaultdict
 
 from legacy_documenter.models import Dependency
 
+from .cross_project import CONFIRMED as XP_CONFIRMED, INFERRED as XP_INFERRED, CrossProjectResolver
+
 
 class CallResolver:
     """Provides the cohesive CallResolver responsibility for this module."""
-    def resolve(self, call_indexes: list[dict], symbols: list[dict]) -> tuple[list[dict], list[dict]]:
-        """Performs resolve while preserving this module's deterministic contract."""
+    def resolve(self, call_indexes: list[dict], symbols: list[dict], projects: list[dict] | None = None) -> tuple[list[dict], list[dict]]:
+        """Performs resolve while preserving this module's deterministic contract. `projects` (optional) enables the Gate C cross-project
+        refinement: only calls the base rules left unresolved are refined, every refinement carries its basis and status."""
         class_index = self._class_index(symbols)
+        cross = CrossProjectResolver(symbols, projects, call_indexes)
         method_index = self._method_index(symbols)
         functional_dependencies: dict[tuple, dict] = {}
 
@@ -43,6 +47,20 @@ class CallResolver:
             }
             for call in file_calls.get("calls", []):
                 resolution = self._resolve_call(call, variable_types, class_index, method_index)
+                if resolution["confidence"] == "confirmed":
+                    checked = cross.check_confirmed(call, resolution)
+                    if checked is not None:
+                        call["cross_project"] = checked
+                        if checked["status"] == "UNRESOLVED":          # overloads that static arity cannot separate: continuity is not claimed
+                            resolution = {"target": None, "project": None, "confidence": "unresolved", "candidates": checked["candidates"]}
+                elif resolution["confidence"] == "unresolved":
+                    refined = cross.refine(call, self._receiver_type(call, variable_types), resolution)
+                    if refined is not None:
+                        call["cross_project"] = refined
+                        if refined["status"] in (XP_CONFIRMED, XP_INFERRED) and refined.get("target"):
+                            resolution = {"target": refined["target"], "project": refined.get("project"),
+                                          "confidence": "confirmed" if refined["status"] == XP_CONFIRMED else "inferred",
+                                          "candidates": refined["candidates"]}
                 call["resolved_target"] = resolution["target"]
                 call["resolved_project"] = resolution.get("project")
                 call["confidence"] = resolution["confidence"]
@@ -91,6 +109,12 @@ class CallResolver:
         if len(candidates) == 1:
             return {"target": self._full_name(candidates[0]), "confidence": "confirmed", "candidates": [self._full_name(candidates[0])]}
         return {"target": None, "confidence": "unresolved", "candidates": [self._full_name(item) for item in candidates]}
+
+    def _receiver_type(self, call: dict, variable_types: dict[str, str]) -> str | None:
+        receiver = call.get("receiver")
+        if not receiver or receiver.lower() in {"me", "mybase"}:
+            return call.get("containing_class") if receiver else None
+        return variable_types.get(receiver.lower()) or (call.get("candidates") or [None])[0] or call.get("receiver_path") or receiver
 
     def _resolve_call(self, call: dict, variable_types: dict[str, str], class_index: dict[str, list[dict]], method_index: dict[tuple[str, str], list[dict]]) -> dict:
         receiver = call.get("receiver")

@@ -240,8 +240,13 @@ class ProfileAndCategoryTests(unittest.TestCase):
         self.policy = self.registry.noise_policy("default")
 
     def test_exactly_two_default_profiles(self) -> None:
+        # The default (rendered by `full`) profiles remain exactly two. Post-V5 H2 adds three opt-in audience
+        # profiles (`docs` command) as data files; they are not defaults.
+        from legacy_documenter.documentation_v52.engine import AUDIENCE_PROFILES, DEFAULT_PROFILES
+
         names = sorted(p.stem for p in (v52_config.DEFAULTS_DIR / "profiles").glob("*.json"))
-        self.assertEqual(names, ["developer_technical", "general_overview"])
+        self.assertEqual(sorted(DEFAULT_PROFILES), ["developer_technical", "general_overview"])
+        self.assertEqual(names, sorted([*DEFAULT_PROFILES, *AUDIENCE_PROFILES]))
 
     def test_general_shows_only_keep_simple_developer_adds_technical(self) -> None:
         general = self.registry.profile("general_overview")

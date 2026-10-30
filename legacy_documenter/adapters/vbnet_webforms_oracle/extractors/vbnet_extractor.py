@@ -69,15 +69,62 @@ class VBNetExtractor:
                     continue
                 member = MEMBER_RE.match(line)
                 if member:
-                    current.members.append(
-                        {
-                            "kind": member.group("kind").lower(),
-                            "name": member.group("name"),
-                            "accessibility": member.group("access").strip(),
-                            "shared": bool(member.group("shared")),
-                        }
-                    )
+                    record = {
+                        "kind": member.group("kind").lower(),
+                        "name": member.group("name"),
+                        "accessibility": member.group("access").strip(),
+                        "shared": bool(member.group("shared")),
+                    }
+                    if record["kind"] in ("sub", "function"):
+                        record["parameters"] = self._parameters(line[member.end():])      # declared signature: overload arity evidence
+                    current.members.append(record)
         return symbols
+
+    @staticmethod
+    def _parameters(rest: str) -> list[dict]:
+        """Parameters of a Sub/Function declaration from the text after its name: `(ByVal a As T, Optional b As Integer = 0, ParamArray c() As X)`."""
+        text = rest.lstrip()
+        if not text.startswith("("):
+            return []
+        depth, end = 0, None
+        for idx, char in enumerate(text):
+            depth += (char == "(") - (char == ")")
+            if depth == 0:
+                end = idx
+                break
+        body = text[1:end] if end is not None else text[1:]
+        parts, depth, current = [], 0, ""
+        for char in body:
+            depth += (char == "(") - (char == ")")
+            if char == "," and depth == 0:
+                parts.append(current)
+                current = ""
+            else:
+                current += char
+        if current.strip():
+            parts.append(current)
+        modifiers = {"byval", "byref", "optional", "paramarray"}
+        result = []
+        for part in parts:
+            words = re.findall(r"[A-Za-z_][A-Za-z0-9_.]*", part.split("=")[0])
+            if not words:
+                continue
+            lowered = [w.lower() for w in words]
+            names = [w for w in words if w.lower() not in modifiers]
+            type_name = None
+            if "as" in lowered:
+                at = lowered.index("as")
+                if at + 1 < len(words):
+                    type_name = words[at + 1]
+                names = [w for w in words[:at] if w.lower() not in modifiers]
+            result.append({
+                "name": names[0] if names else None,
+                "type": type_name,
+                "passing": "ByRef" if "byref" in lowered else "ByVal",
+                "optional": "optional" in lowered,
+                "param_array": "paramarray" in lowered,
+            })
+        return result
 
     def _logical_lines(self, path: Path) -> list[str]:
         logical: list[str] = []

@@ -59,6 +59,18 @@ def config_from_environment(environ: Mapping[str, str] | None = None, *, max_out
     return ProviderConfig(provider_type, provider_id, model_id, context_window=window, max_output_tokens=output, options={"timeout": timeout}, timeout_s=timeout)
 
 
+def ensure_provider_available(config: ProviderConfig) -> None:
+    """Gate A (provider optional): raises `ImportError` before any request when the selected provider's SDK is absent.
+
+    A pure availability probe at the composition boundary (the provider imports the SDK again when it is used); it never
+    starts a client, reads credentials or touches the network."""
+    if config.provider_type.upper() == "COPILOT":
+        try:
+            import copilot  # noqa: F401
+        except ImportError:
+            raise ImportError("the configured AI provider SDK is not installed") from None
+
+
 def resolve_provider(*, enabled: bool, config: ProviderConfig | None = None, registry: ProviderRegistry | None = None, **kwargs):
     if not enabled:
         return None

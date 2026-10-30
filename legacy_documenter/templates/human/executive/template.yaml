@@ -1,0 +1,79 @@
+# LegacyMapperHumanTemplate 1.0 - executive summary template (Gate C, DT-07: presentation independence proof).
+# Same validated model, evidence, statuses and AI interpretation as human/default; only structure, labels and look change.
+contract: LegacyMapperHumanTemplate
+contract_version: "1.0"
+template_id: human/executive
+template_version: "1.0.0"
+audience: executive
+language: es
+
+# Executive reading order: solution -> projects -> what matters -> data impact -> capability detail -> short limitations note -> minimal appendix.
+sections:
+  - cover
+  - ai_notice
+  - toc
+  - solution
+  - project
+  - important_views
+  - data
+  - view_chapters
+  - unresolved
+  - appendix
+
+# Minimal chapter: what it is, what it does, how it is used, its route and its actions (required parts are never hidden).
+view_chapter:
+  - title
+  - one_line
+  - what_it_does
+  - usage
+  - flow
+  - actions
+  - data
+  - evidence
+
+layout:
+  title_alignment: left
+  view_title_alignment: left
+  paragraph_alignment: left
+  diagram_alignment: left
+  ai_marker: chapter
+
+document: document.html
+styles:
+  html: styles.css
+  pdf: pdf.css
+assets: []
+
+required_fields:
+  - solution.name
+  - project.name
+  - module.classification
+  - view.name
+  - view.title
+  - view.usage
+  - view.actions
+  - view.ui
+  - document.catalog
+optional_fields:
+  - view.ai_narrative
+  - view.ai_action_notes
+  - view.classes
+  - view.reached_by
+  - view.reaches
+  - view.messages
+  - document.measurements
+  - document.usage_summary
+  - document.ai_manifest
+
+labels:
+  ai_notice_title: Interpretación asistida por IA
+  ai_notice_text: Este documento presenta una interpretación generada a partir del análisis de IST. Las afirmaciones se distinguen como Confirmadas, Inferidas o No resueltas.
+  ai_marker: IA
+  toc_title: Resumen
+  section_solution: Qué es el sistema
+  section_project: Qué hace el proyecto
+  section_important_views: Capacidades importantes
+  section_data: Impacto en datos
+  section_unresolved: Limitaciones conocidas
+  section_view_chapters: Detalle por capacidad
+  section_appendix: Apéndice técnico mínimo

@@ -1,0 +1,93 @@
+{
+  "id": "aud.interpretation",
+  "contract_version": "1",
+  "profile_compat": [
+    "functional",
+    "technical_overview"
+  ],
+  "scope": "system",
+  "file": "interpretation.md",
+  "order": 90,
+  "title_key": "aud.interp_title",
+  "disclaimer": "top",
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text_key": "aud.interp_intro"
+    },
+    {
+      "type": "note",
+      "text_key": "aud.legend"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "aud.interp_canonical",
+      "when": "nonempty:slots.canonical_knowledge"
+    },
+    {
+      "type": "table",
+      "source": "slots.canonical_knowledge",
+      "columns": [
+        {
+          "field": "statement",
+          "header_key": "aud.col.statement",
+          "max_chars": 400
+        },
+        {
+          "field": "reviewer",
+          "header_key": "aud.col.reviewer"
+        },
+        {
+          "field": "evidence_count",
+          "header_key": "aud.col.evidence"
+        },
+        {
+          "field": "status",
+          "header_key": "aud.col.status",
+          "translate": "status"
+        }
+      ],
+      "limit": "profile.body_row_limit",
+      "when": "nonempty:slots.canonical_knowledge"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "aud.interp_ai",
+      "when": "nonempty:slots.ai_interpretations"
+    },
+    {
+      "type": "table",
+      "source": "slots.ai_interpretations",
+      "columns": [
+        {
+          "field": "statement",
+          "header_key": "aud.col.statement",
+          "max_chars": 400
+        },
+        {
+          "field": "origin",
+          "header_key": "aud.col.origin"
+        },
+        {
+          "field": "evidence_count",
+          "header_key": "aud.col.evidence"
+        },
+        {
+          "field": "status",
+          "header_key": "aud.col.status",
+          "translate": "status"
+        }
+      ],
+      "limit": "profile.body_row_limit",
+      "when": "nonempty:slots.ai_interpretations"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "aud.interp_none",
+      "when": "empty_total:slots.ai_interpretations|slots.canonical_knowledge"
+    }
+  ],
+  "when": "nonempty_total:slots.ai_interpretations|slots.canonical_knowledge"
+}

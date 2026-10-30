@@ -1,0 +1,178 @@
+{
+  "id": "func.processes",
+  "contract_version": "1",
+  "profile_compat": [
+    "functional"
+  ],
+  "scope": "system",
+  "file": "processes.md",
+  "order": 40,
+  "title_key": "func.processes_title",
+  "disclaimer": "top",
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text_key": "func.processes_intro"
+    },
+    {
+      "type": "link",
+      "text_key": "aud.back_index",
+      "target": "template:func.system"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "func.r2.proc_summary",
+      "when": "nonempty:slots.action_summary"
+    },
+    {
+      "type": "table",
+      "source": "slots.action_summary",
+      "columns": [
+        {
+          "field": "action",
+          "header_key": "aud.col.action",
+          "translate": "action"
+        },
+        {
+          "field": "interactions",
+          "header_key": "aud.col.interactions"
+        },
+        {
+          "field": "screens",
+          "header_key": "aud.col.screens_n"
+        },
+        {
+          "field": "projects",
+          "header_key": "aud.col.projects_n"
+        },
+        {
+          "field": "status",
+          "header_key": "aud.col.status",
+          "translate": "status"
+        }
+      ],
+      "limit": "profile.body_row_limit",
+      "when": "nonempty:slots.action_summary"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "func.r2.proc_projects",
+      "when": "nonempty:slots.interactions_by_project"
+    },
+    {
+      "type": "table",
+      "source": "slots.interactions_by_project",
+      "columns": [
+        {
+          "field": "project",
+          "header_key": "aud.col.project"
+        },
+        {
+          "field": "interactions",
+          "header_key": "aud.col.interactions"
+        },
+        {
+          "field": "kinds",
+          "header_key": "aud.col.kinds"
+        }
+      ],
+      "limit": "profile.body_row_limit",
+      "when": "nonempty:slots.interactions_by_project"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "func.r2.proc_screens",
+      "when": "nonempty:slots.screens_active"
+    },
+    {
+      "type": "table",
+      "source": "slots.screens_active",
+      "columns": [
+        {
+          "field": "webform",
+          "header_key": "aud.col.screen",
+          "code": true
+        },
+        {
+          "field": "project",
+          "header_key": "aud.col.project"
+        },
+        {
+          "field": "interactions",
+          "header_key": "aud.col.interactions"
+        },
+        {
+          "field": "kinds",
+          "header_key": "aud.col.kinds"
+        }
+      ],
+      "limit": "profile.body_row_limit",
+      "when": "nonempty:slots.screens_active"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "func.r2.proc_unresolved"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "func.r2.proc_unresolved_text",
+      "params": {
+        "unresolved_flows": "system.unresolved_flows",
+        "share": "system.unresolved_share",
+        "flows": "system.flows"
+      }
+    },
+    {
+      "type": "paragraph",
+      "text_key": "aud.status_unresolved"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "func.r2.proc_detail"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "func.r2.proc_detail_text"
+    },
+    {
+      "type": "partitioned_table",
+      "source": "slots.processes_all",
+      "columns": [
+        {
+          "field": "project",
+          "header_key": "aud.col.project"
+        },
+        {
+          "field": "webform",
+          "header_key": "aud.col.screen",
+          "code": true
+        },
+        {
+          "field": "event",
+          "header_key": "aud.col.event",
+          "code": true
+        },
+        {
+          "field": "terminal",
+          "header_key": "aud.col.ends_in",
+          "code": true,
+          "max_chars": 120
+        },
+        {
+          "field": "action",
+          "header_key": "aud.col.action",
+          "translate": "action"
+        }
+      ],
+      "name": "processes",
+      "title_key": "func.processes_title",
+      "file_stem": "processes",
+      "when": "nonempty:slots.processes_all"
+    }
+  ]
+}

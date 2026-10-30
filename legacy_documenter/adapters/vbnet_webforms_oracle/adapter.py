@@ -26,8 +26,8 @@ class ReferenceAdapter:
     def extract(self, files, root, extraction_cache=None):
         return extraction.extract_repository(files, root, extraction_cache)
 
-    def resolve_calls(self, calls, symbols):
-        return CallResolver().resolve(calls, symbols)
+    def resolve_calls(self, calls, symbols, projects=None):
+        return CallResolver().resolve(calls, symbols, projects)
 
     def resolve_entries(self, webforms, symbols, events, calls):
         return WebEntryResolver().resolve(webforms, symbols, events, calls)

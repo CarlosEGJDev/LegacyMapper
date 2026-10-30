@@ -1,0 +1,85 @@
+{
+  "id": "tech.dependencies",
+  "contract_version": "1",
+  "profile_compat": [
+    "technical_overview"
+  ],
+  "scope": "system",
+  "file": "dependencies.md",
+  "order": 40,
+  "title_key": "tech.deps_title",
+  "disclaimer": "top",
+  "blocks": [
+    {
+      "type": "link",
+      "text_key": "tech.back_index",
+      "target": "template:tech.system"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "tech.deps_internal",
+      "when": "nonempty:slots.internal_libraries"
+    },
+    {
+      "type": "table",
+      "source": "slots.internal_libraries",
+      "columns": [
+        {
+          "field": "name",
+          "header_key": "aud.col.name"
+        },
+        {
+          "field": "projects_using",
+          "header_key": "aud.col.libs"
+        }
+      ],
+      "limit": 25,
+      "when": "nonempty:slots.internal_libraries"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "tech.deps_platform",
+      "when": "nonempty:slots.platform_libraries"
+    },
+    {
+      "type": "table",
+      "source": "slots.platform_libraries",
+      "columns": [
+        {
+          "field": "name",
+          "header_key": "aud.col.name"
+        },
+        {
+          "field": "projects_using",
+          "header_key": "aud.col.libs"
+        }
+      ],
+      "limit": 25,
+      "when": "nonempty:slots.platform_libraries"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "tech.deps_unclassified",
+      "when": "nonempty:slots.unclassified_libraries"
+    },
+    {
+      "type": "table",
+      "source": "slots.unclassified_libraries",
+      "columns": [
+        {
+          "field": "name",
+          "header_key": "aud.col.name"
+        },
+        {
+          "field": "projects_using",
+          "header_key": "aud.col.libs"
+        }
+      ],
+      "limit": 25,
+      "when": "nonempty:slots.unclassified_libraries"
+    }
+  ]
+}

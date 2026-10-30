@@ -1,0 +1,159 @@
+{
+  "id": "func.unresolved",
+  "contract_version": "1",
+  "profile_compat": [
+    "functional"
+  ],
+  "scope": "system",
+  "file": "unresolved.md",
+  "order": 80,
+  "title_key": "aud.unres_title",
+  "disclaimer": "top",
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "func.r2.unres_what"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "func.r2.unres_what_text"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "func.r2.unres_how"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "func.r2.unres_how_text",
+      "params": {
+        "flows": "system.flows",
+        "unresolved_flows": "system.unresolved_flows",
+        "share": "system.unresolved_share",
+        "real_flows": "system.real_flows",
+        "distinct": "system.unresolved_distinct",
+        "projects": "system.unresolved_projects"
+      }
+    },
+    {
+      "type": "paragraph",
+      "text_key": "aud.status_unresolved"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "func.r2.unres_areas",
+      "when": "nonempty:slots.areas_unresolved"
+    },
+    {
+      "type": "table",
+      "source": "slots.areas_unresolved",
+      "columns": [
+        {
+          "field": "name",
+          "header_key": "aud.col.area",
+          "link": "area"
+        },
+        {
+          "field": "projects",
+          "header_key": "aud.col.projects"
+        },
+        {
+          "field": "unresolved_total",
+          "header_key": "aud.col.unresolved"
+        }
+      ],
+      "limit": 10,
+      "when": "nonempty:slots.areas_unresolved"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "func.r2.unres_projects",
+      "when": "nonempty:slots.unresolved_by_project"
+    },
+    {
+      "type": "table",
+      "source": "slots.unresolved_by_project",
+      "columns": [
+        {
+          "field": "name",
+          "header_key": "aud.col.project"
+        },
+        {
+          "field": "unresolved_total",
+          "header_key": "aud.col.unresolved"
+        },
+        {
+          "field": "unresolved_flows",
+          "header_key": "aud.col.flows"
+        }
+      ],
+      "limit": 10,
+      "when": "nonempty:slots.unresolved_by_project"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "func.r2.unres_why"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "func.r2.unres_why_text"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "func.r2.unres_not"
+    },
+    {
+      "type": "bullets",
+      "items": [
+        {
+          "text_key": "func.r2.unres_not_1"
+        },
+        {
+          "text_key": "func.r2.unres_not_2"
+        },
+        {
+          "text_key": "func.r2.unres_not_3"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "func.r2.unres_detail",
+      "when": "nonempty:slots.unresolved_top"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "func.r2.unres_detail_text",
+      "when": "nonempty:slots.unresolved_top"
+    },
+    {
+      "type": "table",
+      "source": "slots.unresolved_top",
+      "columns": [
+        {
+          "field": "target",
+          "header_key": "aud.col.target",
+          "code": true,
+          "max_chars": 120
+        },
+        {
+          "field": "count",
+          "header_key": "aud.col.count"
+        },
+        {
+          "field": "status",
+          "header_key": "aud.col.status",
+          "translate": "status"
+        }
+      ],
+      "limit": 25,
+      "when": "nonempty:slots.unresolved_top"
+    }
+  ]
+}

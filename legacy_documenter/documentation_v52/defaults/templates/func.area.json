@@ -1,0 +1,505 @@
+{
+  "id": "func.area",
+  "contract_version": "1",
+  "profile_compat": [
+    "functional"
+  ],
+  "scope": "solution",
+  "file": "areas/{slug}.md",
+  "order": 30,
+  "title_key": "func.area_title",
+  "disclaimer": "top",
+  "blocks": [
+    {
+      "type": "link",
+      "text_key": "func.areas_link",
+      "target": "template:func.areas"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "func.r2.summary"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "func.r2.area_summary",
+      "params": {
+        "name": "solution.name",
+        "projects": "solution.project_count",
+        "screens": "solution.screens",
+        "interactions": "solution.interactions",
+        "data_ops": "solution.data_ops",
+        "unresolved": "solution.unresolved_total"
+      }
+    },
+    {
+      "type": "paragraph",
+      "text_key": "aud.status_confirmed"
+    },
+    {
+      "type": "table",
+      "source": "solution.slots.action_summary",
+      "columns": [
+        {
+          "field": "action",
+          "header_key": "aud.col.action",
+          "translate": "action"
+        },
+        {
+          "field": "interactions",
+          "header_key": "aud.col.interactions"
+        },
+        {
+          "field": "screens",
+          "header_key": "aud.col.screens_n"
+        },
+        {
+          "field": "projects",
+          "header_key": "aud.col.projects_n"
+        },
+        {
+          "field": "status",
+          "header_key": "aud.col.status",
+          "translate": "status"
+        }
+      ],
+      "limit": "profile.body_row_limit",
+      "when": "nonempty:solution.slots.action_summary"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "func.r2.purpose",
+      "when": "positive:solution.interactions"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "func.r2.active_screens",
+      "when": "nonempty:solution.slots.screens_active"
+    },
+    {
+      "type": "table",
+      "source": "solution.slots.screens_active",
+      "columns": [
+        {
+          "field": "webform",
+          "header_key": "aud.col.screen",
+          "code": true
+        },
+        {
+          "field": "project",
+          "header_key": "aud.col.project"
+        },
+        {
+          "field": "interactions",
+          "header_key": "aud.col.interactions"
+        },
+        {
+          "field": "kinds",
+          "header_key": "aud.col.kinds"
+        }
+      ],
+      "limit": "profile.body_row_limit",
+      "when": "nonempty:solution.slots.screens_active"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "func.r2.active_screens_more",
+      "params": {
+        "shown": "shown:solution.slots.screens_active",
+        "total": "total:solution.slots.screens_active"
+      },
+      "when": "more_than_limit:solution.slots.screens_active"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "func.r2.read",
+      "when": "nonempty:solution.slots.interactions_read"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "func.r2.read_intro",
+      "when": "nonempty:solution.slots.interactions_read"
+    },
+    {
+      "type": "table",
+      "source": "solution.slots.interactions_read",
+      "columns": [
+        {
+          "field": "webform",
+          "header_key": "aud.col.screen",
+          "code": true
+        },
+        {
+          "field": "event",
+          "header_key": "aud.col.event",
+          "code": true
+        },
+        {
+          "field": "terminal",
+          "header_key": "aud.col.operation",
+          "code": true,
+          "max_chars": 120
+        },
+        {
+          "field": "status",
+          "header_key": "aud.col.status",
+          "translate": "status"
+        }
+      ],
+      "limit": "profile.body_row_limit",
+      "when": "nonempty:solution.slots.interactions_read"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "func.r2.more",
+      "params": {
+        "shown": "shown:solution.slots.interactions_read",
+        "total": "total:solution.slots.interactions_read"
+      },
+      "when": "more_than_limit:solution.slots.interactions_read"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "func.r2.create",
+      "when": "nonempty:solution.slots.interactions_create"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "func.r2.create_intro",
+      "when": "nonempty:solution.slots.interactions_create"
+    },
+    {
+      "type": "table",
+      "source": "solution.slots.interactions_create",
+      "columns": [
+        {
+          "field": "webform",
+          "header_key": "aud.col.screen",
+          "code": true
+        },
+        {
+          "field": "event",
+          "header_key": "aud.col.event",
+          "code": true
+        },
+        {
+          "field": "terminal",
+          "header_key": "aud.col.operation",
+          "code": true,
+          "max_chars": 120
+        },
+        {
+          "field": "status",
+          "header_key": "aud.col.status",
+          "translate": "status"
+        }
+      ],
+      "limit": "profile.body_row_limit",
+      "when": "nonempty:solution.slots.interactions_create"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "func.r2.more",
+      "params": {
+        "shown": "shown:solution.slots.interactions_create",
+        "total": "total:solution.slots.interactions_create"
+      },
+      "when": "more_than_limit:solution.slots.interactions_create"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "func.r2.update",
+      "when": "nonempty:solution.slots.interactions_update"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "func.r2.update_intro",
+      "when": "nonempty:solution.slots.interactions_update"
+    },
+    {
+      "type": "table",
+      "source": "solution.slots.interactions_update",
+      "columns": [
+        {
+          "field": "webform",
+          "header_key": "aud.col.screen",
+          "code": true
+        },
+        {
+          "field": "event",
+          "header_key": "aud.col.event",
+          "code": true
+        },
+        {
+          "field": "terminal",
+          "header_key": "aud.col.operation",
+          "code": true,
+          "max_chars": 120
+        },
+        {
+          "field": "status",
+          "header_key": "aud.col.status",
+          "translate": "status"
+        }
+      ],
+      "limit": "profile.body_row_limit",
+      "when": "nonempty:solution.slots.interactions_update"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "func.r2.more",
+      "params": {
+        "shown": "shown:solution.slots.interactions_update",
+        "total": "total:solution.slots.interactions_update"
+      },
+      "when": "more_than_limit:solution.slots.interactions_update"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "func.r2.delete",
+      "when": "nonempty:solution.slots.interactions_delete"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "func.r2.delete_intro",
+      "when": "nonempty:solution.slots.interactions_delete"
+    },
+    {
+      "type": "table",
+      "source": "solution.slots.interactions_delete",
+      "columns": [
+        {
+          "field": "webform",
+          "header_key": "aud.col.screen",
+          "code": true
+        },
+        {
+          "field": "event",
+          "header_key": "aud.col.event",
+          "code": true
+        },
+        {
+          "field": "terminal",
+          "header_key": "aud.col.operation",
+          "code": true,
+          "max_chars": 120
+        },
+        {
+          "field": "status",
+          "header_key": "aud.col.status",
+          "translate": "status"
+        }
+      ],
+      "limit": "profile.body_row_limit",
+      "when": "nonempty:solution.slots.interactions_delete"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "func.r2.more",
+      "params": {
+        "shown": "shown:solution.slots.interactions_delete",
+        "total": "total:solution.slots.interactions_delete"
+      },
+      "when": "more_than_limit:solution.slots.interactions_delete"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "func.r2.mixed",
+      "when": "nonempty:solution.slots.interactions_mixed"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "func.r2.mixed_intro",
+      "when": "nonempty:solution.slots.interactions_mixed"
+    },
+    {
+      "type": "table",
+      "source": "solution.slots.interactions_mixed",
+      "columns": [
+        {
+          "field": "webform",
+          "header_key": "aud.col.screen",
+          "code": true
+        },
+        {
+          "field": "event",
+          "header_key": "aud.col.event",
+          "code": true
+        },
+        {
+          "field": "terminal",
+          "header_key": "aud.col.operation",
+          "code": true,
+          "max_chars": 120
+        },
+        {
+          "field": "status",
+          "header_key": "aud.col.status",
+          "translate": "status"
+        }
+      ],
+      "limit": "profile.body_row_limit",
+      "when": "nonempty:solution.slots.interactions_mixed"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "func.r2.more",
+      "params": {
+        "shown": "shown:solution.slots.interactions_mixed",
+        "total": "total:solution.slots.interactions_mixed"
+      },
+      "when": "more_than_limit:solution.slots.interactions_mixed"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "func.r2.unknown",
+      "when": "nonempty:solution.slots.interactions_unknown"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "func.r2.unknown_intro",
+      "when": "nonempty:solution.slots.interactions_unknown"
+    },
+    {
+      "type": "table",
+      "source": "solution.slots.interactions_unknown",
+      "columns": [
+        {
+          "field": "webform",
+          "header_key": "aud.col.screen",
+          "code": true
+        },
+        {
+          "field": "event",
+          "header_key": "aud.col.event",
+          "code": true
+        },
+        {
+          "field": "terminal",
+          "header_key": "aud.col.operation",
+          "code": true,
+          "max_chars": 120
+        },
+        {
+          "field": "status",
+          "header_key": "aud.col.status",
+          "translate": "status"
+        }
+      ],
+      "limit": "profile.body_row_limit",
+      "when": "nonempty:solution.slots.interactions_unknown"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "func.r2.more",
+      "params": {
+        "shown": "shown:solution.slots.interactions_unknown",
+        "total": "total:solution.slots.interactions_unknown"
+      },
+      "when": "more_than_limit:solution.slots.interactions_unknown"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "func.r2.undetermined",
+      "when": "positive:solution.interactions"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "func.r2.undetermined_text",
+      "params": {
+        "interactions": "solution.interactions"
+      },
+      "when": "positive:solution.interactions"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "aud.status_unresolved",
+      "when": "positive:solution.interactions"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "func.area_data",
+      "when": "nonempty:solution.slots.data_top"
+    },
+    {
+      "type": "table",
+      "source": "solution.slots.data_top",
+      "columns": [
+        {
+          "field": "target",
+          "header_key": "aud.col.object",
+          "code": true
+        },
+        {
+          "field": "kind",
+          "header_key": "aud.col.kind",
+          "translate": "kind"
+        },
+        {
+          "field": "count",
+          "header_key": "aud.col.uses"
+        }
+      ],
+      "limit": 10,
+      "when": "nonempty:solution.slots.data_top"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text_key": "func.r2.trace"
+    },
+    {
+      "type": "paragraph",
+      "text_key": "func.r2.trace_text"
+    },
+    {
+      "type": "table",
+      "source": "solution.slots.module_rows",
+      "columns": [
+        {
+          "field": "name",
+          "header_key": "aud.col.project"
+        },
+        {
+          "field": "layer",
+          "header_key": "aud.col.layer",
+          "translate": "layer"
+        },
+        {
+          "field": "layer_status",
+          "header_key": "aud.col.status",
+          "translate": "status"
+        },
+        {
+          "field": "screens",
+          "header_key": "aud.col.screens"
+        },
+        {
+          "field": "real_flows",
+          "header_key": "aud.col.real_flows"
+        },
+        {
+          "field": "data_ops",
+          "header_key": "aud.col.data_ops"
+        }
+      ],
+      "limit": 20,
+      "when": "nonempty:solution.slots.module_rows"
+    },
+    {
+      "type": "link",
+      "text_key": "func.r2.trace_link",
+      "target": "template:func.processes"
+    }
+  ],
+  "when": "positive:solution.project_count"
+}

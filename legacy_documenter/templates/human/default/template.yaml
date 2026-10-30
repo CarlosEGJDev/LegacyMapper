@@ -1,0 +1,83 @@
+# LegacyMapperHumanTemplate 1.0 - generic behavioral documentation template.
+# A template controls layout and presentation only; it cannot change content, statuses or references.
+contract: LegacyMapperHumanTemplate
+contract_version: "1.0"
+template_id: human/default
+template_version: "1.0.0"
+audience: general
+language: es
+
+# Reading order of the document. Required sections: cover, ai_notice, toc, solution, project, view_chapters, unresolved, appendix.
+sections:
+  - cover
+  - ai_notice
+  - toc
+  - solution
+  - project
+  - modules
+  - important_views
+  - view_chapters
+  - cross_view
+  - data
+  - usage
+  - unresolved
+  - appendix
+
+# Order of the parts of every detailed view chapter (title, one_line, what_it_does, usage, flow and actions are required).
+view_chapter:
+  - title
+  - one_line
+  - what_it_does
+  - usage
+  - ui
+  - flow
+  - actions
+  - data
+  - classes
+  - invocations
+  - messages
+  - knowledge
+  - evidence
+
+# Presentation policy honoured by the renderer (the CSS files carry the actual look).
+layout:
+  title_alignment: center
+  view_title_alignment: center
+  paragraph_alignment: justify
+  diagram_alignment: center
+  ai_marker: chapter          # chapter = one IA badge per chapter / major block; none = no badges (the notice at the start remains)
+
+document: document.html
+styles:
+  html: styles.css
+  pdf: pdf.css
+assets: []
+
+# Fields of the validated behavioral model this template reads (presence is validated before rendering).
+required_fields:
+  - solution.name
+  - project.name
+  - module.classification
+  - view.name
+  - view.title
+  - view.usage
+  - view.actions
+  - view.ui
+  - document.catalog
+optional_fields:
+  - view.ai_narrative
+  - view.ai_action_notes
+  - view.classes
+  - view.reached_by
+  - view.reaches
+  - view.messages
+  - document.measurements
+  - document.usage_summary
+  - document.ai_manifest
+
+# Presentation strings (the template may re-word them; it cannot add content).
+labels:
+  ai_notice_title: Interpretación asistida por IA
+  ai_notice_text: Este documento presenta una interpretación generada a partir del análisis de IST. Las afirmaciones se distinguen como Confirmadas, Inferidas o No resueltas.
+  ai_marker: IA
+  toc_title: Contenido

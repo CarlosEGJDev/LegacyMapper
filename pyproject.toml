@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "legacymapper"
+version = "5.9.0"
+description = "Deterministic legacy-system analysis and documentation (Python discovers and resolves facts; AI interprets later)."
+requires-python = ">=3.12"
+dependencies = []
+
+[project.optional-dependencies]
+copilot = ["github-copilot-sdk>=1.0.14"]
+
+[project.scripts]
+legacymapper = "legacy_documenter.main:main"
+
+[tool.setuptools.packages.find]
+include = ["legacy_documenter", "legacy_documenter.*"]
+
+[tool.setuptools.package-data]
+legacy_documenter = ["**/*.json", "**/*.html", "**/*.css", "**/*.yaml", "**/*.md"]

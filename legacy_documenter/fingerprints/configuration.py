@@ -46,6 +46,28 @@ CLI_OPTION_CLASSES = {
     "incremental_max_changed_ratio": RUNTIME_ONLY,
     # V5.7 `review` subcommand selector: explicit human review never touches extraction or its cache.
     "review_command": RUNTIME_ONLY,
+    # Post-V5 H1 `interpret` subcommand: AI-only over a persisted baseline; it never runs extraction or touches its cache.
+    "baseline": AI_ONLY,
+    "profile": AI_ONLY,
+    "flow_id": AI_ONLY,
+    "verify_evidence": RUNTIME_ONLY,
+    # Post-V5 H2 `docs` subcommand: audience documentation from a persisted baseline; no extraction, no cache.
+    "audience": RUNTIME_ONLY,
+    "ai_run": RUNTIME_ONLY,
+    # Post-V5 H3 `visuals` subcommand: SVG projections from a persisted baseline; no extraction, no cache.
+    "area": RUNTIME_ONLY,
+    "project": RUNTIME_ONLY,
+    "top_areas": RUNTIME_ONLY,
+    "all_areas": RUNTIME_ONLY,
+    "kind": RUNTIME_ONLY,
+    "max_nodes": RUNTIME_ONLY,
+    "max_children": RUNTIME_ONLY,
+    "include_ai": AI_ONLY,
+    # Post-V5 H4 `deliver` subcommand: HTML/PDF package from a persisted baseline; no extraction, no cache.
+    "docs_dir": RUNTIME_ONLY,
+    "visuals_dir": RUNTIME_ONLY,
+    "no_pdf": RUNTIME_ONLY,
+    "pdf_row_cap": RUNTIME_ONLY,
 }
 #: `generate_documentation_v52` parameters that are not CLI options (library-level); classified likewise.
 V52_PARAMETER_CLASSES = {
@@ -56,6 +78,9 @@ V52_PARAMETER_CLASSES = {
     "partition_override": PROJECTION_AFFECTING,
     "long_paths": RUNTIME_ONLY,
     "terminology": PROJECTION_AFFECTING,
+    # Post-V5 H2 audience documentation (`docs`): optional AI/canonical overlay and the developer-document reference.
+    "knowledge": AI_ONLY,
+    "deep_reference": PROJECTION_AFFECTING,
 }
 
 

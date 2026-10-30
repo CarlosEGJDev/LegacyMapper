@@ -1,0 +1,31 @@
+{
+  "id": "functional",
+  "contract_version": "1",
+  "audience": "functional",
+  "max_detail_level": 2,
+  "visible_categories": [
+    "KEEP_SIMPLE"
+  ],
+  "detail_on_demand": "none",
+  "language": "es",
+  "noise_policy": "default",
+  "noise_visibility_overrides": {},
+  "unresolved_behavior": "summary_only",
+  "body_row_limit": 15,
+  "output_dir": "functional",
+  "templates": [
+    "func.system",
+    "func.areas",
+    "func.area",
+    "func.processes",
+    "func.screens",
+    "func.unresolved",
+    "aud.data",
+    "aud.integrations",
+    "aud.interpretation"
+  ],
+  "partition": {
+    "max_items_per_part": 300,
+    "max_bytes_per_part": 65536
+  }
+}
