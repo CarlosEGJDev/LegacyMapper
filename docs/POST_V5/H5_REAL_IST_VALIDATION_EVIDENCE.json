@@ -1,0 +1,112 @@
+{
+  "round": "H5 real IST validation and closure",
+  "date": "2026-10-30",
+  "ist_scope": {
+    "source_root": "C:\\Users\\cgalianj\\source\\IST\\Operacional",
+    "solutions": 113,
+    "projects": 260,
+    "projects_with_views": 77,
+    "projects_without_views": 183,
+    "projects_with_a_resolvable_solution": 194,
+    "projects_without_resolvable_solution": 66,
+    "projects_with_duplicate_names": 32,
+    "technology": "vbnet_webforms_oracle (single adapter)"
+  },
+  "single_baseline": {
+    "full_deterministic_analyses": 1,
+    "source_files": 15170,
+    "baseline_files": 48114,
+    "baseline_bytes": 3704639067,
+    "duration_seconds": 576,
+    "analyzer_version": 4,
+    "analyzer_code_fingerprint": "0f28803976d5750a0629dd688fa2daff908c390a086c55225453552281b5c9bd",
+    "evidence_schema_version": "1.0",
+    "ui_evidence_schema_version": "1.1",
+    "cross_project_evidence_schema_version": "1.0",
+    "logical_snapshot_sha256": "21747d847937ab68370cb19958023bd7d6c5c5ccfc71170cfb057f950acdf943",
+    "portable_evidence_sha256": "d83e5711052006f6d78ff8124fbc8a0accd14886f07d6c7e6e2dc7cc65c71952",
+    "partition_hashes_identical_to_H4_baseline": true,
+    "scanner_invocations_after_baseline": 0,
+    "analyzer_invocations_after_baseline": 0,
+    "downstream_source_opens": 0,
+    "location": "C:\\PruebasLegacyMapper\\H5_Validation\\state\\baseline"
+  },
+  "provider": {
+    "real_requests": 15,
+    "successful": 15,
+    "provider_id": "copilot-local",
+    "model_id": "gpt-6-luna",
+    "cohorts_interpreted": ["large_ui", "small_ui", "cross_ui"],
+    "replayed_without_provider": ["prep_reuse"],
+    "sweep_packages_use_no_ai": true,
+    "fake_provider_used_for_real_ai_claims": false
+  },
+  "cohorts": {
+    "large_ui": "WebPENCalculoPensionIndem (110 views)",
+    "small_ui": "WebSADDocumentos (2 views)",
+    "cross_project": "WebADHAdmCalculoDs67 (98 views)",
+    "reuse": "WebPREPrevencion (121 views, H4 persisted answers replayed)",
+    "data_business_no_ui": "blADHAdmCalculoDs67",
+    "sparse": "IstFunciones"
+  },
+  "sweep": {
+    "projects": 260,
+    "packages_built": 192,
+    "valid": 192,
+    "with_human_docs": 63,
+    "machine_only": 129,
+    "unresolved_no_solution": 66,
+    "controlled_errors": 2,
+    "html": 252,
+    "pdf": 126,
+    "svg": 1963,
+    "ai_json_files": 1473,
+    "ai_views": 2247,
+    "ai_flows": 6229,
+    "ai_data": 9729,
+    "ai_unresolved": 2677,
+    "broken_links": 0,
+    "missing_assets": 0,
+    "invalid_json": 0,
+    "dangling_ids": 0,
+    "provenance_leaks_in_human": 0,
+    "invalid_human_states": 0,
+    "svg_text_outside_frame": 0,
+    "downstream_source_opens": 0,
+    "scanner_modules_loaded": 0
+  },
+  "runtime": {
+    "isolated_wheel_sha256": "fb22a155017818f84eb694c47947fcaf4133d0ce1907e549ad5452a9a7d9405d",
+    "clean_room_path": "C:\\PruebasLegacyMapper\\H5 Validación ñ",
+    "no_pythonpath": true,
+    "cwd_unrelated": true,
+    "package_byte_identical_to_dev_run": true,
+    "provider_optional_for_deterministic": true,
+    "provider_required_but_missing": "PROVIDER_UNAVAILABLE, source_scanned=false"
+  },
+  "truth_invariants": {
+    "ai_claim_status": "AI_INTERPRETATION only",
+    "canonical_terms_without_human": 0,
+    "obsolescence_words_in_human": 0,
+    "repeated_ia_badges": 0
+  },
+  "defects_fixed_in_H5": [
+    "solution membership matched by substring; now exact path relative to the .sln",
+    "projects without views or actions failed with TemplateError; now machine-only package",
+    "knowledge.json listed data names instead of ids (dangling references)",
+    "2 wireframes drew controls outside the 760px frame",
+    "solution purpose sentence suggested a business area from names"
+  ],
+  "full_suite": {"total": 3562, "failures": 0, "errors": 0, "skipped": 132},
+  "debt": {
+    "BLOCKING": 0,
+    "OBSERVATION": [
+      "66 projects are not listed by any resolvable .sln (stale or backup references in IST); kept UNRESOLVED",
+      "32 project names are duplicated; selection by name picks the first; 2 cases fail with a controlled error and hint",
+      "only one adapter (VB.NET WebForms/Oracle) is present in IST"
+    ],
+    "FUTURE_CAPABILITY": ["select a project by path to disambiguate duplicate names"],
+    "HISTORICAL_COMPATIBILITY": []
+  },
+  "git": "no commit, push or tag"
+}

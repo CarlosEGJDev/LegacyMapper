@@ -1,3 +1,9 @@
+"""Manual probe of LegacyMapper's CopilotProvider (REAL provider, may consume quota). See README.md."""
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+
 from legacy_documenter.llm.core import (
     ProviderConfig,
     LLMRequest,

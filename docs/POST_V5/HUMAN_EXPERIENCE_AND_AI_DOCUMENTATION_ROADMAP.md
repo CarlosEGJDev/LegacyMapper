@@ -1,5 +1,7 @@
 # Post-V5 — Human Experience & AI Documentation (roadmap H1–H5)
 
+> **Estado vigente (post-H5):** `H1–H5 = CLOSED`, `POST_V5 = CLOSED`, `V6 = NOT_STARTED`. Las menciones «H5 = NOT_STARTED» más abajo son historia previa al cierre de H5; ver §19 y `PROJECT_STATE.json`.
+
 Estado: H1 implementado (`python main.py interpret`, ver `docs/POST_V5/H1_AI_ONLY_INTEGRATED_DELIVERY_RESULT.md`); H2 implementado (`python main.py docs`, ver `docs/POST_V5/H2_HUMAN_DOCUMENTATION_BY_AUDIENCE_RESULT.md`; corrección funcional H2-R2 incluida); H3 implementado (`python main.py visuals`, ver `docs/POST_V5/H3_STRUCTURED_VISUAL_PROJECTIONS_RESULT.md`; corrección de legibilidad H3-R2 incluida); H4 **CERRADO** tras aprobación manual del propietario (ver `docs/POST_V5/H4_CLOSURE.md` y `docs/POST_V5/H4_FORMAL_CLOSURE_RESULT.md`); H1–H4 cerrados; H5 `NOT_STARTED` (siguiente: `H5_REAL_IST_VALIDATION_AND_CLOSURE`); V6 `NOT_STARTED`. Esto **no es V6**. Autoridad de estado: `PROJECT_STATE.json` (`active_initiative`, `initiative_status`).
 
 Convención de este documento: *[hecho]* verificado y vigente · *[limitación]* aceptada · *[capacidad futura]* no existe · *[candidato de diseño]* no decidido.
@@ -122,3 +124,15 @@ H5 = NOT_STARTED
 V6 = NOT_STARTED
 ```
 `POST_V5_H4_FINAL_HUMAN_DELIVERABLES = CLOSED`, `H4_OWNER_APPROVAL = APPROVED`, `H4_BLOCKING_DEBT = 0`. H1–H5 no se renombran como V6. Las secciones 12 en adelante que describen H4 como pendiente o reabierto son historia previa al cierre. Detalle: `docs/POST_V5/H4_CLOSURE.md`.
+
+## 19. Cierre de H5 y de Post-V5
+```text
+H1 = CLOSED
+H2 = CLOSED
+H3 = CLOSED
+H4 = CLOSED
+H5 = CLOSED
+POST_V5 = CLOSED
+V6 = NOT_STARTED
+```
+H5 validó IST real (113 soluciones, 260 proyectos, un análisis determinista, 15 solicitudes reales de IA correctas): `docs/POST_V5/H5_REAL_IST_VALIDATION_AND_CLOSURE_RESULT.md`. Higiene posterior: `docs/POST_V5/POST_H5_FULL_WORKSPACE_AND_REPOSITORY_HYGIENE_RESULT.md`. Las secciones anteriores que describen H5 como pendiente son historia.

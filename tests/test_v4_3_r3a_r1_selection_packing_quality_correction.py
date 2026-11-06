@@ -27,6 +27,7 @@ do for `ai_projection`/`hydration`).
 from __future__ import annotations
 
 import json
+import os
 import unittest
 from pathlib import Path
 
@@ -44,7 +45,12 @@ ROOT = Path(__file__).parents[1]
 # the machine running the suite (same pattern already used by
 # tests/test_v3_r8_2.py and tests/test_v4_1_r0_maintainability_inventory.py for
 # other external, regenerable, real-repository dumps).
-REBASELINE_OUTPUT = Path(r"C:\PruebasLegacyMapper\Resultados\v4_3_rebaseline")
+#
+# Classification: REAL_IST_EXTERNAL. The location is supplied through the
+# LEGACYMAPPER_REAL_IST_BASELINE environment variable (a deterministic baseline
+# directory produced by a real analysis); with it unset the test is skipped.
+_REBASELINE_ENV = os.environ.get("LEGACYMAPPER_REAL_IST_BASELINE", "").strip()
+REBASELINE_OUTPUT = Path(_REBASELINE_ENV) if _REBASELINE_ENV else Path("<LEGACYMAPPER_REAL_IST_BASELINE not set>")
 
 #: The 5 rich (bucket 0/1) candidates the rebaseline round demonstrated fit
 #: individually under SMALL's complete 16000-character budget (9680, 11778,
@@ -412,11 +418,9 @@ class T7NoProviderOrNetworkTests(unittest.TestCase):
 
 
 @unittest.skipUnless(
-    REBASELINE_OUTPUT.exists(),
-    "requires the external, real-repository deterministic output at "
-    "C:\\PruebasLegacyMapper\\Resultados\\v4_3_rebaseline (untracked, outside the repository, "
-    "regenerable only from the real legacy repository -- see docs/V4_3/V4_3_WORKSTATION_REBASELINE_RESULT.md "
-    "section 9 and docs/PROJECT_RECOVERY.md)",
+    bool(_REBASELINE_ENV) and REBASELINE_OUTPUT.exists(),
+    "REAL_IST_EXTERNAL: set LEGACYMAPPER_REAL_IST_BASELINE to a real-repository deterministic "
+    "baseline directory (regenerable only from the real legacy repository; see docs/OPERATIONS/TESTING_GUIDE.md)",
 )
 class T9RealRepositoryReproductionTests(unittest.TestCase):
     """Section 6 item 9: at least one of the 5 identified under-budget rich

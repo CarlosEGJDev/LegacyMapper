@@ -64,9 +64,22 @@ class ViewEvidence:
     notes: list[str] = field(default_factory=list)
 
 
+def _norm_path(path: str) -> str:
+    return posixpath.normpath(str(path).replace("\\", "/")).lower()
+
+
 def solution_has_project(solution: dict, project_path: str) -> bool:
-    """Whether a persisted solution record lists the project file (shared by the explainer and the selection rule)."""
-    blob = json.dumps(solution.get("projects") or solution, ensure_ascii=False).lower()
+    """Whether a persisted solution record lists the project file (shared by the explainer and the selection rule).
+
+    A solution lists its projects relative to the solution's own directory while the baseline records project paths relative to the
+    analyzed root, so the listed path is resolved against the solution directory first (exact, normalized match). Substring matching
+    remains only as the fallback for records that carry no solution path."""
+    wanted = _norm_path(project_path)
+    base = posixpath.dirname(str(solution.get("path") or "").replace("\\", "/"))
+    listed = solution.get("projects") or []
+    if solution.get("path") is not None and listed:
+        return any(_norm_path(posixpath.join(base, str(p.get("path") if isinstance(p, dict) else p or ""))) == wanted for p in listed)
+    blob = json.dumps(listed or solution, ensure_ascii=False).lower()
     return project_path.lower().replace("\\", "\\\\") in blob or project_path.lower() in blob
 
 

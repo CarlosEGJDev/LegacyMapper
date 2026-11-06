@@ -155,7 +155,9 @@ def select_project_and_solution(ctx, project: str | None, solution: str | None) 
     in_solutions = sorted({str(s.get("name")) for s in src["solutions"] if solution_has_project(s, project_path)}, key=str.lower)
     if solution:
         if solution not in in_solutions:
-            raise SelectionError("SOLUTION_NOT_FOUND_FOR_PROJECT", f"solution '{solution}' does not contain project '{project}'", in_solutions)
+            same_name = sum(1 for p in src["projects"] if str(p.get("name")) == project)
+            hint = f" ({same_name} projects share this name; the first one in the baseline is used)" if same_name > 1 else ""
+            raise SelectionError("SOLUTION_NOT_FOUND_FOR_PROJECT", f"solution '{solution}' does not contain project '{project}'{hint}", in_solutions)
         record["solution"] = "explicit"
     else:
         if not in_solutions:

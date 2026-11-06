@@ -20,6 +20,9 @@ LegacyMapper V5 está **cerrada** (baseline de release en `docs/V5/V5_FINAL_BASE
 
 ## Dónde leer
 
+* **Vigente (post-H5):** `PROJECT_STATE.json`, `docs/ARCHITECTURE/CURRENT_ARCHITECTURE.md`, `docs/OPERATIONS/RESUME_LEGACYMAPPER.md`, `docs/OPERATIONS/WORKSPACE_CONTRACT.md`, `docs/OPERATIONS/TESTING_GUIDE.md`. Prompts: `prompts/CURRENT/README.md` (no hay prompt activo; historia en `prompts/archive/`).
+* Tests por capacidad: `python -X utf8 -m legacy_documenter.devtest fast|behavior|packaging|full|list`.
+* Los demás documentos de esta lista y de `docs/V*`, `docs/POST_V5/` son históricos / específicos de versión.
 * Estado operativo actual (autoridad): `PROJECT_STATE.json`
 * Auditoría y baseline final: `docs/V5/V5_FINAL_AUDIT_AND_RELEASE_BASELINE.md`, `docs/V5/V5_FINAL_BASELINE.json`
 * Uso: `docs/V5/V5_OPERATIONS_GUIDE.md`
@@ -50,7 +53,7 @@ python -X utf8 -m unittest discover -s tests
 
 ## Entregables humanos finales (post-V5 H4)
 
-> **Estado actual:** Post-V5 H4 está **CERRADO** (H1–H4 cerrados; H5 `NOT_STARTED`; V6 `NOT_STARTED`). El estado vigente de la iniciativa se mantiene en [`HUMAN_EXPERIENCE_AND_AI_DOCUMENTATION_ROADMAP.md`](docs/POST_V5/HUMAN_EXPERIENCE_AND_AI_DOCUMENTATION_ROADMAP.md) y `PROJECT_STATE.json`.
+> **Estado actual:** Post-V5 está **CERRADO** (H1–H5 cerrados; V6 `NOT_STARTED`; sección histórica de H4). El estado vigente de la iniciativa se mantiene en [`HUMAN_EXPERIENCE_AND_AI_DOCUMENTATION_ROADMAP.md`](docs/POST_V5/HUMAN_EXPERIENCE_AND_AI_DOCUMENTATION_ROADMAP.md) y `PROJECT_STATE.json`.
 
 `python main.py deliver <output-existente>` empaqueta, desde la línea base ya persistida (sin reescanear ni llamar a IA), un sitio **HTML estático y portable** (ejecutivo / funcional / técnico, las diez superficies de entrega y los diagramas H3) y cuatro **PDF** secundarios; se abre `index.html` desde el disco, sin servidor (`docs/V5/V5_OPERATIONS_GUIDE.md` §14).
 

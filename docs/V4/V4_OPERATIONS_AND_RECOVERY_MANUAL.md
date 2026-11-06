@@ -15,7 +15,7 @@ On a fresh checkout, with no prior session memory, read in this order:
 4. `docs/PROJECT_RECOVERY.md` — clone/verify procedure and current-state pointers.
 5. `docs/V4/V4_AI_HANDOVER.md` — narrative continuity requirements.
 6. `output/v3_final/V3_FINAL_BASELINE.json` — the closed V3 baseline V4 builds on.
-7. The active prompt under `prompts/V4/`, if the next round is already scoped.
+7. The active prompt under `prompts/archive/V4/`, if the next round is already scoped.
 
 Never substitute a remembered summary of these documents for actually reading them on a new
 session — the whole point of this ordering is that it works with zero prior memory.
@@ -60,7 +60,7 @@ a regression.
 ## 5. Repository Cleanliness Expectations
 
 Before starting a new round, `git status` should show a clean tree except for the new round's own
-prompt file under `prompts/V4/` (the round has not started yet, so only its instructions exist as
+prompt file under `prompts/archive/V4/` (the round has not started yet, so only its instructions exist as
 new). If unrelated uncommitted work is present, stop and ask rather than building on top of it or
 silently discarding it.
 

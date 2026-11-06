@@ -135,7 +135,7 @@ def ai_projections(doc, explained: dict, bc, terms: list[dict]) -> dict[str, dic
         "contract": KNOWLEDGE_CONTRACT, "contract_version": KNOWLEDGE_VERSION,
         "role": "authoritative machine-readable knowledge model; the other files of ai/ are projections / indexes of it",
         "solution": architecture["solution"], "projects": projects, "views": views,
-        "flows": [f["id"] for f in flows], "data": sorted(data), "unresolved": [u["id"] for u in unresolved],
+        "flows": [f["id"] for f in flows], "data": [data[k]["id"] for k in sorted(data)], "unresolved": [u["id"] for u in unresolved],
         "project_summary": [_claim(c) for c in doc.project.ai_summary],
         "domain_knowledge": {"origin": domain.ORIGIN, "terms": terms,
                              "appears_in": domain.appears_in(terms, [v["name"] for v in views] + [project])},
@@ -180,6 +180,72 @@ def _diagrams_page(guide: Path) -> str:
             '<p><a href="../index.html">← Inicio</a></p><ul>' + "".join(rows) + "</ul></body></html>\n")
 
 
+# ---------------------------------------------------------------- machine-only (projects without views)
+NO_UI_REASON = "the project declares no views (.ascx/.aspx); the screen/view model is not applicable, so only machine-readable knowledge is produced"
+NO_DETAIL_REASON = ("the project declares views but none has observable actions to explain in detail; the human guide is not applicable and only "
+                    "machine-readable knowledge is produced")
+
+
+def machine_only_projections(doc, bc, terms: list[dict], cross_calls: list[dict], explained: dict | None = None) -> dict[str, dict]:
+    """Same `ai/` contract for a project without UI: architecture, data reached by the project's own code and cross-project calls, with the
+    scope limits kept as UNRESOLVED. No view, action or screen is invented."""
+    reason = NO_DETAIL_REASON if explained else NO_UI_REASON
+    base = ai_projections(doc, explained or {}, bc, terms)
+    project, path = doc.project.name, str(bc.project_path)
+    objects: dict[str, dict] = {}
+    for d in bc.ctx.source.get("data_access", []):
+        if str(d.get("project")) != path:
+            continue
+        name = d.get("stored_procedure") or d.get("sql_operation") or f"({d.get('operation_kind') or d.get('access_kind') or 'operation'} sin objeto resuelto)"
+        kind = "procedure" if d.get("stored_procedure") else ("sql_operation" if d.get("sql_operation") else "unresolved_operation")
+        e = objects.setdefault(str(name), {"id": f"data:{name}", "name": str(name), "kind": kind, "operation_kinds": set(), "used_by_classes": set(),
+                                           "status": "UNRESOLVED" if kind == "unresolved_operation" else "CONFIRMED", "operations": 0})
+        e["operation_kinds"].add(str(d.get("operation_kind") or d.get("access_kind")))
+        e["used_by_classes"].add(f"{d.get('class')}.{d.get('method')}")
+        e["operations"] += 1
+    data = [{**e, "operation_kinds": sorted(e["operation_kinds"]), "used_by_classes": sorted(e["used_by_classes"])} for _, e in sorted(objects.items())]
+    own = [c for c in cross_calls if path in (c.get("source_project"), c.get("target_project")) or project in (c.get("source_project"), c.get("target_project"))]
+    by_status: dict[str, int] = {}
+    for c in own:
+        by_status[str(c.get("status"))] = by_status.get(str(c.get("status")), 0) + 1
+    base["data.json"] = {"data": data}
+    base["cross_project_calls.json"] = {"project": f"project:{project}", "summary": dict(sorted(by_status.items())),
+                                        "calls": [{"id": c["id"], "source_symbol": c.get("source_symbol"), "target_symbol": c.get("target_symbol"),
+                                                   "source_project": c.get("source_project"), "target_project": c.get("target_project"),
+                                                   "status": c.get("status"), "resolution_code": c.get("resolution_code")} for c in own]}
+    knowledge = base["knowledge.json"]
+    knowledge["data"] = [d["id"] for d in data]
+    knowledge["human_documentation"] = {"applicable": False, "reason": reason}
+    knowledge["projections"]["cross_project_calls"] = "cross_project_calls.json"
+    base["unresolved.json"]["unresolved"][0]["claims"].append({"text": reason, "status": "UNRESOLVED", "source_refs": [], "basis": "no views declared" if not explained else "no view with observable actions"})
+    return base
+
+
+def _build_machine_only(doc, bc, output: Path, baseline: Path, terms: list[dict], explained: dict | None = None) -> dict:
+    from legacy_documenter.behavior.ui_evidence import load_cross_project_calls
+    ai_dir, internal = output / "ai", output / "internal"
+    for d in (ai_dir, internal):
+        d.mkdir(parents=True, exist_ok=True)
+    for name, obj in machine_only_projections(doc, bc, terms, load_cross_project_calls(baseline), explained).items():
+        (ai_dir / name).write_text(_dump(obj), encoding="utf-8")
+    (internal / "baseline_reference.json").write_text(_dump({"baseline_path": str(Path(baseline).resolve()),
+                                                            "note": "the persisted analyzer baseline (Evidence Core) is referenced, not copied",
+                                                            "fingerprints": {k: v for k, v in doc.baseline.items() if k.endswith("_sha256")}}), encoding="utf-8")
+    files = {f.relative_to(output).as_posix(): hashlib.sha256(f.read_bytes()).hexdigest() for f in sorted(output.rglob("*")) if f.is_file()}
+    manifest = {"schema": SCHEMA, "schema_version": SCHEMA_VERSION,
+                "source": {"solution": doc.solution.name, "project": doc.project.name, "logical_snapshot_sha256": doc.baseline.get("logical_snapshot_sha256"),
+                           "portable_evidence_sha256": doc.baseline.get("portable_evidence_sha256")},
+                "human_entry_point": None, "human_documents": {}, "human_documentation": {"applicable": False, "reason": NO_DETAIL_REASON if explained else NO_UI_REASON},
+                "ai_entry_point": "ai/knowledge.json", "internal_artifacts_path": "internal/",
+                "coverage": {"solutions": [doc.solution.name], "projects": [p["name"] for p in doc.solution.projects], "documented_project": doc.project.name,
+                             "views_in_project": len(explained or {}), "views_explained_in_detail": []},
+                "ai_provenance": {"status": "NOT_APPLICABLE", "provider_id": None, "model_id": None, "replayed_from_real_run": False},
+                "human_confirmed_domain_knowledge": {"origin": domain.ORIGIN, "terms": [t["term"] for t in terms]},
+                "evidence_fingerprint": doc.baseline.get("portable_evidence_sha256") or doc.baseline.get("evidence_manifest_sha256"), "files": files}
+    (output / "KNOWLEDGE_PACKAGE.json").write_text(_dump(manifest), encoding="utf-8")
+    return manifest
+
+
 # ---------------------------------------------------------------- assembly
 def build_package(baseline: Path, output: Path, *, ai_run: Path | None = None, project: str | None = None, solution: str | None = None,
                   domain_knowledge: Path | None = None) -> dict:
@@ -194,6 +260,8 @@ def build_package(baseline: Path, output: Path, *, ai_run: Path | None = None, p
     if ai_run:
         provider = A.ReplayProvider(Path(ai_run) / "ai_raw_responses.json", Path(ai_run) / "AI_INTERPRETATION_MANIFEST.json")
     doc, bc, violations, explained = P.build(Path(baseline), None, project, solution, provider=provider, domain_knowledge=terms)
+    if not doc.views:                                                                   # nothing to explain on screen: machine-only package, no screen model forced
+        return _build_machine_only(doc, bc, output, Path(baseline), terms, explained)
     stage = Path(tempfile.mkdtemp(prefix="lm_pkg_", dir=str(output)))
     try:
         P.write_package(doc, stage / "default", violations, make_pdf=True, template=discover("human/default"), bc=bc, explained=explained)

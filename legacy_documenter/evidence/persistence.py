@@ -6,7 +6,7 @@ mechanism is introduced.
 **Physical format decision (V5.1 R2.1-03), measured, not assumed:** compact
 JSON (`separators=(",", ":")`, no indentation), one array per entity kind,
 order of emission preserved (never resorted -- D-01). Measured on real IST
-evidence (`C:\\PruebasLegacyMapper\\Resultados\\v5_1_r2_evidence_build`)
+evidence (a real-IST evidence build under `<WORK_ROOT>`)
 against pretty-printed JSON and against JSONL (one record per line):
 
 * **Size:** compact and JSONL are byte-identical in total size (both just

@@ -1,3 +1,4 @@
+"""Manual probe of the raw Copilot SDK connection (REAL provider, may consume quota). See README.md."""
 import asyncio
 import traceback
 

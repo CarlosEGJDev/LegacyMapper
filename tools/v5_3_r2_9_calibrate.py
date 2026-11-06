@@ -6,6 +6,7 @@ from collections import Counter, defaultdict
 from concurrent.futures import ThreadPoolExecutor
 import hashlib
 import json
+import os
 from pathlib import Path
 import shutil
 import subprocess
@@ -24,7 +25,7 @@ from tools.v5_3_compare_full_incremental import compare_snapshots, compare_trees
 
 ROOT = Path(__file__).resolve().parents[1]
 WORK = ROOT / "output" / "v53r29"
-SOURCE = Path(r"C:\Users\cgalianj\source\IST_40\operacional")
+SOURCE = Path(os.environ.get("LEGACYMAPPER_SOURCE_ROOT", "<LEGACYMAPPER_SOURCE_ROOT not set>"))  # external real source
 GRID = (0, 0.001, 0.005, 0.01, 0.02, 0.05, 0.1, 0.25, 0.5, 1.0)
 
 

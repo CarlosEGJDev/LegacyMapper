@@ -393,7 +393,7 @@ def explain_solution_and_project(bc: BehaviorContext, ctx, solution_slug: str | 
         Claim("Estructuralmente, el proyecto web contiene las pantallas y referencia a los proyectos de apoyo; ese reparto es una inferencia por reglas "
               "estructurales, no una descripción de negocio.", INFERRED, [], "reglas estructurales de capa (pantallas propias, referencias)"),
     ]
-    sol.not_inferable = [Claim("El propósito de negocio de la solución no puede deducirse del código; el nombre sugiere un área de prevención, pero eso no es evidencia.",
+    sol.not_inferable = [Claim("El propósito de negocio de la solución no puede deducirse del código; los nombres de la solución y de sus proyectos no son evidencia de ese propósito.",
                                UNRESOLVED, [], "ninguna evidencia declara el propósito")]
     sol.facts = {"proyectos": len(projects), "capas": {p["name"]: layer_es.get(p["layer"], p["layer"]) for p in projects}}
     mod = next((m for m in modules if m.values["name"] == bc.project["name"]), None)

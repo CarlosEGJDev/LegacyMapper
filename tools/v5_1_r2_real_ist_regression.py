@@ -2,7 +2,7 @@
 runtime package -- see AGENTS.md runtime independence rule).
 
 Reads the `index/*.json` already produced by R0's deterministic `full` run
-over the real target (`C:\\PruebasLegacyMapper\\Resultados\\v5_1_new_target_rebaseline`)
+over the real target (`LEGACYMAPPER_REAL_IST_BASELINE`, a directory under `<WORK_ROOT>`)
 -- exactly the same dict shape `legacy_documenter.main.analyze_repository`
 holds in memory as `indexes` before EXPORT -- builds the Normalized Evidence
 Core from it, persists it, projects it back to the legacy shape, and reports
@@ -13,6 +13,7 @@ re-run); this is strictly a round-trip validation of `evidence/` <-> `index/`
 from __future__ import annotations
 
 import json
+import os
 import sys
 import time
 from pathlib import Path
@@ -24,9 +25,10 @@ from legacy_documenter.evidence.identity import detect_collisions
 from legacy_documenter.evidence.persistence import write_evidence
 from legacy_documenter.evidence.projection import LegacyIndexProjector
 
-BASELINE_OUTPUT = Path(r"C:\PruebasLegacyMapper\Resultados\v5_1_new_target_rebaseline")
-REPO_ROOT = Path(r"C:\Users\cgalianj\source\IST_40\Operacional")
-EVIDENCE_OUTPUT = Path(r"C:\PruebasLegacyMapper\Resultados\v5_1_r2_evidence_build")
+# External locations come from the environment (no machine-specific defaults).
+BASELINE_OUTPUT = Path(os.environ["LEGACYMAPPER_REAL_IST_BASELINE"])
+REPO_ROOT = Path(os.environ["LEGACYMAPPER_SOURCE_ROOT"])
+EVIDENCE_OUTPUT = Path(os.environ["LEGACYMAPPER_EVIDENCE_OUTPUT"])
 
 INDEX_FILES = (
     "repository", "files", "solutions", "projects", "symbols", "logical_symbols",

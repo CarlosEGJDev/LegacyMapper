@@ -24,7 +24,7 @@ Read, in this order, before writing any code:
    boundaries, and security invariants (verified against actual code as of R14).
 9. The result document of the latest **approved** round under `docs/V4/` (its `NEXT=` line names
    the next round) — see `PROJECT_STATE.json.latest_result_path`.
-10. The active prompt under `prompts/V4/`, if one exists for that next round.
+10. The active prompt under `prompts/archive/V4/`, if one exists for that next round.
 
 Do not begin implementing a round whose prompt does not yet exist. Do not treat agent memory —
 yours or a predecessor's — as authoritative over any of the above.

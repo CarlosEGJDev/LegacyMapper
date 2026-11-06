@@ -1764,13 +1764,13 @@
       },
       {
         "path": "legacy_documenter/behavior/evidence.py",
-        "line_count": 233,
+        "line_count": 246,
         "class_count": 3,
-        "function_count": 14,
+        "function_count": 15,
         "public_symbol_count": 13,
         "module_docstring_present": true,
-        "docstring_coverage_percent": 17.65,
-        "typed_functions_percent": 78.57,
+        "docstring_coverage_percent": 16.67,
+        "typed_functions_percent": 80.0,
         "imports": [
           ".source",
           ".ui_evidence",
@@ -1940,7 +1940,7 @@
       },
       {
         "path": "legacy_documenter/behavior/prototype.py",
-        "line_count": 370,
+        "line_count": 372,
         "class_count": 1,
         "function_count": 15,
         "public_symbol_count": 14,
@@ -2282,7 +2282,7 @@
       },
       {
         "path": "legacy_documenter/behavior/wireframe.py",
-        "line_count": 460,
+        "line_count": 463,
         "class_count": 0,
         "function_count": 30,
         "public_symbol_count": 26,
@@ -4337,6 +4337,40 @@
           "validation"
         ],
         "risk_category": "HIGH"
+      },
+      {
+        "path": "legacy_documenter/devtest.py",
+        "line_count": 256,
+        "class_count": 0,
+        "function_count": 7,
+        "public_symbol_count": 6,
+        "module_docstring_present": true,
+        "docstring_coverage_percent": 14.29,
+        "typed_functions_percent": 100.0,
+        "imports": [
+          "__future__",
+          "argparse",
+          "fnmatch",
+          "pathlib",
+          "subprocess",
+          "sys",
+          "unittest"
+        ],
+        "internal_dependencies": [],
+        "filesystem_access": true,
+        "network_or_provider_access": false,
+        "exception_boundary_observations": {
+          "total_handlers": 0,
+          "bare_except": 0,
+          "except_exception": 0
+        },
+        "responsibility_count": 3,
+        "responsibility_signals": [
+          "filesystem",
+          "orchestration",
+          "provider_or_network"
+        ],
+        "risk_category": "MEDIUM"
       },
       {
         "path": "legacy_documenter/documentation/__init__.py",
@@ -10010,13 +10044,13 @@
       },
       {
         "path": "legacy_documenter/product/package.py",
-        "line_count": 270,
+        "line_count": 338,
         "class_count": 0,
-        "function_count": 9,
-        "public_symbol_count": 3,
+        "function_count": 11,
+        "public_symbol_count": 4,
         "module_docstring_present": true,
-        "docstring_coverage_percent": 22.22,
-        "typed_functions_percent": 44.44,
+        "docstring_coverage_percent": 27.27,
+        "typed_functions_percent": 36.36,
         "imports": [
           "__future__",
           "argparse",
@@ -10025,6 +10059,7 @@
           "json",
           "legacy_documenter.behavior",
           "legacy_documenter.behavior.template",
+          "legacy_documenter.behavior.ui_evidence",
           "legacy_documenter.product",
           "legacy_documenter.utils.path_contract",
           "pathlib",
@@ -10035,6 +10070,7 @@
         "internal_dependencies": [
           "legacy_documenter.behavior",
           "legacy_documenter.behavior.template",
+          "legacy_documenter.behavior.ui_evidence",
           "legacy_documenter.product",
           "legacy_documenter.utils.path_contract"
         ],
@@ -11066,13 +11102,13 @@
         "classification": "REFACTOR_CANDIDATE"
       },
       {
-        "path": "legacy_documenter/documentation_v52/config.py",
-        "line_count": 461,
+        "path": "legacy_documenter/behavior/wireframe.py",
+        "line_count": 463,
         "classification": "REFACTOR_CANDIDATE"
       },
       {
-        "path": "legacy_documenter/behavior/wireframe.py",
-        "line_count": 460,
+        "path": "legacy_documenter/documentation_v52/config.py",
+        "line_count": 461,
         "classification": "REFACTOR_CANDIDATE"
       },
       {
@@ -11247,7 +11283,7 @@
       {
         "path": "legacy_documenter/behavior/wireframe.py",
         "qualified_name": "build",
-        "line_count": 351,
+        "line_count": 354,
         "classification": "CHARACTERIZATION_REQUIRED"
       },
       {
@@ -11677,8 +11713,8 @@
         "module_docstring_present": false
       },
       {
-        "path": "legacy_documenter/documentation_v52/template.py",
-        "docstring_coverage_percent": 14.81,
+        "path": "legacy_documenter/devtest.py",
+        "docstring_coverage_percent": 14.29,
         "module_docstring_present": true
       }
     ],
@@ -11906,7 +11942,7 @@
     "side_effect_candidates": [
       {
         "kind": "filesystem_access",
-        "file_count": 108,
+        "file_count": 109,
         "files": [
           "legacy_documenter/adapters/contracts.py",
           "legacy_documenter/adapters/python_generic/adapter.py",
@@ -11967,6 +12003,7 @@
           "legacy_documenter/context/system_context_builder.py",
           "legacy_documenter/deliver/package.py",
           "legacy_documenter/deliver/pdf.py",
+          "legacy_documenter/devtest.py",
           "legacy_documenter/documentation/consistency_run.py",
           "legacy_documenter/documentation/coverage.py",
           "legacy_documenter/documentation/generator.py",
@@ -12047,7 +12084,7 @@
       }
     ],
     "dependency_findings": {
-      "module_count": 334,
+      "module_count": 335,
       "cycles_detected": [
         [
           "legacy_documenter.llm.registry",
@@ -12262,7 +12299,7 @@
     "risk_summary": {
       "files_by_risk_category": {
         "LOW": 169,
-        "MEDIUM": 106,
+        "MEDIUM": 107,
         "HIGH": 43,
         "VERY_HIGH": 16
       },

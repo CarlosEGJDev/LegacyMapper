@@ -174,7 +174,8 @@ class ProductionFileDiscoveryTests(unittest.TestCase):
         # Pre-H5 Gate C adds adapters/vbnet_webforms_oracle/analysis/cross_project.py (cross-project call resolution): 330.
         # Post-V5 H4 final knowledge productization adds the `product` package (__init__, domain, package): 333.
         # Post-V5 H4 final screen/narrative micro-polish adds behavior/humanize.py (human-prose polish at composition time): 334.
-        self.assertEqual(len(files), 334)
+        # Post-H5 hygiene adds legacy_documenter/devtest.py (capability-oriented test runner, dev tooling): 335.
+        self.assertEqual(len(files), 335)
 
 
 class FileAnalysisTests(unittest.TestCase):

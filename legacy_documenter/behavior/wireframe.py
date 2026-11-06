@@ -289,6 +289,9 @@ def build(view_path: str, markup, source_name: str, event_ids: set[str], styles:
             if total > 0:
                 take = min(excess, total)
                 widths = [x - take * sl / total for x, sl in zip(widths, slack)]
+        if sum(widths) > w:                              # minimum caption widths cannot all fit: shrink to the frame, never draw outside it
+            scale = w / sum(widths)
+            widths = [x * scale for x in widths]
         return widths
 
     def measure_table(table, w: float) -> float:
