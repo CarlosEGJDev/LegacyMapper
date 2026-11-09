@@ -17,7 +17,7 @@ from legacy_documenter.utils.atomic_write import atomic_write_text
 from . import human, machine
 from . import planner as P
 from .inventory import load_inventory
-from .models import CLAIM_STATUSES, FINAL_STATES, LEAK, PENDING
+from .models import CLAIM_STATUSES, FINAL_STATES, LEAK, PENDING, normalize_record_semantic
 from .store import RequestStore
 
 PRODUCT_CONTRACT = "LegacyMapperSystemKnowledgeProduct"
@@ -35,6 +35,20 @@ class ProjectionError(Exception):
 
 def _sha(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def normalize_assessment(a: P.Assessment) -> None:
+    """Presentation boundary (owner acceptance R2, BD-1): swap every resolved record for a copy whose claim prose has no redundant
+    truth-state marker. Runs AFTER `assess` because request identity / dependency hashes are derived from the stored semantic, so
+    persisted accepted responses stay reusable with 0 provider calls; the persisted files are never rewritten."""
+    items = [i for pc in a.projects.values() for i in pc.items]
+    for unit in a.solutions.values():
+        items += [i for i in (unit.flow, unit.item) if i]
+    if a.system.item:
+        items.append(a.system.item)
+    for item in items:
+        if item.record:
+            item.record = normalize_record_semantic(item.record)
 
 
 def current_records(a: P.Assessment) -> list[dict]:
@@ -118,6 +132,7 @@ def project_system(baseline: str | Path, state_dir: str | Path, output: str | Pa
             shutil.rmtree(out / d, ignore_errors=True)
     inv = load_inventory(baseline, verify)
     a = P.assess(inv, store, state["policy"], state.get("errors", {}))
+    normalize_assessment(a)
     records = current_records(a)
     synthetic = any(r["provider"].get("synthetic") for r in records)
     machine_counts = machine.build_machine(inv, a, state, out, records)

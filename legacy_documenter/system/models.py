@@ -66,6 +66,39 @@ def sha256_object(value: object) -> str:
     return sha256_text(canonical(value))
 
 
+#: Truth-state markers that a provider repeats inside prose. The structured `status` is authoritative; the marker is presentation noise.
+_STATE_WORD = r"(CONFIRMED|INFERRED|UNRESOLVED)"
+_SEP = r"(?::|\s[–—-])\s*"            # "MARK:" or "MARK - " / "MARK — " (a dash needs a space before it)
+_LEADING_MARKER = re.compile(rf"^\s*(?:\*\*)?{_STATE_WORD}(?:\*\*)?{_SEP}")
+_SENTENCE_MARKER = re.compile(rf"(?<=[.!?;])\s+(?:\*\*)?{_STATE_WORD}(?:\*\*)?{_SEP}")
+_BARE_STATE_WORD = re.compile(r"\b" + _STATE_WORD + r"\b")
+
+
+def normalize_claim_text(text: str) -> str:
+    """Deterministic, idempotent presentation normalization of a claim's prose (never touches its status, refs or provenance).
+
+    1. A marker at the very start of the claim ("CONFIRMED: ...") is removed: the structured status already says it.
+    2. A marker that opens a later sentence of a mixed claim ("CONFIRMED: a. INFERRED: b.") is rendered with the human
+       vocabulary ("Inferido: b.") so the distinction survives.
+    3. Any other standalone English state word that the provider wrote into the prose ("esa atribucion es INFERRED") is
+       translated to the human vocabulary ("Inferido"), never deleted. Words that merely contain these letters are untouched."""
+    if not isinstance(text, str):
+        return text
+    out = _LEADING_MARKER.sub("", text, count=1)
+    out = _SENTENCE_MARKER.sub(lambda m: " " + HUMAN_STATUS[m.group(1)] + ": ", out)
+    out = _BARE_STATE_WORD.sub(lambda m: HUMAN_STATUS[m.group(1)], out)
+    return out.strip()
+
+
+def normalize_record_semantic(record: dict) -> dict:
+    """Copy of a persisted accepted record whose claim texts are presentation-normalized. The persisted record (and therefore
+    request identity and dependency hashes, which are derived from the stored semantic) is never modified."""
+    clone = dict(record)
+    clone["semantic"] = {sec: [{**c, "text": normalize_claim_text(c.get("text", ""))} for c in claims]
+                         for sec, claims in record.get("semantic", {}).items()}
+    return clone
+
+
 def has_leak(text: str) -> bool:
     return bool(LEAK.search(text or ""))
 
@@ -125,6 +158,8 @@ def validate_semantic(kind: str, parsed: object, facts: list[Fact], claim_seed: 
                 reason = "EMPTY_TEXT"
             elif len(text) > MAX_CLAIM_CHARS:
                 reason = "TOO_LONG"
+            elif not normalize_claim_text(text):
+                reason = "EMPTY_TEXT"           # nothing but a truth-state marker
             status = raw.get("status") if isinstance(raw, dict) else None
             refs = raw.get("refs") if isinstance(raw, dict) else None
             subject = raw.get("subject") if isinstance(raw, dict) and isinstance(raw.get("subject"), str) else ""
@@ -156,6 +191,6 @@ def validate_semantic(kind: str, parsed: object, facts: list[Fact], claim_seed: 
                 final = "INFERRED"          # inference is never promoted to confirmed
                 out.downgraded += 1
             kept.append({"claim_id": "CL-" + sha256_text(f"{claim_seed}|{section}|{len(kept)}|{text.strip()}")[:16],
-                         "text": text.strip(), "status": final, "refs": sorted(set(refs)), "subject": subject})
+                         "text": normalize_claim_text(text.strip()), "status": final, "refs": sorted(set(refs)), "subject": subject})
         out.accepted[section] = kept
     return out
