@@ -14,7 +14,7 @@ import sys
 
 from legacy_documenter.cache.options import CACHE_MODES, VERIFY_LEVELS, ratio_argument
 
-COMMANDS = ("analyze", "full", "readiness", "output-manifest", "review", "interpret", "docs", "visuals", "deliver")
+COMMANDS = ("analyze", "full", "readiness", "output-manifest", "review", "interpret", "docs", "visuals", "deliver", "interpret-system", "project-system")
 
 
 def normalize_cache_argv(argv: list[str]) -> list[str]:
@@ -150,6 +150,15 @@ Which command should I use?
       from the audience documentation and the structured visuals of an
       ALREADY generated deterministic output. No rescan, no Evidence
       rebuild, never calls an AI provider.
+
+  python main.py interpret-system <existing-output-dir> --state-dir <dir> --allow-ai-interpretation
+      Full-system hierarchical AI interpretation (system > solution > project >
+      view / flow / data) with persisted, resumable requests (0 provider calls
+      on replay). `--provider STUB` is an offline synthetic dry run.
+
+  python main.py project-system <existing-output-dir> --state-dir <dir> --output <dir>
+      Human (HTML + PDF) and machine (JSON) knowledge product from the
+      persisted interpretation. Never calls an AI provider.
 """
 
 
@@ -282,5 +291,8 @@ def build_parser() -> argparse.ArgumentParser:
     from legacy_documenter.cli.deliver_command import add_deliver_parser
 
     add_deliver_parser(subparsers)
+    from legacy_documenter.cli.system_command import add_system_parsers
+
+    add_system_parsers(subparsers)
 
     return parser

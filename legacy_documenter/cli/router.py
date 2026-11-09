@@ -79,6 +79,10 @@ def route(args: Namespace, analyze_repository: AnalyzeRepository) -> tuple[int, 
         return _route_visuals(args)
     if args.command == "deliver":
         return _route_deliver(args)
+    if args.command == "interpret-system":
+        return _route_interpret_system(args)
+    if args.command == "project-system":
+        return _route_project_system(args)
     raise ValueError(f"Unknown command: {args.command!r}")
 
 
@@ -187,6 +191,24 @@ def _route_visuals(args: Namespace) -> tuple[int, RunResult]:
     exit_code, message = run_visuals(args)
     status = RunStatus.SUCCESS if exit_code == EXIT_SUCCESS else RunStatus.FAILED
     return exit_code, RunResult(command="visuals", status=status, message=message)
+
+
+def _route_interpret_system(args: Namespace) -> tuple[int, RunResult]:
+    """Thin route to the full-system hierarchical interpretation (owner acceptance remediation R1); never scans a repository."""
+    from legacy_documenter.cli.system_command import run_interpret_system
+
+    exit_code, message, ai_invoked = run_interpret_system(args)
+    status = {EXIT_SUCCESS: RunStatus.SUCCESS, EXIT_PARTIAL: RunStatus.PARTIAL}.get(exit_code, RunStatus.FAILED)
+    return exit_code, RunResult(command="interpret-system", status=status, message=message, ai_invoked=ai_invoked, ai_requested=True)
+
+
+def _route_project_system(args: Namespace) -> tuple[int, RunResult]:
+    """Thin route to the deterministic human + machine system projection; no analysis, no provider."""
+    from legacy_documenter.cli.system_command import run_project_system
+
+    exit_code, message = run_project_system(args)
+    status = {EXIT_SUCCESS: RunStatus.SUCCESS, EXIT_PARTIAL: RunStatus.PARTIAL}.get(exit_code, RunStatus.FAILED)
+    return exit_code, RunResult(command="project-system", status=status, message=message)
 
 
 def _route_deliver(args: Namespace) -> tuple[int, RunResult]:

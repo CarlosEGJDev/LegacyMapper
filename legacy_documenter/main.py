@@ -111,7 +111,7 @@ def main(argv: list[str] | None = None) -> int:
     ):
         print(result.message, file=sys.stderr)
         return exit_code
-    if result.command in ("readiness", "output-manifest", "review", "interpret", "docs", "visuals", "deliver") and result.message is not None:
+    if result.command in ("readiness", "output-manifest", "review", "interpret", "docs", "visuals", "deliver", "interpret-system", "project-system") and result.message is not None:
         print(result.message)
     elif result.command == "full":
         summary = render_console_summary(

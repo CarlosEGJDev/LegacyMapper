@@ -80,6 +80,25 @@ python main.py interpret "<OUTPUT_ROOT>/baseline" --output "<OUTPUT_ROOT>/ai/<ru
 python main.py deliver  "<OUTPUT_ROOT>/baseline" --output "<OUTPUT_ROOT>/package"
 ```
 
+### Interpretación de sistema completo (remediación ACC-01)
+
+```text
+# Interpreta jerárquicamente TODO el sistema (sistema > solución > proyecto > vista / flujo / datos).
+# Cada intercambio con el proveedor se guarda al instante en <STATE_ROOT>; repetir el comando reanuda sin repetir llamadas.
+python main.py interpret-system "<OUTPUT_ROOT>/baseline" --state-dir "<STATE_ROOT>" --allow-ai-interpretation --expect-account <cuenta>
+#   --provider STUB            ensayo sin proveedor ni cuota (salida marcada como sintética)
+#   --max-requests N           parada limpia tras N solicitudes (reanudable)
+#   --knowledge-output <dir>   además proyecta el producto humano + máquina
+
+# Proyección determinista (0 llamadas al proveedor, 0 lecturas de código fuente):
+python main.py project-system "<OUTPUT_ROOT>/baseline" --state-dir "<STATE_ROOT>" --output "<PRODUCT_ROOT>"
+#   -> human/ (index.html, IST_Complete.pdf, ...), ai/ (knowledge.json, ...), internal/, ACCEPTANCE_MANIFEST.json
+```
+
+Cada proyecto termina en un único estado de cobertura (`HUMAN_AND_MACHINE_DOCUMENTED`, `MACHINE_ONLY_DOCUMENTED`,
+`UNRESOLVED_NO_SOLUTION`, `CONTROLLED_ERROR`; `PENDING_INTERPRETATION` solo en una corrida interrumpida). Códigos de salida:
+0 completo · 1 parcial/interrumpido/errores controlados · 2 uso (falta consentimiento) · 4 rechazado (baseline inválido, cuenta distinta).
+
 `deliver` produce un sitio HTML estático y PDFs (`DELIVERABLES_MANIFEST.json`). Proyectos sin UI generan
 un paquete solo de máquina.
 

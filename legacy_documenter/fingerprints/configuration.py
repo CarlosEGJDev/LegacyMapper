@@ -68,6 +68,17 @@ CLI_OPTION_CLASSES = {
     "visuals_dir": RUNTIME_ONLY,
     "no_pdf": RUNTIME_ONLY,
     "pdf_row_cap": RUNTIME_ONLY,
+    # Owner acceptance remediation R1 `interpret-system` / `project-system`: AI orchestration and projection over a persisted baseline;
+    # no extraction, no cache.
+    "state_dir": OUTPUT_LOCATION_ONLY,
+    "knowledge_output": OUTPUT_LOCATION_ONLY,
+    "provider": AI_ONLY,
+    "model": AI_ONLY,
+    "resume": RUNTIME_ONLY,
+    "expect_account": AI_ONLY,
+    "max_requests": AI_ONLY,
+    "max_retries": AI_ONLY,
+    "max_consecutive_failures": AI_ONLY,
 }
 #: `generate_documentation_v52` parameters that are not CLI options (library-level); classified likewise.
 V52_PARAMETER_CLASSES = {

@@ -132,11 +132,11 @@ PROFILE_PATTERNS: dict[str, tuple[str, ...]] = {
     ),
     "AI_KNOWLEDGE": (
         "test_v4_2_r4_*", "test_v4_3_r5_*", "test_v4_3_r6_*", "test_v4_3_r3a_*", "test_v4_3_final_ai_*",
-        "test_v4_3_r8_*", "test_v5_5_*", "test_post_v5_h1_*", "test_post_v5_h4_knowledge_productization",
+        "test_v4_3_r8_*", "test_v5_5_*", "test_post_v5_h1_*", "test_post_v5_h4_knowledge_productization", "test_owner_acc01_*",
     ),
     "VISUALS": ("test_post_v5_h3_*",),
     "PACKAGING": (
-        "test_post_v5_h4_deliver", "test_post_v5_h4_template_productization", "test_post_v5_h5_*",
+        "test_post_v5_h4_deliver", "test_post_v5_h4_template_productization", "test_post_v5_h5_*", "test_owner_acc01_*",
         "test_v4_3_r7_*", "test_v4_r12_*",
     ),
     "DISTRIBUTION": (
@@ -158,6 +158,8 @@ CHANGED_AREA_MAP: tuple[tuple[str, tuple[str, ...]], ...] = (
     ("templates/human/*", ("HUMAN_DOCS", "PACKAGING")),
     ("legacy_documenter/documentation*/*", ("HUMAN_DOCS",)),
     ("legacy_documenter/llm/*", ("PROVIDER", "AI_KNOWLEDGE")),
+    ("legacy_documenter/system/*", ("AI_KNOWLEDGE", "PACKAGING")),
+    ("legacy_documenter/cli/system_command.py", ("AI_KNOWLEDGE", "PACKAGING", "CORE")),
     ("legacy_documenter/knowledge/*", ("AI_KNOWLEDGE",)),
     ("legacy_documenter/context/*", ("AI_KNOWLEDGE",)),
     ("legacy_documenter/consumers/*", ("AI_KNOWLEDGE", "DISTRIBUTION")),

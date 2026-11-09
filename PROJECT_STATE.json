@@ -31,7 +31,7 @@
   "v4_1_closure_result_path": "docs/V4_1/V4_1_FINAL_CLOSURE_AND_VERSIONING_RESULT.md",
   "v4_2_closure_result_path": "docs/V4_2/V4_2_FINAL_CLOSURE_AND_VERSIONING_RESULT.md",
   "v4_3_closure_result_path": "docs/V4_3/V4_3_R9_FINAL_CLOSURE_RESULT.md",
-  "round_status": "POST_H5_HYGIENE_PASS_GIT_PENDING",
+  "round_status": "OWNER_ACCEPTANCE_REMEDIATION_R1_READY_FOR_OWNER_REVIEW",
   "v4_2_r5": "APPROVED",
   "v4_2_r5_1": "APPROVED",
   "v4_2_r6": "APPROVED",
@@ -1400,6 +1400,17 @@
     ],
     "prompts": "prompts/CURRENT/README.md (no active prompt); closed prompts under prompts/archive/",
     "external_review_paths_note": "Every '(outside the repository)' review-sample path recorded above in this file (Resultados/FinalValidation/V5_USER_ACCEPTANCE ...) is a HISTORICAL record; those generated folders are obsolete and no test or code depends on them. The only retained external state is <WORK_ROOT>/Current (baseline + ai + final human sample) and <WORK_ROOT>/Archive.",
+    "git": "NO_COMMIT_PUSH_TAG (requires explicit owner authorization)"
+  },
+  "owner_acceptance_remediation_r1": {
+    "result_path": "docs/ACCEPTANCE/OWNER_ACCEPTANCE_REMEDIATION_R1_RESULT.md",
+    "defect": "ACC-01 full-system hierarchical AI interpretation not available",
+    "status": "READY_FOR_OWNER_REVIEW",
+    "owner_standalone_acceptance": "READY_FOR_RETRY",
+    "capability": "interpret-system / project-system (legacy_documenter/system)",
+    "provider_calls": 0,
+    "real_ist_analyses": 0,
+    "wheel_for_acceptance": "NOT_BUILT (requires owner-authorized clean commit)",
     "git": "NO_COMMIT_PUSH_TAG (requires explicit owner authorization)"
   }
 }

@@ -175,7 +175,8 @@ class ProductionFileDiscoveryTests(unittest.TestCase):
         # Post-V5 H4 final knowledge productization adds the `product` package (__init__, domain, package): 333.
         # Post-V5 H4 final screen/narrative micro-polish adds behavior/humanize.py (human-prose polish at composition time): 334.
         # Post-H5 hygiene adds legacy_documenter/devtest.py (capability-oriented test runner, dev tooling): 335.
-        self.assertEqual(len(files), 335)
+        # Owner acceptance remediation R1 adds the `system` package (12 modules) and cli/system_command.py: 348.
+        self.assertEqual(len(files), 348)
 
 
 class FileAnalysisTests(unittest.TestCase):
